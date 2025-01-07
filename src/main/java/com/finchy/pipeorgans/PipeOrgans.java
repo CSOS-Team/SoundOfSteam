@@ -1,6 +1,9 @@
 package com.finchy.pipeorgans;
 
+import com.finchy.pipeorgans.init.AllItems;
+import com.finchy.pipeorgans.init.AllCreativeModeTabs;
 import com.mojang.logging.LogUtils;
+import com.tterrag.registrate.Registrate;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,12 +25,19 @@ public class PipeOrgans
 {
     // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "pipeorgans";
+
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
+
+    public static final Registrate REGISTRATE = Registrate.create(MOD_ID);
 
     public PipeOrgans(FMLJavaModLoadingContext context)
     {
         IEventBus modEventBus = context.getModEventBus();
+
+        AllCreativeModeTabs.register(modEventBus);
+
+        AllItems.register();
 
         modEventBus.addListener(this::commonSetup);
 
