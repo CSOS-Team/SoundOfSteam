@@ -1,0 +1,38 @@
+architectury {
+    common(enabled_platforms.split(","))
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/examplemod.accesswidener")
+}
+
+repositories {
+    // mavens for Create Fabric and dependencies
+    maven { url = "https://mvn.devos.one/releases" } // Porting Lib releases
+    maven { url = "https://mvn.devos.one/snapshots" } // Create and several dependencies
+    maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
+    maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven" } // Forge Config API Port
+
+    maven { // Fabric ASM for Porting Lib
+        url = "https://jitpack.io/"
+        content { includeGroupAndSubgroups("com.github") }
+    }
+
+    maven { url = "https://maven.shedaniel.me" } // Cloth Config, REI
+    maven { url = "https://maven.blamejared.com" } // JEI
+
+    maven { url = "https://api.modrinth.com/maven" } // LazyDFU
+    maven { url = "https://maven.terraformersmc.com/releases" } // Mod Menu, EMI
+}
+
+dependencies {
+    // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
+    // Do NOT use other classes from fabric loader
+    modImplementation("net.fabricmc:fabric-loader:$fabric_loader_version")
+    // Compile against Create Fabric in common
+    // beware of differences across platforms!
+    // dependencies must also be pulled in (transitively) for all classes to be remapped properly.
+    // All dependencies except Flywheel and Registrate are NOT safe to use!
+    // Flywheel and Registrate must also be used carefully due to differences across loaders.
+    modCompileOnly("com.simibubi.create:create-fabric-$minecraft_version:$create_fabric_version")
+}

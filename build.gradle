@@ -1,0 +1,54 @@
+plugins {
+    id "architectury-plugin" version "3.4.+"
+    id "dev.architectury.loom" version "1.7.+" apply false
+}
+
+architectury {
+    minecraft = minecraft_version
+}
+
+subprojects {
+    apply plugin: "dev.architectury.loom"
+
+    loom {
+        silentMojangMappingsLicense()
+    }
+
+    repositories {
+        maven { url = "https://maven.parchmentmc.org" } // Parchment mappings
+
+        // mavens used on both forge and fabric
+        maven { url = "https://maven.blamejared.com/" } // JEI
+        maven { url = "https://maven.tterrag.com/" } // Flywheel on both, Create and Registrate on forge
+    }
+
+    dependencies {
+        minecraft "com.mojang:minecraft:$minecraft_version"
+        // Can't use parchment for some reason, game ends up completely unmapped
+        mappings loom.officialMojangMappings()
+
+        // see each subproject for more dependencies.
+    }
+}
+
+allprojects {
+    apply plugin: "java"
+    apply plugin: "architectury-plugin"
+    apply plugin: "maven-publish"
+
+    base.archivesName = archives_base_name
+    group = maven_group
+
+    // Formats the mod version to include the loader, Minecraft version, and build number (if present)
+    // example: 1.0.0+fabric-1.18.2-build.100
+    String buildNumber = System.getenv("GITHUB_RUN_NUMBER")
+    version = "$mod_version+$project.name-$minecraft_version" + (buildNumber != null ? "-build.$buildNumber" : "")
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+    }
+
+    java {
+        withSourcesJar()
+    }
+}
