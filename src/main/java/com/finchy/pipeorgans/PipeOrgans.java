@@ -1,6 +1,8 @@
 package com.finchy.pipeorgans;
 
+import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllItems;
+import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllCreativeModeTabs;
 import com.mojang.logging.LogUtils;
 import com.tterrag.registrate.Registrate;
@@ -29,15 +31,16 @@ public class PipeOrgans
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final Registrate REGISTRATE = Registrate.create(MOD_ID);
+    //public static final Registrate REGISTRATE = Registrate.create(MOD_ID);
 
     public PipeOrgans(FMLJavaModLoadingContext context)
     {
         IEventBus modEventBus = context.getModEventBus();
 
         AllCreativeModeTabs.register(modEventBus);
-
-        AllItems.register();
+        AllBlockEntities.register(modEventBus);
+        AllBlocks.register(modEventBus);
+        AllItems.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 

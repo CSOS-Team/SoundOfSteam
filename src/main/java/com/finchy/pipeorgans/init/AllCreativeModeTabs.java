@@ -18,7 +18,10 @@ public class AllCreativeModeTabs {
                     .icon(() -> new ItemStack(AllItems.WHOOPS.get()))
                     .title(Component.translatable("creativetab.pipe_organs_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
+
                         output.accept(AllItems.WHOOPS.get());
+                        output.accept(AllBlocks.GEDECKT.get());
+
                     })
                     .build());
 

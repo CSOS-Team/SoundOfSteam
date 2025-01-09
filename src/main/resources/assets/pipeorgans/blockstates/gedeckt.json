@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north,powered=false,size=medium,wall=false": { "model": "pipeorgans:block/gedeckt_medium_floor" },
+    "facing=east,powered=false,size=medium,wall=false": { "model":  "pipeorgans:block/gedeckt_medium_floor", "y":  90 },
+    "facing=south,powered=false,size=medium,wall=false": { "model":  "pipeorgans:block/gedeckt_medium_floor", "y":  180 },
+    "facing=west,powered=false,size=medium,wall=false": { "model":  "pipeorgans:block/gedeckt_medium_floor", "y":  270 }
+  }
+}
