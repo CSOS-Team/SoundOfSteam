@@ -2,6 +2,8 @@ package com.finchy.pipeorgans.block;
 
 import com.finchy.pipeorgans.blockentity.GedecktBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.simibubi.create.content.fluids.tank.FluidTankBlock;
+import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -11,6 +13,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -64,8 +67,54 @@ public class GedecktBlock extends Block implements EntityBlock {
     }
 
     @Override
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        return FluidTankBlock.isTank(pLevel.getBlockState(pPos.relative(getAttachedDirection(pState))));
+    }
+
+    public static Direction getAttachedDirection(BlockState state) {
+        return state.getValue(WALL) ? state.getValue(FACING) : Direction.DOWN;
+    }
+
+    @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
-        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        Level level = context.getLevel();
+        BlockPos clickedPos = context.getClickedPos();
+        Direction face = context.getClickedFace();
+        boolean wall = true;
+        if (face.getAxis() == Direction.Axis.Y) {
+            face = context.getHorizontalDirection()
+                    .getOpposite();
+            wall = false;
+        }
+
+        BlockState state = super.getStateForPlacement(context)
+                .setValue(FACING, face.getOpposite())
+                .setValue(POWERED, level.hasNeighborSignal(clickedPos))
+                .setValue(WALL, wall);
+        if (!canSurvive(state, level, clickedPos))
+            return null;
+        return state;
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+                                boolean isMoving) {
+        if (worldIn.isClientSide)
+            return;
+        boolean previouslyPowered = state.getValue(POWERED);
+        if (previouslyPowered != worldIn.hasNeighborSignal(pos))
+            worldIn.setBlock(pos, state.cycle(POWERED), 2);
+    }
+
+    @Override
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+        FluidTankBlock.updateBoilerState(pState, pLevel, pPos.relative(getAttachedDirection(pState)));
+    }
+
+    @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+        IBE.onRemove(pState, pLevel, pPos, pNewState);
+        FluidTankBlock.updateBoilerState(pState, pLevel, pPos.relative(getAttachedDirection(pState)));
     }
 
     public enum WhistleSize implements StringRepresentable {
