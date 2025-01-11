@@ -20,6 +20,8 @@ public class AllBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, PipeOrgans.MOD_ID);
 
 
+    // Declare blocks here
+
     public static final RegistryObject<GedecktBlock> GEDECKT = registerBlock("gedeckt",
             () -> new GedecktBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 

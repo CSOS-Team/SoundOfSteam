@@ -3,8 +3,9 @@ package com.finchy.pipeorgans.block;
 import com.finchy.pipeorgans.blockentity.GedecktBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
+import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
-import com.simibubi.create.foundation.block.IBE;
+import com.simibubi.create.content.materials.ExperienceBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,19 +43,17 @@ public class GedecktBlock extends Block implements EntityBlock {
     public static final EnumProperty<WhistleSize> SIZE = EnumProperty.create("size", WhistleSize.class);
 
 
+    // custom hitbox
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return !pState.getValue(WALL) ? AllShapes.GEDECKT_MEDIUM_FLOOR() :
-                switch (pState.getValue(FACING)) {
-                    case NORTH -> AllShapes.GEDECKT_MEDIUM_WALL_NORTH();
-                    case EAST -> AllShapes.GEDECKT_MEDIUM_WALL_EAST();
-                    case SOUTH -> AllShapes.GEDECKT_MEDIUM_WALL_SOUTH();
-                    case WEST -> AllShapes.GEDECKT_MEDIUM_WALL_WEST();
-                    case UP -> AllShapes.GEDECKT_MEDIUM_FLOOR();
-                    case DOWN -> AllShapes.GEDECKT_MEDIUM_FLOOR();
-                };
+        VoxelShape whistle = AllShapes.GEDECKT_MEDIUM; // get base whistle shape (temporarily medium)
+        return AllShapes.add(whistle,
+                !pState.getValue(WALL) ?
+                        AllShapes.BASE_FLOOR : AllShapes.getBase(pState.getValue(FACING)));
+                        // if block is not on wall, add BASE_FLOOR, else add correct wall base for direction
     }
 
+    // declare block and default blockstate
     public GedecktBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(this.defaultBlockState()
@@ -63,29 +63,36 @@ public class GedecktBlock extends Block implements EntityBlock {
                 .setValue(SIZE, WhistleSize.MEDIUM));
     }
 
+    // create GEDECKT_BLOCK_ENTITY at block coords upon block placement
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return AllBlockEntities.GEDECKT_BLOCK_ENTITY.get().create(pos, state);
     }
 
+    // define blockstate params
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(FACING, WALL, POWERED, SIZE);
     }
 
+    // on right-click
     @Override
-    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if(!level.isClientSide() && hand == InteractionHand.MAIN_HAND) {
-            BlockEntity be = level.getBlockEntity(pos);
+    public @NotNull InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if(!pLevel.isClientSide() && pHand == InteractionHand.MAIN_HAND) {
+            BlockEntity be = pLevel.getBlockEntity(pPos);
             if (be instanceof GedecktBlockEntity blockEntity) {
-                player.sendSystemMessage(Component.literal("BlockEntity has been used"));
-                return InteractionResult.sidedSuccess(level.isClientSide());
+                pPlayer.sendSystemMessage(Component.literal("BlockEntity has been used"));
+                if (pLevel.getBlockState(pPos.above()).getBlock() instanceof ExperienceBlock) {
+                    pPlayer.sendSystemMessage(Component.literal("Block above is experience block"));
+                }
+                return InteractionResult.sidedSuccess(pLevel.isClientSide());
             }
         }
-        return super.use(state, level, pos, player, hand, hit);
+        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
+    // check if placed on fluid tank
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         return FluidTankBlock.isTank(pLevel.getBlockState(pPos.relative(getAttachedDirection(pState))));
@@ -95,45 +102,50 @@ public class GedecktBlock extends Block implements EntityBlock {
         return state.getValue(WALL) ? state.getValue(FACING) : Direction.DOWN;
     }
 
+    // set blockstates when placing block
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
         Level level = context.getLevel();
         BlockPos clickedPos = context.getClickedPos();
         Direction face = context.getClickedFace();
         boolean wall = true;
-        if (face.getAxis() == Direction.Axis.Y) {
-            face = context.getHorizontalDirection()
+        if (face.getAxis() == Direction.Axis.Y) { // if placed on floor
+            face = context.getHorizontalDirection() // face = the opposite of the player's direction
                     .getOpposite();
-            wall = false;
+            wall = false; // not on wall
         }
 
         BlockState state = super.getStateForPlacement(context)
-                .setValue(FACING, face.getOpposite())
-                .setValue(POWERED, level.hasNeighborSignal(clickedPos))
+                .setValue(FACING, face.getOpposite()) // set facing to the opposite of Direction face
+                                                      // (this results in orientation being the same as player's, so
+                                                      // model is rotated in blockstate json)
+                .setValue(POWERED, level.hasNeighborSignal(clickedPos)) // true if power source adjacent, else false
                 .setValue(WALL, wall);
-        if (!canSurvive(state, level, clickedPos))
+        if (!canSurvive(state, level, clickedPos)) // if placed on fluid tank
             return null;
         return state;
     }
 
+    // if neighbour updates
     @Override
     public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {
-        if (worldIn.isClientSide)
+        if (worldIn.isClientSide) // only on serverside
             return;
         boolean previouslyPowered = state.getValue(POWERED);
         if (previouslyPowered != worldIn.hasNeighborSignal(pos))
-            worldIn.setBlock(pos, state.cycle(POWERED), 2);
+            worldIn.setBlock(pos, state.cycle(POWERED), 2); // if redstone signal has changed, toggle powered
     }
 
+    // on block placed
     @Override
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
         FluidTankBlock.updateBoilerState(pState, pLevel, pPos.relative(getAttachedDirection(pState)));
     }
 
+    // on block broken
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-        IBE.onRemove(pState, pLevel, pPos, pNewState);
         FluidTankBlock.updateBoilerState(pState, pLevel, pPos.relative(getAttachedDirection(pState)));
     }
 
