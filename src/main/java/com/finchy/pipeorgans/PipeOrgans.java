@@ -29,7 +29,7 @@ public class PipeOrgans
     public static final String MOD_ID = "pipeorgans";
 
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     //public static final Registrate REGISTRATE = Registrate.create(MOD_ID);
 
