@@ -1,11 +1,10 @@
 package com.finchy.pipeorgans.mixin;
 
-import com.finchy.pipeorgans.block.GedecktBlock;
 import com.finchy.pipeorgans.PipeOrgans;
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
+import com.finchy.pipeorgans.block.GedecktBlock;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.simibubi.create.content.fluids.tank.BoilerData;
-import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.core.BlockPos;
@@ -17,6 +16,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin( value = BoilerData.class, remap = false)
 public class BoilerDataEvaluateMixin {
@@ -37,33 +37,20 @@ public class BoilerDataEvaluateMixin {
     @Inject(method = "evaluate",
             at = @At(
                     value = "INVOKE",
-                    target = "Lcom/simibubi/create/content/fluids/tank/FluidTankBlockEntity;getLevel()Lnet/minecraft/world/level/Level;",
+                    target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;",
                     shift = At.Shift.BY, by = 4
             )
     )
-    private void checkOtherWhistleTypes(FluidTankBlockEntity controller, CallbackInfoReturnable<Boolean> cir) {
-        BlockPos controllerPos = controller.getBlockPos();
-        Level level = controller.getLevel();
-        for (int yOffset = 0; yOffset < controller.getHeight(); yOffset++) {
-            for (int xOffset = 0; xOffset < controller.getWidth(); xOffset++) {
-                for (int zOffset = 0; zOffset < controller.getWidth(); zOffset++) {
-
-                    BlockPos pos = controllerPos.offset(xOffset, yOffset, zOffset);
-                    BlockState blockState = level.getBlockState(pos);
-                    if (!FluidTankBlock.isTank(blockState))
-                        continue;
-                    for (Direction d : Iterate.directions) {
-                        BlockPos attachedPos = pos.relative(d);
-                        BlockState attachedState = level.getBlockState(attachedPos);
-                        if (attachedState.getBlock() instanceof GedecktBlock
-                                && WhistleBlock.getAttachedDirection(attachedState)
-                                .getOpposite() == d) {
-                            PipeOrgans.LOGGER.info("before:" + attachedWhistles);
-                            attachedWhistles++;
-                            PipeOrgans.LOGGER.info("after:" + attachedWhistles);
-                        }
-                    }
-                }
+    private void checkOtherWhistleTypes(FluidTankBlockEntity controller,
+                                        CallbackInfoReturnable<Boolean> cir,
+                                        @Local Level levelGotten,
+                                        @Local(ordinal = 1) BlockPos posGotten) {
+        for (Direction d : Iterate.directions) {
+            BlockPos attachedPos = posGotten.relative(d);
+            BlockState attachedState = levelGotten.getBlockState(attachedPos);
+            if (attachedState.getBlock() instanceof GedecktBlock) {
+                PipeOrgans.LOGGER.info("SUCCESS!");
+                this.attachedWhistles++;
             }
         }
     }
