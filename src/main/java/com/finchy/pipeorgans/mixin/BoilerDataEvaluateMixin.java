@@ -49,7 +49,6 @@ public class BoilerDataEvaluateMixin {
             BlockPos attachedPos = posGotten.relative(d);
             BlockState attachedState = levelGotten.getBlockState(attachedPos);
             if (attachedState.getBlock() instanceof GedecktBlock) {
-                PipeOrgans.LOGGER.info("SUCCESS!");
                 this.attachedWhistles++;
             }
         }

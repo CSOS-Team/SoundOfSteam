@@ -1,25 +1,27 @@
 package com.finchy.pipeorgans.block;
 
-import com.finchy.pipeorgans.blockentity.GedecktBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
-import com.simibubi.create.AllBlocks;
+import com.finchy.pipeorgans.init.AllBlocks;
+//import com.simibubi.create.AllBlocks;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
-import com.simibubi.create.content.materials.ExperienceBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -28,14 +30,12 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class GedecktBlock extends Block implements EntityBlock {
+public class GedecktBlock extends Block implements EntityBlock, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
@@ -46,7 +46,7 @@ public class GedecktBlock extends Block implements EntityBlock {
     // custom hitbox
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        VoxelShape whistle = AllShapes.GEDECKT_MEDIUM; // get base whistle shape (temporarily medium)
+        VoxelShape whistle = AllShapes.getWhistleBase(pState.getValue(SIZE)); // get base whistle shape (temporarily medium)
         return AllShapes.add(whistle,
                 !pState.getValue(WALL) ?
                         AllShapes.BASE_FLOOR : AllShapes.getBase(pState.getValue(FACING)));
@@ -56,7 +56,7 @@ public class GedecktBlock extends Block implements EntityBlock {
     // declare block and default blockstate
     public GedecktBlock(Properties pProperties) {
         super(pProperties);
-        registerDefaultState(this.defaultBlockState()
+        registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
@@ -79,23 +79,56 @@ public class GedecktBlock extends Block implements EntityBlock {
     // on right-click
     @Override
     public @NotNull InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if(!pLevel.isClientSide() && pHand == InteractionHand.MAIN_HAND) {
-            BlockEntity be = pLevel.getBlockEntity(pPos);
-            if (be instanceof GedecktBlockEntity blockEntity) {
-                pPlayer.sendSystemMessage(Component.literal("BlockEntity has been used"));
-                if (pLevel.getBlockState(pPos.above()).getBlock() instanceof ExperienceBlock) {
-                    pPlayer.sendSystemMessage(Component.literal("Block above is experience block"));
-                }
-                return InteractionResult.sidedSuccess(pLevel.isClientSide());
+            if (pPlayer == null)
+                return InteractionResult.PASS;
+
+            ItemStack heldItem = pPlayer.getItemInHand(pHand);
+            if (heldItem.getItem() == AllBlocks.GEDECKT.get().asItem()) {
+                incrementSize(pLevel, pPos);
+                return InteractionResult.SUCCESS;
             }
+
+            return InteractionResult.PASS;
+    }
+
+    // increase length of whistle
+    public static void incrementSize(LevelAccessor pLevel, BlockPos pPos) {
+        BlockState base = pLevel.getBlockState(pPos);
+        if (!base.hasProperty(SIZE)) {
+            return;
         }
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        WhistleSize size = base.getValue(SIZE);
+        BlockPos currentPos = pPos.above();
+
+        for (int i = 1; i <= 6; i++) {
+            BlockState blockState = pLevel.getBlockState(currentPos);
+
+            if (blockState.getBlock() instanceof GedecktExtensionBlock) {
+                if (blockState.getValue(GedecktExtensionBlock.SHAPE) == GedecktExtensionBlock.GedecktExtensionShape.SINGLE) {
+                    pLevel.setBlock(currentPos, blockState.setValue(GedecktExtensionBlock.SHAPE, GedecktExtensionBlock.GedecktExtensionShape.DOUBLE), 3);
+                    return;
+                }
+                currentPos = currentPos.above();
+                continue;
+            }
+            if (!blockState.canBeReplaced())
+                return;
+
+            pLevel.setBlock(currentPos, AllBlocks.GEDECKT_EXTENSION.get().defaultBlockState()
+                    .setValue(SIZE, size), 3);
+            return;
+        }
     }
 
     // check if placed on fluid tank
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         return FluidTankBlock.isTank(pLevel.getBlockState(pPos.relative(getAttachedDirection(pState))));
+    }
+
+    @Override
+    public BlockState getRotatedBlockState(BlockState originalState, Direction targetedFace) {
+        return originalState.cycle(SIZE);
     }
 
     public static Direction getAttachedDirection(BlockState state) {
@@ -137,6 +170,13 @@ public class GedecktBlock extends Block implements EntityBlock {
             worldIn.setBlock(pos, state.cycle(POWERED), 2); // if redstone signal has changed, toggle powered
     }
 
+    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
+                                  BlockPos pCurrentPos, BlockPos pFacingPos) {
+        return getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)
+                ? Blocks.AIR.defaultBlockState()
+                : pState;
+    }
+
     // on block placed
     @Override
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
@@ -149,8 +189,13 @@ public class GedecktBlock extends Block implements EntityBlock {
         FluidTankBlock.updateBoilerState(pState, pLevel, pPos.relative(getAttachedDirection(pState)));
     }
 
+    @Override
+    public BlockState rotate(BlockState pState, Rotation pRotation) {
+        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
+    }
+
     public enum WhistleSize implements StringRepresentable {
-        SMALL("small"), MEDIUM("medium"), LARGE("large");
+        SMALL("small"), MEDIUM("medium"), LARGE("large"), HUGE("huge");
 
         private final String name;
 

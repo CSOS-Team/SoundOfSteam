@@ -2,10 +2,10 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "pipeorgans:block/copper_redstone_plate",
-		"2": "pipeorgans:block/engine",
-		"4": "pipeorgans:block/gedeckt_1",
-		"particle": "pipeorgans:block/copper_redstone_plate"
+		"0": "create:block/copper_redstone_plate",
+		"2": "create:block/engine",
+		"4": "pipeorgans:block/gedeckt",
+		"particle": "create:block/copper_redstone_plate"
 	},
 	"elements": [
 		{
@@ -13,12 +13,12 @@
 			"to": [12, 16, 12],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 2, 7]},
 			"faces": {
-				"north": {"uv": [0, 0, 4, 6], "texture": "#4"},
-				"east": {"uv": [4, 0, 8, 6], "texture": "#4"},
-				"south": {"uv": [0, 6, 4, 12], "texture": "#4"},
-				"west": {"uv": [4, 6, 8, 12], "texture": "#4"},
-				"up": {"uv": [12, 4, 8, 0], "texture": "#4"},
-				"down": {"uv": [12, 4, 8, 8], "texture": "#4"}
+				"north": {"uv": [5, 0, 7, 3], "texture": "#4"},
+				"east": {"uv": [5, 4, 7, 7], "texture": "#4"},
+				"south": {"uv": [5, 4, 7, 7], "texture": "#4"},
+				"west": {"uv": [5, 4, 7, 7], "texture": "#4"},
+				"up": {"uv": [5, 13, 7, 15], "texture": "#4"},
+				"down": {"uv": [5, 13, 7, 15], "texture": "#4"}
 			}
 		},
 		{
@@ -73,6 +73,9 @@
 		"gui": {
 			"rotation": [30, 225, 0],
 			"scale": [0.625, 0.625, 0.625]
+		},
+		"head": {
+			"translation": [0, 14, 0]
 		},
 		"fixed": {
 			"scale": [0.5, 0.5, 0.5]
