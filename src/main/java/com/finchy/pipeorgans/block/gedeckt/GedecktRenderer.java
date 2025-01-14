@@ -16,12 +16,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class GedecktRenderer extends SafeBlockEntityRenderer<GenericWhistleBlockEntity> {
+public class GedecktRenderer extends SafeBlockEntityRenderer<GedecktBlockEntity> {
 
     public GedecktRenderer(BlockEntityRendererProvider.Context context) {}
 
     @Override
-    protected void renderSafe(GenericWhistleBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
+    protected void renderSafe(GedecktBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
         BlockState blockState = be.getBlockState();
         if (!(blockState.getBlock() instanceof GenericWhistleBlock))
             return;

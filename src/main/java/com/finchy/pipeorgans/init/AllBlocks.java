@@ -1,6 +1,8 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.block.gedeckt.GedecktBlock;
+import com.finchy.pipeorgans.block.gedeckt.GedecktExtensionBlock;
 import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleBlock;
 import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleExtensionBlock;
 import net.minecraft.world.item.BlockItem;
@@ -23,11 +25,11 @@ public class AllBlocks {
 
     // declare blocks here
 
-    public static final RegistryObject<GenericWhistleBlock> GEDECKT = registerBlock("gedeckt",
-            () -> new GenericWhistleBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<GedecktBlock> GEDECKT = registerBlock("gedeckt",
+            () -> new GedecktBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
-    public static final RegistryObject<GenericWhistleExtensionBlock> GEDECKT_EXTENSION = registerBlockWithoutItem("gedeckt_extension",
-            () -> new GenericWhistleExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<GedecktExtensionBlock> GEDECKT_EXTENSION = registerBlockWithoutItem("gedeckt_extension",
+            () -> new GedecktExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
 
 

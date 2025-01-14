@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.block.genericWhistle;
 
+import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -53,7 +54,7 @@ public class GenericWhistleBlock extends Block implements IBE<GenericWhistleBloc
 
     public RegistryObject<? extends GenericWhistleBlock> baseBlock;
     public RegistryObject<? extends GenericWhistleExtensionBlock> extensionBlock;
-    public RegistryObject<BlockEntityType<GenericWhistleBlockEntity>> blockEntity;
+    public RegistryObject<BlockEntityType<GedecktBlockEntity>> blockEntity;
     public SoundEvent growSound;
 
     public void setWhistleProperties() {

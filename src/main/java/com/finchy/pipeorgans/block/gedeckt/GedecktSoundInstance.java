@@ -1,25 +1,23 @@
-package com.finchy.pipeorgans.block.genericWhistle;
+package com.finchy.pipeorgans.block.gedeckt;
 
+import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleBlock;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.Vec3;
 
-import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_HIGH;
-import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_MEDIUM;
-import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_LOW;
-import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_DEEP;
+import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 // if you want to make your own whistle, don't extend from this class. simply copy it and modify as needed.
 
-public class GenericWhistleSoundInstance extends AbstractTickableSoundInstance {
+public class GedecktSoundInstance extends AbstractTickableSoundInstance {
 
     private boolean active;
     private int keepAlive;
     private GenericWhistleBlock.WhistleSize size;
 
-    public GenericWhistleSoundInstance(GenericWhistleBlock.WhistleSize size, BlockPos worldPosition) {
+    public GedecktSoundInstance(GenericWhistleBlock.WhistleSize size, BlockPos worldPosition) {
         super((size == GenericWhistleBlock.WhistleSize.SMALL ? GEDECKT_HIGH :
                 size == GenericWhistleBlock.WhistleSize.MEDIUM ? GEDECKT_MEDIUM :
                 size == GenericWhistleBlock.WhistleSize.LARGE ? GEDECKT_LOW : GEDECKT_DEEP).get(),
