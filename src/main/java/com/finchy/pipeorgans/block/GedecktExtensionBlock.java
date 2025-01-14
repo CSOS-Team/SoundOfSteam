@@ -8,6 +8,7 @@ import com.simibubi.create.content.decoration.steamWhistle.WhistleExtenderBlock;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -71,7 +72,7 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
             if (!connected && shouldConnect)
                 return pState.setValue(SHAPE, GedecktExtensionShape.DOUBLE_CONNECTED);
             if (connected && !shouldConnect)
-                return pState.setValue(SHAPE, GedecktExtensionShape.SINGLE);
+                return pState.setValue(SHAPE, GedecktExtensionShape.DOUBLE);
             return pState;
         }
 
@@ -113,6 +114,21 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
     }
 
     @Override
+    public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
+        Level world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+
+        if (context.getClickLocation().y < context.getClickedPos()
+                .getY() + .5f || state.getValue(SHAPE) == GedecktExtensionShape.SINGLE)
+            return IWrenchable.super.onSneakWrenched(state, context);
+        if (!(world instanceof ServerLevel))
+            return InteractionResult.SUCCESS;
+        world.setBlock(pos, state.setValue(SHAPE, GedecktExtensionShape.SINGLE), 3);
+        playRemoveSound(world, pos);
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {
         Level level = context.getLevel();
         BlockPos findRoot = findRoot(level, context.getClickedPos());
@@ -120,6 +136,18 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
         if (blockState.getBlock()instanceof GedecktBlock gedeckt)
             return gedeckt.onWrenched(blockState, relocateContext(context, findRoot));
         return IWrenchable.super.onWrenched(state, context);
+    }
+
+    @Override
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
+        if (pOldState.getBlock() != this || pOldState.getValue(SHAPE) != pState.getValue(SHAPE))
+            GedecktBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
+    }
+
+    @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
+        if (pOldState.getBlock() != this || pOldState.getValue(SHAPE) != pState.getValue(SHAPE))
+            GedecktBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
     }
 
     @Override

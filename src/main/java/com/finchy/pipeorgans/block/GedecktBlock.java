@@ -1,13 +1,18 @@
 package com.finchy.pipeorgans.block;
 
+import com.finchy.pipeorgans.blockentity.GedecktBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.finchy.pipeorgans.init.AllBlocks;
 //import com.simibubi.create.AllBlocks;
+import com.simibubi.create.content.decoration.steamWhistle.WhistleBlockEntity;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
+import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -20,9 +25,9 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -31,11 +36,12 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class GedecktBlock extends Block implements EntityBlock, IWrenchable {
+public class GedecktBlock extends Block implements IBE<GedecktBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
@@ -47,7 +53,7 @@ public class GedecktBlock extends Block implements EntityBlock, IWrenchable {
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         VoxelShape whistle = AllShapes.getWhistleBase(pState.getValue(SIZE)); // get base whistle shape (temporarily medium)
-        return AllShapes.add(whistle,
+        return Shapes.or(whistle,
                 !pState.getValue(WALL) ?
                         AllShapes.BASE_FLOOR : AllShapes.getBase(pState.getValue(FACING)));
                         // if block is not on wall, add BASE_FLOOR, else add correct wall base for direction
@@ -62,6 +68,12 @@ public class GedecktBlock extends Block implements EntityBlock, IWrenchable {
                 .setValue(WALL, false)
                 .setValue(SIZE, WhistleSize.MEDIUM));
     }
+
+    @Override
+    public Class<GedecktBlockEntity> getBlockEntityClass() { return GedecktBlockEntity.class; }
+
+    @Override
+    public BlockEntityType<? extends GedecktBlockEntity> getBlockEntityType() { return AllBlockEntities.GEDECKT_BLOCK_ENTITY.get(); }
 
     // create GEDECKT_BLOCK_ENTITY at block coords upon block placement
     @Override
@@ -120,17 +132,31 @@ public class GedecktBlock extends Block implements EntityBlock, IWrenchable {
         }
     }
 
+    public static void queuePitchUpdate(LevelAccessor level, BlockPos pos) {
+        BlockState blockState = level.getBlockState(pos);
+        if (blockState.getBlock() instanceof GedecktBlock whistle && !level.getBlockTicks()
+                .hasScheduledTick(pos, whistle))
+            level.scheduleTick(pos, whistle, 1);
+    }
+
+    @Override
+    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        withBlockEntityDo(pLevel, pPos, GedecktBlockEntity::updatePitch);
+    }
+
     // check if placed on fluid tank
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         return FluidTankBlock.isTank(pLevel.getBlockState(pPos.relative(getAttachedDirection(pState))));
     }
 
+    // called when wrenched
     @Override
     public BlockState getRotatedBlockState(BlockState originalState, Direction targetedFace) {
         return originalState.cycle(SIZE);
     }
 
+    // get direction attached from
     public static Direction getAttachedDirection(BlockState state) {
         return state.getValue(WALL) ? state.getValue(FACING) : Direction.DOWN;
     }
@@ -170,6 +196,7 @@ public class GedecktBlock extends Block implements EntityBlock, IWrenchable {
             worldIn.setBlock(pos, state.cycle(POWERED), 2); // if redstone signal has changed, toggle powered
     }
 
+    // when updated?
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
                                   BlockPos pCurrentPos, BlockPos pFacingPos) {
         return getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)
@@ -191,7 +218,7 @@ public class GedecktBlock extends Block implements EntityBlock, IWrenchable {
 
     @Override
     public BlockState rotate(BlockState pState, Rotation pRotation) {
-        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
+        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING))); // don't rotate at all
     }
 
     public enum WhistleSize implements StringRepresentable {

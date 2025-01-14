@@ -21,33 +21,20 @@ public class AllShapes {
 
     public static VoxelShape GEDECKT_SMALL_BASE = Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 1, 0.6875);
     public static VoxelShape GEDECKT_MEDIUM_BASE = Shapes.box(0.25, 0.1875, 0.25, 0.75, 1, 0.75);
-
-    public static VoxelShape getGedecktExtensionShape(BlockState pBlockState) {
-
-        GedecktExtensionBlock.GedecktExtensionShape blockShape = pBlockState.getValue(SHAPE);
-        GedecktBlock.WhistleSize blockSize = pBlockState.getValue(SIZE);
-
-        if (blockShape == GedecktExtensionBlock.GedecktExtensionShape.SINGLE) {
-            if (blockSize == GedecktBlock.WhistleSize.SMALL) return GEDECKT_EXTENSION_SMALL_SINGLE;
-            if (blockSize == GedecktBlock.WhistleSize.MEDIUM) return GEDECKT_EXTENSION_MEDIUM_SINGLE;
-            if (blockSize == GedecktBlock.WhistleSize.LARGE) return Shapes.block();
-            if (blockSize == GedecktBlock.WhistleSize.HUGE) return Shapes.block();
-        }
-        if (blockShape == GedecktExtensionBlock.GedecktExtensionShape.DOUBLE || blockShape == GedecktExtensionBlock.GedecktExtensionShape.DOUBLE_CONNECTED) {
-            if (blockSize == GedecktBlock.WhistleSize.SMALL) return GEDECKT_EXTENSION_SMALL_DOUBLE;
-            if (blockSize == GedecktBlock.WhistleSize.MEDIUM) return GEDECKT_EXTENSION_MEDIUM_DOUBLE;
-            if (blockSize == GedecktBlock.WhistleSize.LARGE) return Shapes.block();
-            if (blockSize == GedecktBlock.WhistleSize.HUGE) return Shapes.block();
-
-        }
-        return Shapes.block();
-    }
+    public static VoxelShape GEDECKT_LARGE_BASE = Shapes.box(0.1875, 0.1875, 0.1875, 0.8125, 1, 0.8125);
+    public static VoxelShape GEDECKT_HUGE_BASE = Shapes.box(0.125, 0.1875, 0.125, 0.875, 1, 0.875);
 
     public static VoxelShape GEDECKT_EXTENSION_SMALL_SINGLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.5, 0.6875);
     public static VoxelShape GEDECKT_EXTENSION_SMALL_DOUBLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 1, 0.6875);
 
     public static VoxelShape GEDECKT_EXTENSION_MEDIUM_SINGLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.5, 0.75);
     public static VoxelShape GEDECKT_EXTENSION_MEDIUM_DOUBLE = Shapes.box(0.25, 0, 0.25, 0.75, 1, 0.75);
+
+    public static VoxelShape GEDECKT_EXTENSION_LARGE_SINGLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5, 0.8125);
+    public static VoxelShape GEDECKT_EXTENSION_LARGE_DOUBLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125);
+
+    public static VoxelShape GEDECKT_EXTENSION_HUGE_SINGLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.5, 0.875);
+    public static VoxelShape GEDECKT_EXTENSION_HUGE_DOUBLE = Shapes.box(0.125, 0, 0.125, 0.875, 1, 0.875);
 
 
 
@@ -80,8 +67,8 @@ public class AllShapes {
         return switch (size) {
             case SMALL -> GEDECKT_SMALL_BASE;
             case MEDIUM -> GEDECKT_MEDIUM_BASE;
-            case LARGE -> Shapes.block();
-            case HUGE -> Shapes.block();
+            case LARGE -> GEDECKT_LARGE_BASE;
+            case HUGE -> GEDECKT_HUGE_BASE;
         };
     }
     public static VoxelShape getBase(Direction face) {
@@ -93,6 +80,27 @@ public class AllShapes {
             case UP, DOWN -> null;
         };
 
+    }
+
+    public static VoxelShape getGedecktExtensionShape(BlockState pBlockState) {
+
+        GedecktExtensionBlock.GedecktExtensionShape blockShape = pBlockState.getValue(SHAPE);
+        GedecktBlock.WhistleSize blockSize = pBlockState.getValue(SIZE);
+
+        if (blockShape == GedecktExtensionBlock.GedecktExtensionShape.SINGLE) {
+            if (blockSize == GedecktBlock.WhistleSize.SMALL) return GEDECKT_EXTENSION_SMALL_SINGLE;
+            if (blockSize == GedecktBlock.WhistleSize.MEDIUM) return GEDECKT_EXTENSION_MEDIUM_SINGLE;
+            if (blockSize == GedecktBlock.WhistleSize.LARGE) return GEDECKT_EXTENSION_LARGE_SINGLE;
+            if (blockSize == GedecktBlock.WhistleSize.HUGE) return GEDECKT_EXTENSION_HUGE_SINGLE;
+        }
+        if (blockShape == GedecktExtensionBlock.GedecktExtensionShape.DOUBLE || blockShape == GedecktExtensionBlock.GedecktExtensionShape.DOUBLE_CONNECTED) {
+            if (blockSize == GedecktBlock.WhistleSize.SMALL) return GEDECKT_EXTENSION_SMALL_DOUBLE;
+            if (blockSize == GedecktBlock.WhistleSize.MEDIUM) return GEDECKT_EXTENSION_MEDIUM_DOUBLE;
+            if (blockSize == GedecktBlock.WhistleSize.LARGE) return GEDECKT_EXTENSION_LARGE_DOUBLE;
+            if (blockSize == GedecktBlock.WhistleSize.HUGE) return GEDECKT_EXTENSION_HUGE_DOUBLE;
+
+        }
+        return Shapes.block();
     }
 
 }
