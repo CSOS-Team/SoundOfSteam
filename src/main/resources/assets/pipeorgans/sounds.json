@@ -1,0 +1,45 @@
+{
+  "gedeckt_high": {
+    "subtitle": "sounds.pipeorgans.gedeckt_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance_distance": 64,
+        "name": "pipeorgans:gedeckt_high"
+      }
+    ]
+  },
+
+  "gedeckt_medium": {
+    "subtitle": "sounds.pipeorgans.gedeckt_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance_distance": 64,
+        "name": "pipeorgans:gedeckt_medium"
+      }
+    ]
+  },
+
+  "gedeckt_low": {
+    "subtitle": "sounds.pipeorgans.gedeckt_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance_distance": 64,
+        "name": "pipeorgans:gedeckt_low"
+      }
+    ]
+  },
+
+  "gedeckt_deep": {
+    "subtitle": "sounds.pipeorgans.gedeckt_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance_distance": 64,
+        "name": "pipeorgans:gedeckt_deep"
+      }
+    ]
+  }
+}

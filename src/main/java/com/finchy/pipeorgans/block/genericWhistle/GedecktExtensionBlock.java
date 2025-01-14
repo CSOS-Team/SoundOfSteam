@@ -1,10 +1,7 @@
-package com.finchy.pipeorgans.block;
+package com.finchy.pipeorgans.block.genericWhistle;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
-import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
-import com.simibubi.create.content.decoration.steamWhistle.WhistleExtenderBlock;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.blockentity.GedecktBlockEntity;
+import com.finchy.pipeorgans.block.genericWhistle.GedecktBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;

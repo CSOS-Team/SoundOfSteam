@@ -1,8 +1,8 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.block.GedecktBlock;
-import com.finchy.pipeorgans.block.GedecktExtensionBlock;
+import com.finchy.pipeorgans.block.genericWhistle.GedecktBlock;
+import com.finchy.pipeorgans.block.genericWhistle.GedecktExtensionBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -21,13 +21,14 @@ public class AllBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, PipeOrgans.MOD_ID);
 
 
-    // Declare blocks here
+    // declare blocks here
 
     public static final RegistryObject<GedecktBlock> GEDECKT = registerBlock("gedeckt",
             () -> new GedecktBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
     public static final RegistryObject<GedecktExtensionBlock> GEDECKT_EXTENSION = registerBlockWithoutItem("gedeckt_extension",
             () -> new GedecktExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {

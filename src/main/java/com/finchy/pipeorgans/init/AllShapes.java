@@ -1,15 +1,15 @@
 package com.finchy.pipeorgans.init;
 
-import com.finchy.pipeorgans.block.GedecktBlock;
-import com.finchy.pipeorgans.block.GedecktExtensionBlock;
+import com.finchy.pipeorgans.block.genericWhistle.GedecktBlock;
+import com.finchy.pipeorgans.block.genericWhistle.GedecktExtensionBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import static com.finchy.pipeorgans.block.GedecktExtensionBlock.SHAPE;
-import static com.finchy.pipeorgans.block.GedecktExtensionBlock.SIZE;
+import static com.finchy.pipeorgans.block.genericWhistle.GedecktExtensionBlock.SHAPE;
+import static com.finchy.pipeorgans.block.genericWhistle.GedecktExtensionBlock.SIZE;
 
 public class AllShapes {
 

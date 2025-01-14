@@ -1,11 +1,9 @@
-package com.finchy.pipeorgans.block;
+package com.finchy.pipeorgans.block.genericWhistle;
 
-import com.finchy.pipeorgans.blockentity.GedecktBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.finchy.pipeorgans.init.AllBlocks;
 //import com.simibubi.create.AllBlocks;
-import com.simibubi.create.content.decoration.steamWhistle.WhistleBlockEntity;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.block.IBE;

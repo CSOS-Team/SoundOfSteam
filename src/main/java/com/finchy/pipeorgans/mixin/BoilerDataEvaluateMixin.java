@@ -1,9 +1,7 @@
 package com.finchy.pipeorgans.mixin;
 
-import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.block.GedecktBlock;
+import com.finchy.pipeorgans.block.genericWhistle.GedecktBlock;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.simibubi.create.content.fluids.tank.BoilerData;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.utility.Iterate;
@@ -16,7 +14,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin( value = BoilerData.class, remap = false)
 public class BoilerDataEvaluateMixin {

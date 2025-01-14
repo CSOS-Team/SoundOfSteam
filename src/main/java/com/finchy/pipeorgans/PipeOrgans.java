@@ -1,11 +1,9 @@
 package com.finchy.pipeorgans;
 
-import com.finchy.pipeorgans.init.AllBlockEntities;
-import com.finchy.pipeorgans.init.AllItems;
-import com.finchy.pipeorgans.init.AllBlocks;
-import com.finchy.pipeorgans.init.AllCreativeModeTabs;
+import com.finchy.pipeorgans.init.*;
 import com.mojang.logging.LogUtils;
 import com.tterrag.registrate.Registrate;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -41,6 +39,7 @@ public class PipeOrgans
         AllBlockEntities.register(modEventBus);
         AllBlocks.register(modEventBus);
         AllItems.register(modEventBus);
+        AllSoundEvents.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -86,5 +85,9 @@ public class PipeOrgans
         {
 
         }
+    }
+
+    public static ResourceLocation asResource(String path) {
+        return new ResourceLocation(MOD_ID, path);
     }
 }
