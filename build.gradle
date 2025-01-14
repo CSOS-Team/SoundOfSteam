@@ -159,7 +159,11 @@ dependencies {
 
 mixin {
     // MixinGradle settings
+    add sourceSets.main, "mixins.pipeorgans.refmap.json"
     config "mixins.pipeorgans.json"
+
+    debug.verbose = false
+    debug.export = false
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

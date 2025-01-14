@@ -1,15 +1,15 @@
 package com.finchy.pipeorgans.init;
 
-import com.finchy.pipeorgans.block.genericWhistle.GedecktBlock;
-import com.finchy.pipeorgans.block.genericWhistle.GedecktExtensionBlock;
+import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleBlock;
+import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleExtensionBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import static com.finchy.pipeorgans.block.genericWhistle.GedecktExtensionBlock.SHAPE;
-import static com.finchy.pipeorgans.block.genericWhistle.GedecktExtensionBlock.SIZE;
+import static com.finchy.pipeorgans.block.genericWhistle.GenericWhistleExtensionBlock.SHAPE;
+import static com.finchy.pipeorgans.block.genericWhistle.GenericWhistleExtensionBlock.SIZE;
 
 public class AllShapes {
 
@@ -63,7 +63,7 @@ public class AllShapes {
             Shapes.box(0.1875, 0.1875, 0.3125, 0.6875, 0.5625, 0.6875)
     );
 
-    public static VoxelShape getWhistleBase(GedecktBlock.WhistleSize size) {
+    public static VoxelShape getWhistleBase(GenericWhistleBlock.WhistleSize size) {
         return switch (size) {
             case SMALL -> GEDECKT_SMALL_BASE;
             case MEDIUM -> GEDECKT_MEDIUM_BASE;
@@ -84,20 +84,20 @@ public class AllShapes {
 
     public static VoxelShape getGedecktExtensionShape(BlockState pBlockState) {
 
-        GedecktExtensionBlock.GedecktExtensionShape blockShape = pBlockState.getValue(SHAPE);
-        GedecktBlock.WhistleSize blockSize = pBlockState.getValue(SIZE);
+        GenericWhistleExtensionBlock.GenericExtensionShape blockShape = pBlockState.getValue(SHAPE);
+        GenericWhistleBlock.WhistleSize blockSize = pBlockState.getValue(SIZE);
 
-        if (blockShape == GedecktExtensionBlock.GedecktExtensionShape.SINGLE) {
-            if (blockSize == GedecktBlock.WhistleSize.SMALL) return GEDECKT_EXTENSION_SMALL_SINGLE;
-            if (blockSize == GedecktBlock.WhistleSize.MEDIUM) return GEDECKT_EXTENSION_MEDIUM_SINGLE;
-            if (blockSize == GedecktBlock.WhistleSize.LARGE) return GEDECKT_EXTENSION_LARGE_SINGLE;
-            if (blockSize == GedecktBlock.WhistleSize.HUGE) return GEDECKT_EXTENSION_HUGE_SINGLE;
+        if (blockShape == GenericWhistleExtensionBlock.GenericExtensionShape.SINGLE) {
+            if (blockSize == GenericWhistleBlock.WhistleSize.SMALL) return GEDECKT_EXTENSION_SMALL_SINGLE;
+            if (blockSize == GenericWhistleBlock.WhistleSize.MEDIUM) return GEDECKT_EXTENSION_MEDIUM_SINGLE;
+            if (blockSize == GenericWhistleBlock.WhistleSize.LARGE) return GEDECKT_EXTENSION_LARGE_SINGLE;
+            if (blockSize == GenericWhistleBlock.WhistleSize.HUGE) return GEDECKT_EXTENSION_HUGE_SINGLE;
         }
-        if (blockShape == GedecktExtensionBlock.GedecktExtensionShape.DOUBLE || blockShape == GedecktExtensionBlock.GedecktExtensionShape.DOUBLE_CONNECTED) {
-            if (blockSize == GedecktBlock.WhistleSize.SMALL) return GEDECKT_EXTENSION_SMALL_DOUBLE;
-            if (blockSize == GedecktBlock.WhistleSize.MEDIUM) return GEDECKT_EXTENSION_MEDIUM_DOUBLE;
-            if (blockSize == GedecktBlock.WhistleSize.LARGE) return GEDECKT_EXTENSION_LARGE_DOUBLE;
-            if (blockSize == GedecktBlock.WhistleSize.HUGE) return GEDECKT_EXTENSION_HUGE_DOUBLE;
+        if (blockShape == GenericWhistleExtensionBlock.GenericExtensionShape.DOUBLE || blockShape == GenericWhistleExtensionBlock.GenericExtensionShape.DOUBLE_CONNECTED) {
+            if (blockSize == GenericWhistleBlock.WhistleSize.SMALL) return GEDECKT_EXTENSION_SMALL_DOUBLE;
+            if (blockSize == GenericWhistleBlock.WhistleSize.MEDIUM) return GEDECKT_EXTENSION_MEDIUM_DOUBLE;
+            if (blockSize == GenericWhistleBlock.WhistleSize.LARGE) return GEDECKT_EXTENSION_LARGE_DOUBLE;
+            if (blockSize == GenericWhistleBlock.WhistleSize.HUGE) return GEDECKT_EXTENSION_HUGE_DOUBLE;
 
         }
         return Shapes.block();

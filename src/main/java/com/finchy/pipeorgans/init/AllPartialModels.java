@@ -18,4 +18,8 @@ public class AllPartialModels {
     private static PartialModel block(String path) {
         return new PartialModel(PipeOrgans.asResource("block/" + path));
     }
+
+    public static void init() {
+        // init static fields
+    }
 }

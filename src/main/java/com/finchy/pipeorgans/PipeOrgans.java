@@ -2,7 +2,6 @@ package com.finchy.pipeorgans;
 
 import com.finchy.pipeorgans.init.*;
 import com.mojang.logging.LogUtils;
-import com.tterrag.registrate.Registrate;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
@@ -83,6 +82,7 @@ public class PipeOrgans
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
+            AllPartialModels.init();
 
         }
     }

@@ -14,35 +14,42 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class GedecktRenderer extends SafeBlockEntityRenderer<GedecktBlockEntity> {
+public class GenericWhistleRenderer extends SafeBlockEntityRenderer<GenericWhistleBlockEntity> {
 
-    public GedecktRenderer(BlockEntityRendererProvider.Context context) {}
+    public GenericWhistleRenderer(BlockEntityRendererProvider.Context context) {}
 
     @Override
-    protected void renderSafe(GedecktBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
+    protected void renderSafe(GenericWhistleBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
         BlockState blockState = be.getBlockState();
-        if (!(blockState.getBlock() instanceof GedecktBlock ))
+        if (!(blockState.getBlock() instanceof GenericWhistleBlock))
             return;
 
-        Direction direction = blockState.getValue(GedecktBlock.FACING);
-        GedecktBlock.WhistleSize size = blockState.getValue(GedecktBlock.SIZE);
+        Direction direction = blockState.getValue(GenericWhistleBlock.FACING);
+        GenericWhistleBlock.WhistleSize size = blockState.getValue(GenericWhistleBlock.SIZE);
 
-        PartialModel mouth = size == GedecktBlock.WhistleSize.SMALL ? AllPartialModels.GEDECKT_MOUTH_SMALL :
-                size == GedecktBlock.WhistleSize.MEDIUM ? AllPartialModels.GEDECKT_MOUTH_MEDIUM :
-                        size == GedecktBlock.WhistleSize.LARGE ? AllPartialModels.GEDECKT_MOUTH_LARGE : AllPartialModels.GEDECKT_MOUTH_HUGE;
+        PartialModel mouth = size == GenericWhistleBlock.WhistleSize.SMALL ? AllPartialModels.GEDECKT_MOUTH_SMALL :
+                size == GenericWhistleBlock.WhistleSize.MEDIUM ? AllPartialModels.GEDECKT_MOUTH_MEDIUM :
+                        size == GenericWhistleBlock.WhistleSize.LARGE ? AllPartialModels.GEDECKT_MOUTH_LARGE : AllPartialModels.GEDECKT_MOUTH_HUGE;
 
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
             float wiggleProgress = (AnimationTickHolder.getTicks(be.getLevel()) + partialTicks) /8f;
-            offset -= Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f;
+            offset -= (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f);
         }
 
         CachedBufferer.partial(mouth, blockState)
                 .centre()
                 .rotateY(AngleHelper.horizontalAngle(direction))
                 .unCentre()
-                .translate(0, offset * 4 / 16f, 0)
-                .light()
+                .translateY((double) 4 /16)
+                .translateZ((double) switch (size) {
+                    case SMALL -> 5;
+                    case MEDIUM -> 4;
+                    case LARGE -> 3;
+                    case HUGE -> 2;
+                } /16)
+                .rotateX(-offset*16)
+                .light(light)
                 .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
 
     }

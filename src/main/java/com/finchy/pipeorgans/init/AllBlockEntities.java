@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.block.genericWhistle.GedecktBlockEntity;
+import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -13,9 +13,9 @@ public class AllBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, PipeOrgans.MOD_ID);
 
-    public static final RegistryObject<BlockEntityType<GedecktBlockEntity>> GEDECKT_BLOCK_ENTITY =
+    public static final RegistryObject<BlockEntityType<GenericWhistleBlockEntity>> GEDECKT_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("gedeckt_block_entity",
-                    () -> BlockEntityType.Builder.of(GedecktBlockEntity::new, AllBlocks.GEDECKT.get())
+                    () -> BlockEntityType.Builder.of(GenericWhistleBlockEntity::new, AllBlocks.GEDECKT.get())
                             .build(null));
 
     public static void register(IEventBus eventBus) {

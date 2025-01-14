@@ -1,9 +1,8 @@
 package com.finchy.pipeorgans.block.genericWhistle;
 
 import com.finchy.pipeorgans.init.AllBlockEntities;
-import com.simibubi.create.AllSoundEvents;
+import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
-import com.simibubi.create.content.decoration.steamWhistle.WhistleSoundInstance;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
@@ -18,25 +17,39 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class GedecktBlockEntity extends SmartBlockEntity {
+public class GenericWhistleBlockEntity extends SmartBlockEntity {
 
     public WeakReference<FluidTankBlockEntity> source;
     public LerpedFloat animation;
     protected int pitch;
 
-    public GedecktBlockEntity(BlockPos pos, BlockState blockState) {
+    public RegistryObject<? extends GenericWhistleBlock> baseBlock;
+    public RegistryObject<? extends GenericWhistleExtensionBlock> extensionBlock;
+    public RegistryObject<BlockEntityType<GenericWhistleBlockEntity>> blockEntity;
+
+    public void setWhistleProperties() {
+        this.baseBlock = AllBlocks.GEDECKT;
+        this.extensionBlock = AllBlocks.GEDECKT_EXTENSION;
+        this.blockEntity = AllBlockEntities.GEDECKT_BLOCK_ENTITY;
+    }
+
+    public GenericWhistleBlockEntity(BlockPos pos, BlockState blockState) {
         super(AllBlockEntities.GEDECKT_BLOCK_ENTITY.get(), pos, blockState);
         source = new WeakReference<>(null);
         animation = LerpedFloat.angular();
+
+        setWhistleProperties();
     }
 
     @Override
@@ -57,13 +70,13 @@ public class GedecktBlockEntity extends SmartBlockEntity {
     }
 
     protected boolean isPowered() {
-        return getBlockState().getOptionalValue(WhistleBlock.POWERED)
+        return getBlockState().getOptionalValue(GenericWhistleBlock.POWERED)
                 .orElse(false);
     }
 
-    protected GedecktBlock.WhistleSize getOctave() {
-        return getBlockState().getOptionalValue(GedecktBlock.SIZE)
-                .orElse(GedecktBlock.WhistleSize.MEDIUM);
+    protected GenericWhistleBlock.WhistleSize getOctave() {
+        return getBlockState().getOptionalValue(GenericWhistleBlock.SIZE)
+                .orElse(GenericWhistleBlock.WhistleSize.MEDIUM);
     }
 
     @Override
@@ -85,10 +98,10 @@ public class GedecktBlockEntity extends SmartBlockEntity {
     }
 
     @OnlyIn(Dist.CLIENT)
-    protected GedecktSoundInstance soundInstance;
+    protected GenericWhistleSoundInstance soundInstance;
 
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(GedecktBlock.WhistleSize size, boolean powered) {
+    protected void tickAudio(GenericWhistleBlock.WhistleSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
@@ -105,7 +118,7 @@ public class GedecktBlockEntity extends SmartBlockEntity {
         if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
             Minecraft.getInstance()
                     .getSoundManager()
-                    .play(soundInstance = new GedecktSoundInstance(size, worldPosition));
+                    .play(soundInstance = new GenericWhistleSoundInstance(size, worldPosition));
             /*
             AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .175f,
                     size == GedecktBlock.WhistleSize.SMALL ? f + .75f : f, false);
@@ -137,9 +150,9 @@ public class GedecktBlockEntity extends SmartBlockEntity {
         int newPitch;
         for (newPitch = 0; newPitch <= 24; newPitch += 2) {
             BlockState blockState = level.getBlockState(currentPos);
-            if (!(blockState.getBlock() instanceof GedecktExtensionBlock))
+            if (!(blockState.getBlock() instanceof GenericWhistleExtensionBlock))
                 break;
-            if (blockState.getValue(GedecktExtensionBlock.SHAPE) == GedecktExtensionBlock.GedecktExtensionShape.SINGLE) {
+            if (blockState.getValue(GenericWhistleExtensionBlock.SHAPE) == GenericWhistleExtensionBlock.GenericExtensionShape.SINGLE) {
                 newPitch++;
                 break;
             }

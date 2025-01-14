@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.block.genericWhistle;
 
+import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -25,24 +27,36 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
-public class GedecktExtensionBlock extends Block implements IWrenchable {
+public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
 
-    public static final EnumProperty<GedecktExtensionShape> SHAPE =
-            EnumProperty.create("shape", GedecktExtensionShape.class);
-    public static final EnumProperty<GedecktBlock.WhistleSize> SIZE = GedecktBlock.SIZE;
+    public static final EnumProperty<GenericExtensionShape> SHAPE =
+            EnumProperty.create("shape", GenericExtensionShape.class);
+    public static final EnumProperty<GenericWhistleBlock.WhistleSize> SIZE = GenericWhistleBlock.SIZE;
+
+    public RegistryObject<? extends GenericWhistleBlock> baseBlock;
+    public RegistryObject<? extends GenericWhistleExtensionBlock> extensionBlock;
+    public RegistryObject<BlockEntityType<GenericWhistleBlockEntity>> blockEntity;
+
+    public void setWhistleProperties() {
+        this.baseBlock = AllBlocks.GEDECKT;
+        this.extensionBlock = AllBlocks.GEDECKT_EXTENSION;
+        this.blockEntity = AllBlockEntities.GEDECKT_BLOCK_ENTITY;
+    }
+
+    public GenericWhistleExtensionBlock(Properties pProperties) {
+        super(pProperties);
+        setWhistleProperties();
+        registerDefaultState(defaultBlockState()
+                .setValue(SHAPE, GenericExtensionShape.SINGLE)
+                .setValue(SIZE, GenericWhistleBlock.WhistleSize.MEDIUM));
+    }
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return AllShapes.getGedecktExtensionShape(pState);
-    }
-
-    public GedecktExtensionBlock(Properties pProperties) {
-        super(pProperties);
-        registerDefaultState(defaultBlockState()
-                .setValue(SHAPE, GedecktExtensionShape.SINGLE)
-                .setValue(SIZE, GedecktBlock.WhistleSize.MEDIUM));
     }
 
     @Override
@@ -53,8 +67,8 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState below = pLevel.getBlockState(pPos.below());
-        return below.is(this) && below.getValue(SHAPE) != GedecktExtensionShape.SINGLE
-                || below.getBlock() instanceof GedecktBlock;
+        return below.is(this) && below.getValue(SHAPE) != GenericExtensionShape.SINGLE
+                || below.getBlock() instanceof GenericWhistleBlock;
     }
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
@@ -63,13 +77,13 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
             return pState;
 
         if (pFacing == Direction.UP) {
-            boolean connected = pState.getValue(SHAPE) == GedecktExtensionShape.DOUBLE_CONNECTED;
+            boolean connected = pState.getValue(SHAPE) == GenericExtensionShape.DOUBLE_CONNECTED;
             boolean shouldConnect = pLevel.getBlockState(pCurrentPos.above())
                     .is(this);
             if (!connected && shouldConnect)
-                return pState.setValue(SHAPE, GedecktExtensionShape.DOUBLE_CONNECTED);
+                return pState.setValue(SHAPE, GenericExtensionShape.DOUBLE_CONNECTED);
             if (connected && !shouldConnect)
-                return pState.setValue(SHAPE, GedecktExtensionShape.DOUBLE);
+                return pState.setValue(SHAPE, GenericExtensionShape.DOUBLE);
             return pState;
         }
 
@@ -82,7 +96,7 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
         BlockPos currentPos = pPos.below();
         while (true) {
             BlockState blockState = pLevel.getBlockState(currentPos);
-            if (blockState.getBlock() instanceof GedecktExtensionBlock) {
+            if (blockState.getBlock() instanceof GenericWhistleExtensionBlock) {
                 currentPos = currentPos.below();
                 continue;
             }
@@ -99,12 +113,12 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
         ItemStack heldItem = pPlayer.getItemInHand(pHand);
-        if (pPlayer == null || heldItem.getItem() != AllBlocks.GEDECKT.get().asItem()) {;
+        if (pPlayer == null || heldItem.getItem() != this.baseBlock.get().asItem()) {;
             return InteractionResult.PASS;
         }
         BlockPos rootFound = findRoot(pLevel, pPos);
         BlockState blockState = pLevel.getBlockState(rootFound);
-        if (blockState.getBlock() instanceof GedecktBlock gedeckt)
+        if (blockState.getBlock() instanceof GenericWhistleBlock gedeckt)
             return gedeckt.use(blockState, pLevel, rootFound, pPlayer, pHand,
                     new BlockHitResult(pHit.getLocation(), pHit.getDirection(), rootFound, pHit.isInside()));
         return InteractionResult.PASS;
@@ -116,11 +130,11 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
         BlockPos pos = context.getClickedPos();
 
         if (context.getClickLocation().y < context.getClickedPos()
-                .getY() + .5f || state.getValue(SHAPE) == GedecktExtensionShape.SINGLE)
+                .getY() + .5f || state.getValue(SHAPE) == GenericExtensionShape.SINGLE)
             return IWrenchable.super.onSneakWrenched(state, context);
         if (!(world instanceof ServerLevel))
             return InteractionResult.SUCCESS;
-        world.setBlock(pos, state.setValue(SHAPE, GedecktExtensionShape.SINGLE), 3);
+        world.setBlock(pos, state.setValue(SHAPE, GenericExtensionShape.SINGLE), 3);
         playRemoveSound(world, pos);
         return InteractionResult.SUCCESS;
     }
@@ -130,7 +144,7 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
         Level level = context.getLevel();
         BlockPos findRoot = findRoot(level, context.getClickedPos());
         BlockState blockState = level.getBlockState(findRoot);
-        if (blockState.getBlock()instanceof GedecktBlock gedeckt)
+        if (blockState.getBlock()instanceof GenericWhistleBlock gedeckt)
             return gedeckt.onWrenched(blockState, relocateContext(context, findRoot));
         return IWrenchable.super.onWrenched(state, context);
     }
@@ -138,26 +152,26 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
     @Override
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         if (pOldState.getBlock() != this || pOldState.getValue(SHAPE) != pState.getValue(SHAPE))
-            GedecktBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
+            GenericWhistleBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
     }
 
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         if (pOldState.getBlock() != this || pOldState.getValue(SHAPE) != pState.getValue(SHAPE))
-            GedecktBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
+            GenericWhistleBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
     }
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-        return new ItemStack(AllBlocks.GEDECKT.get());
+        return new ItemStack(this.baseBlock.get());
     }
 
-    public enum GedecktExtensionShape implements StringRepresentable {
+    public enum GenericExtensionShape implements StringRepresentable {
         SINGLE("single"), DOUBLE("double"), DOUBLE_CONNECTED("double_connected");
 
         private final String name;
 
-        GedecktExtensionShape(String name) {
+        GenericExtensionShape(String name) {
             this.name = name;
         }
 

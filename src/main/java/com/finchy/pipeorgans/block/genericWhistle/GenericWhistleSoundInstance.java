@@ -11,16 +11,16 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_MEDIUM;
 import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_LOW;
 import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_DEEP;
 
-public class GedecktSoundInstance extends AbstractTickableSoundInstance {
+public class GenericWhistleSoundInstance extends AbstractTickableSoundInstance {
 
     private boolean active;
     private int keepAlive;
-    private GedecktBlock.WhistleSize size;
+    private GenericWhistleBlock.WhistleSize size;
 
-    public GedecktSoundInstance(GedecktBlock.WhistleSize size, BlockPos worldPosition) {
-        super((size == GedecktBlock.WhistleSize.SMALL ? GEDECKT_HIGH :
-                size == GedecktBlock.WhistleSize.MEDIUM ? GEDECKT_MEDIUM :
-                size == GedecktBlock.WhistleSize.LARGE ? GEDECKT_LOW : GEDECKT_DEEP).get(),
+    public GenericWhistleSoundInstance(GenericWhistleBlock.WhistleSize size, BlockPos worldPosition) {
+        super((size == GenericWhistleBlock.WhistleSize.SMALL ? GEDECKT_HIGH :
+                size == GenericWhistleBlock.WhistleSize.MEDIUM ? GEDECKT_MEDIUM :
+                size == GenericWhistleBlock.WhistleSize.LARGE ? GEDECKT_LOW : GEDECKT_DEEP).get(),
                 SoundSource.RECORDS,
                 SoundInstance.createUnseededRandom());
         this.size = size;
@@ -35,7 +35,7 @@ public class GedecktSoundInstance extends AbstractTickableSoundInstance {
         z = v.z;
     }
 
-    public GedecktBlock.WhistleSize getOctave() { return size; }
+    public GenericWhistleBlock.WhistleSize getOctave() { return size; }
 
     public void fadeOut() { this.active = false; }
 

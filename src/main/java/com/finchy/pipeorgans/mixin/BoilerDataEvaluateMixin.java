@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.mixin;
 
-import com.finchy.pipeorgans.block.genericWhistle.GedecktBlock;
+import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleBlock;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.fluids.tank.BoilerData;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
@@ -45,7 +45,7 @@ public class BoilerDataEvaluateMixin {
         for (Direction d : Iterate.directions) {
             BlockPos attachedPos = posGotten.relative(d);
             BlockState attachedState = levelGotten.getBlockState(attachedPos);
-            if (attachedState.getBlock() instanceof GedecktBlock) {
+            if (attachedState.getBlock() instanceof GenericWhistleBlock) {
                 this.attachedWhistles++;
             }
         }

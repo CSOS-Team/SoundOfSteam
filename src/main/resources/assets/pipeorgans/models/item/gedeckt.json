@@ -4,6 +4,7 @@
 	"textures": {
 		"0": "pipeorgans:block/copper_redstone_plate",
 		"2": "pipeorgans:block/engine",
+		"3": "pipeorgans:block/gedeckt_mouths",
 		"4": "pipeorgans:block/gedeckt",
 		"particle": "pipeorgans:block/copper_redstone_plate"
 	},
@@ -44,6 +45,15 @@
 				"south": {"uv": [2.5, 2.5, 5.5, 6.5], "texture": "#2"},
 				"west": {"uv": [2.5, 2.5, 5.5, 6.5], "texture": "#2"},
 				"up": {"uv": [7.5, 1, 10.5, 4], "texture": "#2"}
+			}
+		},
+		{
+			"from": [6, 4, 3.9],
+			"to": [10, 10, 3.9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4, 3.9]},
+			"faces": {
+				"north": {"uv": [11, 3, 13, 6], "texture": "#3"},
+				"south": {"uv": [11, 3, 13, 6], "texture": "#3"}
 			}
 		}
 	],
@@ -107,6 +117,12 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "g_medium_mouth",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [3]
 		}
 	]
 }

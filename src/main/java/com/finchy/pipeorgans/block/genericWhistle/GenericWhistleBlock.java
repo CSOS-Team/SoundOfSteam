@@ -10,6 +10,9 @@ import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
@@ -24,6 +27,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,16 +40,39 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class GedecktBlock extends Block implements IBE<GedecktBlockEntity>, IWrenchable {
+public class GenericWhistleBlock extends Block implements IBE<GenericWhistleBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final EnumProperty<WhistleSize> SIZE = EnumProperty.create("size", WhistleSize.class);
 
+    public RegistryObject<? extends GenericWhistleBlock> baseBlock;
+    public RegistryObject<? extends GenericWhistleExtensionBlock> extensionBlock;
+    public RegistryObject<BlockEntityType<GenericWhistleBlockEntity>> blockEntity;
+    public SoundEvent growSound;
+
+    public void setWhistleProperties() {
+        this.baseBlock = AllBlocks.GEDECKT;
+        this.extensionBlock = AllBlocks.GEDECKT_EXTENSION;
+        this.blockEntity = AllBlockEntities.GEDECKT_BLOCK_ENTITY;
+        this.growSound = SoundEvents.NOTE_BLOCK_IRON_XYLOPHONE.get();
+    }
+
+    // declare block and default blockstate
+    public GenericWhistleBlock(Properties pProperties) {
+        super(pProperties);
+        setWhistleProperties();
+        registerDefaultState(defaultBlockState()
+                .setValue(FACING, Direction.NORTH)
+                .setValue(POWERED, false)
+                .setValue(WALL, false)
+                .setValue(SIZE, WhistleSize.MEDIUM));
+    }
 
     // custom hitbox
     @Override
@@ -54,29 +81,19 @@ public class GedecktBlock extends Block implements IBE<GedecktBlockEntity>, IWre
         return Shapes.or(whistle,
                 !pState.getValue(WALL) ?
                         AllShapes.BASE_FLOOR : AllShapes.getBase(pState.getValue(FACING)));
-                        // if block is not on wall, add BASE_FLOOR, else add correct wall base for direction
-    }
-
-    // declare block and default blockstate
-    public GedecktBlock(Properties pProperties) {
-        super(pProperties);
-        registerDefaultState(defaultBlockState()
-                .setValue(FACING, Direction.NORTH)
-                .setValue(POWERED, false)
-                .setValue(WALL, false)
-                .setValue(SIZE, WhistleSize.MEDIUM));
+        // if block is not on wall, add BASE_FLOOR, else add correct wall base for direction
     }
 
     @Override
-    public Class<GedecktBlockEntity> getBlockEntityClass() { return GedecktBlockEntity.class; }
+    public Class<GenericWhistleBlockEntity> getBlockEntityClass() { return GenericWhistleBlockEntity.class; }
 
     @Override
-    public BlockEntityType<? extends GedecktBlockEntity> getBlockEntityType() { return AllBlockEntities.GEDECKT_BLOCK_ENTITY.get(); }
+    public BlockEntityType<? extends GenericWhistleBlockEntity> getBlockEntityType() { return this.blockEntity.get(); }
 
     // create GEDECKT_BLOCK_ENTITY at block coords upon block placement
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return AllBlockEntities.GEDECKT_BLOCK_ENTITY.get().create(pos, state);
+        return this.blockEntity.get().create(pos, state);
     }
 
     // define blockstate params
@@ -93,7 +110,7 @@ public class GedecktBlock extends Block implements IBE<GedecktBlockEntity>, IWre
                 return InteractionResult.PASS;
 
             ItemStack heldItem = pPlayer.getItemInHand(pHand);
-            if (heldItem.getItem() == AllBlocks.GEDECKT.get().asItem()) {
+            if (heldItem.getItem() == this.baseBlock.get().asItem()) {
                 incrementSize(pLevel, pPos);
                 return InteractionResult.SUCCESS;
             }
@@ -102,20 +119,32 @@ public class GedecktBlock extends Block implements IBE<GedecktBlockEntity>, IWre
     }
 
     // increase length of whistle
-    public static void incrementSize(LevelAccessor pLevel, BlockPos pPos) {
+    public void incrementSize(LevelAccessor pLevel, BlockPos pPos) {
         BlockState base = pLevel.getBlockState(pPos);
-        if (!base.hasProperty(SIZE)) {
+        if (!base.hasProperty(SIZE))
             return;
-        }
+
         WhistleSize size = base.getValue(SIZE);
+        SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pPos.above();
 
         for (int i = 1; i <= 6; i++) {
             BlockState blockState = pLevel.getBlockState(currentPos);
+            float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
+            SoundEvent growSound = this.growSound;
+            SoundEvent hitSound = soundtype.getHitSound();
 
-            if (blockState.getBlock() instanceof GedecktExtensionBlock) {
-                if (blockState.getValue(GedecktExtensionBlock.SHAPE) == GedecktExtensionBlock.GedecktExtensionShape.SINGLE) {
-                    pLevel.setBlock(currentPos, blockState.setValue(GedecktExtensionBlock.SHAPE, GedecktExtensionBlock.GedecktExtensionShape.DOUBLE), 3);
+            if (blockState.getBlock() instanceof GenericWhistleExtensionBlock) {
+                if (blockState.getValue(GenericWhistleExtensionBlock.SHAPE) == GenericWhistleExtensionBlock.GenericExtensionShape.SINGLE) {
+                    pLevel.setBlock(currentPos,
+                            blockState.setValue(GenericWhistleExtensionBlock.SHAPE, GenericWhistleExtensionBlock.GenericExtensionShape.DOUBLE), 3);
+
+                    if (soundtype != null) {
+                        float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);
+                        pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
+                        pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
+                    }
+
                     return;
                 }
                 currentPos = currentPos.above();
@@ -124,22 +153,27 @@ public class GedecktBlock extends Block implements IBE<GedecktBlockEntity>, IWre
             if (!blockState.canBeReplaced())
                 return;
 
-            pLevel.setBlock(currentPos, AllBlocks.GEDECKT_EXTENSION.get().defaultBlockState()
+            pLevel.setBlock(currentPos, this.extensionBlock.get().defaultBlockState()
                     .setValue(SIZE, size), 3);
+            if (soundtype != null) {
+                float pPitch = (float) Math.pow(2, -(i * 2 - 1) / 12.0);
+                pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
+                pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
+            }
             return;
         }
     }
 
     public static void queuePitchUpdate(LevelAccessor level, BlockPos pos) {
         BlockState blockState = level.getBlockState(pos);
-        if (blockState.getBlock() instanceof GedecktBlock whistle && !level.getBlockTicks()
+        if (blockState.getBlock() instanceof GenericWhistleBlock whistle && !level.getBlockTicks()
                 .hasScheduledTick(pos, whistle))
             level.scheduleTick(pos, whistle, 1);
     }
 
     @Override
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        withBlockEntityDo(pLevel, pPos, GedecktBlockEntity::updatePitch);
+        withBlockEntityDo(pLevel, pPos, GenericWhistleBlockEntity::updatePitch);
     }
 
     // check if placed on fluid tank
@@ -206,6 +240,8 @@ public class GedecktBlock extends Block implements IBE<GedecktBlockEntity>, IWre
     @Override
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
         FluidTankBlock.updateBoilerState(pState, pLevel, pPos.relative(getAttachedDirection(pState)));
+        if (pOldState.getBlock() != this || pOldState.getValue(SIZE) != pState.getValue(SIZE))
+            queuePitchUpdate(pLevel, pPos);
     }
 
     // on block broken
