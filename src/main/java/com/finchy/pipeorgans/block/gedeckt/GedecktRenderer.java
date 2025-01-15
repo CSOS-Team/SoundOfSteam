@@ -15,8 +15,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 
-// if you want to make your own whistle, don't extend from this class. simply copy it and modify as needed.
-
 public class GedecktRenderer extends SafeBlockEntityRenderer<GedecktBlockEntity> {
 
     public GedecktRenderer(BlockEntityRendererProvider.Context context) {}

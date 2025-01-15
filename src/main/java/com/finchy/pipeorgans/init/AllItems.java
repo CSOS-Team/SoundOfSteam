@@ -14,10 +14,6 @@ public class AllItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, PipeOrgans.MOD_ID);
 
 
-    public static final RegistryObject<Item> WHOOPS = ITEMS.register("whoops",
-            () -> new Item(new Item.Properties()));
-
-
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

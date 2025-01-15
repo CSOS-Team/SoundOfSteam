@@ -2,11 +2,11 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "pipeorgans:block/copper_redstone_plate",
-		"2": "pipeorgans:block/engine",
+		"0": "create:block/copper_redstone_plate",
+		"2": "create:block/engine",
 		"3": "pipeorgans:block/gedeckt_mouths",
 		"4": "pipeorgans:block/gedeckt",
-		"particle": "pipeorgans:block/copper_redstone_plate"
+		"particle": "create:block/copper_redstone_plate"
 	},
 	"elements": [
 		{

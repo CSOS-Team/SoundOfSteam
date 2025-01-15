@@ -9,8 +9,6 @@ import net.minecraft.world.phys.Vec3;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
-// if you want to make your own whistle, don't extend from this class. simply copy it and modify as needed.
-
 public class DiapasonSoundInstance extends AbstractTickableSoundInstance {
 
     private boolean active;

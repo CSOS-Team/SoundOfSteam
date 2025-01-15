@@ -12,8 +12,6 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_MEDIUM;
 import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_LOW;
 import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_DEEP;
 
-// if you want to make your own whistle, don't extend from this class. simply copy it and modify as needed.
-
 public class GedecktSoundInstance extends AbstractTickableSoundInstance {
 
     private boolean active;

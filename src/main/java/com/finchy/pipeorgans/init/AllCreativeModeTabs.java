@@ -15,12 +15,12 @@ public class AllCreativeModeTabs {
 
     public static final RegistryObject<CreativeModeTab> PIPE_ORGANS_BLOCKS = CREATIVE_MODE_TABS.register("pipe_organs_blocks",
             () -> CreativeModeTab.builder()
-                    .icon(() -> new ItemStack(AllItems.WHOOPS.get()))
+                    .icon(() -> new ItemStack(AllBlocks.DIAPASON.get()))
                     .title(Component.translatable("creativetab.pipe_organs_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
 
-                        output.accept(AllItems.WHOOPS.get());
                         output.accept(AllBlocks.GEDECKT.get());
+                        output.accept(AllBlocks.DIAPASON.get());
 
                     })
                     .build());

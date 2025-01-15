@@ -13,9 +13,9 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-
-// if you want to make your own whistle, don't extend from this class. simply copy it and modify as needed.
+import net.minecraft.world.phys.Vec3;
 
 public class DiapasonRenderer extends SafeBlockEntityRenderer<DiapasonBlockEntity> {
 
@@ -30,28 +30,21 @@ public class DiapasonRenderer extends SafeBlockEntityRenderer<DiapasonBlockEntit
         Direction direction = blockState.getValue(DiapasonBlock.FACING);
         Generic.WhistleSize size = blockState.getValue(DiapasonBlock.SIZE);
 
-        PartialModel mouth = size == Generic.WhistleSize.SMALL ? AllPartialModels.GEDECKT_MOUTH_SMALL :
-                size == Generic.WhistleSize.MEDIUM ? AllPartialModels.GEDECKT_MOUTH_MEDIUM :
-                        size == Generic.WhistleSize.LARGE ? AllPartialModels.GEDECKT_MOUTH_LARGE : AllPartialModels.GEDECKT_MOUTH_HUGE;
+        PartialModel mouth = size == Generic.WhistleSize.SMALL ? AllPartialModels.DIAPASON_MOUTH_SMALL :
+                size == Generic.WhistleSize.MEDIUM ? AllPartialModels.DIAPASON_MOUTH_MEDIUM :
+                        size == Generic.WhistleSize.LARGE ? AllPartialModels.DIAPASON_MOUTH_LARGE : AllPartialModels.DIAPASON_MOUTH_HUGE;
 
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
             float wiggleProgress = (AnimationTickHolder.getTicks(be.getLevel()) + partialTicks) /8f;
-            offset -= (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f);
+            offset -= (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 8f);
         }
 
         CachedBufferer.partial(mouth, blockState)
                 .centre()
                 .rotateY(AngleHelper.horizontalAngle(direction))
                 .unCentre()
-                .translateY((double) 4 /16)
-                .translateZ((double) switch (size) {
-                    case SMALL -> 5;
-                    case MEDIUM -> 4;
-                    case LARGE -> 3;
-                    case HUGE -> 2;
-                } /16)
-                .rotateX(-offset*16)
+                .translate(0, -offset / 16f, 0)
                 .light(light)
                 .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
 
