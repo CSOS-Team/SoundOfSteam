@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.mixin;
 
+import com.finchy.pipeorgans.block.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlock;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.fluids.tank.BoilerData;
@@ -8,6 +9,7 @@ import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -45,7 +47,8 @@ public class BoilerDataEvaluateMixin {
         for (Direction d : Iterate.directions) {
             BlockPos attachedPos = posGotten.relative(d);
             BlockState attachedState = levelGotten.getBlockState(attachedPos);
-            if (attachedState.getBlock() instanceof GedecktBlock) {
+            Block block = attachedState.getBlock();
+            if (block instanceof GedecktBlock || block instanceof DiapasonBlock) {
                 this.attachedWhistles++;
             }
         }

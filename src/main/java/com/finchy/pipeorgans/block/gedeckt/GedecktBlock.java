@@ -15,7 +15,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -41,7 +40,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -65,7 +63,7 @@ public class GedecktBlock extends Block implements IBE<GedecktBlockEntity>, IWre
     // custom hitbox
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        VoxelShape whistle = AllShapes.getWhistleBase(pState.getValue(SIZE)); // get base whistle shape (temporarily medium)
+        VoxelShape whistle = AllShapes.getGedecktBase(pState.getValue(SIZE)); // get base whistle shape (temporarily medium)
         return Shapes.or(whistle,
                 !pState.getValue(WALL) ?
                         AllShapes.BASE_FLOOR : AllShapes.getBase(pState.getValue(FACING)));
@@ -236,6 +234,7 @@ public class GedecktBlock extends Block implements IBE<GedecktBlockEntity>, IWre
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         FluidTankBlock.updateBoilerState(pState, pLevel, pPos.relative(getAttachedDirection(pState)));
+        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
     @Override

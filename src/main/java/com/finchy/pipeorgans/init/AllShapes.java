@@ -1,8 +1,6 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.block.Generic;
-import com.finchy.pipeorgans.block.gedeckt.GedecktBlock;
-import com.finchy.pipeorgans.block.gedeckt.GedecktExtensionBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -16,6 +14,71 @@ public class AllShapes {
 
     public static VoxelShape add(VoxelShape a, VoxelShape b) {
         return Shapes.join(a, b, BooleanOp.OR);
+    }
+
+    public static VoxelShape getBase(Direction face) {
+        return switch (face) {
+            case NORTH -> BASE_NORTH;
+            case EAST -> BASE_EAST;
+            case SOUTH -> BASE_SOUTH;
+            case WEST -> BASE_WEST;
+            case UP, DOWN -> null;
+        };
+
+    }
+
+    public static VoxelShape getGedecktBase(Generic.WhistleSize size) {
+        return switch (size) {
+            case SMALL -> GEDECKT_SMALL_BASE;
+            case MEDIUM -> GEDECKT_MEDIUM_BASE;
+            case LARGE -> GEDECKT_LARGE_BASE;
+            case HUGE -> GEDECKT_HUGE_BASE;
+        };
+    }
+
+    public static VoxelShape getGedecktExtensionShape(Generic.GenericExtensionShape shape, Generic.WhistleSize size) {
+        return switch (shape) {
+            case SINGLE -> switch (size) {
+                case SMALL -> GEDECKT_EXTENSION_SMALL_SINGLE;
+                case MEDIUM -> GEDECKT_EXTENSION_MEDIUM_SINGLE;
+                case LARGE -> GEDECKT_EXTENSION_LARGE_SINGLE;
+                case HUGE -> GEDECKT_EXTENSION_HUGE_SINGLE;
+            };
+            case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
+                case SMALL -> GEDECKT_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> GEDECKT_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> GEDECKT_EXTENSION_LARGE_DOUBLE;
+                case HUGE -> GEDECKT_EXTENSION_HUGE_DOUBLE;
+            };
+        };
+
+    }
+
+    public static VoxelShape getDiapasonBase(Generic.WhistleSize size) {
+        return switch (size) {
+            case SMALL -> GEDECKT_SMALL_BASE;
+            case MEDIUM -> GEDECKT_MEDIUM_BASE;
+            case LARGE -> GEDECKT_LARGE_BASE;
+            case HUGE -> GEDECKT_HUGE_BASE;
+        };
+    }
+
+    public static VoxelShape getDiapasonExtensionShape(Generic.GenericExtensionShape shape, Generic.WhistleSize size) {
+        return switch (shape) {
+            case SINGLE -> switch (size) {
+                case SMALL -> GEDECKT_EXTENSION_SMALL_SINGLE;
+                case MEDIUM -> GEDECKT_EXTENSION_MEDIUM_SINGLE;
+                case LARGE -> GEDECKT_EXTENSION_LARGE_SINGLE;
+                case HUGE -> GEDECKT_EXTENSION_HUGE_SINGLE;
+            };
+            case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
+                case SMALL -> GEDECKT_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> GEDECKT_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> GEDECKT_EXTENSION_LARGE_DOUBLE;
+                case HUGE -> GEDECKT_EXTENSION_HUGE_DOUBLE;
+            };
+        };
+
     }
 
     // GEDECKT
@@ -36,6 +99,8 @@ public class AllShapes {
 
     public static VoxelShape GEDECKT_EXTENSION_HUGE_SINGLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.5, 0.875);
     public static VoxelShape GEDECKT_EXTENSION_HUGE_DOUBLE = Shapes.box(0.125, 0, 0.125, 0.875, 1, 0.875);
+
+    // DIAPASON
 
 
 
@@ -63,45 +128,5 @@ public class AllShapes {
             Shapes.box(0, 0.0625, 0.0625, 0.1875, 0.9375, 0.9375),
             Shapes.box(0.1875, 0.1875, 0.3125, 0.6875, 0.5625, 0.6875)
     );
-
-    public static VoxelShape getWhistleBase(Generic.WhistleSize size) {
-        return switch (size) {
-            case SMALL -> GEDECKT_SMALL_BASE;
-            case MEDIUM -> GEDECKT_MEDIUM_BASE;
-            case LARGE -> GEDECKT_LARGE_BASE;
-            case HUGE -> GEDECKT_HUGE_BASE;
-        };
-    }
-    public static VoxelShape getBase(Direction face) {
-        return switch (face) {
-            case NORTH -> BASE_NORTH;
-            case EAST -> BASE_EAST;
-            case SOUTH -> BASE_SOUTH;
-            case WEST -> BASE_WEST;
-            case UP, DOWN -> null;
-        };
-
-    }
-
-    public static VoxelShape getGedecktExtensionShape(BlockState pBlockState) {
-
-        Generic.GenericExtensionShape blockShape = pBlockState.getValue(SHAPE);
-        Generic.WhistleSize blockSize = pBlockState.getValue(SIZE);
-
-        if (blockShape == Generic.GenericExtensionShape.SINGLE) {
-            if (blockSize == Generic.WhistleSize.SMALL) return GEDECKT_EXTENSION_SMALL_SINGLE;
-            if (blockSize == Generic.WhistleSize.MEDIUM) return GEDECKT_EXTENSION_MEDIUM_SINGLE;
-            if (blockSize == Generic.WhistleSize.LARGE) return GEDECKT_EXTENSION_LARGE_SINGLE;
-            if (blockSize == Generic.WhistleSize.HUGE) return GEDECKT_EXTENSION_HUGE_SINGLE;
-        }
-        if (blockShape == Generic.GenericExtensionShape.DOUBLE || blockShape == Generic.GenericExtensionShape.DOUBLE_CONNECTED) {
-            if (blockSize == Generic.WhistleSize.SMALL) return GEDECKT_EXTENSION_SMALL_DOUBLE;
-            if (blockSize == Generic.WhistleSize.MEDIUM) return GEDECKT_EXTENSION_MEDIUM_DOUBLE;
-            if (blockSize == Generic.WhistleSize.LARGE) return GEDECKT_EXTENSION_LARGE_DOUBLE;
-            if (blockSize == Generic.WhistleSize.HUGE) return GEDECKT_EXTENSION_HUGE_DOUBLE;
-
-        }
-        return Shapes.block();
-    }
 
 }

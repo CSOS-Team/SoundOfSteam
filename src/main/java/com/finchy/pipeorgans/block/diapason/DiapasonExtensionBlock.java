@@ -41,7 +41,7 @@ public class DiapasonExtensionBlock extends Block implements IWrenchable {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return AllShapes.getGedecktExtensionShape(pState);
+        return AllShapes.getDiapasonExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
     }
 
     @Override
@@ -129,8 +129,8 @@ public class DiapasonExtensionBlock extends Block implements IWrenchable {
         Level level = context.getLevel();
         BlockPos findRoot = findRoot(level, context.getClickedPos());
         BlockState blockState = level.getBlockState(findRoot);
-        if (blockState.getBlock()instanceof DiapasonBlock gedeckt)
-            return gedeckt.onWrenched(blockState, relocateContext(context, findRoot));
+        if (blockState.getBlock()instanceof DiapasonBlock whistle)
+            return whistle.onWrenched(blockState, relocateContext(context, findRoot));
         return IWrenchable.super.onWrenched(state, context);
     }
 
