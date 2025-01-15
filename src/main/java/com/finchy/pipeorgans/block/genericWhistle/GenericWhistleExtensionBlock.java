@@ -1,5 +1,7 @@
 package com.finchy.pipeorgans.block.genericWhistle;
 
+import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
+import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
@@ -18,6 +20,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -25,6 +28,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
@@ -33,8 +37,19 @@ public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
             EnumProperty.create("shape", GenericExtensionShape.class);
     public static final EnumProperty<GenericWhistleBlock.WhistleSize> SIZE = GenericWhistleBlock.SIZE;
 
+    public RegistryObject<? extends GenericWhistleBlock> baseBlock;
+    public RegistryObject<? extends GenericWhistleExtensionBlock> extensionBlock;
+    public RegistryObject<BlockEntityType<GedecktBlockEntity>> blockEntity;
+
+    public void setWhistleProperties() {
+        this.baseBlock = AllBlocks.GEDECKT;
+        this.extensionBlock = AllBlocks.GEDECKT_EXTENSION;
+        this.blockEntity = AllBlockEntities.GEDECKT_BLOCK_ENTITY;
+    }
+
     public GenericWhistleExtensionBlock(Properties pProperties) {
         super(pProperties);
+        setWhistleProperties();
         registerDefaultState(defaultBlockState()
                 .setValue(SHAPE, GenericExtensionShape.SINGLE)
                 .setValue(SIZE, GenericWhistleBlock.WhistleSize.MEDIUM));
@@ -78,7 +93,7 @@ public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
                 .getValue(SIZE));
     }
 
-    public BlockPos findRoot(LevelAccessor pLevel, BlockPos pPos) {
+    public static BlockPos findRoot(LevelAccessor pLevel, BlockPos pPos) {
         BlockPos currentPos = pPos.below();
         while (true) {
             BlockState blockState = pLevel.getBlockState(currentPos);
@@ -99,7 +114,7 @@ public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
         ItemStack heldItem = pPlayer.getItemInHand(pHand);
-        if (pPlayer == null || heldItem.getItem() != AllBlocks.GEDECKT.get().asItem()) {;
+        if (pPlayer == null || heldItem.getItem() != this.baseBlock.get().asItem()) {;
             return InteractionResult.PASS;
         }
         BlockPos rootFound = findRoot(pLevel, pPos);
@@ -149,7 +164,7 @@ public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-        return new ItemStack(AllBlocks.GEDECKT.get());
+        return new ItemStack(this.baseBlock.get());
     }
 
     public enum GenericExtensionShape implements StringRepresentable {

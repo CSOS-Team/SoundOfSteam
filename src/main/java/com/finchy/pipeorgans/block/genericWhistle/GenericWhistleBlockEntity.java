@@ -1,6 +1,8 @@
 package com.finchy.pipeorgans.block.genericWhistle;
 
+import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
@@ -16,11 +18,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -31,10 +35,22 @@ public class GenericWhistleBlockEntity extends SmartBlockEntity {
     public LerpedFloat animation;
     protected int pitch;
 
+    public RegistryObject<? extends GenericWhistleBlock> baseBlock;
+    public RegistryObject<? extends GenericWhistleExtensionBlock> extensionBlock;
+    public RegistryObject<BlockEntityType<GedecktBlockEntity>> blockEntity;
+
+    public void setWhistleProperties() {
+        this.baseBlock = AllBlocks.GEDECKT;
+        this.extensionBlock = AllBlocks.GEDECKT_EXTENSION;
+        this.blockEntity = AllBlockEntities.GEDECKT_BLOCK_ENTITY;
+    }
+
     public GenericWhistleBlockEntity(BlockPos pos, BlockState blockState) {
         super(AllBlockEntities.GEDECKT_BLOCK_ENTITY.get(), pos, blockState);
         source = new WeakReference<>(null);
         animation = LerpedFloat.angular();
+
+        setWhistleProperties();
     }
 
     @Override
