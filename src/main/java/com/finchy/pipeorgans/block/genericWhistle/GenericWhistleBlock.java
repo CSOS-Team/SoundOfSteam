@@ -1,9 +1,6 @@
 package com.finchy.pipeorgans.block.genericWhistle;
 
-import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
-import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
-import com.finchy.pipeorgans.init.AllBlocks;
 //import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
@@ -12,7 +9,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
@@ -41,7 +37,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,22 +47,9 @@ public class GenericWhistleBlock extends Block implements IBE<GenericWhistleBloc
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final EnumProperty<WhistleSize> SIZE = EnumProperty.create("size", WhistleSize.class);
 
-    public RegistryObject<? extends GenericWhistleBlock> baseBlock;
-    public RegistryObject<? extends GenericWhistleExtensionBlock> extensionBlock;
-    public RegistryObject<BlockEntityType<GedecktBlockEntity>> blockEntity;
-    public SoundEvent growSound;
-
-    public void setWhistleProperties() {
-        this.baseBlock = AllBlocks.GEDECKT;
-        this.extensionBlock = AllBlocks.GEDECKT_EXTENSION;
-        this.blockEntity = AllBlockEntities.GEDECKT_BLOCK_ENTITY;
-        this.growSound = SoundEvents.NOTE_BLOCK_IRON_XYLOPHONE.get();
-    }
-
     // declare block and default blockstate
     public GenericWhistleBlock(Properties pProperties) {
         super(pProperties);
-        setWhistleProperties();
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
@@ -86,7 +68,7 @@ public class GenericWhistleBlock extends Block implements IBE<GenericWhistleBloc
     }
 
     @Override
-    public Class<GenericWhistleBlockEntity> getBlockEntityClass() { return GenericWhistleBlockEntity.class; }
+    public Class getBlockEntityClass() { return GenericWhistleBlockEntity.class; }
 
     @Override
     public BlockEntityType<? extends GenericWhistleBlockEntity> getBlockEntityType() { return this.blockEntity.get(); }

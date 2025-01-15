@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.event;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.block.gedeckt.GedecktRenderer;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;

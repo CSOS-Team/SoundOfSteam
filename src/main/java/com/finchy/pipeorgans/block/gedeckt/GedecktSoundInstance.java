@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.block.gedeckt;
 
-import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleBlock;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
@@ -15,12 +14,12 @@ public class GedecktSoundInstance extends AbstractTickableSoundInstance {
 
     private boolean active;
     private int keepAlive;
-    private GenericWhistleBlock.WhistleSize size;
+    private GedecktBlock.WhistleSize size;
 
-    public GedecktSoundInstance(GenericWhistleBlock.WhistleSize size, BlockPos worldPosition) {
-        super((size == GenericWhistleBlock.WhistleSize.SMALL ? GEDECKT_HIGH :
-                size == GenericWhistleBlock.WhistleSize.MEDIUM ? GEDECKT_MEDIUM :
-                size == GenericWhistleBlock.WhistleSize.LARGE ? GEDECKT_LOW : GEDECKT_DEEP).get(),
+    public GedecktSoundInstance(GedecktBlock.WhistleSize size, BlockPos worldPosition) {
+        super((size == GedecktBlock.WhistleSize.SMALL ? GEDECKT_HIGH :
+                size == GedecktBlock.WhistleSize.MEDIUM ? GEDECKT_MEDIUM :
+                size == GedecktBlock.WhistleSize.LARGE ? GEDECKT_LOW : GEDECKT_DEEP).get(),
                 SoundSource.RECORDS,
                 SoundInstance.createUnseededRandom());
         this.size = size;
@@ -35,7 +34,7 @@ public class GedecktSoundInstance extends AbstractTickableSoundInstance {
         z = v.z;
     }
 
-    public GenericWhistleBlock.WhistleSize getOctave() { return size; }
+    public GedecktBlock.WhistleSize getOctave() { return size; }
 
     public void fadeOut() { this.active = false; }
 
