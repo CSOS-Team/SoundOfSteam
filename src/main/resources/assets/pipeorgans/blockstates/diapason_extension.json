@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "size=small,shape=single": { "model":  "pipeorgans:block/diapason/extension/d_small_single" },
+    "size=small,shape=double": { "model":  "pipeorgans:block/diapason/extension/d_small_double" },
+    "size=small,shape=double_connected": { "model":  "pipeorgans:block/diapason/extension/d_small_double_connected" },
+
+    "size=medium,shape=single": { "model":  "pipeorgans:block/diapason/extension/d_medium_single" },
+    "size=medium,shape=double": { "model":  "pipeorgans:block/diapason/extension/d_medium_double" },
+    "size=medium,shape=double_connected": { "model":  "pipeorgans:block/diapason/extension/d_medium_double_connected" },
+
+    "size=large,shape=single": { "model":  "pipeorgans:block/diapason/extension/d_large_single" },
+    "size=large,shape=double": { "model":  "pipeorgans:block/diapason/extension/d_large_double" },
+    "size=large,shape=double_connected": { "model":  "pipeorgans:block/diapason/extension/d_large_double_connected" },
+
+    "size=huge,shape=single": { "model":  "pipeorgans:block/diapason/extension/d_huge_single" },
+    "size=huge,shape=double": { "model":  "pipeorgans:block/diapason/extension/d_huge_double" },
+    "size=huge,shape=double_connected": { "model":  "pipeorgans:block/diapason/extension/d_huge_double_connected" }
+
+  }
+}

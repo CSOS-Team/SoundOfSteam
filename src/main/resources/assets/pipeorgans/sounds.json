@@ -5,7 +5,7 @@
       {
         "type": "file",
         "attenuation_distance_distance": 64,
-        "name": "pipeorgans:gedeckt_high"
+        "name": "pipeorgans:gedeckt/g_high"
       }
     ]
   },
@@ -16,7 +16,7 @@
       {
         "type": "file",
         "attenuation_distance_distance": 64,
-        "name": "pipeorgans:gedeckt_medium"
+        "name": "pipeorgans:gedeckt/g_medium"
       }
     ]
   },
@@ -27,7 +27,7 @@
       {
         "type": "file",
         "attenuation_distance_distance": 64,
-        "name": "pipeorgans:gedeckt_low"
+        "name": "pipeorgans:gedeckt/g_low"
       }
     ]
   },
@@ -38,7 +38,50 @@
       {
         "type": "file",
         "attenuation_distance_distance": 64,
-        "name": "pipeorgans:gedeckt_deep"
+        "name": "pipeorgans:gedeckt/g_deep"
+      }
+    ]
+  },
+  "diapason_high": {
+    "subtitle": "sounds.pipeorgans.diapason_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance_distance": 64,
+        "name": "pipeorgans:diapason/d_high"
+      }
+    ]
+  },
+
+  "diapason_medium": {
+    "subtitle": "sounds.pipeorgans.diapason_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance_distance": 64,
+        "name": "pipeorgans:diapason/d_medium"
+      }
+    ]
+  },
+
+  "diapason_low": {
+    "subtitle": "sounds.pipeorgans.diapason_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance_distance": 64,
+        "name": "pipeorgans:diapason/d_low"
+      }
+    ]
+  },
+
+  "diapason_deep": {
+    "subtitle": "sounds.pipeorgans.diapason_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance_distance": 64,
+        "name": "pipeorgans:diapason/d_deep"
       }
     ]
   }

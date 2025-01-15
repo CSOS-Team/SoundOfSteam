@@ -1,10 +1,9 @@
-package com.finchy.pipeorgans.block.genericWhistle;
+package com.finchy.pipeorgans.block.diapason;
 
-import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
+import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllBlockEntities;
-import com.finchy.pipeorgans.init.AllShapes;
 import com.finchy.pipeorgans.init.AllBlocks;
-//import com.simibubi.create.AllBlocks;
+import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.block.IBE;
@@ -15,7 +14,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -41,38 +39,24 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class GenericWhistleBlock extends Block implements IBE<GenericWhistleBlockEntity>, IWrenchable {
+public class DiapasonBlock extends Block implements IBE<DiapasonBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final EnumProperty<WhistleSize> SIZE = EnumProperty.create("size", WhistleSize.class);
-
-    public RegistryObject<? extends GenericWhistleBlock> baseBlock;
-    public RegistryObject<? extends GenericWhistleExtensionBlock> extensionBlock;
-    public RegistryObject<BlockEntityType<GedecktBlockEntity>> blockEntity;
-    public SoundEvent growSound;
-
-    public void setWhistleProperties() {
-        this.baseBlock = AllBlocks.GEDECKT;
-        this.extensionBlock = AllBlocks.GEDECKT_EXTENSION;
-        this.blockEntity = AllBlockEntities.GEDECKT_BLOCK_ENTITY;
-        this.growSound = SoundEvents.NOTE_BLOCK_IRON_XYLOPHONE.get();
-    }
+    public static final EnumProperty<Generic.WhistleSize> SIZE = EnumProperty.create("size", Generic.WhistleSize.class);
 
     // declare block and default blockstate
-    public GenericWhistleBlock(Properties pProperties) {
+    public DiapasonBlock(Properties pProperties) {
         super(pProperties);
-        setWhistleProperties();
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
-                .setValue(SIZE, WhistleSize.MEDIUM));
+                .setValue(SIZE, Generic.WhistleSize.MEDIUM));
     }
 
     // custom hitbox
@@ -86,15 +70,15 @@ public class GenericWhistleBlock extends Block implements IBE<GenericWhistleBloc
     }
 
     @Override
-    public Class<GenericWhistleBlockEntity> getBlockEntityClass() { return GenericWhistleBlockEntity.class; }
+    public Class<DiapasonBlockEntity> getBlockEntityClass() { return DiapasonBlockEntity.class; }
 
     @Override
-    public BlockEntityType<? extends GenericWhistleBlockEntity> getBlockEntityType() { return this.blockEntity.get(); }
+    public BlockEntityType<DiapasonBlockEntity> getBlockEntityType() { return AllBlockEntities.DIAPASON_BLOCK_ENTITY.get(); }
 
-    // create GEDECKT_BLOCK_ENTITY at block coords upon block placement
+    // create DIAPASON_BLOCK_ENTITY at block coords upon block placement
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return this.blockEntity.get().create(pos, state);
+        return AllBlockEntities.DIAPASON_BLOCK_ENTITY.get().create(pos, state);
     }
 
     // define blockstate params
@@ -111,7 +95,7 @@ public class GenericWhistleBlock extends Block implements IBE<GenericWhistleBloc
                 return InteractionResult.PASS;
 
             ItemStack heldItem = pPlayer.getItemInHand(pHand);
-            if (heldItem.getItem() == this.baseBlock.get().asItem()) {
+            if (heldItem.getItem() == AllBlocks.DIAPASON.get().asItem()) {
                 incrementSize(pLevel, pPos);
                 return InteractionResult.SUCCESS;
             }
@@ -125,20 +109,20 @@ public class GenericWhistleBlock extends Block implements IBE<GenericWhistleBloc
         if (!base.hasProperty(SIZE))
             return;
 
-        WhistleSize size = base.getValue(SIZE);
+        Generic.WhistleSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pPos.above();
 
         for (int i = 1; i <= 6; i++) {
             BlockState blockState = pLevel.getBlockState(currentPos);
             float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
-            SoundEvent growSound = this.growSound;
+            SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.get();
             SoundEvent hitSound = soundtype.getHitSound();
 
-            if (blockState.getBlock() instanceof GenericWhistleExtensionBlock) {
-                if (blockState.getValue(GenericWhistleExtensionBlock.SHAPE) == GenericWhistleExtensionBlock.GenericExtensionShape.SINGLE) {
+            if (blockState.getBlock() instanceof DiapasonExtensionBlock) {
+                if (blockState.getValue(DiapasonExtensionBlock.SHAPE) == Generic.GenericExtensionShape.SINGLE) {
                     pLevel.setBlock(currentPos,
-                            blockState.setValue(GenericWhistleExtensionBlock.SHAPE, GenericWhistleExtensionBlock.GenericExtensionShape.DOUBLE), 3);
+                            blockState.setValue(DiapasonExtensionBlock.SHAPE, Generic.GenericExtensionShape.DOUBLE), 3);
 
                     if (soundtype != null) {
                         float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);
@@ -154,7 +138,7 @@ public class GenericWhistleBlock extends Block implements IBE<GenericWhistleBloc
             if (!blockState.canBeReplaced())
                 return;
 
-            pLevel.setBlock(currentPos, this.extensionBlock.get().defaultBlockState()
+            pLevel.setBlock(currentPos, AllBlocks.DIAPASON_EXTENSION.get().defaultBlockState()
                     .setValue(SIZE, size), 3);
             if (soundtype != null) {
                 float pPitch = (float) Math.pow(2, -(i * 2 - 1) / 12.0);
@@ -167,14 +151,14 @@ public class GenericWhistleBlock extends Block implements IBE<GenericWhistleBloc
 
     public static void queuePitchUpdate(LevelAccessor level, BlockPos pos) {
         BlockState blockState = level.getBlockState(pos);
-        if (blockState.getBlock() instanceof GenericWhistleBlock whistle && !level.getBlockTicks()
+        if (blockState.getBlock() instanceof DiapasonBlock whistle && !level.getBlockTicks()
                 .hasScheduledTick(pos, whistle))
             level.scheduleTick(pos, whistle, 1);
     }
 
     @Override
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        withBlockEntityDo(pLevel, pPos, GenericWhistleBlockEntity::updatePitch);
+        withBlockEntityDo(pLevel, pPos, DiapasonBlockEntity::updatePitch);
     }
 
     // check if placed on fluid tank
@@ -256,18 +240,4 @@ public class GenericWhistleBlock extends Block implements IBE<GenericWhistleBloc
         return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING))); // don't rotate at all
     }
 
-    public enum WhistleSize implements StringRepresentable {
-        SMALL("small"), MEDIUM("medium"), LARGE("large"), HUGE("huge");
-
-        private final String name;
-
-        WhistleSize(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public @NotNull String getSerializedName() {
-            return this.name;
-        }
-    }
 }

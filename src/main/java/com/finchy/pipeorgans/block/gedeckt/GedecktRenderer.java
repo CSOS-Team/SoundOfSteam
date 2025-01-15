@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.block.gedeckt;
 
-import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleBlock;
-import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleBlockEntity;
+import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.jozufozu.flywheel.core.PartialModel;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -16,6 +15,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 
+// if you want to make your own whistle, don't extend from this class. simply copy it and modify as needed.
+
 public class GedecktRenderer extends SafeBlockEntityRenderer<GedecktBlockEntity> {
 
     public GedecktRenderer(BlockEntityRendererProvider.Context context) {}
@@ -23,15 +24,15 @@ public class GedecktRenderer extends SafeBlockEntityRenderer<GedecktBlockEntity>
     @Override
     protected void renderSafe(GedecktBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
         BlockState blockState = be.getBlockState();
-        if (!(blockState.getBlock() instanceof GenericWhistleBlock))
+        if (!(blockState.getBlock() instanceof GedecktBlock))
             return;
 
-        Direction direction = blockState.getValue(GenericWhistleBlock.FACING);
-        GenericWhistleBlock.WhistleSize size = blockState.getValue(GenericWhistleBlock.SIZE);
+        Direction direction = blockState.getValue(GedecktBlock.FACING);
+        Generic.WhistleSize size = blockState.getValue(GedecktBlock.SIZE);
 
-        PartialModel mouth = size == GenericWhistleBlock.WhistleSize.SMALL ? AllPartialModels.GEDECKT_MOUTH_SMALL :
-                size == GenericWhistleBlock.WhistleSize.MEDIUM ? AllPartialModels.GEDECKT_MOUTH_MEDIUM :
-                        size == GenericWhistleBlock.WhistleSize.LARGE ? AllPartialModels.GEDECKT_MOUTH_LARGE : AllPartialModels.GEDECKT_MOUTH_HUGE;
+        PartialModel mouth = size == Generic.WhistleSize.SMALL ? AllPartialModels.GEDECKT_MOUTH_SMALL :
+                size == Generic.WhistleSize.MEDIUM ? AllPartialModels.GEDECKT_MOUTH_MEDIUM :
+                        size == Generic.WhistleSize.LARGE ? AllPartialModels.GEDECKT_MOUTH_LARGE : AllPartialModels.GEDECKT_MOUTH_HUGE;
 
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {

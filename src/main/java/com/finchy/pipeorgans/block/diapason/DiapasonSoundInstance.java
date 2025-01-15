@@ -1,28 +1,26 @@
-package com.finchy.pipeorgans.block.genericWhistle;
+package com.finchy.pipeorgans.block.diapason;
 
+import com.finchy.pipeorgans.block.Generic;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.Vec3;
 
-import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_HIGH;
-import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_MEDIUM;
-import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_LOW;
-import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_DEEP;
+import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 // if you want to make your own whistle, don't extend from this class. simply copy it and modify as needed.
 
-public class GenericWhistleSoundInstance extends AbstractTickableSoundInstance {
+public class DiapasonSoundInstance extends AbstractTickableSoundInstance {
 
     private boolean active;
     private int keepAlive;
-    private GenericWhistleBlock.WhistleSize size;
+    private Generic.WhistleSize size;
 
-    public GenericWhistleSoundInstance(GenericWhistleBlock.WhistleSize size, BlockPos worldPosition) {
-        super((size == GenericWhistleBlock.WhistleSize.SMALL ? GEDECKT_HIGH :
-                size == GenericWhistleBlock.WhistleSize.MEDIUM ? GEDECKT_MEDIUM :
-                size == GenericWhistleBlock.WhistleSize.LARGE ? GEDECKT_LOW : GEDECKT_DEEP).get(),
+    public DiapasonSoundInstance(Generic.WhistleSize size, BlockPos worldPosition) {
+        super((size == Generic.WhistleSize.SMALL ? GEDECKT_HIGH :
+                size == Generic.WhistleSize.MEDIUM ? GEDECKT_MEDIUM :
+                size == Generic.WhistleSize.LARGE ? GEDECKT_LOW : GEDECKT_DEEP).get(),
                 SoundSource.RECORDS,
                 SoundInstance.createUnseededRandom());
         this.size = size;
@@ -37,7 +35,7 @@ public class GenericWhistleSoundInstance extends AbstractTickableSoundInstance {
         z = v.z;
     }
 
-    public GenericWhistleBlock.WhistleSize getOctave() { return size; }
+    public Generic.WhistleSize getOctave() { return size; }
 
     public void fadeOut() { this.active = false; }
 

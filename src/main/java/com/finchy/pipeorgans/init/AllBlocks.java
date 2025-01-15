@@ -1,10 +1,10 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.block.diapason.DiapasonBlock;
+import com.finchy.pipeorgans.block.diapason.DiapasonExtensionBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktExtensionBlock;
-import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleBlock;
-import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleExtensionBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -30,6 +30,12 @@ public class AllBlocks {
 
     public static final RegistryObject<GedecktExtensionBlock> GEDECKT_EXTENSION = registerBlockWithoutItem("gedeckt_extension",
             () -> new GedecktExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+
+    public static final RegistryObject<DiapasonBlock> DIAPASON = registerBlock("diapason",
+            () -> new DiapasonBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+
+    public static final RegistryObject<DiapasonExtensionBlock> DIAPASON_EXTENSION = registerBlockWithoutItem("diapason_extension",
+            () -> new DiapasonExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
 
 

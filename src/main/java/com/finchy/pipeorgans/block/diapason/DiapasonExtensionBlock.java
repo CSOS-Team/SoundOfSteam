@@ -1,14 +1,12 @@
-package com.finchy.pipeorgans.block.genericWhistle;
+package com.finchy.pipeorgans.block.diapason;
 
-import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
-import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -20,7 +18,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -28,31 +25,18 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.NotNull;
 
-public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
+public class DiapasonExtensionBlock extends Block implements IWrenchable {
 
-    public static final EnumProperty<GenericExtensionShape> SHAPE =
-            EnumProperty.create("shape", GenericExtensionShape.class);
-    public static final EnumProperty<GenericWhistleBlock.WhistleSize> SIZE = GenericWhistleBlock.SIZE;
+    public static final EnumProperty<Generic.GenericExtensionShape> SHAPE =
+            EnumProperty.create("shape", Generic.GenericExtensionShape.class);
+    public static final EnumProperty<Generic.WhistleSize> SIZE = DiapasonBlock.SIZE;
 
-    public RegistryObject<? extends GenericWhistleBlock> baseBlock;
-    public RegistryObject<? extends GenericWhistleExtensionBlock> extensionBlock;
-    public RegistryObject<BlockEntityType<GedecktBlockEntity>> blockEntity;
-
-    public void setWhistleProperties() {
-        this.baseBlock = AllBlocks.GEDECKT;
-        this.extensionBlock = AllBlocks.GEDECKT_EXTENSION;
-        this.blockEntity = AllBlockEntities.GEDECKT_BLOCK_ENTITY;
-    }
-
-    public GenericWhistleExtensionBlock(Properties pProperties) {
+    public DiapasonExtensionBlock(Properties pProperties) {
         super(pProperties);
-        setWhistleProperties();
         registerDefaultState(defaultBlockState()
-                .setValue(SHAPE, GenericExtensionShape.SINGLE)
-                .setValue(SIZE, GenericWhistleBlock.WhistleSize.MEDIUM));
+                .setValue(SHAPE, Generic.GenericExtensionShape.SINGLE)
+                .setValue(SIZE, Generic.WhistleSize.MEDIUM));
     }
 
     @Override
@@ -68,8 +52,8 @@ public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState below = pLevel.getBlockState(pPos.below());
-        return below.is(this) && below.getValue(SHAPE) != GenericExtensionShape.SINGLE
-                || below.getBlock() instanceof GenericWhistleBlock;
+        return below.is(this) && below.getValue(SHAPE) != Generic.GenericExtensionShape.SINGLE
+                || below.getBlock() instanceof DiapasonBlock;
     }
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
@@ -78,13 +62,13 @@ public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
             return pState;
 
         if (pFacing == Direction.UP) {
-            boolean connected = pState.getValue(SHAPE) == GenericExtensionShape.DOUBLE_CONNECTED;
+            boolean connected = pState.getValue(SHAPE) == Generic.GenericExtensionShape.DOUBLE_CONNECTED;
             boolean shouldConnect = pLevel.getBlockState(pCurrentPos.above())
                     .is(this);
             if (!connected && shouldConnect)
-                return pState.setValue(SHAPE, GenericExtensionShape.DOUBLE_CONNECTED);
+                return pState.setValue(SHAPE, Generic.GenericExtensionShape.DOUBLE_CONNECTED);
             if (connected && !shouldConnect)
-                return pState.setValue(SHAPE, GenericExtensionShape.DOUBLE);
+                return pState.setValue(SHAPE, Generic.GenericExtensionShape.DOUBLE);
             return pState;
         }
 
@@ -97,7 +81,7 @@ public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
         BlockPos currentPos = pPos.below();
         while (true) {
             BlockState blockState = pLevel.getBlockState(currentPos);
-            if (blockState.getBlock() instanceof GenericWhistleExtensionBlock) {
+            if (blockState.getBlock() instanceof DiapasonExtensionBlock) {
                 currentPos = currentPos.below();
                 continue;
             }
@@ -114,13 +98,13 @@ public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
         ItemStack heldItem = pPlayer.getItemInHand(pHand);
-        if (pPlayer == null || heldItem.getItem() != this.baseBlock.get().asItem()) {;
+        if (pPlayer == null || heldItem.getItem() != AllBlocks.DIAPASON.get().asItem()) {;
             return InteractionResult.PASS;
         }
         BlockPos rootFound = findRoot(pLevel, pPos);
         BlockState blockState = pLevel.getBlockState(rootFound);
-        if (blockState.getBlock() instanceof GenericWhistleBlock gedeckt)
-            return gedeckt.use(blockState, pLevel, rootFound, pPlayer, pHand,
+        if (blockState.getBlock() instanceof DiapasonBlock diapason)
+            return diapason.use(blockState, pLevel, rootFound, pPlayer, pHand,
                     new BlockHitResult(pHit.getLocation(), pHit.getDirection(), rootFound, pHit.isInside()));
         return InteractionResult.PASS;
     }
@@ -131,11 +115,11 @@ public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
         BlockPos pos = context.getClickedPos();
 
         if (context.getClickLocation().y < context.getClickedPos()
-                .getY() + .5f || state.getValue(SHAPE) == GenericExtensionShape.SINGLE)
+                .getY() + .5f || state.getValue(SHAPE) == Generic.GenericExtensionShape.SINGLE)
             return IWrenchable.super.onSneakWrenched(state, context);
         if (!(world instanceof ServerLevel))
             return InteractionResult.SUCCESS;
-        world.setBlock(pos, state.setValue(SHAPE, GenericExtensionShape.SINGLE), 3);
+        world.setBlock(pos, state.setValue(SHAPE, Generic.GenericExtensionShape.SINGLE), 3);
         playRemoveSound(world, pos);
         return InteractionResult.SUCCESS;
     }
@@ -145,7 +129,7 @@ public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
         Level level = context.getLevel();
         BlockPos findRoot = findRoot(level, context.getClickedPos());
         BlockState blockState = level.getBlockState(findRoot);
-        if (blockState.getBlock()instanceof GenericWhistleBlock gedeckt)
+        if (blockState.getBlock()instanceof DiapasonBlock gedeckt)
             return gedeckt.onWrenched(blockState, relocateContext(context, findRoot));
         return IWrenchable.super.onWrenched(state, context);
     }
@@ -153,33 +137,18 @@ public class GenericWhistleExtensionBlock extends Block implements IWrenchable {
     @Override
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         if (pOldState.getBlock() != this || pOldState.getValue(SHAPE) != pState.getValue(SHAPE))
-            GenericWhistleBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
+            DiapasonBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
     }
 
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         if (pOldState.getBlock() != this || pOldState.getValue(SHAPE) != pState.getValue(SHAPE))
-            GenericWhistleBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
+            DiapasonBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
     }
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-        return new ItemStack(this.baseBlock.get());
-    }
-
-    public enum GenericExtensionShape implements StringRepresentable {
-        SINGLE("single"), DOUBLE("double"), DOUBLE_CONNECTED("double_connected");
-
-        private final String name;
-
-        GenericExtensionShape(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public @NotNull String getSerializedName() {
-            return this.name;
-        }
+        return new ItemStack(AllBlocks.DIAPASON.get());
     }
 
 }

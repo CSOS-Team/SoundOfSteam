@@ -1,8 +1,7 @@
-package com.finchy.pipeorgans.block.genericWhistle;
+package com.finchy.pipeorgans.block.diapason;
 
-import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
+import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllBlockEntities;
-import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
@@ -29,28 +28,20 @@ import net.minecraftforge.registries.RegistryObject;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class GenericWhistleBlockEntity extends SmartBlockEntity {
+public class DiapasonBlockEntity extends SmartBlockEntity {
 
     public WeakReference<FluidTankBlockEntity> source;
     public LerpedFloat animation;
     protected int pitch;
 
-    public RegistryObject<? extends GenericWhistleBlock> baseBlock;
-    public RegistryObject<? extends GenericWhistleExtensionBlock> extensionBlock;
-    public RegistryObject<BlockEntityType<GedecktBlockEntity>> blockEntity;
+    public RegistryObject<? extends DiapasonBlock> baseBlock;
+    public RegistryObject<? extends DiapasonExtensionBlock> extensionBlock;
+    public RegistryObject<BlockEntityType<DiapasonBlockEntity>> blockEntity;
 
-    public void setWhistleProperties() {
-        this.baseBlock = AllBlocks.GEDECKT;
-        this.extensionBlock = AllBlocks.GEDECKT_EXTENSION;
-        this.blockEntity = AllBlockEntities.GEDECKT_BLOCK_ENTITY;
-    }
-
-    public GenericWhistleBlockEntity(BlockPos pos, BlockState blockState) {
-        super(AllBlockEntities.GEDECKT_BLOCK_ENTITY.get(), pos, blockState);
+    public DiapasonBlockEntity(BlockPos pos, BlockState blockState) {
+        super(AllBlockEntities.DIAPASON_BLOCK_ENTITY.get(), pos, blockState);
         source = new WeakReference<>(null);
         animation = LerpedFloat.angular();
-
-        setWhistleProperties();
     }
 
     @Override
@@ -71,13 +62,13 @@ public class GenericWhistleBlockEntity extends SmartBlockEntity {
     }
 
     protected boolean isPowered() {
-        return getBlockState().getOptionalValue(GenericWhistleBlock.POWERED)
+        return getBlockState().getOptionalValue(DiapasonBlock.POWERED)
                 .orElse(false);
     }
 
-    protected GenericWhistleBlock.WhistleSize getOctave() {
-        return getBlockState().getOptionalValue(GenericWhistleBlock.SIZE)
-                .orElse(GenericWhistleBlock.WhistleSize.MEDIUM);
+    protected Generic.WhistleSize getOctave() {
+        return getBlockState().getOptionalValue(DiapasonBlock.SIZE)
+                .orElse(Generic.WhistleSize.MEDIUM);
     }
 
     @Override
@@ -99,10 +90,10 @@ public class GenericWhistleBlockEntity extends SmartBlockEntity {
     }
 
     @OnlyIn(Dist.CLIENT)
-    protected GenericWhistleSoundInstance soundInstance;
+    protected DiapasonSoundInstance soundInstance;
 
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(GenericWhistleBlock.WhistleSize size, boolean powered) {
+    protected void tickAudio(Generic.WhistleSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
@@ -119,7 +110,7 @@ public class GenericWhistleBlockEntity extends SmartBlockEntity {
         if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
             Minecraft.getInstance()
                     .getSoundManager()
-                    .play(soundInstance = new GenericWhistleSoundInstance(size, worldPosition));
+                    .play(soundInstance = new DiapasonSoundInstance(size, worldPosition));
             /*
             AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .175f,
                     size == GedecktBlock.WhistleSize.SMALL ? f + .75f : f, false);
@@ -151,9 +142,9 @@ public class GenericWhistleBlockEntity extends SmartBlockEntity {
         int newPitch;
         for (newPitch = 0; newPitch <= 24; newPitch += 2) {
             BlockState blockState = level.getBlockState(currentPos);
-            if (!(blockState.getBlock() instanceof GenericWhistleExtensionBlock))
+            if (!(blockState.getBlock() instanceof DiapasonExtensionBlock))
                 break;
-            if (blockState.getValue(GenericWhistleExtensionBlock.SHAPE) == GenericWhistleExtensionBlock.GenericExtensionShape.SINGLE) {
+            if (blockState.getValue(DiapasonExtensionBlock.SHAPE) == Generic.GenericExtensionShape.SINGLE) {
                 newPitch++;
                 break;
             }

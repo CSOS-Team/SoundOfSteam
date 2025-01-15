@@ -1,41 +1,99 @@
 package com.finchy.pipeorgans.block.gedeckt;
 
-import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleBlock;
-import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleBlockEntity;
-import com.finchy.pipeorgans.block.genericWhistle.GenericWhistleSoundInstance;
+import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllBlockEntities;
-import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
+import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
+import com.simibubi.create.foundation.advancement.AllAdvancements;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.VecHelper;
+import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.registries.RegistryObject;
 
-public class GedecktBlockEntity extends GenericWhistleBlockEntity {
+import java.lang.ref.WeakReference;
+import java.util.List;
 
-    @Override
-    public void setWhistleProperties() {
-        this.baseBlock = AllBlocks.GEDECKT;
-        this.extensionBlock = AllBlocks.GEDECKT_EXTENSION;
-        this.blockEntity = AllBlockEntities.GEDECKT_BLOCK_ENTITY;
-    }
+public class GedecktBlockEntity extends SmartBlockEntity {
+
+    public WeakReference<FluidTankBlockEntity> source;
+    public LerpedFloat animation;
+    protected int pitch;
+
+    public RegistryObject<? extends GedecktBlock> baseBlock;
+    public RegistryObject<? extends GedecktExtensionBlock> extensionBlock;
+    public RegistryObject<BlockEntityType<GedecktBlockEntity>> blockEntity;
 
     public GedecktBlockEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState);
+        super(AllBlockEntities.GEDECKT_BLOCK_ENTITY.get(), pos, blockState);
+        source = new WeakReference<>(null);
+        animation = LerpedFloat.angular();
+    }
+
+    @Override
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+
+    }
+
+    @Override
+    protected void write(CompoundTag tag, boolean clientPacket) {
+        tag.putInt("Pitch", pitch);
+        super.write(tag, clientPacket);
+    }
+
+    @Override
+    protected void read(CompoundTag tag, boolean clientPacket) {
+        pitch = tag.getInt("Pitch");
+        super.read(tag, clientPacket);
+    }
+
+    protected boolean isPowered() {
+        return getBlockState().getOptionalValue(GedecktBlock.POWERED)
+                .orElse(false);
+    }
+
+    protected Generic.WhistleSize getOctave() {
+        return getBlockState().getOptionalValue(GedecktBlock.SIZE)
+                .orElse(Generic.WhistleSize.MEDIUM);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!level.isClientSide()) {
+            if (isPowered())
+                award(AllAdvancements.STEAM_WHISTLE);
+            return;
+        }
+
+        FluidTankBlockEntity tank = getTank();
+        boolean powered = isPowered()
+                && (tank != null && tank.boiler.isActive() && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0)
+                || isVirtual());
+        animation.chase(powered ? 1 : 0, powered ? .5f : .4f, powered ? LerpedFloat.Chaser.EXP : LerpedFloat.Chaser.LINEAR);
+        animation.tickChaser();
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> this.tickAudio(getOctave(), powered));
     }
 
     @OnlyIn(Dist.CLIENT)
     protected GedecktSoundInstance soundInstance;
 
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(GenericWhistleBlock.WhistleSize size, boolean powered) {
+    protected void tickAudio(Generic.WhistleSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
@@ -77,5 +135,44 @@ public class GedecktBlockEntity extends GenericWhistleBlockEntity {
         Vec3 m = offset.subtract(Vec3.atLowerCornerOf(facing.getNormal())
                 .scale(.75f));
         level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
+    }
+
+    public void updatePitch() {
+        BlockPos currentPos = worldPosition.above();
+        int newPitch;
+        for (newPitch = 0; newPitch <= 24; newPitch += 2) {
+            BlockState blockState = level.getBlockState(currentPos);
+            if (!(blockState.getBlock() instanceof GedecktExtensionBlock))
+                break;
+            if (blockState.getValue(GedecktExtensionBlock.SHAPE) == Generic.GenericExtensionShape.SINGLE) {
+                newPitch++;
+                break;
+            }
+            currentPos = currentPos.above();
+        }
+        if (pitch == newPitch)
+            return;
+        pitch = newPitch;
+
+        notifyUpdate();
+
+        FluidTankBlockEntity tank = getTank();
+        if (tank != null && tank.boiler != null)
+            tank.boiler.checkPipeOrganAdvancement(tank);
+    }
+
+    public FluidTankBlockEntity getTank() {
+        FluidTankBlockEntity tank = source.get();
+        if (tank == null || tank.isRemoved()) {
+            if (tank != null)
+                source = new WeakReference<>(null);
+            Direction facing = WhistleBlock.getAttachedDirection(getBlockState());
+            BlockEntity be = level.getBlockEntity(worldPosition.relative(facing));
+            if (be instanceof FluidTankBlockEntity tankBe)
+                source = new WeakReference<>(tank = tankBe);
+        }
+        if (tank == null)
+            return null;
+        return tank.getControllerBE();
     }
 }
