@@ -26,10 +26,10 @@ public class AllBlocks {
     // declare blocks here
 
     public static final RegistryObject<GedecktBlock> GEDECKT = registerBlock("gedeckt",
-            () -> new GedecktBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+            () -> new GedecktBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 
     public static final RegistryObject<GedecktExtensionBlock> GEDECKT_EXTENSION = registerBlockWithoutItem("gedeckt_extension",
-            () -> new GedecktExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+            () -> new GedecktExtensionBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 
     public static final RegistryObject<DiapasonBlock> DIAPASON = registerBlock("diapason",
             () -> new DiapasonBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));

@@ -23,6 +23,7 @@ public class DiapasonRenderer extends SafeBlockEntityRenderer<DiapasonBlockEntit
 
     @Override
     protected void renderSafe(DiapasonBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
+
         BlockState blockState = be.getBlockState();
         if (!(blockState.getBlock() instanceof DiapasonBlock))
             return;

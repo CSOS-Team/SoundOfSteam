@@ -48,7 +48,8 @@ public class BoilerDataEvaluateMixin {
             BlockPos attachedPos = posGotten.relative(d);
             BlockState attachedState = levelGotten.getBlockState(attachedPos);
             Block block = attachedState.getBlock();
-            if (block instanceof GedecktBlock || block instanceof DiapasonBlock) {
+            if ((block instanceof GedecktBlock || block instanceof DiapasonBlock)
+                    && GedecktBlock.getAttachedDirection(attachedState).getOpposite() == d) {
                 this.attachedWhistles++;
             }
         }

@@ -3,18 +3,21 @@ package com.finchy.pipeorgans.block.diapason;
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
+import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.AngleHelper;
+import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.VecHelper;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -28,7 +31,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class DiapasonBlockEntity extends SmartBlockEntity {
+public class DiapasonBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
     public WeakReference<FluidTankBlockEntity> source;
     public LerpedFloat animation;
@@ -59,6 +62,15 @@ public class DiapasonBlockEntity extends SmartBlockEntity {
     protected void read(CompoundTag tag, boolean clientPacket) {
         pitch = tag.getInt("Pitch");
         super.read(tag, clientPacket);
+    }
+
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        String[] pitches = Lang.translateDirect("generic.notes")
+                .getString()
+                .split(";");
+        Lang.translate("generic.pitch", pitches[pitch % pitches.length]).forGoggles(tooltip);
+        return true;
     }
 
     protected boolean isPowered() {
