@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.block.gedeckt;
 
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
@@ -36,10 +37,6 @@ public class GedecktBlockEntity extends SmartBlockEntity implements IHaveGoggleI
     public WeakReference<FluidTankBlockEntity> source;
     public LerpedFloat animation;
     protected int pitch;
-
-    public RegistryObject<? extends GedecktBlock> baseBlock;
-    public RegistryObject<? extends GedecktExtensionBlock> extensionBlock;
-    public RegistryObject<BlockEntityType<GedecktBlockEntity>> blockEntity;
 
     public GedecktBlockEntity(BlockPos pos, BlockState blockState) {
         super(AllBlockEntities.GEDECKT_BLOCK_ENTITY.get(), pos, blockState);
@@ -123,10 +120,10 @@ public class GedecktBlockEntity extends SmartBlockEntity implements IHaveGoggleI
             Minecraft.getInstance()
                     .getSoundManager()
                     .play(soundInstance = new GedecktSoundInstance(size, worldPosition));
-            /*
+
             AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .175f,
-                    size == GedecktBlock.WhistleSize.SMALL ? f + .75f : f, false);
-             */
+                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
+
             particle = true;
         }
 

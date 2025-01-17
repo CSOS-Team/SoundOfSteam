@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.block.diapason;
 
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
@@ -36,10 +37,6 @@ public class DiapasonBlockEntity extends SmartBlockEntity implements IHaveGoggle
     public WeakReference<FluidTankBlockEntity> source;
     public LerpedFloat animation;
     protected int pitch;
-
-    public RegistryObject<? extends DiapasonBlock> baseBlock;
-    public RegistryObject<? extends DiapasonExtensionBlock> extensionBlock;
-    public RegistryObject<BlockEntityType<DiapasonBlockEntity>> blockEntity;
 
     public DiapasonBlockEntity(BlockPos pos, BlockState blockState) {
         super(AllBlockEntities.DIAPASON_BLOCK_ENTITY.get(), pos, blockState);
@@ -123,10 +120,10 @@ public class DiapasonBlockEntity extends SmartBlockEntity implements IHaveGoggle
             Minecraft.getInstance()
                     .getSoundManager()
                     .play(soundInstance = new DiapasonSoundInstance(size, worldPosition));
-            /*
-            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .175f,
-                    size == GedecktBlock.WhistleSize.SMALL ? f + .75f : f, false);
-             */
+
+            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
+                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
+
             particle = true;
         }
 

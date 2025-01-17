@@ -159,8 +159,8 @@ dependencies {
 
 mixin {
     // MixinGradle settings
-    add sourceSets.main, "mixins.pipeorgans.refmap.json"
-    config "mixins.pipeorgans.json"
+    add sourceSets.main, "pipeorgans.refmap.json"
+    config "pipeorgans.mixins.json"
 
     debug.verbose = false
     debug.export = false

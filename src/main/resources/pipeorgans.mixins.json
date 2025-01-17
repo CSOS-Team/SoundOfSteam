@@ -2,7 +2,7 @@
   "required": true,
   "compatibilityLevel": "JAVA_17",
   "package": "com.finchy.pipeorgans.mixin",
-  "refmap": "pipeorgans.mixin-refmap.json",
+  "refmap": "pipeorgans.refmap.json",
   "injectors": {
     "defaultRequire": 1
   },
