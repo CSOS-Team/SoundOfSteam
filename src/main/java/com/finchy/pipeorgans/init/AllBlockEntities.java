@@ -3,6 +3,7 @@ package com.finchy.pipeorgans.init;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
+import com.finchy.pipeorgans.block.reed.ReedBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -22,6 +23,11 @@ public class AllBlockEntities {
     public static final RegistryObject<BlockEntityType<DiapasonBlockEntity>> DIAPASON_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("diapason_block_entity",
                     () -> BlockEntityType.Builder.of(DiapasonBlockEntity::new, AllBlocks.DIAPASON.get())
+                            .build(null));
+
+    public static final RegistryObject<BlockEntityType<ReedBlockEntity>> REED_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("reed_block_entity",
+                    () -> BlockEntityType.Builder.of(ReedBlockEntity::new, AllBlocks.REED.get())
                             .build(null));
 
     public static void register(IEventBus eventBus) {

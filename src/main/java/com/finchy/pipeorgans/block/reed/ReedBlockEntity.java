@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.block.gedeckt;
+package com.finchy.pipeorgans.block.reed;
 
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllBlockEntities;
@@ -21,25 +21,23 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class GedecktBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
+public class ReedBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
     public WeakReference<FluidTankBlockEntity> source;
     public LerpedFloat animation;
     protected int pitch;
 
-    public GedecktBlockEntity(BlockPos pos, BlockState blockState) {
-        super(AllBlockEntities.GEDECKT_BLOCK_ENTITY.get(), pos, blockState);
+    public ReedBlockEntity(BlockPos pos, BlockState blockState) {
+        super(AllBlockEntities.REED_BLOCK_ENTITY.get(), pos, blockState);
         source = new WeakReference<>(null);
         animation = LerpedFloat.angular();
     }
@@ -71,12 +69,12 @@ public class GedecktBlockEntity extends SmartBlockEntity implements IHaveGoggleI
     }
 
     protected boolean isPowered() {
-        return getBlockState().getOptionalValue(GedecktBlock.POWERED)
+        return getBlockState().getOptionalValue(ReedBlock.POWERED)
                 .orElse(false);
     }
 
     protected Generic.WhistleSize getOctave() {
-        return getBlockState().getOptionalValue(GedecktBlock.SIZE)
+        return getBlockState().getOptionalValue(ReedBlock.SIZE)
                 .orElse(Generic.WhistleSize.MEDIUM);
     }
 
@@ -99,7 +97,7 @@ public class GedecktBlockEntity extends SmartBlockEntity implements IHaveGoggleI
     }
 
     @OnlyIn(Dist.CLIENT)
-    protected GedecktSoundInstance soundInstance;
+    protected ReedSoundInstance soundInstance;
 
     @OnlyIn(Dist.CLIENT)
     protected void tickAudio(Generic.WhistleSize size, boolean powered) {
@@ -119,7 +117,7 @@ public class GedecktBlockEntity extends SmartBlockEntity implements IHaveGoggleI
         if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
             Minecraft.getInstance()
                     .getSoundManager()
-                    .play(soundInstance = new GedecktSoundInstance(size, worldPosition));
+                    .play(soundInstance = new ReedSoundInstance(size, worldPosition));
 
             AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
                     size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
@@ -151,9 +149,9 @@ public class GedecktBlockEntity extends SmartBlockEntity implements IHaveGoggleI
         int newPitch;
         for (newPitch = 0; newPitch <= 24; newPitch += 2) {
             BlockState blockState = level.getBlockState(currentPos);
-            if (!(blockState.getBlock() instanceof GedecktExtensionBlock))
+            if (!(blockState.getBlock() instanceof ReedExtensionBlock))
                 break;
-            if (blockState.getValue(GedecktExtensionBlock.SHAPE) == Generic.GenericExtensionShape.SINGLE) {
+            if (blockState.getValue(ReedExtensionBlock.SHAPE) == Generic.GenericExtensionShape.SINGLE) {
                 newPitch++;
                 break;
             }

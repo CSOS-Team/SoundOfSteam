@@ -75,6 +75,32 @@ public class AllShapes {
         };
     }
 
+    public static VoxelShape getReedBase(Generic.WhistleSize size) {
+        return switch (size) {
+            case SMALL -> GEDECKT_SMALL_BASE;
+            case MEDIUM -> GEDECKT_MEDIUM_BASE;
+            case LARGE -> GEDECKT_LARGE_BASE;
+            case HUGE -> GEDECKT_HUGE_BASE;
+        };
+    }
+
+    public static VoxelShape getReedExtensionShape(Generic.GenericExtensionShape shape, Generic.WhistleSize size) {
+        return switch (shape) {
+            case SINGLE -> switch (size) {
+                case SMALL -> GEDECKT_EXTENSION_SMALL_SINGLE;
+                case MEDIUM -> GEDECKT_EXTENSION_MEDIUM_SINGLE;
+                case LARGE -> GEDECKT_EXTENSION_LARGE_SINGLE;
+                case HUGE -> GEDECKT_EXTENSION_HUGE_SINGLE;
+            };
+            case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
+                case SMALL -> GEDECKT_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> GEDECKT_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> GEDECKT_EXTENSION_LARGE_DOUBLE;
+                case HUGE -> GEDECKT_EXTENSION_HUGE_DOUBLE;
+            };
+        };
+    }
+
     // GEDECKT
 
     public static VoxelShape GEDECKT_SMALL_BASE = Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 1, 0.6875);

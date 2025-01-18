@@ -5,6 +5,8 @@ import com.finchy.pipeorgans.block.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.block.diapason.DiapasonExtensionBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktExtensionBlock;
+import com.finchy.pipeorgans.block.reed.ReedBlock;
+import com.finchy.pipeorgans.block.reed.ReedExtensionBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -36,6 +38,12 @@ public class AllBlocks {
 
     public static final RegistryObject<DiapasonExtensionBlock> DIAPASON_EXTENSION = registerBlockWithoutItem("diapason_extension",
             () -> new DiapasonExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+
+    public static final RegistryObject<ReedBlock> REED = registerBlock("reed_pipe",
+            () -> new ReedBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
+
+    public static final RegistryObject<ReedExtensionBlock> REED_EXTENSION = registerBlockWithoutItem("reed_extension",
+            () -> new ReedExtensionBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
 
 
 
