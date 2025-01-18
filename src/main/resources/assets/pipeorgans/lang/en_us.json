@@ -1,3 +1,17 @@
 {
-  "creativetab.pipe_organs_tab": "Pipe Organs"
+  "creativetab.pipe_organs_tab": "Pipe Organs",
+
+  "block.pipeorgans.gedeckt": "Gedeckt",
+
+  "block.pipeorgans.diapason": "Diapason",
+
+  "sounds.pipeorgans.gedeckt_high": "Gedeckt squeaks",
+  "sounds.pipeorgans.gedeckt_medium": "Gedeckt speaks",
+  "sounds.pipeorgans.gedeckt_low": "Gedeckt grumbles",
+  "sounds.pipeorgans.gedeckt_deep": "Gedeckt rumbles",
+
+  "sounds.pipeorgans.diapason_high": "Diapason squeaks",
+  "sounds.pipeorgans.diapason_medium": "Diapason speaks",
+  "sounds.pipeorgans.diapason_low": "Diapason grumbles",
+  "sounds.pipeorgans.diapason_deep": "Diapason rumbles"
 }

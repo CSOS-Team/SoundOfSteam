@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.block.Generic;
+import com.finchy.pipeorgans.block.tuba.TubaBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -71,6 +72,29 @@ public class AllShapes {
                 case MEDIUM -> DIAPASON_EXTENSION_MEDIUM_DOUBLE;
                 case LARGE -> DIAPASON_EXTENSION_LARGE_DOUBLE;
                 case HUGE -> DIAPASON_EXTENSION_HUGE_DOUBLE;
+            };
+        };
+    }
+
+    public static VoxelShape getTubaBase(TubaBlock.TubaSize size) {
+        return switch (size) {
+            case LARGE -> DIAPASON_LARGE_BASE;
+            case HUGE -> DIAPASON_HUGE_BASE;
+            case MASSIVE -> DIAPASON_HUGE_BASE;
+        };
+    }
+
+    public static VoxelShape getTubaExtensionShape(Generic.GenericExtensionShape shape, TubaBlock.TubaSize size) {
+        return switch (shape) {
+            case SINGLE -> switch (size) {
+                case LARGE -> DIAPASON_EXTENSION_LARGE_SINGLE;
+                case HUGE -> DIAPASON_EXTENSION_HUGE_SINGLE;
+                case MASSIVE -> DIAPASON_EXTENSION_HUGE_SINGLE;
+            };
+            case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
+                case LARGE -> DIAPASON_EXTENSION_LARGE_DOUBLE;
+                case HUGE -> DIAPASON_EXTENSION_HUGE_DOUBLE;
+                case MASSIVE -> DIAPASON_EXTENSION_HUGE_DOUBLE;
             };
         };
     }
