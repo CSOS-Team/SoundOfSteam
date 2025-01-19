@@ -34,4 +34,19 @@ public class Generic {
             return this.name;
         }
     }
+
+    public enum SmallWhistleSize implements StringRepresentable {
+        TINY("tiny"), SMALL("small"), MEDIUM("medium"), LARGE("large");
+
+        private final String name;
+
+        SmallWhistleSize(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public @NotNull String getSerializedName() {
+            return this.name;
+        }
+    }
 }

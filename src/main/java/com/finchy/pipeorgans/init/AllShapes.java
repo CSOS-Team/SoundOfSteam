@@ -76,7 +76,7 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getTubaBase(TubaBlock.TubaSize size) {
+    public static VoxelShape getGambaBase(TubaBlock.TubaSize size) {
         return switch (size) {
             case LARGE -> DIAPASON_LARGE_BASE;
             case HUGE -> DIAPASON_HUGE_BASE;
@@ -84,7 +84,7 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getTubaExtensionShape(Generic.GenericExtensionShape shape, TubaBlock.TubaSize size) {
+    public static VoxelShape getGambaExtensionShape(Generic.GenericExtensionShape shape, TubaBlock.TubaSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case LARGE -> DIAPASON_EXTENSION_LARGE_SINGLE;

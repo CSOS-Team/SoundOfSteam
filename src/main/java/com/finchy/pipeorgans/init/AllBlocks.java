@@ -3,6 +3,8 @@ package com.finchy.pipeorgans.init;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.block.diapason.DiapasonExtensionBlock;
+import com.finchy.pipeorgans.block.gamba.GambaBlock;
+import com.finchy.pipeorgans.block.gamba.GambaExtensionBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktExtensionBlock;
 import com.finchy.pipeorgans.block.reed.ReedBlock;
@@ -41,11 +43,11 @@ public class AllBlocks {
     public static final RegistryObject<DiapasonExtensionBlock> DIAPASON_EXTENSION = registerBlockWithoutItem("diapason_extension",
             () -> new DiapasonExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
-    public static final RegistryObject<TubaBlock> TUBA = registerBlock("tuba",
-            () -> new TubaBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<GambaBlock> GAMBA = registerBlock("gamba",
+            () -> new GambaBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
-    public static final RegistryObject<TubaExtensionBlock> TUBA_EXTENSION = registerBlockWithoutItem("diapason_extension",
-            () -> new TubaExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<GambaExtensionBlock> GAMBA_EXTENSION = registerBlockWithoutItem("gamba_extension",
+            () -> new GambaExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
     public static final RegistryObject<ReedBlock> REED = registerBlock("reed_pipe",
             () -> new ReedBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));

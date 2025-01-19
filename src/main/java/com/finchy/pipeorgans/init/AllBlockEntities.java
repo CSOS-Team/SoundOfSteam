@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.diapason.DiapasonBlockEntity;
+import com.finchy.pipeorgans.block.gamba.GambaBlockEntity;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
 import com.finchy.pipeorgans.block.reed.ReedBlockEntity;
 import com.finchy.pipeorgans.block.tuba.TubaBlockEntity;
@@ -26,9 +27,9 @@ public class AllBlockEntities {
                     () -> BlockEntityType.Builder.of(DiapasonBlockEntity::new, AllBlocks.DIAPASON.get())
                             .build(null));
 
-    public static final RegistryObject<BlockEntityType<TubaBlockEntity>> TUBA_BLOCK_ENTITY =
-            BLOCK_ENTITIES.register("tuba_block_entity",
-                    () -> BlockEntityType.Builder.of(TubaBlockEntity::new, AllBlocks.TUBA.get())
+    public static final RegistryObject<BlockEntityType<GambaBlockEntity>> GAMBA_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("gamba_block_entity",
+                    () -> BlockEntityType.Builder.of(GambaBlockEntity::new, AllBlocks.GAMBA.get())
                             .build(null));
 
     public static final RegistryObject<BlockEntityType<ReedBlockEntity>> REED_BLOCK_ENTITY =
