@@ -5,7 +5,6 @@ import com.finchy.pipeorgans.block.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.block.gamba.GambaBlockEntity;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
 import com.finchy.pipeorgans.block.reed.ReedBlockEntity;
-import com.finchy.pipeorgans.block.tuba.TubaBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;

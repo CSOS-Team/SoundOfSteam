@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.mixin;
 
 import com.finchy.pipeorgans.block.diapason.DiapasonBlock;
+import com.finchy.pipeorgans.block.gamba.GambaBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlock;
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
@@ -20,7 +21,8 @@ public class BoilerDataEvaluateMixin {
     @ModifyExpressionValue(method = "evaluate", at = @At("MIXINEXTRAS:EXPRESSION"))
     private boolean checkOtherWhistleBlocks(boolean original, @Local(ordinal=1) BlockState attachedState) {
         return original || attachedState.getBlock() instanceof GedecktBlock
-                || attachedState.getBlock() instanceof DiapasonBlock;
+                || attachedState.getBlock() instanceof DiapasonBlock
+                || attachedState.getBlock() instanceof GambaBlock;
     }
 
     /*

@@ -30,18 +30,18 @@ public class GambaExtensionBlock extends Block implements IWrenchable {
 
     public static final EnumProperty<Generic.GenericExtensionShape> SHAPE =
             EnumProperty.create("shape", Generic.GenericExtensionShape.class);
-    public static final EnumProperty<Generic.WhistleSize> SIZE = GambaBlock.SIZE;
+    public static final EnumProperty<Generic.SmallWhistleSize> SIZE = GambaBlock.SIZE;
 
     public GambaExtensionBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
                 .setValue(SHAPE, Generic.GenericExtensionShape.SINGLE)
-                .setValue(SIZE, Generic.WhistleSize.MEDIUM));
+                .setValue(SIZE, Generic.SmallWhistleSize.SMALL));
     }
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return AllShapes.getGedecktExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
+        return AllShapes.getGambaExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
     }
 
     @Override
@@ -98,13 +98,13 @@ public class GambaExtensionBlock extends Block implements IWrenchable {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
         ItemStack heldItem = pPlayer.getItemInHand(pHand);
-        if (pPlayer == null || heldItem.getItem() != AllBlocks.GEDECKT.get().asItem()) {;
+        if (pPlayer == null || heldItem.getItem() != AllBlocks.GAMBA.get().asItem()) {;
             return InteractionResult.PASS;
         }
         BlockPos rootFound = findRoot(pLevel, pPos);
         BlockState blockState = pLevel.getBlockState(rootFound);
-        if (blockState.getBlock() instanceof GambaBlock gedeckt)
-            return gedeckt.use(blockState, pLevel, rootFound, pPlayer, pHand,
+        if (blockState.getBlock() instanceof GambaBlock gamba)
+            return gamba.use(blockState, pLevel, rootFound, pPlayer, pHand,
                     new BlockHitResult(pHit.getLocation(), pHit.getDirection(), rootFound, pHit.isInside()));
         return InteractionResult.PASS;
     }
@@ -129,8 +129,8 @@ public class GambaExtensionBlock extends Block implements IWrenchable {
         Level level = context.getLevel();
         BlockPos findRoot = findRoot(level, context.getClickedPos());
         BlockState blockState = level.getBlockState(findRoot);
-        if (blockState.getBlock()instanceof GambaBlock gedeckt)
-            return gedeckt.onWrenched(blockState, relocateContext(context, findRoot));
+        if (blockState.getBlock()instanceof GambaBlock gamba)
+            return gamba.onWrenched(blockState, relocateContext(context, findRoot));
         return IWrenchable.super.onWrenched(state, context);
     }
 
@@ -148,6 +148,6 @@ public class GambaExtensionBlock extends Block implements IWrenchable {
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-        return new ItemStack(AllBlocks.GEDECKT.get());
+        return new ItemStack(AllBlocks.GAMBA.get());
     }
 }

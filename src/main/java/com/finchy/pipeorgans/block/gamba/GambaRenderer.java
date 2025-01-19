@@ -26,11 +26,11 @@ public class GambaRenderer extends SafeBlockEntityRenderer<GambaBlockEntity> {
             return;
 
         Direction direction = blockState.getValue(GambaBlock.FACING);
-        Generic.WhistleSize size = blockState.getValue(GambaBlock.SIZE);
+        Generic.SmallWhistleSize size = blockState.getValue(GambaBlock.SIZE);
 
-        PartialModel mouth = size == Generic.WhistleSize.SMALL ? AllPartialModels.GEDECKT_MOUTH_SMALL :
-                size == Generic.WhistleSize.MEDIUM ? AllPartialModels.GEDECKT_MOUTH_MEDIUM :
-                        size == Generic.WhistleSize.LARGE ? AllPartialModels.GEDECKT_MOUTH_LARGE : AllPartialModels.GEDECKT_MOUTH_HUGE;
+        PartialModel mouth = size == Generic.SmallWhistleSize.SMALL ? AllPartialModels.GAMBA_MOUTH_SMALL :
+                size == Generic.SmallWhistleSize.MEDIUM ? AllPartialModels.GAMBA_MOUTH_MEDIUM :
+                        size == Generic.SmallWhistleSize.LARGE ? AllPartialModels.GAMBA_MOUTH_LARGE : AllPartialModels.GAMBA_MOUTH_TINY;
 
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
@@ -42,14 +42,7 @@ public class GambaRenderer extends SafeBlockEntityRenderer<GambaBlockEntity> {
                 .centre()
                 .rotateY(AngleHelper.horizontalAngle(direction))
                 .unCentre()
-                .translateY((double) 4 /16)
-                .translateZ((double) switch (size) {
-                    case SMALL -> 5;
-                    case MEDIUM -> 4;
-                    case LARGE -> 3;
-                    case HUGE -> 2;
-                } /16)
-                .rotateX(-offset*16)
+                .translate(0, -offset / 16f, 0)
                 .light(light)
                 .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
 

@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.event;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.diapason.DiapasonRenderer;
+import com.finchy.pipeorgans.block.gamba.GambaRenderer;
 import com.finchy.pipeorgans.block.gedeckt.GedecktRenderer;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,5 +17,6 @@ public class ModEventBusClientEvents {
     public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(AllBlockEntities.GEDECKT_BLOCK_ENTITY.get(), GedecktRenderer::new);
         event.registerBlockEntityRenderer(AllBlockEntities.DIAPASON_BLOCK_ENTITY.get(), DiapasonRenderer::new);
+        event.registerBlockEntityRenderer(AllBlockEntities.GAMBA_BLOCK_ENTITY.get(), GambaRenderer::new);
     }
 }

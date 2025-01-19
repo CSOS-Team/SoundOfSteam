@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "size=tiny,shape=single": { "model":  "pipeorgans:block/gamba/extension/gm_tiny_single" },
+    "size=tiny,shape=double": { "model":  "pipeorgans:block/gamba/extension/gm_tiny_double" },
+    "size=tiny,shape=double_connected": { "model":  "pipeorgans:block/gamba/extension/gm_tiny_double_connected" },
+
+    "size=small,shape=single": { "model":  "pipeorgans:block/gamba/extension/gm_small_single" },
+    "size=small,shape=double": { "model":  "pipeorgans:block/gamba/extension/gm_small_double" },
+    "size=small,shape=double_connected": { "model":  "pipeorgans:block/gamba/extension/gm_small_double_connected" },
+
+    "size=medium,shape=single": { "model":  "pipeorgans:block/gamba/extension/gm_medium_single" },
+    "size=medium,shape=double": { "model":  "pipeorgans:block/gamba/extension/gm_medium_double" },
+    "size=medium,shape=double_connected": { "model":  "pipeorgans:block/gamba/extension/gm_medium_double_connected" },
+
+    "size=large,shape=single": { "model":  "pipeorgans:block/gamba/extension/gm_large_single" },
+    "size=large,shape=double": { "model":  "pipeorgans:block/gamba/extension/gm_large_double" },
+    "size=large,shape=double_connected": { "model":  "pipeorgans:block/gamba/extension/gm_large_double_connected" }
+
+  }
+}

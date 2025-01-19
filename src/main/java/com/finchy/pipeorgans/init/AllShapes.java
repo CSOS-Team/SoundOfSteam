@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.block.Generic;
-import com.finchy.pipeorgans.block.tuba.TubaBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -26,142 +25,150 @@ public class AllShapes {
 
     public static VoxelShape getGedecktBase(Generic.WhistleSize size) {
         return switch (size) {
-            case SMALL -> GEDECKT_SMALL_BASE;
-            case MEDIUM -> GEDECKT_MEDIUM_BASE;
-            case LARGE -> GEDECKT_LARGE_BASE;
-            case HUGE -> GEDECKT_HUGE_BASE;
+            case SMALL -> SLIM_SMALL_BASE;
+            case MEDIUM -> SLIM_MEDIUM_BASE;
+            case LARGE -> SLIM_LARGE_BASE;
+            case HUGE -> SLIM_HUGE_BASE;
         };
     }
 
     public static VoxelShape getGedecktExtensionShape(Generic.GenericExtensionShape shape, Generic.WhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
-                case SMALL -> GEDECKT_EXTENSION_SMALL_SINGLE;
-                case MEDIUM -> GEDECKT_EXTENSION_MEDIUM_SINGLE;
-                case LARGE -> GEDECKT_EXTENSION_LARGE_SINGLE;
-                case HUGE -> GEDECKT_EXTENSION_HUGE_SINGLE;
+                case SMALL -> SLIM_EXTENSION_SMALL_SINGLE;
+                case MEDIUM -> SLIM_EXTENSION_MEDIUM_SINGLE;
+                case LARGE -> SLIM_EXTENSION_LARGE_SINGLE;
+                case HUGE -> SLIM_EXTENSION_HUGE_SINGLE;
             };
             case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
-                case SMALL -> GEDECKT_EXTENSION_SMALL_DOUBLE;
-                case MEDIUM -> GEDECKT_EXTENSION_MEDIUM_DOUBLE;
-                case LARGE -> GEDECKT_EXTENSION_LARGE_DOUBLE;
-                case HUGE -> GEDECKT_EXTENSION_HUGE_DOUBLE;
+                case SMALL -> SLIM_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> SLIM_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> SLIM_EXTENSION_LARGE_DOUBLE;
+                case HUGE -> SLIM_EXTENSION_HUGE_DOUBLE;
             };
         };
     }
 
     public static VoxelShape getDiapasonBase(Generic.WhistleSize size) {
         return switch (size) {
-            case SMALL -> DIAPASON_SMALL_BASE;
-            case MEDIUM -> DIAPASON_MEDIUM_BASE;
-            case LARGE -> DIAPASON_LARGE_BASE;
-            case HUGE -> DIAPASON_HUGE_BASE;
+            case SMALL -> GENERIC_SMALL_BASE;
+            case MEDIUM -> GENERIC_MEDIUM_BASE;
+            case LARGE -> GENERIC_LARGE_BASE;
+            case HUGE -> GENERIC_HUGE_BASE;
         };
     }
 
     public static VoxelShape getDiapasonExtensionShape(Generic.GenericExtensionShape shape, Generic.WhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
-                case SMALL -> DIAPASON_EXTENSION_SMALL_SINGLE;
-                case MEDIUM -> DIAPASON_EXTENSION_MEDIUM_SINGLE;
-                case LARGE -> DIAPASON_EXTENSION_LARGE_SINGLE;
-                case HUGE -> DIAPASON_EXTENSION_HUGE_SINGLE;
+                case SMALL -> GENERIC_EXTENSION_SMALL_SINGLE;
+                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_SINGLE;
+                case LARGE -> GENERIC_EXTENSION_LARGE_SINGLE;
+                case HUGE -> GENERIC_EXTENSION_HUGE_SINGLE;
             };
             case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
-                case SMALL -> DIAPASON_EXTENSION_SMALL_DOUBLE;
-                case MEDIUM -> DIAPASON_EXTENSION_MEDIUM_DOUBLE;
-                case LARGE -> DIAPASON_EXTENSION_LARGE_DOUBLE;
-                case HUGE -> DIAPASON_EXTENSION_HUGE_DOUBLE;
+                case SMALL -> GENERIC_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> GENERIC_EXTENSION_LARGE_DOUBLE;
+                case HUGE -> GENERIC_EXTENSION_HUGE_DOUBLE;
             };
         };
     }
 
-    public static VoxelShape getGambaBase(TubaBlock.TubaSize size) {
+    public static VoxelShape getGambaBase(Generic.SmallWhistleSize size) {
         return switch (size) {
-            case LARGE -> DIAPASON_LARGE_BASE;
-            case HUGE -> DIAPASON_HUGE_BASE;
-            case MASSIVE -> DIAPASON_HUGE_BASE;
+            case TINY -> GENERIC_TINY_BASE;
+            case SMALL -> GENERIC_SMALL_BASE;
+            case MEDIUM -> GENERIC_MEDIUM_BASE;
+            case LARGE -> GENERIC_LARGE_BASE;
+
         };
     }
 
-    public static VoxelShape getGambaExtensionShape(Generic.GenericExtensionShape shape, TubaBlock.TubaSize size) {
+    public static VoxelShape getGambaExtensionShape(Generic.GenericExtensionShape shape, Generic.SmallWhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
-                case LARGE -> DIAPASON_EXTENSION_LARGE_SINGLE;
-                case HUGE -> DIAPASON_EXTENSION_HUGE_SINGLE;
-                case MASSIVE -> DIAPASON_EXTENSION_HUGE_SINGLE;
+                case TINY -> GENERIC_EXTENSION_TINY_SINGLE;
+                case SMALL -> GENERIC_EXTENSION_SMALL_SINGLE;
+                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_SINGLE;
+                case LARGE -> GENERIC_EXTENSION_LARGE_SINGLE;
             };
             case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
-                case LARGE -> DIAPASON_EXTENSION_LARGE_DOUBLE;
-                case HUGE -> DIAPASON_EXTENSION_HUGE_DOUBLE;
-                case MASSIVE -> DIAPASON_EXTENSION_HUGE_DOUBLE;
+                case TINY -> GENERIC_EXTENSION_TINY_DOUBLE;
+                case SMALL -> GENERIC_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> GENERIC_EXTENSION_LARGE_DOUBLE;
             };
         };
     }
 
     public static VoxelShape getReedBase(Generic.WhistleSize size) {
         return switch (size) {
-            case SMALL -> GEDECKT_SMALL_BASE;
-            case MEDIUM -> GEDECKT_MEDIUM_BASE;
-            case LARGE -> GEDECKT_LARGE_BASE;
-            case HUGE -> GEDECKT_HUGE_BASE;
+            case SMALL -> SLIM_SMALL_BASE;
+            case MEDIUM -> SLIM_MEDIUM_BASE;
+            case LARGE -> SLIM_LARGE_BASE;
+            case HUGE -> SLIM_HUGE_BASE;
         };
     }
 
     public static VoxelShape getReedExtensionShape(Generic.GenericExtensionShape shape, Generic.WhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
-                case SMALL -> GEDECKT_EXTENSION_SMALL_SINGLE;
-                case MEDIUM -> GEDECKT_EXTENSION_MEDIUM_SINGLE;
-                case LARGE -> GEDECKT_EXTENSION_LARGE_SINGLE;
-                case HUGE -> GEDECKT_EXTENSION_HUGE_SINGLE;
+                case SMALL -> SLIM_EXTENSION_SMALL_SINGLE;
+                case MEDIUM -> SLIM_EXTENSION_MEDIUM_SINGLE;
+                case LARGE -> SLIM_EXTENSION_LARGE_SINGLE;
+                case HUGE -> SLIM_EXTENSION_HUGE_SINGLE;
             };
             case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
-                case SMALL -> GEDECKT_EXTENSION_SMALL_DOUBLE;
-                case MEDIUM -> GEDECKT_EXTENSION_MEDIUM_DOUBLE;
-                case LARGE -> GEDECKT_EXTENSION_LARGE_DOUBLE;
-                case HUGE -> GEDECKT_EXTENSION_HUGE_DOUBLE;
+                case SMALL -> SLIM_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> SLIM_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> SLIM_EXTENSION_LARGE_DOUBLE;
+                case HUGE -> SLIM_EXTENSION_HUGE_DOUBLE;
             };
         };
     }
 
-    // GEDECKT
+    // SLIM
 
-    public static VoxelShape GEDECKT_SMALL_BASE = Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 1, 0.6875);
-    public static VoxelShape GEDECKT_MEDIUM_BASE = Shapes.box(0.25, 0.1875, 0.25, 0.75, 1, 0.75);
-    public static VoxelShape GEDECKT_LARGE_BASE = Shapes.box(0.1875, 0.1875, 0.1875, 0.8125, 1, 0.8125);
-    public static VoxelShape GEDECKT_HUGE_BASE = Shapes.box(0.125, 0.1875, 0.125, 0.875, 1, 0.875);
+    public static VoxelShape SLIM_SMALL_BASE = Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 1, 0.6875);
+    public static VoxelShape SLIM_MEDIUM_BASE = Shapes.box(0.25, 0.1875, 0.25, 0.75, 1, 0.75);
+    public static VoxelShape SLIM_LARGE_BASE = Shapes.box(0.1875, 0.1875, 0.1875, 0.8125, 1, 0.8125);
+    public static VoxelShape SLIM_HUGE_BASE = Shapes.box(0.125, 0.1875, 0.125, 0.875, 1, 0.875);
 
-    public static VoxelShape GEDECKT_EXTENSION_SMALL_SINGLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.5, 0.6875);
-    public static VoxelShape GEDECKT_EXTENSION_SMALL_DOUBLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 1, 0.6875);
+    public static VoxelShape SLIM_EXTENSION_SMALL_SINGLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.5, 0.6875);
+    public static VoxelShape SLIM_EXTENSION_SMALL_DOUBLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 1, 0.6875);
 
-    public static VoxelShape GEDECKT_EXTENSION_MEDIUM_SINGLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.5, 0.75);
-    public static VoxelShape GEDECKT_EXTENSION_MEDIUM_DOUBLE = Shapes.box(0.25, 0, 0.25, 0.75, 1, 0.75);
+    public static VoxelShape SLIM_EXTENSION_MEDIUM_SINGLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.5, 0.75);
+    public static VoxelShape SLIM_EXTENSION_MEDIUM_DOUBLE = Shapes.box(0.25, 0, 0.25, 0.75, 1, 0.75);
 
-    public static VoxelShape GEDECKT_EXTENSION_LARGE_SINGLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5, 0.8125);
-    public static VoxelShape GEDECKT_EXTENSION_LARGE_DOUBLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125);
+    public static VoxelShape SLIM_EXTENSION_LARGE_SINGLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5, 0.8125);
+    public static VoxelShape SLIM_EXTENSION_LARGE_DOUBLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125);
 
-    public static VoxelShape GEDECKT_EXTENSION_HUGE_SINGLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.5, 0.875);
-    public static VoxelShape GEDECKT_EXTENSION_HUGE_DOUBLE = Shapes.box(0.125, 0, 0.125, 0.875, 1, 0.875);
+    public static VoxelShape SLIM_EXTENSION_HUGE_SINGLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.5, 0.875);
+    public static VoxelShape SLIM_EXTENSION_HUGE_DOUBLE = Shapes.box(0.125, 0, 0.125, 0.875, 1, 0.875);
 
-    // DIAPASON
+    // GENERIC
 
-    public static VoxelShape DIAPASON_SMALL_BASE = Shapes.box(0.25, 0.1875, 0.25, 0.75, 1, 0.75);
-    public static VoxelShape DIAPASON_MEDIUM_BASE = Shapes.box(0.1875, 0.1875, 0.1875, 0.8125, 1, 0.8125);
-    public static VoxelShape DIAPASON_LARGE_BASE = Shapes.box(0.125, 0.1875, 0.125, 0.875, 1, 0.875);
-    public static VoxelShape DIAPASON_HUGE_BASE = Shapes.box(0.0625, 0.1875, 0.0625, 0.9375, 1, 0.9375);
+    public static VoxelShape GENERIC_TINY_BASE = Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 1, 0.6875);
+    public static VoxelShape GENERIC_SMALL_BASE = Shapes.box(0.25, 0.1875, 0.25, 0.75, 1, 0.75);
+    public static VoxelShape GENERIC_MEDIUM_BASE = Shapes.box(0.1875, 0.1875, 0.1875, 0.8125, 1, 0.8125);
+    public static VoxelShape GENERIC_LARGE_BASE = Shapes.box(0.125, 0.1875, 0.125, 0.875, 1, 0.875);
+    public static VoxelShape GENERIC_HUGE_BASE = Shapes.box(0.0625, 0.1875, 0.0625, 0.9375, 1, 0.9375);
 
-    public static VoxelShape DIAPASON_EXTENSION_SMALL_SINGLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.5, 0.75);
-    public static VoxelShape DIAPASON_EXTENSION_SMALL_DOUBLE = Shapes.box(0.25, 0, 0.25, 0.75, 1, 0.75);
+    public static VoxelShape GENERIC_EXTENSION_TINY_SINGLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.5, 0.6875);
+    public static VoxelShape GENERIC_EXTENSION_TINY_DOUBLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 1, 0.6875);
 
-    public static VoxelShape DIAPASON_EXTENSION_MEDIUM_SINGLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5, 0.8125);
-    public static VoxelShape DIAPASON_EXTENSION_MEDIUM_DOUBLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125);
+    public static VoxelShape GENERIC_EXTENSION_SMALL_SINGLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.5, 0.75);
+    public static VoxelShape GENERIC_EXTENSION_SMALL_DOUBLE = Shapes.box(0.25, 0, 0.25, 0.75, 1, 0.75);
 
-    public static VoxelShape DIAPASON_EXTENSION_LARGE_SINGLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.5, 0.875);
-    public static VoxelShape DIAPASON_EXTENSION_LARGE_DOUBLE = Shapes.box(0.125, 0, 0.125, 0.875, 1, 0.875);
+    public static VoxelShape GENERIC_EXTENSION_MEDIUM_SINGLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5, 0.8125);
+    public static VoxelShape GENERIC_EXTENSION_MEDIUM_DOUBLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125);
 
-    public static VoxelShape DIAPASON_EXTENSION_HUGE_SINGLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.5, 0.9375);
-    public static VoxelShape DIAPASON_EXTENSION_HUGE_DOUBLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 1, 0.9375);
+    public static VoxelShape GENERIC_EXTENSION_LARGE_SINGLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.5, 0.875);
+    public static VoxelShape GENERIC_EXTENSION_LARGE_DOUBLE = Shapes.box(0.125, 0, 0.125, 0.875, 1, 0.875);
+
+    public static VoxelShape GENERIC_EXTENSION_HUGE_SINGLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.5, 0.9375);
+    public static VoxelShape GENERIC_EXTENSION_HUGE_DOUBLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 1, 0.9375);
 
 
 

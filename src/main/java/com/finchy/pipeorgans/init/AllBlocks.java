@@ -9,8 +9,6 @@ import com.finchy.pipeorgans.block.gedeckt.GedecktBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktExtensionBlock;
 import com.finchy.pipeorgans.block.reed.ReedBlock;
 import com.finchy.pipeorgans.block.reed.ReedExtensionBlock;
-import com.finchy.pipeorgans.block.tuba.TubaBlock;
-import com.finchy.pipeorgans.block.tuba.TubaExtensionBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
