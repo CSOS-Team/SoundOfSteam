@@ -2,8 +2,8 @@
   "creativetab.pipe_organs_tab": "Pipe Organs",
 
   "block.pipeorgans.gedeckt": "Gedeckt",
-
   "block.pipeorgans.diapason": "Diapason",
+  "block.pipeorgans.gamba": "Gamba",
 
   "sounds.pipeorgans.gedeckt_high": "Gedeckt squeaks",
   "sounds.pipeorgans.gedeckt_medium": "Gedeckt speaks",
@@ -13,5 +13,11 @@
   "sounds.pipeorgans.diapason_high": "Diapason squeaks",
   "sounds.pipeorgans.diapason_medium": "Diapason speaks",
   "sounds.pipeorgans.diapason_low": "Diapason grumbles",
-  "sounds.pipeorgans.diapason_deep": "Diapason rumbles"
+  "sounds.pipeorgans.diapason_deep": "Diapason rumbles",
+
+
+  "sounds.pipeorgans.gamba_superhigh": "Gamba squeals",
+  "sounds.pipeorgans.gamba_high": "Gamba squeaks",
+  "sounds.pipeorgans.gamba_medium": "Gamba speaks",
+  "sounds.pipeorgans.gamba_low": "Gamba grumbles"
 }

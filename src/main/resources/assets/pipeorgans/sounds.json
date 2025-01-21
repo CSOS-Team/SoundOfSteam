@@ -4,7 +4,7 @@
     "sounds": [
       {
         "type": "file",
-        "attenuation_distance_distance": 64,
+        "attenuation_distance": 64,
         "name": "pipeorgans:gedeckt/g_high"
       }
     ]
@@ -15,7 +15,7 @@
     "sounds": [
       {
         "type": "file",
-        "attenuation_distance_distance": 64,
+        "attenuation_distance": 64,
         "name": "pipeorgans:gedeckt/g_medium"
       }
     ]
@@ -26,7 +26,7 @@
     "sounds": [
       {
         "type": "file",
-        "attenuation_distance_distance": 64,
+        "attenuation_distance": 64,
         "name": "pipeorgans:gedeckt/g_low"
       }
     ]
@@ -37,7 +37,7 @@
     "sounds": [
       {
         "type": "file",
-        "attenuation_distance_distance": 64,
+        "attenuation_distance": 64,
         "name": "pipeorgans:gedeckt/g_deep"
       }
     ]
@@ -50,7 +50,7 @@
     "sounds": [
       {
         "type": "file",
-        "attenuation_distance_distance": 64,
+        "attenuation_distance": 64,
         "name": "pipeorgans:diapason/d_high"
       }
     ]
@@ -61,7 +61,7 @@
     "sounds": [
       {
         "type": "file",
-        "attenuation_distance_distance": 64,
+        "attenuation_distance": 64,
         "name": "pipeorgans:diapason/d_medium"
       }
     ]
@@ -72,7 +72,7 @@
     "sounds": [
       {
         "type": "file",
-        "attenuation_distance_distance": 64,
+        "attenuation_distance": 64,
         "name": "pipeorgans:diapason/d_low"
       }
     ]
@@ -83,7 +83,7 @@
     "sounds": [
       {
         "type": "file",
-        "attenuation_distance_distance": 64,
+        "attenuation_distance": 64,
         "name": "pipeorgans:diapason/d_deep"
       }
     ]
@@ -96,7 +96,7 @@
     "sounds": [
       {
         "type": "file",
-        "attenuation_distance_distance": 64,
+        "attenuation_distance": 64,
         "name": "pipeorgans:gamba/gm_superhigh"
       }
     ]
@@ -107,7 +107,7 @@
     "sounds": [
       {
         "type": "file",
-        "attenuation_distance_distance": 64,
+        "attenuation_distance": 64,
         "name": "pipeorgans:gamba/gm_high"
       }
     ]
@@ -118,7 +118,7 @@
     "sounds": [
       {
         "type": "file",
-        "attenuation_distance_distance": 64,
+        "attenuation_distance": 64,
         "name": "pipeorgans:gamba/gm_medium"
       }
     ]
@@ -129,7 +129,7 @@
     "sounds": [
       {
         "type": "file",
-        "attenuation_distance_distance": 64,
+        "attenuation_distance": 64,
         "name": "pipeorgans:gamba/gm_low"
       }
     ]
