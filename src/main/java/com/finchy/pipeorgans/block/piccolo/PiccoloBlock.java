@@ -1,6 +1,8 @@
-package com.finchy.pipeorgans.block.tuba;
+package com.finchy.pipeorgans.block.piccolo;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.Generic;
+import com.finchy.pipeorgans.block.gedeckt.GedecktExtensionBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
@@ -14,7 +16,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -43,27 +44,27 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TubaBlock extends Block implements IBE<TubaBlockEntity>, IWrenchable {
+public class PiccoloBlock extends Block implements IBE<PiccoloBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final EnumProperty<TubaSize> SIZE = EnumProperty.create("size", TubaSize.class);
+    public static final EnumProperty<Generic.PiccoloWhistleSize> SIZE = EnumProperty.create("size", Generic.PiccoloWhistleSize.class);
 
     // declare block and default blockstate
-    public TubaBlock(Properties pProperties) {
+    public PiccoloBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
-                .setValue(SIZE, TubaSize.LARGE));
+                .setValue(SIZE, Generic.PiccoloWhistleSize.SMALL));
     }
 
     // custom hitbox
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        VoxelShape whistle = AllShapes.getDiapasonBase(pState.getValue(SIZE)); // get base whistle shape (temporarily medium)
+        VoxelShape whistle = AllShapes.getPiccoloBase(pState.getValue(SIZE)); // get base whistle shape (temporarily medium)
         return Shapes.or(whistle,
                 !pState.getValue(WALL) ?
                         AllShapes.BASE_FLOOR : AllShapes.getBase(pState.getValue(FACING)));
@@ -71,15 +72,15 @@ public class TubaBlock extends Block implements IBE<TubaBlockEntity>, IWrenchabl
     }
 
     @Override
-    public Class<TubaBlockEntity> getBlockEntityClass() { return TubaBlockEntity.class; }
+    public Class<PiccoloBlockEntity> getBlockEntityClass() { return PiccoloBlockEntity.class; }
 
     @Override
-    public BlockEntityType<TubaBlockEntity> getBlockEntityType() { return AllBlockEntities.TUBA_BLOCK_ENTITY.get(); }
+    public BlockEntityType<PiccoloBlockEntity> getBlockEntityType() { return AllBlockEntities.PICCOLO_BLOCK_ENTITY.get(); }
 
-    // create TUBA_BLOCK_ENTITY at block coords upon block placement
+    // create PICCOLO_BLOCK_ENTITY at block coords upon block placement
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return AllBlockEntities.TUBA_BLOCK_ENTITY.get().create(pos, state);
+        return AllBlockEntities.PICCOLO_BLOCK_ENTITY.get().create(pos, state);
     }
 
     // define blockstate params
@@ -96,7 +97,7 @@ public class TubaBlock extends Block implements IBE<TubaBlockEntity>, IWrenchabl
                 return InteractionResult.PASS;
 
             ItemStack heldItem = pPlayer.getItemInHand(pHand);
-            if (heldItem.getItem() == AllBlocks.TUBA.get().asItem()) {
+            if (heldItem.getItem() == AllBlocks.PICCOLO.get().asItem()) {
                 incrementSize(pLevel, pPos);
                 return InteractionResult.SUCCESS;
             }
@@ -110,39 +111,48 @@ public class TubaBlock extends Block implements IBE<TubaBlockEntity>, IWrenchabl
         if (!base.hasProperty(SIZE))
             return;
 
-        Generic.WhistleSize size = base.getValue(SIZE);
+        Generic.PiccoloWhistleSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pPos.above();
 
-        for (int i = 1; i <= 6; i++) {
+        float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
+        SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.get();
+        SoundEvent hitSound = soundtype.getHitSound();
+
+        for (int i = 1; i <= 12; i+=4) {
             BlockState blockState = pLevel.getBlockState(currentPos);
-            float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
-            SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.get();
-            SoundEvent hitSound = soundtype.getHitSound();
 
-            if (blockState.getBlock() instanceof TubaExtensionBlock) {
-                if (blockState.getValue(TubaExtensionBlock.SHAPE) == Generic.GenericExtensionShape.SINGLE) {
-                    pLevel.setBlock(currentPos,
-                            blockState.setValue(TubaExtensionBlock.SHAPE, Generic.GenericExtensionShape.DOUBLE), 3);
+            if (blockState.getBlock() instanceof PiccoloExtensionBlock) {
 
+                // if block above is extension
+                if (blockState.getValue(PiccoloExtensionBlock.SHAPE) != Generic.QuadrupleExtensionShape.QUADRUPLE
+                && blockState.getValue(PiccoloExtensionBlock.SHAPE) != Generic.QuadrupleExtensionShape.QUADRUPLE_CONNECTED) {
+                    // if extension is single, double, or triple
+                    pLevel.setBlock(currentPos, blockState.cycle(PiccoloExtensionBlock.SHAPE), 3);
                     if (soundtype != null) {
-                        float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);
+                        switch (blockState.getValue(PiccoloExtensionBlock.SHAPE)) {
+                            case SINGLE -> i+=1;
+                            case DOUBLE -> i+=2;
+                            case TRIPLE -> i+=3;
+                        }
+                        float pPitch = (float) Math.pow(2, -i / 12.0);
                         pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
                         pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
                     }
-
                     return;
                 }
                 currentPos = currentPos.above();
                 continue;
             }
+
+            // if block above is not extension (air)
             if (!blockState.canBeReplaced())
                 return;
 
-            pLevel.setBlock(currentPos, AllBlocks.TUBA_EXTENSION.get().defaultBlockState()
+            pLevel.setBlock(currentPos, AllBlocks.PICCOLO_EXTENSION.get().defaultBlockState()
                     .setValue(SIZE, size), 3);
             if (soundtype != null) {
-                float pPitch = (float) Math.pow(2, -(i * 2 - 1) / 12.0);
+                float pPitch = (float) Math.pow(2, -i / 12.0);
                 pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
                 pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
             }
@@ -152,14 +162,14 @@ public class TubaBlock extends Block implements IBE<TubaBlockEntity>, IWrenchabl
 
     public static void queuePitchUpdate(LevelAccessor level, BlockPos pos) {
         BlockState blockState = level.getBlockState(pos);
-        if (blockState.getBlock() instanceof TubaBlock whistle && !level.getBlockTicks()
+        if (blockState.getBlock() instanceof PiccoloBlock whistle && !level.getBlockTicks()
                 .hasScheduledTick(pos, whistle))
             level.scheduleTick(pos, whistle, 1);
     }
 
     @Override
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        withBlockEntityDo(pLevel, pPos, TubaBlockEntity::updatePitch);
+        withBlockEntityDo(pLevel, pPos, PiccoloBlockEntity::updatePitch);
     }
 
     // check if placed on fluid tank
@@ -240,21 +250,6 @@ public class TubaBlock extends Block implements IBE<TubaBlockEntity>, IWrenchabl
     @Override
     public BlockState rotate(BlockState pState, Rotation pRotation) {
         return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING))); // don't rotate at all
-    }
-
-    public enum TubaSize implements StringRepresentable {
-        LARGE("large"), HUGE("huge"), MASSIVE("massive");
-
-        private final String name;
-
-        TubaSize(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public @NotNull String getSerializedName() {
-            return this.name;
-        }
     }
 
 }

@@ -1,0 +1,15 @@
+{
+  "values": [
+    "pipeorgans:gedeckt",
+    "pipeorgans:gedeckt_extension",
+
+    "pipeorgans:diapason",
+    "pipeorgans:diapason_extension",
+
+    "pipeorgans:gamba",
+    "pipeorgans:gamba_extension",
+
+    "pipeorgans:piccolo",
+    "pipeorgans:piccolo_extension"
+  ]
+}

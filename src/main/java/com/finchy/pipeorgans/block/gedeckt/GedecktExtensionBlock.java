@@ -1,14 +1,12 @@
 package com.finchy.pipeorgans.block.gedeckt;
 
 import com.finchy.pipeorgans.block.Generic;
-import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -20,7 +18,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -28,19 +25,17 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.NotNull;
 
 public class GedecktExtensionBlock extends Block implements IWrenchable {
 
-    public static final EnumProperty<Generic.GenericExtensionShape> SHAPE =
-            EnumProperty.create("shape", Generic.GenericExtensionShape.class);
+    public static final EnumProperty<Generic.ExtensionShape> SHAPE =
+            EnumProperty.create("shape", Generic.ExtensionShape.class);
     public static final EnumProperty<Generic.WhistleSize> SIZE = GedecktBlock.SIZE;
 
     public GedecktExtensionBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
-                .setValue(SHAPE, Generic.GenericExtensionShape.SINGLE)
+                .setValue(SHAPE, Generic.ExtensionShape.SINGLE)
                 .setValue(SIZE, Generic.WhistleSize.MEDIUM));
     }
 
@@ -57,7 +52,7 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState below = pLevel.getBlockState(pPos.below());
-        return below.is(this) && below.getValue(SHAPE) != Generic.GenericExtensionShape.SINGLE
+        return below.is(this) && below.getValue(SHAPE) != Generic.ExtensionShape.SINGLE
                 || below.getBlock() instanceof GedecktBlock;
     }
 
@@ -67,13 +62,13 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
             return pState;
 
         if (pFacing == Direction.UP) {
-            boolean connected = pState.getValue(SHAPE) == Generic.GenericExtensionShape.DOUBLE_CONNECTED;
+            boolean connected = pState.getValue(SHAPE) == Generic.ExtensionShape.DOUBLE_CONNECTED;
             boolean shouldConnect = pLevel.getBlockState(pCurrentPos.above())
                     .is(this);
             if (!connected && shouldConnect)
-                return pState.setValue(SHAPE, Generic.GenericExtensionShape.DOUBLE_CONNECTED);
+                return pState.setValue(SHAPE, Generic.ExtensionShape.DOUBLE_CONNECTED);
             if (connected && !shouldConnect)
-                return pState.setValue(SHAPE, Generic.GenericExtensionShape.DOUBLE);
+                return pState.setValue(SHAPE, Generic.ExtensionShape.DOUBLE);
             return pState;
         }
 
@@ -120,11 +115,11 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
         BlockPos pos = context.getClickedPos();
 
         if (context.getClickLocation().y < context.getClickedPos()
-                .getY() + .5f || state.getValue(SHAPE) == Generic.GenericExtensionShape.SINGLE)
+                .getY() + .5f || state.getValue(SHAPE) == Generic.ExtensionShape.SINGLE)
             return IWrenchable.super.onSneakWrenched(state, context);
         if (!(world instanceof ServerLevel))
             return InteractionResult.SUCCESS;
-        world.setBlock(pos, state.setValue(SHAPE, Generic.GenericExtensionShape.SINGLE), 3);
+        world.setBlock(pos, state.setValue(SHAPE, Generic.ExtensionShape.SINGLE), 3);
         playRemoveSound(world, pos);
         return InteractionResult.SUCCESS;
     }

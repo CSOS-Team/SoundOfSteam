@@ -26,11 +26,11 @@ public class GambaRenderer extends SafeBlockEntityRenderer<GambaBlockEntity> {
             return;
 
         Direction direction = blockState.getValue(GambaBlock.FACING);
-        Generic.SmallWhistleSize size = blockState.getValue(GambaBlock.SIZE);
+        Generic.GambaWhistleSize size = blockState.getValue(GambaBlock.SIZE);
 
-        PartialModel mouth = size == Generic.SmallWhistleSize.SMALL ? AllPartialModels.GAMBA_MOUTH_SMALL :
-                size == Generic.SmallWhistleSize.MEDIUM ? AllPartialModels.GAMBA_MOUTH_MEDIUM :
-                        size == Generic.SmallWhistleSize.LARGE ? AllPartialModels.GAMBA_MOUTH_LARGE : AllPartialModels.GAMBA_MOUTH_TINY;
+        PartialModel mouth = size == Generic.GambaWhistleSize.SMALL ? AllPartialModels.GAMBA_MOUTH_SMALL :
+                size == Generic.GambaWhistleSize.MEDIUM ? AllPartialModels.GAMBA_MOUTH_MEDIUM :
+                        size == Generic.GambaWhistleSize.LARGE ? AllPartialModels.GAMBA_MOUTH_LARGE : AllPartialModels.GAMBA_MOUTH_TINY;
 
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {

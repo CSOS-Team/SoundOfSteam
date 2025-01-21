@@ -120,9 +120,9 @@ public class DiapasonBlock extends Block implements IBE<DiapasonBlockEntity>, IW
             SoundEvent hitSound = soundtype.getHitSound();
 
             if (blockState.getBlock() instanceof DiapasonExtensionBlock) {
-                if (blockState.getValue(DiapasonExtensionBlock.SHAPE) == Generic.GenericExtensionShape.SINGLE) {
+                if (blockState.getValue(DiapasonExtensionBlock.SHAPE) == Generic.ExtensionShape.SINGLE) {
                     pLevel.setBlock(currentPos,
-                            blockState.setValue(DiapasonExtensionBlock.SHAPE, Generic.GenericExtensionShape.DOUBLE), 3);
+                            blockState.setValue(DiapasonExtensionBlock.SHAPE, Generic.ExtensionShape.DOUBLE), 3);
 
                     if (soundtype != null) {
                         float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);

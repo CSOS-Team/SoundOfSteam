@@ -133,5 +133,40 @@
         "name": "pipeorgans:gamba/gm_low"
       }
     ]
+  },
+
+
+
+  "piccolo_superhigh": {
+    "subtitle": "sounds.pipeorgans.piccolo_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:piccolo/p_superhigh"
+      }
+    ]
+  },
+
+  "piccolo_high": {
+    "subtitle": "sounds.pipeorgans.piccolo_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:piccolo/p_high"
+      }
+    ]
+  },
+
+  "piccolo_medium": {
+    "subtitle": "sounds.pipeorgans.piccolo_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:piccolo/p_medium"
+      }
+    ]
   }
 }

@@ -1,9 +1,12 @@
 {
-  "creativetab.pipe_organs_tab": "Pipe Organs",
+  "creativetab.pipe_organs_great": "Great Division",
+  "creativetab.pipe_organs_swell": "Swell Division",
+  "creativetab.pipe_organs_pedal": "Pedal Division",
 
   "block.pipeorgans.gedeckt": "Gedeckt",
   "block.pipeorgans.diapason": "Diapason",
   "block.pipeorgans.gamba": "Gamba",
+  "block.pipeorgans.piccolo": "Piccolo",
 
   "sounds.pipeorgans.gedeckt_high": "Gedeckt squeaks",
   "sounds.pipeorgans.gedeckt_medium": "Gedeckt speaks",
@@ -19,5 +22,9 @@
   "sounds.pipeorgans.gamba_superhigh": "Gamba squeals",
   "sounds.pipeorgans.gamba_high": "Gamba squeaks",
   "sounds.pipeorgans.gamba_medium": "Gamba speaks",
-  "sounds.pipeorgans.gamba_low": "Gamba grumbles"
+  "sounds.pipeorgans.gamba_low": "Gamba grumbles",
+
+  "sounds.pipeorgans.piccolo_superhigh": "Gamba pierces",
+  "sounds.pipeorgans.piccolo_high": "Gamba squeals",
+  "sounds.pipeorgans.piccolo_medium": "Gamba squeaks"
 }

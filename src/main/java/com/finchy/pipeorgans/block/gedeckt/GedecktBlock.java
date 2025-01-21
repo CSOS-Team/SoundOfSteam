@@ -121,9 +121,9 @@ public class GedecktBlock extends Block implements IBE<GedecktBlockEntity>, IWre
             SoundEvent hitSound = soundtype.getHitSound();
 
             if (blockState.getBlock() instanceof GedecktExtensionBlock) {
-                if (blockState.getValue(GedecktExtensionBlock.SHAPE) == Generic.GenericExtensionShape.SINGLE) {
+                if (blockState.getValue(GedecktExtensionBlock.SHAPE) == Generic.ExtensionShape.SINGLE) {
                     pLevel.setBlock(currentPos,
-                            blockState.setValue(GedecktExtensionBlock.SHAPE, Generic.GenericExtensionShape.DOUBLE), 3);
+                            blockState.setValue(GedecktExtensionBlock.SHAPE, Generic.ExtensionShape.DOUBLE), 3);
 
                     if (soundtype != null) {
                         float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);

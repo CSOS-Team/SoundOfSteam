@@ -32,7 +32,7 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getGedecktExtensionShape(Generic.GenericExtensionShape shape, Generic.WhistleSize size) {
+    public static VoxelShape getGedecktExtensionShape(Generic.ExtensionShape shape, Generic.WhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case SMALL -> SLIM_EXTENSION_SMALL_SINGLE;
@@ -58,7 +58,7 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getDiapasonExtensionShape(Generic.GenericExtensionShape shape, Generic.WhistleSize size) {
+    public static VoxelShape getDiapasonExtensionShape(Generic.ExtensionShape shape, Generic.WhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case SMALL -> GENERIC_EXTENSION_SMALL_SINGLE;
@@ -75,7 +75,7 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getGambaBase(Generic.SmallWhistleSize size) {
+    public static VoxelShape getGambaBase(Generic.GambaWhistleSize size) {
         return switch (size) {
             case TINY -> GENERIC_TINY_BASE;
             case SMALL -> GENERIC_SMALL_BASE;
@@ -85,7 +85,7 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getGambaExtensionShape(Generic.GenericExtensionShape shape, Generic.SmallWhistleSize size) {
+    public static VoxelShape getGambaExtensionShape(Generic.ExtensionShape shape, Generic.GambaWhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> GENERIC_EXTENSION_TINY_SINGLE;
@@ -102,28 +102,36 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getReedBase(Generic.WhistleSize size) {
+    public static VoxelShape getPiccoloBase(Generic.PiccoloWhistleSize size) {
         return switch (size) {
-            case SMALL -> SLIM_SMALL_BASE;
-            case MEDIUM -> SLIM_MEDIUM_BASE;
-            case LARGE -> SLIM_LARGE_BASE;
-            case HUGE -> SLIM_HUGE_BASE;
+            case TINY -> GENERIC_TINY_BASE;
+            case SMALL -> GENERIC_SMALL_BASE;
+            case MEDIUM -> GENERIC_MEDIUM_BASE;
+
         };
     }
 
-    public static VoxelShape getReedExtensionShape(Generic.GenericExtensionShape shape, Generic.WhistleSize size) {
+    public static VoxelShape getPiccoloExtensionShape(Generic.QuadrupleExtensionShape shape, Generic.PiccoloWhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
-                case SMALL -> SLIM_EXTENSION_SMALL_SINGLE;
-                case MEDIUM -> SLIM_EXTENSION_MEDIUM_SINGLE;
-                case LARGE -> SLIM_EXTENSION_LARGE_SINGLE;
-                case HUGE -> SLIM_EXTENSION_HUGE_SINGLE;
+                case TINY -> GENERIC_EXTENSION_TINY_SINGLE;
+                case SMALL -> GENERIC_EXTENSION_SMALL_SINGLE;
+                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_SINGLE;
             };
-            case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
-                case SMALL -> SLIM_EXTENSION_SMALL_DOUBLE;
-                case MEDIUM -> SLIM_EXTENSION_MEDIUM_DOUBLE;
-                case LARGE -> SLIM_EXTENSION_LARGE_DOUBLE;
-                case HUGE -> SLIM_EXTENSION_HUGE_DOUBLE;
+            case DOUBLE -> switch (size) {
+                case TINY -> GENERIC_EXTENSION_TINY_DOUBLE;
+                case SMALL -> GENERIC_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_DOUBLE;
+            };
+            case TRIPLE -> switch (size) {
+                case TINY -> GENERIC_EXTENSION_TINY_DOUBLE;
+                case SMALL -> GENERIC_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_DOUBLE;
+            };
+            case QUADRUPLE, QUADRUPLE_CONNECTED -> switch (size) {
+                case TINY -> GENERIC_EXTENSION_TINY_DOUBLE;
+                case SMALL -> GENERIC_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_DOUBLE;
             };
         };
     }

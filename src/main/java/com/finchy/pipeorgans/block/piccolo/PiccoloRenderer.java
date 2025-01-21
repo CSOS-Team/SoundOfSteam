@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.block.tuba;
+package com.finchy.pipeorgans.block.piccolo;
 
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -15,35 +15,34 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class TubaRenderer extends SafeBlockEntityRenderer<TubaBlockEntity> {
+public class PiccoloRenderer extends SafeBlockEntityRenderer<PiccoloBlockEntity> {
 
-    public TubaRenderer(BlockEntityRendererProvider.Context context) {}
+    public PiccoloRenderer(BlockEntityRendererProvider.Context context) {}
 
     @Override
-    protected void renderSafe(TubaBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
-
+    protected void renderSafe(PiccoloBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
         BlockState blockState = be.getBlockState();
-        if (!(blockState.getBlock() instanceof TubaBlock))
+        if (!(blockState.getBlock() instanceof PiccoloBlock))
             return;
 
-        Direction direction = blockState.getValue(TubaBlock.FACING);
-        Generic.WhistleSize size = blockState.getValue(TubaBlock.SIZE);
+        Direction direction = blockState.getValue(PiccoloBlock.FACING);
+        Generic.PiccoloWhistleSize size = blockState.getValue(PiccoloBlock.SIZE);
 
-        PartialModel mouth = size == Generic.WhistleSize.SMALL ? AllPartialModels.DIAPASON_MOUTH_SMALL :
-                size == Generic.WhistleSize.MEDIUM ? AllPartialModels.DIAPASON_MOUTH_MEDIUM :
-                        size == Generic.WhistleSize.LARGE ? AllPartialModels.DIAPASON_MOUTH_LARGE : AllPartialModels.DIAPASON_MOUTH_HUGE;
+        PartialModel mouth = size == Generic.PiccoloWhistleSize.SMALL ? AllPartialModels.PICCOLO_MOUTH_SMALL :
+                size == Generic.PiccoloWhistleSize.MEDIUM ? AllPartialModels.PICCOLO_MOUTH_MEDIUM
+                        : AllPartialModels.PICCOLO_MOUTH_TINY;
 
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
             float wiggleProgress = (AnimationTickHolder.getTicks(be.getLevel()) + partialTicks) /8f;
-            offset -= (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 8f);
+            offset -= (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f);
         }
 
         CachedBufferer.partial(mouth, blockState)
                 .centre()
                 .rotateY(AngleHelper.horizontalAngle(direction))
                 .unCentre()
-                .translate(0, -offset / 16f, 0)
+                .translate(0, -offset*2 / 16f, 0)
                 .light(light)
                 .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
 

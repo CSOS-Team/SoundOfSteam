@@ -16,25 +16,25 @@ public class AllCreativeModeTabs {
     public static final RegistryObject<CreativeModeTab> PIPE_ORGANS_GREAT = CREATIVE_MODE_TABS.register("pipe_organs_great",
             () -> CreativeModeTab.builder()
                     .icon(() -> new ItemStack(AllBlocks.DIAPASON.get()))
-                    .title(Component.translatable("creativetab.pipe_organs_tab"))
+                    .title(Component.translatable("creativetab.pipe_organs_great"))
                     .displayItems((itemDisplayParameters, output) -> {
 
-                        output.accept(AllBlocks.GEDECKT.get());
+                        output.accept(AllBlocks.PICCOLO.get());
                         output.accept(AllBlocks.DIAPASON.get());
-                        output.accept(AllBlocks.GAMBA.get());
 
                     })
                     .build());
 
     public static final RegistryObject<CreativeModeTab> PIPE_ORGANS_SWELL = CREATIVE_MODE_TABS.register("pipe_organs_swell",
             () -> CreativeModeTab.builder()
-                    .icon(() -> new ItemStack(AllBlocks.DIAPASON.get()))
-                    .title(Component.translatable("creativetab.pipe_organs_tab"))
+                    .icon(() -> new ItemStack(AllBlocks.GEDECKT.get()))
+                    .title(Component.translatable("creativetab.pipe_organs_swell"))
+                    .withTabsBefore(PIPE_ORGANS_GREAT.getKey())
                     .displayItems((itemDisplayParameters, output) -> {
 
                         output.accept(AllBlocks.GEDECKT.get());
-                        output.accept(AllBlocks.DIAPASON.get());
                         output.accept(AllBlocks.GAMBA.get());
+                        output.accept(com.simibubi.create.AllBlocks.STEAM_WHISTLE.get());
 
                     })
                     .build());
@@ -42,7 +42,8 @@ public class AllCreativeModeTabs {
     public static final RegistryObject<CreativeModeTab> PIPE_ORGANS_PEDAL = CREATIVE_MODE_TABS.register("pipe_organs_pedal",
             () -> CreativeModeTab.builder()
                     .icon(() -> new ItemStack(AllBlocks.DIAPASON.get()))
-                    .title(Component.translatable("creativetab.pipe_organs_tab"))
+                    .title(Component.translatable("creativetab.pipe_organs_pedal"))
+                    .withTabsBefore(PIPE_ORGANS_SWELL.getKey())
                     .displayItems((itemDisplayParameters, output) -> {
 
                         output.accept(AllBlocks.GEDECKT.get());

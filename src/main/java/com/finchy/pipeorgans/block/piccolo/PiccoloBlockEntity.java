@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.block.tuba;
+package com.finchy.pipeorgans.block.piccolo;
 
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllBlockEntities;
@@ -30,14 +30,14 @@ import net.minecraftforge.fml.DistExecutor;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class TubaBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
+public class PiccoloBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
     public WeakReference<FluidTankBlockEntity> source;
     public LerpedFloat animation;
     protected int pitch;
 
-    public TubaBlockEntity(BlockPos pos, BlockState blockState) {
-        super(AllBlockEntities.TUBA_BLOCK_ENTITY.get(), pos, blockState);
+    public PiccoloBlockEntity(BlockPos pos, BlockState blockState) {
+        super(AllBlockEntities.PICCOLO_BLOCK_ENTITY.get(), pos, blockState);
         source = new WeakReference<>(null);
         animation = LerpedFloat.angular();
     }
@@ -69,13 +69,13 @@ public class TubaBlockEntity extends SmartBlockEntity implements IHaveGoggleInfo
     }
 
     protected boolean isPowered() {
-        return getBlockState().getOptionalValue(TubaBlock.POWERED)
+        return getBlockState().getOptionalValue(PiccoloBlock.POWERED)
                 .orElse(false);
     }
 
-    protected Generic.WhistleSize getOctave() {
-        return getBlockState().getOptionalValue(TubaBlock.SIZE)
-                .orElse(Generic.WhistleSize.MEDIUM);
+    protected Generic.PiccoloWhistleSize getOctave() {
+        return getBlockState().getOptionalValue(PiccoloBlock.SIZE)
+                .orElse(Generic.PiccoloWhistleSize.MEDIUM);
     }
 
     @Override
@@ -97,10 +97,10 @@ public class TubaBlockEntity extends SmartBlockEntity implements IHaveGoggleInfo
     }
 
     @OnlyIn(Dist.CLIENT)
-    protected TubaSoundInstance soundInstance;
+    protected PiccoloSoundInstance soundInstance;
 
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(Generic.WhistleSize size, boolean powered) {
+    protected void tickAudio(Generic.PiccoloWhistleSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
@@ -117,10 +117,10 @@ public class TubaBlockEntity extends SmartBlockEntity implements IHaveGoggleInfo
         if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
             Minecraft.getInstance()
                     .getSoundManager()
-                    .play(soundInstance = new TubaSoundInstance(size, worldPosition));
+                    .play(soundInstance = new PiccoloSoundInstance(size, worldPosition));
 
             AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
-                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
+                    size == Generic.PiccoloWhistleSize.TINY ? f + .75f : f, false);
 
             particle = true;
         }
@@ -147,12 +147,20 @@ public class TubaBlockEntity extends SmartBlockEntity implements IHaveGoggleInfo
     public void updatePitch() {
         BlockPos currentPos = worldPosition.above();
         int newPitch;
-        for (newPitch = 0; newPitch <= 24; newPitch += 2) {
+        for (newPitch = 0; newPitch <= 24; newPitch += 4) {
             BlockState blockState = level.getBlockState(currentPos);
-            if (!(blockState.getBlock() instanceof TubaExtensionBlock))
+            if (!(blockState.getBlock() instanceof PiccoloExtensionBlock))
                 break;
-            if (blockState.getValue(TubaExtensionBlock.SHAPE) == Generic.GenericExtensionShape.SINGLE) {
+            if (blockState.getValue(PiccoloExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.SINGLE) {
                 newPitch++;
+                break;
+            }
+            if (blockState.getValue(PiccoloExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.DOUBLE) {
+                newPitch+=2;
+                break;
+            }
+            if (blockState.getValue(PiccoloExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.TRIPLE) {
+                newPitch+=3;
                 break;
             }
             currentPos = currentPos.above();

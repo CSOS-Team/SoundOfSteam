@@ -5,12 +5,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class Generic {
 
-    public enum GenericExtensionShape implements StringRepresentable {
+    public enum ExtensionShape implements StringRepresentable {
         SINGLE("single"), DOUBLE("double"), DOUBLE_CONNECTED("double_connected");
 
         private final String name;
 
-        GenericExtensionShape(String name) {
+        ExtensionShape(String name) {
             this.name = name;
         }
 
@@ -19,6 +19,23 @@ public class Generic {
             return this.name;
         }
     }
+
+    public enum QuadrupleExtensionShape implements StringRepresentable {
+        SINGLE("single"), DOUBLE("double"), TRIPLE("triple"), QUADRUPLE("quadruple"), QUADRUPLE_CONNECTED("quadruple_connected");
+
+        private final String name;
+
+        QuadrupleExtensionShape(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public @NotNull String getSerializedName() {
+            return this.name;
+        }
+    }
+
+
 
     public enum WhistleSize implements StringRepresentable {
         SMALL("small"), MEDIUM("medium"), LARGE("large"), HUGE("huge");
@@ -35,12 +52,12 @@ public class Generic {
         }
     }
 
-    public enum SmallWhistleSize implements StringRepresentable {
+    public enum GambaWhistleSize implements StringRepresentable {
         TINY("tiny"), SMALL("small"), MEDIUM("medium"), LARGE("large");
 
         private final String name;
 
-        SmallWhistleSize(String name) {
+        GambaWhistleSize(String name) {
             this.name = name;
         }
 
@@ -49,4 +66,20 @@ public class Generic {
             return this.name;
         }
     }
+
+    public enum PiccoloWhistleSize implements StringRepresentable {
+        TINY("tiny"), SMALL("small"), MEDIUM("medium");
+
+        private final String name;
+
+        PiccoloWhistleSize(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public @NotNull String getSerializedName() {
+            return this.name;
+        }
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.block.reed;
+package com.finchy.pipeorgans.block.piccolo;
 
 import com.finchy.pipeorgans.block.Generic;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
@@ -9,16 +9,15 @@ import net.minecraft.world.phys.Vec3;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
-public class ReedSoundInstance extends AbstractTickableSoundInstance {
+public class PiccoloSoundInstance extends AbstractTickableSoundInstance {
 
     private boolean active;
     private int keepAlive;
-    private Generic.WhistleSize size;
+    private Generic.PiccoloWhistleSize size;
 
-    public ReedSoundInstance(Generic.WhistleSize size, BlockPos worldPosition) {
-        super((size == Generic.WhistleSize.SMALL ? GEDECKT_HIGH :
-                size == Generic.WhistleSize.MEDIUM ? GEDECKT_MEDIUM :
-                size == Generic.WhistleSize.LARGE ? GEDECKT_LOW : GEDECKT_DEEP).get(),
+    public PiccoloSoundInstance(Generic.PiccoloWhistleSize size, BlockPos worldPosition) {
+        super((size == Generic.PiccoloWhistleSize.SMALL ? PICCOLO_HIGH :
+                size == Generic.PiccoloWhistleSize.MEDIUM ? PICCOLO_MEDIUM : PICCOLO_SUPERHIGH).get(),
                 SoundSource.RECORDS,
                 SoundInstance.createUnseededRandom());
         this.size = size;
@@ -33,7 +32,7 @@ public class ReedSoundInstance extends AbstractTickableSoundInstance {
         z = v.z;
     }
 
-    public Generic.WhistleSize getOctave() { return size; }
+    public Generic.PiccoloWhistleSize getOctave() { return size; }
 
     public void fadeOut() { this.active = false; }
 

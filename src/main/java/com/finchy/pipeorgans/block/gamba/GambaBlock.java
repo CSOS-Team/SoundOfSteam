@@ -47,7 +47,7 @@ public class GambaBlock extends Block implements IBE<GambaBlockEntity>, IWrencha
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final EnumProperty<Generic.SmallWhistleSize> SIZE = EnumProperty.create("size", Generic.SmallWhistleSize.class);
+    public static final EnumProperty<Generic.GambaWhistleSize> SIZE = EnumProperty.create("size", Generic.GambaWhistleSize.class);
 
     // declare block and default blockstate
     public GambaBlock(Properties pProperties) {
@@ -56,7 +56,7 @@ public class GambaBlock extends Block implements IBE<GambaBlockEntity>, IWrencha
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
-                .setValue(SIZE, Generic.SmallWhistleSize.SMALL));
+                .setValue(SIZE, Generic.GambaWhistleSize.SMALL));
     }
 
     // custom hitbox
@@ -109,7 +109,7 @@ public class GambaBlock extends Block implements IBE<GambaBlockEntity>, IWrencha
         if (!base.hasProperty(SIZE))
             return;
 
-        Generic.SmallWhistleSize size = base.getValue(SIZE);
+        Generic.GambaWhistleSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pPos.above();
 
@@ -120,9 +120,9 @@ public class GambaBlock extends Block implements IBE<GambaBlockEntity>, IWrencha
             SoundEvent hitSound = soundtype.getHitSound();
 
             if (blockState.getBlock() instanceof GambaExtensionBlock) {
-                if (blockState.getValue(GambaExtensionBlock.SHAPE) == Generic.GenericExtensionShape.SINGLE) {
+                if (blockState.getValue(GambaExtensionBlock.SHAPE) == Generic.ExtensionShape.SINGLE) {
                     pLevel.setBlock(currentPos,
-                            blockState.setValue(GambaExtensionBlock.SHAPE, Generic.GenericExtensionShape.DOUBLE), 3);
+                            blockState.setValue(GambaExtensionBlock.SHAPE, Generic.ExtensionShape.DOUBLE), 3);
 
                     if (soundtype != null) {
                         float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);

@@ -28,15 +28,15 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class GambaExtensionBlock extends Block implements IWrenchable {
 
-    public static final EnumProperty<Generic.GenericExtensionShape> SHAPE =
-            EnumProperty.create("shape", Generic.GenericExtensionShape.class);
-    public static final EnumProperty<Generic.SmallWhistleSize> SIZE = GambaBlock.SIZE;
+    public static final EnumProperty<Generic.ExtensionShape> SHAPE =
+            EnumProperty.create("shape", Generic.ExtensionShape.class);
+    public static final EnumProperty<Generic.GambaWhistleSize> SIZE = GambaBlock.SIZE;
 
     public GambaExtensionBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
-                .setValue(SHAPE, Generic.GenericExtensionShape.SINGLE)
-                .setValue(SIZE, Generic.SmallWhistleSize.SMALL));
+                .setValue(SHAPE, Generic.ExtensionShape.SINGLE)
+                .setValue(SIZE, Generic.GambaWhistleSize.SMALL));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class GambaExtensionBlock extends Block implements IWrenchable {
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState below = pLevel.getBlockState(pPos.below());
-        return below.is(this) && below.getValue(SHAPE) != Generic.GenericExtensionShape.SINGLE
+        return below.is(this) && below.getValue(SHAPE) != Generic.ExtensionShape.SINGLE
                 || below.getBlock() instanceof GambaBlock;
     }
 
@@ -62,13 +62,13 @@ public class GambaExtensionBlock extends Block implements IWrenchable {
             return pState;
 
         if (pFacing == Direction.UP) {
-            boolean connected = pState.getValue(SHAPE) == Generic.GenericExtensionShape.DOUBLE_CONNECTED;
+            boolean connected = pState.getValue(SHAPE) == Generic.ExtensionShape.DOUBLE_CONNECTED;
             boolean shouldConnect = pLevel.getBlockState(pCurrentPos.above())
                     .is(this);
             if (!connected && shouldConnect)
-                return pState.setValue(SHAPE, Generic.GenericExtensionShape.DOUBLE_CONNECTED);
+                return pState.setValue(SHAPE, Generic.ExtensionShape.DOUBLE_CONNECTED);
             if (connected && !shouldConnect)
-                return pState.setValue(SHAPE, Generic.GenericExtensionShape.DOUBLE);
+                return pState.setValue(SHAPE, Generic.ExtensionShape.DOUBLE);
             return pState;
         }
 
@@ -115,11 +115,11 @@ public class GambaExtensionBlock extends Block implements IWrenchable {
         BlockPos pos = context.getClickedPos();
 
         if (context.getClickLocation().y < context.getClickedPos()
-                .getY() + .5f || state.getValue(SHAPE) == Generic.GenericExtensionShape.SINGLE)
+                .getY() + .5f || state.getValue(SHAPE) == Generic.ExtensionShape.SINGLE)
             return IWrenchable.super.onSneakWrenched(state, context);
         if (!(world instanceof ServerLevel))
             return InteractionResult.SUCCESS;
-        world.setBlock(pos, state.setValue(SHAPE, Generic.GenericExtensionShape.SINGLE), 3);
+        world.setBlock(pos, state.setValue(SHAPE, Generic.ExtensionShape.SINGLE), 3);
         playRemoveSound(world, pos);
         return InteractionResult.SUCCESS;
     }

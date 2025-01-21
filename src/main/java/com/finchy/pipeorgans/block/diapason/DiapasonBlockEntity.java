@@ -21,13 +21,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -153,7 +151,7 @@ public class DiapasonBlockEntity extends SmartBlockEntity implements IHaveGoggle
             BlockState blockState = level.getBlockState(currentPos);
             if (!(blockState.getBlock() instanceof DiapasonExtensionBlock))
                 break;
-            if (blockState.getValue(DiapasonExtensionBlock.SHAPE) == Generic.GenericExtensionShape.SINGLE) {
+            if (blockState.getValue(DiapasonExtensionBlock.SHAPE) == Generic.ExtensionShape.SINGLE) {
                 newPitch++;
                 break;
             }

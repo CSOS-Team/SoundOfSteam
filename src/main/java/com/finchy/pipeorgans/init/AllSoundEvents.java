@@ -32,6 +32,11 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> GAMBA_MEDIUM = registerSoundEvents("gamba_medium");
     public static final RegistryObject<SoundEvent> GAMBA_LOW = registerSoundEvents("gamba_low");
 
+    public static final RegistryObject<SoundEvent> PICCOLO_SUPERHIGH = registerSoundEvents("piccolo_superhigh");
+    public static final RegistryObject<SoundEvent> PICCOLO_HIGH = registerSoundEvents("piccolo_high");
+    public static final RegistryObject<SoundEvent> PICCOLO_MEDIUM = registerSoundEvents("piccolo_medium");
+    public static final RegistryObject<SoundEvent> PICCOLO_LOW = registerSoundEvents("piccolo_low");
+
 
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {

@@ -1,5 +1,6 @@
-package com.finchy.pipeorgans.block.tuba;
+package com.finchy.pipeorgans.block.piccolo;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
@@ -26,22 +27,22 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class TubaExtensionBlock extends Block implements IWrenchable {
+public class PiccoloExtensionBlock extends Block implements IWrenchable {
 
-    public static final EnumProperty<Generic.GenericExtensionShape> SHAPE =
-            EnumProperty.create("shape", Generic.GenericExtensionShape.class);
-    public static final EnumProperty<Generic.WhistleSize> SIZE = TubaBlock.SIZE;
+    public static final EnumProperty<Generic.QuadrupleExtensionShape> SHAPE =
+            EnumProperty.create("shape", Generic.QuadrupleExtensionShape.class);
+    public static final EnumProperty<Generic.PiccoloWhistleSize> SIZE = PiccoloBlock.SIZE;
 
-    public TubaExtensionBlock(Properties pProperties) {
+    public PiccoloExtensionBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
-                .setValue(SHAPE, Generic.GenericExtensionShape.SINGLE)
-                .setValue(SIZE, Generic.WhistleSize.MEDIUM));
+                .setValue(SHAPE, Generic.QuadrupleExtensionShape.SINGLE)
+                .setValue(SIZE, Generic.PiccoloWhistleSize.SMALL));
     }
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return AllShapes.getDiapasonExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
+        return AllShapes.getPiccoloExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
     }
 
     @Override
@@ -52,23 +53,25 @@ public class TubaExtensionBlock extends Block implements IWrenchable {
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState below = pLevel.getBlockState(pPos.below());
-        return below.is(this) && below.getValue(SHAPE) != Generic.GenericExtensionShape.SINGLE
-                || below.getBlock() instanceof TubaBlock;
+        return below.is(this) && below.getValue(SHAPE) != Generic.QuadrupleExtensionShape.SINGLE
+                || below.getBlock() instanceof PiccoloBlock;
     }
 
+
+    // todo: FIX THIS
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
                                   BlockPos pCurrentPos, BlockPos pFacingPos) {
         if (pFacing.getAxis() != Direction.Axis.Y)
             return pState;
 
         if (pFacing == Direction.UP) {
-            boolean connected = pState.getValue(SHAPE) == Generic.GenericExtensionShape.DOUBLE_CONNECTED;
+            boolean connected = pState.getValue(SHAPE) == Generic.QuadrupleExtensionShape.QUADRUPLE_CONNECTED;
             boolean shouldConnect = pLevel.getBlockState(pCurrentPos.above())
                     .is(this);
             if (!connected && shouldConnect)
-                return pState.setValue(SHAPE, Generic.GenericExtensionShape.DOUBLE_CONNECTED);
+                return pState.setValue(SHAPE, Generic.QuadrupleExtensionShape.QUADRUPLE_CONNECTED);
             if (connected && !shouldConnect)
-                return pState.setValue(SHAPE, Generic.GenericExtensionShape.DOUBLE);
+                return pState.setValue(SHAPE, Generic.QuadrupleExtensionShape.QUADRUPLE);
             return pState;
         }
 
@@ -81,7 +84,7 @@ public class TubaExtensionBlock extends Block implements IWrenchable {
         BlockPos currentPos = pPos.below();
         while (true) {
             BlockState blockState = pLevel.getBlockState(currentPos);
-            if (blockState.getBlock() instanceof TubaExtensionBlock) {
+            if (blockState.getBlock() instanceof PiccoloExtensionBlock) {
                 currentPos = currentPos.below();
                 continue;
             }
@@ -98,13 +101,13 @@ public class TubaExtensionBlock extends Block implements IWrenchable {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
         ItemStack heldItem = pPlayer.getItemInHand(pHand);
-        if (pPlayer == null || heldItem.getItem() != AllBlocks.TUBA.get().asItem()) {;
+        if (pPlayer == null || heldItem.getItem() != AllBlocks.PICCOLO.get().asItem()) {;
             return InteractionResult.PASS;
         }
         BlockPos rootFound = findRoot(pLevel, pPos);
         BlockState blockState = pLevel.getBlockState(rootFound);
-        if (blockState.getBlock() instanceof TubaBlock tuba)
-            return tuba.use(blockState, pLevel, rootFound, pPlayer, pHand,
+        if (blockState.getBlock() instanceof PiccoloBlock piccolo)
+            return piccolo.use(blockState, pLevel, rootFound, pPlayer, pHand,
                     new BlockHitResult(pHit.getLocation(), pHit.getDirection(), rootFound, pHit.isInside()));
         return InteractionResult.PASS;
     }
@@ -115,11 +118,11 @@ public class TubaExtensionBlock extends Block implements IWrenchable {
         BlockPos pos = context.getClickedPos();
 
         if (context.getClickLocation().y < context.getClickedPos()
-                .getY() + .5f || state.getValue(SHAPE) == Generic.GenericExtensionShape.SINGLE)
+                .getY() + .5f || state.getValue(SHAPE) == Generic.QuadrupleExtensionShape.SINGLE)
             return IWrenchable.super.onSneakWrenched(state, context);
         if (!(world instanceof ServerLevel))
             return InteractionResult.SUCCESS;
-        world.setBlock(pos, state.setValue(SHAPE, Generic.GenericExtensionShape.SINGLE), 3);
+        world.setBlock(pos, state.setValue(SHAPE, Generic.QuadrupleExtensionShape.SINGLE), 3);
         playRemoveSound(world, pos);
         return InteractionResult.SUCCESS;
     }
@@ -129,26 +132,25 @@ public class TubaExtensionBlock extends Block implements IWrenchable {
         Level level = context.getLevel();
         BlockPos findRoot = findRoot(level, context.getClickedPos());
         BlockState blockState = level.getBlockState(findRoot);
-        if (blockState.getBlock()instanceof TubaBlock whistle)
-            return whistle.onWrenched(blockState, relocateContext(context, findRoot));
+        if (blockState.getBlock()instanceof PiccoloBlock piccolo)
+            return piccolo.onWrenched(blockState, relocateContext(context, findRoot));
         return IWrenchable.super.onWrenched(state, context);
     }
 
     @Override
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         if (pOldState.getBlock() != this || pOldState.getValue(SHAPE) != pState.getValue(SHAPE))
-            TubaBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
+            PiccoloBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
     }
 
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         if (pOldState.getBlock() != this || pOldState.getValue(SHAPE) != pState.getValue(SHAPE))
-            TubaBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
+            PiccoloBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
     }
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-        return new ItemStack(AllBlocks.TUBA.get());
+        return new ItemStack(AllBlocks.PICCOLO.get());
     }
-
 }

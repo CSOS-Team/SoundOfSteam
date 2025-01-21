@@ -7,8 +7,8 @@ import com.finchy.pipeorgans.block.gamba.GambaBlock;
 import com.finchy.pipeorgans.block.gamba.GambaExtensionBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktExtensionBlock;
-import com.finchy.pipeorgans.block.reed.ReedBlock;
-import com.finchy.pipeorgans.block.reed.ReedExtensionBlock;
+import com.finchy.pipeorgans.block.piccolo.PiccoloBlock;
+import com.finchy.pipeorgans.block.piccolo.PiccoloExtensionBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -30,29 +30,36 @@ public class AllBlocks {
     // declare blocks here
 
     public static final RegistryObject<GedecktBlock> GEDECKT = registerBlock("gedeckt",
-            () -> new GedecktBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
+            () -> new GedecktBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)
+                    .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<GedecktExtensionBlock> GEDECKT_EXTENSION = registerBlockWithoutItem("gedeckt_extension",
-            () -> new GedecktExtensionBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
+            () -> new GedecktExtensionBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)
+                    .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<DiapasonBlock> DIAPASON = registerBlock("diapason",
-            () -> new DiapasonBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+            () -> new DiapasonBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+                    .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<DiapasonExtensionBlock> DIAPASON_EXTENSION = registerBlockWithoutItem("diapason_extension",
-            () -> new DiapasonExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+            () -> new DiapasonExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+                    .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<GambaBlock> GAMBA = registerBlock("gamba",
-            () -> new GambaBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+            () -> new GambaBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<GambaExtensionBlock> GAMBA_EXTENSION = registerBlockWithoutItem("gamba_extension",
-            () -> new GambaExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+            () -> new GambaExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<ReedBlock> REED = registerBlock("reed_pipe",
-            () -> new ReedBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
+    public static final RegistryObject<PiccoloBlock> PICCOLO = registerBlock("piccolo",
+            () -> new PiccoloBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<ReedExtensionBlock> REED_EXTENSION = registerBlockWithoutItem("reed_extension",
-            () -> new ReedExtensionBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
-
+    public static final RegistryObject<PiccoloExtensionBlock> PICCOLO_EXTENSION = registerBlockWithoutItem("piccolo_extension",
+            () -> new PiccoloExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .requiresCorrectToolForDrops()));
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
