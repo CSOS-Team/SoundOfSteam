@@ -7,6 +7,7 @@
   "block.pipeorgans.diapason": "Diapason",
   "block.pipeorgans.gamba": "Gamba",
   "block.pipeorgans.piccolo": "Piccolo",
+  "block.pipeorgans.subbass": "Subbass",
 
   "sounds.pipeorgans.gedeckt_high": "Gedeckt squeaks",
   "sounds.pipeorgans.gedeckt_medium": "Gedeckt speaks",
@@ -18,7 +19,6 @@
   "sounds.pipeorgans.diapason_low": "Diapason grumbles",
   "sounds.pipeorgans.diapason_deep": "Diapason rumbles",
 
-
   "sounds.pipeorgans.gamba_superhigh": "Gamba squeals",
   "sounds.pipeorgans.gamba_high": "Gamba squeaks",
   "sounds.pipeorgans.gamba_medium": "Gamba speaks",
@@ -26,5 +26,10 @@
 
   "sounds.pipeorgans.piccolo_superhigh": "Gamba pierces",
   "sounds.pipeorgans.piccolo_high": "Gamba squeals",
-  "sounds.pipeorgans.piccolo_medium": "Gamba squeaks"
+  "sounds.pipeorgans.piccolo_medium": "Gamba squeaks",
+
+  "sounds.pipeorgans.subbass_high": "Subbass speaks",
+  "sounds.pipeorgans.subbass_medium": "Subbass grumbles",
+  "sounds.pipeorgans.subbass_low": "Subbass rumbles",
+  "sounds.pipeorgans.subbass_deep": "Subbass shakes the earth"
 }

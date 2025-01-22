@@ -1,0 +1,18 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/subbass",
+		"particle": "pipeorgans:block/subbass"
+	},
+	"elements": [
+		{
+			"from": [6, 6, 4.1],
+			"to": [10, 9, 4.1],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 6, 3.1]},
+			"faces": {
+				"north": {"uv": [10.75, 0.875, 11.25, 1.25], "texture": "#0"},
+				"south": {"uv": [11.25, 0.875, 10.75, 1.25], "texture": "#0"}
+			}
+		}
+	]
+}

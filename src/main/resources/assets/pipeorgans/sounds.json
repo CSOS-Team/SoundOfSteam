@@ -168,5 +168,51 @@
         "name": "pipeorgans:piccolo/p_medium"
       }
     ]
+  },
+
+
+
+  "subbass_high": {
+    "subtitle": "sounds.pipeorgans.subbass_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:subbass/s_high"
+      }
+    ]
+  },
+
+  "subbass_medium": {
+    "subtitle": "sounds.pipeorgans.subbass_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:subbass/s_medium"
+      }
+    ]
+  },
+
+  "subbass_low": {
+    "subtitle": "sounds.pipeorgans.subbass_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:subbass/s_low"
+      }
+    ]
+  },
+
+  "subbass_deep": {
+    "subtitle": "sounds.pipeorgans.subbass_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:subbass/s_deep"
+      }
+    ]
   }
 }

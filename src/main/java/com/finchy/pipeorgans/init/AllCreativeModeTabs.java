@@ -41,14 +41,12 @@ public class AllCreativeModeTabs {
 
     public static final RegistryObject<CreativeModeTab> PIPE_ORGANS_PEDAL = CREATIVE_MODE_TABS.register("pipe_organs_pedal",
             () -> CreativeModeTab.builder()
-                    .icon(() -> new ItemStack(AllBlocks.DIAPASON.get()))
+                    .icon(() -> new ItemStack(AllBlocks.SUBBASS.get()))
                     .title(Component.translatable("creativetab.pipe_organs_pedal"))
                     .withTabsBefore(PIPE_ORGANS_SWELL.getKey())
                     .displayItems((itemDisplayParameters, output) -> {
 
-                        output.accept(AllBlocks.GEDECKT.get());
-                        output.accept(AllBlocks.DIAPASON.get());
-                        output.accept(AllBlocks.GAMBA.get());
+                        output.accept(AllBlocks.SUBBASS.get());;
 
                     })
                     .build());

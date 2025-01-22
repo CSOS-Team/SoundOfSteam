@@ -4,6 +4,7 @@ import com.finchy.pipeorgans.block.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.block.gamba.GambaBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlock;
 import com.finchy.pipeorgans.block.piccolo.PiccoloBlock;
+import com.finchy.pipeorgans.block.subbass.SubbassBlock;
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
@@ -21,10 +22,12 @@ public class BoilerDataEvaluateMixin {
     @Expression("STEAM_WHISTLE.has(?)")
     @ModifyExpressionValue(method = "evaluate", at = @At("MIXINEXTRAS:EXPRESSION"))
     private boolean checkOtherWhistleBlocks(boolean original, @Local(ordinal=1) BlockState attachedState) {
-        return original || attachedState.getBlock() instanceof GedecktBlock
+        return original
+                || attachedState.getBlock() instanceof GedecktBlock
                 || attachedState.getBlock() instanceof DiapasonBlock
                 || attachedState.getBlock() instanceof GambaBlock
-                || attachedState.getBlock() instanceof PiccoloBlock;
+                || attachedState.getBlock() instanceof PiccoloBlock
+                || attachedState.getBlock() instanceof SubbassBlock;
     }
 
     /*

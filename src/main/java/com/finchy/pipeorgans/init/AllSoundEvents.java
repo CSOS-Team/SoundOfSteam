@@ -37,6 +37,11 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> PICCOLO_MEDIUM = registerSoundEvents("piccolo_medium");
     public static final RegistryObject<SoundEvent> PICCOLO_LOW = registerSoundEvents("piccolo_low");
 
+    public static final RegistryObject<SoundEvent> SUBBASS_HIGH = registerSoundEvents("subbass_high");
+    public static final RegistryObject<SoundEvent> SUBBASS_MEDIUM = registerSoundEvents("subbass_medium");
+    public static final RegistryObject<SoundEvent> SUBBASS_LOW = registerSoundEvents("subbass_low");
+    public static final RegistryObject<SoundEvent> SUBBASS_DEEP = registerSoundEvents("subbass_deep");
+
 
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
