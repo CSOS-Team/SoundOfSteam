@@ -1,8 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"2": "pipeorgans:block/piccolo",
-		"particle": "pipeorgans:block/copper_redstone_plate"
+		"2": "pipeorgans:block/piccolo"
 	},
 	"elements": [
 		{
@@ -10,8 +9,8 @@
 			"to": [11, 8, 3.9],
 			"rotation": {"angle": 0, "axis": "x", "origin": [7, 6, 3.9]},
 			"faces": {
-				"north": {"uv": [9.25, 3.25, 10.75, 3.75], "texture": "#2"},
-				"south": {"uv": [10.75, 3.25, 9.25, 3.75], "texture": "#2"}
+				"north": {"uv": [4.625, 1.625, 5.375, 1.875], "texture": "#2"},
+				"south": {"uv": [5.375, 1.625, 4.625, 1.875], "texture": "#2"}
 			}
 		}
 	],

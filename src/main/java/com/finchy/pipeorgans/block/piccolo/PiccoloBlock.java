@@ -1,8 +1,6 @@
 package com.finchy.pipeorgans.block.piccolo;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.Generic;
-import com.finchy.pipeorgans.block.gedeckt.GedecktExtensionBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
@@ -49,7 +47,7 @@ public class PiccoloBlock extends Block implements IBE<PiccoloBlockEntity>, IWre
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final EnumProperty<Generic.PiccoloWhistleSize> SIZE = EnumProperty.create("size", Generic.PiccoloWhistleSize.class);
+    public static final EnumProperty<Generic.WhistleSize> SIZE = EnumProperty.create("size", Generic.WhistleSize.class);
 
     // declare block and default blockstate
     public PiccoloBlock(Properties pProperties) {
@@ -58,13 +56,13 @@ public class PiccoloBlock extends Block implements IBE<PiccoloBlockEntity>, IWre
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
-                .setValue(SIZE, Generic.PiccoloWhistleSize.SMALL));
+                .setValue(SIZE, Generic.WhistleSize.SMALL));
     }
 
     // custom hitbox
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        VoxelShape whistle = AllShapes.getPiccoloBase(pState.getValue(SIZE)); // get base whistle shape (temporarily medium)
+        VoxelShape whistle = AllShapes.getGenericBase(pState.getValue(SIZE)); // get base whistle shape
         return Shapes.or(whistle,
                 !pState.getValue(WALL) ?
                         AllShapes.BASE_FLOOR : AllShapes.getBase(pState.getValue(FACING)));
@@ -111,7 +109,7 @@ public class PiccoloBlock extends Block implements IBE<PiccoloBlockEntity>, IWre
         if (!base.hasProperty(SIZE))
             return;
 
-        Generic.PiccoloWhistleSize size = base.getValue(SIZE);
+        Generic.WhistleSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pPos.above();
 

@@ -26,11 +26,12 @@ public class PiccoloRenderer extends SafeBlockEntityRenderer<PiccoloBlockEntity>
             return;
 
         Direction direction = blockState.getValue(PiccoloBlock.FACING);
-        Generic.PiccoloWhistleSize size = blockState.getValue(PiccoloBlock.SIZE);
+        Generic.WhistleSize size = blockState.getValue(PiccoloBlock.SIZE);
 
-        PartialModel mouth = size == Generic.PiccoloWhistleSize.SMALL ? AllPartialModels.PICCOLO_MOUTH_SMALL :
-                size == Generic.PiccoloWhistleSize.MEDIUM ? AllPartialModels.PICCOLO_MOUTH_MEDIUM
-                        : AllPartialModels.PICCOLO_MOUTH_TINY;
+        PartialModel mouth = size == Generic.WhistleSize.TINY ? AllPartialModels.PICCOLO_MOUTH_TINY :
+                size == Generic.WhistleSize.SMALL ? AllPartialModels.PICCOLO_MOUTH_SMALL :
+                size == Generic.WhistleSize.MEDIUM ? AllPartialModels.PICCOLO_MOUTH_MEDIUM :
+                        size == Generic.WhistleSize.LARGE ? AllPartialModels.PICCOLO_MOUTH_LARGE : AllPartialModels.PICCOLO_MOUTH_HUGE;
 
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {

@@ -23,8 +23,9 @@ public class AllShapes {
 
     }
 
-    public static VoxelShape getGedecktBase(Generic.WhistleSize size) {
+    public static VoxelShape getSlimBase(Generic.WhistleSize size) {
         return switch (size) {
+            case TINY -> SLIM_HUGE_BASE;
             case SMALL -> SLIM_SMALL_BASE;
             case MEDIUM -> SLIM_MEDIUM_BASE;
             case LARGE -> SLIM_LARGE_BASE;
@@ -32,15 +33,17 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getGedecktExtensionShape(Generic.ExtensionShape shape, Generic.WhistleSize size) {
+    public static VoxelShape getSlimExtensionShape(Generic.ExtensionShape shape, Generic.WhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
+                case TINY -> SLIM_EXTENSION_HUGE_SINGLE;
                 case SMALL -> SLIM_EXTENSION_SMALL_SINGLE;
                 case MEDIUM -> SLIM_EXTENSION_MEDIUM_SINGLE;
                 case LARGE -> SLIM_EXTENSION_LARGE_SINGLE;
                 case HUGE -> SLIM_EXTENSION_HUGE_SINGLE;
             };
             case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
+                case TINY -> SLIM_EXTENSION_HUGE_DOUBLE;
                 case SMALL -> SLIM_EXTENSION_SMALL_DOUBLE;
                 case MEDIUM -> SLIM_EXTENSION_MEDIUM_DOUBLE;
                 case LARGE -> SLIM_EXTENSION_LARGE_DOUBLE;
@@ -49,8 +52,9 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getDiapasonBase(Generic.WhistleSize size) {
+    public static VoxelShape getGenericBase(Generic.WhistleSize size) {
         return switch (size) {
+            case TINY -> GENERIC_TINY_BASE;
             case SMALL -> GENERIC_SMALL_BASE;
             case MEDIUM -> GENERIC_MEDIUM_BASE;
             case LARGE -> GENERIC_LARGE_BASE;
@@ -58,19 +62,21 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getDiapasonExtensionShape(Generic.ExtensionShape shape, Generic.WhistleSize size) {
+    public static VoxelShape getGenericExtensionShape(Generic.ExtensionShape shape, Generic.WhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
-                case SMALL -> GENERIC_EXTENSION_SMALL_SINGLE;
-                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_SINGLE;
-                case LARGE -> GENERIC_EXTENSION_LARGE_SINGLE;
-                case HUGE -> GENERIC_EXTENSION_HUGE_SINGLE;
+                case TINY -> SHORT_EXTENSION_TINY_DOUBLE;
+                case SMALL -> SHORT_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> SHORT_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> SHORT_EXTENSION_LARGE_DOUBLE;
+                case HUGE -> SHORT_EXTENSION_HUGE_DOUBLE;
             };
             case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
-                case SMALL -> GENERIC_EXTENSION_SMALL_DOUBLE;
-                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_DOUBLE;
-                case LARGE -> GENERIC_EXTENSION_LARGE_DOUBLE;
-                case HUGE -> GENERIC_EXTENSION_HUGE_DOUBLE;
+                case TINY -> SHORT_EXTENSION_TINY_QUADRUPLE;
+                case SMALL -> SHORT_EXTENSION_SMALL_QUADRUPLE;
+                case MEDIUM -> SHORT_EXTENSION_MEDIUM_QUADRUPLE;
+                case LARGE -> SHORT_EXTENSION_LARGE_QUADRUPLE;
+                case HUGE -> SHORT_EXTENSION_HUGE_QUADRUPLE;
             };
         };
     }
@@ -88,50 +94,49 @@ public class AllShapes {
     public static VoxelShape getGambaExtensionShape(Generic.ExtensionShape shape, Generic.GambaWhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
-                case TINY -> GENERIC_EXTENSION_TINY_SINGLE;
-                case SMALL -> GENERIC_EXTENSION_SMALL_SINGLE;
-                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_SINGLE;
-                case LARGE -> GENERIC_EXTENSION_LARGE_SINGLE;
+                case TINY -> SHORT_EXTENSION_TINY_SINGLE;
+                case SMALL -> SHORT_EXTENSION_SMALL_SINGLE;
+                case MEDIUM -> SHORT_EXTENSION_MEDIUM_SINGLE;
+                case LARGE -> SHORT_EXTENSION_LARGE_SINGLE;
             };
             case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
-                case TINY -> GENERIC_EXTENSION_TINY_DOUBLE;
-                case SMALL -> GENERIC_EXTENSION_SMALL_DOUBLE;
-                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_DOUBLE;
-                case LARGE -> GENERIC_EXTENSION_LARGE_DOUBLE;
+                case TINY -> SHORT_EXTENSION_TINY_DOUBLE;
+                case SMALL -> SHORT_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> SHORT_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> SHORT_EXTENSION_LARGE_DOUBLE;
             };
         };
     }
 
-    public static VoxelShape getPiccoloBase(Generic.PiccoloWhistleSize size) {
-        return switch (size) {
-            case TINY -> GENERIC_TINY_BASE;
-            case SMALL -> GENERIC_SMALL_BASE;
-            case MEDIUM -> GENERIC_MEDIUM_BASE;
-
-        };
-    }
-
-    public static VoxelShape getPiccoloExtensionShape(Generic.QuadrupleExtensionShape shape, Generic.PiccoloWhistleSize size) {
+    public static VoxelShape getQuadrupleExtensionShape(Generic.QuadrupleExtensionShape shape, Generic.WhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> SHORT_EXTENSION_TINY_SINGLE;
                 case SMALL -> SHORT_EXTENSION_SMALL_SINGLE;
                 case MEDIUM -> SHORT_EXTENSION_MEDIUM_SINGLE;
+                case LARGE -> SHORT_EXTENSION_LARGE_SINGLE;
+                case HUGE -> SHORT_EXTENSION_HUGE_SINGLE;
             };
             case DOUBLE -> switch (size) {
                 case TINY -> SHORT_EXTENSION_TINY_DOUBLE;
                 case SMALL -> SHORT_EXTENSION_SMALL_DOUBLE;
                 case MEDIUM -> SHORT_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> SHORT_EXTENSION_LARGE_DOUBLE;
+                case HUGE -> SHORT_EXTENSION_HUGE_DOUBLE;
             };
             case TRIPLE -> switch (size) {
                 case TINY -> SHORT_EXTENSION_TINY_TRIPLE;
                 case SMALL -> SHORT_EXTENSION_SMALL_TRIPLE;
                 case MEDIUM -> SHORT_EXTENSION_MEDIUM_TRIPLE;
+                case LARGE -> SHORT_EXTENSION_LARGE_TRIPLE;
+                case HUGE -> SHORT_EXTENSION_HUGE_TRIPLE;
             };
             case QUADRUPLE, QUADRUPLE_CONNECTED -> switch (size) {
                 case TINY -> SHORT_EXTENSION_TINY_QUADRUPLE;
                 case SMALL -> SHORT_EXTENSION_SMALL_QUADRUPLE;
                 case MEDIUM -> SHORT_EXTENSION_MEDIUM_QUADRUPLE;
+                case LARGE -> SHORT_EXTENSION_LARGE_QUADRUPLE;
+                case HUGE -> SHORT_EXTENSION_HUGE_QUADRUPLE;
             };
         };
     }
@@ -163,20 +168,6 @@ public class AllShapes {
     public static VoxelShape GENERIC_LARGE_BASE = Shapes.box(0.125, 0.1875, 0.125, 0.875, 1, 0.875);
     public static VoxelShape GENERIC_HUGE_BASE = Shapes.box(0.0625, 0.1875, 0.0625, 0.9375, 1, 0.9375);
 
-    public static VoxelShape GENERIC_EXTENSION_TINY_SINGLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.5, 0.6875);
-    public static VoxelShape GENERIC_EXTENSION_TINY_DOUBLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 1, 0.6875);
-
-    public static VoxelShape GENERIC_EXTENSION_SMALL_SINGLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.5, 0.75);
-    public static VoxelShape GENERIC_EXTENSION_SMALL_DOUBLE = Shapes.box(0.25, 0, 0.25, 0.75, 1, 0.75);
-
-    public static VoxelShape GENERIC_EXTENSION_MEDIUM_SINGLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5, 0.8125);
-    public static VoxelShape GENERIC_EXTENSION_MEDIUM_DOUBLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125);
-
-    public static VoxelShape GENERIC_EXTENSION_LARGE_SINGLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.5, 0.875);
-    public static VoxelShape GENERIC_EXTENSION_LARGE_DOUBLE = Shapes.box(0.125, 0, 0.125, 0.875, 1, 0.875);
-
-    public static VoxelShape GENERIC_EXTENSION_HUGE_SINGLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.5, 0.9375);
-    public static VoxelShape GENERIC_EXTENSION_HUGE_DOUBLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 1, 0.9375);
 
     // SHORT
 
@@ -194,6 +185,16 @@ public class AllShapes {
     public static VoxelShape SHORT_EXTENSION_MEDIUM_DOUBLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5, 0.8125);
     public static VoxelShape SHORT_EXTENSION_MEDIUM_TRIPLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.75, 0.8125);
     public static VoxelShape SHORT_EXTENSION_MEDIUM_QUADRUPLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125);
+
+    public static VoxelShape SHORT_EXTENSION_LARGE_SINGLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.25, 0.875);
+    public static VoxelShape SHORT_EXTENSION_LARGE_DOUBLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.5, 0.875);
+    public static VoxelShape SHORT_EXTENSION_LARGE_TRIPLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.75, 0.875);
+    public static VoxelShape SHORT_EXTENSION_LARGE_QUADRUPLE = Shapes.box(0.125, 0, 0.125, 0.875, 1, 0.875);
+
+    public static VoxelShape SHORT_EXTENSION_HUGE_SINGLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.25, 0.9375);
+    public static VoxelShape SHORT_EXTENSION_HUGE_DOUBLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.5, 0.9375);
+    public static VoxelShape SHORT_EXTENSION_HUGE_TRIPLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.75, 0.9375);
+    public static VoxelShape SHORT_EXTENSION_HUGE_QUADRUPLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 1, 0.9375);
 
     // BASES
 

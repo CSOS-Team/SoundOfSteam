@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.block.piccolo;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
@@ -31,18 +30,18 @@ public class PiccoloExtensionBlock extends Block implements IWrenchable {
 
     public static final EnumProperty<Generic.QuadrupleExtensionShape> SHAPE =
             EnumProperty.create("shape", Generic.QuadrupleExtensionShape.class);
-    public static final EnumProperty<Generic.PiccoloWhistleSize> SIZE = PiccoloBlock.SIZE;
+    public static final EnumProperty<Generic.WhistleSize> SIZE = PiccoloBlock.SIZE;
 
     public PiccoloExtensionBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
                 .setValue(SHAPE, Generic.QuadrupleExtensionShape.SINGLE)
-                .setValue(SIZE, Generic.PiccoloWhistleSize.SMALL));
+                .setValue(SIZE, Generic.WhistleSize.SMALL));
     }
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return AllShapes.getPiccoloExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
+        return AllShapes.getQuadrupleExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
     }
 
     @Override

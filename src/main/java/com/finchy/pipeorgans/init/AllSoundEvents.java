@@ -22,6 +22,7 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> GEDECKT_LOW = registerSoundEvents("gedeckt_low");
     public static final RegistryObject<SoundEvent> GEDECKT_DEEP = registerSoundEvents("gedeckt_deep");
 
+    public static final RegistryObject<SoundEvent> DIAPASON_SUPERHIGH = registerSoundEvents("diapason_superhigh");
     public static final RegistryObject<SoundEvent> DIAPASON_HIGH = registerSoundEvents("diapason_high");
     public static final RegistryObject<SoundEvent> DIAPASON_MEDIUM = registerSoundEvents("diapason_medium");
     public static final RegistryObject<SoundEvent> DIAPASON_LOW = registerSoundEvents("diapason_low");
@@ -36,6 +37,7 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> PICCOLO_HIGH = registerSoundEvents("piccolo_high");
     public static final RegistryObject<SoundEvent> PICCOLO_MEDIUM = registerSoundEvents("piccolo_medium");
     public static final RegistryObject<SoundEvent> PICCOLO_LOW = registerSoundEvents("piccolo_low");
+    public static final RegistryObject<SoundEvent> PICCOLO_DEEP = registerSoundEvents("piccolo_deep");
 
     public static final RegistryObject<SoundEvent> SUBBASS_HIGH = registerSoundEvents("subbass_high");
     public static final RegistryObject<SoundEvent> SUBBASS_MEDIUM = registerSoundEvents("subbass_medium");

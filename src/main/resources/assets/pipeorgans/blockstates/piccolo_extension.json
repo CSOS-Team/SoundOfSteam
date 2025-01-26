@@ -16,6 +16,18 @@
     "size=medium,shape=double": { "model":  "pipeorgans:block/piccolo/extension/p_medium_2" },
     "size=medium,shape=triple": { "model":  "pipeorgans:block/piccolo/extension/p_medium_3" },
     "size=medium,shape=quadruple": { "model":  "pipeorgans:block/piccolo/extension/p_medium_4" },
-    "size=medium,shape=quadruple_connected": { "model":  "pipeorgans:block/piccolo/extension/p_medium_4_connected" }
+    "size=medium,shape=quadruple_connected": { "model":  "pipeorgans:block/piccolo/extension/p_medium_4_connected" },
+
+    "size=large,shape=single": { "model":  "pipeorgans:block/piccolo/extension/p_large_1" },
+    "size=large,shape=double": { "model":  "pipeorgans:block/piccolo/extension/p_large_2" },
+    "size=large,shape=triple": { "model":  "pipeorgans:block/piccolo/extension/p_large_3" },
+    "size=large,shape=quadruple": { "model":  "pipeorgans:block/piccolo/extension/p_large_4" },
+    "size=large,shape=quadruple_connected": { "model":  "pipeorgans:block/piccolo/extension/p_large_4_connected" },
+
+    "size=huge,shape=single": { "model":  "pipeorgans:block/piccolo/extension/p_huge_1" },
+    "size=huge,shape=double": { "model":  "pipeorgans:block/piccolo/extension/p_huge_2" },
+    "size=huge,shape=triple": { "model":  "pipeorgans:block/piccolo/extension/p_huge_3" },
+    "size=huge,shape=quadruple": { "model":  "pipeorgans:block/piccolo/extension/p_huge_4" },
+    "size=huge,shape=quadruple_connected": { "model":  "pipeorgans:block/piccolo/extension/p_huge_4_connected" }
   }
 }

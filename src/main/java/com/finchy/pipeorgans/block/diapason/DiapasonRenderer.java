@@ -31,7 +31,8 @@ public class DiapasonRenderer extends SafeBlockEntityRenderer<DiapasonBlockEntit
         Direction direction = blockState.getValue(DiapasonBlock.FACING);
         Generic.WhistleSize size = blockState.getValue(DiapasonBlock.SIZE);
 
-        PartialModel mouth = size == Generic.WhistleSize.SMALL ? AllPartialModels.DIAPASON_MOUTH_SMALL :
+        PartialModel mouth = size == Generic.WhistleSize.TINY ? AllPartialModels.DIAPASON_MOUTH_TINY :
+                size == Generic.WhistleSize.SMALL ? AllPartialModels.DIAPASON_MOUTH_SMALL :
                 size == Generic.WhistleSize.MEDIUM ? AllPartialModels.DIAPASON_MOUTH_MEDIUM :
                         size == Generic.WhistleSize.LARGE ? AllPartialModels.DIAPASON_MOUTH_LARGE : AllPartialModels.DIAPASON_MOUTH_HUGE;
 

@@ -62,7 +62,7 @@ public class SubbassBlock extends Block implements IBE<SubbassBlockEntity>, IWre
     // custom hitbox
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        VoxelShape whistle = AllShapes.getDiapasonBase(pState.getValue(SIZE)); // get base whistle shape (temporarily medium)
+        VoxelShape whistle = AllShapes.getGenericBase(pState.getValue(SIZE)); // get base whistle shape (temporarily medium)
         return Shapes.or(whistle,
                 !pState.getValue(WALL) ?
                         AllShapes.BASE_FLOOR : AllShapes.getBase(pState.getValue(FACING)));

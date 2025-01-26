@@ -13,11 +13,13 @@ public class PiccoloSoundInstance extends AbstractTickableSoundInstance {
 
     private boolean active;
     private int keepAlive;
-    private Generic.PiccoloWhistleSize size;
+    private Generic.WhistleSize size;
 
-    public PiccoloSoundInstance(Generic.PiccoloWhistleSize size, BlockPos worldPosition) {
-        super((size == Generic.PiccoloWhistleSize.SMALL ? PICCOLO_HIGH :
-                size == Generic.PiccoloWhistleSize.MEDIUM ? PICCOLO_MEDIUM : PICCOLO_SUPERHIGH).get(),
+    public PiccoloSoundInstance(Generic.WhistleSize size, BlockPos worldPosition) {
+        super((size == Generic.WhistleSize.TINY ? PICCOLO_SUPERHIGH :
+                size == Generic.WhistleSize.SMALL ? PICCOLO_HIGH :
+                size == Generic.WhistleSize.MEDIUM ? PICCOLO_MEDIUM :
+                size == Generic.WhistleSize.LARGE ? PICCOLO_LOW : PICCOLO_DEEP).get(),
                 SoundSource.RECORDS,
                 SoundInstance.createUnseededRandom());
         this.size = size;
@@ -32,7 +34,7 @@ public class PiccoloSoundInstance extends AbstractTickableSoundInstance {
         z = v.z;
     }
 
-    public Generic.PiccoloWhistleSize getOctave() { return size; }
+    public Generic.WhistleSize getOctave() { return size; }
 
     public void fadeOut() { this.active = false; }
 

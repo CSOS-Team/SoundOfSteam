@@ -6,7 +6,6 @@ import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -38,7 +37,7 @@ public class SubbassExtensionBlock extends Block implements IWrenchable {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return AllShapes.getDiapasonExtensionShape(Generic.ExtensionShape.DOUBLE, pState.getValue(SIZE));
+        return AllShapes.getGenericExtensionShape(Generic.ExtensionShape.DOUBLE, pState.getValue(SIZE));
     }
 
     @Override

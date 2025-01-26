@@ -38,7 +38,7 @@ public class Generic {
 
 
     public enum WhistleSize implements StringRepresentable {
-        SMALL("small"), MEDIUM("medium"), LARGE("large"), HUGE("huge");
+        TINY("tiny"), SMALL("small"), MEDIUM("medium"), LARGE("large"), HUGE("huge");
 
         private final String name;
 

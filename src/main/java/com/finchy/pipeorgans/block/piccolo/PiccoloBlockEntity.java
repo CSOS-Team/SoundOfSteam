@@ -73,9 +73,9 @@ public class PiccoloBlockEntity extends SmartBlockEntity implements IHaveGoggleI
                 .orElse(false);
     }
 
-    protected Generic.PiccoloWhistleSize getOctave() {
+    protected Generic.WhistleSize getOctave() {
         return getBlockState().getOptionalValue(PiccoloBlock.SIZE)
-                .orElse(Generic.PiccoloWhistleSize.MEDIUM);
+                .orElse(Generic.WhistleSize.MEDIUM);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class PiccoloBlockEntity extends SmartBlockEntity implements IHaveGoggleI
     protected PiccoloSoundInstance soundInstance;
 
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(Generic.PiccoloWhistleSize size, boolean powered) {
+    protected void tickAudio(Generic.WhistleSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
@@ -120,7 +120,7 @@ public class PiccoloBlockEntity extends SmartBlockEntity implements IHaveGoggleI
                     .play(soundInstance = new PiccoloSoundInstance(size, worldPosition));
 
             AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
-                    size == Generic.PiccoloWhistleSize.TINY ? f + .75f : f, false);
+                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
 
             particle = true;
         }

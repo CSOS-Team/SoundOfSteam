@@ -12,6 +12,7 @@ public class AllPartialModels {
     GEDECKT_MOUTH_LARGE = block("gedeckt/g_large_mouth"),
     GEDECKT_MOUTH_HUGE = block("gedeckt/g_huge_mouth"),
 
+    DIAPASON_MOUTH_TINY = block("diapason/d_tiny_mouth"),
     DIAPASON_MOUTH_SMALL = block("diapason/d_small_mouth"),
     DIAPASON_MOUTH_MEDIUM = block("diapason/d_medium_mouth"),
     DIAPASON_MOUTH_LARGE = block("diapason/d_large_mouth"),
@@ -25,6 +26,8 @@ public class AllPartialModels {
     PICCOLO_MOUTH_TINY = block("piccolo/p_tiny_mouth"),
     PICCOLO_MOUTH_SMALL = block("piccolo/p_small_mouth"),
     PICCOLO_MOUTH_MEDIUM = block("piccolo/p_medium_mouth"),
+    PICCOLO_MOUTH_LARGE = block("piccolo/p_medium_large"),
+    PICCOLO_MOUTH_HUGE = block("piccolo/p_medium_huge"),
 
     SUBBASS_MOUTH_SMALL = block("subbass/s_small_mouth"),
     SUBBASS_MOUTH_MEDIUM = block("subbass/s_medium_mouth"),

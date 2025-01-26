@@ -44,6 +44,7 @@ public class GedecktRenderer extends SafeBlockEntityRenderer<GedecktBlockEntity>
                 .unCentre()
                 .translateY((double) 4 /16)
                 .translateZ((double) switch (size) {
+                    case TINY -> 6;
                     case SMALL -> 5;
                     case MEDIUM -> 4;
                     case LARGE -> 3;

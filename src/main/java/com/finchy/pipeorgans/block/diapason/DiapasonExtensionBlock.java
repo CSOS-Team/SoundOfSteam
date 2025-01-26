@@ -41,7 +41,7 @@ public class DiapasonExtensionBlock extends Block implements IWrenchable {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return AllShapes.getDiapasonExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
+        return AllShapes.getGenericExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
     }
 
     @Override

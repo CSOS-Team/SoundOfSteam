@@ -45,6 +45,17 @@
 
 
 
+  "diapason_superhigh": {
+    "subtitle": "sounds.pipeorgans.diapason_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:diapason/d_superhigh"
+      }
+    ]
+  },
+
   "diapason_high": {
     "subtitle": "sounds.pipeorgans.diapason_high",
     "sounds": [
@@ -166,6 +177,28 @@
         "type": "file",
         "attenuation_distance": 64,
         "name": "pipeorgans:piccolo/p_medium"
+      }
+    ]
+  },
+
+  "piccolo_low": {
+    "subtitle": "sounds.pipeorgans.piccolo_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:piccolo/p_low"
+      }
+    ]
+  },
+
+  "piccolo_deep": {
+    "subtitle": "sounds.pipeorgans.piccolo_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:piccolo/p_deep"
       }
     ]
   },

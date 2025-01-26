@@ -41,7 +41,7 @@ public class GedecktExtensionBlock extends Block implements IWrenchable {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return AllShapes.getGedecktExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
+        return AllShapes.getSlimExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
     }
 
     @Override
