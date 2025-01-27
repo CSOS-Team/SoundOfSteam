@@ -4,24 +4,10 @@
 	"textures": {
 		"0": "create:block/copper_redstone_plate",
 		"2": "create:block/engine",
-		"3": "pipeorgans:block/gedeckt_mouths",
-		"4": "pipeorgans:block/gedeckt",
+		"3": "pipeorgans:block/gedeckt",
 		"particle": "create:block/copper_redstone_plate"
 	},
 	"elements": [
-		{
-			"from": [4, 4, 4],
-			"to": [12, 16, 12],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 2, 7]},
-			"faces": {
-				"north": {"uv": [5, 0, 7, 3], "texture": "#4"},
-				"east": {"uv": [5, 4, 7, 7], "texture": "#4"},
-				"south": {"uv": [5, 4, 7, 7], "texture": "#4"},
-				"west": {"uv": [5, 4, 7, 7], "texture": "#4"},
-				"up": {"uv": [5, 13, 7, 15], "texture": "#4"},
-				"down": {"uv": [5, 13, 7, 15], "texture": "#4"}
-			}
-		},
 		{
 			"name": "Base",
 			"from": [1, 0, 1],
@@ -48,24 +34,25 @@
 			}
 		},
 		{
+			"from": [4, 4, 4],
+			"to": [12, 16, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 2, 7]},
+			"faces": {
+				"north": {"uv": [4.5, 2, 5.5, 3.5], "texture": "#3"},
+				"east": {"uv": [4.5, 4, 5.5, 5.5], "texture": "#3"},
+				"south": {"uv": [4.5, 4, 5.5, 5.5], "texture": "#3"},
+				"west": {"uv": [4.5, 4, 5.5, 5.5], "texture": "#3"},
+				"up": {"uv": [4.5, 8.5, 5.5, 9.5], "texture": "#3"},
+				"down": {"uv": [0.5, 10.5, 1.5, 11.5], "texture": "#3"}
+			}
+		},
+		{
 			"from": [6, 4, 3.9],
 			"to": [10, 10, 3.9],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4, 3.9]},
 			"faces": {
-				"north": {"uv": [11, 3, 13, 6], "texture": "#3"},
-				"south": {"uv": [11, 3, 13, 6], "texture": "#3"}
-			}
-		},
-		{
-			"from": [7, 14, 7],
-			"to": [9, 20, 9],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 12, 7]},
-			"faces": {
-				"north": {"uv": [3.5, 2.5, 4, 4], "texture": "#4"},
-				"east": {"uv": [3.5, 2.5, 4, 4], "texture": "#4"},
-				"south": {"uv": [3.5, 2.5, 4, 4], "texture": "#4"},
-				"west": {"uv": [3.5, 2.5, 4, 4], "texture": "#4"},
-				"up": {"uv": [3.5, 2, 4, 2.5], "texture": "#4"}
+				"north": {"uv": [4.75, 0.75, 5.25, 1.5], "texture": "#3"},
+				"south": {"uv": [5.25, 0.75, 4.75, 1.5], "texture": "#3"}
 			}
 		}
 	],
@@ -105,16 +92,10 @@
 	},
 	"groups": [
 		{
-			"name": "gedeckt_medium_floor",
+			"name": "g_medium_floor",
 			"origin": [8, 8, 8],
 			"color": 0,
 			"children": [
-				{
-					"name": "gedeckt_medium",
-					"origin": [8, 8, 8],
-					"color": 0,
-					"children": [0]
-				},
 				{
 					"name": "Bases",
 					"origin": [0, 0, 0],
@@ -124,10 +105,11 @@
 							"name": "Base Floor",
 							"origin": [0, 0, 0],
 							"color": 0,
-							"children": [1, 2]
+							"children": [0, 1]
 						}
 					]
-				}
+				},
+				2
 			]
 		},
 		{
@@ -135,7 +117,6 @@
 			"origin": [8, 8, 8],
 			"color": 0,
 			"children": [3]
-		},
-		4
+		}
 	]
 }

@@ -17,6 +17,7 @@ public class AllSoundEvents {
 
     // declare sounds here
 
+    public static final RegistryObject<SoundEvent> GEDECKT_SUPERHIGH = registerSoundEvents("gedeckt_superhigh");
     public static final RegistryObject<SoundEvent> GEDECKT_HIGH = registerSoundEvents("gedeckt_high");
     public static final RegistryObject<SoundEvent> GEDECKT_MEDIUM = registerSoundEvents("gedeckt_medium");
     public static final RegistryObject<SoundEvent> GEDECKT_LOW = registerSoundEvents("gedeckt_low");

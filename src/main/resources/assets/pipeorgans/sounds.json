@@ -1,4 +1,15 @@
 {
+  "gedeckt_superhigh": {
+    "subtitle": "sounds.pipeorgans.gedeckt_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:gedeckt/g_superhigh"
+      }
+    ]
+  },
+
   "gedeckt_high": {
     "subtitle": "sounds.pipeorgans.gedeckt_high",
     "sounds": [

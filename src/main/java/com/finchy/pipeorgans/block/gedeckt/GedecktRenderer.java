@@ -28,7 +28,8 @@ public class GedecktRenderer extends SafeBlockEntityRenderer<GedecktBlockEntity>
         Direction direction = blockState.getValue(GedecktBlock.FACING);
         Generic.WhistleSize size = blockState.getValue(GedecktBlock.SIZE);
 
-        PartialModel mouth = size == Generic.WhistleSize.SMALL ? AllPartialModels.GEDECKT_MOUTH_SMALL :
+        PartialModel mouth = size == Generic.WhistleSize.TINY ? AllPartialModels.GEDECKT_MOUTH_TINY :
+                size == Generic.WhistleSize.SMALL ? AllPartialModels.GEDECKT_MOUTH_SMALL :
                 size == Generic.WhistleSize.MEDIUM ? AllPartialModels.GEDECKT_MOUTH_MEDIUM :
                         size == Generic.WhistleSize.LARGE ? AllPartialModels.GEDECKT_MOUTH_LARGE : AllPartialModels.GEDECKT_MOUTH_HUGE;
 

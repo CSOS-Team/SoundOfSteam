@@ -7,6 +7,7 @@ public class AllPartialModels {
 
     public static final PartialModel
 
+    GEDECKT_MOUTH_TINY = block("gedeckt/g_tiny_mouth"),
     GEDECKT_MOUTH_SMALL = block("gedeckt/g_small_mouth"),
     GEDECKT_MOUTH_MEDIUM = block("gedeckt/g_medium_mouth"),
     GEDECKT_MOUTH_LARGE = block("gedeckt/g_large_mouth"),

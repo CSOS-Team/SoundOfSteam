@@ -7,10 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.Vec3;
 
-import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_HIGH;
-import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_MEDIUM;
-import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_LOW;
-import static com.finchy.pipeorgans.init.AllSoundEvents.GEDECKT_DEEP;
+import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class GedecktSoundInstance extends AbstractTickableSoundInstance {
 
@@ -19,7 +16,8 @@ public class GedecktSoundInstance extends AbstractTickableSoundInstance {
     private Generic.WhistleSize size;
 
     public GedecktSoundInstance(Generic.WhistleSize size, BlockPos worldPosition) {
-        super((size == Generic.WhistleSize.SMALL ? GEDECKT_HIGH :
+        super((size == Generic.WhistleSize.TINY ? GEDECKT_SUPERHIGH :
+                size == Generic.WhistleSize.SMALL ? GEDECKT_HIGH :
                 size == Generic.WhistleSize.MEDIUM ? GEDECKT_MEDIUM :
                 size == Generic.WhistleSize.LARGE ? GEDECKT_LOW : GEDECKT_DEEP).get(),
                 SoundSource.RECORDS,

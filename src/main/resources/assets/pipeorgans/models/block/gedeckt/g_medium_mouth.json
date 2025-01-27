@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"3": "pipeorgans:block/gedeckt_mouths"
+		"3": "pipeorgans:block/gedeckt"
 	},
 	"elements": [
 		{
@@ -9,8 +9,8 @@
 			"to": [10, 6, -0.1],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, -0.1]},
 			"faces": {
-				"north": {"uv": [11, 3, 13, 6], "texture": "#3"},
-				"south": {"uv": [11, 3, 13, 6], "texture": "#3"}
+				"north": {"uv": [4.75, 0.75, 5.25, 1.5], "texture": "#3"},
+				"south": {"uv": [5.25, 0.75, 4.75, 1.5], "texture": "#3"}
 			}
 		}
 	],
