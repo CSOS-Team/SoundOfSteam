@@ -30,18 +30,18 @@ public class GambaExtensionBlock extends Block implements IWrenchable {
 
     public static final EnumProperty<Generic.ExtensionShape> SHAPE =
             EnumProperty.create("shape", Generic.ExtensionShape.class);
-    public static final EnumProperty<Generic.GambaWhistleSize> SIZE = GambaBlock.SIZE;
+    public static final EnumProperty<Generic.WhistleSize> SIZE = GambaBlock.SIZE;
 
     public GambaExtensionBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
                 .setValue(SHAPE, Generic.ExtensionShape.SINGLE)
-                .setValue(SIZE, Generic.GambaWhistleSize.SMALL));
+                .setValue(SIZE, Generic.WhistleSize.SMALL));
     }
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return AllShapes.getGambaExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
+        return AllShapes.getGenericExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
     }
 
     @Override

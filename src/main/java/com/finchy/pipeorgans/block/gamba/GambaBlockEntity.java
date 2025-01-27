@@ -73,9 +73,9 @@ public class GambaBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
                 .orElse(false);
     }
 
-    protected Generic.GambaWhistleSize getOctave() {
+    protected Generic.WhistleSize getOctave() {
         return getBlockState().getOptionalValue(GambaBlock.SIZE)
-                .orElse(Generic.GambaWhistleSize.MEDIUM);
+                .orElse(Generic.WhistleSize.MEDIUM);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class GambaBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
     protected GambaSoundInstance soundInstance;
 
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(Generic.GambaWhistleSize size, boolean powered) {
+    protected void tickAudio(Generic.WhistleSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
@@ -120,7 +120,7 @@ public class GambaBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
                     .play(soundInstance = new GambaSoundInstance(size, worldPosition));
 
             AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
-                    size == Generic.GambaWhistleSize.TINY ? f + .75f : f, false);
+                    size == Generic.WhistleSize.TINY ? f + .75f : f, false);
 
             particle = true;
         }

@@ -146,6 +146,17 @@
     ]
   },
 
+  "gamba_deep": {
+    "subtitle": "sounds.pipeorgans.gamba_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:gamba/gm_deep"
+      }
+    ]
+  },
+
 
 
   "piccolo_superhigh": {

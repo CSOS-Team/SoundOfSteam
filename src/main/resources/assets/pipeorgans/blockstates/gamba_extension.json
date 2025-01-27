@@ -14,7 +14,11 @@
 
     "size=large,shape=single": { "model":  "pipeorgans:block/gamba/extension/gm_large_single" },
     "size=large,shape=double": { "model":  "pipeorgans:block/gamba/extension/gm_large_double" },
-    "size=large,shape=double_connected": { "model":  "pipeorgans:block/gamba/extension/gm_large_double_connected" }
+    "size=large,shape=double_connected": { "model":  "pipeorgans:block/gamba/extension/gm_large_double_connected" },
+
+    "size=huge,shape=single": { "model":  "pipeorgans:block/gamba/extension/gm_huge_single" },
+    "size=huge,shape=double": { "model":  "pipeorgans:block/gamba/extension/gm_huge_double" },
+    "size=huge,shape=double_connected": { "model":  "pipeorgans:block/gamba/extension/gm_huge_double_connected" }
 
   }
 }

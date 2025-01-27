@@ -47,7 +47,7 @@ public class GambaBlock extends Block implements IBE<GambaBlockEntity>, IWrencha
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final EnumProperty<Generic.GambaWhistleSize> SIZE = EnumProperty.create("size", Generic.GambaWhistleSize.class);
+    public static final EnumProperty<Generic.WhistleSize> SIZE = EnumProperty.create("size", Generic.WhistleSize.class);
 
     // declare block and default blockstate
     public GambaBlock(Properties pProperties) {
@@ -56,13 +56,13 @@ public class GambaBlock extends Block implements IBE<GambaBlockEntity>, IWrencha
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
-                .setValue(SIZE, Generic.GambaWhistleSize.SMALL));
+                .setValue(SIZE, Generic.WhistleSize.SMALL));
     }
 
     // custom hitbox
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        VoxelShape whistle = AllShapes.getGambaBase(pState.getValue(SIZE)); // get base whistle shape (temporarily medium)
+        VoxelShape whistle = AllShapes.getGenericBase(pState.getValue(SIZE)); // get base whistle shape (temporarily medium)
         return Shapes.or(whistle,
                 !pState.getValue(WALL) ?
                         AllShapes.BASE_FLOOR : AllShapes.getBase(pState.getValue(FACING)));
@@ -109,7 +109,7 @@ public class GambaBlock extends Block implements IBE<GambaBlockEntity>, IWrencha
         if (!base.hasProperty(SIZE))
             return;
 
-        Generic.GambaWhistleSize size = base.getValue(SIZE);
+        Generic.WhistleSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pPos.above();
 

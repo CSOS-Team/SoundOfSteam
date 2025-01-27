@@ -13,12 +13,13 @@ public class GambaSoundInstance extends AbstractTickableSoundInstance {
 
     private boolean active;
     private int keepAlive;
-    private Generic.GambaWhistleSize size;
+    private Generic.WhistleSize size;
 
-    public GambaSoundInstance(Generic.GambaWhistleSize size, BlockPos worldPosition) {
-        super((size == Generic.GambaWhistleSize.SMALL ? GAMBA_HIGH :
-                size == Generic.GambaWhistleSize.MEDIUM ? GAMBA_MEDIUM :
-                size == Generic.GambaWhistleSize.LARGE ? GAMBA_LOW : GAMBA_SUPERHIGH).get(),
+    public GambaSoundInstance(Generic.WhistleSize size, BlockPos worldPosition) {
+        super((size == Generic.WhistleSize.TINY ? GAMBA_SUPERHIGH :
+                size == Generic.WhistleSize.SMALL ? GAMBA_HIGH :
+                size == Generic.WhistleSize.MEDIUM ? GAMBA_MEDIUM :
+                size == Generic.WhistleSize.LARGE ? GAMBA_LOW : GAMBA_DEEP).get(),
                 SoundSource.RECORDS,
                 SoundInstance.createUnseededRandom());
         this.size = size;
@@ -33,7 +34,7 @@ public class GambaSoundInstance extends AbstractTickableSoundInstance {
         z = v.z;
     }
 
-    public Generic.GambaWhistleSize getOctave() { return size; }
+    public Generic.WhistleSize getOctave() { return size; }
 
     public void fadeOut() { this.active = false; }
 

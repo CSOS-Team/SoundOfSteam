@@ -1,0 +1,39 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/gamba",
+		"particle": "pipeorgans:block/gamba"
+	},
+	"elements": [
+		{
+			"from": [2, 0, 2],
+			"to": [14, 8, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [8.25, 5, 9.75, 6], "texture": "#0"},
+				"east": {"uv": [8.25, 5, 9.75, 6], "texture": "#0"},
+				"south": {"uv": [8.25, 5, 9.75, 6], "texture": "#0"},
+				"west": {"uv": [8.25, 5, 9.75, 6], "texture": "#0"}
+			}
+		},
+		{
+			"from": [2, 8, 2],
+			"to": [14, 16, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 8, 7]},
+			"faces": {
+				"north": {"uv": [8.25, 5, 9.75, 6], "texture": "#0"},
+				"east": {"uv": [8.25, 5, 9.75, 6], "texture": "#0"},
+				"south": {"uv": [8.25, 5, 9.75, 6], "texture": "#0"},
+				"west": {"uv": [8.25, 5, 9.75, 6], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "gm_large_single",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
+}
