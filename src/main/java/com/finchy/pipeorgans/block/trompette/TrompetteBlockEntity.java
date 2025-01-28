@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.block.trompette;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
@@ -131,16 +132,10 @@ public class TrompetteBlockEntity extends SmartBlockEntity implements IHaveGoggl
         if (!particle)
             return;
 
-        Direction facing = getBlockState().getOptionalValue(WhistleBlock.FACING)
-                .orElse(Direction.SOUTH);
-        float angle = 180 + AngleHelper.horizontalAngle(facing);
-        Vec3 sizeOffset = VecHelper.rotate(new Vec3(0, -0.4f, 1 / 16f * size.ordinal()), angle, Direction.Axis.Y);
-        Vec3 offset = VecHelper.rotate(new Vec3(0, 1, 0.75f), angle, Direction.Axis.Y);
-        Vec3 v = offset.scale(.45f)
-                .add(sizeOffset)
-                .add(Vec3.atCenterOf(worldPosition));
-        Vec3 m = offset.subtract(Vec3.atLowerCornerOf(facing.getNormal())
-                .scale(.75f));
+        float yOffset = 0.125f;
+        double yPos = ((double) pitch /2)+1 + yOffset;
+        Vec3 v = new Vec3(-1, yPos, -1).add(Vec3.atCenterOf(worldPosition));
+        Vec3 m = new Vec3(0, 1, 0);
         level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
     }
 
