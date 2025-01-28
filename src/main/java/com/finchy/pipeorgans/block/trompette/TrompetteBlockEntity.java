@@ -134,7 +134,7 @@ public class TrompetteBlockEntity extends SmartBlockEntity implements IHaveGoggl
 
         float yOffset = 0.125f;
         double yPos = ((double) pitch /2)+1 + yOffset;
-        Vec3 v = new Vec3(-1, yPos, -1).add(Vec3.atCenterOf(worldPosition));
+        Vec3 v = new Vec3(0, yPos, 0).add(Vec3.atBottomCenterOf(worldPosition));
         Vec3 m = new Vec3(0, 1, 0);
         level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
     }
