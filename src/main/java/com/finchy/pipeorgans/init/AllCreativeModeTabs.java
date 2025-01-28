@@ -21,6 +21,7 @@ public class AllCreativeModeTabs {
 
                         output.accept(AllBlocks.PICCOLO.get());
                         output.accept(AllBlocks.DIAPASON.get());
+                        output.accept(AllBlocks.TROMPETTE.get());
 
                     })
                     .build());

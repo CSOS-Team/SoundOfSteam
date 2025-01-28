@@ -16,10 +16,10 @@ public class TrompetteSoundInstance extends AbstractTickableSoundInstance {
     private Generic.WhistleSize size;
 
     public TrompetteSoundInstance(Generic.WhistleSize size, BlockPos worldPosition) {
-        super((size == Generic.WhistleSize.TINY ? GEDECKT_SUPERHIGH :
-                size == Generic.WhistleSize.SMALL ? GEDECKT_HIGH :
-                size == Generic.WhistleSize.MEDIUM ? GEDECKT_MEDIUM :
-                size == Generic.WhistleSize.LARGE ? GEDECKT_LOW : GEDECKT_DEEP).get(),
+        super((size == Generic.WhistleSize.TINY ? TROMPETTE_SUPERHIGH :
+                size == Generic.WhistleSize.SMALL ? TROMPETTE_HIGH :
+                size == Generic.WhistleSize.MEDIUM ? TROMPETTE_MEDIUM :
+                size == Generic.WhistleSize.LARGE ? TROMPETTE_LOW : TROMPETTE_DEEP).get(),
                 SoundSource.RECORDS,
                 SoundInstance.createUnseededRandom());
         this.size = size;
