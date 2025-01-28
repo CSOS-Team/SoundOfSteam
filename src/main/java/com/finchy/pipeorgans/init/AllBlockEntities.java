@@ -6,6 +6,7 @@ import com.finchy.pipeorgans.block.gamba.GambaBlockEntity;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
 import com.finchy.pipeorgans.block.piccolo.PiccoloBlockEntity;
 import com.finchy.pipeorgans.block.subbass.SubbassBlockEntity;
+import com.finchy.pipeorgans.block.trompette.TrompetteBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -40,6 +41,11 @@ public class AllBlockEntities {
     public static final RegistryObject<BlockEntityType<SubbassBlockEntity>> SUBBASS_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("subbass_block_entity",
                     () -> BlockEntityType.Builder.of(SubbassBlockEntity::new, AllBlocks.SUBBASS.get())
+                            .build(null));
+
+    public static final RegistryObject<BlockEntityType<TrompetteBlockEntity>> TROMPETTE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("trompette_block_entity",
+                    () -> BlockEntityType.Builder.of(TrompetteBlockEntity::new, AllBlocks.TROMPETTE.get())
                             .build(null));
 
     public static void register(IEventBus eventBus) {

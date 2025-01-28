@@ -34,7 +34,13 @@ public class AllPartialModels {
     SUBBASS_MOUTH_SMALL = block("subbass/s_small_mouth"),
     SUBBASS_MOUTH_MEDIUM = block("subbass/s_medium_mouth"),
     SUBBASS_MOUTH_LARGE = block("subbass/s_large_mouth"),
-    SUBBASS_MOUTH_HUGE = block("subbass/s_huge_mouth")
+    SUBBASS_MOUTH_HUGE = block("subbass/s_huge_mouth"),
+
+    TROMPETTE_MOUTH_TINY = block("trompette/t_tiny_mouth"),
+    TROMPETTE_MOUTH_SMALL = block("trompette/t_small_mouth"),
+    TROMPETTE_MOUTH_MEDIUM = block("trompette/t_medium_mouth"),
+    TROMPETTE_MOUTH_LARGE = block("trompette/t_large_mouth"),
+    TROMPETTE_MOUTH_HUGE = block("trompette/t_huge_mouth")
 
     ;
 
@@ -43,7 +49,5 @@ public class AllPartialModels {
         return new PartialModel(PipeOrgans.asResource("block/" + path));
     }
 
-    public static void init() {
-        // init static fields
-    }
+    public static void init() {}
 }

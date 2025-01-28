@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "pipeorgans:block/subbass",
-		"1": "pipeorgans:block/engine",
-		"2": "pipeorgans:block/copper_redstone_plate",
+		"1": "create:block/engine",
+		"2": "create:block/copper_redstone_plate",
 		"particle": "pipeorgans:block/subbass"
 	},
 	"elements": [

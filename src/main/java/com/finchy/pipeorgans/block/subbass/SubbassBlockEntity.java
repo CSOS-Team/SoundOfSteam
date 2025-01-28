@@ -73,9 +73,9 @@ public class SubbassBlockEntity extends SmartBlockEntity implements IHaveGoggleI
                 .orElse(false);
     }
 
-    protected Generic.WhistleSize getOctave() {
+    protected Generic.PedalWhistleSize getOctave() {
         return getBlockState().getOptionalValue(SubbassBlock.SIZE)
-                .orElse(Generic.WhistleSize.MEDIUM);
+                .orElse(Generic.PedalWhistleSize.MEDIUM);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class SubbassBlockEntity extends SmartBlockEntity implements IHaveGoggleI
     protected SubbassSoundInstance soundInstance;
 
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(Generic.WhistleSize size, boolean powered) {
+    protected void tickAudio(Generic.PedalWhistleSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
@@ -120,7 +120,7 @@ public class SubbassBlockEntity extends SmartBlockEntity implements IHaveGoggleI
                     .play(soundInstance = new SubbassSoundInstance(size, worldPosition));
 
             AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
-                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
+                    size == Generic.PedalWhistleSize.SMALL ? f + .75f : f, false);
 
             particle = true;
         }

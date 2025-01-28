@@ -11,6 +11,8 @@ import com.finchy.pipeorgans.block.piccolo.PiccoloBlock;
 import com.finchy.pipeorgans.block.piccolo.PiccoloExtensionBlock;
 import com.finchy.pipeorgans.block.subbass.SubbassBlock;
 import com.finchy.pipeorgans.block.subbass.SubbassExtensionBlock;
+import com.finchy.pipeorgans.block.trompette.TrompetteBlock;
+import com.finchy.pipeorgans.block.trompette.TrompetteExtensionBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -69,6 +71,14 @@ public class AllBlocks {
 
     public static final RegistryObject<SubbassExtensionBlock> SUBBASS_EXTENSION = registerBlockWithoutItem("subbass_extension",
             () -> new SubbassExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<TrompetteBlock> TROMPETTE = registerBlock("trompette",
+            () -> new TrompetteBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<TrompetteExtensionBlock> TROMPETTE_EXTENSION = registerBlockWithoutItem("trompette_extension",
+            () -> new TrompetteExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .requiresCorrectToolForDrops()));
 
 

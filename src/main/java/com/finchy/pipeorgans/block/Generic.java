@@ -52,27 +52,12 @@ public class Generic {
         }
     }
 
-    public enum GambaWhistleSize implements StringRepresentable {
-        TINY("tiny"), SMALL("small"), MEDIUM("medium"), LARGE("large");
+    public enum PedalWhistleSize implements StringRepresentable {
+        SMALL("small"), MEDIUM("medium"), LARGE("large"), HUGE("huge");
 
         private final String name;
 
-        GambaWhistleSize(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public @NotNull String getSerializedName() {
-            return this.name;
-        }
-    }
-
-    public enum PiccoloWhistleSize implements StringRepresentable {
-        TINY("tiny"), SMALL("small"), MEDIUM("medium");
-
-        private final String name;
-
-        PiccoloWhistleSize(String name) {
+        PedalWhistleSize(String name) {
             this.name = name;
         }
 

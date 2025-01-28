@@ -47,7 +47,7 @@ public class SubbassBlock extends Block implements IBE<SubbassBlockEntity>, IWre
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final EnumProperty<Generic.WhistleSize> SIZE = EnumProperty.create("size", Generic.WhistleSize.class);
+    public static final EnumProperty<Generic.PedalWhistleSize> SIZE = EnumProperty.create("size", Generic.PedalWhistleSize.class);
 
     // declare block and default blockstate
     public SubbassBlock(Properties pProperties) {
@@ -56,7 +56,7 @@ public class SubbassBlock extends Block implements IBE<SubbassBlockEntity>, IWre
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
-                .setValue(SIZE, Generic.WhistleSize.LARGE));
+                .setValue(SIZE, Generic.PedalWhistleSize.LARGE));
     }
 
     // custom hitbox
@@ -109,7 +109,7 @@ public class SubbassBlock extends Block implements IBE<SubbassBlockEntity>, IWre
         if (!base.hasProperty(SIZE))
             return;
 
-        Generic.WhistleSize size = base.getValue(SIZE);
+        Generic.PedalWhistleSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pPos.above();
 

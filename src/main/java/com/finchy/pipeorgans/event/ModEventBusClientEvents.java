@@ -6,6 +6,7 @@ import com.finchy.pipeorgans.block.gamba.GambaRenderer;
 import com.finchy.pipeorgans.block.gedeckt.GedecktRenderer;
 import com.finchy.pipeorgans.block.piccolo.PiccoloRenderer;
 import com.finchy.pipeorgans.block.subbass.SubbassRenderer;
+import com.finchy.pipeorgans.block.trompette.TrompetteRenderer;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -22,5 +23,6 @@ public class ModEventBusClientEvents {
         event.registerBlockEntityRenderer(AllBlockEntities.GAMBA_BLOCK_ENTITY.get(), GambaRenderer::new);
         event.registerBlockEntityRenderer(AllBlockEntities.PICCOLO_BLOCK_ENTITY.get(), PiccoloRenderer::new);
         event.registerBlockEntityRenderer(AllBlockEntities.SUBBASS_BLOCK_ENTITY.get(), SubbassRenderer::new);
+        event.registerBlockEntityRenderer(AllBlockEntities.TROMPETTE_BLOCK_ENTITY.get(), TrompetteRenderer::new);
     }
 }

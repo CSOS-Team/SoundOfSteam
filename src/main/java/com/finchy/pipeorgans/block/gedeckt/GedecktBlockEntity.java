@@ -147,7 +147,7 @@ public class GedecktBlockEntity extends SmartBlockEntity implements IHaveGoggleI
     public void updatePitch() {
         BlockPos currentPos = worldPosition.above();
         int newPitch;
-        for (newPitch = 0; newPitch <= 24; newPitch += 2) {
+        for (newPitch = 0; newPitch <= 12; newPitch += 2) {
             BlockState blockState = level.getBlockState(currentPos);
             if (!(blockState.getBlock() instanceof GedecktExtensionBlock))
                 break;

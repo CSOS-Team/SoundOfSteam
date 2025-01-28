@@ -27,12 +27,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class SubbassExtensionBlock extends Block implements IWrenchable {
 
-    public static final EnumProperty<Generic.WhistleSize> SIZE = SubbassBlock.SIZE;
+    public static final EnumProperty<Generic.PedalWhistleSize> SIZE = SubbassBlock.SIZE;
 
     public SubbassExtensionBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
-                .setValue(SIZE, Generic.WhistleSize.SMALL));
+                .setValue(SIZE, Generic.PedalWhistleSize.LARGE));
     }
 
     @Override

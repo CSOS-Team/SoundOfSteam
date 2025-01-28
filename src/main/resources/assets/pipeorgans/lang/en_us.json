@@ -8,12 +8,15 @@
   "block.pipeorgans.gamba": "Gamba",
   "block.pipeorgans.piccolo": "Piccolo",
   "block.pipeorgans.subbass": "Subbass",
+  "block.pipeorgans.trompette": "Trompette",
 
+  "sounds.pipeorgans.gedeckt_superhigh": "Gedeckt pierces",
   "sounds.pipeorgans.gedeckt_high": "Gedeckt squeaks",
   "sounds.pipeorgans.gedeckt_medium": "Gedeckt speaks",
   "sounds.pipeorgans.gedeckt_low": "Gedeckt grumbles",
   "sounds.pipeorgans.gedeckt_deep": "Gedeckt rumbles",
 
+  "sounds.pipeorgans.diapason_superhigh": "Diapason pierces",
   "sounds.pipeorgans.diapason_high": "Diapason squeaks",
   "sounds.pipeorgans.diapason_medium": "Diapason speaks",
   "sounds.pipeorgans.diapason_low": "Diapason grumbles",
@@ -23,13 +26,22 @@
   "sounds.pipeorgans.gamba_high": "Gamba squeaks",
   "sounds.pipeorgans.gamba_medium": "Gamba speaks",
   "sounds.pipeorgans.gamba_low": "Gamba grumbles",
+  "sounds.pipeorgans.gamba_deep": "Gamba rumbles",
 
-  "sounds.pipeorgans.piccolo_superhigh": "Gamba pierces",
-  "sounds.pipeorgans.piccolo_high": "Gamba squeals",
-  "sounds.pipeorgans.piccolo_medium": "Gamba squeaks",
+  "sounds.pipeorgans.piccolo_superhigh": "Piccolo pierces",
+  "sounds.pipeorgans.piccolo_high": "Piccolo squeals",
+  "sounds.pipeorgans.piccolo_medium": "Piccolo squeaks",
+  "sounds.pipeorgans.piccolo_low": "Piccolo grumbles",
+  "sounds.pipeorgans.piccolo_deep": "Piccolo rumbles",
 
   "sounds.pipeorgans.subbass_high": "Subbass speaks",
   "sounds.pipeorgans.subbass_medium": "Subbass grumbles",
   "sounds.pipeorgans.subbass_low": "Subbass rumbles",
-  "sounds.pipeorgans.subbass_deep": "Subbass shakes the earth"
+  "sounds.pipeorgans.subbass_deep": "Subbass shakes the earth",
+
+  "sounds.pipeorgans.trompette_superhigh": "Trompette squeals",
+  "sounds.pipeorgans.trompette_high": "Trompette squeaks",
+  "sounds.pipeorgans.trompette_medium": "Trompette speaks",
+  "sounds.pipeorgans.trompette_low": "Trompette grumbles",
+  "sounds.pipeorgans.trompette_deep": "Trompette rumbles"
 }

@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "pipeorgans:block/engine",
+		"1": "create:block/engine",
 		"2": "pipeorgans:block/gamba",
-		"particle": "pipeorgans:block/copper_redstone_plate"
+		"particle": "create:block/copper_redstone_plate"
 	},
 	"elements": [
 		{
