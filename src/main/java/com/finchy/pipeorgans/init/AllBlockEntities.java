@@ -7,7 +7,6 @@ import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
 import com.finchy.pipeorgans.block.piccolo.PiccoloBlockEntity;
 import com.finchy.pipeorgans.block.subbass.SubbassBlockEntity;
 import com.finchy.pipeorgans.block.test.TestBlockEntity;
-import com.finchy.pipeorgans.block.trompette.TrompetteBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;

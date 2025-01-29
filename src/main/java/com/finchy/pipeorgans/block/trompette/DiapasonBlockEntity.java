@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.block.gamba;
+package com.finchy.pipeorgans.block.trompette;
 
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.block.diapason.DiapasonSoundInstance;
@@ -18,13 +18,13 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class GambaBlockEntity extends GenericPipeBlockEntity {
-    public GambaBlockEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, AllBlockEntities.GAMBA_BLOCK_ENTITY);
+public class DiapasonBlockEntity extends GenericPipeBlockEntity {
+    public DiapasonBlockEntity(BlockPos pos, BlockState blockState) {
+        super(pos, blockState, AllBlockEntities.DIAPASON_BLOCK_ENTITY);
     }
 
     @OnlyIn(Dist.CLIENT)
-    protected GambaSoundInstance soundInstance;
+    protected DiapasonSoundInstance soundInstance;
 
     @Override
     @OnlyIn(Dist.CLIENT)
@@ -45,7 +45,7 @@ public class GambaBlockEntity extends GenericPipeBlockEntity {
         if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
             Minecraft.getInstance()
                     .getSoundManager()
-                    .play(soundInstance = new GambaSoundInstance(size, worldPosition));
+                    .play(soundInstance = new DiapasonSoundInstance(size, worldPosition));
 
             AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
                     size == Generic.WhistleSize.SMALL ? f + .75f : f, false);

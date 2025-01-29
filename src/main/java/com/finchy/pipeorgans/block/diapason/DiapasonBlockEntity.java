@@ -31,7 +31,7 @@ public class DiapasonBlockEntity extends GenericPipeBlockEntity {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void  tickAudio(Generic.WhistleSize size, boolean powered) {
+    protected void tickAudio(Generic.WhistleSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();

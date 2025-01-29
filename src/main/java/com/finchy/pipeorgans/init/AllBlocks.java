@@ -13,8 +13,6 @@ import com.finchy.pipeorgans.block.subbass.SubbassBlock;
 import com.finchy.pipeorgans.block.subbass.SubbassExtensionBlock;
 import com.finchy.pipeorgans.block.test.TestBlock;
 import com.finchy.pipeorgans.block.test.TestExtensionBlock;
-import com.finchy.pipeorgans.block.trompette.TrompetteBlock;
-import com.finchy.pipeorgans.block.trompette.TrompetteExtensionBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

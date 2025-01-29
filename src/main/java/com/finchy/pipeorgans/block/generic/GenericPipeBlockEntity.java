@@ -32,7 +32,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
+public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
     public WeakReference<FluidTankBlockEntity> source;
     public LerpedFloat animation;
