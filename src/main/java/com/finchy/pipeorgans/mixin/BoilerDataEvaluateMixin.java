@@ -32,16 +32,4 @@ public class BoilerDataEvaluateMixin {
                 || attachedState.getBlock() instanceof TrompetteBlock;
     }
 
-    /*
-    @WrapOperation(
-            method = "evaluate",
-            at = @At(value = "INVOKE", target = "Lcom/tterrag/registrate/util/entry/BlockEntry;has(Lnet/minecraft/world/level/block/state/BlockState;)Z")
-    )
-    private boolean checkOtherWhistleBlocks(BlockEntry instance, BlockState state, Operation<Boolean> original) {
-        return AllBlocks.STEAM_WHISTLE.has(state)
-                || state.getBlock() instanceof GedecktBlock
-                || state.getBlock() instanceof DiapasonBlock;
-    }
-     */
-
 }

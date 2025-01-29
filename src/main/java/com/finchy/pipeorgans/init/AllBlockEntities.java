@@ -6,6 +6,7 @@ import com.finchy.pipeorgans.block.gamba.GambaBlockEntity;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
 import com.finchy.pipeorgans.block.piccolo.PiccoloBlockEntity;
 import com.finchy.pipeorgans.block.subbass.SubbassBlockEntity;
+import com.finchy.pipeorgans.block.test.TestBlockEntity;
 import com.finchy.pipeorgans.block.trompette.TrompetteBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -18,32 +19,37 @@ public class AllBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, PipeOrgans.MOD_ID);
 
-    public static final RegistryObject<BlockEntityType<GedecktBlockEntity>> GEDECKT_BLOCK_ENTITY =
+    public static final RegistryObject<BlockEntityType> TEST_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("test_block_entity",
+                    () -> BlockEntityType.Builder.of(TestBlockEntity::new, AllBlocks.TEST.get())
+                            .build(null));
+
+    public static final RegistryObject<BlockEntityType> GEDECKT_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("gedeckt_block_entity",
                     () -> BlockEntityType.Builder.of(GedecktBlockEntity::new, AllBlocks.GEDECKT.get())
                             .build(null));
 
-    public static final RegistryObject<BlockEntityType<DiapasonBlockEntity>> DIAPASON_BLOCK_ENTITY =
+    public static final RegistryObject<BlockEntityType> DIAPASON_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("diapason_block_entity",
                     () -> BlockEntityType.Builder.of(DiapasonBlockEntity::new, AllBlocks.DIAPASON.get())
                             .build(null));
 
-    public static final RegistryObject<BlockEntityType<GambaBlockEntity>> GAMBA_BLOCK_ENTITY =
+    public static final RegistryObject<BlockEntityType> GAMBA_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("gamba_block_entity",
                     () -> BlockEntityType.Builder.of(GambaBlockEntity::new, AllBlocks.GAMBA.get())
                             .build(null));
 
-    public static final RegistryObject<BlockEntityType<PiccoloBlockEntity>> PICCOLO_BLOCK_ENTITY =
+    public static final RegistryObject<BlockEntityType> PICCOLO_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("piccolo_block_entity",
                     () -> BlockEntityType.Builder.of(PiccoloBlockEntity::new, AllBlocks.PICCOLO.get())
                             .build(null));
 
-    public static final RegistryObject<BlockEntityType<SubbassBlockEntity>> SUBBASS_BLOCK_ENTITY =
+    public static final RegistryObject<BlockEntityType> SUBBASS_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("subbass_block_entity",
                     () -> BlockEntityType.Builder.of(SubbassBlockEntity::new, AllBlocks.SUBBASS.get())
                             .build(null));
 
-    public static final RegistryObject<BlockEntityType<TrompetteBlockEntity>> TROMPETTE_BLOCK_ENTITY =
+    public static final RegistryObject<BlockEntityType> TROMPETTE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("trompette_block_entity",
                     () -> BlockEntityType.Builder.of(TrompetteBlockEntity::new, AllBlocks.TROMPETTE.get())
                             .build(null));

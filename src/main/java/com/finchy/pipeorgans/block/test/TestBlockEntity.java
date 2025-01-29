@@ -1,8 +1,9 @@
-package com.finchy.pipeorgans.block.gamba;
+package com.finchy.pipeorgans.block.test;
 
 import com.finchy.pipeorgans.block.Generic;
-import com.finchy.pipeorgans.block.diapason.DiapasonSoundInstance;
+import com.finchy.pipeorgans.block.gedeckt.GedecktSoundInstance;
 import com.finchy.pipeorgans.block.generic.GenericPipeBlockEntity;
+import com.finchy.pipeorgans.block.generic.GenericSoundInstance;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
@@ -13,18 +14,20 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.RegistryObject;
 
-public class GambaBlockEntity extends GenericPipeBlockEntity {
-    public GambaBlockEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, AllBlockEntities.GAMBA_BLOCK_ENTITY);
+public class TestBlockEntity extends GenericPipeBlockEntity {
+    public TestBlockEntity(BlockPos pos, BlockState blockState) {
+        super(pos, blockState, AllBlockEntities.TEST_BLOCK_ENTITY);
     }
 
     @OnlyIn(Dist.CLIENT)
-    protected GambaSoundInstance soundInstance;
+    protected GedecktSoundInstance soundInstance;
 
     @Override
     @OnlyIn(Dist.CLIENT)
@@ -45,7 +48,7 @@ public class GambaBlockEntity extends GenericPipeBlockEntity {
         if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
             Minecraft.getInstance()
                     .getSoundManager()
-                    .play(soundInstance = new GambaSoundInstance(size, worldPosition));
+                    .play(soundInstance = new GedecktSoundInstance(size, worldPosition));
 
             AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
                     size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
