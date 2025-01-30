@@ -123,9 +123,9 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
             SoundEvent hitSound = soundtype.getHitSound();
 
             if (blockState.getBlock() instanceof GenericExtensionBlock) {
-                if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.ExtensionShape.SINGLE) {
+                if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.DOUBLE) {
                     pLevel.setBlock(currentPos,
-                            blockState.setValue(GenericExtensionBlock.SHAPE, Generic.ExtensionShape.DOUBLE), 3);
+                            blockState.setValue(GenericExtensionBlock.SHAPE, Generic.QuadrupleExtensionShape.QUAD), 3);
 
                     if (soundtype != null) {
                         float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);

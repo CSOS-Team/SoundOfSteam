@@ -26,11 +26,11 @@ public class SubbassRenderer extends SafeBlockEntityRenderer<SubbassBlockEntity>
             return;
 
         Direction direction = blockState.getValue(SubbassBlock.FACING);
-        Generic.PedalWhistleSize size = blockState.getValue(SubbassBlock.SIZE);
+        Generic.WhistleSize size = blockState.getValue(SubbassBlock.SIZE);
 
-        PartialModel mouth = size == Generic.PedalWhistleSize.SMALL ? AllPartialModels.SUBBASS_MOUTH_SMALL :
-                size == Generic.PedalWhistleSize.MEDIUM ? AllPartialModels.SUBBASS_MOUTH_MEDIUM :
-                size == Generic.PedalWhistleSize.LARGE ? AllPartialModels.SUBBASS_MOUTH_LARGE : AllPartialModels.SUBBASS_MOUTH_HUGE;
+        PartialModel mouth = size == Generic.WhistleSize.SMALL ? AllPartialModels.SUBBASS_MOUTH_SMALL :
+                size == Generic.WhistleSize.MEDIUM ? AllPartialModels.SUBBASS_MOUTH_MEDIUM :
+                size == Generic.WhistleSize.LARGE ? AllPartialModels.SUBBASS_MOUTH_LARGE : AllPartialModels.SUBBASS_MOUTH_HUGE;
 
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {

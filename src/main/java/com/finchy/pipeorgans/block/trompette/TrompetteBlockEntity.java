@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.block.trompette;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.Generic;
+import com.finchy.pipeorgans.block.generic.ReedBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
@@ -22,83 +23,25 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class TrompetteBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
-
-    public WeakReference<FluidTankBlockEntity> source;
-    public LerpedFloat animation;
-    protected int pitch;
-
-    public TrompetteBlockEntity(BlockPos pos, BlockState blockState) {
-        super(AllBlockEntities.TROMPETTE_BLOCK_ENTITY.get(), pos, blockState);
-        source = new WeakReference<>(null);
-        animation = LerpedFloat.angular();
-    }
-
-    @Override
-    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
-
-    }
-
-    @Override
-    protected void write(CompoundTag tag, boolean clientPacket) {
-        tag.putInt("Pitch", pitch);
-        super.write(tag, clientPacket);
-    }
-
-    @Override
-    protected void read(CompoundTag tag, boolean clientPacket) {
-        pitch = tag.getInt("Pitch");
-        super.read(tag, clientPacket);
-    }
-
-    @Override
-    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        String[] pitches = Lang.translateDirect("generic.notes")
-                .getString()
-                .split(";");
-        Lang.translate("generic.pitch", pitches[pitch % pitches.length]).forGoggles(tooltip);
-        return true;
-    }
-
-    protected boolean isPowered() {
-        return getBlockState().getOptionalValue(TrompetteBlock.POWERED)
-                .orElse(false);
-    }
-
-    protected Generic.WhistleSize getOctave() {
-        return getBlockState().getOptionalValue(TrompetteBlock.SIZE)
-                .orElse(Generic.WhistleSize.MEDIUM);
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        if (!level.isClientSide()) {
-            if (isPowered())
-                award(AllAdvancements.STEAM_WHISTLE);
-            return;
-        }
-
-        FluidTankBlockEntity tank = getTank();
-        boolean powered = isPowered()
-                && (tank != null && tank.boiler.isActive() && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0)
-                || isVirtual());
-        animation.chase(powered ? 1 : 0, powered ? .5f : .4f, powered ? LerpedFloat.Chaser.EXP : LerpedFloat.Chaser.LINEAR);
-        animation.tickChaser();
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> this.tickAudio(getOctave(), powered));
-    }
+public class TrompetteBlockEntity extends ReedBlockEntity {
 
     @OnlyIn(Dist.CLIENT)
     protected TrompetteSoundInstance soundInstance;
+
+    public TrompetteBlockEntity(BlockPos pos, BlockState blockState) {
+        super(pos, blockState, AllBlockEntities.TROMPETTE_BLOCK_ENTITY);
+    }
 
     @OnlyIn(Dist.CLIENT)
     protected void tickAudio(Generic.WhistleSize size, boolean powered) {
@@ -132,49 +75,6 @@ public class TrompetteBlockEntity extends SmartBlockEntity implements IHaveGoggl
         if (!particle)
             return;
 
-        float yOffset = 0.125f;
-        double yPos = ((double) pitch /2)+1 + yOffset;
-        Vec3 v = new Vec3(0, yPos, 0).add(Vec3.atBottomCenterOf(worldPosition));
-        Vec3 m = new Vec3(0, 1, 0);
-        level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
-    }
-
-    public void updatePitch() {
-        BlockPos currentPos = worldPosition.above();
-        int newPitch;
-        for (newPitch = 0; newPitch <= 12; newPitch += 2) {
-            BlockState blockState = level.getBlockState(currentPos);
-            if (!(blockState.getBlock() instanceof TrompetteExtensionBlock))
-                break;
-            if (blockState.getValue(TrompetteExtensionBlock.SHAPE) == Generic.ExtensionShape.SINGLE) {
-                newPitch++;
-                break;
-            }
-            currentPos = currentPos.above();
-        }
-        if (pitch == newPitch)
-            return;
-        pitch = newPitch;
-
-        notifyUpdate();
-
-        FluidTankBlockEntity tank = getTank();
-        if (tank != null && tank.boiler != null)
-            tank.boiler.checkPipeOrganAdvancement(tank);
-    }
-
-    public FluidTankBlockEntity getTank() {
-        FluidTankBlockEntity tank = source.get();
-        if (tank == null || tank.isRemoved()) {
-            if (tank != null)
-                source = new WeakReference<>(null);
-            Direction facing = WhistleBlock.getAttachedDirection(getBlockState());
-            BlockEntity be = level.getBlockEntity(worldPosition.relative(facing));
-            if (be instanceof FluidTankBlockEntity tankBe)
-                source = new WeakReference<>(tank = tankBe);
-        }
-        if (tank == null)
-            return null;
-        return tank.getControllerBE();
+        createSteamJet(size);
     }
 }

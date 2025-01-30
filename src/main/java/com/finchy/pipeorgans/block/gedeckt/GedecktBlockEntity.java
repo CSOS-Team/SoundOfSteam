@@ -63,16 +63,6 @@ public class GedecktBlockEntity extends GenericPipeBlockEntity {
         if (!particle)
             return;
 
-        Direction facing = getBlockState().getOptionalValue(WhistleBlock.FACING)
-                .orElse(Direction.SOUTH);
-        float angle = 180 + AngleHelper.horizontalAngle(facing);
-        Vec3 sizeOffset = VecHelper.rotate(new Vec3(0, -0.4f, 1 / 16f * size.ordinal()), angle, Direction.Axis.Y);
-        Vec3 offset = VecHelper.rotate(new Vec3(0, 1, 0.75f), angle, Direction.Axis.Y);
-        Vec3 v = offset.scale(.45f)
-                .add(sizeOffset)
-                .add(Vec3.atCenterOf(worldPosition));
-        Vec3 m = offset.subtract(Vec3.atLowerCornerOf(facing.getNormal())
-                .scale(.75f));
-        level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
+        createSteamJet(size);
     }
 }

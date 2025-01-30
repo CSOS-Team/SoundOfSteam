@@ -21,7 +21,7 @@ public class Generic {
     }
 
     public enum QuadrupleExtensionShape implements StringRepresentable {
-        SINGLE("single"), DOUBLE("double"), TRIPLE("triple"), QUADRUPLE("quadruple"), QUADRUPLE_CONNECTED("quadruple_connected");
+        SINGLE("single"), DOUBLE("double"), TRIPLE("triple"), QUAD("quad"), QUAD_CONNECTED("quad_connected");
 
         private final String name;
 

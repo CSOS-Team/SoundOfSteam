@@ -1,7 +1,10 @@
 package com.finchy.pipeorgans.block.generic;
 
 import com.finchy.pipeorgans.block.Generic;
+import com.finchy.pipeorgans.block.subbass.SubbassExtensionBlock;
+import com.finchy.pipeorgans.init.AllBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -9,12 +12,25 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class QuadruplePipeBlock extends GenericPipeBlock {
+public class PedalPipeBlock extends GenericPipeBlock {
 
-    public QuadruplePipeBlock(Properties pProperties) {
+    public PedalPipeBlock(Properties pProperties) {
         super(pProperties);
+        registerDefaultState(defaultBlockState()
+                .setValue(FACING, Direction.NORTH)
+                .setValue(POWERED, false)
+                .setValue(WALL, false)
+                .setValue(SIZE, Generic.WhistleSize.LARGE));
     }
 
+    // called when wrenched
+    @Override
+    public BlockState getRotatedBlockState(BlockState originalState, Direction targetedFace) {
+        return originalState.getValue(SIZE) == Generic.WhistleSize.HUGE ?
+                originalState.setValue(SIZE, Generic.WhistleSize.SMALL) : originalState.cycle(SIZE);
+    }
+
+    @Override
     // increase length of whistle
     public void incrementSize(LevelAccessor pLevel, BlockPos pPos) {
         BlockState base = pLevel.getBlockState(pPos);
@@ -29,37 +45,19 @@ public class QuadruplePipeBlock extends GenericPipeBlock {
         SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.get();
         SoundEvent hitSound = soundtype.getHitSound();
 
-        for (int i = 1; i <= 12; i+=4) {
+        for (int i = 1; i <= 12; i+=1) {
             BlockState blockState = pLevel.getBlockState(currentPos);
 
-            if (blockState.getBlock() instanceof QuadrupleExtensionBlock) {
-
-                // if block above is extension
-                if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) != Generic.QuadrupleExtensionShape.QUAD
-                        && blockState.getValue(QuadrupleExtensionBlock.SHAPE) != Generic.QuadrupleExtensionShape.QUAD_CONNECTED) {
-                    // if extension is single, double, or triple
-                    pLevel.setBlock(currentPos, blockState.cycle(QuadrupleExtensionBlock.SHAPE), 3);
-                    if (soundtype != null) {
-                        switch (blockState.getValue(QuadrupleExtensionBlock.SHAPE)) {
-                            case SINGLE -> i+=1;
-                            case DOUBLE -> i+=2;
-                            case TRIPLE -> i+=3;
-                        }
-                        float pPitch = (float) Math.pow(2, -i / 12.0);
-                        pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
-                        pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
-                    }
-                    return;
-                }
+            if (blockState.getBlock() instanceof SubbassExtensionBlock) {
                 currentPos = currentPos.above();
                 continue;
             }
 
-            // if block above is not extension (air)
+            // if pos is not extension (air)
             if (!blockState.canBeReplaced())
                 return;
 
-            pLevel.setBlock(currentPos, this.extensionBlock.get().defaultBlockState()
+            pLevel.setBlock(currentPos, AllBlocks.SUBBASS_EXTENSION.get().defaultBlockState()
                     .setValue(SIZE, size), 3);
             if (soundtype != null) {
                 float pPitch = (float) Math.pow(2, -i / 12.0);
@@ -69,5 +67,4 @@ public class QuadruplePipeBlock extends GenericPipeBlock {
             return;
         }
     }
-
 }

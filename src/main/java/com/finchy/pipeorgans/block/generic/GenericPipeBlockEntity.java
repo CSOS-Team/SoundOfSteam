@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.block.generic;
 
 import com.finchy.pipeorgans.block.Generic;
-import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
@@ -37,8 +36,6 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
     public WeakReference<FluidTankBlockEntity> source;
     public LerpedFloat animation;
     protected int pitch;
-
-    public RegistryObject<BlockEntityType<? extends GenericPipeBlockEntity>> blockEntity;
 
     public GenericPipeBlockEntity(BlockPos pos, BlockState blockState, RegistryObject<BlockEntityType> blockEntity) {
         super(blockEntity.get(), pos, blockState);
@@ -135,7 +132,11 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
         if (!particle)
             return;
 
-        Direction facing = getBlockState().getOptionalValue(WhistleBlock.FACING)
+        createSteamJet(size);
+    }
+
+    public void createSteamJet(Generic.WhistleSize size) {
+        Direction facing = getBlockState().getOptionalValue(GenericPipeBlock.FACING)
                 .orElse(Direction.SOUTH);
         float angle = 180 + AngleHelper.horizontalAngle(facing);
         Vec3 sizeOffset = VecHelper.rotate(new Vec3(0, -0.4f, 1 / 16f * size.ordinal()), angle, Direction.Axis.Y);
@@ -155,7 +156,7 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
             BlockState blockState = level.getBlockState(currentPos);
             if (!(blockState.getBlock() instanceof GenericExtensionBlock))
                 break;
-            if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.ExtensionShape.SINGLE) {
+            if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.DOUBLE) {
                 newPitch++;
                 break;
             }

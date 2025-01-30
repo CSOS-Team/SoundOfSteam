@@ -11,8 +11,6 @@ import com.finchy.pipeorgans.block.piccolo.PiccoloBlock;
 import com.finchy.pipeorgans.block.piccolo.PiccoloExtensionBlock;
 import com.finchy.pipeorgans.block.subbass.SubbassBlock;
 import com.finchy.pipeorgans.block.subbass.SubbassExtensionBlock;
-import com.finchy.pipeorgans.block.test.TestBlock;
-import com.finchy.pipeorgans.block.test.TestExtensionBlock;
 import com.finchy.pipeorgans.block.trompette.TrompetteBlock;
 import com.finchy.pipeorgans.block.trompette.TrompetteExtensionBlock;
 import net.minecraft.world.item.BlockItem;
@@ -31,17 +29,6 @@ public class AllBlocks {
 
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, PipeOrgans.MOD_ID);
-
-
-
-    public static final RegistryObject<TestBlock> TEST = registerBlock("test",
-            () -> new TestBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)
-                    .requiresCorrectToolForDrops()));
-
-    public static final RegistryObject<TestExtensionBlock> TEST_EXTENSION = registerBlockWithoutItem("test_extension",
-            () -> new TestExtensionBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)
-                    .requiresCorrectToolForDrops()));
-
 
     // declare blocks here
 

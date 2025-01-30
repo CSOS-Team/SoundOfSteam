@@ -33,22 +33,23 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getSlimExtensionShape(Generic.ExtensionShape shape, Generic.WhistleSize size) {
+    public static VoxelShape getSlimExtensionShape(Generic.QuadrupleExtensionShape shape, Generic.WhistleSize size) {
         return switch (shape) {
-            case SINGLE -> switch (size) {
+            case DOUBLE -> switch (size) {
                 case TINY -> SLIM_EXTENSION_TINY_SINGLE;
                 case SMALL -> SLIM_EXTENSION_SMALL_SINGLE;
                 case MEDIUM -> SLIM_EXTENSION_MEDIUM_SINGLE;
                 case LARGE -> SLIM_EXTENSION_LARGE_SINGLE;
                 case HUGE -> SLIM_EXTENSION_HUGE_SINGLE;
             };
-            case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
+            case QUAD, QUAD_CONNECTED -> switch (size) {
                 case TINY -> SLIM_EXTENSION_TINY_DOUBLE;
                 case SMALL -> SLIM_EXTENSION_SMALL_DOUBLE;
                 case MEDIUM -> SLIM_EXTENSION_MEDIUM_DOUBLE;
                 case LARGE -> SLIM_EXTENSION_LARGE_DOUBLE;
                 case HUGE -> SLIM_EXTENSION_HUGE_DOUBLE;
             };
+            default -> Shapes.block();
         };
     }
 
@@ -71,25 +72,7 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getGenericExtensionShape(Generic.ExtensionShape shape, Generic.WhistleSize size) {
-        return switch (shape) {
-            case SINGLE -> switch (size) {
-                case TINY -> SHORT_EXTENSION_TINY_DOUBLE;
-                case SMALL -> SHORT_EXTENSION_SMALL_DOUBLE;
-                case MEDIUM -> SHORT_EXTENSION_MEDIUM_DOUBLE;
-                case LARGE -> SHORT_EXTENSION_LARGE_DOUBLE;
-                case HUGE -> SHORT_EXTENSION_HUGE_DOUBLE;
-            };
-            case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
-                case TINY -> SHORT_EXTENSION_TINY_QUADRUPLE;
-                case SMALL -> SHORT_EXTENSION_SMALL_QUADRUPLE;
-                case MEDIUM -> SHORT_EXTENSION_MEDIUM_QUADRUPLE;
-                case LARGE -> SHORT_EXTENSION_LARGE_QUADRUPLE;
-                case HUGE -> SHORT_EXTENSION_HUGE_QUADRUPLE;
-            };
-        };
-    }
-
+    @Deprecated
     public static VoxelShape getGenericExtensionShape(Generic.ExtensionShape shape, Generic.PedalWhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
@@ -130,7 +113,7 @@ public class AllShapes {
                 case LARGE -> SHORT_EXTENSION_LARGE_TRIPLE;
                 case HUGE -> SHORT_EXTENSION_HUGE_TRIPLE;
             };
-            case QUADRUPLE, QUADRUPLE_CONNECTED -> switch (size) {
+            case QUAD, QUAD_CONNECTED -> switch (size) {
                 case TINY -> SHORT_EXTENSION_TINY_QUADRUPLE;
                 case SMALL -> SHORT_EXTENSION_SMALL_QUADRUPLE;
                 case MEDIUM -> SHORT_EXTENSION_MEDIUM_QUADRUPLE;

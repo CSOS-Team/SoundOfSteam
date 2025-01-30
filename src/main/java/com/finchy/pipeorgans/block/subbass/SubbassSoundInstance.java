@@ -13,12 +13,12 @@ public class SubbassSoundInstance extends AbstractTickableSoundInstance {
 
     private boolean active;
     private int keepAlive;
-    private Generic.PedalWhistleSize size;
+    private Generic.WhistleSize size;
 
-    public SubbassSoundInstance(Generic.PedalWhistleSize size, BlockPos worldPosition) {
-        super((size == Generic.PedalWhistleSize.SMALL ? SUBBASS_HIGH :
-                size == Generic.PedalWhistleSize.MEDIUM ? SUBBASS_MEDIUM :
-                size == Generic.PedalWhistleSize.LARGE ? SUBBASS_LOW : SUBBASS_DEEP).get(),
+    public SubbassSoundInstance(Generic.WhistleSize size, BlockPos worldPosition) {
+        super((size == Generic.WhistleSize.SMALL ? SUBBASS_HIGH :
+                size == Generic.WhistleSize.MEDIUM ? SUBBASS_MEDIUM :
+                size == Generic.WhistleSize.LARGE ? SUBBASS_LOW : SUBBASS_DEEP).get(),
             SoundSource.RECORDS,
             SoundInstance.createUnseededRandom());
         this.size = size;
@@ -33,7 +33,7 @@ public class SubbassSoundInstance extends AbstractTickableSoundInstance {
         z = v.z;
     }
 
-    public Generic.PedalWhistleSize getOctave() { return size; }
+    public Generic.WhistleSize getOctave() { return size; }
 
     public void fadeOut() { this.active = false; }
 

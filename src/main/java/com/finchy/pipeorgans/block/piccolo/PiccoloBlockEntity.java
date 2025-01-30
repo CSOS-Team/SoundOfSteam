@@ -1,9 +1,7 @@
 package com.finchy.pipeorgans.block.piccolo;
 
 import com.finchy.pipeorgans.block.Generic;
-import com.finchy.pipeorgans.block.gedeckt.GedecktSoundInstance;
-import com.finchy.pipeorgans.block.generic.GenericPipeBlockEntity;
-import com.finchy.pipeorgans.block.generic.GenericSoundInstance;
+import com.finchy.pipeorgans.block.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.block.generic.QuadrupleBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
@@ -15,12 +13,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.RegistryObject;
 
 public class PiccoloBlockEntity extends QuadrupleBlockEntity {
     public PiccoloBlockEntity(BlockPos pos, BlockState blockState) {
@@ -63,16 +59,6 @@ public class PiccoloBlockEntity extends QuadrupleBlockEntity {
         if (!particle)
             return;
 
-        Direction facing = getBlockState().getOptionalValue(WhistleBlock.FACING)
-                .orElse(Direction.SOUTH);
-        float angle = 180 + AngleHelper.horizontalAngle(facing);
-        Vec3 sizeOffset = VecHelper.rotate(new Vec3(0, -0.4f, 1 / 16f * size.ordinal()), angle, Direction.Axis.Y);
-        Vec3 offset = VecHelper.rotate(new Vec3(0, 1, 0.75f), angle, Direction.Axis.Y);
-        Vec3 v = offset.scale(.45f)
-                .add(sizeOffset)
-                .add(Vec3.atCenterOf(worldPosition));
-        Vec3 m = offset.subtract(Vec3.atLowerCornerOf(facing.getNormal())
-                .scale(.75f));
-        level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
+        createSteamJet(size);
     }
 }
