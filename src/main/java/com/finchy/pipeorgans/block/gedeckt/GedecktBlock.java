@@ -21,7 +21,7 @@ public class GedecktBlock extends GenericPipeBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        VoxelShape whistle = AllShapes.getSlimBase(pState.getValue(SIZE)); // get base whistle shape (temporarily medium)
+        VoxelShape whistle = AllShapes.getSlimBase(pState.getValue(SIZE));
         return Shapes.or(whistle,
                 !pState.getValue(WALL) ?
                         AllShapes.BASE_FLOOR : AllShapes.getBase(pState.getValue(FACING)));

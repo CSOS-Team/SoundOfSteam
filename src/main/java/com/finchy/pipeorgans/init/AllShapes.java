@@ -125,34 +125,28 @@ public class AllShapes {
 
     public static VoxelShape getTrompetteBase(Generic.WhistleSize size) {
         return switch (size) {
-            case TINY -> SLIM_SMALL_BASE;
-            case SMALL -> TROMPETTE_SMALL_BASE;
-            case MEDIUM -> TROMPETTE_MEDIUM_BASE;
-            case LARGE -> TROMPETTE_LARGE_BASE;
-            case HUGE -> TROMPETTE_HUGE_BASE;
+            case TINY, SMALL -> SLIM_SMALL_BASE;
+            case MEDIUM -> SLIM_MEDIUM_BASE;
+            case LARGE -> SLIM_LARGE_BASE;
+            case HUGE -> SLIM_HUGE_BASE;
         };
     }
 
-    public static VoxelShape getTrompetteExtensionShape(Generic.ExtensionShape shape, Generic.WhistleSize size) {
+    public static VoxelShape getTrompetteExtensionShape(Generic.QuadrupleExtensionShape shape, Generic.WhistleSize size) {
         return switch (shape) {
-            case SINGLE -> switch (size) {
-                case TINY, SMALL -> TROMPETTE_SMALL_SINGLE;
-                case MEDIUM -> TROMPETTE_MEDIUM_SINGLE;
-                case LARGE -> TROMPETTE_LARGE_SINGLE;
-                case HUGE -> TROMPETTE_HUGE_SINGLE;
-            };
             case DOUBLE -> switch (size) {
-                case TINY, SMALL -> TROMPETTE_SMALL_DOUBLE;
-                case MEDIUM -> TROMPETTE_MEDIUM_DOUBLE;
-                case LARGE -> TROMPETTE_LARGE_DOUBLE;
-                case HUGE -> TROMPETTE_HUGE_DOUBLE;
+                case TINY, SMALL -> SLIM_EXTENSION_SMALL_SINGLE;
+                case MEDIUM -> SLIM_EXTENSION_MEDIUM_SINGLE;
+                case LARGE -> SLIM_EXTENSION_LARGE_SINGLE;
+                case HUGE -> SLIM_EXTENSION_HUGE_SINGLE;
             };
-            case DOUBLE_CONNECTED -> switch (size) {
-                case TINY, SMALL -> TROMPETTE_SMALL_DOUBLE_CONNECTED;
-                case MEDIUM -> TROMPETTE_MEDIUM_DOUBLE_CONNECTED;
-                case LARGE -> TROMPETTE_LARGE_DOUBLE_CONNECTED;
-                case HUGE -> TROMPETTE_HUGE_DOUBLE_CONNECTED;
+            case QUAD, QUAD_CONNECTED -> switch (size) {
+                case TINY, SMALL -> SLIM_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> SLIM_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> SLIM_EXTENSION_LARGE_DOUBLE;
+                case HUGE -> SLIM_EXTENSION_HUGE_DOUBLE;
             };
+            default -> Shapes.block();
         };
     }
 

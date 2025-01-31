@@ -34,4 +34,9 @@ public class TrompetteExtensionBlock extends GenericExtensionBlock {
         super(pProperties);
         this.baseBlock = AllBlocks.TROMPETTE;
     }
+
+    @Override
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return AllShapes.getTrompetteExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
+    }
 }
