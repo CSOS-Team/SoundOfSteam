@@ -1,2 +1,2 @@
-gedeckt audio samples from organstops.org (http://www.organstops.org/_sounds/Reinhardtsgrimma/Hin_Gedacktes8_arp.mp3)
-diapason audio samples from organstops.org (http://www.organstops.org/_sounds/Reinhardtsgrimma/Hw_Principal8_arp.mp3)
+All audio samples from Piotr Grabowski's Szczecinek library - https://piotrgrabowski.pl/szczecinek/
+Thanks to Piotr for his permission to use his samples in this project!
