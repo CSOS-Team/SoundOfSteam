@@ -4,6 +4,7 @@ import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.block.gamba.GambaBlockEntity;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlockEntity;
+import com.finchy.pipeorgans.block.nasard.NasardBlockEntity;
 import com.finchy.pipeorgans.block.piccolo.PiccoloBlockEntity;
 import com.finchy.pipeorgans.block.subbass.SubbassBlockEntity;
 import com.finchy.pipeorgans.block.trompette.TrompetteBlockEntity;
@@ -46,6 +47,11 @@ public class AllBlockEntities {
     public static final RegistryObject<BlockEntityType> TROMPETTE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("trompette_block_entity",
                     () -> BlockEntityType.Builder.of(TrompetteBlockEntity::new, AllBlocks.TROMPETTE.get())
+                            .build(null));
+
+    public static final RegistryObject<BlockEntityType> NASARD_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("nasard_block_entity",
+                    () -> BlockEntityType.Builder.of(NasardBlockEntity::new, AllBlocks.NASARD.get())
                             .build(null));
 
 

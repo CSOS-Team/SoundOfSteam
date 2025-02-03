@@ -1,0 +1,21 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/nasard",
+		"particle": "pipeorgans:block/nasard"
+	},
+	"elements": [
+		{
+			"from": [5, 0, 5],
+			"to": [11, 8, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [4.625, 4, 5.375, 5], "texture": "#0"},
+				"east": {"uv": [4.625, 4, 5.375, 5], "texture": "#0"},
+				"south": {"uv": [4.625, 4, 5.375, 5], "texture": "#0"},
+				"west": {"uv": [4.625, 4, 5.375, 5], "texture": "#0"},
+				"up": {"uv": [2.625, 6.625, 3.375, 7.375], "texture": "#0"}
+			}
+		}
+	]
+}

@@ -326,5 +326,62 @@
         "name": "pipeorgans:trompette/t_deep"
       }
     ]
+  },
+
+
+
+  "nasard_superhigh": {
+    "subtitle": "sounds.pipeorgans.nasard_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:nasard/n_superhigh"
+      }
+    ]
+  },
+
+  "nasard_high": {
+    "subtitle": "sounds.pipeorgans.nasard_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:nasard/n_high"
+      }
+    ]
+  },
+
+  "nasard_medium": {
+    "subtitle": "sounds.pipeorgans.nasard_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:nasard/n_medium"
+      }
+    ]
+  },
+
+  "nasard_low": {
+    "subtitle": "sounds.pipeorgans.nasard_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:nasard/n_low"
+      }
+    ]
+  },
+
+  "nasard_deep": {
+    "subtitle": "sounds.pipeorgans.nasard_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:nasard/n_deep"
+      }
+    ]
   }
 }

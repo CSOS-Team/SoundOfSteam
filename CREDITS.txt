@@ -1,2 +1,2 @@
-All audio samples from Piotr Grabowski's Szczecinek library - https://piotrgrabowski.pl/szczecinek/
+All audio samples from Piotr Grabowski's Szczecinek and St. John Cantius libraries - https://piotrgrabowski.pl/szczecinek/, https://piotrgrabowski.pl/cracow-st-john-cantius/
 Thanks to Piotr for his permission to use his samples in this project!

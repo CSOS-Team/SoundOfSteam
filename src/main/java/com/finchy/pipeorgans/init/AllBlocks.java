@@ -7,6 +7,8 @@ import com.finchy.pipeorgans.block.gamba.GambaBlock;
 import com.finchy.pipeorgans.block.gamba.GambaExtensionBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktBlock;
 import com.finchy.pipeorgans.block.gedeckt.GedecktExtensionBlock;
+import com.finchy.pipeorgans.block.nasard.NasardBlock;
+import com.finchy.pipeorgans.block.nasard.NasardExtensionBlock;
 import com.finchy.pipeorgans.block.piccolo.PiccoloBlock;
 import com.finchy.pipeorgans.block.piccolo.PiccoloExtensionBlock;
 import com.finchy.pipeorgans.block.subbass.SubbassBlock;
@@ -65,19 +67,27 @@ public class AllBlocks {
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<SubbassBlock> SUBBASS = registerBlock("subbass",
-            () -> new SubbassBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+            () -> new SubbassBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<SubbassExtensionBlock> SUBBASS_EXTENSION = registerBlockWithoutItem("subbass_extension",
-            () -> new SubbassExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+            () -> new SubbassExtensionBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<TrompetteBlock> TROMPETTE = registerBlock("trompette",
-            () -> new TrompetteBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+            () -> new TrompetteBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.BRASS_BLOCK.get())
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<TrompetteExtensionBlock> TROMPETTE_EXTENSION = registerBlockWithoutItem("trompette_extension",
-            () -> new TrompetteExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+            () -> new TrompetteExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.BRASS_BLOCK.get())
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<NasardBlock> NASARD = registerBlock("nasard",
+            () -> new NasardBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<NasardExtensionBlock> NASARD_EXTENSION = registerBlockWithoutItem("nasard_extension",
+            () -> new NasardExtensionBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
                     .requiresCorrectToolForDrops()));
 
 

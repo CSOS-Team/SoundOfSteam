@@ -35,6 +35,7 @@ public class AllCreativeModeTabs {
 
                         output.accept(AllBlocks.GEDECKT.get());
                         output.accept(AllBlocks.GAMBA.get());
+                        output.accept(AllBlocks.NASARD.get());
                         output.accept(com.simibubi.create.AllBlocks.STEAM_WHISTLE.get());
 
                     })
