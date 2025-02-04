@@ -17,7 +17,4 @@ public class AllItems {
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
-
-    //public static final RegistryEntry<Item> WHOOPS = REGISTRATE.item("whoops", Item::new).register();
-
 }

@@ -4,17 +4,30 @@ import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.block.generic.GenericPipeBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
+import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.List;
+
 public class NasardBlockEntity extends GenericPipeBlockEntity {
     public NasardBlockEntity(BlockPos pos, BlockState blockState) {
         super(pos, blockState, AllBlockEntities.NASARD_BLOCK_ENTITY);
+    }
+
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        String[] pitches = Lang.translateDirect("generic.notes")
+                .getString()
+                .split(";");
+        Lang.translate("generic.pitch", pitches[(pitch+5)%12 % pitches.length]).forGoggles(tooltip);
+        return true;
     }
 
     @OnlyIn(Dist.CLIENT)
