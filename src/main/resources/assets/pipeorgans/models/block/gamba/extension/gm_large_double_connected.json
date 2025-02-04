@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "pipeorgans:block/gamba",
-		"particle": "pipeorgans:block/gamba"
+		"particle": "pipeorgans:block/particle/gamba_particle"
 	},
 	"elements": [
 		{

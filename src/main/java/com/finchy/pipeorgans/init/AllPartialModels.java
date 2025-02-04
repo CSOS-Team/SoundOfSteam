@@ -28,8 +28,8 @@ public class AllPartialModels {
     PICCOLO_MOUTH_TINY = block("piccolo/p_tiny_mouth"),
     PICCOLO_MOUTH_SMALL = block("piccolo/p_small_mouth"),
     PICCOLO_MOUTH_MEDIUM = block("piccolo/p_medium_mouth"),
-    PICCOLO_MOUTH_LARGE = block("piccolo/p_medium_large"),
-    PICCOLO_MOUTH_HUGE = block("piccolo/p_medium_huge"),
+    PICCOLO_MOUTH_LARGE = block("piccolo/p_large_mouth"),
+    PICCOLO_MOUTH_HUGE = block("piccolo/p_huge_mouth"),
 
     SUBBASS_MOUTH_SMALL = block("subbass/s_small_mouth"),
     SUBBASS_MOUTH_MEDIUM = block("subbass/s_medium_mouth"),

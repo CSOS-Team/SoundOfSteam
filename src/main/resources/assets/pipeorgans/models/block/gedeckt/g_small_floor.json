@@ -4,7 +4,7 @@
 		"0": "create:block/copper_redstone_plate",
 		"2": "create:block/engine",
 		"4": "pipeorgans:block/gedeckt",
-		"particle": "create:block/copper_redstone_plate"
+		"particle": "pipeorgans:block/particle/gedeckt_particle"
 	},
 	"elements": [
 		{

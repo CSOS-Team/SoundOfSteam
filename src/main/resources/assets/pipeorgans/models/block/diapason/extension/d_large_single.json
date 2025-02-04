@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "pipeorgans:block/diapason",
-		"particle": "pipeorgans:block/diapason"
+		"particle": "pipeorgans:block/particle/diapason_particle"
 	},
 	"elements": [
 		{

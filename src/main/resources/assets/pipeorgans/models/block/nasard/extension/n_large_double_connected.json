@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "pipeorgans:block/nasard",
-		"particle": "pipeorgans:block/nasard"
+		"particle": "pipeorgans:block/particle/nasard_particle"
 	},
 	"elements": [
 		{

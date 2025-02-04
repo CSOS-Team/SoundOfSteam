@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "pipeorgans:block/subbass",
-		"particle": "pipeorgans:block/subbass"
+		"particle": "pipeorgans:block/particle/subbass_particle"
 	},
 	"elements": [
 		{
