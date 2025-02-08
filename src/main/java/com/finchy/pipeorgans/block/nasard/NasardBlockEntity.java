@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.block.nasard;
 
+import com.finchy.pipeorgans.ClientConfig;
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.block.generic.GenericPipeBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
@@ -26,7 +27,8 @@ public class NasardBlockEntity extends GenericPipeBlockEntity {
         String[] pitches = Lang.translateDirect("generic.notes")
                 .getString()
                 .split(";");
-        Lang.translate("generic.pitch", pitches[(pitch+5)%12 % pitches.length]).forGoggles(tooltip);
+        int displayPitch = ClientConfig.displayMutationSoundingPitch? pitch+5 : pitch;
+        Lang.translate("generic.pitch", pitches[displayPitch%12 % pitches.length]).forGoggles(tooltip);
         return true;
     }
 
