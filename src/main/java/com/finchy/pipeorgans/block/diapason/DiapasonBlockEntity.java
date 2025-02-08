@@ -1,25 +1,16 @@
 package com.finchy.pipeorgans.block.diapason;
 
 import com.finchy.pipeorgans.block.Generic;
-import com.finchy.pipeorgans.block.gedeckt.GedecktSoundInstance;
 import com.finchy.pipeorgans.block.generic.GenericPipeBlockEntity;
-import com.finchy.pipeorgans.block.generic.GenericSoundInstance;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
-import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
-import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
-import com.simibubi.create.foundation.utility.AngleHelper;
-import com.simibubi.create.foundation.utility.VecHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.RegistryObject;
 
 public class DiapasonBlockEntity extends GenericPipeBlockEntity {
     public DiapasonBlockEntity(BlockPos pos, BlockState blockState) {
