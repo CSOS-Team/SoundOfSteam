@@ -1,11 +1,5 @@
 package com.finchy.pipeorgans.mixin;
 
-import com.finchy.pipeorgans.block.diapason.DiapasonBlock;
-import com.finchy.pipeorgans.block.gamba.GambaBlock;
-import com.finchy.pipeorgans.block.gedeckt.GedecktBlock;
-import com.finchy.pipeorgans.block.piccolo.PiccoloBlock;
-import com.finchy.pipeorgans.block.subbass.SubbassBlock;
-import com.finchy.pipeorgans.block.trompette.TrompetteBlock;
 import com.finchy.pipeorgans.init.AllTags;
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
