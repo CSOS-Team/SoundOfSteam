@@ -1,13 +1,15 @@
 {
-  "creativetab.pipe_organs_great": "Great Division",
-  "creativetab.pipe_organs_swell": "Swell Division",
-  "creativetab.pipe_organs_pedal": "Pedal Division",
+  "pipeorgans.creativetab.great": "Great Division",
+  "pipeorgans.creativetab.swell": "Swell Division",
+  "pipeorgans.creativetab.pedal": "Pedal Division",
 
   "pipeorgans.stopsize.2": "§72'",
   "pipeorgans.stopsize.223": "§72-2/3'",
   "pipeorgans.stopsize.4": "§74'",
   "pipeorgans.stopsize.8": "§78'",
   "pipeorgans.stopsize.16": "§716'",
+
+  "block.pipeorgans.base": "Pipe Base",
 
   "block.pipeorgans.gedeckt": "Gedeckt",
   "block.pipeorgans.diapason": "Diapason",

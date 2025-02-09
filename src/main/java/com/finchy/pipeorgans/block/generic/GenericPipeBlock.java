@@ -216,7 +216,6 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
             worldIn.setBlock(pos, state.cycle(POWERED), 2); // if redstone signal has changed, toggle powered
     }
 
-    // when updated?
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
                                   BlockPos pCurrentPos, BlockPos pFacingPos) {
         return getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)

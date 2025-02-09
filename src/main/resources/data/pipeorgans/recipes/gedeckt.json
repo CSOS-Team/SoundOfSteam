@@ -14,7 +14,7 @@
       "item": "minecraft:spruce_slab"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "item": "pipeorgans:base"
     }
   },
   "result": {

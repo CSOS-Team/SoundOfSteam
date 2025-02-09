@@ -178,7 +178,7 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
         if (tank == null || tank.isRemoved()) {
             if (tank != null)
                 source = new WeakReference<>(null);
-            Direction facing = WhistleBlock.getAttachedDirection(getBlockState());
+            Direction facing = GenericPipeBlock.getAttachedDirection(getBlockState());
             BlockEntity be = level.getBlockEntity(worldPosition.relative(facing));
             if (be instanceof FluidTankBlockEntity tankBe)
                 source = new WeakReference<>(tank = tankBe);

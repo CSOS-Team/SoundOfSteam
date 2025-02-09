@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.block.base.BaseBlock;
 import com.finchy.pipeorgans.block.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.block.diapason.DiapasonExtensionBlock;
 import com.finchy.pipeorgans.block.gamba.GambaBlock;
@@ -35,7 +36,13 @@ public class AllBlocks {
 
     // declare blocks here
 
-    public static final RegistryObject<GedecktBlock> GEDECKT = registerBlock("gedeckt", "8",
+    public static final RegistryObject<BaseBlock> BASE = registerBlock("base",
+            () -> new BaseBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+
+
+    public static final RegistryObject<GedecktBlock> GEDECKT = registerPipeBlock("gedeckt", "8",
             () -> new GedecktBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)
                     .requiresCorrectToolForDrops()));
 
@@ -43,7 +50,7 @@ public class AllBlocks {
             () -> new GedecktExtensionBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)
                     .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<DiapasonBlock> DIAPASON = registerBlock("diapason", "8",
+    public static final RegistryObject<DiapasonBlock> DIAPASON = registerPipeBlock("diapason", "8",
             () -> new DiapasonBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
                     .requiresCorrectToolForDrops()));
 
@@ -51,7 +58,7 @@ public class AllBlocks {
             () -> new DiapasonExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
                     .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<GambaBlock> GAMBA = registerBlock("gamba", "4",
+    public static final RegistryObject<GambaBlock> GAMBA = registerPipeBlock("gamba", "4",
             () -> new GambaBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .requiresCorrectToolForDrops()));
 
@@ -59,7 +66,7 @@ public class AllBlocks {
             () -> new GambaExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<PiccoloBlock> PICCOLO = registerBlock("piccolo", "2",
+    public static final RegistryObject<PiccoloBlock> PICCOLO = registerPipeBlock("piccolo", "2",
             () -> new PiccoloBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .requiresCorrectToolForDrops()));
 
@@ -67,7 +74,7 @@ public class AllBlocks {
             () -> new PiccoloExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                     .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<SubbassBlock> SUBBASS = registerBlock("subbass",  "16",
+    public static final RegistryObject<SubbassBlock> SUBBASS = registerPipeBlock("subbass",  "16",
             () -> new SubbassBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)
                     .requiresCorrectToolForDrops()));
 
@@ -75,7 +82,7 @@ public class AllBlocks {
             () -> new SubbassExtensionBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)
                     .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<TrompetteBlock> TROMPETTE = registerBlock("trompette", "8",
+    public static final RegistryObject<TrompetteBlock> TROMPETTE = registerPipeBlock("trompette", "8",
             () -> new TrompetteBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.BRASS_BLOCK.get())
                     .requiresCorrectToolForDrops()));
 
@@ -83,7 +90,7 @@ public class AllBlocks {
             () -> new TrompetteExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.BRASS_BLOCK.get())
                     .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<NasardBlock> NASARD = registerBlock("nasard", "223",
+    public static final RegistryObject<NasardBlock> NASARD = registerPipeBlock("nasard", "223",
             () -> new NasardBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
                     .requiresCorrectToolForDrops()));
 
@@ -92,9 +99,10 @@ public class AllBlocks {
                     .requiresCorrectToolForDrops()));
 
 
-    private static <T extends Block> RegistryObject<T> registerBlock(String name, String octave, Supplier<T> block) {
+
+    private static <T extends Block> RegistryObject<T> registerPipeBlock(String name, String octave, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        registerBlockItem(name, toReturn, octave);
+        registerPipeBlockItem(name, toReturn, octave);
         return toReturn;
     }
 
@@ -103,9 +111,22 @@ public class AllBlocks {
         return toReturn;
     }
 
-    private static <T extends Block>RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block, String octave) {
-        return AllItems.ITEMS.register(name, () -> new GenericPipeBlockItem(block.get(), new Item.Properties(), octave));
+    private static <T extends Block> void registerPipeBlockItem(String name, RegistryObject<T> block, String octave) {
+        AllItems.ITEMS.register(name, () -> new GenericPipeBlockItem(block.get(), new Item.Properties(), octave));
     }
+
+
+
+    private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
+        RegistryObject<T> toReturn = BLOCKS.register(name, block);
+        registerBlockItem(name, toReturn);
+        return toReturn;
+    }
+
+    private static <T extends Block>RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
+        return AllItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    }
+
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

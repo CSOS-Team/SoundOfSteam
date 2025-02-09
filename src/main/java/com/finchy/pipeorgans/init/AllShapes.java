@@ -18,9 +18,18 @@ public class AllShapes {
             case EAST -> BASE_EAST;
             case SOUTH -> BASE_SOUTH;
             case WEST -> BASE_WEST;
-            case UP, DOWN -> null;
+            case UP, DOWN -> Shapes.block();
         };
+    }
 
+    public static VoxelShape getBlockBase(Direction face) {
+        return switch (face) {
+            case NORTH -> BASE_BLOCK_NORTH;
+            case EAST -> BASE_BLOCK_EAST;
+            case SOUTH -> BASE_BLOCK_SOUTH;
+            case WEST -> BASE_BLOCK_WEST;
+            case UP, DOWN -> Shapes.block();
+        };
     }
 
     public static VoxelShape getSlimBase(Generic.WhistleSize size) {
@@ -56,15 +65,6 @@ public class AllShapes {
     public static VoxelShape getGenericBase(Generic.WhistleSize size) {
         return switch (size) {
             case TINY -> GENERIC_TINY_BASE;
-            case SMALL -> GENERIC_SMALL_BASE;
-            case MEDIUM -> GENERIC_MEDIUM_BASE;
-            case LARGE -> GENERIC_LARGE_BASE;
-            case HUGE -> GENERIC_HUGE_BASE;
-        };
-    }
-
-    public static VoxelShape getGenericBase(Generic.PedalWhistleSize size) {
-        return switch (size) {
             case SMALL -> GENERIC_SMALL_BASE;
             case MEDIUM -> GENERIC_MEDIUM_BASE;
             case LARGE -> GENERIC_LARGE_BASE;
@@ -258,6 +258,30 @@ public class AllShapes {
     public static VoxelShape BASE_WEST = add(
             Shapes.box(0, 0.0625, 0.0625, 0.1875, 0.9375, 0.9375),
             Shapes.box(0.1875, 0.1875, 0.3125, 0.6875, 0.5625, 0.6875)
+    );
+
+
+
+    public static VoxelShape BASE_BLOCK_TOP = Shapes.box(0.3125, 0.5625, 0.3125, 0.6875, 0.6875, 0.6875);
+
+    public static VoxelShape BASE_BLOCK_NORTH = add(
+            add(Shapes.box(0.0625, 0.0625, 0, 0.9375, 0.9375, 0.1875), Shapes.box(0.3125, 0.1875, 0.1875, 0.6875, 0.5625, 0.6875)),
+            BASE_BLOCK_TOP
+    );
+
+    public static VoxelShape BASE_BLOCK_EAST = add(
+            add(Shapes.box(0.8125, 0.0625, 0.0625, 1, 0.9375, 0.9375), Shapes.box(0.3125, 0.1875, 0.3125, 0.8125, 0.5625, 0.6875)),
+            BASE_BLOCK_TOP
+    );
+
+    public static VoxelShape BASE_BLOCK_SOUTH = add(
+            add(Shapes.box(0.0625, 0.0625, 0.8125, 0.9375, 0.9375, 1), Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 0.5625, 0.8125)),
+            BASE_BLOCK_TOP
+    );
+
+    public static VoxelShape BASE_BLOCK_WEST = add(
+            add(Shapes.box(0, 0.0625, 0.0625, 0.1875, 0.9375, 0.9375), Shapes.box(0.1875, 0.1875, 0.3125, 0.6875, 0.5625, 0.6875)),
+            BASE_BLOCK_TOP
     );
 
 }

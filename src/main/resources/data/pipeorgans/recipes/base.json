@@ -2,19 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "Z",
-    "Z",
+    "P",
     "C"
   ],
   "key": {
-    "Z": {
-      "tag": "forge:ingots/zinc"
+    "P": {
+      "item": "create:fluid_pipe"
     },
     "C": {
-      "item": "pipeorgans:base"
+      "tag": "forge:ingots/copper"
     }
   },
   "result": {
-    "item": "pipeorgans:diapason"
+    "item": "pipeorgans:base",
+    "count": 12
   }
 }

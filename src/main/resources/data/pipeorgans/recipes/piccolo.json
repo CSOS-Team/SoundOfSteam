@@ -14,7 +14,7 @@
       "tag": "forge:ingots/iron"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "item": "pipeorgans:base"
     }
   },
   "result": {

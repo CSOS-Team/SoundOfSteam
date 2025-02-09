@@ -16,7 +16,7 @@ public class AllCreativeModeTabs {
     public static final RegistryObject<CreativeModeTab> PIPE_ORGANS_GREAT = CREATIVE_MODE_TABS.register("pipe_organs_great",
             () -> CreativeModeTab.builder()
                     .icon(() -> new ItemStack(AllBlocks.DIAPASON.get()))
-                    .title(Component.translatable("creativetab.pipe_organs_great"))
+                    .title(Component.translatable("pipeorgans.creativetab.great"))
                     .displayItems((itemDisplayParameters, output) -> {
 
                         output.accept(AllBlocks.PICCOLO.get());
@@ -29,7 +29,7 @@ public class AllCreativeModeTabs {
     public static final RegistryObject<CreativeModeTab> PIPE_ORGANS_SWELL = CREATIVE_MODE_TABS.register("pipe_organs_swell",
             () -> CreativeModeTab.builder()
                     .icon(() -> new ItemStack(AllBlocks.GEDECKT.get()))
-                    .title(Component.translatable("creativetab.pipe_organs_swell"))
+                    .title(Component.translatable("pipeorgans.creativetab.swell"))
                     .withTabsBefore(PIPE_ORGANS_GREAT.getKey())
                     .displayItems((itemDisplayParameters, output) -> {
 
@@ -44,7 +44,7 @@ public class AllCreativeModeTabs {
     public static final RegistryObject<CreativeModeTab> PIPE_ORGANS_PEDAL = CREATIVE_MODE_TABS.register("pipe_organs_pedal",
             () -> CreativeModeTab.builder()
                     .icon(() -> new ItemStack(AllBlocks.SUBBASS.get()))
-                    .title(Component.translatable("creativetab.pipe_organs_pedal"))
+                    .title(Component.translatable("pipeorgans.creativetab.pedal"))
                     .withTabsBefore(PIPE_ORGANS_SWELL.getKey())
                     .displayItems((itemDisplayParameters, output) -> {
 
