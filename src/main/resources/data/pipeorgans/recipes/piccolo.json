@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "L",
+    "I",
+    "C"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:cherry_log"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    }
+  },
+  "result": {
+    "item": "pipeorgans:piccolo"
+  }
+}

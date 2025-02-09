@@ -9,7 +9,7 @@
   "pipeorgans.stopsize.8": "§78'",
   "pipeorgans.stopsize.16": "§716'",
 
-  "block.pipeorgans.gedeckt": "Gedackt",
+  "block.pipeorgans.gedeckt": "Gedeckt",
   "block.pipeorgans.diapason": "Diapason",
   "block.pipeorgans.gamba": "Gamba",
   "block.pipeorgans.piccolo": "Piccolo",
@@ -17,11 +17,11 @@
   "block.pipeorgans.trompette": "Trompette",
   "block.pipeorgans.nasard": "Nasard",
 
-  "sounds.pipeorgans.gedeckt_superhigh": "Gedackt squeals",
-  "sounds.pipeorgans.gedeckt_high": "Gedackt squeaks",
-  "sounds.pipeorgans.gedeckt_medium": "Gedackt speaks",
-  "sounds.pipeorgans.gedeckt_low": "Gedackt grumbles",
-  "sounds.pipeorgans.gedeckt_deep": "Gedackt rumbles",
+  "sounds.pipeorgans.gedeckt_superhigh": "Gedeckt squeals",
+  "sounds.pipeorgans.gedeckt_high": "Gedeckt squeaks",
+  "sounds.pipeorgans.gedeckt_medium": "Gedeckt speaks",
+  "sounds.pipeorgans.gedeckt_low": "Gedeckt grumbles",
+  "sounds.pipeorgans.gedeckt_deep": "Gedeckt rumbles",
 
   "sounds.pipeorgans.diapason_superhigh": "Diapason squeals",
   "sounds.pipeorgans.diapason_high": "Diapason squeaks",
