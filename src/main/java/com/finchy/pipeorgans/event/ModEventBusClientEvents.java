@@ -1,13 +1,13 @@
 package com.finchy.pipeorgans.event;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.block.diapason.DiapasonRenderer;
-import com.finchy.pipeorgans.block.gamba.GambaRenderer;
-import com.finchy.pipeorgans.block.gedeckt.GedecktRenderer;
-import com.finchy.pipeorgans.block.nasard.NasardRenderer;
-import com.finchy.pipeorgans.block.piccolo.PiccoloRenderer;
-import com.finchy.pipeorgans.block.subbass.SubbassRenderer;
-import com.finchy.pipeorgans.block.trompette.TrompetteRenderer;
+import com.finchy.pipeorgans.block.pipes.diapason.DiapasonRenderer;
+import com.finchy.pipeorgans.block.pipes.gamba.GambaRenderer;
+import com.finchy.pipeorgans.block.pipes.gedeckt.GedecktRenderer;
+import com.finchy.pipeorgans.block.pipes.nasard.NasardRenderer;
+import com.finchy.pipeorgans.block.pipes.piccolo.PiccoloRenderer;
+import com.finchy.pipeorgans.block.pipes.subbass.SubbassRenderer;
+import com.finchy.pipeorgans.block.pipes.trompette.TrompetteRenderer;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;

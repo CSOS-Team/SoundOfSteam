@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.block.base;
 
-import com.finchy.pipeorgans.block.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.block.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
