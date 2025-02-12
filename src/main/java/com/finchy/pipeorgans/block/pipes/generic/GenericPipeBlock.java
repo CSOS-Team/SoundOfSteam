@@ -207,13 +207,13 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
 
     // if neighbour updates
     @Override
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos,
                                 boolean isMoving) {
-        if (worldIn.isClientSide) // only on serverside
+        if (pLevel.isClientSide) // only on serverside
             return;
-        boolean previouslyPowered = state.getValue(POWERED);
-        if (previouslyPowered != worldIn.hasNeighborSignal(pos))
-            worldIn.setBlock(pos, state.cycle(POWERED), 2); // if redstone signal has changed, toggle powered
+        boolean previouslyPowered = pState.getValue(POWERED);
+        if (previouslyPowered != pLevel.hasNeighborSignal(pPos))
+            pLevel.setBlock(pPos, pState.cycle(POWERED), 2); // if redstone signal has changed, toggle powered
     }
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,

@@ -1,6 +1,8 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.block.WindchestBlock;
+import com.finchy.pipeorgans.block.WindchestMasterBlock;
 import com.finchy.pipeorgans.block.base.BaseBlock;
 import com.finchy.pipeorgans.block.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.block.pipes.diapason.DiapasonExtensionBlock;
@@ -38,6 +40,14 @@ public class AllBlocks {
 
     public static final RegistryObject<BaseBlock> BASE = registerBlock("base",
             () -> new BaseBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<WindchestBlock> WINDCHEST = registerBlock("windchest",
+            () -> new WindchestBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<WindchestMasterBlock> WINDCHEST_MASTER = registerBlock("windchest_master",
+            () -> new WindchestMasterBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
                     .requiresCorrectToolForDrops()));
 
 
