@@ -207,8 +207,7 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
 
     // if neighbour updates
     @Override
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos,
-                                boolean isMoving) {
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean isMoving) {
         if (pLevel.isClientSide) // only on serverside
             return;
         boolean previouslyPowered = pState.getValue(POWERED);

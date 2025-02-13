@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.block;
 
-import com.finchy.pipeorgans.block.pipes.gedeckt.GedecktBlock;
+import com.finchy.pipeorgans.PipeOrgans;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -11,7 +11,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 import static com.finchy.pipeorgans.block.WindchestMasterBlock.WINDY;
 
@@ -35,12 +36,16 @@ public class WindchestBlock extends Block {
     }
 
     public boolean isMasterWindy(Level level, Direction facing, BlockPos pos) {
-        return level.getBlockState(getMasterPos(level, facing, pos)).getValue(WINDY) ? true : false;
+        BlockPos masterPos = getMasterPos(level, facing, pos);
+        if (masterPos != pos) { return level.getBlockState(getMasterPos(level, facing, pos)).getValue(WINDY); }
+        return false;
     }
 
     public boolean isMasterPowered(Level level, Direction facing, BlockPos pos) {
         BlockPos masterPos = getMasterPos(level, facing, pos);
+        PipeOrgans.LOGGER.info(masterPos.toShortString());
         if (masterPos != pos) { return level.getBlockState(getMasterPos(level, facing, pos)).getValue(POWERED); }
+        PipeOrgans.LOGGER.info("isMasterPowered: masterPos == pos");
         return false;
     }
 
@@ -60,6 +65,22 @@ public class WindchestBlock extends Block {
     }
 
     @Override
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean pMovedByPiston) {
+        PipeOrgans.LOGGER.info("neighbour changed");
+        if (pLevel.isClientSide) {
+            return;
+        }
+        Direction facing = pState.getValue(FACING);
+        boolean previouslyPowered = pState.getValue(POWERED);
+        if (pPos.relative(facing) == pNeighborPos       // if update is in direction of master
+                && (pNeighborBlock instanceof WindchestMasterBlock       // and block is windchest master or windchest
+                    || pNeighborBlock instanceof WindchestBlock)
+                && previouslyPowered != isMasterPowered(pLevel, facing, pPos)) {
+            pLevel.setBlock(pPos, pState.cycle(POWERED), 2);
+        }
+    }
+
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Level level = pContext.getLevel();
         BlockPos clickedPos = pContext.getClickedPos();
@@ -73,7 +94,7 @@ public class WindchestBlock extends Block {
             face = level.getBlockState(parentPos).getValue(FACING).getOpposite();
         } else if (face.getAxis() == Direction.Axis.Y) { face = pContext.getHorizontalDirection(); }
 
-        return super.getStateForPlacement(pContext)
+        return Objects.requireNonNull(super.getStateForPlacement(pContext))
                 .setValue(FACING, face)
                 .setValue(POWERED, isMasterPowered(level, face, clickedPos));
 
