@@ -1,0 +1,21 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/windchest/windchest",
+		"particle": "pipeorgans:block/windchest/windchest"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [4, 8, 8, 12], "texture": "#0"},
+				"east": {"uv": [8, 8, 12, 12], "texture": "#0"},
+				"south": {"uv": [4, 8, 8, 12], "texture": "#0"},
+				"west": {"uv": [12, 8, 8, 12], "texture": "#0"},
+				"up": {"uv": [8, 8, 12, 12], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [8, 8, 12, 12], "rotation": 90, "texture": "#0"}
+			}
+		}
+	]
+}
