@@ -43,41 +43,24 @@ public class WindchestBlock extends Block {
 
     public boolean isMasterPowered(Level level, Direction facing, BlockPos pos) {
         BlockPos masterPos = getMasterPos(level, facing, pos);
-        PipeOrgans.LOGGER.info(masterPos.toShortString());
         if (masterPos != pos) { return level.getBlockState(getMasterPos(level, facing, pos)).getValue(POWERED); }
-        PipeOrgans.LOGGER.info("isMasterPowered: masterPos == pos");
         return false;
     }
 
     public BlockPos getMasterPos(Level level, Direction facing, BlockPos pos) {
         BlockPos currentPos = pos;
         for (int i=0; i<=12; i++) {
-            BlockState currentBlock = level.getBlockState(currentPos.relative(facing));
+            currentPos = currentPos.relative(facing);
+            BlockState currentBlock = level.getBlockState(currentPos);
             if (currentBlock.getBlock() instanceof WindchestMasterBlock && currentBlock.getValue(FACING) == facing.getOpposite()) {
-                return currentPos.relative(facing);
+                return currentPos;
             }
-            if (!(currentBlock.getBlock() instanceof WindchestBlock && currentBlock.getValue(FACING) == facing.getOpposite())) {
+            if ( !(currentBlock.getBlock() instanceof WindchestBlock
+                    && (currentBlock.getValue(FACING) == facing)) ) {
                 break;
             }
-            currentPos = currentPos.relative(facing);
         }
         return pos;
-    }
-
-    @Override
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean pMovedByPiston) {
-        PipeOrgans.LOGGER.info("neighbour changed");
-        if (pLevel.isClientSide) {
-            return;
-        }
-        Direction facing = pState.getValue(FACING);
-        boolean previouslyPowered = pState.getValue(POWERED);
-        if (pPos.relative(facing) == pNeighborPos       // if update is in direction of master
-                && (pNeighborBlock instanceof WindchestMasterBlock       // and block is windchest master or windchest
-                    || pNeighborBlock instanceof WindchestBlock)
-                && previouslyPowered != isMasterPowered(pLevel, facing, pPos)) {
-            pLevel.setBlock(pPos, pState.cycle(POWERED), 2);
-        }
     }
 
     @Override

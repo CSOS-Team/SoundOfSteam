@@ -1,5 +1,8 @@
 package com.finchy.pipeorgans.block;
 
+import com.simibubi.create.content.kinetics.fan.EncasedFanBlock;
+import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
+import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -46,13 +49,59 @@ public class WindchestMasterBlock extends Block {
                 .setValue(POWERED, level.hasNeighborSignal(clickedPos));
     }
 
+    public void updateSlaves(BlockState state, Level level, BlockPos pos, boolean powered) {
+
+        Direction facing = state.getValue(FACING);
+        BlockPos currentPos = pos;
+        for (int i=0; i<=12; i++) {
+            currentPos = currentPos.relative(facing);
+            BlockState currentBlock = level.getBlockState(currentPos);
+            if (currentBlock.getBlock() instanceof WindchestBlock && currentBlock.getValue(FACING) == facing.getOpposite()) {
+                level.setBlock(currentPos, currentBlock.setValue(POWERED, powered), 2);
+            }
+        }
+    }
+
     // if neighbour updates
     @Override
     public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean isMoving) {
         if (pLevel.isClientSide) // only on serverside
             return;
         boolean previouslyPowered = pState.getValue(POWERED);
-        if (previouslyPowered != pLevel.hasNeighborSignal(pPos))
-            pLevel.setBlock(pPos, pState.cycle(POWERED), 2); // if redstone signal has changed, toggle powered
+        boolean powered = pLevel.hasNeighborSignal(pPos);
+        if (previouslyPowered != powered) {
+            pLevel.setBlock(pPos, pState.setValue(POWERED, powered), 2);
+            updateSlaves(pState, pLevel, pPos, powered);
+            }
     }
+
+    @Override
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
+        if (pLevel.isClientSide) // only on serverside
+            return;
+        updateSlaves(pState, pLevel, pPos, pLevel.hasNeighborSignal(pPos));
+    }
+
+    @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
+        if (pLevel.isClientSide) // only on serverside
+            return;
+
+        updateSlaves(pState, pLevel, pPos, false);
+        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+    }
+
+    public static void updateMasterWindy(Level level, BlockPos masterPos) {
+        for (Direction d : Iterate.directions) {
+            if (level.getBlockEntity(masterPos.relative(d)) instanceof EncasedFanBlockEntity fanBE) {
+                BlockState fanState = fanBE.getBlockState();
+                boolean fanActive = fanBE.getSpeed() * d.getOpposite().getAxisDirection().getStep() > 0;
+                if (fanState.getValue(EncasedFanBlock.FACING) == d.getOpposite() && fanActive) {
+                    level.setBlock(masterPos, level.getBlockState(masterPos).setValue(WINDY, fanActive), 2);
+                    return;
+                }
+            }
+        }
+    }
+
 }
