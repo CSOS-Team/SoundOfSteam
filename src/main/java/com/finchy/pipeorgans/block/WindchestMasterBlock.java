@@ -59,7 +59,7 @@ public class WindchestMasterBlock extends Block {
             BlockState currentBlock = level.getBlockState(currentPos);
             if (currentBlock.getBlock() instanceof WindchestBlock && currentBlock.getValue(FACING) == facing.getOpposite()) {
                 level.setBlock(currentPos, currentBlock.setValue(POWERED, powered), 2);
-            }
+            } else { return; }
         }
     }
 
@@ -73,7 +73,8 @@ public class WindchestMasterBlock extends Block {
         if (previouslyPowered != powered) {
             pLevel.setBlock(pPos, pState.setValue(POWERED, powered), 2);
             updateSlaves(pState, pLevel, pPos, powered);
-            }
+        }
+        if (pNeighborBlock instanceof EncasedFanBlock) { updateMasterWindy(pLevel, pPos); }
     }
 
     @Override
@@ -93,8 +94,7 @@ public class WindchestMasterBlock extends Block {
     }
 
     public static void updateMasterWindy(Level level, BlockPos masterPos) {
-        if (level.isClientSide) {return;}
-        PipeOrgans.LOGGER.info("updateMasterWindy");
+        if (level.isClientSide) { return; }
         int activeFans = 0;
         for (Direction d : Iterate.directions) {
             if (level.getBlockEntity(masterPos.relative(d)) instanceof EncasedFanBlockEntity fanBE) {
@@ -106,19 +106,6 @@ public class WindchestMasterBlock extends Block {
         }
         PipeOrgans.LOGGER.info(Integer.toString(activeFans));
         level.setBlock(masterPos, level.getBlockState(masterPos).setValue(WINDY, activeFans>0), 2);
-    }
-
-    public static void forceWindyOff(Level level, BlockPos masterPos) {
-        PipeOrgans.LOGGER.info("forceWindyOff");
-        for (Direction d : Iterate.directions) {
-            if (level.getBlockEntity(masterPos.relative(d)) instanceof EncasedFanBlockEntity fanBE) {
-                BlockState fanState = fanBE.getBlockState();
-                if (fanState.getValue(EncasedFanBlock.FACING) == d.getOpposite()) {
-                    level.setBlock(masterPos, level.getBlockState(masterPos).setValue(WINDY, false), 2);
-                    return;
-                }
-            }
-        }
     }
 
 }

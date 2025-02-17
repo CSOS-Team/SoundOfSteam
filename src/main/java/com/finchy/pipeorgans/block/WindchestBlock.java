@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -81,5 +82,14 @@ public class WindchestBlock extends Block {
                 .setValue(FACING, face)
                 .setValue(POWERED, isMasterPowered(level, face, clickedPos));
 
+    }
+
+    @Override
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean pMovedByPiston) {
+
+        Direction facing = pState.getValue(FACING);
+        if (pPos.relative(facing).equals(pNeighborPos) ) {
+            pLevel.setBlock(pPos, pState.setValue(POWERED, isMasterPowered(pLevel, facing, pPos)), 3);
+        }
     }
 }

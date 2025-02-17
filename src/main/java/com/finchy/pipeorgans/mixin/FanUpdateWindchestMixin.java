@@ -17,38 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = EncasedFanBlockEntity.class, remap = false)
 public class FanUpdateWindchestMixin {
 
-    @WrapOperation(method = "onSpeedChanged", at = @At(value = "INVOKE", target = "Lcom/simibubi/create/content/kinetics/fan/EncasedFanBlockEntity;updateChute()V"))
-    private void updateSpeedChanged(EncasedFanBlockEntity instance, Operation<Void> original) {
+    @Inject(method = "onSpeedChanged", at = @At(value = "TAIL"))
+    private void updateSpeedChanged(float prevSpeed, CallbackInfo ci) {
 
-        original.call(instance);
-
-        Level level = instance.getLevel();
-        BlockState fanState = instance.getBlockState();
-        BlockPos adjacentPos = instance.getBlockPos().relative(fanState.getValue(EncasedFanBlock.FACING));
-        if (level.getBlockState(adjacentPos).getBlock() instanceof WindchestMasterBlock) {
-            WindchestMasterBlock.updateMasterWindy(level, adjacentPos);
-        }
-        PipeOrgans.LOGGER.info("onSpeedChanged");
-    }
-
-    @WrapOperation(method = "remove", at = @At(value = "INVOKE", target = "Lcom/simibubi/create/content/kinetics/fan/EncasedFanBlockEntity;updateChute()V"))
-    private void updateRemove(EncasedFanBlockEntity instance, Operation<Void> original) {
-
-        original.call(instance);
-
-        Level level = instance.getLevel();
-        BlockState fanState = instance.getBlockState();
-        BlockPos adjacentPos = instance.getBlockPos().relative(fanState.getValue(EncasedFanBlock.FACING));
-        if (level.getBlockState(adjacentPos).getBlock() instanceof WindchestMasterBlock) {
-            WindchestMasterBlock.updateMasterWindy(level, adjacentPos);
-        }
-        PipeOrgans.LOGGER.info("remove");
-    }
-
-    @Inject(method = "blockInFrontChanged", at = @At(value = "TAIL"))
-    private void updateBIFC(CallbackInfo ci) {
         EncasedFanBlockEntity instance = (EncasedFanBlockEntity)(Object)this;
-        instance.updateChute();
 
         Level level = instance.getLevel();
         BlockState fanState = instance.getBlockState();
@@ -56,6 +28,33 @@ public class FanUpdateWindchestMixin {
         if (level.getBlockState(adjacentPos).getBlock() instanceof WindchestMasterBlock) {
             WindchestMasterBlock.updateMasterWindy(level, adjacentPos);
         }
-        PipeOrgans.LOGGER.info("BIFC");
     }
+
+//    @WrapOperation(method = "remove", at = @At(value = "INVOKE", target = "Lcom/simibubi/create/content/kinetics/fan/EncasedFanBlockEntity;updateChute()V"))
+//    private void updateRemove(EncasedFanBlockEntity instance, Operation<Void> original) {
+//
+//        original.call(instance);
+//
+//        Level level = instance.getLevel();
+//        BlockState fanState = instance.getBlockState();
+//        BlockPos adjacentPos = instance.getBlockPos().relative(fanState.getValue(EncasedFanBlock.FACING));
+//        if (level.getBlockState(adjacentPos).getBlock() instanceof WindchestMasterBlock) {
+//            WindchestMasterBlock.updateMasterWindy(level, adjacentPos);
+//        }
+//        PipeOrgans.LOGGER.info("remove");
+//    }
+//
+//    @Inject(method = "blockInFrontChanged", at = @At(value = "TAIL"))
+//    private void updateBIFC(CallbackInfo ci) {
+//        EncasedFanBlockEntity instance = (EncasedFanBlockEntity)(Object)this;
+//        instance.updateChute();
+//
+//        Level level = instance.getLevel();
+//        BlockState fanState = instance.getBlockState();
+//        BlockPos adjacentPos = instance.getBlockPos().relative(fanState.getValue(EncasedFanBlock.FACING));
+//        if (level.getBlockState(adjacentPos).getBlock() instanceof WindchestMasterBlock) {
+//            WindchestMasterBlock.updateMasterWindy(level, adjacentPos);
+//        }
+//        PipeOrgans.LOGGER.info("BIFC");
+//    }
 }
