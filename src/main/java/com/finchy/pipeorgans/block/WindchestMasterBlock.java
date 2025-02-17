@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.block;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlock;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
 import com.simibubi.create.foundation.utility.Iterate;
@@ -92,12 +93,28 @@ public class WindchestMasterBlock extends Block {
     }
 
     public static void updateMasterWindy(Level level, BlockPos masterPos) {
+        if (level.isClientSide) {return;}
+        PipeOrgans.LOGGER.info("updateMasterWindy");
+        int activeFans = 0;
         for (Direction d : Iterate.directions) {
             if (level.getBlockEntity(masterPos.relative(d)) instanceof EncasedFanBlockEntity fanBE) {
                 BlockState fanState = fanBE.getBlockState();
-                boolean fanActive = fanBE.getSpeed() * d.getOpposite().getAxisDirection().getStep() > 0;
-                if (fanState.getValue(EncasedFanBlock.FACING) == d.getOpposite() && fanActive) {
-                    level.setBlock(masterPos, level.getBlockState(masterPos).setValue(WINDY, fanActive), 2);
+                if (fanState.getValue(EncasedFanBlock.FACING) == d.getOpposite() && (fanBE.getSpeed() != 0)) {
+                    activeFans++;
+                }
+            }
+        }
+        PipeOrgans.LOGGER.info(Integer.toString(activeFans));
+        level.setBlock(masterPos, level.getBlockState(masterPos).setValue(WINDY, activeFans>0), 2);
+    }
+
+    public static void forceWindyOff(Level level, BlockPos masterPos) {
+        PipeOrgans.LOGGER.info("forceWindyOff");
+        for (Direction d : Iterate.directions) {
+            if (level.getBlockEntity(masterPos.relative(d)) instanceof EncasedFanBlockEntity fanBE) {
+                BlockState fanState = fanBE.getBlockState();
+                if (fanState.getValue(EncasedFanBlock.FACING) == d.getOpposite()) {
+                    level.setBlock(masterPos, level.getBlockState(masterPos).setValue(WINDY, false), 2);
                     return;
                 }
             }

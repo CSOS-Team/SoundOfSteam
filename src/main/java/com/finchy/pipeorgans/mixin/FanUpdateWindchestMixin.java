@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.mixin;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.WindchestMasterBlock;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -27,6 +28,7 @@ public class FanUpdateWindchestMixin {
         if (level.getBlockState(adjacentPos).getBlock() instanceof WindchestMasterBlock) {
             WindchestMasterBlock.updateMasterWindy(level, adjacentPos);
         }
+        PipeOrgans.LOGGER.info("onSpeedChanged");
     }
 
     @WrapOperation(method = "remove", at = @At(value = "INVOKE", target = "Lcom/simibubi/create/content/kinetics/fan/EncasedFanBlockEntity;updateChute()V"))
@@ -40,6 +42,7 @@ public class FanUpdateWindchestMixin {
         if (level.getBlockState(adjacentPos).getBlock() instanceof WindchestMasterBlock) {
             WindchestMasterBlock.updateMasterWindy(level, adjacentPos);
         }
+        PipeOrgans.LOGGER.info("remove");
     }
 
     @Inject(method = "blockInFrontChanged", at = @At(value = "TAIL"))
@@ -53,6 +56,6 @@ public class FanUpdateWindchestMixin {
         if (level.getBlockState(adjacentPos).getBlock() instanceof WindchestMasterBlock) {
             WindchestMasterBlock.updateMasterWindy(level, adjacentPos);
         }
-
+        PipeOrgans.LOGGER.info("BIFC");
     }
 }
