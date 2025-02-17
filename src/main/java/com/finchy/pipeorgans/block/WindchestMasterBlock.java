@@ -99,7 +99,7 @@ public class WindchestMasterBlock extends Block {
         for (Direction d : Iterate.directions) {
             if (level.getBlockEntity(masterPos.relative(d)) instanceof EncasedFanBlockEntity fanBE) {
                 BlockState fanState = fanBE.getBlockState();
-                if (fanState.getValue(EncasedFanBlock.FACING) == d.getOpposite() && (fanBE.getSpeed() != 0)) {
+                if (fanState.getValue(EncasedFanBlock.FACING) == d.getOpposite() && (fanBE.getSpeed()*d.getAxisDirection().getStep() > 0)) {
                     activeFans++;
                 }
             }

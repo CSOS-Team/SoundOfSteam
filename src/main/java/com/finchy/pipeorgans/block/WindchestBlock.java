@@ -38,15 +38,17 @@ public class WindchestBlock extends Block {
 
     public boolean isMasterWindy(Level level, Direction facing, BlockPos pos) {
         BlockPos masterPos = getMasterPos(level, facing, pos);
-        if (masterPos != pos) { return level.getBlockState(getMasterPos(level, facing, pos)).getValue(WINDY); }
+        if (masterPos != pos) { return level.getBlockState(masterPos).getValue(WINDY); }
         return false;
     }
 
     public boolean isMasterPowered(Level level, Direction facing, BlockPos pos) {
         BlockPos masterPos = getMasterPos(level, facing, pos);
-        if (masterPos != pos) { return level.getBlockState(getMasterPos(level, facing, pos)).getValue(POWERED); }
+        if (masterPos != pos) { return level.getBlockState(masterPos).getValue(POWERED); }
         return false;
     }
+
+    public boolean isMasterActive(Level level, Direction facing, )
 
     public BlockPos getMasterPos(Level level, Direction facing, BlockPos pos) {
         BlockPos currentPos = pos;

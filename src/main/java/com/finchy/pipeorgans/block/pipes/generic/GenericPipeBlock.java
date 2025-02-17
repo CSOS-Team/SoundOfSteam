@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.block.pipes.generic;
 
 import com.finchy.pipeorgans.block.Generic;
+import com.finchy.pipeorgans.block.WindchestBlock;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
@@ -164,10 +165,12 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
         withBlockEntityDo(pLevel, pPos, GenericPipeBlockEntity::updatePitch);
     }
 
-    // check if placed on fluid tank
+    // check if placed on fluid tank or windchest
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        return FluidTankBlock.isTank(pLevel.getBlockState(pPos.relative(getAttachedDirection(pState))));
+        BlockState attachedState = pLevel.getBlockState(pPos.relative(getAttachedDirection(pState)));
+        return (FluidTankBlock.isTank(attachedState)
+                || attachedState.getBlock() instanceof WindchestBlock);
     }
 
     // called when wrenched
@@ -200,7 +203,7 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
                                                       // model is rotated in blockstate json)
                 .setValue(POWERED, level.hasNeighborSignal(clickedPos)) // true if power source adjacent, else false
                 .setValue(WALL, wall);
-        if (!canSurvive(state, level, clickedPos)) // if placed on fluid tank
+        if (!canSurvive(state, level, clickedPos)) // if placed on fluid tank or windchest
             return null;
         return state;
     }

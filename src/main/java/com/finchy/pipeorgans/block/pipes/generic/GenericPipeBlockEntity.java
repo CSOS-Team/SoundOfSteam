@@ -1,6 +1,8 @@
 package com.finchy.pipeorgans.block.pipes.generic;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.Generic;
+import com.finchy.pipeorgans.block.WindchestBlock;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
@@ -29,6 +31,9 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+
+import static com.finchy.pipeorgans.block.pipes.generic.GenericPipeBlock.FACING;
+import static com.finchy.pipeorgans.block.pipes.generic.GenericPipeBlock.getAttachedDirection;
 
 public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
@@ -88,9 +93,18 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
         }
 
         FluidTankBlockEntity tank = getTank();
+
+        BlockState state = getBlockState();
+        BlockPos attachedPos = getBlockPos().relative(getAttachedDirection(state));
+        BlockState attachedState = level.getBlockState(attachedPos);
+        boolean isWindy = false;
+        if (level.getBlockState(attachedPos).getBlock() instanceof WindchestBlock windchest) {
+            isWindy = windchest.isMasterWindy(level, attachedState.getValue(FACING), attachedPos);
+        }
+
         boolean powered = isPowered()
-                && (tank != null && tank.boiler.isActive() && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0)
-                || isVirtual());
+                && ((tank != null && tank.boiler.isActive() && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0)
+                || isVirtual()) || isWindy );
         animation.chase(powered ? 1 : 0, powered ? .5f : .4f, powered ? LerpedFloat.Chaser.EXP : LerpedFloat.Chaser.LINEAR);
         animation.tickChaser();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> this.tickAudio(getOctave(), powered));
@@ -177,7 +191,7 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
         if (tank == null || tank.isRemoved()) {
             if (tank != null)
                 source = new WeakReference<>(null);
-            Direction facing = GenericPipeBlock.getAttachedDirection(getBlockState());
+            Direction facing = getAttachedDirection(getBlockState());
             BlockEntity be = level.getBlockEntity(worldPosition.relative(facing));
             if (be instanceof FluidTankBlockEntity tankBe)
                 source = new WeakReference<>(tank = tankBe);
