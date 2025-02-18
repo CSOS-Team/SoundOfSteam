@@ -97,14 +97,19 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
         BlockState state = getBlockState();
         BlockPos attachedPos = getBlockPos().relative(getAttachedDirection(state));
         BlockState attachedState = level.getBlockState(attachedPos);
-        boolean isWindy = false;
-        if (level.getBlockState(attachedPos).getBlock() instanceof WindchestBlock windchest) {
-            isWindy = windchest.isMasterWindy(level, attachedState.getValue(FACING), attachedPos);
+        boolean isActive = false;
+        if (attachedState.getBlock() instanceof WindchestBlock windchest) {
+            isActive = windchest.isMasterActive(level, attachedState.getValue(FACING), attachedPos);
         }
 
-        boolean powered = isPowered()
-                && ((tank != null && tank.boiler.isActive() && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0)
-                || isVirtual()) || isWindy );
+        boolean powered;
+        if (isPowered()) {
+            powered = ((tank != null && tank.boiler.isActive() && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0)
+                    || isVirtual()) || isActive );
+        } else {
+            powered = false;
+        }
+
         animation.chase(powered ? 1 : 0, powered ? .5f : .4f, powered ? LerpedFloat.Chaser.EXP : LerpedFloat.Chaser.LINEAR);
         animation.tickChaser();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> this.tickAudio(getOctave(), powered));
