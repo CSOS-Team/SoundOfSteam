@@ -93,19 +93,20 @@ public class WindchestMasterBlock extends Block {
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
     }
 
-    public static void updateMasterWindy(Level level, BlockPos masterPos) {
-        if (level.isClientSide) { return; }
+    public static boolean updateMasterWindy(Level level, BlockPos masterPos) {
+        if (level.isClientSide) { return false; }
         int activeFans = 0;
         for (Direction d : Iterate.directions) {
             if (level.getBlockEntity(masterPos.relative(d)) instanceof EncasedFanBlockEntity fanBE) {
                 BlockState fanState = fanBE.getBlockState();
-                if (fanState.getValue(EncasedFanBlock.FACING) == d.getOpposite() && (fanBE.getSpeed()*d.getAxisDirection().getStep() > 0)) {
+                if (fanState.getValue(EncasedFanBlock.FACING) == d.getOpposite() && (fanBE.getSpeed()*d.getAxisDirection().getStep() < 0)) {
                     activeFans++;
                 }
             }
         }
         PipeOrgans.LOGGER.info(Integer.toString(activeFans));
         level.setBlock(masterPos, level.getBlockState(masterPos).setValue(WINDY, activeFans>0), 2);
+        return activeFans > 0;
     }
 
 }

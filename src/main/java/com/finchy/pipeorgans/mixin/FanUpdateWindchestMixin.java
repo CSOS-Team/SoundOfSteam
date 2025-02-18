@@ -44,17 +44,17 @@ public class FanUpdateWindchestMixin {
 //        PipeOrgans.LOGGER.info("remove");
 //    }
 //
-//    @Inject(method = "blockInFrontChanged", at = @At(value = "TAIL"))
-//    private void updateBIFC(CallbackInfo ci) {
-//        EncasedFanBlockEntity instance = (EncasedFanBlockEntity)(Object)this;
-//        instance.updateChute();
-//
-//        Level level = instance.getLevel();
-//        BlockState fanState = instance.getBlockState();
-//        BlockPos adjacentPos = instance.getBlockPos().relative(fanState.getValue(EncasedFanBlock.FACING));
-//        if (level.getBlockState(adjacentPos).getBlock() instanceof WindchestMasterBlock) {
-//            WindchestMasterBlock.updateMasterWindy(level, adjacentPos);
-//        }
-//        PipeOrgans.LOGGER.info("BIFC");
-//    }
+    @Inject(method = "blockInFrontChanged", at = @At(value = "TAIL"))
+    private void updateBIFC(CallbackInfo ci) {
+        EncasedFanBlockEntity instance = (EncasedFanBlockEntity)(Object)this;
+        instance.updateChute();
+
+        Level level = instance.getLevel();
+        BlockState fanState = instance.getBlockState();
+        BlockPos adjacentPos = instance.getBlockPos().relative(fanState.getValue(EncasedFanBlock.FACING));
+        if (level.getBlockState(adjacentPos).getBlock() instanceof WindchestMasterBlock) {
+            WindchestMasterBlock.updateMasterWindy(level, adjacentPos);
+        }
+        PipeOrgans.LOGGER.info("BIFC");
+    }
 }
