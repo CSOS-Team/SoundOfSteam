@@ -284,4 +284,13 @@ public class AllShapes {
             BASE_BLOCK_TOP
     );
 
+
+
+
+    // WINDCHEST
+    public static VoxelShape WINDCHEST = add(
+            add(Shapes.box(0, 0, 0, 1, 0.6875, 1), Shapes.box(0, 0.8125, 0, 1, 1, 1)),
+            Shapes.box(0.1875, 0.6875, 0.1875, 0.8125, 0.8125, 0.8125)
+    );
+
 }
