@@ -9,6 +9,9 @@
 
   "block.pipeorgans.base": "Pipe Base",
 
+  "block.pipeorgans.windchest": "Windchest",
+  "block.pipeorgans.windchest_master": "Windchest Controller",
+
   "block.pipeorgans.gedeckt": "Gedeckt",
   "block.pipeorgans.diapason": "Diapason",
   "block.pipeorgans.gamba": "Gamba",

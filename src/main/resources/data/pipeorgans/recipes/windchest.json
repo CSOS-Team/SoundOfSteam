@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " P",
+    "SR",
+    " O"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:oak_planks"
+    },
+    "S": {
+      "item": "minecraft:spruce_slab"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "P": {
+      "item": "create:fluid_pipe"
+    }
+  },
+  "result": {
+    "item": "pipeorgans:windchest",
+    "count": 6
+  }
+}

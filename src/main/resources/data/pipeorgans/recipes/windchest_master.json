@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " O ",
+    "SRZ",
+    " O "
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:oak_planks"
+    },
+    "S": {
+      "item": "minecraft:spruce_slab"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "Z": {
+      "tag": "forge:ingots/zinc"
+    }
+  },
+  "result": {
+    "item": "pipeorgans:windchest_master",
+    "count": 1
+  }
+}
