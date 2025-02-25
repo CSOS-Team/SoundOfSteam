@@ -74,7 +74,7 @@ public class WindchestMasterBlock extends Block {
         boolean powered = false;
         Direction facing = pState.getValue(FACING);
         for (Direction i : Direction.values()) {
-            if (i == facing) { break; }
+            if (i == facing) { continue; }
             if (pLevel.getSignal(pPos.relative(i), i)>0) { powered = true; break; }
         }
         //boolean powered = pLevel.hasNeighborSignal(pPos);
