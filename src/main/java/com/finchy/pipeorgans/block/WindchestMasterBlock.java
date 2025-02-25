@@ -68,8 +68,16 @@ public class WindchestMasterBlock extends Block {
     public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean isMoving) {
         if (pLevel.isClientSide) // only on serverside
             return;
+        if (pPos.relative(pState.getValue(FACING)).equals(pNeighborPos)) { return; } // suppress updates from where windchests would be
+
         boolean previouslyPowered = pState.getValue(POWERED);
-        boolean powered = pLevel.hasNeighborSignal(pPos);
+        boolean powered = false;
+        Direction facing = pState.getValue(FACING);
+        for (Direction i : Direction.values()) {
+            if (i == facing) { break; }
+            if (pLevel.getSignal(pPos.relative(i), i)>0) { powered = true; break; }
+        }
+        //boolean powered = pLevel.hasNeighborSignal(pPos);
         if (previouslyPowered != powered) {
             pLevel.setBlock(pPos, pState.setValue(POWERED, powered), 2);
             updateSlaves(pState, pLevel, pPos, powered);

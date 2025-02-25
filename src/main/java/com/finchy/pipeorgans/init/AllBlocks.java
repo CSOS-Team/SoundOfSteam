@@ -44,11 +44,11 @@ public class AllBlocks {
 
     public static final RegistryObject<WindchestBlock> WINDCHEST = registerBlock("windchest",
             () -> new WindchestBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops().noOcclusion()));
 
     public static final RegistryObject<WindchestMasterBlock> WINDCHEST_MASTER = registerBlock("windchest_master",
             () -> new WindchestMasterBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops().noOcclusion()));
 
 
 
