@@ -54,7 +54,7 @@ public class GenericExtensionBlock extends Block implements IWrenchable {
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState below = pLevel.getBlockState(pPos.below());
-        return below.is(this) && below.getValue(SHAPE) != Generic.QuadrupleExtensionShape.DOUBLE
+        return (below.is(this) && below.getValue(SHAPE) == Generic.QuadrupleExtensionShape.QUAD_CONNECTED)
                 || below.getBlock() instanceof GenericPipeBlock;
     }
 
@@ -100,7 +100,7 @@ public class GenericExtensionBlock extends Block implements IWrenchable {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
         ItemStack heldItem = pPlayer.getItemInHand(pHand);
-        if (pPlayer == null || heldItem.getItem() != this.baseBlock.get().asItem()) {;
+        if (heldItem.getItem() != this.baseBlock.get().asItem()) {
             return InteractionResult.PASS;
         }
         BlockPos rootFound = findRoot(pLevel, pPos);
@@ -125,6 +125,8 @@ public class GenericExtensionBlock extends Block implements IWrenchable {
         playRemoveSound(world, pos);
         return InteractionResult.SUCCESS;
     }
+
+    public InteractionResult sneakWrenchedRemove(BlockState state, UseOnContext context) { return IWrenchable.super.onSneakWrenched(state, context); }
 
     @Override
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {
