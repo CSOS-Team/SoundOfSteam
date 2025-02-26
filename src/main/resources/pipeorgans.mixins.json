@@ -8,7 +8,8 @@
   },
   "mixins": [
     "BoilerDataEvaluateMixin",
-    "FanUpdateWindchestMixin"
+    "FanUpdateWindchestMixin",
+    "createwhistle.SteamWhistleMixin"
   ],
   "minMixinExtrasVersion": "0.5.0-beta.4"
 }
