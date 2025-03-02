@@ -5,7 +5,7 @@ import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.block.pipes.generic.GenericPipeBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
-import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -24,11 +24,11 @@ public class NasardBlockEntity extends GenericPipeBlockEntity {
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        String[] pitches = Lang.translateDirect("generic.notes")
+        String[] pitches = CreateLang.translateDirect("generic.notes")
                 .getString()
                 .split(";");
         int displayPitch = ClientConfig.displayMutationSoundingPitch? pitch+5 : pitch;
-        Lang.translate("generic.pitch", pitches[displayPitch%12 % pitches.length]).forGoggles(tooltip);
+        CreateLang.translate("generic.pitch", pitches[displayPitch%12 % pitches.length]).forGoggles(tooltip);
         return true;
     }
 

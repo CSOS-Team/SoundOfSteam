@@ -122,7 +122,7 @@ public class GenericExtensionBlock extends Block implements IWrenchable {
         if (!(world instanceof ServerLevel))
             return InteractionResult.SUCCESS;
         world.setBlock(pos, state.setValue(SHAPE, Generic.QuadrupleExtensionShape.DOUBLE), 3);
-        playRemoveSound(world, pos);
+        IWrenchable.playRemoveSound(world, pos);
         return InteractionResult.SUCCESS;
     }
 

@@ -65,7 +65,7 @@ description='''${mod_description}'''
 [[dependencies.${mod_id}]]
     modId="create"
     mandatory=true
-    versionRange="[0.5.1.i,)"
+    versionRange="[6.0.0,)"
     ordering="AFTER"
     side="BOTH"
 

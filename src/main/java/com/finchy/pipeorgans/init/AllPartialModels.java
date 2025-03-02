@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.jozufozu.flywheel.core.PartialModel;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 
 public class AllPartialModels {
 
@@ -52,7 +52,7 @@ public class AllPartialModels {
 
 
     private static PartialModel block(String path) {
-        return new PartialModel(PipeOrgans.asResource("block/" + path));
+        return PartialModel.of(PipeOrgans.asResource("block/" + path));
     }
 
     public static void init() {}

@@ -1,12 +1,15 @@
 package com.finchy.pipeorgans.block.pipes.generic;
 
 import com.finchy.pipeorgans.block.Generic;
-import com.jozufozu.flywheel.core.PartialModel;
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.finchy.pipeorgans.init.AllPartialModels;
+
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.utility.AngleHelper;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.animation.AnimationTickHolder;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -37,10 +40,10 @@ public class GenericRenderer extends SafeBlockEntityRenderer<GenericPipeBlockEnt
             offset -= (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f);
         }
 
-        CachedBufferer.partial(mouth, blockState)
-                .centre()
-                .rotateY(AngleHelper.horizontalAngle(direction))
-                .unCentre()
+        CachedBuffers.partial(mouth, blockState)
+                .center()
+                .rotateYDegrees(AngleHelper.horizontalAngle(direction))
+                .uncenter()
                 // movement logic here
                 .light(light)
                 .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
