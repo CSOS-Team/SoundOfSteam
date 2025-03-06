@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.block;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlock;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
 import net.createmod.catnip.data.Iterate;
@@ -112,7 +111,6 @@ public class WindchestMasterBlock extends Block {
                 }
             }
         }
-        PipeOrgans.LOGGER.info(Integer.toString(activeFans));
         level.setBlock(masterPos, level.getBlockState(masterPos).setValue(WINDY, activeFans>0), 2);
         return activeFans > 0;
     }
