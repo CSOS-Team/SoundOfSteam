@@ -7,6 +7,8 @@
   "pipeorgans.stopsize.8": "§78'",
   "pipeorgans.stopsize.16": "§716'",
 
+  "item.pipeorgans.brass_boot": "Brass Boot",
+
   "block.pipeorgans.base": "Pipe Base",
 
   "block.pipeorgans.windchest": "Windchest",

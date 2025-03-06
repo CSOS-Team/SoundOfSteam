@@ -2,22 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "R",
-    "B",
-    "C"
+    "B B",
+    " B "
   ],
   "key": {
     "B": {
-      "item": "pipeorgans:brass_boot"
-    },
-    "R": {
       "tag": "forge:plates/brass"
-    },
-    "C": {
-      "item": "pipeorgans:base"
     }
   },
   "result": {
-    "item": "pipeorgans:trompette"
+    "item": "pipeorgans:brass_boot",
+    "count": 6
   }
 }
