@@ -4,6 +4,7 @@ import com.finchy.pipeorgans.block.Generic;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.Vec3;
 
@@ -17,8 +18,8 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
     private int keepAlive;
     private Generic.WhistleSize size;
 
-    public GenericSoundInstance(Generic.WhistleSize size, BlockPos worldPosition) {
-        super(null,
+    public GenericSoundInstance(Generic.WhistleSize size, BlockPos worldPosition, SoundEvent soundEvent) {
+        super(soundEvent,
                 SoundSource.RECORDS,
                 SoundInstance.createUnseededRandom());
         this.size = size;
