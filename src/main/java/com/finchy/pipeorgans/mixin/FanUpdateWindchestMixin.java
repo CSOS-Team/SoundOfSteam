@@ -55,6 +55,5 @@ public class FanUpdateWindchestMixin {
         if (level.getBlockState(adjacentPos).getBlock() instanceof WindchestMasterBlock) {
             WindchestMasterBlock.updateMasterWindy(level, adjacentPos);
         }
-        PipeOrgans.LOGGER.info("BIFC");
     }
 }

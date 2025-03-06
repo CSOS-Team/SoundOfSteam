@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.block.pipes.generic;
 
 import com.finchy.pipeorgans.block.Generic;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
@@ -31,21 +32,21 @@ public class QuadrupleExtensionBlock extends GenericExtensionBlock {
         if (context.getClickLocation().y < context.getClickedPos()
                 .getY() + .5) {
             world.setBlock(pos, state.setValue(SHAPE, Generic.QuadrupleExtensionShape.SINGLE), 3);
-            playRemoveSound(world, pos);
+            IWrenchable.playRemoveSound(world, pos);
             return InteractionResult.SUCCESS;
         }
 
         if (context.getClickLocation().y < context.getClickedPos()
                 .getY() + .75f) {
             world.setBlock(pos, state.setValue(SHAPE, Generic.QuadrupleExtensionShape.DOUBLE), 3);
-            playRemoveSound(world, pos);
+            IWrenchable.playRemoveSound(world, pos);
             return InteractionResult.SUCCESS;
         }
 
         if (context.getClickLocation().y < context.getClickedPos()
                 .getY() + 1f) {
             world.setBlock(pos, state.setValue(SHAPE, Generic.QuadrupleExtensionShape.TRIPLE), 3);
-            playRemoveSound(world, pos);
+            IWrenchable.playRemoveSound(world, pos);
             return InteractionResult.SUCCESS;
         }
 
