@@ -49,7 +49,7 @@ public class PedalPipeBlock extends GenericPipeBlock {
         for (int i = 1; i <= 12; i+=1) {
             BlockState blockState = pLevel.getBlockState(currentPos);
 
-            if (blockState.getBlock() instanceof SubbassExtensionBlock) {
+            if (blockState.getBlock() instanceof PedalExtensionBlock) {
                 currentPos = currentPos.above();
                 continue;
             }
@@ -58,7 +58,7 @@ public class PedalPipeBlock extends GenericPipeBlock {
             if (!blockState.canBeReplaced())
                 return;
 
-            pLevel.setBlock(currentPos, AllBlocks.SUBBASS_EXTENSION.get().defaultBlockState()
+            pLevel.setBlock(currentPos, this.extensionBlock.get().defaultBlockState()
                     .setValue(SIZE, size)
                     .setValue(FACING, facing), 3);
             if (soundtype != null) {

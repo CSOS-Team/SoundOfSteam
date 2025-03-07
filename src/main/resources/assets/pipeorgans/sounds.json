@@ -393,7 +393,7 @@
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:posaune/s_high"
+        "name": "pipeorgans:posaune/ps_high"
       }
     ]
   },
@@ -404,7 +404,7 @@
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:posaune/s_medium"
+        "name": "pipeorgans:posaune/ps_medium"
       }
     ]
   },
@@ -415,7 +415,7 @@
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:posaune/s_low"
+        "name": "pipeorgans:posaune/ps_low"
       }
     ]
   },
@@ -426,7 +426,7 @@
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:posaune/s_deep"
+        "name": "pipeorgans:posaune/ps_deep"
       }
     ]
   }

@@ -6,6 +6,7 @@ import com.finchy.pipeorgans.block.pipes.gamba.GambaRenderer;
 import com.finchy.pipeorgans.block.pipes.gedeckt.GedecktRenderer;
 import com.finchy.pipeorgans.block.pipes.nasard.NasardRenderer;
 import com.finchy.pipeorgans.block.pipes.piccolo.PiccoloRenderer;
+import com.finchy.pipeorgans.block.pipes.posaune.PosauneRenderer;
 import com.finchy.pipeorgans.block.pipes.subbass.SubbassRenderer;
 import com.finchy.pipeorgans.block.pipes.trompette.TrompetteRenderer;
 import com.finchy.pipeorgans.init.AllBlockEntities;
@@ -26,5 +27,6 @@ public class ModEventBusClientEvents {
         event.registerBlockEntityRenderer(AllBlockEntities.SUBBASS_BLOCK_ENTITY.get(), SubbassRenderer::new);
         event.registerBlockEntityRenderer(AllBlockEntities.TROMPETTE_BLOCK_ENTITY.get(), TrompetteRenderer::new);
         event.registerBlockEntityRenderer(AllBlockEntities.NASARD_BLOCK_ENTITY.get(), NasardRenderer::new);
+        event.registerBlockEntityRenderer(AllBlockEntities.POSAUNE_BLOCK_ENTITY.get(), PosauneRenderer::new);
     }
 }

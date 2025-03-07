@@ -36,17 +36,13 @@ public class PosauneRenderer extends SafeBlockEntityRenderer<PosauneBlockEntity>
                 size == Generic.WhistleSize.MEDIUM ? AllPartialModels.POSAUNE_MOUTH_MEDIUM :
                 size == Generic.WhistleSize.LARGE ? AllPartialModels.POSAUNE_MOUTH_LARGE : AllPartialModels.POSAUNE_MOUTH_HUGE;
 
-        float offset = be.animation.getValue(partialTicks);
-        if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
-            float wiggleProgress = (AnimationTickHolder.getTicks(be.getLevel()) + partialTicks) /8f;
-            offset -= (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f);
-        }
+        float chaseTarget = be.animation.getChaseTarget();
 
         CachedBuffers.partial(mouth, blockState)
                 .center()
                 .rotateYDegrees(AngleHelper.horizontalAngle(direction))
                 .uncenter()
-                .translate(0, offset / 16f, 0)
+                .scale(chaseTarget)
                 .light(light)
                 .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
 

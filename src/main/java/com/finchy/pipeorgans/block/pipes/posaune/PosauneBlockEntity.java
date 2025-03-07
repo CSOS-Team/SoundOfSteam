@@ -59,9 +59,9 @@ public class PosauneBlockEntity extends PedalBlockEntity {
     }
 
     @Override
-    public void createSteamJet(Generic.WhistleSize size) { // copied from ReedBlockEntity
-        float yOffset = 0.125f;
-        double yPos = ((double) pitch /2)+1 + yOffset;
+    public void createSteamJet(Generic.WhistleSize size) { // derived from ReedBlockEntity
+        float yOffset = 0.25f;
+        double yPos = (double) pitch + 1 + yOffset;
         Vec3 v = new Vec3(0, yPos, 0).add(Vec3.atBottomCenterOf(worldPosition));
         Vec3 m = new Vec3(0, 1, 0);
         level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);

@@ -21,6 +21,7 @@
   "block.pipeorgans.subbass": "Subbass",
   "block.pipeorgans.trompette": "Trompette",
   "block.pipeorgans.nasard": "Nasard",
+  "block.pipeorgans.posaune": "Posaune",
 
   "sounds.pipeorgans.gedeckt_superhigh": "Gedeckt squeals",
   "sounds.pipeorgans.gedeckt_high": "Gedeckt squeaks",
@@ -61,5 +62,10 @@
   "sounds.pipeorgans.nasard_high": "Nasard squeaks",
   "sounds.pipeorgans.nasard_medium": "Nasard speaks",
   "sounds.pipeorgans.nasard_low": "Nasard grumbles",
-  "sounds.pipeorgans.nasard_deep": "Nasard rumbles"
+  "sounds.pipeorgans.nasard_deep": "Nasard rumbles",
+
+  "sounds.pipeorgans.posaune_high": "Posaune speaks",
+  "sounds.pipeorgans.posaune_medium": "Posaune grumbles",
+  "sounds.pipeorgans.posaune_low": "Posaune rumbles",
+  "sounds.pipeorgans.posaune_deep": "Posaune shakes the earth"
 }
