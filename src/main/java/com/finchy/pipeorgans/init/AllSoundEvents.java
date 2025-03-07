@@ -57,6 +57,11 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> NASARD_LOW = registerSoundEvents("nasard_low");
     public static final RegistryObject<SoundEvent> NASARD_DEEP = registerSoundEvents("nasard_deep");
 
+    public static final RegistryObject<SoundEvent> POSAUNE_HIGH = registerSoundEvents("posaune_high");
+    public static final RegistryObject<SoundEvent> POSAUNE_MEDIUM = registerSoundEvents("posaune_medium");
+    public static final RegistryObject<SoundEvent> POSAUNE_LOW = registerSoundEvents("posaune_low");
+    public static final RegistryObject<SoundEvent> POSAUNE_DEEP = registerSoundEvents("posaune_deep");
+
 
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {

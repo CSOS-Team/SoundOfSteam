@@ -36,6 +36,7 @@ import java.util.List;
 
 import static com.finchy.pipeorgans.block.pipes.generic.GenericPipeBlock.FACING;
 import static com.finchy.pipeorgans.block.pipes.generic.GenericPipeBlock.getAttachedDirection;
+import static com.finchy.pipeorgans.init.AllSoundEvents.TROMPETTE_DEEP;
 
 public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
@@ -138,7 +139,7 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
         if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
             Minecraft.getInstance()
                     .getSoundManager()
-                    .play(soundInstance = new GenericSoundInstance(size, worldPosition));
+                    .play(soundInstance = new GenericSoundInstance(size, worldPosition, TROMPETTE_DEEP.get()));
 
             AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
                     size == Generic.WhistleSize.SMALL ? f + .75f : f, false);

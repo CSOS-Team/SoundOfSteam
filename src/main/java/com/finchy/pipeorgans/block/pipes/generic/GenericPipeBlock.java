@@ -116,6 +116,7 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
         Generic.WhistleSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pPos.above();
+        Direction facing = base.getValue(FACING);
 
         for (int i = 1; i <= 6; i++) {
             BlockState blockState = pLevel.getBlockState(currentPos);
@@ -126,7 +127,8 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
             if (blockState.getBlock() instanceof GenericExtensionBlock) {
                 if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.DOUBLE) {
                     pLevel.setBlock(currentPos,
-                            blockState.setValue(GenericExtensionBlock.SHAPE, Generic.QuadrupleExtensionShape.QUAD), 3);
+                            blockState.setValue(GenericExtensionBlock.SHAPE, Generic.QuadrupleExtensionShape.QUAD)
+                                    .setValue(FACING, facing), 3);
 
                     if (soundtype != null) {
                         float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);
@@ -143,7 +145,8 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
                 return;
 
             pLevel.setBlock(currentPos, this.extensionBlock.get().defaultBlockState()
-                    .setValue(SIZE, size), 3);
+                    .setValue(SIZE, size)
+                    .setValue(FACING, facing), 3);
             if (soundtype != null) {
                 float pPitch = (float) Math.pow(2, -(i * 2 - 1) / 12.0);
                 pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
@@ -242,7 +245,7 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
 
     @Override
     public BlockState rotate(BlockState pState, Rotation pRotation) {
-        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING))); // don't rotate at all
+        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
     }
 
 }

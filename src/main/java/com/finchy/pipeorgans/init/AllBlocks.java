@@ -14,6 +14,8 @@ import com.finchy.pipeorgans.block.pipes.nasard.NasardBlock;
 import com.finchy.pipeorgans.block.pipes.nasard.NasardExtensionBlock;
 import com.finchy.pipeorgans.block.pipes.piccolo.PiccoloBlock;
 import com.finchy.pipeorgans.block.pipes.piccolo.PiccoloExtensionBlock;
+import com.finchy.pipeorgans.block.pipes.posaune.PosauneBlock;
+import com.finchy.pipeorgans.block.pipes.posaune.PosauneExtensionBlock;
 import com.finchy.pipeorgans.block.pipes.subbass.SubbassBlock;
 import com.finchy.pipeorgans.block.pipes.subbass.SubbassExtensionBlock;
 import com.finchy.pipeorgans.block.pipes.trompette.TrompetteBlock;
@@ -106,6 +108,14 @@ public class AllBlocks {
 
     public static final RegistryObject<NasardExtensionBlock> NASARD_EXTENSION = registerBlockWithoutItem("nasard_extension",
             () -> new NasardExtensionBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<PosauneBlock> POSAUNE = registerPipeBlock("posaune", "16",
+            () -> new PosauneBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<PosauneExtensionBlock> POSAUNE_EXTENSION = registerBlockWithoutItem("posaune_extension",
+            () -> new PosauneExtensionBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)
                     .requiresCorrectToolForDrops()));
 
 

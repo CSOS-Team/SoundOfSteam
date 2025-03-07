@@ -1,0 +1,21 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/posaune",
+		"particle": "pipeorgans:block/particle/posaune_particle"
+	},
+	"elements": [
+		{
+			"from": [4, 0, 4],
+			"to": [12, 16, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [4.5, 8, 5.5, 10], "texture": "#0"},
+				"east": {"uv": [4.5, 8, 5.5, 10], "texture": "#0"},
+				"south": {"uv": [4.5, 8, 5.5, 10], "texture": "#0"},
+				"west": {"uv": [4.5, 8, 5.5, 10], "texture": "#0"},
+				"down": {"uv": [1.5, 15.5, 0.5, 14.5], "texture": "#0"}
+			}
+		}
+	]
+}

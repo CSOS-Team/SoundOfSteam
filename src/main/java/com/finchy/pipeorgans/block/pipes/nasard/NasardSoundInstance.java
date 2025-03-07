@@ -10,10 +10,10 @@ public class NasardSoundInstance extends GenericSoundInstance {
 
     public NasardSoundInstance(Generic.WhistleSize size, BlockPos worldPosition) {
         super(size, worldPosition, (
-                size == Generic.WhistleSize.TINY ? GAMBA_SUPERHIGH :
-                size == Generic.WhistleSize.SMALL ? GAMBA_HIGH :
-                size == Generic.WhistleSize.MEDIUM ? GAMBA_MEDIUM :
-                size == Generic.WhistleSize.LARGE ? GAMBA_LOW : GAMBA_DEEP
+                size == Generic.WhistleSize.TINY ? NASARD_SUPERHIGH :
+                size == Generic.WhistleSize.SMALL ? NASARD_HIGH :
+                size == Generic.WhistleSize.MEDIUM ? NASARD_MEDIUM :
+                size == Generic.WhistleSize.LARGE ? NASARD_LOW : NASARD_DEEP
         ).get());
     }
 }

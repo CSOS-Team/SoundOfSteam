@@ -1,0 +1,41 @@
+{
+  "variants": {
+
+    "facing=north,size=small,shape=quad": { "model": "pipeorgans:block/posaune/extension/ps_small_double", "y":  180 },
+    "facing=east,size=small,shape=quad": { "model":  "pipeorgans:block/posaune/extension/ps_small_double", "y":  270 },
+    "facing=south,size=small,shape=quad": { "model":  "pipeorgans:block/posaune/extension/ps_small_double", "y":  0 },
+    "facing=west,size=small,shape=quad": { "model":  "pipeorgans:block/posaune/extension/ps_small_double", "y":  90 },
+    "facing=north,size=small,shape=quad_connected": { "model": "pipeorgans:block/posaune/extension/ps_small_double_connected", "y":  180 },
+    "facing=east,size=small,shape=quad_connected": { "model":  "pipeorgans:block/posaune/extension/ps_small_double_connected", "y":  270 },
+    "facing=south,size=small,shape=quad_connected": { "model":  "pipeorgans:block/posaune/extension/ps_small_double_connected", "y":  0 },
+    "facing=west,size=small,shape=quad_connected": { "model":  "pipeorgans:block/posaune/extension/ps_small_double_connected", "y":  90 },
+
+    "facing=north,size=medium,shape=quad": { "model": "pipeorgans:block/posaune/extension/ps_medium_double", "y":  180 },
+    "facing=east,size=medium,shape=quad": { "model":  "pipeorgans:block/posaune/extension/ps_medium_double", "y":  270 },
+    "facing=south,size=medium,shape=quad": { "model":  "pipeorgans:block/posaune/extension/ps_medium_double", "y":  0 },
+    "facing=west,size=medium,shape=quad": { "model":  "pipeorgans:block/posaune/extension/ps_medium_double", "y":  90 },
+    "facing=north,size=medium,shape=quad_connected": { "model": "pipeorgans:block/posaune/extension/ps_medium_double_connected", "y":  180 },
+    "facing=east,size=medium,shape=quad_connected": { "model":  "pipeorgans:block/posaune/extension/ps_medium_double_connected", "y":  270 },
+    "facing=south,size=medium,shape=quad_connected": { "model":  "pipeorgans:block/posaune/extension/ps_medium_double_connected", "y":  0 },
+    "facing=west,size=medium,shape=quad_connected": { "model":  "pipeorgans:block/posaune/extension/ps_medium_double_connected", "y":  90 },
+
+    "facing=north,size=large,shape=quad": { "model": "pipeorgans:block/posaune/extension/ps_large_double", "y":  180 },
+    "facing=east,size=large,shape=quad": { "model":  "pipeorgans:block/posaune/extension/ps_large_double", "y":  270 },
+    "facing=south,size=large,shape=quad": { "model":  "pipeorgans:block/posaune/extension/ps_large_double", "y":  0 },
+    "facing=west,size=large,shape=quad": { "model":  "pipeorgans:block/posaune/extension/ps_large_double", "y":  90 },
+    "facing=north,size=large,shape=quad_connected": { "model": "pipeorgans:block/posaune/extension/ps_large_double_connected", "y":  180 },
+    "facing=east,size=large,shape=quad_connected": { "model":  "pipeorgans:block/posaune/extension/ps_large_double_connected", "y":  270 },
+    "facing=south,size=large,shape=quad_connected": { "model":  "pipeorgans:block/posaune/extension/ps_large_double_connected", "y":  0 },
+    "facing=west,size=large,shape=quad_connected": { "model":  "pipeorgans:block/posaune/extension/ps_large_double_connected", "y":  90 },
+
+    "facing=north,size=huge,shape=quad": { "model": "pipeorgans:block/posaune/extension/ps_huge_double", "y":  180 },
+    "facing=east,size=huge,shape=quad": { "model":  "pipeorgans:block/posaune/extension/ps_huge_double", "y":  270 },
+    "facing=south,size=huge,shape=quad": { "model":  "pipeorgans:block/posaune/extension/ps_huge_double", "y":  0 },
+    "facing=west,size=huge,shape=quad": { "model":  "pipeorgans:block/posaune/extension/ps_huge_double", "y":  90 },
+    "facing=north,size=huge,shape=quad_connected": { "model": "pipeorgans:block/posaune/extension/ps_huge_double_connected", "y":  180 },
+    "facing=east,size=huge,shape=quad_connected": { "model":  "pipeorgans:block/posaune/extension/ps_huge_double_connected", "y":  270 },
+    "facing=south,size=huge,shape=quad_connected": { "model":  "pipeorgans:block/posaune/extension/ps_huge_double_connected", "y":  0 },
+    "facing=west,size=huge,shape=quad_connected": { "model":  "pipeorgans:block/posaune/extension/ps_huge_double_connected", "y":  90 }
+    
+  }
+}

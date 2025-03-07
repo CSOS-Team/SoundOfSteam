@@ -383,5 +383,51 @@
         "name": "pipeorgans:nasard/n_deep"
       }
     ]
+  },
+
+
+
+  "posaune_high": {
+    "subtitle": "sounds.pipeorgans.posaune_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:posaune/s_high"
+      }
+    ]
+  },
+
+  "posaune_medium": {
+    "subtitle": "sounds.pipeorgans.posaune_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:posaune/s_medium"
+      }
+    ]
+  },
+
+  "posaune_low": {
+    "subtitle": "sounds.pipeorgans.posaune_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:posaune/s_low"
+      }
+    ]
+  },
+
+  "posaune_deep": {
+    "subtitle": "sounds.pipeorgans.posaune_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:posaune/s_deep"
+      }
+    ]
   }
 }

@@ -19,6 +19,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -31,6 +33,7 @@ public class GenericExtensionBlock extends Block implements IWrenchable {
     public static final EnumProperty<Generic.QuadrupleExtensionShape> SHAPE =
             EnumProperty.create("shape", Generic.QuadrupleExtensionShape.class);
     public static final EnumProperty<Generic.WhistleSize> SIZE = GenericPipeBlock.SIZE;
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public RegistryObject<? extends GenericPipeBlock> baseBlock;
 
@@ -38,7 +41,8 @@ public class GenericExtensionBlock extends Block implements IWrenchable {
         super(pProperties);
         registerDefaultState(defaultBlockState()
                 .setValue(SHAPE, Generic.QuadrupleExtensionShape.DOUBLE)
-                .setValue(SIZE, Generic.WhistleSize.MEDIUM));
+                .setValue(SIZE, Generic.WhistleSize.MEDIUM)
+                .setValue(FACING, Direction.NORTH));
     }
 
     @Override
@@ -48,7 +52,7 @@ public class GenericExtensionBlock extends Block implements IWrenchable {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        super.createBlockStateDefinition(pBuilder.add(SHAPE, SIZE));
+        super.createBlockStateDefinition(pBuilder.add(SHAPE, SIZE, FACING));
     }
 
     @Override

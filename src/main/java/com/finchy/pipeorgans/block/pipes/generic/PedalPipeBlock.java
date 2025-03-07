@@ -40,6 +40,7 @@ public class PedalPipeBlock extends GenericPipeBlock {
         Generic.WhistleSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pPos.above();
+        Direction facing = base.getValue(FACING);
 
         float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
         SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.get();
@@ -58,7 +59,8 @@ public class PedalPipeBlock extends GenericPipeBlock {
                 return;
 
             pLevel.setBlock(currentPos, AllBlocks.SUBBASS_EXTENSION.get().defaultBlockState()
-                    .setValue(SIZE, size), 3);
+                    .setValue(SIZE, size)
+                    .setValue(FACING, facing), 3);
             if (soundtype != null) {
                 float pPitch = (float) Math.pow(2, -i / 12.0);
                 pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
