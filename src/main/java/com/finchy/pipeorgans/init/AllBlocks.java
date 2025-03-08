@@ -110,7 +110,7 @@ public class AllBlocks {
             () -> new NasardExtensionBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
                     .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<PosauneBlock> POSAUNE = registerPipeBlock("posaune", "16",
+    public static final RegistryObject<PosauneBlock> POSAUNE = registerPipeBlock("posaune", "32",
             () -> new PosauneBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)
                     .requiresCorrectToolForDrops()));
 

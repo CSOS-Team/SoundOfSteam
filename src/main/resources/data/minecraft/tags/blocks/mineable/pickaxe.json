@@ -10,6 +10,18 @@
     "pipeorgans:gamba_extension",
 
     "pipeorgans:piccolo",
-    "pipeorgans:piccolo_extension"
+    "pipeorgans:piccolo_extension",
+
+    "pipeorgans:subbass",
+    "pipeorgans:subbass_extension",
+
+    "pipeorgans:nasard",
+    "pipeorgans:nasard_extension",
+
+    "pipeorgans:trompette",
+    "pipeorgans:trompette_extension",
+
+    "pipeorgans:posaune",
+    "pipeorgans:posaune_extension"
   ]
 }
