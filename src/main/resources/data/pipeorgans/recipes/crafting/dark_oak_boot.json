@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "D D",
+    "D D",
+    "DDD"
+  ],
+  "key": {
+    "D": {
+      "tag": "forge:planks/dark_oak"
+    }
+  },
+  "result": {
+    "item": "pipeorgans:dark_oak_boot",
+    "count": 6
+  }
+}

@@ -16,6 +16,9 @@ public class AllItems {
     public static final RegistryObject<Item> BRASS_BOOT = ITEMS.register("brass_boot",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> DARK_OAK_BOOT = ITEMS.register("dark_oak_boot",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> COPPER_HORN_GREAT = ITEMS.register("copper_horn_great",
             () -> new GenericCopperHornItem(new Item.Properties().stacksTo(1),
                     AllSoundEvents.HORN_GREAT_BASS, AllSoundEvents.HORN_GREAT_MELODY, AllSoundEvents.HORN_GREAT_HARMONY,
