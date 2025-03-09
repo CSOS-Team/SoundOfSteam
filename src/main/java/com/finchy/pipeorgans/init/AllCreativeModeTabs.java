@@ -34,6 +34,7 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.WINDCHEST.get());
                         output.accept(AllItems.BRASS_BOOT.get());
                         output.accept(AllItems.DARK_OAK_BOOT.get());
+                        output.accept(AllItems.COPPER_BOOT.get());
                         output.accept(AllItems.COPPER_HORN_CLEAR.get());
                         output.accept(AllItems.COPPER_HORN_DRY.get());
                         output.accept(AllItems.COPPER_HORN_FEARLESS.get());
