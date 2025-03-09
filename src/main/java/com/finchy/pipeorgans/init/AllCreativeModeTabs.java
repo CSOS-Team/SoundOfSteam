@@ -35,16 +35,6 @@ public class AllCreativeModeTabs {
                         output.accept(AllItems.BRASS_BOOT.get());
                         output.accept(AllItems.DARK_OAK_BOOT.get());
                         output.accept(AllItems.COPPER_BOOT.get());
-                        output.accept(AllItems.COPPER_HORN_CLEAR.get());
-                        output.accept(AllItems.COPPER_HORN_DRY.get());
-                        output.accept(AllItems.COPPER_HORN_FEARLESS.get());
-                        output.accept(AllItems.COPPER_HORN_FRESH.get());
-                        output.accept(AllItems.COPPER_HORN_GREAT.get());
-                        output.accept(AllItems.COPPER_HORN_HUMBLE.get());
-                        output.accept(AllItems.COPPER_HORN_OLD.get());
-                        output.accept(AllItems.COPPER_HORN_PURE.get());
-                        output.accept(AllItems.COPPER_HORN_SECRET.get());
-                        output.accept(AllItems.COPPER_HORN_SWEET.get());
                     })
                     .build());
 

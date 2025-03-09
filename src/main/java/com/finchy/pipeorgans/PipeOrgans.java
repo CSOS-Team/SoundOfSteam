@@ -61,9 +61,7 @@ public class PipeOrgans
 
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            PipeOrgans.LOGGER.error("Injecting Herobrine..?");
             AllPartialModels.init();
-            AllItemProperties.addItemProperties();
         }
     }
 

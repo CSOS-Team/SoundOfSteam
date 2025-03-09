@@ -11,27 +11,6 @@
   "item.pipeorgans.brass_boot": "Brass Boot",
   "item.pipeorgans.dark_oak_boot": "Dark Oak Boot",
 
-  "item.pipeorgans.copper_horn_great": "Copper Horn",
-  "item.pipeorgans.copper_horn_great.hover": "Great",
-  "item.pipeorgans.copper_horn_old": "Copper Horn",
-  "item.pipeorgans.copper_horn_old.hover": "Old",
-  "item.pipeorgans.copper_horn_pure": "Copper Horn",
-  "item.pipeorgans.copper_horn_pure.hover": "Pure",
-  "item.pipeorgans.copper_horn_humble": "Copper Horn",
-  "item.pipeorgans.copper_horn_humble.hover": "Humble",
-  "item.pipeorgans.copper_horn_dry": "Copper Horn",
-  "item.pipeorgans.copper_horn_dry.hover": "Dry",
-  "item.pipeorgans.copper_horn_clear": "Copper Horn",
-  "item.pipeorgans.copper_horn_clear.hover": "Clear",
-  "item.pipeorgans.copper_horn_fresh": "Copper Horn",
-  "item.pipeorgans.copper_horn_fresh.hover": "Fresh",
-  "item.pipeorgans.copper_horn_secret": "Copper Horn",
-  "item.pipeorgans.copper_horn_secret.hover": "Secret",
-  "item.pipeorgans.copper_horn_fearless": "Copper Horn",
-  "item.pipeorgans.copper_horn_fearless.hover": "Fearless",
-  "item.pipeorgans.copper_horn_sweet": "Copper Horn",
-  "item.pipeorgans.copper_horn_sweet.hover": "Sweet",
-
   "block.pipeorgans.base": "Pipe Base",
 
   "block.pipeorgans.windchest": "Windchest",
@@ -97,7 +76,5 @@
   "sounds.pipeorgans.vox_humana_high": "Vox Humana shouts",
   "sounds.pipeorgans.vox_humana_medium": "Vox Humana speaks",
   "sounds.pipeorgans.vox_humana_low": "Vox Humana groans",
-  "sounds.pipeorgans.vox_humana_deep": "Vox Humana bellows",
-
-  "sounds.pipeorgans.copper_horn": "Copper Horn plays"
+  "sounds.pipeorgans.vox_humana_deep": "Vox Humana bellows"
 }
