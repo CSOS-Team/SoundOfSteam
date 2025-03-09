@@ -1,0 +1,22 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/vox_humana",
+		"particle": "pipeorgans:block/particle/vox_humana_particle"
+	},
+	"elements": [
+		{
+			"from": [5, 0, 5],
+			"to": [11, 5, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [2.625, 8.375, 3.375, 9], "texture": "#0"},
+				"east": {"uv": [2.625, 3, 3.375, 3.625], "texture": "#0"},
+				"south": {"uv": [2.625, 3, 3.375, 3.625], "texture": "#0"},
+				"west": {"uv": [2.625, 3, 3.375, 3.625], "texture": "#0"},
+				"up": {"uv": [2.625, 6.625, 3.375, 7.375], "texture": "#0"},
+				"down": {"uv": [15.375, 15.375, 14.625, 14.625], "texture": "#0"}
+			}
+		}
+	]
+}

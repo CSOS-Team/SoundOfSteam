@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.block.pipes.posaune;
 
+import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.block.pipes.generic.PedalExtensionBlock;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
@@ -17,6 +18,8 @@ public class PosauneExtensionBlock extends PedalExtensionBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return AllShapes.getTrompetteExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
+        Generic.WhistleSize size = pState.getValue(SIZE);
+        if (size == Generic.WhistleSize.TINY) { size = Generic.WhistleSize.SMALL; }
+        return AllShapes.getSlimExtensionShape(pState.getValue(SHAPE), size);
     }
 }

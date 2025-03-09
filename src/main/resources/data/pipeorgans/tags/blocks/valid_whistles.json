@@ -7,6 +7,8 @@
     "pipeorgans:subbass",
     "pipeorgans:trompette",
     "pipeorgans:nasard",
+    "pipeorgans:posaune",
+    "pipeorgans:vox_humana",
     "pipeorgans:base"
   ]
 }

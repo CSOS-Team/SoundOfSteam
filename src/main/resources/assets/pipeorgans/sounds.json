@@ -429,5 +429,62 @@
         "name": "pipeorgans:posaune/ps_deep"
       }
     ]
+  },
+
+
+
+  "vox_humana_superhigh": {
+    "subtitle": "sounds.pipeorgans.vox_humana_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_humana/vh_superhigh"
+      }
+    ]
+  },
+
+  "vox_humana_high": {
+    "subtitle": "sounds.pipeorgans.vox_humana_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_humana/vh_high"
+      }
+    ]
+  },
+
+  "vox_humana_medium": {
+    "subtitle": "sounds.pipeorgans.vox_humana_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_humana/vh_medium"
+      }
+    ]
+  },
+
+  "vox_humana_low": {
+    "subtitle": "sounds.pipeorgans.vox_humana_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_humana/vh_low"
+      }
+    ]
+  },
+
+  "vox_humana_deep": {
+    "subtitle": "sounds.pipeorgans.vox_humana_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_humana/vh_deep"
+      }
+    ]
   }
 }

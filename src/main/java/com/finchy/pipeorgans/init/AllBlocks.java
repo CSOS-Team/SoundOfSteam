@@ -20,6 +20,8 @@ import com.finchy.pipeorgans.block.pipes.subbass.SubbassBlock;
 import com.finchy.pipeorgans.block.pipes.subbass.SubbassExtensionBlock;
 import com.finchy.pipeorgans.block.pipes.trompette.TrompetteBlock;
 import com.finchy.pipeorgans.block.pipes.trompette.TrompetteExtensionBlock;
+import com.finchy.pipeorgans.block.pipes.vox_humana.VoxHumanaBlock;
+import com.finchy.pipeorgans.block.pipes.vox_humana.VoxHumanaExtensionBlock;
 import com.finchy.pipeorgans.item.GenericPipeBlockItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -116,6 +118,14 @@ public class AllBlocks {
 
     public static final RegistryObject<PosauneExtensionBlock> POSAUNE_EXTENSION = registerBlockWithoutItem("posaune_extension",
             () -> new PosauneExtensionBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<VoxHumanaBlock   > VOX_HUMANA = registerPipeBlock("vox_humana", "8",
+            () -> new VoxHumanaBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<VoxHumanaExtensionBlock> VOX_HUMANA_EXTENSION = registerBlockWithoutItem("vox_humana_extension",
+            () -> new VoxHumanaExtensionBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
                     .requiresCorrectToolForDrops()));
 
 

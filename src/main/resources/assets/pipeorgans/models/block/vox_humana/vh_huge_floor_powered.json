@@ -1,0 +1,6 @@
+{
+	"parent": "pipeorgans:block/vox_humana/vh_huge_floor",
+	"textures": {
+		"0": "create:block/copper_redstone_plate_powered"
+	}
+}

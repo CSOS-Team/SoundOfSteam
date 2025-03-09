@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.block.pipes.trompette;
 
+import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.block.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -22,7 +23,9 @@ public class TrompetteBlock extends GenericPipeBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        VoxelShape whistle = AllShapes.getTrompetteBase(pState.getValue(SIZE));
+        Generic.WhistleSize size = pState.getValue(SIZE);
+        if (size == Generic.WhistleSize.TINY) { size = Generic.WhistleSize.SMALL; }
+        VoxelShape whistle = AllShapes.getSlimBase(size);
         return Shapes.or(whistle,
                 !pState.getValue(WALL) ?
                         AllShapes.BASE_FLOOR : AllShapes.getBase(pState.getValue(FACING)));

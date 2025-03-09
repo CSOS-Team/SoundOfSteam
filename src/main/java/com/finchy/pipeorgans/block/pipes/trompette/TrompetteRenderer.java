@@ -7,14 +7,12 @@ import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import net.createmod.catnip.render.CachedBuffers;
 import net.createmod.catnip.math.AngleHelper;
-import net.createmod.catnip.animation.AnimationTickHolder;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class TrompetteRenderer extends SafeBlockEntityRenderer<TrompetteBlockEntity> {

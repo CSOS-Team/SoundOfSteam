@@ -1,0 +1,82 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"2": "pipeorgans:block/vox_humana"
+	},
+	"elements": [
+		{
+			"from": [5, 4, 5.95],
+			"to": [6, 8, 8.95],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 4, 5.95]},
+			"faces": {
+				"north": {"uv": [11.25, 11, 11.375, 11.5], "texture": "#2"},
+				"south": {"uv": [11.875, 9, 12, 9.5], "texture": "#2"},
+				"west": {"uv": [11.5, 9, 11.875, 9.5], "texture": "#2"},
+				"up": {"uv": [11.5, 8.875, 11.875, 9], "rotation": 90, "texture": "#2"},
+				"down": {"uv": [11.875, 9.5, 11.5, 9.625], "rotation": 90, "texture": "#2"}
+			}
+		},
+		{
+			"from": [10, 4, 5.95],
+			"to": [11, 8, 8.95],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 4, 5.95]},
+			"faces": {
+				"north": {"uv": [11.375, 11, 11.25, 11.5], "texture": "#2"},
+				"east": {"uv": [11.875, 9, 11.5, 9.5], "texture": "#2"},
+				"south": {"uv": [12, 9, 11.875, 9.5], "texture": "#2"},
+				"up": {"uv": [11.5, 9, 11.875, 8.875], "rotation": 90, "texture": "#2"},
+				"down": {"uv": [11.875, 9.625, 11.5, 9.5], "rotation": 90, "texture": "#2"}
+			}
+		},
+		{
+			"from": [6, 4, 5.95],
+			"to": [10, 8, 5.95],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 4, 5.95]},
+			"faces": {
+				"north": {"uv": [10.75, 11, 11.25, 11.5], "texture": "#2"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 225, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"head": {
+			"translation": [0, 14, 0]
+		},
+		"fixed": {
+			"scale": [0.5, 0.5, 0.5]
+		}
+	},
+	"groups": [
+		{
+			"name": "mouth",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2]
+		}
+	]
+}

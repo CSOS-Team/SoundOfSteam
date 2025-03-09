@@ -10,6 +10,7 @@ import com.finchy.pipeorgans.block.pipes.piccolo.PiccoloBlockEntity;
 import com.finchy.pipeorgans.block.pipes.posaune.PosauneBlockEntity;
 import com.finchy.pipeorgans.block.pipes.subbass.SubbassBlockEntity;
 import com.finchy.pipeorgans.block.pipes.trompette.TrompetteBlockEntity;
+import com.finchy.pipeorgans.block.pipes.vox_humana.VoxHumanaBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -67,6 +68,11 @@ public class AllBlockEntities {
     public static final RegistryObject<BlockEntityType> POSAUNE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("posaune_block_entity",
                     () -> BlockEntityType.Builder.of(PosauneBlockEntity::new, AllBlocks.POSAUNE.get())
+                            .build(null));
+
+    public static final RegistryObject<BlockEntityType> VOX_HUMANA_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("vox_humana_block_entity",
+                    () -> BlockEntityType.Builder.of(VoxHumanaBlockEntity::new, AllBlocks.VOX_HUMANA.get())
                             .build(null));
 
 

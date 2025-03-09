@@ -22,6 +22,9 @@
     "pipeorgans:trompette_extension",
 
     "pipeorgans:posaune",
-    "pipeorgans:posaune_extension"
+    "pipeorgans:posaune_extension",
+
+    "pipeorgans:vox_humana",
+    "pipeorgans:vox_humana_extension"
   ]
 }

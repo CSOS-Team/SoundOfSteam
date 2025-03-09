@@ -62,6 +62,12 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> POSAUNE_LOW = registerSoundEvents("posaune_low");
     public static final RegistryObject<SoundEvent> POSAUNE_DEEP = registerSoundEvents("posaune_deep");
 
+    public static final RegistryObject<SoundEvent> VOX_HUMANA_SUPERHIGH = registerSoundEvents("vox_humana_superhigh");
+    public static final RegistryObject<SoundEvent> VOX_HUMANA_HIGH = registerSoundEvents("vox_humana_high");
+    public static final RegistryObject<SoundEvent> VOX_HUMANA_MEDIUM = registerSoundEvents("vox_humana_medium");
+    public static final RegistryObject<SoundEvent> VOX_HUMANA_LOW = registerSoundEvents("vox_humana_low");
+    public static final RegistryObject<SoundEvent> VOX_HUMANA_DEEP = registerSoundEvents("vox_humana_deep");
+
 
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
