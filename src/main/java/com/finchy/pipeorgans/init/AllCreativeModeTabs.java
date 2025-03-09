@@ -33,7 +33,16 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.WINDCHEST_MASTER.get());
                         output.accept(AllBlocks.WINDCHEST.get());
                         output.accept(AllItems.BRASS_BOOT.get());
-
+                        output.accept(AllItems.COPPER_HORN_CLEAR.get());
+                        output.accept(AllItems.COPPER_HORN_DRY.get());
+                        output.accept(AllItems.COPPER_HORN_FEARLESS.get());
+                        output.accept(AllItems.COPPER_HORN_FRESH.get());
+                        output.accept(AllItems.COPPER_HORN_GREAT.get());
+                        output.accept(AllItems.COPPER_HORN_HUMBLE.get());
+                        output.accept(AllItems.COPPER_HORN_OLD.get());
+                        output.accept(AllItems.COPPER_HORN_PURE.get());
+                        output.accept(AllItems.COPPER_HORN_SECRET.get());
+                        output.accept(AllItems.COPPER_HORN_SWEET.get());
                     })
                     .build());
 

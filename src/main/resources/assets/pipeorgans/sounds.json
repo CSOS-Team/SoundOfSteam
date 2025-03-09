@@ -486,5 +486,305 @@
         "name": "pipeorgans:vox_humana/vh_deep"
       }
     ]
+  },
+  "horn_great_harmony": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/great/harmony"
+      }
+    ]
+  },
+  "horn_great_melody": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/great/melody"
+      }
+    ]
+  },
+  "horn_great_bass": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/great/bass"
+      }
+    ]
+  },
+  "horn_old_harmony": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/old/harmony"
+      }
+    ]
+  },
+  "horn_old_melody": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/old/melody"
+      }
+    ]
+  },
+  "horn_old_bass": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/old/bass"
+      }
+    ]
+  },
+  "horn_pure_harmony": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/pure/harmony"
+      }
+    ]
+  },
+  "horn_pure_melody": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/pure/melody"
+      }
+    ]
+  },
+  "horn_pure_bass": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/pure/bass"
+      }
+    ]
+  },
+  "horn_humble_harmony": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/humble/harmony"
+      }
+    ]
+  },
+  "horn_humble_melody": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/humble/melody"
+      }
+    ]
+  },
+  "horn_humble_bass": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/humble/bass"
+      }
+    ]
+  },
+  "horn_dry_harmony": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/dry/harmony"
+      }
+    ]
+  },
+  "horn_dry_melody": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/dry/melody"
+      }
+    ]
+  },
+  "horn_dry_bass": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/dry/bass"
+      }
+    ]
+  },
+  "horn_clear_harmony": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/clear/harmony"
+      }
+    ]
+  },
+  "horn_clear_melody": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/clear/melody"
+      }
+    ]
+  },
+  "horn_clear_bass": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/clear/bass"
+      }
+    ]
+  },
+  "horn_fresh_harmony": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/fresh/harmony"
+      }
+    ]
+  },
+  "horn_fresh_melody": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/fresh/melody"
+      }
+    ]
+  },
+  "horn_fresh_bass": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/fresh/bass"
+      }
+    ]
+  },
+  "horn_secret_harmony": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/secret/harmony"
+      }
+    ]
+  },
+  "horn_secret_melody": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/secret/melody"
+      }
+    ]
+  },
+  "horn_secret_bass": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/secret/bass"
+      }
+    ]
+  },
+  "horn_fearless_harmony": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/fearless/harmony"
+      }
+    ]
+  },
+  "horn_fearless_melody": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/fearless/melody"
+      }
+    ]
+  },
+  "horn_fearless_bass": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/fearless/bass"
+      }
+    ]
+  },
+  "horn_sweet_harmony": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/sweet/harmony"
+      }
+    ]
+  },
+  "horn_sweet_melody": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/sweet/melody"
+      }
+    ]
+  },
+  "horn_sweet_bass": {
+    "subtitle": "sounds.pipeorgans.copper_horn",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:horn/sweet/bass"
+      }
+    ]
   }
 }

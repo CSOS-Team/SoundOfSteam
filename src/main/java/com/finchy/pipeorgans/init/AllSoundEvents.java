@@ -68,7 +68,45 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> VOX_HUMANA_LOW = registerSoundEvents("vox_humana_low");
     public static final RegistryObject<SoundEvent> VOX_HUMANA_DEEP = registerSoundEvents("vox_humana_deep");
 
+    public static final RegistryObject<SoundEvent> HORN_GREAT_HARMONY = registerSoundEvents("horn_great_harmony");
+    public static final RegistryObject<SoundEvent> HORN_GREAT_MELODY = registerSoundEvents("horn_great_melody");
+    public static final RegistryObject<SoundEvent> HORN_GREAT_BASS = registerSoundEvents("horn_great_bass");
 
+    public static final RegistryObject<SoundEvent> HORN_OLD_HARMONY = registerSoundEvents("horn_old_harmony");
+    public static final RegistryObject<SoundEvent> HORN_OLD_MELODY = registerSoundEvents("horn_old_melody");
+    public static final RegistryObject<SoundEvent> HORN_OLD_BASS = registerSoundEvents("horn_old_bass");
+
+    public static final RegistryObject<SoundEvent> HORN_PURE_HARMONY = registerSoundEvents("horn_pure_harmony");
+    public static final RegistryObject<SoundEvent> HORN_PURE_MELODY = registerSoundEvents("horn_pure_melody");
+    public static final RegistryObject<SoundEvent> HORN_PURE_BASS = registerSoundEvents("horn_pure_bass");
+
+    public static final RegistryObject<SoundEvent> HORN_HUMBLE_HARMONY = registerSoundEvents("horn_humble_harmony");
+    public static final RegistryObject<SoundEvent> HORN_HUMBLE_MELODY = registerSoundEvents("horn_humble_melody");
+    public static final RegistryObject<SoundEvent> HORN_HUMBLE_BASS = registerSoundEvents("horn_humble_bass");
+
+    public static final RegistryObject<SoundEvent> HORN_DRY_HARMONY = registerSoundEvents("horn_dry_harmony");
+    public static final RegistryObject<SoundEvent> HORN_DRY_MELODY = registerSoundEvents("horn_dry_melody");
+    public static final RegistryObject<SoundEvent> HORN_DRY_BASS = registerSoundEvents("horn_dry_bass");
+
+    public static final RegistryObject<SoundEvent> HORN_CLEAR_HARMONY = registerSoundEvents("horn_clear_harmony");
+    public static final RegistryObject<SoundEvent> HORN_CLEAR_MELODY = registerSoundEvents("horn_clear_melody");
+    public static final RegistryObject<SoundEvent> HORN_CLEAR_BASS = registerSoundEvents("horn_clear_bass");
+
+    public static final RegistryObject<SoundEvent> HORN_FRESH_HARMONY = registerSoundEvents("horn_fresh_harmony");
+    public static final RegistryObject<SoundEvent> HORN_FRESH_MELODY = registerSoundEvents("horn_fresh_melody");
+    public static final RegistryObject<SoundEvent> HORN_FRESH_BASS = registerSoundEvents("horn_fresh_bass");
+
+    public static final RegistryObject<SoundEvent> HORN_SECRET_HARMONY = registerSoundEvents("horn_secret_harmony");
+    public static final RegistryObject<SoundEvent> HORN_SECRET_MELODY = registerSoundEvents("horn_secret_melody");
+    public static final RegistryObject<SoundEvent> HORN_SECRET_BASS = registerSoundEvents("horn_secret_bass");
+
+    public static final RegistryObject<SoundEvent> HORN_FEARLESS_HARMONY = registerSoundEvents("horn_fearless_harmony");
+    public static final RegistryObject<SoundEvent> HORN_FEARLESS_MELODY = registerSoundEvents("horn_fearless_melody");
+    public static final RegistryObject<SoundEvent> HORN_FEARLESS_BASS = registerSoundEvents("horn_fearless_bass");
+
+    public static final RegistryObject<SoundEvent> HORN_SWEET_HARMONY = registerSoundEvents("horn_sweet_harmony");
+    public static final RegistryObject<SoundEvent> HORN_SWEET_MELODY = registerSoundEvents("horn_sweet_melody");
+    public static final RegistryObject<SoundEvent> HORN_SWEET_BASS = registerSoundEvents("horn_sweet_bass");
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(PipeOrgans.MOD_ID, name)));
