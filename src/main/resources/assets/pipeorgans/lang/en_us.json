@@ -8,6 +8,8 @@
   "pipeorgans.stopsize.16": "§716'",
   "pipeorgans.stopsize.32": "§732'",
 
+  "pipeorgans.blocks.pipes.replace_pipe_deny": "Not enough space!",
+
   "item.pipeorgans.brass_boot": "Brass Boot",
   "item.pipeorgans.dark_oak_boot": "Dark Oak Boot",
 

@@ -171,6 +171,7 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
     }
 
     public void updatePitch() {
+
         BlockPos currentPos = worldPosition.above();
         int newPitch;
         for (newPitch = 0; newPitch <= 12; newPitch += 2) {

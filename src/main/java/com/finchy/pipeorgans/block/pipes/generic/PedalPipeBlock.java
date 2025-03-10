@@ -1,8 +1,6 @@
 package com.finchy.pipeorgans.block.pipes.generic;
 
 import com.finchy.pipeorgans.block.Generic;
-import com.finchy.pipeorgans.block.pipes.subbass.SubbassExtensionBlock;
-import com.finchy.pipeorgans.init.AllBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
@@ -21,6 +19,7 @@ public class PedalPipeBlock extends GenericPipeBlock {
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
                 .setValue(SIZE, Generic.WhistleSize.LARGE));
+        this.extensionsPerBlock = 1;
     }
 
     // called when wrenched
@@ -32,7 +31,7 @@ public class PedalPipeBlock extends GenericPipeBlock {
 
     @Override
     // increase length of whistle
-    public void incrementSize(LevelAccessor pLevel, BlockPos pPos) {
+    public void incrementSize(LevelAccessor pLevel, BlockPos pPos, boolean playSound) {
         BlockState base = pLevel.getBlockState(pPos);
         if (!base.hasProperty(SIZE))
             return;
@@ -55,13 +54,14 @@ public class PedalPipeBlock extends GenericPipeBlock {
             }
 
             // if pos is not extension (air)
-            if (!blockState.canBeReplaced())
+            if (!blockState.canBeReplaced()) {
                 return;
+            }
 
             pLevel.setBlock(currentPos, this.extensionBlock.get().defaultBlockState()
                     .setValue(SIZE, size)
                     .setValue(FACING, facing), 3);
-            if (soundtype != null) {
+            if (playSound) {
                 float pPitch = (float) Math.pow(2, -i / 12.0);
                 pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
                 pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
