@@ -23,8 +23,6 @@ public class QuadruplePipeBlock extends GenericPipeBlock {
         if (!base.hasProperty(SIZE))
             return;
 
-        PipeOrgans.LOGGER.warn("INCREMENT SIZE");
-
         Generic.WhistleSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pPos.above();
@@ -61,7 +59,6 @@ public class QuadruplePipeBlock extends GenericPipeBlock {
 
             // if block above is not extension (air)
             if (!blockState.canBeReplaced()) {
-                PipeOrgans.LOGGER.warn("CANNOT BE REPLACED");
                 return;
             }
 
