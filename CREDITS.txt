@@ -1,5 +1,2 @@
 Audio samples from Piotr Grabowski's Szczecinek and St. John Cantius libraries - https://piotrgrabowski.pl/szczecinek/, https://piotrgrabowski.pl/cracow-st-john-cantius/
 Thanks to Piotr for his permission to use his samples in this project!
-
-Thanks to nacho for programming and modeling the posaune, vox humana, english horn, and rohrflote!
-Thanks to elbowza for programming the copper horns!
