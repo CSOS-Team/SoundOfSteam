@@ -46,8 +46,7 @@ public class VoxHumanaBlockEntity extends QuadrupleBlockEntity {
                     .getSoundManager()
                     .play(soundInstance = new VoxHumanaSoundInstance(size, worldPosition));
 
-            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
-                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
+            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
 
             particle = true;
         }

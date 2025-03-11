@@ -41,8 +41,7 @@ public class GedecktBlockEntity extends GenericPipeBlockEntity {
                     .getSoundManager()
                     .play(soundInstance = new GedecktSoundInstance(size, worldPosition));
 
-            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
-                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
+            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
 
             particle = true;
         }

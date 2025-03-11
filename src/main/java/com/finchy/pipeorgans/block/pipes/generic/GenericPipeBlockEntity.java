@@ -141,8 +141,7 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
                     .getSoundManager()
                     .play(soundInstance = new GenericSoundInstance(size, worldPosition, TROMPETTE_DEEP.get()));
 
-            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
-                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
+            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
 
             particle = true;
         }
