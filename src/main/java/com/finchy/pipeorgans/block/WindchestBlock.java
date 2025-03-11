@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.block;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.init.AllShapes;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -24,7 +25,7 @@ import java.util.Objects;
 
 import static com.finchy.pipeorgans.block.WindchestMasterBlock.WINDY;
 
-public class WindchestBlock extends Block {
+public class WindchestBlock extends Block implements IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
