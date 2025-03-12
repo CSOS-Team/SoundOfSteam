@@ -43,12 +43,13 @@ public class WindchestMasterBlock extends Block implements IWrenchable {
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Level level = pContext.getLevel();
         BlockPos clickedPos = pContext.getClickedPos();
-        Direction face = pContext.getClickedFace();
+        //Direction face = pContext.getClickedFace();
+        Direction facing = pContext.getHorizontalDirection();
 
-        if (face.getAxis() == Direction.Axis.Y) { face = pContext.getHorizontalDirection().getOpposite(); }
+        //if (face.getAxis() == Direction.Axis.Y) { face = pContext.getHorizontalDirection().getOpposite(); }
 
         return super.getStateForPlacement(pContext)
-                .setValue(FACING, face)
+                .setValue(FACING, pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing)
                 .setValue(POWERED, level.hasNeighborSignal(clickedPos));
     }
 
