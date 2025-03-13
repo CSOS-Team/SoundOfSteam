@@ -35,7 +35,7 @@ public class TrompetteRenderer extends SafeBlockEntityRenderer<TrompetteBlockEnt
 
         CachedBuffers.partial(mouth, blockState)
                 .center()
-                .rotateY(AngleHelper.horizontalAngle(direction))
+                .rotateYDegrees(AngleHelper.horizontalAngle(direction))
                 .uncenter()
                 .scale(chaseTarget)
                 .light(light)
