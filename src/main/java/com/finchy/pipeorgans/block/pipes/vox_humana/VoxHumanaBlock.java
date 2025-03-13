@@ -17,7 +17,7 @@ public class VoxHumanaBlock extends QuadruplePipeBlock {
         super(pProperties);
         this.baseBlock = AllBlocks.VOX_HUMANA;
         this.extensionBlock = AllBlocks.VOX_HUMANA_EXTENSION;
-        this.blockEntity = AllBlockEntities.VOX_HUMANA_BLOCK_ENTITY;
+        this.blockEntity = AllBlockEntities.VOX_HUMANA_BLOCK_ENTITY.getDelegate();
     }
 
     @Override

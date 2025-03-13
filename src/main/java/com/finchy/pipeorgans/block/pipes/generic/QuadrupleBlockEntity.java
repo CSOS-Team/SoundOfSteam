@@ -5,13 +5,13 @@ import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class QuadrupleBlockEntity extends GenericPipeBlockEntity {
 
-    public RegistryObject<BlockEntityType<? extends GenericPipeBlockEntity>> blockEntity;
+    public BlockEntityType<? extends GenericPipeBlockEntity> blockEntity;
 
-    public QuadrupleBlockEntity(BlockPos pos, BlockState blockState, RegistryObject<BlockEntityType> blockEntity) {
+    public QuadrupleBlockEntity(BlockPos pos, BlockState blockState, BlockEntityType<? extends GenericPipeBlockEntity> blockEntity) {
         super(pos, blockState, blockEntity);
     }
 

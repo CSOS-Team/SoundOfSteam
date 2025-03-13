@@ -12,14 +12,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.List;
 
 public class NasardBlockEntity extends GenericPipeBlockEntity {
     public NasardBlockEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, AllBlockEntities.NASARD_BLOCK_ENTITY);
+        super(pos, blockState, AllBlockEntities.NASARD_BLOCK_ENTITY.get());
     }
 
     @Override
@@ -56,7 +56,8 @@ public class NasardBlockEntity extends GenericPipeBlockEntity {
                     .getSoundManager()
                     .play(soundInstance = new NasardSoundInstance(size, worldPosition));
 
-            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
+            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
+                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
 
             particle = true;
         }

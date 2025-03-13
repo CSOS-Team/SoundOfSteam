@@ -2,7 +2,6 @@ package com.finchy.pipeorgans.block.pipes.posaune;
 
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.block.pipes.generic.PedalBlockEntity;
-import com.finchy.pipeorgans.block.pipes.subbass.SubbassSoundInstance;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
@@ -11,12 +10,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 public class PosauneBlockEntity extends PedalBlockEntity {
     public PosauneBlockEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, AllBlockEntities.POSAUNE_BLOCK_ENTITY);
+        super(pos, blockState, AllBlockEntities.POSAUNE_BLOCK_ENTITY.get());
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -9,8 +9,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 public class TrompetteBlockEntity extends ReedBlockEntity {
 
@@ -18,7 +18,7 @@ public class TrompetteBlockEntity extends ReedBlockEntity {
     protected TrompetteSoundInstance soundInstance;
 
     public TrompetteBlockEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, AllBlockEntities.TROMPETTE_BLOCK_ENTITY);
+        super(pos, blockState, AllBlockEntities.TROMPETTE_BLOCK_ENTITY.get());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -41,7 +41,8 @@ public class TrompetteBlockEntity extends ReedBlockEntity {
                     .getSoundManager()
                     .play(soundInstance = new TrompetteSoundInstance(size, worldPosition));
 
-            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
+            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
+                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
 
             particle = true;
         }

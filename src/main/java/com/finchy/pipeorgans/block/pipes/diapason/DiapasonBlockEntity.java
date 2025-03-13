@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.block.pipes.diapason;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.block.pipes.generic.GenericPipeBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
@@ -9,12 +10,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+
 
 public class DiapasonBlockEntity extends GenericPipeBlockEntity {
     public DiapasonBlockEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, AllBlockEntities.DIAPASON_BLOCK_ENTITY);
+        super(pos, blockState, AllBlockEntities.DIAPASON_BLOCK_ENTITY.get());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -37,11 +39,13 @@ public class DiapasonBlockEntity extends GenericPipeBlockEntity {
         float maxVolume = (float) Mth.clamp((64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64, 0, 1);
 
         if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
+            PipeOrgans.LOGGER.debug("Playing Sound!");
             Minecraft.getInstance()
                     .getSoundManager()
                     .play(soundInstance = new DiapasonSoundInstance(size, worldPosition));
 
-            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
+            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
+                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
 
             particle = true;
         }

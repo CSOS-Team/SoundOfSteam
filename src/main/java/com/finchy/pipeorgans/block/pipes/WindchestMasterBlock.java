@@ -1,36 +1,25 @@
-package com.finchy.pipeorgans.block;
+package com.finchy.pipeorgans.block.pipes;
 
-import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.block.WindchestBlock;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlock;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
-import com.simibubi.create.foundation.block.IBE;
-import com.simibubi.create.foundation.blockEntity.SmartBlockEntityTicker;
 import net.createmod.catnip.data.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.Nullable;
 
-import static com.finchy.pipeorgans.init.AllBlockEntities.WINDCHEST_MASTER_BLOCK_ENTITY;
-
-public class WindchestMasterBlock extends Block implements IBE<WindchestMasterBlockEntity>, IWrenchable {
+public class WindchestMasterBlock extends Block implements IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -84,9 +73,6 @@ public class WindchestMasterBlock extends Block implements IBE<WindchestMasterBl
         if (pLevel.isClientSide) // only on serverside
             return;
         if (pPos.relative(pState.getValue(FACING)).equals(pNeighborPos)) { return; } // suppress updates from where windchests would be
-        PipeOrgans.LOGGER.debug(pNeighborBlock.toString());
-        PipeOrgans.LOGGER.debug(pLevel.getBlockState(pNeighborPos).getBlock().toString());
-
 
         boolean previouslyPowered = pState.getValue(POWERED);
         boolean powered = false;
@@ -100,7 +86,7 @@ public class WindchestMasterBlock extends Block implements IBE<WindchestMasterBl
             pLevel.setBlock(pPos, pState.setValue(POWERED, powered), 2);
             updateSlaves(pState, pLevel, pPos, powered);
         }
-        if(pLevel.getBlockState(pNeighborPos).getBlock() instanceof EncasedFanBlock || pNeighborBlock instanceof EncasedFanBlock){updateMasterWindy(pLevel, pPos);}
+        if (pNeighborBlock instanceof EncasedFanBlock) { updateMasterWindy(pLevel, pPos); }
     }
 
     @Override
@@ -142,16 +128,6 @@ public class WindchestMasterBlock extends Block implements IBE<WindchestMasterBl
     @Override
     public BlockState mirror(BlockState pState, Mirror pMirror) {
         return pMirror == Mirror.NONE ? pState : pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
-    }
-
-    @Override
-    public Class<WindchestMasterBlockEntity> getBlockEntityClass() {
-        return WindchestMasterBlockEntity.class;
-    }
-
-    @Override
-    public BlockEntityType<? extends WindchestMasterBlockEntity> getBlockEntityType() {
-        return WINDCHEST_MASTER_BLOCK_ENTITY.get();
     }
 
 }

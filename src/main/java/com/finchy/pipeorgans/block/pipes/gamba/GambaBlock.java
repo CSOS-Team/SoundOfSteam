@@ -9,6 +9,6 @@ public class GambaBlock extends GenericPipeBlock {
         super(pProperties);
         this.baseBlock = AllBlocks.GAMBA;
         this.extensionBlock = AllBlocks.GAMBA_EXTENSION;
-        this.blockEntity = AllBlockEntities.GAMBA_BLOCK_ENTITY;
+        this.blockEntity = AllBlockEntities.GAMBA_BLOCK_ENTITY.getDelegate();
     }
 }

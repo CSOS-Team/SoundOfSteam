@@ -18,7 +18,7 @@ public class PosauneBlock extends PedalPipeBlock {
         super(pProperties);
         this.baseBlock = AllBlocks.POSAUNE;
         this.extensionBlock = AllBlocks.POSAUNE_EXTENSION;
-        this.blockEntity = AllBlockEntities.POSAUNE_BLOCK_ENTITY;
+        this.blockEntity = AllBlockEntities.POSAUNE_BLOCK_ENTITY.getDelegate();
     }
 
     @Override

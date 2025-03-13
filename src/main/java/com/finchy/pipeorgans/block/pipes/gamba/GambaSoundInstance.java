@@ -11,9 +11,9 @@ public class GambaSoundInstance extends GenericSoundInstance {
     public GambaSoundInstance(Generic.WhistleSize size, BlockPos worldPosition) {
         super(size, worldPosition, (
                 size == Generic.WhistleSize.TINY ? GAMBA_SUPERHIGH :
-                size == Generic.WhistleSize.SMALL ? GAMBA_HIGH :
-                size == Generic.WhistleSize.MEDIUM ? GAMBA_MEDIUM :
-                size == Generic.WhistleSize.LARGE ? GAMBA_LOW : GAMBA_DEEP
+                        size == Generic.WhistleSize.SMALL ? GAMBA_HIGH :
+                                size == Generic.WhistleSize.MEDIUM ? GAMBA_MEDIUM :
+                                        size == Generic.WhistleSize.LARGE ? GAMBA_LOW : GAMBA_DEEP
         ).get());
     }
 }

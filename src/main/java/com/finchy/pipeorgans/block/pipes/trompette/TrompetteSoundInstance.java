@@ -11,9 +11,9 @@ public class TrompetteSoundInstance extends GenericSoundInstance {
     public TrompetteSoundInstance(Generic.WhistleSize size, BlockPos worldPosition) {
         super(size, worldPosition, (
                 size == Generic.WhistleSize.TINY ? TROMPETTE_SUPERHIGH :
-                size == Generic.WhistleSize.SMALL ? TROMPETTE_HIGH :
-                size == Generic.WhistleSize.MEDIUM ? TROMPETTE_MEDIUM :
-                size == Generic.WhistleSize.LARGE ? TROMPETTE_LOW : TROMPETTE_DEEP
+                        size == Generic.WhistleSize.SMALL ? TROMPETTE_HIGH :
+                                size == Generic.WhistleSize.MEDIUM ? TROMPETTE_MEDIUM :
+                                        size == Generic.WhistleSize.LARGE ? TROMPETTE_LOW : TROMPETTE_DEEP
         ).get());
     }
 }

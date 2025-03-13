@@ -14,7 +14,7 @@ public class AllTags {
 
 
         private static TagKey<Block> tag(String name) {
-            return BlockTags.create(new ResourceLocation(PipeOrgans.MOD_ID, name));
+            return BlockTags.create(ResourceLocation.fromNamespaceAndPath(PipeOrgans.MOD_ID, name));
         }
     }
 

@@ -1,21 +1,21 @@
 package com.finchy.pipeorgans.block.pipes.subbass;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.init.AllPartialModels;
-
-import dev.engine_room.flywheel.lib.model.baked.PartialModel;
-import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import net.createmod.catnip.render.CachedBuffers;
-import net.createmod.catnip.math.AngleHelper;
-import net.createmod.catnip.animation.AnimationTickHolder;
-
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
+
 public class SubbassRenderer extends SafeBlockEntityRenderer<SubbassBlockEntity> {
 
     public SubbassRenderer(BlockEntityRendererProvider.Context context) {}
@@ -36,9 +36,8 @@ public class SubbassRenderer extends SafeBlockEntityRenderer<SubbassBlockEntity>
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
             float wiggleProgress = (AnimationTickHolder.getTicks(be.getLevel()) + partialTicks) /8f;
-            offset -= (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f);
+            offset -= Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f;
         }
-
         CachedBuffers.partial(mouth, blockState)
                 .center()
                 .rotateYDegrees(AngleHelper.horizontalAngle(direction))
