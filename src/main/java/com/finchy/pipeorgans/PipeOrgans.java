@@ -17,7 +17,7 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
+// The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(PipeOrgans.MOD_ID)
 public class PipeOrgans
 {
