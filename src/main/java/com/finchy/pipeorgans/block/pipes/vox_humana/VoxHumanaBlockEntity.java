@@ -73,8 +73,7 @@ public class VoxHumanaBlockEntity extends ReedBlockEntity { // could extend Gene
         double zOffset = (2 / 16f*size.ordinal()) + (pitch==0?0:0.0625);
 
         Vec3 v = VecHelper.rotate(
-                new Vec3(0, yPos, zOffset).add(Vec3.atBottomCenterOf(worldPosition)),
-                angle, Direction.Axis.Y);
+                new Vec3(0, yPos, zOffset), angle, Direction.Axis.Y).add(Vec3.atBottomCenterOf(worldPosition));
 
         Vec3 m = VecHelper.rotate(new Vec3(0, 1, 1), angle, Direction.Axis.Y);
         level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
