@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.block.pipes.generic;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.block.WindchestBlock;
 import com.simibubi.create.AllSoundEvents;
@@ -17,7 +16,6 @@ import net.createmod.catnip.math.VecHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -28,7 +26,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.fml.loading.FMLEnvironment;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -42,11 +39,15 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
     public WeakReference<FluidTankBlockEntity> source;
     public LerpedFloat animation;
     protected int pitch;
+    protected float steamJetOffset;
+    protected GenericPipeBlock pipeBlock;
 
     public GenericPipeBlockEntity(BlockPos pos, BlockState blockState, BlockEntityType<?> blockEntity) {
         super(blockEntity, pos, blockState);
         source = new WeakReference<>(null);
         animation = LerpedFloat.angular();
+        steamJetOffset = 0.125f;
+        this.pipeBlock = (GenericPipeBlock) blockState.getBlock();
     }
 
     @Override
@@ -173,14 +174,24 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
     public void updatePitch() {
         BlockPos currentPos = worldPosition.above();
         int newPitch;
-        for (newPitch = 0; newPitch <= 12; newPitch += 2) {
+        for (newPitch=0; newPitch<=12; newPitch+=pipeBlock.extensionsPerBlock) {
             BlockState blockState = level.getBlockState(currentPos);
             if (!(blockState.getBlock() instanceof GenericExtensionBlock))
                 break;
-            if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.DOUBLE) {
-                newPitch++;
+
+            if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.SINGLE) {
+                newPitch += (int) (pipeBlock.extensionsPerBlock*0.25);
                 break;
             }
+            if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.DOUBLE) {
+                newPitch += (int) (pipeBlock.extensionsPerBlock*0.5);
+                break;
+            }
+            if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.TRIPLE) {
+                newPitch += (int) (pipeBlock.extensionsPerBlock*0.75);
+                break;
+            }
+
             currentPos = currentPos.above();
         }
         if (pitch == newPitch)

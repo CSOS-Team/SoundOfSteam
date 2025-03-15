@@ -2,7 +2,7 @@ package com.finchy.pipeorgans.block.pipes.vox_humana;
 
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.block.pipes.generic.GenericPipeBlock;
-import com.finchy.pipeorgans.block.pipes.generic.QuadrupleBlockEntity;
+import com.finchy.pipeorgans.block.pipes.generic.ReedBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public class VoxHumanaBlockEntity extends QuadrupleBlockEntity {
+public class VoxHumanaBlockEntity extends ReedBlockEntity { // could extend GenericPipeBlockEntity, but just to make it clearer
     public VoxHumanaBlockEntity(BlockPos pos, BlockState blockState) {
         super(pos, blockState, AllBlockEntities.VOX_HUMANA_BLOCK_ENTITY.get());
     }
@@ -61,7 +61,7 @@ public class VoxHumanaBlockEntity extends QuadrupleBlockEntity {
     }
 
     @Override
-    public void createSteamJet(Generic.WhistleSize size) {
+    public void createSteamJet(Generic.WhistleSize size) { // custom steam jet
         Direction facing = getBlockState().getOptionalValue(GenericPipeBlock.FACING)
                 .orElse(Direction.SOUTH);
         float angle = 180+AngleHelper.horizontalAngle(facing);

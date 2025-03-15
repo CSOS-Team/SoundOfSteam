@@ -13,14 +13,14 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 public class TrompetteBlockEntity extends ReedBlockEntity {
-
-    @OnlyIn(Dist.CLIENT)
-    protected TrompetteSoundInstance soundInstance;
-
     public TrompetteBlockEntity(BlockPos pos, BlockState blockState) {
         super(pos, blockState, AllBlockEntities.TROMPETTE_BLOCK_ENTITY.get());
     }
 
+    @OnlyIn(Dist.CLIENT)
+    protected TrompetteSoundInstance soundInstance;
+
+    @Override
     @OnlyIn(Dist.CLIENT)
     protected void tickAudio(Generic.WhistleSize size, boolean powered) {
         if (!powered) {

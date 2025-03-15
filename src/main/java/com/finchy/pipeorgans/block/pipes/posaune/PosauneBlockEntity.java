@@ -1,10 +1,9 @@
 package com.finchy.pipeorgans.block.pipes.posaune;
 
 import com.finchy.pipeorgans.block.Generic;
-import com.finchy.pipeorgans.block.pipes.generic.PedalBlockEntity;
+import com.finchy.pipeorgans.block.pipes.generic.ReedBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
-import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -13,9 +12,10 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public class PosauneBlockEntity extends PedalBlockEntity {
+public class PosauneBlockEntity extends ReedBlockEntity {
     public PosauneBlockEntity(BlockPos pos, BlockState blockState) {
         super(pos, blockState, AllBlockEntities.POSAUNE_BLOCK_ENTITY.get());
+        steamJetOffset = 0.25f;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -54,14 +54,5 @@ public class PosauneBlockEntity extends PedalBlockEntity {
             return;
 
         createSteamJet(size);
-    }
-
-    @Override
-    public void createSteamJet(Generic.WhistleSize size) { // derived from ReedBlockEntity
-        float yOffset = 0.25f;
-        double yPos = (double) pitch + 1 + yOffset;
-        Vec3 v = new Vec3(0, yPos, 0).add(Vec3.atBottomCenterOf(worldPosition));
-        Vec3 m = new Vec3(0, 1, 0);
-        level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
     }
 }
