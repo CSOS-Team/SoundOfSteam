@@ -6,11 +6,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class ReedBlockEntity extends GenericPipeBlockEntity {
 
-    public ReedBlockEntity(BlockPos pos, BlockState blockState, RegistryObject<BlockEntityType> blockEntity) {
+    public ReedBlockEntity(BlockPos pos, BlockState blockState, BlockEntityType<? extends GenericPipeBlockEntity> blockEntity) {
         super(pos, blockState, blockEntity);
     }
 

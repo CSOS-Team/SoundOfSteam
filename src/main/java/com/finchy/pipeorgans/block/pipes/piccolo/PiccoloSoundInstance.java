@@ -11,9 +11,9 @@ public class PiccoloSoundInstance extends GenericSoundInstance {
     public PiccoloSoundInstance(Generic.WhistleSize size, BlockPos worldPosition) {
         super(size, worldPosition, (
                 size == Generic.WhistleSize.TINY ? PICCOLO_SUPERHIGH :
-                size == Generic.WhistleSize.SMALL ? PICCOLO_HIGH :
-                size == Generic.WhistleSize.MEDIUM ? PICCOLO_MEDIUM :
-                size == Generic.WhistleSize.LARGE ? PICCOLO_LOW : PICCOLO_DEEP
+                        size == Generic.WhistleSize.SMALL ? PICCOLO_HIGH :
+                                size == Generic.WhistleSize.MEDIUM ? PICCOLO_MEDIUM :
+                                        size == Generic.WhistleSize.LARGE ? PICCOLO_LOW : PICCOLO_DEEP
         ).get());
     }
 }

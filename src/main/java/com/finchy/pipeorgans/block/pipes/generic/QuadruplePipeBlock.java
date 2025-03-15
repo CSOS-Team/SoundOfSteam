@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.block.pipes.generic;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.Generic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -14,11 +13,10 @@ public class QuadruplePipeBlock extends GenericPipeBlock {
 
     public QuadruplePipeBlock(Properties pProperties) {
         super(pProperties);
-        this.extensionsPerBlock = 4;
     }
 
     // increase length of whistle
-    public void incrementSize(LevelAccessor pLevel, BlockPos pPos, boolean playSound) {
+    public void incrementSize(LevelAccessor pLevel, BlockPos pPos) {
         BlockState base = pLevel.getBlockState(pPos);
         if (!base.hasProperty(SIZE))
             return;
@@ -28,7 +26,7 @@ public class QuadruplePipeBlock extends GenericPipeBlock {
         BlockPos currentPos = pPos.above();
 
         float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
-        SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.get();
+        SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.value();
         SoundEvent hitSound = soundtype.getHitSound();
 
         for (int i = 1; i <= 12; i+=4) {
@@ -41,7 +39,7 @@ public class QuadruplePipeBlock extends GenericPipeBlock {
                         && blockState.getValue(QuadrupleExtensionBlock.SHAPE) != Generic.QuadrupleExtensionShape.QUAD_CONNECTED) {
                     // if extension is single, double, or triple
                     pLevel.setBlock(currentPos, blockState.cycle(QuadrupleExtensionBlock.SHAPE), 3);
-                    if (playSound) {
+                    if (soundtype != null) {
                         switch (blockState.getValue(QuadrupleExtensionBlock.SHAPE)) {
                             case SINGLE -> i+=1;
                             case DOUBLE -> i+=2;
@@ -58,13 +56,12 @@ public class QuadruplePipeBlock extends GenericPipeBlock {
             }
 
             // if block above is not extension (air)
-            if (!blockState.canBeReplaced()) {
+            if (!blockState.canBeReplaced())
                 return;
-            }
 
             pLevel.setBlock(currentPos, this.extensionBlock.get().defaultBlockState()
                     .setValue(SIZE, size), 3);
-            if (playSound) {
+            if (soundtype != null) {
                 float pPitch = (float) Math.pow(2, -i / 12.0);
                 pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
                 pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);

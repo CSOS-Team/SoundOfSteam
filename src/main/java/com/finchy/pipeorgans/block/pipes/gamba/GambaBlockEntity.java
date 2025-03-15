@@ -9,12 +9,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+
 
 public class GambaBlockEntity extends GenericPipeBlockEntity {
     public GambaBlockEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, AllBlockEntities.GAMBA_BLOCK_ENTITY);
+        super(pos, blockState, AllBlockEntities.GAMBA_BLOCK_ENTITY.get());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -41,7 +42,8 @@ public class GambaBlockEntity extends GenericPipeBlockEntity {
                     .getSoundManager()
                     .play(soundInstance = new GambaSoundInstance(size, worldPosition));
 
-            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
+            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
+                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
 
             particle = true;
         }

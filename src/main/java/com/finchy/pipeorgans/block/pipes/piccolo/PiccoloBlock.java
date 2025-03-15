@@ -10,7 +10,7 @@ public class PiccoloBlock extends QuadruplePipeBlock {
         super(pProperties);
         this.baseBlock = AllBlocks.PICCOLO;
         this.extensionBlock = AllBlocks.PICCOLO_EXTENSION;
-        this.blockEntity = AllBlockEntities.PICCOLO_BLOCK_ENTITY;
+        this.blockEntity = AllBlockEntities.PICCOLO_BLOCK_ENTITY.getDelegate();
         registerDefaultState(defaultBlockState().setValue(SIZE, Generic.WhistleSize.SMALL));
     }
 }

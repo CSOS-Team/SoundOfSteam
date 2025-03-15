@@ -10,7 +10,7 @@ public class SubbassBlock extends PedalPipeBlock {
         super(pProperties);
         this.baseBlock = AllBlocks.SUBBASS;
         this.extensionBlock = AllBlocks.SUBBASS_EXTENSION;
-        this.blockEntity = AllBlockEntities.SUBBASS_BLOCK_ENTITY;
+        this.blockEntity = AllBlockEntities.SUBBASS_BLOCK_ENTITY.getDelegate();
     }
 
 }

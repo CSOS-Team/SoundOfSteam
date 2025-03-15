@@ -1,8 +1,8 @@
 package com.finchy.pipeorgans.block.pipes.generic;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.block.WindchestBlock;
-
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
@@ -11,14 +11,14 @@ import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.CreateLang;
-
+import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.math.VecHelper;
-import net.createmod.catnip.animation.LerpedFloat;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -26,10 +26,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -44,8 +43,8 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
     public LerpedFloat animation;
     protected int pitch;
 
-    public GenericPipeBlockEntity(BlockPos pos, BlockState blockState, RegistryObject<BlockEntityType> blockEntity) {
-        super(blockEntity.get(), pos, blockState);
+    public GenericPipeBlockEntity(BlockPos pos, BlockState blockState, BlockEntityType<?> blockEntity) {
+        super(blockEntity, pos, blockState);
         source = new WeakReference<>(null);
         animation = LerpedFloat.angular();
     }
@@ -56,15 +55,15 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
     }
 
     @Override
-    protected void write(CompoundTag tag, boolean clientPacket) {
+    protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
         tag.putInt("Pitch", pitch);
-        super.write(tag, clientPacket);
+        super.write(tag, registries, clientPacket);
     }
 
     @Override
-    protected void read(CompoundTag tag, boolean clientPacket) {
+    protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
         pitch = tag.getInt("Pitch");
-        super.read(tag, clientPacket);
+        super.read(tag, registries, clientPacket);
     }
 
     @Override
@@ -115,7 +114,8 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
 
         animation.chase(powered ? 1 : 0, powered ? .5f : .4f, powered ? LerpedFloat.Chaser.EXP : LerpedFloat.Chaser.LINEAR);
         animation.tickChaser();
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> this.tickAudio(getOctave(), powered));
+        this.tickAudio(getOctave(), powered);
+
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -141,7 +141,8 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
                     .getSoundManager()
                     .play(soundInstance = new GenericSoundInstance(size, worldPosition, TROMPETTE_DEEP.get()));
 
-            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
+            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
+                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
 
             particle = true;
         }
@@ -170,7 +171,6 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
     }
 
     public void updatePitch() {
-
         BlockPos currentPos = worldPosition.above();
         int newPitch;
         for (newPitch = 0; newPitch <= 12; newPitch += 2) {

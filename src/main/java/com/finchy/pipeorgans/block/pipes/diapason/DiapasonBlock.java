@@ -9,6 +9,6 @@ public class DiapasonBlock extends GenericPipeBlock {
         super(pProperties);
         this.baseBlock = AllBlocks.DIAPASON;
         this.extensionBlock = AllBlocks.DIAPASON_EXTENSION;
-        this.blockEntity = AllBlockEntities.DIAPASON_BLOCK_ENTITY;
+        this.blockEntity = AllBlockEntities.DIAPASON_BLOCK_ENTITY.getDelegate();
     }
 }

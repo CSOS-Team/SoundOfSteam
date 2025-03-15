@@ -9,12 +9,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 public class GedecktBlockEntity extends GenericPipeBlockEntity {
     public GedecktBlockEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, AllBlockEntities.GEDECKT_BLOCK_ENTITY);
+        super(pos, blockState, AllBlockEntities.GEDECKT_BLOCK_ENTITY.get());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -41,7 +41,8 @@ public class GedecktBlockEntity extends GenericPipeBlockEntity {
                     .getSoundManager()
                     .play(soundInstance = new GedecktSoundInstance(size, worldPosition));
 
-            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
+            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f,
+                    size == Generic.WhistleSize.SMALL ? f + .75f : f, false);
 
             particle = true;
         }

@@ -2,8 +2,6 @@ package com.finchy.pipeorgans.mixin;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.WindchestMasterBlock;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlock;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -55,5 +53,6 @@ public class FanUpdateWindchestMixin {
         if (level.getBlockState(adjacentPos).getBlock() instanceof WindchestMasterBlock) {
             WindchestMasterBlock.updateMasterWindy(level, adjacentPos);
         }
+        PipeOrgans.LOGGER.info("BIFC");
     }
 }

@@ -1,11 +1,13 @@
 package com.finchy.pipeorgans.block.pipes.gedeckt;
 
 import com.finchy.pipeorgans.block.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.block.pipes.generic.GenericPipeBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -16,7 +18,7 @@ public class GedecktBlock extends GenericPipeBlock {
         super(pProperties);
         this.baseBlock = AllBlocks.GEDECKT;
         this.extensionBlock = AllBlocks.GEDECKT_EXTENSION;
-        this.blockEntity = AllBlockEntities.GEDECKT_BLOCK_ENTITY;
+        this.blockEntity = AllBlockEntities.GEDECKT_BLOCK_ENTITY.getDelegate();
     }
 
     @Override

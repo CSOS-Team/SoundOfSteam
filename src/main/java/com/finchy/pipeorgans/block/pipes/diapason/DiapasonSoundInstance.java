@@ -11,9 +11,9 @@ public class DiapasonSoundInstance extends GenericSoundInstance {
     public DiapasonSoundInstance(Generic.WhistleSize size, BlockPos worldPosition) {
         super(size, worldPosition, (
                 size == Generic.WhistleSize.TINY ? DIAPASON_SUPERHIGH :
-                size == Generic.WhistleSize.SMALL ? DIAPASON_HIGH :
-                size == Generic.WhistleSize.MEDIUM ? DIAPASON_MEDIUM :
-                size == Generic.WhistleSize.LARGE ? DIAPASON_LOW : DIAPASON_DEEP
+                        size == Generic.WhistleSize.SMALL ? DIAPASON_HIGH :
+                                size == Generic.WhistleSize.MEDIUM ? DIAPASON_MEDIUM :
+                                        size == Generic.WhistleSize.LARGE ? DIAPASON_LOW : DIAPASON_DEEP
         ).get());
     }
 }

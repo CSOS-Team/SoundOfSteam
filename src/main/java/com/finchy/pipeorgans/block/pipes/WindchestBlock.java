@@ -1,14 +1,12 @@
-package com.finchy.pipeorgans.block;
+package com.finchy.pipeorgans.block.pipes;
 
-import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.init.AllShapes;
+import com.finchy.pipeorgans.block.WindchestMasterBlock;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
@@ -66,7 +64,7 @@ public class WindchestBlock extends Block implements IWrenchable {
         BlockState masterState = level.getBlockState(masterPos);
         if (masterPos != pos) { return masterState.getValue(POWERED) && masterState.getValue(WINDY); }
         return false;
-
+        
     }
 
     public BlockPos getMasterPos(Level level, Direction facing, BlockPos pos) {
@@ -92,9 +90,9 @@ public class WindchestBlock extends Block implements IWrenchable {
         //Direction face = pContext.getClickedFace().getOpposite();
         //BlockPos parentPos = clickedPos.relative(face.getOpposite());
         Direction facing = pContext.getNearestLookingDirection();
-        Direction direction = pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing;
+
         return Objects.requireNonNull(super.getStateForPlacement(pContext))
-                .setValue(FACING, direction.get2DDataValue() != -1 ? direction : Direction.NORTH)
+                .setValue(FACING, pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing)
                 .setValue(POWERED, isMasterPowered(level, pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing, clickedPos));
 
     }

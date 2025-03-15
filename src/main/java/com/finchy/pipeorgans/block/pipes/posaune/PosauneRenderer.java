@@ -1,23 +1,19 @@
 package com.finchy.pipeorgans.block.pipes.posaune;
 
 import com.finchy.pipeorgans.block.Generic;
-import com.finchy.pipeorgans.block.pipes.posaune.PosauneBlock;
-import com.finchy.pipeorgans.block.pipes.posaune.PosauneBlockEntity;
 import com.finchy.pipeorgans.init.AllPartialModels;
 
-import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import net.createmod.catnip.render.CachedBuffers;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.math.AngleHelper;
-import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.render.CachedBuffers;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 public class PosauneRenderer extends SafeBlockEntityRenderer<PosauneBlockEntity> {
 
