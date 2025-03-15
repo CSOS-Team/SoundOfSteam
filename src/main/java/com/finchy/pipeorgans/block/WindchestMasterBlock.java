@@ -5,27 +5,20 @@ import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlock;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
 import com.simibubi.create.foundation.block.IBE;
-import com.simibubi.create.foundation.blockEntity.SmartBlockEntityTicker;
 import net.createmod.catnip.data.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.Nullable;
 
 import static com.finchy.pipeorgans.init.AllBlockEntities.WINDCHEST_MASTER_BLOCK_ENTITY;
@@ -55,10 +48,7 @@ public class WindchestMasterBlock extends Block implements IBE<WindchestMasterBl
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Level level = pContext.getLevel();
         BlockPos clickedPos = pContext.getClickedPos();
-        //Direction face = pContext.getClickedFace();
         Direction facing = pContext.getHorizontalDirection();
-
-        //if (face.getAxis() == Direction.Axis.Y) { face = pContext.getHorizontalDirection().getOpposite(); }
 
         return super.getStateForPlacement(pContext)
                 .setValue(FACING, pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing)
