@@ -87,10 +87,11 @@ public class WindchestBlock extends Block implements IWrenchable {
         Level level = pContext.getLevel();
         BlockPos clickedPos = pContext.getClickedPos();
         Direction facing = pContext.getHorizontalDirection();
+        Direction direction = pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing;
 
         return Objects.requireNonNull(super.getStateForPlacement(pContext))
-                .setValue(FACING, pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing)
-                .setValue(POWERED, isMasterPowered(level, pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing, clickedPos));
+                .setValue(FACING, direction)
+                .setValue(POWERED, isMasterPowered(level, direction, clickedPos));
 
     }
 
