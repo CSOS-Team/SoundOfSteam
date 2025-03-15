@@ -2,14 +2,19 @@ package com.finchy.pipeorgans.block.pipes.generic;
 
 import com.finchy.pipeorgans.block.Generic;
 import com.finchy.pipeorgans.block.WindchestBlock;
-import com.finchy.pipeorgans.block.pipes.nasard.NasardBlockEntity;
 import com.finchy.pipeorgans.init.AllShapes;
+import com.finchy.pipeorgans.item.GenericPipeBlockItem;
+import com.simibubi.create.AllSoundEvents;
+
+import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
+
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -24,10 +29,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -47,9 +49,11 @@ import org.jetbrains.annotations.Nullable;
 public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty WALL = BooleanProperty.create("wall");
+    public static final BooleanProperty WALL = WhistleBlock.WALL;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final EnumProperty<Generic.WhistleSize> SIZE = EnumProperty.create("size", Generic.WhistleSize.class);
+
+    public int extensionsPerBlock;
 
     public DeferredHolder<Block, ? extends GenericPipeBlock> baseBlock;
     public DeferredHolder<Block, ? extends GenericExtensionBlock> extensionBlock;
@@ -63,6 +67,7 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
                 .setValue(SIZE, Generic.WhistleSize.MEDIUM));
+        extensionsPerBlock = 2;
     }
 
     // custom hitbox
@@ -79,12 +84,12 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
     public Class<GenericPipeBlockEntity> getBlockEntityClass() { return GenericPipeBlockEntity.class; }
 
     @Override
-    public BlockEntityType<? extends GenericPipeBlockEntity> getBlockEntityType() {return (BlockEntityType<? extends GenericPipeBlockEntity>)this.blockEntity.value(); }
+    public BlockEntityType<? extends GenericPipeBlockEntity> getBlockEntityType() {return (BlockEntityType<? extends GenericPipeBlockEntity>)blockEntity.value(); }
 
     // create block entity at block coords upon block placement
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return this.blockEntity.value().create(pos, state);
+        return blockEntity.value().create(pos, state);
     }
 
     // define blockstate params
@@ -101,16 +106,80 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
                 return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
             ItemStack heldItem = player.getItemInHand(hand);
-            if (heldItem.getItem() == this.baseBlock.get().asItem()) {
+            if (heldItem.getItem() == baseBlock.get().asItem()) {
                 incrementSize(level, pos);
                 return ItemInteractionResult.SUCCESS;
             }
 
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        if (heldItem.getItem() instanceof GenericPipeBlockItem) {
+            GenericPipeBlock held = (GenericPipeBlock) ((GenericPipeBlockItem) heldItem.getItem()).getBlock();
+            if (substitutePipe(state, level, pos, held)) {
+                if (!player.isCreative()) {
+                    heldItem.shrink(1);
+                    player.setItemInHand(hand, heldItem);
+
+                    player.getInventory().placeItemBackInInventory(new ItemStack(baseBlock.get().asItem()));
+                }
+                return ItemInteractionResult.SUCCESS;
+            } else { // FAIL
+                AllSoundEvents.DENY.playOnServer(level, pos);
+                player.displayClientMessage(Component.translatable("pipeorgans.blocks.pipes.replace_pipe_deny"), true);
+            }
+        }
+
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    public boolean substitutePipe(BlockState state, Level level, BlockPos pos, GenericPipeBlock held) {
+        GenericPipeBlock base = (GenericPipeBlock) state.getBlock();
+        if (level.getBlockEntity(pos) instanceof GenericPipeBlockEntity be) {
+            if (held.extensionsPerBlock >= base.extensionsPerBlock) { // if new pipe is smaller
+                // success
+                int removeDist = (int) Math.ceil(be.pitch / (float) base.extensionsPerBlock);
+                BlockPos currentPos = pos;
+                for (int i = 1; i <= removeDist; i++) {
+                    currentPos = currentPos.above();
+                    level.destroyBlock(currentPos, false);
+                }
+                placeNewPipe(state, level, pos, held, be.pitch);
+
+            } else { // if new pipe is larger
+                if (be.pitch > 0) { // if there are actually any extensions to replace
+
+                    // check space (pitch/heldEPB) above base, rounded up
+                    int checkDist = (int) Math.ceil(be.pitch / (float) held.extensionsPerBlock);
+                    BlockPos currentPos = pos;
+                    for (int i = 1; i <= checkDist; i++) {
+                        currentPos = currentPos.above();
+                        BlockState currentState = level.getBlockState(currentPos);
+                        if (currentState.canBeReplaced() || (
+                                currentState.getBlock() instanceof GenericExtensionBlock
+                        )) {
+                            continue;
+                        }
+                        return false; // something in the way
+                    }
+                    // success
+                    int removeDist = (int) Math.ceil(be.pitch / (float) base.extensionsPerBlock);
+                    currentPos = pos;
+                    for (int i = 1; i <= removeDist; i++) {
+                        currentPos = currentPos.above();
+                        level.destroyBlock(currentPos, false);
+                    }
+
+                }
+                placeNewPipe(state, level, pos, held, be.pitch);
+            }
+        }
+        return true;
+    }
+
+    public void incrementSize(LevelAccessor level, BlockPos pos) {
+        incrementSize(level, pos, true);
     }
 
     // increase length of whistle
-    public void incrementSize(LevelAccessor pLevel, BlockPos pPos) {
+    public void incrementSize(LevelAccessor pLevel, BlockPos pPos, boolean playSound) {
         BlockState base = pLevel.getBlockState(pPos);
         if (!base.hasProperty(SIZE))
             return;
@@ -118,19 +187,23 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
         Generic.WhistleSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pPos.above();
+        Direction facing = base.getValue(FACING);
+
+        float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
+        SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.value();
+        SoundEvent hitSound = soundtype.getHitSound();
 
         for (int i = 1; i <= 6; i++) {
             BlockState blockState = pLevel.getBlockState(currentPos);
-            float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
-            SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.value();
-            SoundEvent hitSound = soundtype.getHitSound();
 
             if (blockState.getBlock() instanceof GenericExtensionBlock) {
                 if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.DOUBLE) {
                     pLevel.setBlock(currentPos,
-                            blockState.setValue(GenericExtensionBlock.SHAPE, Generic.QuadrupleExtensionShape.QUAD), 3);
+                            blockState
+                                    .setValue(GenericExtensionBlock.SHAPE, Generic.QuadrupleExtensionShape.QUAD)
+                                    .setValue(FACING, facing), 3);
 
-                    if (soundtype != null) {
+                    if (playSound ) {
                         float pPitch = (float) Math.pow(2, -(i * 2) / 12.0);
                         pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
                         pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
@@ -144,14 +217,38 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
             if (!blockState.canBeReplaced())
                 return;
 
-            pLevel.setBlock(currentPos, this.extensionBlock.get().defaultBlockState()
-                    .setValue(SIZE, size), 3);
-            if (soundtype != null) {
+            pLevel.setBlock(currentPos, extensionBlock.get().defaultBlockState()
+                    .setValue(SIZE, size)
+                    .setValue(FACING, facing), 3);
+
+            if (playSound) {
                 float pPitch = (float) Math.pow(2, -(i * 2 - 1) / 12.0);
                 pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
                 pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
             }
             return;
+        }
+    }
+
+    public void placeNewPipe(BlockState state, Level level, BlockPos pos, GenericPipeBlock pipe, int pitch) {
+        Generic.WhistleSize size = state.getValue(SIZE);
+        Direction facing = state.getValue(FACING);
+        boolean wall = state.getValue(WALL);
+        boolean powered = state.getValue(POWERED);
+        if (pipe instanceof PedalPipeBlock && size == Generic.WhistleSize.TINY) { size = Generic.WhistleSize.SMALL; }
+        level.destroyBlock(pos, false);
+
+        level.setBlock(pos, pipe.defaultBlockState()
+                .setValue(SIZE, size)
+                .setValue(FACING, facing)
+                .setValue(WALL, wall)
+                .setValue(POWERED, powered), 3);
+
+        GenericPipeBlock newPipe = (GenericPipeBlock) level.getBlockState(pos).getBlock();
+        if (pitch > 0) {
+            for (int i = 1; i <= pitch; i++) {
+                newPipe.incrementSize(level, pos);
+            }
         }
     }
 
@@ -244,7 +341,11 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
 
     @Override
     public BlockState rotate(BlockState pState, Rotation pRotation) {
-        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING))); // don't rotate at all
+        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
+    }
+
+    public BlockState mirror(BlockState pState, Mirror pMirror) {
+        return pMirror == Mirror.NONE ? pState : pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
     }
 
 }

@@ -21,6 +21,7 @@ public class PedalPipeBlock extends GenericPipeBlock {
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
                 .setValue(SIZE, Generic.WhistleSize.LARGE));
+        extensionsPerBlock = 1;
     }
 
     // called when wrenched
@@ -32,7 +33,7 @@ public class PedalPipeBlock extends GenericPipeBlock {
 
     @Override
     // increase length of whistle
-    public void incrementSize(LevelAccessor pLevel, BlockPos pPos) {
+    public void incrementSize(LevelAccessor pLevel, BlockPos pPos, boolean playSound) {
         BlockState base = pLevel.getBlockState(pPos);
         if (!base.hasProperty(SIZE))
             return;
@@ -40,6 +41,7 @@ public class PedalPipeBlock extends GenericPipeBlock {
         Generic.WhistleSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pPos.above();
+        Direction facing = base.getValue(FACING);
 
         float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
         SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.value();
@@ -48,18 +50,20 @@ public class PedalPipeBlock extends GenericPipeBlock {
         for (int i = 1; i <= 12; i+=1) {
             BlockState blockState = pLevel.getBlockState(currentPos);
 
-            if (blockState.getBlock() instanceof SubbassExtensionBlock) {
+            if (blockState.getBlock() instanceof PedalExtensionBlock) {
                 currentPos = currentPos.above();
                 continue;
             }
 
-            // if pos is not extension (air)
+            // if pos is not air or similar
             if (!blockState.canBeReplaced())
                 return;
 
-            pLevel.setBlock(currentPos, AllBlocks.SUBBASS_EXTENSION.get().defaultBlockState()
-                    .setValue(SIZE, size), 3);
-            if (soundtype != null) {
+            pLevel.setBlock(currentPos, extensionBlock.get().defaultBlockState()
+                    .setValue(SIZE, size)
+                    .setValue(FACING, facing), 3);
+
+            if (playSound) {
                 float pPitch = (float) Math.pow(2, -i / 12.0);
                 pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
                 pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);

@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.mixin;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.init.AllTags;
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
