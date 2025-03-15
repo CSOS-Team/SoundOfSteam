@@ -1,8 +1,8 @@
 package com.finchy.pipeorgans.block.pipes.generic;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.Generic;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -26,6 +26,7 @@ public class QuadruplePipeBlock extends GenericPipeBlock {
         Generic.WhistleSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pPos.above();
+        Direction facing = base.getValue(FACING);
 
         float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
         SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.get();
@@ -40,7 +41,7 @@ public class QuadruplePipeBlock extends GenericPipeBlock {
                 if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) != Generic.QuadrupleExtensionShape.QUAD
                         && blockState.getValue(QuadrupleExtensionBlock.SHAPE) != Generic.QuadrupleExtensionShape.QUAD_CONNECTED) {
                     // if extension is single, double, or triple
-                    pLevel.setBlock(currentPos, blockState.cycle(QuadrupleExtensionBlock.SHAPE), 3);
+                    pLevel.setBlock(currentPos, blockState.cycle(QuadrupleExtensionBlock.SHAPE).setValue(FACING, facing), 3);
                     if (playSound) {
                         switch (blockState.getValue(QuadrupleExtensionBlock.SHAPE)) {
                             case SINGLE -> i+=1;
@@ -63,7 +64,8 @@ public class QuadruplePipeBlock extends GenericPipeBlock {
             }
 
             pLevel.setBlock(currentPos, this.extensionBlock.get().defaultBlockState()
-                    .setValue(SIZE, size), 3);
+                    .setValue(SIZE, size)
+                    .setValue(FACING, facing), 3);
             if (playSound) {
                 float pPitch = (float) Math.pow(2, -i / 12.0);
                 pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
