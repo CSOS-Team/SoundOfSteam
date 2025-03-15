@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.block.pipes.piccolo;
 
 import com.finchy.pipeorgans.block.Generic;
-import com.finchy.pipeorgans.block.pipes.generic.QuadrupleBlockEntity;
+import com.finchy.pipeorgans.block.pipes.generic.GenericPipeBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
 import net.minecraft.client.Minecraft;
@@ -12,7 +12,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class PiccoloBlockEntity extends QuadrupleBlockEntity {
+public class PiccoloBlockEntity extends GenericPipeBlockEntity {
     public PiccoloBlockEntity(BlockPos pos, BlockState blockState) {
         super(pos, blockState, AllBlockEntities.PICCOLO_BLOCK_ENTITY);
     }

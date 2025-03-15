@@ -44,10 +44,15 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
     public LerpedFloat animation;
     protected int pitch;
 
+    protected float steamJetOffset;
+    protected GenericPipeBlock pipeBlock;
+
     public GenericPipeBlockEntity(BlockPos pos, BlockState blockState, RegistryObject<BlockEntityType> blockEntity) {
         super(blockEntity.get(), pos, blockState);
         source = new WeakReference<>(null);
         animation = LerpedFloat.angular();
+        steamJetOffset = 0.125f;
+        pipeBlock = (GenericPipeBlock) blockState.getBlock();
     }
 
     @Override
@@ -173,14 +178,24 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
 
         BlockPos currentPos = worldPosition.above();
         int newPitch;
-        for (newPitch = 0; newPitch <= 12; newPitch += 2) {
+        for (newPitch=0; newPitch<=12; newPitch+=pipeBlock.extensionsPerBlock) {
             BlockState blockState = level.getBlockState(currentPos);
             if (!(blockState.getBlock() instanceof GenericExtensionBlock))
                 break;
-            if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.DOUBLE) {
-                newPitch++;
+
+            if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.SINGLE) {
+                newPitch += (int) (pipeBlock.extensionsPerBlock*0.25);
                 break;
             }
+            if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.DOUBLE) {
+                newPitch += (int) (pipeBlock.extensionsPerBlock*0.5);
+                break;
+            }
+            if (blockState.getValue(GenericExtensionBlock.SHAPE) == Generic.QuadrupleExtensionShape.TRIPLE) {
+                newPitch += (int) (pipeBlock.extensionsPerBlock*0.75);
+                break;
+            }
+
             currentPos = currentPos.above();
         }
         if (pitch == newPitch)
