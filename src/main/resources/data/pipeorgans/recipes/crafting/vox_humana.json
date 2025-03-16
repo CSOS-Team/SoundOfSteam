@@ -11,13 +11,13 @@
       "item": "pipeorgans:copper_boot"
     },
     "R": {
-      "tag": "forge:plates/brass"
+      "tag": "c:plates/brass"
     },
     "C": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "item": "pipeorgans:vox_humana"
+    "id": "pipeorgans:vox_humana"
   }
 }

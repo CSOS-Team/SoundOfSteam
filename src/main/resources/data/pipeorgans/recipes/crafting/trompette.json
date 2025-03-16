@@ -11,13 +11,13 @@
       "item": "pipeorgans:brass_boot"
     },
     "R": {
-      "tag": "forge:plates/brass"
+      "tag": "c:plates/brass"
     },
     "C": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "item": "pipeorgans:trompette"
+    "id": "pipeorgans:trompette"
   }
 }

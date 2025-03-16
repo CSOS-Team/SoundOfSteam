@@ -11,13 +11,13 @@
       "item": "pipeorgans:dark_oak_boot"
     },
     "R": {
-      "tag": "forge:plates/brass"
+      "tag": "c:plates/brass"
     },
     "C": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "item": "pipeorgans:posaune"
+    "id": "pipeorgans:posaune"
   }
 }
