@@ -2,19 +2,22 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "Z",
-    "Z",
+    "R",
+    "B",
     "C"
   ],
   "key": {
-    "Z": {
-      "tag": "forge:ingots/copper"
+    "B": {
+      "item": "pipeorgans:brass_boot"
+    },
+    "R": {
+      "tag": "c:plates/brass"
     },
     "C": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "item": "pipeorgans:nasard"
+    "id": "pipeorgans:trompette"
   }
 }

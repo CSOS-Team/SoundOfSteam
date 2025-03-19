@@ -2,22 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "P",
-    "S",
+    "Z",
+    "Z",
     "C"
   ],
   "key": {
-    "P": {
-      "item": "minecraft:dark_oak_planks"
-    },
-    "S": {
-      "item": "minecraft:dark_oak_slab"
+    "Z": {
+      "tag": "c:ingots/copper"
     },
     "C": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "item": "pipeorgans:subbass"
+    "id": "pipeorgans:nasard"
   }
 }

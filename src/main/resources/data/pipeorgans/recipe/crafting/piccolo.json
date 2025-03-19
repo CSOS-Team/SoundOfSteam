@@ -2,22 +2,22 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "R",
-    "B",
+    "L",
+    "I",
     "C"
   ],
   "key": {
-    "B": {
-      "item": "pipeorgans:brass_boot"
+    "L": {
+      "item": "minecraft:cherry_log"
     },
-    "R": {
-      "tag": "forge:plates/brass"
+    "I": {
+      "tag": "c:ingots/iron"
     },
     "C": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "item": "pipeorgans:trompette"
+    "id": "pipeorgans:piccolo"
   }
 }

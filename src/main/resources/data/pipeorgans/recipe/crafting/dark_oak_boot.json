@@ -2,16 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "B B",
-    " B "
+    "D D",
+    "D D",
+    "DDD"
   ],
   "key": {
-    "B": {
-      "tag": "forge:ingots/brass"
+    "D": {
+      "item": "minecraft:dark_oak_planks"
     }
   },
   "result": {
-    "item": "pipeorgans:brass_boot",
+    "id": "pipeorgans:dark_oak_boot",
     "count": 6
   }
 }

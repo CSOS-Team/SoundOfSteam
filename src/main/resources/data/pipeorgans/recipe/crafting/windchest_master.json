@@ -1,10 +1,10 @@
-{
+ {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    " P",
-    "SR",
-    " O"
+    " OZ",
+    "SRZ",
+    " OZ"
   ],
   "key": {
     "O": {
@@ -16,12 +16,12 @@
     "R": {
       "item": "minecraft:redstone"
     },
-    "P": {
-      "item": "create:fluid_pipe"
+    "Z": {
+      "tag": "c:ingots/zinc"
     }
   },
   "result": {
-    "item": "pipeorgans:windchest",
-    "count": 6
+    "id": "pipeorgans:windchest_master",
+    "count": 1
   }
 }

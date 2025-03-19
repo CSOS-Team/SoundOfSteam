@@ -3,18 +3,21 @@
   "category": "misc",
   "pattern": [
     "P",
+    "S",
     "C"
   ],
   "key": {
     "P": {
-      "item": "create:fluid_pipe"
+      "item": "minecraft:spruce_planks"
+    },
+    "S": {
+      "item": "minecraft:spruce_slab"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "item": "pipeorgans:base"
     }
   },
   "result": {
-    "item": "pipeorgans:base",
-    "count": 6
+    "id": "pipeorgans:gedeckt"
   }
 }

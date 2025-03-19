@@ -2,22 +2,22 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "L",
-    "I",
+    "P",
+    "S",
     "C"
   ],
   "key": {
-    "L": {
-      "item": "minecraft:cherry_log"
+    "P": {
+      "item": "minecraft:dark_oak_planks"
     },
-    "I": {
-      "tag": "forge:ingots/iron"
+    "S": {
+      "item": "minecraft:dark_oak_slab"
     },
     "C": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "item": "pipeorgans:piccolo"
+    "id": "pipeorgans:subbass"
   }
 }

@@ -3,21 +3,21 @@
   "category": "misc",
   "pattern": [
     "R",
-    "B",
+    "D",
     "C"
   ],
   "key": {
-    "B": {
-      "item": "pipeorgans:copper_boot"
+    "D": {
+      "item": "pipeorgans:dark_oak_boot"
     },
     "R": {
-      "tag": "forge:plates/brass"
+      "tag": "c:plates/brass"
     },
     "C": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "item": "pipeorgans:vox_humana"
+    "id": "pipeorgans:posaune"
   }
 }
