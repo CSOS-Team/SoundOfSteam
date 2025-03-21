@@ -4,7 +4,6 @@ import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.WindchestBlock;
 import com.finchy.pipeorgans.block.WindchestMasterBlock;
 import com.finchy.pipeorgans.block.base.BaseBlock;
-import com.finchy.pipeorgans.block.midiblocks.StopMasterBlock;
 import com.finchy.pipeorgans.block.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.block.pipes.diapason.DiapasonExtensionBlock;
 import com.finchy.pipeorgans.block.pipes.gamba.GambaBlock;
@@ -42,10 +41,6 @@ public class AllBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, PipeOrgans.MOD_ID);
 
     // declare blocks here
-
-    public static final RegistryObject<StopMasterBlock> STOP_MASTER = registerBlock("stop_master",
-            () -> new StopMasterBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)
-                    .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<BaseBlock> BASE = registerBlock("base",
             () -> new BaseBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)

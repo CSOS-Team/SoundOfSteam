@@ -2,7 +2,6 @@ package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.base.BaseBlockEntity;
-import com.finchy.pipeorgans.block.midiblocks.StopMasterBlockEntity;
 import com.finchy.pipeorgans.block.pipes.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.block.pipes.gamba.GambaBlockEntity;
 import com.finchy.pipeorgans.block.pipes.gedeckt.GedecktBlockEntity;
@@ -24,10 +23,6 @@ public class AllBlockEntities {
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, PipeOrgans.MOD_ID);
 
 
-    public static final RegistryObject<BlockEntityType> STOP_MASTER_BLOCK_ENTITY =
-            BLOCK_ENTITIES.register("stop_master_block_entity",
-                    () -> BlockEntityType.Builder.of(StopMasterBlockEntity::new, AllBlocks.STOP_MASTER.get())
-                            .build(null));
 
     public static final RegistryObject<BlockEntityType> BASE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("base_block_entity",

@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans;
 
 import com.finchy.pipeorgans.init.*;
+import com.finchy.pipeorgans.midi.TestPacketHandler;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -46,7 +47,9 @@ public class PipeOrgans
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {}
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        TestPacketHandler.register();
+    }
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {}
