@@ -3,7 +3,7 @@ package com.finchy.pipeorgans;
 import com.finchy.pipeorgans.init.*;
 import com.finchy.pipeorgans.midi.Proxy;
 import com.finchy.pipeorgans.midi.client.ClientProxy;
-import com.finchy.pipeorgans.midi.network.TestPacketHandler;
+import com.finchy.pipeorgans.midi.network.PacketHandler;
 import com.finchy.pipeorgans.midi.server.ServerProxy;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -67,7 +67,7 @@ public class PipeOrgans {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        TestPacketHandler.register();
+        event.enqueueWork(PacketHandler::register);
     }
 
     // Add the example block item to the building blocks tab

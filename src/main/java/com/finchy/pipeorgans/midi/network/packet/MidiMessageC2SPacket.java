@@ -4,18 +4,16 @@ import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.midi.network.CustomPacketPayload;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.UUID;
 import java.util.function.Supplier;
 
 public class MidiMessageC2SPacket implements CustomPacketPayload {
-    public static final ResourceLocation ID = new ResourceLocation(PipeOrgans.MOD_ID, MidiMessageC2SPacket.class.getSimpleName().toLowerCase());
+    public static final ResourceLocation ID = PipeOrgans.asResource(MidiMessageC2SPacket.class.getSimpleName().toLowerCase());
     
     public final Byte channel;
     public final Byte note;
@@ -68,9 +66,14 @@ public class MidiMessageC2SPacket implements CustomPacketPayload {
         buf.writeBlockPos(packet.pos);
     }
 
-    public void handle(Supplier<NetworkEvent.Context> context) {
-        ServerPlayer player = context.get().getSender();
-        assert player != null;
-        EntityType.COW.spawn((ServerLevel) player.level(), player.blockPosition(), MobSpawnType.SPAWN_EGG);
+    public void handle(Supplier<NetworkEvent.Context> supplier) {
+        NetworkEvent.Context context = supplier.get();
+        context.enqueueWork(() -> {
+
+            ServerPlayer player = context.getSender();
+            assert player != null;
+            player.sendSystemMessage(Component.literal(note+", "+pos));
+
+        });
     }
 }
