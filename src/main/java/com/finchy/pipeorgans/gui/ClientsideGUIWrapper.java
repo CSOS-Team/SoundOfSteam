@@ -7,8 +7,8 @@ import net.minecraft.world.level.Level;
 
 public abstract class ClientsideGUIWrapper {
 
-    public static void openMidiConfigGUI(Level level, Player player) {
-        openGUI();
+    public static void openMidiConfigGUI(Level level) {
+        openGUI(level, new MidiConfigGUI("midi_config"));
     }
 
     public static void openGUI(Level level, Screen screen) {
