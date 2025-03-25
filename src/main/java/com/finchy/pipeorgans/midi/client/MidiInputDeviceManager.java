@@ -43,15 +43,6 @@ public class MidiInputDeviceManager {
                 }
             }
         });
-        for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
-            if (info.getName().equals("loopMIDI Port")) {
-                try {
-                    saveDeviceSelection(MidiSystem.getMidiDevice(info));
-                } catch (MidiUnavailableException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     public boolean isDeviceError() {
@@ -60,10 +51,6 @@ public class MidiInputDeviceManager {
 
     public boolean isDeviceSelected() {
         return (selectedDeviceName != null & !this.selectedDeviceName.trim().isEmpty());
-    }
-
-    public boolean isDeviceAvailable() {
-        return activeTransmitter != null;
     }
 
     public String getSelectedDeviceName() {
@@ -87,10 +74,8 @@ public class MidiInputDeviceManager {
     }
 
     public void saveDeviceSelection(MidiDevice device) {
-        if (activeTransmitter == null) {
-            selectedDeviceName = device.getDeviceInfo().getName();
-            open();
-        }
+        selectedDeviceName = device.getDeviceInfo().getName();
+        open();
     }
 
     public List<MidiDevice> getAvailableDevices() {
@@ -117,9 +102,14 @@ public class MidiInputDeviceManager {
         PipeOrgans.LOGGER.info("Opening MIDI input device: {}", selectedDeviceName);
 
         for (MidiDevice device : getAvailableDevices()) {
-            if (device.getDeviceInfo().getName().equals(selectedDeviceName) && activeDevice == null) {
+            if (device.getDeviceInfo().getName().equals(selectedDeviceName)) {
                 PipeOrgans.LOGGER.info("Found matching MIDI input device.");
                 try {
+                    if (activeDevice != null) {
+                        activeDevice.close();
+                        activeReceiver.close();
+                        activeReceiver = null;
+                    }
                     activeDevice = device;
                     activeDevice.open();
                     activeTransmitter = device.getTransmitter();
@@ -133,17 +123,14 @@ public class MidiInputDeviceManager {
                 }
             }
         }
-
-        if (!isDeviceAvailable()) {
-            PipeOrgans.LOGGER.error("Failed to open MIDI input device {}: device not found.", selectedDeviceName);
-            midiDeviceError = "device not found";
-        }
     }
 
     public void open() {
-        if (isDeviceSelected() && activeTransmitter == null) {
+        if (isDeviceSelected()) {
             openTransmitter();
+            return;
         }
+        PipeOrgans.LOGGER.error("Error opening MidiInputDeviceManager: no input device selected!");
     }
 
     public void close() {

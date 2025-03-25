@@ -3,13 +3,16 @@ package com.finchy.pipeorgans.gui;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.midi.client.ClientProxy;
 import com.finchy.pipeorgans.midi.client.MidiInputDeviceManager;
+import com.finchy.pipeorgans.util.GuiUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.sound.midi.MidiDevice;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MidiConfigGUI extends Screen {
@@ -22,9 +25,13 @@ public class MidiConfigGUI extends Screen {
     private int cornerY;
 
     private final MidiInputDeviceManager midiInputDeviceManager;
-    private List<MidiDevice> availableMidiDevices;
+    private List<MidiDevice> availableMidiDevices = new ArrayList<>();
     private int selectedDeviceIndex = 0; // from 0 to however many devices there are
+
     private String selectedDeviceName;
+    private String selectedDeviceVendor;
+    private String selectedDeviceVersion;
+    private String selectedDeviceDesc;
 
     protected MidiConfigGUI(String translatableTitle) {
         super(Component.translatable(translatableTitle));
@@ -34,25 +41,33 @@ public class MidiConfigGUI extends Screen {
         // refresh devices list
         reloadDevices();
 
-        setSelectedDeviceName();
-
         reevaluateCorners();
     }
 
     private void previousDevice() {
         selectedDeviceIndex = selectedDeviceIndex > 0 ? selectedDeviceIndex - 1 : availableMidiDevices.size()-1;
-        setSelectedDeviceName();
+        // if 0, loop around, otherwise subtract 1
+        setSelectedDeviceInfo();
     }
 
     private void nextDevice() {
         selectedDeviceIndex = selectedDeviceIndex < availableMidiDevices.size()-1 ? selectedDeviceIndex + 1 : 0;
-        setSelectedDeviceName();
+        // if maximum length, loop around to 0, otherwise add 1
+        setSelectedDeviceInfo();
     }
 
-    private void setSelectedDeviceName() {
-        selectedDeviceName = availableMidiDevices!=null ?
-                availableMidiDevices.get(selectedDeviceIndex).getDeviceInfo().getName() // if devices available
-                :"No MIDI input devices available."; // if no midi input devices available (wow, really?)
+    private void setSelectedDeviceInfo() {
+        if (!availableMidiDevices.isEmpty()) {
+            selectedDeviceName = availableMidiDevices.get(selectedDeviceIndex).getDeviceInfo().getName();
+            selectedDeviceVendor = "Vendor: "+availableMidiDevices.get(selectedDeviceIndex).getDeviceInfo().getVendor();
+            selectedDeviceVersion = "Version: "+availableMidiDevices.get(selectedDeviceIndex).getDeviceInfo().getVersion();
+            selectedDeviceDesc = availableMidiDevices.get(selectedDeviceIndex).getDeviceInfo().getDescription();
+        } else {
+            selectedDeviceName = "No MIDI input devices available."; // if no midi input devices available (wow, really?)
+            selectedDeviceVendor = "";
+            selectedDeviceVersion = "";
+            selectedDeviceDesc = "";
+        }
     }
 
     @Override
@@ -61,12 +76,15 @@ public class MidiConfigGUI extends Screen {
     }
 
     public void reloadDevices() {
+        // for some reason, god only knows why, MidiSystem.getMidiDeviceInfo() doesn't seem to
+        // update when devices are removed - at least not in my testing with loopMIDI.
         availableMidiDevices = midiInputDeviceManager.getAvailableDevices();
-        if (availableMidiDevices != null) {
-            selectedDeviceIndex = 0;
-            return;
-        }
-        selectedDeviceIndex = -1;
+        selectedDeviceIndex = 0;
+        setSelectedDeviceInfo();
+    }
+
+    public void saveSelection() {
+        this.midiInputDeviceManager.saveDeviceSelection(availableMidiDevices.get(selectedDeviceIndex));
     }
 
     @Override
@@ -93,6 +111,12 @@ public class MidiConfigGUI extends Screen {
                         b -> reloadDevices())
                 .pos(cornerX+167,  cornerY+47).size(16, 16).build());
 
+        // save button
+        addRenderableWidget(net.minecraft.client.gui.components.Button.builder(
+                        Component.literal(""),
+                        b -> saveSelection())
+                .pos(cornerX+185,  cornerY+47).size(16, 16).build());
+
     }
 
     private void reevaluateCorners() {
@@ -111,11 +135,17 @@ public class MidiConfigGUI extends Screen {
     }
 
     private void renderGraphics(GuiGraphics graphics) {
-        graphics.blit(guiTexture, cornerX, cornerY, 0, 0, GUI_WIDTH, GUI_HEIGHT);
+        graphics.blit(guiTexture, cornerX, cornerY, 0, 0, GUI_WIDTH, GUI_HEIGHT); // base texture
     }
 
     private void renderText(GuiGraphics graphics) {
-        // selected device name label
+        // name label
         graphics.drawString(minecraft.font, selectedDeviceName, cornerX+28, cornerY+51, 16777215, true);
+        // vendor label
+        graphics.drawString(minecraft.font, selectedDeviceVendor, cornerX+10, cornerY+70, 16777215, true);
+        // version label
+        graphics.drawString(minecraft.font, selectedDeviceVersion, cornerX+10, cornerY+81, 16777215, true);
+        // description label
+        GuiUtils.drawWordWrapDropShadow(graphics, minecraft.font, FormattedText.of(selectedDeviceDesc), cornerX+10, cornerY+92, 188, 16777215, true);
     }
 }
