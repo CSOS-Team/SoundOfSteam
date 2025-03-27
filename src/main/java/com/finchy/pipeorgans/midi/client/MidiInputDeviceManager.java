@@ -15,7 +15,6 @@ public class MidiInputDeviceManager {
     protected Receiver activeReceiver = null;
     protected Transmitter activeTransmitter = null;
     protected MidiDevice activeDevice = null;
-    private boolean transmitMidiInput = false;
     private String selectedDeviceName = "";
     private String midiDeviceError = null;
 
@@ -45,8 +44,11 @@ public class MidiInputDeviceManager {
         });
     }
 
-    public boolean isDeviceError() {
-        return midiDeviceError != null;
+    public String getActiveDeviceName() {
+        if (activeDevice != null) {
+            return activeDevice.getDeviceInfo().getName();
+        }
+        return "None";
     }
 
     public boolean isDeviceSelected() {
@@ -59,18 +61,6 @@ public class MidiInputDeviceManager {
 
     public String getSelectedDeviceError() {
         return midiDeviceError;
-    }
-
-    public boolean getTransmitMidiInput() {
-        return transmitMidiInput;
-    }
-
-    public void toggleTransmitMidiInput() {
-        transmitMidiInput = !this.transmitMidiInput;
-    }
-
-    public void setTransmitMidiInput(boolean newTransmit) {
-        transmitMidiInput = newTransmit;
     }
 
     public void saveDeviceSelection(MidiDevice device) {
