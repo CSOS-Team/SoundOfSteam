@@ -158,7 +158,7 @@ public class MidiConfigGUI extends Screen {
     private void renderText(GuiGraphics graphics) {
         // current device label
         graphics.drawString(minecraft.font, activeDeviceName,
-                cornerX+deviceLabelsX, cornerY+31, 0, false);
+                cornerX+deviceLabelsX, cornerY+31, 16777215, true);
         // name label
         graphics.drawString(minecraft.font, selectedDeviceName,
                 cornerX+28, cornerY+51, 16777215, true);
