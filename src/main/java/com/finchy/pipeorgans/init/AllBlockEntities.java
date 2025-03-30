@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.base.BaseBlockEntity;
+import com.finchy.pipeorgans.block.midi.KeyboardRelayBlockEntity;
 import com.finchy.pipeorgans.block.pipes.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.block.pipes.gamba.GambaBlockEntity;
 import com.finchy.pipeorgans.block.pipes.gedeckt.GedecktBlockEntity;
@@ -27,6 +28,11 @@ public class AllBlockEntities {
     public static final RegistryObject<BlockEntityType> BASE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("base_block_entity",
                     () -> BlockEntityType.Builder.of(BaseBlockEntity::new, AllBlocks.BASE.get())
+                            .build(null));
+
+    public static final RegistryObject<BlockEntityType> KEYBOARD_RELAY_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("keyboard_relay_block_entity",
+                    () -> BlockEntityType.Builder.of(KeyboardRelayBlockEntity::new, AllBlocks.KEYBOARD_RELAY.get())
                             .build(null));
 
 

@@ -1,11 +1,13 @@
 package com.finchy.pipeorgans.midi.network.packet;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.block.midi.KeyboardRelayBlockEntity;
 import com.finchy.pipeorgans.midi.network.CustomPacketPayload;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -72,7 +74,14 @@ public class MidiMessageC2SPacket implements CustomPacketPayload {
 
             ServerPlayer player = context.getSender();
             assert player != null;
-            player.sendSystemMessage(Component.literal(note+", "+pos));
+            ServerLevel level = (ServerLevel) player.level();
+            if (KeyboardRelayBlockEntity.playerIsUsing(player)) {
+                BlockPos pos = KeyboardRelayBlockEntity.playerUsingKBRPos(player);
+                if (level.getBlockEntity(pos) instanceof KeyboardRelayBlockEntity kbr
+                        && kbr.isUsedBy(player)) {
+                    player.sendSystemMessage(Component.literal(""+pos));
+                }
+            }
 
         });
     }

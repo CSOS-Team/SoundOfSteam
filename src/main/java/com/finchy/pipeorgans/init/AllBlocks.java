@@ -4,6 +4,7 @@ import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.block.WindchestBlock;
 import com.finchy.pipeorgans.block.WindchestMasterBlock;
 import com.finchy.pipeorgans.block.base.BaseBlock;
+import com.finchy.pipeorgans.block.midi.KeyboardRelayBlock;
 import com.finchy.pipeorgans.block.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.block.pipes.diapason.DiapasonExtensionBlock;
 import com.finchy.pipeorgans.block.pipes.gamba.GambaBlock;
@@ -44,6 +45,10 @@ public class AllBlocks {
 
     public static final RegistryObject<BaseBlock> BASE = registerBlock("base",
             () -> new BaseBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<KeyboardRelayBlock> KEYBOARD_RELAY = registerBlock("keyboard_relay",
+            () -> new KeyboardRelayBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<WindchestBlock> WINDCHEST = registerBlock("windchest",
