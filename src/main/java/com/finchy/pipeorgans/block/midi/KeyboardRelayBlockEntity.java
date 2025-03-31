@@ -1,11 +1,9 @@
 package com.finchy.pipeorgans.block.midi;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -14,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +21,8 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
     private UUID user;
     private boolean deactivatedThisTick;
 
+    private final ArrayList<StopMasterBlockEntity> linkedStopMasters = new ArrayList<>();
+
     public KeyboardRelayBlockEntity(BlockPos pos, BlockState state) {
         super(AllBlockEntities.KEYBOARD_RELAY_BLOCK_ENTITY.get(), pos, state);
     }
@@ -29,8 +30,27 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
+    public void linkStopMaster(StopMasterBlockEntity sm) {
+        if (sm.linkedSource == this) {
+            linkedStopMasters.add(sm);
+        }
+    }
+
+    public void removeStopMaster(StopMasterBlockEntity sm) {
+        if (sm.linkedSource == this) {
+            linkedStopMasters.remove(sm);
+        }
+    }
+
+    public void removeFromAllStopMasters() {
+        for (StopMasterBlockEntity sm : linkedStopMasters) {
+            if (sm.linkedSource == this) {
+                sm.linkedSource = null;
+            }
+        }
+    }
+
     public void tryStartUsing(Player player) {
-        PipeOrgans.LOGGER.error("TRYSTART");
         if (!deactivatedThisTick && !hasUser() && !playerIsUsing(player) && playerInRange(player, level, worldPosition)) {
             startUsing(player);
         }
@@ -43,12 +63,10 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
     }
 
     private void startUsing(Player player) {
-        PipeOrgans.LOGGER.error("START");
         user = player.getUUID();
         player.getPersistentData().putBoolean("IsUsingKeyboardRelay", true);
         player.getPersistentData().putIntArray("UsingKBRelayPos", new int[]{worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()});
         sendData();
-        player.sendSystemMessage(Component.literal("STARTED USING"));
     }
 
     private void stopUsing(Player player) {
@@ -59,7 +77,6 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         }
         deactivatedThisTick = true;
         sendData();
-        player.sendSystemMessage(Component.literal("STOPPED USING"));
     }
 
     public static boolean playerIsUsing(Player player) {
@@ -100,7 +117,17 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
     }
 
     public static boolean playerInRange(Player player, Level world, BlockPos pos) {
+        if (player.level() != world) {
+            return false;
+        }
         double reach = 0.4 * player.getAttributeValue(ForgeMod.BLOCK_REACH.get());
         return player.distanceToSqr(Vec3.atCenterOf(pos)) < reach * reach;
+    }
+
+    public void blockRemoved() {
+        Entity playerEntity = ((ServerLevel)this.level).getEntity(this.user);
+        if (playerEntity instanceof Player) {
+            tryStopUsing((Player)playerEntity);
+        }
     }
 }

@@ -1,14 +1,11 @@
 package com.finchy.pipeorgans.block.midi;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -16,6 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
+@SuppressWarnings("NullableProblems")
 public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockEntity>, IWrenchable {
 
     public KeyboardRelayBlock(Properties pProperties) {
@@ -50,10 +48,8 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
 
             }
 
-            PipeOrgans.LOGGER.error("SUCCESS");
             return InteractionResult.SUCCESS;
         }
-        PipeOrgans.LOGGER.error("TOO FAR");
         return InteractionResult.PASS;
     }
 
@@ -61,12 +57,9 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
         if (!pState.is(pNewState.getBlock())) {
             if (!pLevel.isClientSide) {
-                Entity playerEntity = ((ServerLevel) pLevel).getEntity(user);
-                if (playerEntity instanceof Player)
-                    stopUsing((Player) playerEntity);
-                withBlockEntityDo(world, pos, be -> be.tryStopUsing(state));
+                withBlockEntityDo(pLevel, pPos, KeyboardRelayBlockEntity::blockRemoved);
             }
-            super.onRemove(state, world, pos, newState, isMoving);
+            super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
         }
     }
 }
