@@ -1,5 +1,7 @@
-package com.finchy.pipeorgans.content.pipes.generic;
+package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
+import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

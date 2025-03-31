@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.content.pipes.trompette;
 
 import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
-import com.finchy.pipeorgans.content.pipes.generic.ReedBlockEntity;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.ReedBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
 import net.minecraft.client.Minecraft;

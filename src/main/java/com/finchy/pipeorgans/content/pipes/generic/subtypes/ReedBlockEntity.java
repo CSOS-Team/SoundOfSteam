@@ -1,5 +1,7 @@
-package com.finchy.pipeorgans.content.pipes.generic;
+package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
+import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockEntity;
+import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;

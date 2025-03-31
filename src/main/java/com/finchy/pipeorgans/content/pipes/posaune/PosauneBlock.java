@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.content.pipes.posaune;
 
 import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
-import com.finchy.pipeorgans.content.pipes.generic.PedalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.PedalPipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;

@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.content.pipes.piccolo;
 
 import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
-import com.finchy.pipeorgans.content.pipes.generic.QuadruplePipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadruplePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 

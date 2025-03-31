@@ -1,5 +1,7 @@
-package com.finchy.pipeorgans.content.pipes.generic;
+package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
+import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
@@ -9,26 +11,13 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class PedalPipeBlock extends GenericPipeBlock {
+public class QuadruplePipeBlock extends GenericPipeBlock {
 
-    public PedalPipeBlock(Properties pProperties) {
+    public QuadruplePipeBlock(Properties pProperties) {
         super(pProperties);
-        registerDefaultState(defaultBlockState()
-                .setValue(FACING, Direction.NORTH)
-                .setValue(POWERED, false)
-                .setValue(WALL, false)
-                .setValue(SIZE, GenericWhistleProperties.WhistleSize.LARGE));
-        this.extensionsPerBlock = 1;
+        this.extensionsPerBlock = 4;
     }
 
-    // called when wrenched
-    @Override
-    public BlockState getRotatedBlockState(BlockState originalState, Direction targetedFace) {
-        return originalState.getValue(SIZE) == GenericWhistleProperties.WhistleSize.HUGE ?
-                originalState.setValue(SIZE, GenericWhistleProperties.WhistleSize.SMALL) : originalState.cycle(SIZE);
-    }
-
-    @Override
     // increase length of whistle
     public void incrementSize(LevelAccessor pLevel, BlockPos pPos, boolean playSound) {
         BlockState base = pLevel.getBlockState(pPos);
@@ -44,15 +33,33 @@ public class PedalPipeBlock extends GenericPipeBlock {
         SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.get();
         SoundEvent hitSound = soundtype.getHitSound();
 
-        for (int i = 1; i <= 12; i+=1) {
+        for (int i = 1; i <= 12; i+=4) {
             BlockState blockState = pLevel.getBlockState(currentPos);
 
-            if (blockState.getBlock() instanceof PedalExtensionBlock) {
+            if (blockState.getBlock() instanceof QuadrupleExtensionBlock) {
+
+                // if block above is extension
+                if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) != GenericWhistleProperties.QuadrupleExtensionShape.QUAD
+                        && blockState.getValue(QuadrupleExtensionBlock.SHAPE) != GenericWhistleProperties.QuadrupleExtensionShape.QUAD_CONNECTED) {
+                    // if extension is single, double, or triple
+                    pLevel.setBlock(currentPos, blockState.cycle(QuadrupleExtensionBlock.SHAPE).setValue(FACING, facing), 3);
+                    if (playSound) {
+                        switch (blockState.getValue(QuadrupleExtensionBlock.SHAPE)) {
+                            case SINGLE -> i+=1;
+                            case DOUBLE -> i+=2;
+                            case TRIPLE -> i+=3;
+                        }
+                        float pPitch = (float) Math.pow(2, -i / 12.0);
+                        pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
+                        pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
+                    }
+                    return;
+                }
                 currentPos = currentPos.above();
                 continue;
             }
 
-            // if pos is not extension (air)
+            // if block above is not extension (air)
             if (!blockState.canBeReplaced()) {
                 return;
             }
@@ -68,4 +75,5 @@ public class PedalPipeBlock extends GenericPipeBlock {
             return;
         }
     }
+
 }

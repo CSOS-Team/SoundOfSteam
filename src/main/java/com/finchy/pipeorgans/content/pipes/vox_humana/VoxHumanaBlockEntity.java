@@ -2,7 +2,7 @@ package com.finchy.pipeorgans.content.pipes.vox_humana;
 
 import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
-import com.finchy.pipeorgans.content.pipes.generic.ReedBlockEntity;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.ReedBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;

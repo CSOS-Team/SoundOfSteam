@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.PedalPipeBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.AllSoundEvents;
