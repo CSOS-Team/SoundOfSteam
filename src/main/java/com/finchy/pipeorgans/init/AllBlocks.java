@@ -130,7 +130,7 @@ public class AllBlocks {
             () -> new PosauneExtensionBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)
                     .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<VoxHumanaBlock   > VOX_HUMANA = registerPipeBlock("vox_humana", "8",
+    public static final RegistryObject<VoxHumanaBlock> VOX_HUMANA = registerPipeBlock("vox_humana", "8",
             () -> new VoxHumanaBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
                     .requiresCorrectToolForDrops()));
 
@@ -147,8 +147,7 @@ public class AllBlocks {
     }
 
     private static <T extends Block> RegistryObject<T> registerBlockWithoutItem(String name, Supplier<T> block) {
-        RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        return toReturn;
+        return BLOCKS.register(name, block);
     }
 
     private static <T extends Block> void registerPipeBlockItem(String name, RegistryObject<T> block, String octave) {
@@ -163,8 +162,8 @@ public class AllBlocks {
         return toReturn;
     }
 
-    private static <T extends Block>RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
-        return AllItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
+        AllItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
 
