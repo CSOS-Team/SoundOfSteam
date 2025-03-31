@@ -1,0 +1,16 @@
+package com.finchy.pipeorgans.content.pipes.subbass;
+
+import com.finchy.pipeorgans.content.pipes.generic.PedalPipeBlock;
+import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.init.AllBlocks;
+
+public class SubbassBlock extends PedalPipeBlock {
+
+    public SubbassBlock(Properties pProperties) {
+        super(pProperties);
+        this.baseBlock = AllBlocks.SUBBASS;
+        this.extensionBlock = AllBlocks.SUBBASS_EXTENSION;
+        this.blockEntity = AllBlockEntities.SUBBASS_BLOCK_ENTITY;
+    }
+
+}

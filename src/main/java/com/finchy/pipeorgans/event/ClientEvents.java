@@ -1,15 +1,15 @@
 package com.finchy.pipeorgans.event;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.block.pipes.diapason.DiapasonRenderer;
-import com.finchy.pipeorgans.block.pipes.gamba.GambaRenderer;
-import com.finchy.pipeorgans.block.pipes.gedeckt.GedecktRenderer;
-import com.finchy.pipeorgans.block.pipes.nasard.NasardRenderer;
-import com.finchy.pipeorgans.block.pipes.piccolo.PiccoloRenderer;
-import com.finchy.pipeorgans.block.pipes.posaune.PosauneRenderer;
-import com.finchy.pipeorgans.block.pipes.subbass.SubbassRenderer;
-import com.finchy.pipeorgans.block.pipes.trompette.TrompetteRenderer;
-import com.finchy.pipeorgans.block.pipes.vox_humana.VoxHumanaRenderer;
+import com.finchy.pipeorgans.content.pipes.diapason.DiapasonRenderer;
+import com.finchy.pipeorgans.content.pipes.gamba.GambaRenderer;
+import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktRenderer;
+import com.finchy.pipeorgans.content.pipes.nasard.NasardRenderer;
+import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloRenderer;
+import com.finchy.pipeorgans.content.pipes.posaune.PosauneRenderer;
+import com.finchy.pipeorgans.content.pipes.subbass.SubbassRenderer;
+import com.finchy.pipeorgans.content.pipes.trompette.TrompetteRenderer;
+import com.finchy.pipeorgans.content.pipes.vox_humana.VoxHumanaRenderer;
 import com.finchy.pipeorgans.gui.ClientsideGUIWrapper;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.util.Keybinding;

@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.midi.network.packet;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.block.midi.KeyboardRelayBlockEntity;
+import com.finchy.pipeorgans.content.midi.KeyboardRelayBlockEntity;
 import com.finchy.pipeorgans.midi.network.CustomPacketPayload;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;

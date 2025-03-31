@@ -1,29 +1,30 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.block.WindchestBlock;
-import com.finchy.pipeorgans.block.WindchestMasterBlock;
-import com.finchy.pipeorgans.block.base.BaseBlock;
-import com.finchy.pipeorgans.block.midi.KeyboardRelayBlock;
-import com.finchy.pipeorgans.block.pipes.diapason.DiapasonBlock;
-import com.finchy.pipeorgans.block.pipes.diapason.DiapasonExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.gamba.GambaBlock;
-import com.finchy.pipeorgans.block.pipes.gamba.GambaExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.gedeckt.GedecktBlock;
-import com.finchy.pipeorgans.block.pipes.gedeckt.GedecktExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.nasard.NasardBlock;
-import com.finchy.pipeorgans.block.pipes.nasard.NasardExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.piccolo.PiccoloBlock;
-import com.finchy.pipeorgans.block.pipes.piccolo.PiccoloExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.posaune.PosauneBlock;
-import com.finchy.pipeorgans.block.pipes.posaune.PosauneExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.subbass.SubbassBlock;
-import com.finchy.pipeorgans.block.pipes.subbass.SubbassExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.trompette.TrompetteBlock;
-import com.finchy.pipeorgans.block.pipes.trompette.TrompetteExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.vox_humana.VoxHumanaBlock;
-import com.finchy.pipeorgans.block.pipes.vox_humana.VoxHumanaExtensionBlock;
-import com.finchy.pipeorgans.item.GenericPipeBlockItem;
+import com.finchy.pipeorgans.content.windchest.WindchestBlock;
+import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
+import com.finchy.pipeorgans.content.base.BaseBlock;
+import com.finchy.pipeorgans.content.midi.KeyboardRelayBlock;
+import com.finchy.pipeorgans.content.midi.StopMasterBlock;
+import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
+import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.gamba.GambaBlock;
+import com.finchy.pipeorgans.content.pipes.gamba.GambaExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlock;
+import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.nasard.NasardBlock;
+import com.finchy.pipeorgans.content.pipes.nasard.NasardExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloBlock;
+import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlock;
+import com.finchy.pipeorgans.content.pipes.posaune.PosauneExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.subbass.SubbassBlock;
+import com.finchy.pipeorgans.content.pipes.subbass.SubbassExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlock;
+import com.finchy.pipeorgans.content.pipes.trompette.TrompetteExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.vox_humana.VoxHumanaBlock;
+import com.finchy.pipeorgans.content.pipes.vox_humana.VoxHumanaExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -49,6 +50,10 @@ public class AllBlocks {
 
     public static final RegistryObject<KeyboardRelayBlock> KEYBOARD_RELAY = registerBlock("keyboard_relay",
             () -> new KeyboardRelayBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<StopMasterBlock> STOP_MASTER = registerBlock("stop_master",
+            () -> new StopMasterBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<WindchestBlock> WINDCHEST = registerBlock("windchest",

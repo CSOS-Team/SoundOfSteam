@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.init;
 
-import com.finchy.pipeorgans.block.Generic;
+import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -32,7 +32,7 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getGenericBase(Generic.WhistleSize size) {
+    public static VoxelShape getGenericBase(GenericWhistleProperties.WhistleSize size) {
         return switch (size) {
             case TINY -> GENERIC_TINY_BASE;
             case SMALL -> GENERIC_SMALL_BASE;
@@ -42,7 +42,7 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getGenericExtensionShape(Generic.QuadrupleExtensionShape shape, Generic.WhistleSize size) {
+    public static VoxelShape getGenericExtensionShape(GenericWhistleProperties.QuadrupleExtensionShape shape, GenericWhistleProperties.WhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> GENERIC_EXTENSION_TINY_SINGLE;
@@ -75,7 +75,7 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getSlimBase(Generic.WhistleSize size) {
+    public static VoxelShape getSlimBase(GenericWhistleProperties.WhistleSize size) {
         return switch (size) {
             case TINY -> SLIM_TINY_BASE;
             case SMALL -> SLIM_SMALL_BASE;
@@ -85,7 +85,7 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getSlimExtensionShape(Generic.QuadrupleExtensionShape shape, Generic.WhistleSize size) {
+    public static VoxelShape getSlimExtensionShape(GenericWhistleProperties.QuadrupleExtensionShape shape, GenericWhistleProperties.WhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> SLIM_EXTENSION_TINY_SINGLE;

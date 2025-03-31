@@ -1,17 +1,18 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.block.base.BaseBlockEntity;
-import com.finchy.pipeorgans.block.midi.KeyboardRelayBlockEntity;
-import com.finchy.pipeorgans.block.pipes.diapason.DiapasonBlockEntity;
-import com.finchy.pipeorgans.block.pipes.gamba.GambaBlockEntity;
-import com.finchy.pipeorgans.block.pipes.gedeckt.GedecktBlockEntity;
-import com.finchy.pipeorgans.block.pipes.nasard.NasardBlockEntity;
-import com.finchy.pipeorgans.block.pipes.piccolo.PiccoloBlockEntity;
-import com.finchy.pipeorgans.block.pipes.posaune.PosauneBlockEntity;
-import com.finchy.pipeorgans.block.pipes.subbass.SubbassBlockEntity;
-import com.finchy.pipeorgans.block.pipes.trompette.TrompetteBlockEntity;
-import com.finchy.pipeorgans.block.pipes.vox_humana.VoxHumanaBlockEntity;
+import com.finchy.pipeorgans.content.base.BaseBlockEntity;
+import com.finchy.pipeorgans.content.midi.KeyboardRelayBlockEntity;
+import com.finchy.pipeorgans.content.midi.StopMasterBlockEntity;
+import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlockEntity;
+import com.finchy.pipeorgans.content.pipes.gamba.GambaBlockEntity;
+import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlockEntity;
+import com.finchy.pipeorgans.content.pipes.nasard.NasardBlockEntity;
+import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloBlockEntity;
+import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlockEntity;
+import com.finchy.pipeorgans.content.pipes.subbass.SubbassBlockEntity;
+import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlockEntity;
+import com.finchy.pipeorgans.content.pipes.vox_humana.VoxHumanaBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -34,6 +35,11 @@ public class AllBlockEntities {
     public static final RegistryObject<BlockEntityType> KEYBOARD_RELAY_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("keyboard_relay_block_entity",
                     () -> BlockEntityType.Builder.of(KeyboardRelayBlockEntity::new, AllBlocks.KEYBOARD_RELAY.get())
+                            .build(null));
+
+    public static final RegistryObject<BlockEntityType> STOP_MASTER_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("stop_master_block_entity",
+                    () -> BlockEntityType.Builder.of(StopMasterBlockEntity::new, AllBlocks.STOP_MASTER.get())
                             .build(null));
 
 
