@@ -57,9 +57,9 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
         if (!pState.is(pNewState.getBlock())) {
             if (!pLevel.isClientSide) {
-                withBlockEntityDo(pLevel, pPos, KeyboardRelayBlockEntity::blockRemoved);
+                withBlockEntityDo(pLevel, pPos, KeyboardRelayBlockEntity::onBlockRemoved);
             }
-            super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
         }
+        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
     }
 }

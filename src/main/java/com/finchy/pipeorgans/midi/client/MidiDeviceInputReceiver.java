@@ -3,6 +3,8 @@ package com.finchy.pipeorgans.midi.client;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.midi.network.PacketHandler;
 import com.finchy.pipeorgans.midi.network.packet.MidiMessageC2SPacket;
+import com.finchy.pipeorgans.util.MidiUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 
@@ -26,26 +28,18 @@ public class MidiDeviceInputReceiver implements Receiver {
         open = false;
     }
 
-    protected boolean isNoteOn(ShortMessage sm) {
-        return sm.getCommand() == ShortMessage.NOTE_ON && sm.getData2() > 0; // if message is note on AND velocity > 0
-    }
-
-    protected boolean isNoteOff(ShortMessage sm) {
-        return sm.getCommand() == ShortMessage.NOTE_OFF || sm.getData2() == 0; // if message is note off OR velocity == 0
-    }
-
     protected void handleMessage(ShortMessage sm) {
         Player player = Minecraft.getInstance().player;
 
         if (player != null && PipeOrgans.getProxy().isClient()) { // only run on client
-            if (isNoteOn(sm)) { // if message is note on
+            if (MidiUtils.isNoteOn(sm)) { // if message is note on
                 transmitNotePacket( // send packet with channel, note, velocity, player
                         Integer.valueOf(sm.getChannel()).byteValue(),
                         sm.getMessage()[1],
                         sm.getMessage()[2],
                         player
                 );
-            } else if (isNoteOff(sm)) { // if message is note off
+            } else if (MidiUtils.isNoteOff(sm)) { // if message is note off
                 transmitNotePacket( // send packet with channel, note, 0 velocity, player
                         Integer.valueOf(sm.getChannel()).byteValue(),
                         sm.getMessage()[1],

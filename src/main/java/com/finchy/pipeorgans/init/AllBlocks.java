@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.content.midi.StopMasterBlockItem;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.finchy.pipeorgans.content.base.BaseBlock;
@@ -52,9 +53,10 @@ public class AllBlocks {
             () -> new KeyboardRelayBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
                     .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<StopMasterBlock> STOP_MASTER = registerBlock("stop_master",
+    public static final RegistryObject<StopMasterBlock> STOP_MASTER = registerBlockWithoutItem("stop_master",
             () -> new StopMasterBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
                     .requiresCorrectToolForDrops()));
+    static {AllItems.ITEMS.register("stop_master", () -> new StopMasterBlockItem(STOP_MASTER.get(), new Item.Properties()));} // register blockitem for stop_master
 
     public static final RegistryObject<WindchestBlock> WINDCHEST = registerBlock("windchest",
             () -> new WindchestBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)

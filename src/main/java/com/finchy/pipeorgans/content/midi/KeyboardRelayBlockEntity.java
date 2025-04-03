@@ -1,9 +1,12 @@
 package com.finchy.pipeorgans.content.midi;
 
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -30,27 +33,41 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
-    public void linkStopMaster(StopMasterBlockEntity sm) {
-        if (sm.linkedSource == this) {
-            linkedStopMasters.add(sm);
-            sendData();
+    public void sendToStopMasters(MidiMessageServerObject mm) {
+        for (StopMasterBlockEntity sm : linkedStopMasters) {
+            sm.receiveMidiSignal(mm);
+            Minecraft.getInstance().player.sendSystemMessage(Component.literal("KBR->SM"));
         }
     }
 
-    public void removeStopMaster(StopMasterBlockEntity sm) {
-        if (sm.linkedSource == this) {
-            linkedStopMasters.remove(sm);
-            sendData();
-        }
+    public void linkStopMaster(StopMasterBlockEntity be) {
+        // initiated in stopmaster
+        // assuming stopmaster has already added this KBR
+        linkedStopMasters.add(be);
+        sendData();
+    }
+
+    public void removeStopMaster(StopMasterBlockEntity be) {
+        // initiated in stopmaster
+        // when removing stopmaster block
+        linkedStopMasters.remove(be);
+        sendData();
     }
 
     public void removeFromAllStopMasters() {
+        // initiated in KBR
+        // when removing KBR block
         for (StopMasterBlockEntity sm : linkedStopMasters) {
-            if (sm.linkedSource == this) {
-                sm.linkedSource = null;
-                sm.removeSource(this);
-            }
+            sm.removeSource();
         }
+    }
+
+    public void onBlockRemoved() {
+        Entity playerEntity = ((ServerLevel)this.level).getEntity(this.user);
+        if (playerEntity instanceof Player) {
+            tryStopUsing((Player)playerEntity);
+        }
+        removeFromAllStopMasters();
     }
 
     public void tryStartUsing(Player player) {
@@ -70,6 +87,7 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         player.getPersistentData().putBoolean("IsUsingKeyboardRelay", true);
         player.getPersistentData().putIntArray("UsingKBRelayPos", new int[]{worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()});
         sendData();
+        player.sendSystemMessage(Component.literal("STARTED USING"));
     }
 
     private void stopUsing(Player player) {
@@ -80,6 +98,7 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         }
         deactivatedThisTick = true;
         sendData();
+        player.sendSystemMessage(Component.literal("STOPPED USING"));
     }
 
     public static boolean playerIsUsing(Player player) {
@@ -125,13 +144,5 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         }
         double reach = 0.4 * player.getAttributeValue(ForgeMod.BLOCK_REACH.get());
         return player.distanceToSqr(Vec3.atCenterOf(pos)) < reach * reach;
-    }
-
-    public void blockRemoved() {
-        Entity playerEntity = ((ServerLevel)this.level).getEntity(this.user);
-        if (playerEntity instanceof Player) {
-            tryStopUsing((Player)playerEntity);
-        }
-        removeFromAllStopMasters();
     }
 }
