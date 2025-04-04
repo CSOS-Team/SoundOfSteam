@@ -60,6 +60,7 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         for (StopMasterBlockEntity sm : linkedStopMasters) {
             sm.removeSource();
         }
+        // no need to remove linked stopmasters from this KBR because this KBR is about to get removed
     }
 
     public void onBlockRemoved() {

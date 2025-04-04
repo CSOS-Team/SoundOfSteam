@@ -18,15 +18,14 @@ public class StopMasterBlockItem extends BlockItem {
 
     @Override
     public InteractionResult useOn(UseOnContext pContext) {
-        if (pContext.getLevel().isClientSide) {
-            return InteractionResult.PASS;
-        }
-        pContext.getPlayer().sendSystemMessage(Component.literal("LINKED"));
         Level level = pContext.getLevel();
         BlockPos pos = pContext.getClickedPos();
         ItemStack stack = pContext.getItemInHand();
 
-        if (level.getBlockEntity(pos) instanceof KeyboardRelayBlockEntity) { // todo: substitute KBR usages for generic midi source
+        if (level.getBlockEntity(pos) instanceof KeyboardRelayBlockEntity // if clicked on a midi source
+                && !level.isClientSide) { // serverside only
+            // todo: substitute KBR usages for generic midi source
+            pContext.getPlayer().sendSystemMessage(Component.literal("LINKED"));
             CompoundTag tag = stack.getOrCreateTag();
             tag.putIntArray("midi_source_pos",
                     new int[]{pos.getX(), pos.getY(), pos.getZ()} // store midi source coords
@@ -36,5 +35,4 @@ public class StopMasterBlockItem extends BlockItem {
             return super.useOn(pContext);
         }
     }
-
 }

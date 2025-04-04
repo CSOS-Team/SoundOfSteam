@@ -32,12 +32,18 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pLevel.isClientSide) {
+        if (pLevel.isClientSide) { // serverside only
             return InteractionResult.PASS;
         }
+
         if (pHand.equals(InteractionHand.OFF_HAND)) { // temporary, to prevent function being called twice
             return InteractionResult.PASS;
         }
+        if (pPlayer.getItemInHand(pHand).getItem() instanceof StopMasterBlockItem) { // if player is linking stopmaster
+            // surely there's a better way to do it?
+            return InteractionResult.PASS;
+        }
+
         if (KeyboardRelayBlockEntity.playerInRange(pPlayer, pLevel, pPos)) { // if player close enough
 
             if (!KeyboardRelayBlockEntity.playerIsUsing(pPlayer)) { // if player is not currently using a keyboard relay
