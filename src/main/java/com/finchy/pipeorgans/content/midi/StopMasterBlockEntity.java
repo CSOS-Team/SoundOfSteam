@@ -52,8 +52,10 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
     }
 
     public void onBlockRemoved() {
-        linkedSource.removeStopMaster(this); // remove this stopmaster from linked source
-        // no need to remove linked source from this stopmaster because this stopmaster is about to get removed
+        if (linkedSource != null) {
+            linkedSource.removeStopMaster(this); // remove this stopmaster from linked source
+            // no need to remove linked source from this stopmaster because this stopmaster is about to get removed
+        }
     }
 
     public void receiveMidiSignal(MidiMessageServerObject mm) {

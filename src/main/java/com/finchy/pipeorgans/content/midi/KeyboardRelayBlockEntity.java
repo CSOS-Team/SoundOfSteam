@@ -4,9 +4,7 @@ import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -34,9 +32,9 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
     public void sendToStopMasters(MidiMessageServerObject mm) {
+        // todo: check level and pos when sending
         for (StopMasterBlockEntity sm : linkedStopMasters) {
             sm.receiveMidiSignal(mm);
-            Minecraft.getInstance().player.sendSystemMessage(Component.literal("KBR->SM"));
         }
     }
 
@@ -71,6 +69,8 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         removeFromAllStopMasters();
     }
 
+    // todo: if player logs out while using a KBR, set user = null and remove relevant tags from user
+
     public void tryStartUsing(Player player) {
         if (!deactivatedThisTick && !hasUser() && !playerIsUsing(player) && playerInRange(player, level, worldPosition)) {
             startUsing(player);
@@ -88,7 +88,6 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         player.getPersistentData().putBoolean("IsUsingKeyboardRelay", true);
         player.getPersistentData().putIntArray("UsingKBRelayPos", new int[]{worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()});
         sendData();
-        player.sendSystemMessage(Component.literal("STARTED USING"));
     }
 
     private void stopUsing(Player player) {
@@ -99,7 +98,6 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         }
         deactivatedThisTick = true;
         sendData();
-        player.sendSystemMessage(Component.literal("STOPPED USING"));
     }
 
     public static boolean playerIsUsing(Player player) {

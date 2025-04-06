@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.midi;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
@@ -33,6 +32,7 @@ public class StopMasterBlock extends Block implements IBE<StopMasterBlockEntity>
 
     @Override
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
+
         // link to midi source when placed
         if (!pLevel.isClientSide // serverside only
                 && pLevel.getBlockEntity(pPos) instanceof StopMasterBlockEntity be) { // check that be has been placed (and get be)
@@ -61,10 +61,6 @@ public class StopMasterBlock extends Block implements IBE<StopMasterBlockEntity>
                 withBlockEntityDo(pLevel, pPos, StopMasterBlockEntity::onBlockRemoved);
             }
         }
-        PipeOrgans.LOGGER.error("SUPER.ONREMOVE");
-        PipeOrgans.LOGGER.error(""+pState.hasBlockEntity());
-        PipeOrgans.LOGGER.error(""+!pState.is(pNewState.getBlock()));
-        PipeOrgans.LOGGER.error(""+!pNewState.hasBlockEntity());
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
     }
 }

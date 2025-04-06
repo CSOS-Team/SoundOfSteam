@@ -2,7 +2,6 @@ package com.finchy.pipeorgans.content.midi;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -25,7 +24,6 @@ public class StopMasterBlockItem extends BlockItem {
         if (level.getBlockEntity(pos) instanceof KeyboardRelayBlockEntity // if clicked on a midi source
                 && !level.isClientSide) { // serverside only
             // todo: substitute KBR usages for generic midi source
-            pContext.getPlayer().sendSystemMessage(Component.literal("LINKED"));
             CompoundTag tag = stack.getOrCreateTag();
             tag.putIntArray("midi_source_pos",
                     new int[]{pos.getX(), pos.getY(), pos.getZ()} // store midi source coords
