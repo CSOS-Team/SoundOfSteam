@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.midi.network.packet;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.content.midi.KeyboardRelayBlockEntity;
+import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
 import com.finchy.pipeorgans.midi.network.CustomPacketPayload;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import net.minecraft.core.BlockPos;
@@ -76,12 +76,12 @@ public class MidiMessageC2SPacket implements CustomPacketPayload {
             assert player != null;
             ServerLevel level = (ServerLevel) player.level();
 
-            if (KeyboardRelayBlockEntity.playerIsUsing(player)) { // if player is using a KBR
-                BlockPos pos = KeyboardRelayBlockEntity.playerUsingKBRPos(player); // get pos of said KBR
+            BlockPos pos = KeyboardRelayBlockEntity.playerUsingKBRPos(player); // get pos of KBR being used
+            if (pos != null) { // if player is actually using a KBR
 
                 if (level.getBlockEntity(pos) instanceof KeyboardRelayBlockEntity kbr // if there is actually a KBR at that pos
                         && kbr.isUsedBy(player)) { // and that player is using that KBR
-                    kbr.sendToStopMasters(new MidiMessageServerObject(channel, note, velocity)); // send midi data to KBR
+                    kbr.handleMidiObject(new MidiMessageServerObject(channel, note, velocity)); // send midi data to KBR
                 }
             }
 

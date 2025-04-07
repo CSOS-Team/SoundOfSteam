@@ -12,6 +12,7 @@ import com.finchy.pipeorgans.content.pipes.trompette.TrompetteRenderer;
 import com.finchy.pipeorgans.content.pipes.vox_humana.VoxHumanaRenderer;
 import com.finchy.pipeorgans.gui.ClientsideGUIWrapper;
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.init.AllPartialModels;
 import com.finchy.pipeorgans.util.Keybinding;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
@@ -20,10 +21,16 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class ClientEvents {
     @Mod.EventBusSubscriber(modid = PipeOrgans.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ModEventBusClientEvents {
+
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event) {
+            AllPartialModels.init();
+        }
 
         @SubscribeEvent
         public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {

@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.content.midi;
+package com.finchy.pipeorgans.content.midi.stopMaster;
 
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;

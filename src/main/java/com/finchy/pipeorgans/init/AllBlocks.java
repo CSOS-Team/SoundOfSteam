@@ -1,12 +1,12 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.content.midi.StopMasterBlockItem;
+import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockItem;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.finchy.pipeorgans.content.base.BaseBlock;
-import com.finchy.pipeorgans.content.midi.KeyboardRelayBlock;
-import com.finchy.pipeorgans.content.midi.StopMasterBlock;
+import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
+import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaBlock;

@@ -1,10 +1,15 @@
-package com.finchy.pipeorgans.content.midi;
+package com.finchy.pipeorgans.content.midi.keyboardRelay;
 
+import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -19,10 +24,10 @@ import java.util.UUID;
 
 public class KeyboardRelayBlockEntity extends SmartBlockEntity {
 
-    private UUID user;
+    private UUID user = null;
     private boolean deactivatedThisTick;
 
-    private final ArrayList<StopMasterBlockEntity> linkedStopMasters = new ArrayList<>();
+    private final List<BlockPos> linkedCoords = new ArrayList<>();
 
     public KeyboardRelayBlockEntity(BlockPos pos, BlockState state) {
         super(AllBlockEntities.KEYBOARD_RELAY_BLOCK_ENTITY.get(), pos, state);
@@ -31,34 +36,64 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
-    public void sendToStopMasters(MidiMessageServerObject mm) {
+    @Override
+    protected void write(CompoundTag tag, boolean clientPacket) {
+        ListTag coordsList = new ListTag();
+        for (BlockPos pos : linkedCoords) { // for every linked position
+            CompoundTag posTag = new CompoundTag();
+            posTag.putInt("x", pos.getX()); // put x/y/z coords in tag
+            posTag.putInt("y", pos.getY());
+            posTag.putInt("z", pos.getZ());
+            coordsList.add(posTag); // add coords to list
+        }
+        tag.put("linked_coords", coordsList); // add list to NBT
+
+        super.write(tag, clientPacket);
+    }
+
+    @Override
+    protected void read(CompoundTag tag, boolean clientPacket) {
+        ListTag coordsList = tag.getList("linked_coords", Tag.TAG_COMPOUND); // get coords from NBT
+        linkedCoords.clear(); // clear this blockentity's current list
+
+        for (int i=0; i<coordsList.size(); i++) { // for every coord in list
+            CompoundTag posTag = coordsList.getCompound(i);
+            int x = posTag.getInt("x"); // get x/y/z
+            int y = posTag.getInt("y");
+            int z = posTag.getInt("z");
+            linkedCoords.add(new BlockPos(x, y, z)); // add pos to this blockentity's list
+        }
+        super.read(tag, clientPacket);
+    }
+
+    public void handleMidiObject(MidiMessageServerObject mm) {
         // todo: check level and pos when sending
-        for (StopMasterBlockEntity sm : linkedStopMasters) {
-            sm.receiveMidiSignal(mm);
+        for (BlockPos pos : linkedCoords) { // for every linked position
+            if (level.getBlockEntity(pos) instanceof StopMasterBlockEntity sm) { // if stopmaster is at that location
+                sm.receiveMidiSignal(mm); // send midi to stopmaster
+            }
         }
     }
 
     public void linkStopMaster(StopMasterBlockEntity be) {
-        // initiated in stopmaster
-        // assuming stopmaster has already added this KBR
-        linkedStopMasters.add(be);
-        sendData();
+        BlockPos pos = be.getBlockPos(); // get pos of stopmaster
+        if (!linkedCoords.contains(pos)) { // if stopmaster has not already been linked
+            linkedCoords.add(pos); // add pos to list
+        }
+        notifyUpdate();
     }
 
     public void removeStopMaster(StopMasterBlockEntity be) {
-        // initiated in stopmaster
-        // when removing stopmaster block
-        linkedStopMasters.remove(be);
-        sendData();
+        linkedCoords.remove(be.getBlockPos()); // remove pos from list
+        notifyUpdate();
     }
 
     public void removeFromAllStopMasters() {
-        // initiated in KBR
-        // when removing KBR block
-        for (StopMasterBlockEntity sm : linkedStopMasters) {
-            sm.removeSource();
+        for (BlockPos pos : linkedCoords) { // for every linked position
+            if (level.getBlockEntity(pos) instanceof StopMasterBlockEntity sm) { // if stopmaster is at that location
+                sm.removeSource(); // remove source from stopmaster
+            }
         }
-        // no need to remove linked stopmasters from this KBR because this KBR is about to get removed
     }
 
     public void onBlockRemoved() {
@@ -85,28 +120,31 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
 
     private void startUsing(Player player) {
         user = player.getUUID();
-        player.getPersistentData().putBoolean("IsUsingKeyboardRelay", true);
+        player.sendSystemMessage(Component.literal("START"));
         player.getPersistentData().putIntArray("UsingKBRelayPos", new int[]{worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()});
-        sendData();
+        notifyUpdate();
     }
 
     private void stopUsing(Player player) {
         user = null;
         if (player != null) {
-            player.getPersistentData().remove("IsUsingKeyboardRelay");
             player.getPersistentData().remove("UsingKBRelayPos");
+            player.sendSystemMessage(Component.literal("STOP"));
         }
         deactivatedThisTick = true;
-        sendData();
+        notifyUpdate();
     }
 
     public static boolean playerIsUsing(Player player) {
-        return player.getPersistentData().contains("IsUsingKeyboardRelay");
+        return player.getPersistentData().contains("UsingKBRelayPos");
     }
 
     public static BlockPos playerUsingKBRPos(Player player) {
-        int[] pos = player.getPersistentData().getIntArray("UsingKBRelayPos");
-        return new BlockPos(pos[0], pos[1], pos[2]);
+        if (player.getPersistentData().contains("UsingKBRelayPos")) {
+            int[] pos = player.getPersistentData().getIntArray("UsingKBRelayPos");
+            return new BlockPos(pos[0], pos[1], pos[2]);
+        }
+        return null;
     }
 
     public boolean isUsedBy(Player player) {
@@ -143,5 +181,13 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         }
         double reach = 0.4 * player.getAttributeValue(ForgeMod.BLOCK_REACH.get());
         return player.distanceToSqr(Vec3.atCenterOf(pos)) < reach * reach;
+    }
+
+    public CompoundTag createTag() {
+        CompoundTag tag = new CompoundTag();
+        BlockPos blockPos = getBlockPos();
+        int[] writePos = new int[]{blockPos.getX(), blockPos.getY(), blockPos.getZ()};
+        tag.putIntArray("pos", writePos);
+        return tag;
     }
 }

@@ -1,5 +1,6 @@
-package com.finchy.pipeorgans.content.midi;
+package com.finchy.pipeorgans.content.midi.stopMaster;
 
+import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionResult;

@@ -2,8 +2,8 @@ package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlockEntity;
-import com.finchy.pipeorgans.content.midi.KeyboardRelayBlockEntity;
-import com.finchy.pipeorgans.content.midi.StopMasterBlockEntity;
+import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
+import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaBlockEntity;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlockEntity;

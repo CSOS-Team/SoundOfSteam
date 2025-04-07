@@ -1,5 +1,6 @@
-package com.finchy.pipeorgans.content.midi;
+package com.finchy.pipeorgans.content.midi.keyboardRelay;
 
+import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockItem;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
