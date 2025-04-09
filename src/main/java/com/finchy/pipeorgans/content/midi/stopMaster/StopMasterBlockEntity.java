@@ -3,21 +3,29 @@ package com.finchy.pipeorgans.content.midi.stopMaster;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
+import com.simibubi.create.content.redstone.link.RedstoneLinkFrequencySlot;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 
 public class StopMasterBlockEntity extends SmartBlockEntity {
 
     private BlockPos linkedCoord = null;
+
+    private StopMasterLinkBehaviour link;
+    private int transmittedSignal;
 
     private int[] enabledChannels;
 
@@ -26,7 +34,16 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
     }
 
     @Override
-    public void addBehaviours(List<BlockEntityBehaviour> list) {}
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+        createLink();
+        behaviours.add(link);
+    }
+
+    @Override
+    public void addBehavioursDeferred(List<BlockEntityBehaviour> behaviours) {
+        createLink();
+        behaviours.add(link);
+    }
 
     @Override
     protected void write(CompoundTag tag, boolean clientPacket) {
@@ -43,13 +60,35 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
     @Override
     protected void read(CompoundTag tag, boolean clientPacket) {
         CompoundTag posTag = (CompoundTag) tag.get("source_coord"); // get coords from NBT
-        int x = posTag.getInt("x"); // get x/y/z
-        int y = posTag.getInt("y");
-        int z = posTag.getInt("z");
-        linkedCoord = new BlockPos(x, y, z); // set pos as this blockentity's linked coord
+        if (posTag != null) {
+            int x = posTag.getInt("x"); // get x/y/z
+            int y = posTag.getInt("y");
+            int z = posTag.getInt("z");
+            linkedCoord = new BlockPos(x, y, z); // set pos as this blockentity's linked coord
+        }
 
         super.read(tag, clientPacket);
     }
+
+    // REDSTONE LINK INTERFACE
+
+    protected void createLink() {
+        Pair<ValueBoxTransform, ValueBoxTransform> slots =
+                ValueBoxTransform.Dual.makeSlots(RedstoneLinkFrequencySlot::new);
+        link = StopMasterLinkBehaviour.transmitter(this, slots, this::getSignal);
+    }
+
+    public int getSignal() {
+        return transmittedSignal;
+    }
+
+    public void transmit(int strength) {
+        transmittedSignal = strength;
+        if (link != null)
+            link.notifySignalChange();
+    }
+
+    // MIDI
 
     public void linkToSource(KeyboardRelayBlockEntity source) {
         // initiated in stopmaster
@@ -84,17 +123,28 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
     public void receiveMidiSignal(MidiMessageServerObject mm) {
         if (mm.velocity > 0) { // if note on
             level.setBlock(worldPosition.above(), Blocks.STONE.defaultBlockState(), 3);
+            handleNoteOn(mm.note, mm.velocity);
         } else { // if note off
             level.setBlock(worldPosition.above(), Blocks.AIR.defaultBlockState(), 3);
+            handleNoteOff(mm.note, mm.velocity);
         }
         Minecraft.getInstance().player.sendSystemMessage(Component.literal("SM"));
     }
 
-    public CompoundTag createTag() {
-        CompoundTag tag = new CompoundTag();
-        BlockPos blockPos = getBlockPos();
-        int[] writePos = new int[]{blockPos.getX(), blockPos.getY(), blockPos.getZ()};
-        tag.putIntArray("pos", writePos);
-        return tag;
+    private void handleNoteOn(int pitch, int velocity) {
+    }
+
+    private void handleNoteOff(int pitch, int velocity) {
+    }
+
+    public void transmitOnNote(int pitch, int velocity) {
+        ItemStack freq = pitch==60? new ItemStack(Items.COBBLESTONE):new ItemStack(Items.OAK_PLANKS);
+        link.setFrequencyWorse(freq, new ItemStack(Items.AIR), velocity>0);
+        transmit(velocity>0?15:0);
+    }
+
+    public void test() {
+        link.setFrequency(true, new ItemStack(Items.COBBLESTONE));
+        transmit(15);
     }
 }

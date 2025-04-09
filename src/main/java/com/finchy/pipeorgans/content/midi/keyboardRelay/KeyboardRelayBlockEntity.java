@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.midi.keyboardRelay;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
@@ -67,7 +68,6 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
     }
 
     public void handleMidiObject(MidiMessageServerObject mm) {
-        // todo: check level and pos when sending
         for (BlockPos pos : linkedCoords) { // for every linked position
             if (level.getBlockEntity(pos) instanceof StopMasterBlockEntity sm) { // if stopmaster is at that location
                 sm.receiveMidiSignal(mm); // send midi to stopmaster
@@ -104,15 +104,15 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         removeFromAllStopMasters();
     }
 
-    // todo: if player logs out while using a KBR, set user = null and remove relevant tags from user
-
     public void tryStartUsing(Player player) {
+        PipeOrgans.LOGGER.info("TRY START USING");
         if (!deactivatedThisTick && !hasUser() && !playerIsUsing(player) && playerInRange(player, level, worldPosition)) {
             startUsing(player);
         }
     }
 
     public void tryStopUsing(Player player) {
+        PipeOrgans.LOGGER.info("TRY STOP USING");
         if (isUsedBy(player)) {
             stopUsing(player);
         }
@@ -126,6 +126,7 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
     }
 
     private void stopUsing(Player player) {
+        PipeOrgans.LOGGER.info("STOP USING");
         user = null;
         if (player != null) {
             player.getPersistentData().remove("UsingKBRelayPos");
@@ -181,13 +182,5 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         }
         double reach = 0.4 * player.getAttributeValue(ForgeMod.BLOCK_REACH.get());
         return player.distanceToSqr(Vec3.atCenterOf(pos)) < reach * reach;
-    }
-
-    public CompoundTag createTag() {
-        CompoundTag tag = new CompoundTag();
-        BlockPos blockPos = getBlockPos();
-        int[] writePos = new int[]{blockPos.getX(), blockPos.getY(), blockPos.getZ()};
-        tag.putIntArray("pos", writePos);
-        return tag;
     }
 }

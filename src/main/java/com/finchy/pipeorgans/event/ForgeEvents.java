@@ -23,8 +23,11 @@ public class ForgeEvents {
         BlockPos pos = KeyboardRelayBlockEntity.playerUsingKBRPos(player); // get pos of KBR being used
         if (pos != null) { // if player is actually using a KBR
 
+            player.getPersistentData().remove("UsingKBRelayPos"); // just in case
+
             if (level.getBlockEntity(pos) instanceof KeyboardRelayBlockEntity kbr // if there is actually a KBR at that pos
                     && kbr.isUsedBy(player)) { // and that player is using that KBR
+                PipeOrgans.LOGGER.info("LOGOUT:");
                 kbr.tryStopUsing(player);
             }
         }
