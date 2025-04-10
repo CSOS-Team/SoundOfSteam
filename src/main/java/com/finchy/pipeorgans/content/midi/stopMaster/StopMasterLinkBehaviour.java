@@ -135,23 +135,7 @@ public class StopMasterLinkBehaviour extends BlockEntityBehaviour implements IRe
 		frequencyLast = Frequency.of(ItemStack.of(nbt.getCompound("FrequencyLast")));
 	}
 
-	public void transmitOnFrequency(ItemStack a, ItemStack b, boolean off) {
-		a = a.copy();
-		b = b.copy();
-
-
-
-	}
-
-	public void addnet() {
-		getHandler().addToNetwork(getWorld(), this);
-	}
-
-	public void removenet() {
-		getHandler().removeFromNetwork(getWorld(), this);
-	}
-
-	public void setFrequencyWorse(ItemStack a, ItemStack b, boolean on) {
+	public void setFrequency(ItemStack a, ItemStack b, boolean on) {
 		a = a.copy();
 		b = b.copy();
 
@@ -163,27 +147,6 @@ public class StopMasterLinkBehaviour extends BlockEntityBehaviour implements IRe
 		} else {
 			getHandler().removeFromNetwork(getWorld(), this);
 		}
-	}
-
-	public void setFrequency(boolean first, ItemStack stack) {
-		stack = stack.copy();
-		stack.setCount(1);
-		ItemStack toCompare = first ? frequencyFirst.getStack() : frequencyLast.getStack();
-		boolean changed = !ItemStack.isSameItemSameTags(stack, toCompare);
-
-		if (changed)
-			getHandler().removeFromNetwork(getWorld(), this);
-
-		if (first)
-			frequencyFirst = Frequency.of(stack);
-		else
-			frequencyLast = Frequency.of(stack);
-
-		if (!changed)
-			return;
-
-		blockEntity.sendData();
-		getHandler().addToNetwork(getWorld(), this);
 	}
 
 	@Override

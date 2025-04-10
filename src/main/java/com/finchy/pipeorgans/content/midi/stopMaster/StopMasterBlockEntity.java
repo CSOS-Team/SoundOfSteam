@@ -3,6 +3,8 @@ package com.finchy.pipeorgans.content.midi.stopMaster;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
+import com.finchy.pipeorgans.util.MathUtils;
+
 import com.simibubi.create.content.redstone.link.RedstoneLinkFrequencySlot;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -82,6 +84,13 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
         return transmittedSignal;
     }
 
+    public void setNoteFrequency(int pitch, int velocity) {
+        ItemStack freq = pitch==60? new ItemStack(Items.COBBLESTONE):new ItemStack(Items.OAK_PLANKS);
+        link.setFrequency(freq, new ItemStack(Items.AIR), velocity>0);
+        int mappedStrength = Math.round(MathUtils.map(velocity, 0, 127, 0, 15));
+        transmit(mappedStrength);
+    }
+
     public void transmit(int strength) {
         transmittedSignal = strength;
         if (link != null)
@@ -132,19 +141,10 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
     }
 
     private void handleNoteOn(int pitch, int velocity) {
+        setNoteFrequency(pitch, velocity);
     }
 
     private void handleNoteOff(int pitch, int velocity) {
-    }
-
-    public void transmitOnNote(int pitch, int velocity) {
-        ItemStack freq = pitch==60? new ItemStack(Items.COBBLESTONE):new ItemStack(Items.OAK_PLANKS);
-        link.setFrequencyWorse(freq, new ItemStack(Items.AIR), velocity>0);
-        transmit(velocity>0?15:0);
-    }
-
-    public void test() {
-        link.setFrequency(true, new ItemStack(Items.COBBLESTONE));
-        transmit(15);
+        setNoteFrequency(pitch, velocity);
     }
 }
