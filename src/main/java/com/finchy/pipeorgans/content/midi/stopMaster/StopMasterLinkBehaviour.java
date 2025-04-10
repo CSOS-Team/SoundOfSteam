@@ -18,7 +18,6 @@ import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.function.Function;
-import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 
 public class StopMasterLinkBehaviour extends BlockEntityBehaviour implements IRedstoneLinkable {
@@ -33,7 +32,6 @@ public class StopMasterLinkBehaviour extends BlockEntityBehaviour implements IRe
 
 	public boolean newPosition;
 	private IntSupplier transmission;
-	private IntConsumer signalCallback;
 
 	protected StopMasterLinkBehaviour(SmartBlockEntity be, Pair<ValueBoxTransform, ValueBoxTransform> slots) {
 		super(be);
@@ -52,18 +50,6 @@ public class StopMasterLinkBehaviour extends BlockEntityBehaviour implements IRe
 		return behaviour;
 	}
 
-	public StopMasterLinkBehaviour moveText(Vec3 shift) {
-		textShift = shift;
-		return this;
-	}
-
-	public void copyItemsFrom(StopMasterLinkBehaviour behaviour) {
-		if (behaviour == null)
-			return;
-		frequencyFirst = behaviour.frequencyFirst;
-		frequencyLast = behaviour.frequencyLast;
-	}
-
 	@Override
 	public boolean isListening() {
 		return false;
@@ -75,11 +61,7 @@ public class StopMasterLinkBehaviour extends BlockEntityBehaviour implements IRe
 	}
 
 	@Override
-	public void setReceivedStrength(int networkPower) {
-		if (!newPosition)
-			return;
-		signalCallback.accept(networkPower);
-	}
+	public void setReceivedStrength(int networkPower) {}
 
 	public void notifySignalChange() {
 		Create.REDSTONE_LINK_NETWORK_HANDLER.updateNetworkOf(getWorld(), this);
@@ -136,8 +118,11 @@ public class StopMasterLinkBehaviour extends BlockEntityBehaviour implements IRe
 	}
 
 	public void setFrequency(ItemStack a, ItemStack b, boolean on) {
+		// copy stacks and reduce to 1 item
 		a = a.copy();
+		a.setCount(1);
 		b = b.copy();
+		b.setCount(1);
 
 		frequencyFirst = Frequency.of(a);
 		frequencyLast = Frequency.of(b);

@@ -20,8 +20,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@SuppressWarnings("DataFlowIssue")
 public class StopMasterBlockEntity extends SmartBlockEntity {
 
     private BlockPos linkedCoord = null;
@@ -29,10 +33,11 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
     private StopMasterLinkBehaviour link;
     private int transmittedSignal;
 
-    private int[] enabledChannels;
+    private ArrayList<Integer> enabledChannels;
 
     public StopMasterBlockEntity(BlockPos pos, BlockState state) {
         super(AllBlockEntities.STOP_MASTER_BLOCK_ENTITY.get(), pos, state);
+        addChannel(1); // DEVELOPMENT ONLY
     }
 
     @Override
@@ -56,6 +61,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
             posTag.putInt("z", linkedCoord.getZ());
             tag.put("source_coord", posTag); // add tag to NBT
         }
+        tag.putIntArray("channels", enabledChannels);
         super.write(tag, clientPacket);
     }
 
@@ -68,6 +74,8 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
             int z = posTag.getInt("z");
             linkedCoord = new BlockPos(x, y, z); // set pos as this blockentity's linked coord
         }
+        int[] channels = tag.getIntArray("channels");
+        enabledChannels = Arrays.stream(channels).boxed().collect(Collectors.toCollection(ArrayList::new));
 
         super.read(tag, clientPacket);
     }
@@ -85,9 +93,14 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
     }
 
     public void setNoteFrequency(int pitch, int velocity) {
+        // determine frequency to be used for note
         ItemStack freq = pitch==60? new ItemStack(Items.COBBLESTONE):new ItemStack(Items.OAK_PLANKS);
+
         link.setFrequency(freq, new ItemStack(Items.AIR), velocity>0);
+
+        // convert 0-127 velocity to 0-15 redstone strength
         int mappedStrength = Math.round(MathUtils.map(velocity, 0, 127, 0, 15));
+
         transmit(mappedStrength);
     }
 
@@ -129,12 +142,38 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
         }
     }
 
+    public void addChannel(int channel) {
+        if (!enabledChannels.contains(channel)) {
+            enabledChannels.add(channel);
+            enabledChannels.sort(Integer::compareTo);
+        }
+    }
+
+    public void removeChannel(int channel) {
+        if (enabledChannels.contains(channel)) {
+            enabledChannels.remove(channel);
+        }
+    }
+
+    public void toggleChannel(int channel) {
+        if (enabledChannels.contains(channel)) {
+            enabledChannels.remove(channel);
+        } else {
+            enabledChannels.add(channel);
+            enabledChannels.sort(Integer::compareTo);
+        }
+    }
+
     public void receiveMidiSignal(MidiMessageServerObject mm) {
+        if (!enabledChannels.contains(mm.channel)) {
+            return;
+        }
+
         if (mm.velocity > 0) { // if note on
-            level.setBlock(worldPosition.above(), Blocks.STONE.defaultBlockState(), 3);
+            level.setBlock(worldPosition.above(), Blocks.STONE.defaultBlockState(), 3); // TESTING ONLY
             handleNoteOn(mm.note, mm.velocity);
         } else { // if note off
-            level.setBlock(worldPosition.above(), Blocks.AIR.defaultBlockState(), 3);
+            level.setBlock(worldPosition.above(), Blocks.AIR.defaultBlockState(), 3); // TESTING ONLY
             handleNoteOff(mm.note, mm.velocity);
         }
         Minecraft.getInstance().player.sendSystemMessage(Component.literal("SM"));
