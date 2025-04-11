@@ -5,6 +5,7 @@ import com.finchy.pipeorgans.midi.client.ClientProxy;
 import com.finchy.pipeorgans.midi.client.MidiInputDeviceManager;
 import com.finchy.pipeorgans.util.GuiUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -36,6 +37,9 @@ public class MidiConfigGUI extends Screen {
     private final MidiInputDeviceManager midiInputDeviceManager;
     private List<MidiDevice> availableMidiDevices = new ArrayList<>();
     private int selectedDeviceIndex = 0; // from 0 to however many devices there are
+
+    private final Component title = Component.translatable("gui.pipeorgans.midi_config");
+    private final Font font = Minecraft.getInstance().font;
 
     private String selectedDeviceName;
     private String selectedDeviceVendor;
@@ -156,20 +160,24 @@ public class MidiConfigGUI extends Screen {
     }
 
     private void renderText(GuiGraphics graphics) {
+        // title label
+        graphics.drawString(font, title,
+                cornerX+8, cornerY+6, 4210752, false);
+
         // current device label
-        graphics.drawString(minecraft.font, activeDeviceName,
+        graphics.drawString(font, activeDeviceName,
                 cornerX+deviceLabelsX, cornerY+31, 16777215, true);
         // name label
-        graphics.drawString(minecraft.font, selectedDeviceName,
+        graphics.drawString(font, selectedDeviceName,
                 cornerX+28, cornerY+51, 16777215, true);
         // vendor label
-        graphics.drawString(minecraft.font, selectedDeviceVendor,
+        graphics.drawString(font, selectedDeviceVendor,
                 cornerX+deviceLabelsX, cornerY+70, 16777215, true);
         // version label
-        graphics.drawString(minecraft.font, selectedDeviceVersion,
+        graphics.drawString(font, selectedDeviceVersion,
                 cornerX+deviceLabelsX, cornerY+81, 16777215, true);
         // description label
-        GuiUtils.drawWordWrapDropShadow(graphics, minecraft.font, FormattedText.of(selectedDeviceDesc),
+        GuiUtils.drawWordWrapDropShadow(graphics, font, FormattedText.of(selectedDeviceDesc),
                 cornerX+10, cornerY+92, 188, 16777215, true);
     }
 }

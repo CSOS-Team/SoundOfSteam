@@ -33,7 +33,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
     private StopMasterLinkBehaviour link;
     private int transmittedSignal;
 
-    private ArrayList<Integer> enabledChannels;
+    private ArrayList<Integer> enabledChannels = new ArrayList<>(){};
 
     public StopMasterBlockEntity(BlockPos pos, BlockState state) {
         super(AllBlockEntities.STOP_MASTER_BLOCK_ENTITY.get(), pos, state);
