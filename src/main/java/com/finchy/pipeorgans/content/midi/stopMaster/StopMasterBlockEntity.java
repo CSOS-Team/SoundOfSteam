@@ -4,7 +4,6 @@ import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import com.finchy.pipeorgans.util.MathUtils;
-
 import com.simibubi.create.content.redstone.link.RedstoneLinkFrequencySlot;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -37,7 +36,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
 
     public StopMasterBlockEntity(BlockPos pos, BlockState state) {
         super(AllBlockEntities.STOP_MASTER_BLOCK_ENTITY.get(), pos, state);
-        addChannel(1); // DEVELOPMENT ONLY
+        addChannel(0); // DEVELOPMENT ONLY
     }
 
     @Override
@@ -142,6 +141,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
         }
     }
 
+    // REMEMBER CHANNELS START AT ZERO!
     public void addChannel(int channel) {
         if (!enabledChannels.contains(channel)) {
             enabledChannels.add(channel);

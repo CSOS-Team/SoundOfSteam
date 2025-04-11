@@ -3,7 +3,7 @@ package com.finchy.pipeorgans.midi.client;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.midi.network.PacketHandler;
 import com.finchy.pipeorgans.midi.network.packet.MidiMessageC2SPacket;
-import com.finchy.pipeorgans.util.MidiUtils;
+import com.finchy.pipeorgans.util.midi.MidiUtils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
