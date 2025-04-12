@@ -1,8 +1,8 @@
 {
-  "pipeorgans.creativetab.pipes": "Create: Музыка пара",
-  "key.category.pipeorgans": "Create: Sound of Steam",
-  "key.pipeorgans.midi_config": "Open MIDI Config GUI",
-  "gui.pipeorgans.midi_config": "MIDI Input Device Config",
+  "pipeorgans.creativetab.pipes": "Создание: Звук Steam",
+  "key.category.pipeorgans": "Create: Музыка пара",
+  "key.pipeorgans.midi_config": "",
+  "gui.pipeorgans.midi_config": "",
   "pipeorgans.stopsize.2": "§72'",
   "pipeorgans.stopsize.223": "§72-2/3'",
   "pipeorgans.stopsize.4": "§74'",
