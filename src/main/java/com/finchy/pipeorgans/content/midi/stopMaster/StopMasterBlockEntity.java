@@ -4,6 +4,9 @@ import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import com.finchy.pipeorgans.util.MathUtils;
+import com.finchy.pipeorgans.util.midi.AllPitchMappings;
+import com.finchy.pipeorgans.util.midi.FinchyPitchMapping;
+import com.finchy.pipeorgans.util.midi.PitchMapping;
 import com.simibubi.create.content.redstone.link.RedstoneLinkFrequencySlot;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -28,6 +31,8 @@ import java.util.stream.Collectors;
 public class StopMasterBlockEntity extends SmartBlockEntity {
 
     private BlockPos linkedCoord = null;
+
+    private PitchMapping mapping = FinchyPitchMapping;
 
     private StopMasterLinkBehaviour link;
     private int transmittedSignal;
@@ -61,6 +66,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
             tag.put("source_coord", posTag); // add tag to NBT
         }
         tag.putIntArray("channels", enabledChannels);
+        tag.putString("mapping", mapping.id);
         super.write(tag, clientPacket);
     }
 
@@ -75,6 +81,9 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
         }
         int[] channels = tag.getIntArray("channels");
         enabledChannels = Arrays.stream(channels).boxed().collect(Collectors.toCollection(ArrayList::new));
+
+        String mappingID = tag.getString("mapping");
+        mapping = AllPitchMappings.getMapping(mappingID);
 
         super.read(tag, clientPacket);
     }

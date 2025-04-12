@@ -9,10 +9,13 @@ import java.util.Map;
 public abstract class PitchMapping {
 
     protected static Map<Integer, Item> pitchMapping;
+    public String id;
 
-    public PitchMapping() {
+    public PitchMapping(String id) {
         pitchMapping = new HashMap<>();
+        this.id = id;
         setMappings();
+        AllPitchMappings.addMapping(id, this);
     }
 
     protected abstract void setMappings();
@@ -26,5 +29,3 @@ public abstract class PitchMapping {
     }
 
 }
-
-
