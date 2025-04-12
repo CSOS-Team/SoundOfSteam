@@ -1,3 +1,4 @@
+base_path: .
 files:
   - source: src/main/resources/assets/pipeorgans/lang/en_us.json
     translation: src/main/resources/assets/pipeorgans/lang/%locale_with_underscore%.%file_extension%
