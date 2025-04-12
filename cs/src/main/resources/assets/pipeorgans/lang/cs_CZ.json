@@ -10,7 +10,7 @@
   "item.pipeorgans.brass_boot": "Brass Boot",
   "item.pipeorgans.dark_oak_boot": "Dark Oak Boot",
   "item.pipeorgans.copper_boot": "Copper Boot",
-  "block.pipeorgans.base": "Pipe Base",
+  "block.pipeorgans.base": "Podstavec píšťaly",
   "block.pipeorgans.windchest": "Vzdušnice",
   "block.pipeorgans.windchest_master": "Ovladač vzdušnic",
   "block.pipeorgans.gedeckt": "Kryt",
@@ -21,7 +21,7 @@
   "block.pipeorgans.trompette": "Trumpeta",
   "block.pipeorgans.nasard": "Kvinta",
   "block.pipeorgans.posaune": "Pozoun",
-  "block.pipeorgans.vox_humana": "Vox Humana",
+  "block.pipeorgans.vox_humana": "Vox humana",
   "sounds.pipeorgans.gedeckt_superhigh": "Kryt piští",
   "sounds.pipeorgans.gedeckt_high": "Kryt kvičí",
   "sounds.pipeorgans.gedeckt_medium": "Kryt mluví",
@@ -60,9 +60,9 @@
   "sounds.pipeorgans.posaune_medium": "Pozoun bručí",
   "sounds.pipeorgans.posaune_low": "Pozoun duní",
   "sounds.pipeorgans.posaune_deep": "Pozoun třese se zemí",
-  "sounds.pipeorgans.vox_humana_superhigh": "Vox Humana screeches",
-  "sounds.pipeorgans.vox_humana_high": "Vox Humana shouts",
-  "sounds.pipeorgans.vox_humana_medium": "Vox Humana speaks",
-  "sounds.pipeorgans.vox_humana_low": "Vox Humana groans",
-  "sounds.pipeorgans.vox_humana_deep": "Vox Humana bellows"
+  "sounds.pipeorgans.vox_humana_superhigh": "Vox humana piští",
+  "sounds.pipeorgans.vox_humana_high": "Vox humana řve",
+  "sounds.pipeorgans.vox_humana_medium": "Vox humana mluví",
+  "sounds.pipeorgans.vox_humana_low": "Vox humana vrže",
+  "sounds.pipeorgans.vox_humana_deep": "Vox humana bučí"
 }
