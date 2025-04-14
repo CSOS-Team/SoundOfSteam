@@ -2,21 +2,17 @@ package com.finchy.pipeorgans.content.midi.stopMaster;
 
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.midi.pitchMappings.AllPitchMappings;
+import com.finchy.pipeorgans.midi.pitchMappings.PitchMapping;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import com.finchy.pipeorgans.util.MathUtils;
-import com.finchy.pipeorgans.util.midi.AllPitchMappings;
-import com.finchy.pipeorgans.util.midi.FinchyPitchMapping;
-import com.finchy.pipeorgans.util.midi.PitchMapping;
 import com.simibubi.create.content.redstone.link.RedstoneLinkFrequencySlot;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,7 +28,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
 
     private BlockPos linkedCoord = null;
 
-    private PitchMapping mapping = FinchyPitchMapping;
+    private PitchMapping mapping;
 
     private StopMasterLinkBehaviour link;
     private int transmittedSignal;
@@ -41,7 +37,11 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
 
     public StopMasterBlockEntity(BlockPos pos, BlockState state) {
         super(AllBlockEntities.STOP_MASTER_BLOCK_ENTITY.get(), pos, state);
-        addChannel(0); // DEVELOPMENT ONLY
+        addChannel(0);
+        addChannel(1);
+        addChannel(2);
+        addChannel(3);// DEVELOPMENT ONLY
+        mapping = AllPitchMappings.getMapping("pipe_centric"); // DEVELOPMENT ONLY
     }
 
     @Override
@@ -66,7 +66,11 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
             tag.put("source_coord", posTag); // add tag to NBT
         }
         tag.putIntArray("channels", enabledChannels);
-        tag.putString("mapping", mapping.id);
+        if (mapping != null) {
+            tag.putString("mapping", mapping.id());
+        } else {
+            tag.putString("mapping", "pipe_centric");
+        }
         super.write(tag, clientPacket);
     }
 
@@ -88,6 +92,8 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
         super.read(tag, clientPacket);
     }
 
+
+
     // REDSTONE LINK INTERFACE
 
     protected void createLink() {
@@ -100,11 +106,15 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
         return transmittedSignal;
     }
 
+    public void setKeyFrequency(ItemStack a) {
+        link.setKeyFrequency(a);
+    }
+
     public void setNoteFrequency(int pitch, int velocity) {
         // determine frequency to be used for note
-        ItemStack freq = pitch==60? new ItemStack(Items.COBBLESTONE):new ItemStack(Items.OAK_PLANKS);
+        ItemStack freq = mapping.getStack(pitch);
 
-        link.setFrequency(freq, new ItemStack(Items.AIR), velocity>0);
+        link.setNoteFrequency(freq, velocity>0);
 
         // convert 0-127 velocity to 0-15 redstone strength
         int mappedStrength = Math.round(MathUtils.map(velocity, 0, 127, 0, 15));
@@ -117,6 +127,8 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
         if (link != null)
             link.notifySignalChange();
     }
+
+
 
     // MIDI
 
@@ -185,7 +197,6 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
             level.setBlock(worldPosition.above(), Blocks.AIR.defaultBlockState(), 3); // TESTING ONLY
             handleNoteOff(mm.note, mm.velocity);
         }
-        Minecraft.getInstance().player.sendSystemMessage(Component.literal("SM"));
     }
 
     private void handleNoteOn(int pitch, int velocity) {

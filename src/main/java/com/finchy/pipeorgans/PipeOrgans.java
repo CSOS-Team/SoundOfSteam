@@ -5,6 +5,7 @@ import com.finchy.pipeorgans.midi.Proxy;
 import com.finchy.pipeorgans.midi.client.ClientProxy;
 import com.finchy.pipeorgans.midi.network.PacketHandler;
 import com.finchy.pipeorgans.midi.server.ServerProxy;
+import com.finchy.pipeorgans.midi.pitchMappings.AllPitchMappings;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -27,7 +28,7 @@ import org.slf4j.Logger;
 public class PipeOrgans {
 
     static {
-        setProxy((Proxy) DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new));
+        setProxy(DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new));
     }
 
     // Define mod id in a common place for everything to reference
@@ -54,6 +55,8 @@ public class PipeOrgans {
         AllBlocks.register(modEventBus);
         AllItems.register(modEventBus);
         AllSoundEvents.register(modEventBus);
+
+        AllPitchMappings.register();
 
         modEventBus.addListener(this::commonSetup);
 

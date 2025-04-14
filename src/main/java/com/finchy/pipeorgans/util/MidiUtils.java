@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.util.midi;
+package com.finchy.pipeorgans.util;
 
 import javax.sound.midi.ShortMessage;
 

@@ -117,14 +117,19 @@ public class StopMasterLinkBehaviour extends BlockEntityBehaviour implements IRe
 		frequencyLast = Frequency.of(ItemStack.of(nbt.getCompound("FrequencyLast")));
 	}
 
-	public void setFrequency(ItemStack a, ItemStack b, boolean on) {
-		// copy stacks and reduce to 1 item
+	public void setKeyFrequency(ItemStack a) {
+		// copy stack and reduce to 1 item
 		a = a.copy();
 		a.setCount(1);
+
+		frequencyFirst = Frequency.of(a);
+	}
+
+	public void setNoteFrequency(ItemStack b, boolean on) {
+		// copy stack and reduce to 1 item
 		b = b.copy();
 		b.setCount(1);
 
-		frequencyFirst = Frequency.of(a);
 		frequencyLast = Frequency.of(b);
 
 		if (on) {
