@@ -37,6 +37,8 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
 
     private ArrayList<Integer> enabledChannels = new ArrayList<>(){};
 
+    private int activeNotes;
+
     public StopMasterBlockEntity(BlockPos pos, BlockState state) {
         super(AllBlockEntities.STOP_MASTER_BLOCK_ENTITY.get(), pos, state);
         addChannel(0);
@@ -49,7 +51,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         filtering = new FilteringBehaviour(this, new StopMasterSlotPositioning());
-        filtering.withCallback($ -> setKeyFrequency($));
+        filtering.withCallback(this::setKeyFrequency);
         behaviours.add(filtering);
         createLink();
         behaviours.add(link);
@@ -207,9 +209,19 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
 
     private void handleNoteOn(int pitch, int velocity) {
         setNoteFrequency(pitch, velocity);
+        if (activeNotes == 0) { // if a note has just been pressed
+            level.setBlock(worldPosition, getBlockState().setValue(StopMasterBlock.POWERED, true), 3); //  turn power on
+        }
+        activeNotes += 1;
     }
 
     private void handleNoteOff(int pitch, int velocity) {
         setNoteFrequency(pitch, velocity);
+        if (activeNotes>0) { // if there are notes being held
+            activeNotes -= 1;
+            if (activeNotes == 0) { // if the last note has just been taken off
+                level.setBlock(worldPosition, getBlockState().setValue(StopMasterBlock.POWERED, false), 3); //  turn power off
+            }
+        }
     }
 }
