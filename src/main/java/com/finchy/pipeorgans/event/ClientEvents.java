@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.event;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterRenderer;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonRenderer;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaRenderer;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktRenderer;
@@ -43,6 +44,8 @@ public class ClientEvents {
             event.registerBlockEntityRenderer(AllBlockEntities.NASARD_BLOCK_ENTITY.get(), NasardRenderer::new);
             event.registerBlockEntityRenderer(AllBlockEntities.POSAUNE_BLOCK_ENTITY.get(), PosauneRenderer::new);
             event.registerBlockEntityRenderer(AllBlockEntities.VOX_HUMANA_BLOCK_ENTITY.get(), VoxHumanaRenderer::new);
+
+            event.registerBlockEntityRenderer(AllBlockEntities.STOP_MASTER_BLOCK_ENTITY.get(), StopMasterRenderer::new);
         }
 
         @SubscribeEvent

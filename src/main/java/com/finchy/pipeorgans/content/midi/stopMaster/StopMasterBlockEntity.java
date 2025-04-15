@@ -10,6 +10,7 @@ import com.simibubi.create.content.redstone.link.RedstoneLinkFrequencySlot;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
+import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -32,6 +33,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
 
     private StopMasterLinkBehaviour link;
     private int transmittedSignal;
+    private FilteringBehaviour filtering;
 
     private ArrayList<Integer> enabledChannels = new ArrayList<>(){};
 
@@ -46,6 +48,9 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+        filtering = new FilteringBehaviour(this, new StopMasterSlotPositioning());
+        filtering.withCallback($ -> setKeyFrequency($));
+        behaviours.add(filtering);
         createLink();
         behaviours.add(link);
     }
@@ -111,6 +116,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
     }
 
     public void setNoteFrequency(int pitch, int velocity) {
+
         // determine frequency to be used for note
         ItemStack freq = mapping.getStack(pitch);
 
