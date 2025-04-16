@@ -3,7 +3,9 @@ package com.finchy.pipeorgans.block;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -48,20 +50,26 @@ public class WindchestBlock extends Block implements IWrenchable {
 
     public boolean isMasterWindy(Level level, Direction facing, BlockPos pos) {
         BlockPos masterPos = getMasterPos(level, facing, pos);
-        if (masterPos != pos) { return level.getBlockState(masterPos).getValue(WINDY); }
+        if (masterPos != pos) {
+            return level.getBlockState(masterPos).getValue(WINDY);
+        }
         return false;
     }
 
     public boolean isMasterPowered(Level level, Direction facing, BlockPos pos) {
         BlockPos masterPos = getMasterPos(level, facing, pos);
-        if (masterPos != pos) { return level.getBlockState(masterPos).getValue(POWERED); }
+        if (masterPos != pos) {
+            return level.getBlockState(masterPos).getValue(POWERED);
+        }
         return false;
     }
 
     public boolean isMasterActive(Level level, Direction facing, BlockPos pos) {
         BlockPos masterPos = getMasterPos(level, facing, pos);
         BlockState masterState = level.getBlockState(masterPos);
-        if (masterPos != pos) { return masterState.getValue(POWERED) && masterState.getValue(WINDY); }
+        if (masterPos != pos) {
+            return masterState.getValue(POWERED) && masterState.getValue(WINDY);
+        }
         return false;
 
     }
@@ -80,6 +88,22 @@ public class WindchestBlock extends Block implements IWrenchable {
             }
         }
         return pos;
+    }
+
+    @Override
+
+    public InteractionResult onWrenched(BlockState state, UseOnContext context) {
+        InteractionResult result = IWrenchable.super.onWrenched(state, context);
+
+        // check whether block should be powered and adjust accordingly
+        Level level = context.getLevel();
+        BlockPos clickedPos = context.getClickedPos();
+        state = level.getBlockState(clickedPos);
+        boolean shouldPower = isMasterPowered(level, state.getValue(FACING), clickedPos);
+
+        level.setBlock(clickedPos, state.setValue(POWERED, shouldPower), 3);
+
+        return result;
     }
 
     @Override
