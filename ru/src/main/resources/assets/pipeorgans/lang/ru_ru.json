@@ -3,6 +3,8 @@
   "key.category.pipeorgans": "Create: Музыка Пара",
   "key.pipeorgans.midi_config": "Открыть Интерфейс конфигурации MIDI",
   "gui.pipeorgans.midi_config": "Конфигурация Устройства Ввода MIDI",
+  "create.goggles.stop_master_source": "Source: %1$s",
+  "item.stop_master.tooltip": "Source: ",
   "pipeorgans.stopsize.2": "§72'",
   "pipeorgans.stopsize.223": "§72-2/3'",
   "pipeorgans.stopsize.4": "§74'",
