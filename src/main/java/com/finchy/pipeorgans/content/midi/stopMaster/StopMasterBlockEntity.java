@@ -6,13 +6,16 @@ import com.finchy.pipeorgans.midi.pitchMappings.AllPitchMappings;
 import com.finchy.pipeorgans.midi.pitchMappings.PitchMapping;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import com.finchy.pipeorgans.util.MathUtils;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.redstone.link.RedstoneLinkFrequencySlot;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringBehaviour;
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -25,7 +28,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("DataFlowIssue")
-public class StopMasterBlockEntity extends SmartBlockEntity {
+public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
     private BlockPos linkedCoord = null;
 
@@ -99,7 +102,17 @@ public class StopMasterBlockEntity extends SmartBlockEntity {
         super.read(tag, clientPacket);
     }
 
-
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        String link;
+        if (linkedCoord == null) {
+            link = "None";
+        } else {
+            link = "(%d, %d, %d)".formatted(linkedCoord.getX(), linkedCoord.getY(), linkedCoord.getZ());
+        }
+        CreateLang.translate("goggles.stop_master_source", link).forGoggles(tooltip);
+        return true;
+    }
 
     // REDSTONE LINK INTERFACE
 
