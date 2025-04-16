@@ -7,9 +7,6 @@ public class AllPartialModels {
 
     public static final PartialModel
 
-    STOP_MASTER_ANTENNAE_OFF = block("stop_master/stop_master_antennae"),
-    STOP_MASTER_ANTENNAE_ON = block("stop_master/stop_master_antennae_powered"),
-
     GEDECKT_MOUTH_TINY = block("gedeckt/g_tiny_mouth"),
     GEDECKT_MOUTH_SMALL = block("gedeckt/g_small_mouth"),
     GEDECKT_MOUTH_MEDIUM = block("gedeckt/g_medium_mouth"),

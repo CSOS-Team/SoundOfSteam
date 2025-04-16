@@ -1,6 +1,9 @@
 package com.finchy.pipeorgans.content.midi.stopMaster;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import net.createmod.catnip.math.AngleHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;
@@ -17,6 +20,16 @@ public class StopMasterSlotPositioning extends ValueBoxTransform.Sided {
     @Override
     protected boolean isSideActive(BlockState state, Direction direction) {
         return direction.equals(Direction.UP);
+    }
+
+    @Override
+    public void rotate(LevelAccessor level, BlockPos pos, BlockState state, PoseStack ms) {
+        super.rotate(level, pos, state, ms);
+        Direction facing = state.getValue(StopMasterBlock.FACING);
+        if (getSide() != Direction.UP)
+            return;
+        TransformStack.of(ms)
+                .rotateZDegrees(-AngleHelper.horizontalAngle(facing) + 180);
     }
 
     @Override
