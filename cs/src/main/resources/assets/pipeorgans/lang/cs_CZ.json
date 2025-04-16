@@ -3,6 +3,8 @@
   "key.category.pipeorgans": "Create: Zvuk páry",
   "key.pipeorgans.midi_config": "Otevřít nastavení MIDI GUI",
   "gui.pipeorgans.midi_config": "Nastavení vstupního zařízení MIDI",
+  "create.goggles.stop_master_source": "Source: %1$s",
+  "item.stop_master.tooltip": "Source: ",
   "pipeorgans.stopsize.2": "§72'",
   "pipeorgans.stopsize.223": "§72-2/3'",
   "pipeorgans.stopsize.4": "§74'",
