@@ -3,6 +3,8 @@
   "key.category.pipeorgans": "Create: Sound Of Steam",
   "key.pipeorgans.midi_config": "MIDI-Einstellungen öffnen",
   "gui.pipeorgans.midi_config": "MIDI-Eingabegeräteeinstellungen",
+  "create.goggles.stop_master_source": "Source: %1$s",
+  "item.stop_master.tooltip": "Source: ",
   "pipeorgans.stopsize.2": "§72'",
   "pipeorgans.stopsize.223": "§72-2/3'",
   "pipeorgans.stopsize.4": "§74'",
