@@ -18,21 +18,24 @@ import java.util.List;
 
 public class MidiConfigGUI extends Screen {
 
-    private static final ResourceLocation guiTexture = PipeOrgans.asResource("textures/gui/midi_config.png");
+    private static final ResourceLocation GUI_TEXTURE = PipeOrgans.asResource("textures/gui/midi_config.png");
     private static final int GUI_WIDTH = 208;
     private static final int GUI_HEIGHT = 134;
 
     private int cornerX;
     private int cornerY;
 
-    private static final ResourceLocation customButtonTexture = PipeOrgans.asResource("textures/gui/midi_config_buttons.png");
-    private static final int buttonsY = 47;
-    private static final int prevButtonX = 7;
-    private static final int nextButtonX = 149;
-    private static final int refreshButtonX = 167;
-    private static final int saveButtonX = 185;
+    private static final int BUTTONS_Y = 47;
+    private static final int PREV_BUTTON_X = 7;
+    private static final int NEXT_BUTTON_X = 149;
 
-    private static final int deviceLabelsX = 10;
+    private static final int REFRESH_BUTTON_X = 167;
+    private static final int REFRESH_BUTTON_U = 208;
+
+    private static final int SAVE_BUTTON_X = 185;
+    private static final int SAVE_BUTTON_U = 224;
+
+    private static final int DEVICE_LABELS_X = 10;
 
     private final MidiInputDeviceManager midiInputDeviceManager;
     private List<MidiDevice> availableMidiDevices = new ArrayList<>();
@@ -118,23 +121,23 @@ public class MidiConfigGUI extends Screen {
         addRenderableWidget(net.minecraft.client.gui.components.Button.builder(
                 Component.literal("<"),
                 b -> previousDevice())
-            .pos(cornerX+prevButtonX,  cornerY+buttonsY).size(16, 16).build());
+            .pos(cornerX+ PREV_BUTTON_X,  cornerY+ BUTTONS_Y).size(16, 16).build());
         addRenderableWidget(net.minecraft.client.gui.components.Button.builder(
                 Component.literal(">"),
                 b -> nextDevice())
-            .pos(cornerX+nextButtonX,  cornerY+buttonsY).size(16, 16).build());
+            .pos(cornerX+ NEXT_BUTTON_X,  cornerY+ BUTTONS_Y).size(16, 16).build());
 
         // refresh button
         addRenderableWidget(net.minecraft.client.gui.components.Button.builder(
                         Component.literal(""),
                         b -> reloadDevices())
-                .pos(cornerX+refreshButtonX,  cornerY+buttonsY).size(16, 16).build());
+                .pos(cornerX+ REFRESH_BUTTON_X,  cornerY+ BUTTONS_Y).size(16, 16).build());
 
         // save button
         addRenderableWidget(net.minecraft.client.gui.components.Button.builder(
                         Component.literal(""),
                         b -> saveSelection())
-                .pos(cornerX+saveButtonX,  cornerY+buttonsY).size(16, 16).build());
+                .pos(cornerX+ SAVE_BUTTON_X,  cornerY+ BUTTONS_Y).size(16, 16).build());
 
     }
 
@@ -147,7 +150,7 @@ public class MidiConfigGUI extends Screen {
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         renderBackground(graphics);
         // render base texture
-        graphics.blit(guiTexture, cornerX, cornerY, 0, 0, GUI_WIDTH, GUI_HEIGHT);
+        graphics.blit(GUI_TEXTURE, cornerX, cornerY, 0, 0, GUI_WIDTH, GUI_HEIGHT);
         super.render(graphics, mouseX, mouseY, partialTick);
 
         renderGraphics(graphics);
@@ -155,8 +158,8 @@ public class MidiConfigGUI extends Screen {
     }
 
     private void renderGraphics(GuiGraphics graphics) {
-        graphics.blit(customButtonTexture, cornerX+refreshButtonX, cornerY+buttonsY, 0, 16, 16, 16, 32, 32); // refresh button icon
-        graphics.blit(customButtonTexture, cornerX+saveButtonX, cornerY+buttonsY, 16, 0, 16, 16, 32, 32); // save button icon
+        graphics.blit(GUI_TEXTURE, cornerX+ REFRESH_BUTTON_X, cornerY+ BUTTONS_Y, REFRESH_BUTTON_U, 0, 16, 16, 256, 256); // refresh button icon
+        graphics.blit(GUI_TEXTURE, cornerX+ SAVE_BUTTON_X, cornerY+ BUTTONS_Y, SAVE_BUTTON_U, 0, 16, 16, 256, 256); // save button icon
     }
 
     private void renderText(GuiGraphics graphics) {
@@ -166,16 +169,16 @@ public class MidiConfigGUI extends Screen {
 
         // current device label
         graphics.drawString(font, activeDeviceName,
-                cornerX+deviceLabelsX, cornerY+31, 16777215, true);
+                cornerX+ DEVICE_LABELS_X, cornerY+31, 16777215, true);
         // name label
         graphics.drawString(font, selectedDeviceName,
                 cornerX+28, cornerY+51, 16777215, true);
         // vendor label
         graphics.drawString(font, selectedDeviceVendor,
-                cornerX+deviceLabelsX, cornerY+70, 16777215, true);
+                cornerX+ DEVICE_LABELS_X, cornerY+70, 16777215, true);
         // version label
         graphics.drawString(font, selectedDeviceVersion,
-                cornerX+deviceLabelsX, cornerY+81, 16777215, true);
+                cornerX+ DEVICE_LABELS_X, cornerY+81, 16777215, true);
         // description label
         GuiUtils.drawWordWrapDropShadow(graphics, font, FormattedText.of(selectedDeviceDesc),
                 cornerX+10, cornerY+92, 188, 16777215, true);

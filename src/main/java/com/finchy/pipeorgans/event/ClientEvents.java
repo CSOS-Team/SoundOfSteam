@@ -12,10 +12,13 @@ import com.finchy.pipeorgans.content.pipes.subbass.SubbassRenderer;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteRenderer;
 import com.finchy.pipeorgans.content.pipes.vox_humana.VoxHumanaRenderer;
 import com.finchy.pipeorgans.gui.ClientsideGUIWrapper;
+import com.finchy.pipeorgans.gui.StopMasterScreen;
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.init.AllMenuTypes;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.finchy.pipeorgans.util.Keybinding;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.InputEvent;
@@ -31,6 +34,7 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             AllPartialModels.init();
+            MenuScreens.register(AllMenuTypes.STOP_MASTER_MENU.get(), StopMasterScreen::new);
         }
 
         @SubscribeEvent

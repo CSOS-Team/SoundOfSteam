@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.content.midi.stopMaster;
 
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
+import com.finchy.pipeorgans.gui.StopMasterMenu;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.midi.pitchMappings.AllPitchMappings;
 import com.finchy.pipeorgans.midi.pitchMappings.PitchMapping;
@@ -16,11 +17,16 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +34,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("DataFlowIssue")
-public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
+public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation, MenuProvider {
 
     private BlockPos linkedCoord = null;
 
@@ -113,6 +119,23 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
         CreateLang.translate("goggles.stop_master_source", link).forGoggles(tooltip);
         return true;
     }
+
+
+
+    // GUI
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("gui.pipeorgans.stop_master");
+    }
+
+    @Override
+    @Nullable
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+        return new StopMasterMenu(pContainerId, pPlayerInventory, this);
+    }
+
+
 
     // REDSTONE LINK INTERFACE
 

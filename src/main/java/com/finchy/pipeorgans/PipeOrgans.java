@@ -55,6 +55,7 @@ public class PipeOrgans {
         AllBlocks.register(modEventBus);
         AllItems.register(modEventBus);
         AllSoundEvents.register(modEventBus);
+        AllMenuTypes.register(modEventBus);
 
         AllPitchMappings.register();
 
