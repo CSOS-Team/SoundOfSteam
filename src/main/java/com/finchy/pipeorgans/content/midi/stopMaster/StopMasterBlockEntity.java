@@ -28,10 +28,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @SuppressWarnings("DataFlowIssue")
 public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation, MenuProvider {
@@ -44,16 +42,16 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
     private int transmittedSignal;
     private FilteringBehaviour filtering;
 
-    private ArrayList<Integer> enabledChannels = new ArrayList<>(){};
+    private int channels = 0;
 
     private int activeNotes;
 
     public StopMasterBlockEntity(BlockPos pos, BlockState state) {
         super(AllBlockEntities.STOP_MASTER_BLOCK_ENTITY.get(), pos, state);
-        addChannel(0);
-        addChannel(1);
-        addChannel(2);
-        addChannel(3);// DEVELOPMENT ONLY
+        toggleChannel(0);
+        toggleChannel(1);
+        setChannel(2, true);
+        setChannel(3, true);
         mapping = AllPitchMappings.getMapping("pipe_centric"); // DEVELOPMENT ONLY
     }
 
@@ -81,7 +79,8 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
             posTag.putInt("z", linkedCoord.getZ());
             tag.put("source_coord", posTag); // add tag to NBT
         }
-        tag.putIntArray("channels", enabledChannels);
+        tag.putInt("channels", channels);
+
         if (mapping != null) {
             tag.putString("mapping", mapping.id());
         } else {
@@ -99,8 +98,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
             int z = posTag.getInt("z");
             linkedCoord = new BlockPos(x, y, z); // set pos as this blockentity's linked coord
         }
-        int[] channels = tag.getIntArray("channels");
-        enabledChannels = Arrays.stream(channels).boxed().collect(Collectors.toCollection(ArrayList::new));
+        channels = tag.getInt("channels");
 
         String mappingID = tag.getString("mapping");
         mapping = AllPitchMappings.getMapping(mappingID);
@@ -172,9 +170,41 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
             link.notifySignalChange();
     }
 
+    public PitchMapping getMapping() {
+        return mapping;
+    }
+
+    public void setMapping(String newMapping) {
+        if (!Objects.equals(newMapping, "")) { // empty string represents no change
+            mapping = AllPitchMappings.getMapping(newMapping);
+        }
+    }
+
 
 
     // MIDI
+
+    public boolean getChannel(int channel) {
+        int mask = 1 << channel;
+        return (channels & mask) != 0;
+    }
+
+    public void setChannel(int channel, boolean state) {
+        if (channel < 0) return;
+        channels = state?
+                ( channels | (1 << channel)) // all 0s, plus the bit that you want to set on
+                : ( channels & (((int)(Math.pow(2, 16))-1) - (int)Math.pow(2, channel)) ); // all 1s, minus the bit that you want to set off
+        notifyUpdate();
+    }
+
+    public void toggleChannel(int channel) {
+        if (channel < 0) return;
+        int mask = 1 << channel;
+        channels = channels ^ mask;
+        notifyUpdate();
+    }
+
+
 
     public void linkToSource(KeyboardRelayBlockEntity source) {
         // initiated in stopmaster
@@ -206,31 +236,8 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
         }
     }
 
-    // REMEMBER CHANNELS START AT ZERO!
-    public void addChannel(int channel) {
-        if (!enabledChannels.contains(channel)) {
-            enabledChannels.add(channel);
-            enabledChannels.sort(Integer::compareTo);
-        }
-    }
-
-    public void removeChannel(int channel) {
-        if (enabledChannels.contains(channel)) {
-            enabledChannels.remove(channel);
-        }
-    }
-
-    public void toggleChannel(int channel) {
-        if (enabledChannels.contains(channel)) {
-            enabledChannels.remove(channel);
-        } else {
-            enabledChannels.add(channel);
-            enabledChannels.sort(Integer::compareTo);
-        }
-    }
-
     public void receiveMidiSignal(MidiMessageServerObject mm) {
-        if (!enabledChannels.contains(mm.channel)) {
+        if (!getChannel(mm.channel)) {
             return;
         }
 

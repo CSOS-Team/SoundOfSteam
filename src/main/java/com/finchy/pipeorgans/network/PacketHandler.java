@@ -1,7 +1,8 @@
-package com.finchy.pipeorgans.midi.network;
+package com.finchy.pipeorgans.network;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.midi.network.packet.MidiMessageC2SPacket;
+import com.finchy.pipeorgans.network.packet.MidiMessageC2SPacket;
+import com.finchy.pipeorgans.network.packet.UpdateStopMasterC2SPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
@@ -30,6 +31,12 @@ public class PacketHandler {
                 .decoder(MidiMessageC2SPacket::decodePacket)
                 .encoder(MidiMessageC2SPacket::encodePacket)
                 .consumerMainThread(MidiMessageC2SPacket::handle)
+                .add();
+
+        net.messageBuilder(UpdateStopMasterC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(UpdateStopMasterC2SPacket::decodePacket)
+                .encoder(UpdateStopMasterC2SPacket::encodePacket)
+                .consumerMainThread(UpdateStopMasterC2SPacket::handle)
                 .add();
     }
 

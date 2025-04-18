@@ -1,12 +1,10 @@
-package com.finchy.pipeorgans.midi.network.packet;
+package com.finchy.pipeorgans.network.packet;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
-import com.finchy.pipeorgans.midi.network.CustomPacketPayload;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
@@ -14,8 +12,7 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-public class MidiMessageC2SPacket implements CustomPacketPayload {
-    public static final ResourceLocation ID = PipeOrgans.asResource(MidiMessageC2SPacket.class.getSimpleName().toLowerCase());
+public class MidiMessageC2SPacket {
     
     public final Byte channel;
     public final Byte note;
@@ -33,16 +30,6 @@ public class MidiMessageC2SPacket implements CustomPacketPayload {
         this.velocity = velocity;
         this.player = player;
         this.pos = pos;
-    }
-
-    @Override
-    public ResourceLocation id() {
-        return ID;
-    }
-
-    @Override
-    public void write(FriendlyByteBuf buf) {
-        encodePacket(this, buf);
     }
 
     public static MidiMessageC2SPacket decodePacket(FriendlyByteBuf buf) {
@@ -73,7 +60,6 @@ public class MidiMessageC2SPacket implements CustomPacketPayload {
         context.enqueueWork(() -> {
 
             ServerPlayer player = context.getSender();
-            assert player != null;
             ServerLevel level = (ServerLevel) player.level();
 
             BlockPos pos = KeyboardRelayBlockEntity.playerUsingKBRPos(player); // get pos of KBR being used

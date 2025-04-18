@@ -3,7 +3,7 @@ package com.finchy.pipeorgans;
 import com.finchy.pipeorgans.init.*;
 import com.finchy.pipeorgans.midi.Proxy;
 import com.finchy.pipeorgans.midi.client.ClientProxy;
-import com.finchy.pipeorgans.midi.network.PacketHandler;
+import com.finchy.pipeorgans.network.PacketHandler;
 import com.finchy.pipeorgans.midi.server.ServerProxy;
 import com.finchy.pipeorgans.midi.pitchMappings.AllPitchMappings;
 import com.mojang.logging.LogUtils;
