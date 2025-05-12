@@ -4,15 +4,9 @@ import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
 import net.createmod.catnip.math.VoxelShaper;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class AllShapes {
-
-    public static VoxelShape add(VoxelShape a, VoxelShape b) {
-        return Shapes.join(a, b, BooleanOp.OR);
-    }
 
     public static VoxelShape getGenericPipeShape(GenericWhistleProperties.WhistleSize size) {
         return switch (size) {
@@ -23,7 +17,6 @@ public class AllShapes {
             case HUGE -> GENERIC_HUGE_BASE;
         };
     }
-
     public static VoxelShape getGenericExtensionShape(GenericWhistleProperties.QuadrupleExtensionShape shape, GenericWhistleProperties.WhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
@@ -66,7 +59,6 @@ public class AllShapes {
             case HUGE -> SLIM_HUGE_BASE;
         };
     }
-
     public static VoxelShape getSlimExtensionShape(GenericWhistleProperties.QuadrupleExtensionShape shape, GenericWhistleProperties.WhistleSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
@@ -176,16 +168,23 @@ public class AllShapes {
         GENERIC_EXTENSION_HUGE_TRIPLE = shape(1, 0, 1, 15, 12, 15).build(),
         GENERIC_EXTENSION_HUGE_QUADRUPLE = shape(1, 0, 1, 15, 16, 15).build();
 
+    // OTHER VOXELSHAPERS
+    public static VoxelShaper
 
-    public static VoxelShaper BASE = shape(1, 0, 1, 15, 3, 15)
-            .add(5, 3, 5, 11, 11, 11)
-            .forDirectional(Direction.UP);
+        BASE = shape(1, 0, 1, 15, 3, 15)
+                .add(5, 3, 5, 11, 11, 11)
+                .forDirectional(Direction.UP),
 
-    // shape for floor variant is BASE.get(UP)
-    public static VoxelShaper BASE_BLOCK_WALL = shape(1, 1, 0, 15, 15, 3)
-            .add(5, 3, 3, 11, 9, 11)
+        // shape for floor variant is BASE.get(UP)
+        BASE_BLOCK_WALL = shape(1, 1, 0, 15, 15, 3)
+                .add(5, 3, 3, 11, 9, 11)
             .add(5, 9, 5, 11, 11, 11)
-            .forDirectional(Direction.NORTH);
+                .forHorizontal(Direction.NORTH),
+
+        KBR = shape(0, 0, 4, 16, 2, 16)
+                .add(0, 2, 6, 16, 16, 16)
+                .forHorizontal(Direction.NORTH);
+
 
 
     private static com.simibubi.create.AllShapes.Builder shape(VoxelShape shape) {

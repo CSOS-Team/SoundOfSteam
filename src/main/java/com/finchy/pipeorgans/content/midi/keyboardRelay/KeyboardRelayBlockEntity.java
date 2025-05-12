@@ -10,7 +10,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -138,7 +137,6 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
 
     private void startUsing(Player player) {
         user = player.getUUID();
-        player.sendSystemMessage(Component.literal("START"));
         player.getPersistentData().putIntArray("UsingKBRelayPos", new int[]{worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()});
 
         level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, false), 3); //  turn power off
@@ -150,7 +148,6 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         user = null;
         if (player != null) {
             player.getPersistentData().remove("UsingKBRelayPos");
-            player.sendSystemMessage(Component.literal("STOP"));
         }
         level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, false), 3); //  turn power off
         deactivatedThisTick = true;
