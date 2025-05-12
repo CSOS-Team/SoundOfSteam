@@ -1,8 +1,8 @@
 {
-  "pipeorgans.creativetab.pipes": "Create: Son de vapeur",
-  "key.category.pipeorgans": "Create: Son de vapeur",
+  "pipeorgans.creativetab.pipes": "Create: Sound of Steam",
+  "key.category.pipeorgans": "Create: Sound of Steam",
   "key.pipeorgans.midi_config": "Ouvrir les paramètres MIDI",
-  "gui.pipeorgans.midi_config": "Paramètres d'entrée du périphérique MIDI",
+  "gui.pipeorgans.midi_config": "Paramètres du périphérique d'entrée MIDI",
   "gui.pipeorgans.stop_master": "Maître du jeu d'orgue",
   "gui.pipeorgans.stop_master.channel_label": "Enabled channels:",
   "create.goggles.stop_master_source": "Source : %1$s",
