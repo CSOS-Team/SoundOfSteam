@@ -35,12 +35,14 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
+@SuppressWarnings("NullableProblems")
 public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -48,6 +50,7 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final EnumProperty<GenericWhistleProperties.WhistleSize> SIZE = EnumProperty.create("size", GenericWhistleProperties.WhistleSize.class);
 
+    public GenericWhistleProperties.WhistleShape shape;
     public int extensionsPerBlock;
 
     public RegistryObject<? extends GenericPipeBlock> baseBlock;
@@ -62,17 +65,19 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
                 .setValue(SIZE, GenericWhistleProperties.WhistleSize.MEDIUM));
-        this.extensionsPerBlock = 2;
+        shape = GenericWhistleProperties.WhistleShape.GENERIC;
+        extensionsPerBlock = 2;
     }
 
     // custom hitbox
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        VoxelShape whistle = AllShapes.getGenericBase(pState.getValue(SIZE));
-        return Shapes.or(whistle,
-                !pState.getValue(WALL) ?
-                        AllShapes.BASE_FLOOR : AllShapes.getBase(pState.getValue(FACING)));
-        // if block is not on wall, add BASE_FLOOR, else add correct wall base for direction
+        return AllShapes.getCompleteWhistleShape(
+                pState.getValue(SIZE),
+                shape,
+                pState.getValue(WALL),
+                pState.getValue(FACING)
+        );
     }
 
     @Override
@@ -289,7 +294,7 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
             wall = false; // not on wall
         }
 
-        BlockState state = super.getStateForPlacement(context)
+        BlockState state = Objects.requireNonNull(super.getStateForPlacement(context))
                 .setValue(FACING, face.getOpposite()) // set facing to the opposite of Direction face
                                                       // (this results in orientation being the same as player's, so
                                                       // model is rotated in blockstate json)

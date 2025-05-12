@@ -23,8 +23,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,7 +52,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
         toggleChannel(1);
         setChannel(2, true);
         setChannel(3, true);
-        mapping = AllPitchMappings.getMapping("pipe_centric"); // DEVELOPMENT ONLY
+        mapping = AllPitchMappings.PIPE_CENTRIC; // DEVELOPMENT ONLY
     }
 
     @Override
@@ -82,7 +82,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
         tag.putInt("channels", channels);
 
         if (mapping != null) {
-            tag.putString("mapping", mapping.id());
+            tag.putString("mapping", mapping.name());
         } else {
             tag.putString("mapping", "pipe_centric");
         }
@@ -242,10 +242,8 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
         }
 
         if (mm.velocity > 0) { // if note on
-            level.setBlock(worldPosition.above(), Blocks.STONE.defaultBlockState(), 3); // TESTING ONLY
             handleNoteOn(mm.note, mm.velocity);
         } else { // if note off
-            level.setBlock(worldPosition.above(), Blocks.AIR.defaultBlockState(), 3); // TESTING ONLY
             handleNoteOff(mm.note, mm.velocity);
         }
     }
@@ -253,17 +251,17 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
     private void handleNoteOn(int pitch, int velocity) {
         setNoteFrequency(pitch, velocity);
         if (activeNotes == 0) { // if a note has just been pressed
-            level.setBlock(worldPosition, getBlockState().setValue(StopMasterBlock.POWERED, true), 3); //  turn power on
+            level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, true), 3); //  turn power on
         }
-        activeNotes += 1;
+        activeNotes++;
     }
 
     private void handleNoteOff(int pitch, int velocity) {
         setNoteFrequency(pitch, velocity);
         if (activeNotes>0) { // if there are notes being held
-            activeNotes -= 1;
+            activeNotes--;
             if (activeNotes == 0) { // if the last note has just been taken off
-                level.setBlock(worldPosition, getBlockState().setValue(StopMasterBlock.POWERED, false), 3); //  turn power off
+                level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, false), 3); //  turn power off
             }
         }
     }

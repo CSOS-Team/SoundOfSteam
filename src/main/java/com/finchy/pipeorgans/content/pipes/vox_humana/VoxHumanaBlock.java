@@ -9,24 +9,28 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class VoxHumanaBlock extends QuadruplePipeBlock {
     public VoxHumanaBlock(Properties pProperties) {
         super(pProperties);
-        this.baseBlock = AllBlocks.VOX_HUMANA;
-        this.extensionBlock = AllBlocks.VOX_HUMANA_EXTENSION;
-        this.blockEntity = AllBlockEntities.VOX_HUMANA_BLOCK_ENTITY;
+        baseBlock = AllBlocks.VOX_HUMANA;
+        extensionBlock = AllBlocks.VOX_HUMANA_EXTENSION;
+        blockEntity = AllBlockEntities.VOX_HUMANA_BLOCK_ENTITY;
+        shape = GenericWhistleProperties.WhistleShape.SLIM;
     }
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         GenericWhistleProperties.WhistleSize size = pState.getValue(SIZE);
-        if (size == GenericWhistleProperties.WhistleSize.TINY) { size = GenericWhistleProperties.WhistleSize.SMALL; }
-        VoxelShape whistle = AllShapes.getSlimBase(size);
-        return Shapes.or(whistle,
-                !pState.getValue(WALL) ?
-                        AllShapes.BASE_FLOOR : AllShapes.getBase(pState.getValue(FACING)));
+        if (size == GenericWhistleProperties.WhistleSize.TINY) { // don't allow sizes smaller than tiny
+            size = GenericWhistleProperties.WhistleSize.SMALL;
+        }
+        return AllShapes.getCompleteWhistleShape(
+                size,
+                shape,
+                pState.getValue(WALL),
+                pState.getValue(FACING)
+        );
     }
 }

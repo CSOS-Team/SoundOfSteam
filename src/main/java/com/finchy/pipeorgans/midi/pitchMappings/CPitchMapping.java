@@ -138,8 +138,13 @@ public class CPitchMapping extends PitchMapping {
     }
 
     @Override
-    public String id() {
-        return "c_centric";
+    public String name() {
+        return "C-Centric";
+    }
+
+    @Override
+    public String description() {
+        return "A mapping based on the start of the octave (C). It uses different colours of blocks to indicate a note, and different types of coloured blocks to specify the octave.";
     }
 
     @Override

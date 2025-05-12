@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
+@SuppressWarnings("NullableProblems")
 public class StopMasterScreen extends AbstractContainerScreen<StopMasterMenu> {
 
     private static final ResourceLocation GUI_TEXTURE = PipeOrgans.asResource("textures/gui/stop_master.png");
@@ -24,6 +25,9 @@ public class StopMasterScreen extends AbstractContainerScreen<StopMasterMenu> {
     public static final int ROW_2_Y = 54;
     public static final int ROW_3_Y = 72;
     public static final int ROW_4_Y = 90;
+
+    public static final int CHANNEL_LABEL_X = 8;
+    public static final int CHANNEL_LABEL_Y = 25;
 
     public StopMasterScreen(StopMasterMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -78,12 +82,13 @@ public class StopMasterScreen extends AbstractContainerScreen<StopMasterMenu> {
     @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
         renderBackground(pGuiGraphics);
-        pGuiGraphics.blit(GUI_TEXTURE, leftPos, topPos, 0, 0, GUI_WIDTH, GUI_HEIGHT);
+        pGuiGraphics.blit(GUI_TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
         pGuiGraphics.drawString(font, title, titleLabelX, titleLabelY, 4210752, false);
+        pGuiGraphics.drawString(font, Component.translatable("gui.pipeorgans.stop_master.channel_label"), CHANNEL_LABEL_X, CHANNEL_LABEL_Y, 4210752, false);
     }
 
     protected void renderChecks(GuiGraphics pGuiGraphics) {

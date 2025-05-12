@@ -1,5 +1,12 @@
 {
   "values": [
+    "pipeorgans:base",
+    "pipeorgans:windchest",
+    "pipeorgans:windchest_master",
+
+    "pipeorgans:stop_master",
+    "pipeorgans:keyboard_relay",
+
     "pipeorgans:gedeckt",
     "pipeorgans:gedeckt_extension",
 

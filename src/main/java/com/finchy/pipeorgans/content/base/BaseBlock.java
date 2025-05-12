@@ -43,7 +43,7 @@ public class BaseBlock extends Block implements IBE<BaseBlockEntity>, IWrenchabl
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return !pState.getValue(WALL) ?
-                AllShapes.BASE_FLOOR : AllShapes.getBlockBase(pState.getValue(FACING));
+                AllShapes.BASE.get(Direction.UP) : AllShapes.BASE_BLOCK_WALL.get(pState.getValue(FACING));
     }
 
     @Override

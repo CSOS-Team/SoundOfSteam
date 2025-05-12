@@ -16,6 +16,7 @@ import javax.sound.midi.MidiDevice;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("NullableProblems")
 public class MidiConfigGUI extends Screen {
 
     private static final ResourceLocation GUI_TEXTURE = PipeOrgans.asResource("textures/gui/midi_config.png");

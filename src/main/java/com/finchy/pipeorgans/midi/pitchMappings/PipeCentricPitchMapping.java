@@ -138,8 +138,13 @@ public class PipeCentricPitchMapping extends PitchMapping {
     }
 
     @Override
-    public String id() {
-        return "pipe_centric";
+    public String name() {
+        return "Pipe-Centric";
+    }
+
+    @Override
+    public String description() {
+        return "A mapping based on the start of a pipe's range (F#). It uses different colours of blocks to indicate a note, and different types of coloured blocks to specify the octave.";
     }
 
     @Override

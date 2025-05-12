@@ -16,6 +16,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 
@@ -23,12 +24,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@SuppressWarnings("DataFlowIssue")
 public class KeyboardRelayBlockEntity extends SmartBlockEntity {
 
     private UUID user = null;
     private boolean deactivatedThisTick;
 
     private final List<BlockPos> linkedCoords = new ArrayList<>();
+
+    private int activeNotes;
 
     public KeyboardRelayBlockEntity(BlockPos pos, BlockState state) {
         super(AllBlockEntities.KEYBOARD_RELAY_BLOCK_ENTITY.get(), pos, state);
@@ -71,6 +75,20 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         for (BlockPos pos : linkedCoords) { // for every linked position
             if (level.getBlockEntity(pos) instanceof StopMasterBlockEntity sm) { // if stopmaster is at that location
                 sm.receiveMidiSignal(mm); // send midi to stopmaster
+            }
+        }
+        if (mm.velocity > 0) { // if note on
+            if (activeNotes == 0) { // if a note has just been pressed
+                level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, true), 3); //  turn power on
+            }
+            activeNotes++;
+
+        } else { // if note off
+            if (activeNotes>0) { // if there are notes being held
+                activeNotes--;
+                if (activeNotes == 0) { // if the last note has just been taken off
+                    level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, false), 3); //  turn power off
+                }
             }
         }
     }
@@ -122,6 +140,8 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
         user = player.getUUID();
         player.sendSystemMessage(Component.literal("START"));
         player.getPersistentData().putIntArray("UsingKBRelayPos", new int[]{worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()});
+
+        level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, false), 3); //  turn power off
         notifyUpdate();
     }
 
@@ -132,6 +152,7 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity {
             player.getPersistentData().remove("UsingKBRelayPos");
             player.sendSystemMessage(Component.literal("STOP"));
         }
+        level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, false), 3); //  turn power off
         deactivatedThisTick = true;
         notifyUpdate();
     }

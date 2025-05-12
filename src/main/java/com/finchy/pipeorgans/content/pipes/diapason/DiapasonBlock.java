@@ -7,8 +7,8 @@ import com.finchy.pipeorgans.init.AllBlocks;
 public class DiapasonBlock extends GenericPipeBlock {
     public DiapasonBlock(Properties pProperties) {
         super(pProperties);
-        this.baseBlock = AllBlocks.DIAPASON;
-        this.extensionBlock = AllBlocks.DIAPASON_EXTENSION;
-        this.blockEntity = AllBlockEntities.DIAPASON_BLOCK_ENTITY;
+        baseBlock = AllBlocks.DIAPASON;
+        extensionBlock = AllBlocks.DIAPASON_EXTENSION;
+        blockEntity = AllBlockEntities.DIAPASON_BLOCK_ENTITY;
     }
 }

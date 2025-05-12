@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,powered=false": { "model": "pipeorgans:block/keyboard_relay/keyboard_relay", "y":  0   },
+    "facing=east,powered=false": { "model":  "pipeorgans:block/keyboard_relay/keyboard_relay", "y":  90 },
+    "facing=south,powered=false": { "model":  "pipeorgans:block/keyboard_relay/keyboard_relay", "y":  180 },
+    "facing=west,powered=false": { "model":  "pipeorgans:block/keyboard_relay/keyboard_relay", "y":  270 },
+    "facing=north,powered=true": { "model": "pipeorgans:block/keyboard_relay/keyboard_relay_powered", "y":  0 },
+    "facing=east,powered=true": { "model":  "pipeorgans:block/keyboard_relay/keyboard_relay_powered", "y":  90 },
+    "facing=south,powered=true": { "model":  "pipeorgans:block/keyboard_relay/keyboard_relay_powered", "y":  180 },
+    "facing=west,powered=true": { "model":  "pipeorgans:block/keyboard_relay/keyboard_relay_powered", "y":  270 }
+  }
+}

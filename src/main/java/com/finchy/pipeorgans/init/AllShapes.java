@@ -1,7 +1,9 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
+import net.createmod.catnip.math.VoxelShaper;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -12,27 +14,7 @@ public class AllShapes {
         return Shapes.join(a, b, BooleanOp.OR);
     }
 
-    public static VoxelShape getBase(Direction face) {
-        return switch (face) {
-            case NORTH -> BASE_NORTH;
-            case EAST -> BASE_EAST;
-            case SOUTH -> BASE_SOUTH;
-            case WEST -> BASE_WEST;
-            case UP, DOWN -> Shapes.block();
-        };
-    }
-
-    public static VoxelShape getBlockBase(Direction face) {
-        return switch (face) {
-            case NORTH -> BASE_BLOCK_NORTH;
-            case EAST -> BASE_BLOCK_EAST;
-            case SOUTH -> BASE_BLOCK_SOUTH;
-            case WEST -> BASE_BLOCK_WEST;
-            case UP, DOWN -> Shapes.block();
-        };
-    }
-
-    public static VoxelShape getGenericBase(GenericWhistleProperties.WhistleSize size) {
+    public static VoxelShape getGenericPipeShape(GenericWhistleProperties.WhistleSize size) {
         return switch (size) {
             case TINY -> GENERIC_TINY_BASE;
             case SMALL -> GENERIC_SMALL_BASE;
@@ -75,7 +57,7 @@ public class AllShapes {
         };
     }
 
-    public static VoxelShape getSlimBase(GenericWhistleProperties.WhistleSize size) {
+    public static VoxelShape getSlimPipeShape(GenericWhistleProperties.WhistleSize size) {
         return switch (size) {
             case TINY -> SLIM_TINY_BASE;
             case SMALL -> SLIM_SMALL_BASE;
@@ -120,130 +102,98 @@ public class AllShapes {
         };
     }
 
-    // SLIM
+    public static VoxelShape getCompleteWhistleShape(GenericWhistleProperties.WhistleSize size, GenericWhistleProperties.WhistleShape shape, boolean wall, Direction facing) {
+        VoxelShape pipe = switch (shape) {
+            case GENERIC -> getGenericPipeShape(size);
+            case SLIM -> getSlimPipeShape(size);
+        };
+        VoxelShape base = wall ? BASE.get(facing.getOpposite()) : BASE.get(Direction.UP);
+        return shape(pipe).add(base).build();
+    }
 
-    public static VoxelShape SLIM_TINY_BASE = Shapes.box(0.375, 0.25, 0.375, 0.625, 1, 0.625);
-    public static VoxelShape SLIM_SMALL_BASE = Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 1, 0.6875);
-    public static VoxelShape SLIM_MEDIUM_BASE = Shapes.box(0.25, 0.1875, 0.25, 0.75, 1, 0.75);
-    public static VoxelShape SLIM_LARGE_BASE = Shapes.box(0.1875, 0.1875, 0.1875, 0.8125, 1, 0.8125);
-    public static VoxelShape SLIM_HUGE_BASE = Shapes.box(0.125, 0.1875, 0.125, 0.875, 1, 0.875);
+    public static VoxelShape
+        // SLIM
+        SLIM_TINY_BASE = shape(6, 4, 6, 10, 16, 10).build(),
+        SLIM_SMALL_BASE = shape(5, 3, 5, 11, 16, 11).build(),
+        SLIM_MEDIUM_BASE = shape(4, 3, 4, 12, 16, 12).build(),
+        SLIM_LARGE_BASE = shape(3, 3, 3, 13, 16, 13).build(),
+        SLIM_HUGE_BASE = shape(2, 3, 2, 14, 16, 14).build(),
 
-    public static VoxelShape SLIM_EXTENSION_TINY_SINGLE = Shapes.box(0.375, 0, 0.375, 0.625, 0.25, 0.625);
-    public static VoxelShape SLIM_EXTENSION_TINY_DOUBLE = Shapes.box(0.375, 0, 0.375, 0.625, 0.5, 0.625);
-    public static VoxelShape SLIM_EXTENSION_TINY_TRIPLE = Shapes.box(0.375, 0, 0.375, 0.625, 0.75, 0.625);
-    public static VoxelShape SLIM_EXTENSION_TINY_QUAD = Shapes.box(0.375, 0, 0.375, 0.625, 1, 0.625);
+        SLIM_EXTENSION_TINY_SINGLE = shape(6, 0, 6, 10, 4, 10).build(),
+        SLIM_EXTENSION_TINY_DOUBLE = shape(6, 0, 6, 10, 8, 10).build(),
+        SLIM_EXTENSION_TINY_TRIPLE = shape(6, 0, 6, 10, 12, 10).build(),
+        SLIM_EXTENSION_TINY_QUAD = shape(6, 0, 6, 10, 16, 10).build(),
 
-    public static VoxelShape SLIM_EXTENSION_SMALL_SINGLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.25, 0.6875);
-    public static VoxelShape SLIM_EXTENSION_SMALL_DOUBLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.5, 0.6875);
-    public static VoxelShape SLIM_EXTENSION_SMALL_TRIPLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.75, 0.6875);
-    public static VoxelShape SLIM_EXTENSION_SMALL_QUAD = Shapes.box(0.3125, 0, 0.3125, 0.6875, 1, 0.6875);
+        SLIM_EXTENSION_SMALL_SINGLE = shape(5, 0, 5, 11, 4, 11).build(),
+        SLIM_EXTENSION_SMALL_DOUBLE = shape(5, 0, 5, 11, 8, 11).build(),
+        SLIM_EXTENSION_SMALL_TRIPLE = shape(5, 0, 5, 11, 12, 11).build(),
+        SLIM_EXTENSION_SMALL_QUAD = shape(5, 0, 5, 11, 16, 11).build(),
 
-    public static VoxelShape SLIM_EXTENSION_MEDIUM_SINGLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.25, 0.75);
-    public static VoxelShape SLIM_EXTENSION_MEDIUM_DOUBLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.5, 0.75);
-    public static VoxelShape SLIM_EXTENSION_MEDIUM_TRIPLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.75, 0.75);
-    public static VoxelShape SLIM_EXTENSION_MEDIUM_QUAD = Shapes.box(0.25, 0, 0.25, 0.75, 1, 0.75);
+        SLIM_EXTENSION_MEDIUM_SINGLE = shape(4, 0, 4, 12, 4, 12).build(),
+        SLIM_EXTENSION_MEDIUM_DOUBLE = shape(4, 0, 4, 12, 8, 12).build(),
+        SLIM_EXTENSION_MEDIUM_TRIPLE = shape(4, 0, 4, 12, 12, 12).build(),
+        SLIM_EXTENSION_MEDIUM_QUAD = shape(4, 0, 4, 12, 16, 12).build(),
 
-    public static VoxelShape SLIM_EXTENSION_LARGE_SINGLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.25, 0.8125);
-    public static VoxelShape SLIM_EXTENSION_LARGE_DOUBLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5, 0.8125);
-    public static VoxelShape SLIM_EXTENSION_LARGE_TRIPLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.75, 0.8125);
-    public static VoxelShape SLIM_EXTENSION_LARGE_QUAD = Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125);
+        SLIM_EXTENSION_LARGE_SINGLE = shape(3, 0, 3, 13, 4, 13).build(),
+        SLIM_EXTENSION_LARGE_DOUBLE = shape(3, 0, 3, 13, 8, 13).build(),
+        SLIM_EXTENSION_LARGE_TRIPLE = shape(3, 0, 3, 13, 12, 13).build(),
+        SLIM_EXTENSION_LARGE_QUAD = shape(3, 0, 3, 13, 16, 13).build(),
 
-    public static VoxelShape SLIM_EXTENSION_HUGE_SINGLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.25, 0.875);
-    public static VoxelShape SLIM_EXTENSION_HUGE_DOUBLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.5, 0.875);
-    public static VoxelShape SLIM_EXTENSION_HUGE_TRIPLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.75, 0.875);
-    public static VoxelShape SLIM_EXTENSION_HUGE_QUAD = Shapes.box(0.125, 0, 0.125, 0.875, 1, 0.875);
+        SLIM_EXTENSION_HUGE_SINGLE = shape(2, 0, 2, 14, 4, 14).build(),
+        SLIM_EXTENSION_HUGE_DOUBLE = shape(2, 0, 2, 14, 8, 14).build(),
+        SLIM_EXTENSION_HUGE_TRIPLE = shape(2, 0, 2, 14, 12, 14).build(),
+        SLIM_EXTENSION_HUGE_QUAD = shape(2, 0, 2, 14, 16, 14).build(),
 
-    // GENERIC
+        // GENERIC
+        GENERIC_TINY_BASE = shape(5, 3, 5, 11, 16, 11).build(),
+        GENERIC_SMALL_BASE = shape(4, 3, 4, 12, 16, 12).build(),
+        GENERIC_MEDIUM_BASE = shape(3, 3, 3, 13, 16, 13).build(),
+        GENERIC_LARGE_BASE = shape(2, 3, 2, 14, 16, 14).build(),
+        GENERIC_HUGE_BASE = shape(1, 3, 1, 15, 16, 15).build(),
 
-    public static VoxelShape GENERIC_TINY_BASE = Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 1, 0.6875);
-    public static VoxelShape GENERIC_SMALL_BASE = Shapes.box(0.25, 0.1875, 0.25, 0.75, 1, 0.75);
-    public static VoxelShape GENERIC_MEDIUM_BASE = Shapes.box(0.1875, 0.1875, 0.1875, 0.8125, 1, 0.8125);
-    public static VoxelShape GENERIC_LARGE_BASE = Shapes.box(0.125, 0.1875, 0.125, 0.875, 1, 0.875);
-    public static VoxelShape GENERIC_HUGE_BASE = Shapes.box(0.0625, 0.1875, 0.0625, 0.9375, 1, 0.9375);
+        GENERIC_EXTENSION_TINY_SINGLE = shape(5, 0, 5, 11, 4, 11).build(),
+        GENERIC_EXTENSION_TINY_DOUBLE = shape(5, 0, 5, 11, 8, 11).build(),
+        GENERIC_EXTENSION_TINY_TRIPLE = shape(5, 0, 5, 11, 12, 11).build(),
+        GENERIC_EXTENSION_TINY_QUADRUPLE = shape(5, 0, 5, 11, 16, 11).build(),
 
-    public static VoxelShape GENERIC_EXTENSION_TINY_SINGLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.25, 0.6875);
-    public static VoxelShape GENERIC_EXTENSION_TINY_DOUBLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.5, 0.6875);
-    public static VoxelShape GENERIC_EXTENSION_TINY_TRIPLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.75, 0.6875);
-    public static VoxelShape GENERIC_EXTENSION_TINY_QUADRUPLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 1, 0.6875);
+        GENERIC_EXTENSION_SMALL_SINGLE = shape(4, 0, 4, 12, 4, 12).build(),
+        GENERIC_EXTENSION_SMALL_DOUBLE = shape(4, 0, 4, 12, 8, 12).build(),
+        GENERIC_EXTENSION_SMALL_TRIPLE = shape(4, 0, 4, 12, 12, 12).build(),
+        GENERIC_EXTENSION_SMALL_QUADRUPLE = shape(4, 0, 4, 12, 16, 12).build(),
 
-    public static VoxelShape GENERIC_EXTENSION_SMALL_SINGLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.25, 0.75);
-    public static VoxelShape GENERIC_EXTENSION_SMALL_DOUBLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.5, 0.75);
-    public static VoxelShape GENERIC_EXTENSION_SMALL_TRIPLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.75, 0.75);
-    public static VoxelShape GENERIC_EXTENSION_SMALL_QUADRUPLE = Shapes.box(0.25, 0, 0.25, 0.75, 1, 0.75);
+        GENERIC_EXTENSION_MEDIUM_SINGLE = shape(3, 0, 3, 13, 4, 13).build(),
+        GENERIC_EXTENSION_MEDIUM_DOUBLE = shape(3, 0, 3, 13, 8, 13).build(),
+        GENERIC_EXTENSION_MEDIUM_TRIPLE = shape(3, 0, 3, 13, 12, 13).build(),
+        GENERIC_EXTENSION_MEDIUM_QUADRUPLE = shape(3, 0, 3, 13, 16, 13).build(),
 
-    public static VoxelShape GENERIC_EXTENSION_MEDIUM_SINGLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.25, 0.8125);
-    public static VoxelShape GENERIC_EXTENSION_MEDIUM_DOUBLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5, 0.8125);
-    public static VoxelShape GENERIC_EXTENSION_MEDIUM_TRIPLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.75, 0.8125);
-    public static VoxelShape GENERIC_EXTENSION_MEDIUM_QUADRUPLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125);
+        GENERIC_EXTENSION_LARGE_SINGLE = shape(2, 0, 2, 14, 4, 14).build(),
+        GENERIC_EXTENSION_LARGE_DOUBLE = shape(2, 0, 2, 14, 8, 14).build(),
+        GENERIC_EXTENSION_LARGE_TRIPLE = shape(2, 0, 2, 14, 12, 14).build(),
+        GENERIC_EXTENSION_LARGE_QUADRUPLE = shape(2, 0, 2, 14, 16, 14).build(),
 
-    public static VoxelShape GENERIC_EXTENSION_LARGE_SINGLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.25, 0.875);
-    public static VoxelShape GENERIC_EXTENSION_LARGE_DOUBLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.5, 0.875);
-    public static VoxelShape GENERIC_EXTENSION_LARGE_TRIPLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.75, 0.875);
-    public static VoxelShape GENERIC_EXTENSION_LARGE_QUADRUPLE = Shapes.box(0.125, 0, 0.125, 0.875, 1, 0.875);
-
-    public static VoxelShape GENERIC_EXTENSION_HUGE_SINGLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.25, 0.9375);
-    public static VoxelShape GENERIC_EXTENSION_HUGE_DOUBLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.5, 0.9375);
-    public static VoxelShape GENERIC_EXTENSION_HUGE_TRIPLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.75, 0.9375);
-    public static VoxelShape GENERIC_EXTENSION_HUGE_QUADRUPLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 1, 0.9375);
-
-    // BASES
-
-    public static VoxelShape BASE_FLOOR = add(
-            Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.1875, 0.9375),
-            Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 0.6875, 0.6875)
-    );
-
-    public static VoxelShape BASE_NORTH = add(
-            Shapes.box(0.0625, 0.0625, 0, 0.9375, 0.9375, 0.1875),
-            Shapes.box(0.3125, 0.1875, 0.1875, 0.6875, 0.5625, 0.6875)
-    );
-
-    public static VoxelShape BASE_EAST = add(
-            Shapes.box(0.8125, 0.0625, 0.0625, 1, 0.9375, 0.9375),
-            Shapes.box(0.3125, 0.1875, 0.3125, 0.8125, 0.5625, 0.6875)
-    );
-
-    public static VoxelShape BASE_SOUTH = add(
-            Shapes.box(0.0625, 0.0625, 0.8125, 0.9375, 0.9375, 1),
-            Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 0.5625, 0.8125)
-    );
-
-    public static VoxelShape BASE_WEST = add(
-            Shapes.box(0, 0.0625, 0.0625, 0.1875, 0.9375, 0.9375),
-            Shapes.box(0.1875, 0.1875, 0.3125, 0.6875, 0.5625, 0.6875)
-    );
+        GENERIC_EXTENSION_HUGE_SINGLE = shape(1, 0, 1, 15, 4, 15).build(),
+        GENERIC_EXTENSION_HUGE_DOUBLE = shape(1, 0, 1, 15, 8, 15).build(),
+        GENERIC_EXTENSION_HUGE_TRIPLE = shape(1, 0, 1, 15, 12, 15).build(),
+        GENERIC_EXTENSION_HUGE_QUADRUPLE = shape(1, 0, 1, 15, 16, 15).build();
 
 
+    public static VoxelShaper BASE = shape(1, 0, 1, 15, 3, 15)
+            .add(5, 3, 5, 11, 11, 11)
+            .forDirectional(Direction.UP);
 
-    public static VoxelShape BASE_BLOCK_TOP = Shapes.box(0.3125, 0.5625, 0.3125, 0.6875, 0.6875, 0.6875);
-
-    public static VoxelShape BASE_BLOCK_NORTH = add(
-            add(Shapes.box(0.0625, 0.0625, 0, 0.9375, 0.9375, 0.1875), Shapes.box(0.3125, 0.1875, 0.1875, 0.6875, 0.5625, 0.6875)),
-            BASE_BLOCK_TOP
-    );
-
-    public static VoxelShape BASE_BLOCK_EAST = add(
-            add(Shapes.box(0.8125, 0.0625, 0.0625, 1, 0.9375, 0.9375), Shapes.box(0.3125, 0.1875, 0.3125, 0.8125, 0.5625, 0.6875)),
-            BASE_BLOCK_TOP
-    );
-
-    public static VoxelShape BASE_BLOCK_SOUTH = add(
-            add(Shapes.box(0.0625, 0.0625, 0.8125, 0.9375, 0.9375, 1), Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 0.5625, 0.8125)),
-            BASE_BLOCK_TOP
-    );
-
-    public static VoxelShape BASE_BLOCK_WEST = add(
-            add(Shapes.box(0, 0.0625, 0.0625, 0.1875, 0.9375, 0.9375), Shapes.box(0.1875, 0.1875, 0.3125, 0.6875, 0.5625, 0.6875)),
-            BASE_BLOCK_TOP
-    );
+    // shape for floor variant is BASE.get(UP)
+    public static VoxelShaper BASE_BLOCK_WALL = shape(1, 1, 0, 15, 15, 3)
+            .add(5, 3, 3, 11, 9, 11)
+            .add(5, 9, 5, 11, 11, 11)
+            .forDirectional(Direction.NORTH);
 
 
+    private static com.simibubi.create.AllShapes.Builder shape(VoxelShape shape) {
+        return new com.simibubi.create.AllShapes.Builder(shape);
+    }
 
-
-    // WINDCHEST
-    public static VoxelShape WINDCHEST = add(
-            add(Shapes.box(0, 0, 0, 1, 0.6875, 1), Shapes.box(0, 0.8125, 0, 1, 1, 1)),
-            Shapes.box(0.1875, 0.6875, 0.1875, 0.8125, 0.8125, 0.8125)
-    );
+    private static com.simibubi.create.AllShapes.Builder shape(double x1, double y1, double z1, double x2, double y2, double z2) {
+        return shape(Block.box(x1, y1, z1, x2, y2, z2));
+    }
 
 }

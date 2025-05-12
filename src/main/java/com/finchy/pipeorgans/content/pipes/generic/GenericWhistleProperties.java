@@ -9,14 +9,27 @@ public class GenericWhistleProperties {
         SINGLE("single"), DOUBLE("double"), TRIPLE("triple"), QUAD("quad"), QUAD_CONNECTED("quad_connected");
 
         private final String name;
-
         QuadrupleExtensionShape(String name) {
             this.name = name;
         }
 
         @Override
         public @NotNull String getSerializedName() {
-            return this.name;
+            return name;
+        }
+    }
+
+    public enum WhistleShape implements StringRepresentable {
+        GENERIC("generic"), SLIM("slim");
+
+        private final String name;
+        WhistleShape(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public @NotNull String getSerializedName() {
+            return name;
         }
     }
 
@@ -24,14 +37,13 @@ public class GenericWhistleProperties {
         TINY("tiny"), SMALL("small"), MEDIUM("medium"), LARGE("large"), HUGE("huge");
 
         private final String name;
-
         WhistleSize(String name) {
             this.name = name;
         }
 
         @Override
         public @NotNull String getSerializedName() {
-            return this.name;
+            return name;
         }
     }
 

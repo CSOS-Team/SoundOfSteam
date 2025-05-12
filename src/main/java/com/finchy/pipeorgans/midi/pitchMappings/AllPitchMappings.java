@@ -7,17 +7,20 @@ public abstract class AllPitchMappings {
 
     private static final Map<String, PitchMapping> allPitchMappings = new HashMap<>();
 
-    public static void addMapping(PitchMapping mapping) {
-        allPitchMappings.put(mapping.id(), mapping);
-    }
+    public static PitchMapping PIPE_CENTRIC = add(new PipeCentricPitchMapping());
+    public static PitchMapping C_CENTRIC = add(new CPitchMapping());
 
     public static PitchMapping getMapping(String id) {
-        return allPitchMappings.get(id);
+        return allPitchMappings.getOrDefault(id, C_CENTRIC);
     }
 
-    public static void register() {
-        addMapping(new PipeCentricPitchMapping());
-        addMapping(new CPitchMapping());
+    public static PitchMapping add(PitchMapping mapping) {
+        allPitchMappings.put(mapping.name(), mapping);
+        return mapping;
     }
+
+    public static void register() {}
+
+
 
 }
