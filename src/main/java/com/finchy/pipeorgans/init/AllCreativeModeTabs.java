@@ -35,6 +35,8 @@ public class AllCreativeModeTabs {
                         output.accept(AllItems.BRASS_BOOT.get());
                         output.accept(AllItems.DARK_OAK_BOOT.get());
                         output.accept(AllItems.COPPER_BOOT.get());
+                        output.accept(AllBlocks.STOP_MASTER.get());
+                        output.accept(AllBlocks.KEYBOARD_RELAY.get());
                     })
                     .build());
 

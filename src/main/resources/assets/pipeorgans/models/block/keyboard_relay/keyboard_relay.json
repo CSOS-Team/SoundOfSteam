@@ -5,7 +5,8 @@
 	"textures": {
 		"0": "pipeorgans:block/keyboard_relay/kbr",
 		"1": "pipeorgans:block/keyboard_relay/kbr_shell",
-		"2_1": "create:block/redstone_antenna"
+		"2_1": "create:block/redstone_antenna",
+		"particle": "pipeorgans:block/keyboard_relay/kbr_particle"
 	},
 	"elements": [
 		{
