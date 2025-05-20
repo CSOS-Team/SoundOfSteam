@@ -25,6 +25,10 @@
     "pipeorgans:posaune_extension",
 
     "pipeorgans:vox_humana",
-    "pipeorgans:vox_humana_extension"
+    "pipeorgans:vox_humana_extension",
+
+    "pipeorgans:windchest",
+    "pipeorgans:windchest_master"
+
   ]
 }
