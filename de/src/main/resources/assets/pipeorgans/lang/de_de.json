@@ -4,7 +4,7 @@
   "key.pipeorgans.midi_config": "MIDI-Einstellungen öffnen",
   "gui.pipeorgans.midi_config": "MIDI-Eingabegeräteeinstellungen",
   "gui.pipeorgans.stop_master": "Tutti",
-  "gui.pipeorgans.stop_master.channel_label": "Enabled channels:",
+  "gui.pipeorgans.stop_master.channel_label": "Aktivierte Kanäle:",
   "create.goggles.stop_master_source": "Quelle: %1$s",
   "item.stop_master.tooltip": "Quelle: ",
   "pipeorgans.stopsize.2": "§72'",
