@@ -2,6 +2,10 @@ package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockItem;
+import com.finchy.pipeorgans.content.pipes.englishhorn.EnglishHornBlock;
+import com.finchy.pipeorgans.content.pipes.englishhorn.EnglishHornExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.rohrflote.RohrfloteBlock;
+import com.finchy.pipeorgans.content.pipes.rohrflote.RohrfloteExtensionBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.finchy.pipeorgans.content.base.BaseBlock;
@@ -25,7 +29,9 @@ import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlock;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.vox_humana.VoxHumanaBlock;
 import com.finchy.pipeorgans.content.pipes.vox_humana.VoxHumanaExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.englishhorn.EnglishHornBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem;
+
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -139,6 +145,23 @@ public class AllBlocks {
     public static final RegistryObject<VoxHumanaExtensionBlock> VOX_HUMANA_EXTENSION = registerBlockWithoutItem("vox_humana_extension",
             () -> new VoxHumanaExtensionBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
                     .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<EnglishHornBlock> ENGLISHHORN = registerPipeBlock("english_horn", "8",
+            () -> new EnglishHornBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<EnglishHornExtensionBlock> ENGLISHHORN_EXTENSION = registerBlockWithoutItem("english_horn_extension",
+            () -> new EnglishHornExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<RohrfloteBlock> ROHRFLOTE = registerPipeBlock("rohrflote", "8",
+            () -> new RohrfloteBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<RohrfloteExtensionBlock> ROHRFLOTE_EXTENSION = registerBlockWithoutItem("rohrflote_extension",
+            () -> new RohrfloteExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
 
 
 

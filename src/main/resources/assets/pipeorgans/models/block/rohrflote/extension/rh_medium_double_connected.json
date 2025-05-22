@@ -1,0 +1,31 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/rohrflote",
+		"particle": "pipeorgans:block/particle/rohrflote_particle"
+	},
+	"elements": [
+		{
+			"from": [4, 0, 4],
+			"to": [12, 8, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [4.5, 5, 5.5, 6], "texture": "#0"},
+				"east": {"uv": [4.5, 5, 5.5, 6], "texture": "#0"},
+				"south": {"uv": [4.5, 5, 5.5, 6], "texture": "#0"},
+				"west": {"uv": [4.5, 5, 5.5, 6], "texture": "#0"}
+			}
+		},
+		{
+			"from": [4, 8, 4],
+			"to": [12, 16, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 8, 7]},
+			"faces": {
+				"north": {"uv": [4.5, 5, 5.5, 6], "texture": "#0"},
+				"east": {"uv": [4.5, 5, 5.5, 6], "texture": "#0"},
+				"south": {"uv": [4.5, 5, 5.5, 6], "texture": "#0"},
+				"west": {"uv": [4.5, 5, 5.5, 6], "texture": "#0"}
+			}
+		}
+	]
+}

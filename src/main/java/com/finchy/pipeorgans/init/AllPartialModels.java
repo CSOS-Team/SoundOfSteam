@@ -25,6 +25,12 @@ public class AllPartialModels {
     GAMBA_MOUTH_LARGE = block("gamba/gm_large_mouth"),
     GAMBA_MOUTH_HUGE = block("gamba/gm_huge_mouth"),
 
+    ROHRFLOTE_MOUTH_TINY = block("rohrflote/rh_tiny_mouth"),
+    ROHRFLOTE_MOUTH_SMALL = block("rohrflote/rh_small_mouth"),
+    ROHRFLOTE_MOUTH_MEDIUM = block("rohrflote/rh_medium_mouth"),
+    ROHRFLOTE_MOUTH_LARGE = block("rohrflote/rh_large_mouth"),
+    ROHRFLOTE_MOUTH_HUGE = block("rohrflote/rh_huge_mouth"),
+
     PICCOLO_MOUTH_TINY = block("piccolo/p_tiny_mouth"),
     PICCOLO_MOUTH_SMALL = block("piccolo/p_small_mouth"),
     PICCOLO_MOUTH_MEDIUM = block("piccolo/p_medium_mouth"),
@@ -52,6 +58,12 @@ public class AllPartialModels {
     POSAUNE_MOUTH_MEDIUM = block("posaune/ps_medium_mouth"),
     POSAUNE_MOUTH_LARGE = block("posaune/ps_large_mouth"),
     POSAUNE_MOUTH_HUGE = block("posaune/ps_huge_mouth"),
+
+    ENGLISHHORN_MOUTH_TINY = block("english_horn/eh_tiny_mouth"),
+    ENGLISHHORN_MOUTH_SMALL = block("english_horn/eh_small_mouth"),
+    ENGLISHHORN_MOUTH_MEDIUM = block("english_horn/eh_medium_mouth"),
+    ENGLISHHORN_MOUTH_LARGE = block("english_horn/eh_large_mouth"),
+    ENGLISHHORN_MOUTH_HUGE = block("english_horn/eh_huge_mouth"),
 
     VOX_HUMANA_MOUTH_TINY = block("vox_humana/vh_tiny_mouth"),
     VOX_HUMANA_MOUTH_SMALL = block("vox_humana/vh_small_mouth"),

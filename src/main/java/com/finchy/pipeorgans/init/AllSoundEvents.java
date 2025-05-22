@@ -34,6 +34,12 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> GAMBA_LOW = registerSoundEvents("gamba_low");
     public static final RegistryObject<SoundEvent> GAMBA_DEEP = registerSoundEvents("gamba_deep");
 
+    public static final RegistryObject<SoundEvent> ROHRFLOTE_SUPERHIGH = registerSoundEvents("rohrflote_superhigh");
+    public static final RegistryObject<SoundEvent> ROHRFLOTE_HIGH = registerSoundEvents("rohrflote_high");
+    public static final RegistryObject<SoundEvent> ROHRFLOTE_MEDIUM = registerSoundEvents("rohrflote_medium");
+    public static final RegistryObject<SoundEvent> ROHRFLOTE_LOW = registerSoundEvents("rohrflote_low");
+    public static final RegistryObject<SoundEvent> ROHRFLOTE_DEEP = registerSoundEvents("rohrflote_deep");
+
     public static final RegistryObject<SoundEvent> PICCOLO_SUPERHIGH = registerSoundEvents("piccolo_superhigh");
     public static final RegistryObject<SoundEvent> PICCOLO_HIGH = registerSoundEvents("piccolo_high");
     public static final RegistryObject<SoundEvent> PICCOLO_MEDIUM = registerSoundEvents("piccolo_medium");
@@ -67,6 +73,12 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> VOX_HUMANA_MEDIUM = registerSoundEvents("vox_humana_medium");
     public static final RegistryObject<SoundEvent> VOX_HUMANA_LOW = registerSoundEvents("vox_humana_low");
     public static final RegistryObject<SoundEvent> VOX_HUMANA_DEEP = registerSoundEvents("vox_humana_deep");
+
+    public static final RegistryObject<SoundEvent> ENGLISHHORN_SUPERHIGH = registerSoundEvents("english_horn_superhigh");
+    public static final RegistryObject<SoundEvent> ENGLISHHORN_HIGH = registerSoundEvents("english_horn_high");
+    public static final RegistryObject<SoundEvent> ENGLISHHORN_MEDIUM = registerSoundEvents("english_horn_medium");
+    public static final RegistryObject<SoundEvent> ENGLISHHORN_LOW = registerSoundEvents("english_horn_low");
+    public static final RegistryObject<SoundEvent> ENGLISHHORN_DEEP = registerSoundEvents("english_horn_deep");
 
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {

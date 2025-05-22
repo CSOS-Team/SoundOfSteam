@@ -32,6 +32,12 @@
     "pipeorgans:posaune_extension",
 
     "pipeorgans:vox_humana",
-    "pipeorgans:vox_humana_extension"
+    "pipeorgans:vox_humana_extension",
+
+    "pipeorgans:english_horn",
+    "pipeorgans:english_horn_extension",
+
+    "pipeorgans:rohrflote",
+    "pipeorgans:rohrflote_extension"
   ]
 }

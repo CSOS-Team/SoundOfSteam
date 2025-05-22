@@ -1,0 +1,6 @@
+{
+	"parent": "pipeorgans:block/english_horn/eh_tiny_floor",
+	"textures": {
+		"0": "create:block/copper_redstone_plate_powered"
+	}
+}

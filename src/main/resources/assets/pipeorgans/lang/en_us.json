@@ -41,6 +41,8 @@
   "block.pipeorgans.trompette": "Trompette",
   "block.pipeorgans.nasard": "Nasard",
   "block.pipeorgans.posaune": "Posaune",
+  "block.pipeorgans.english_horn": "English Horn",
+  "block.pipeorgans.rohrflote": "Rohrflöte",
   "block.pipeorgans.vox_humana": "Vox Humana",
 
   "sounds.pipeorgans.gedeckt_superhigh": "Gedeckt squeals",
@@ -48,6 +50,12 @@
   "sounds.pipeorgans.gedeckt_medium": "Gedeckt speaks",
   "sounds.pipeorgans.gedeckt_low": "Gedeckt grumbles",
   "sounds.pipeorgans.gedeckt_deep": "Gedeckt rumbles",
+
+  "sounds.pipeorgans.english_horn_superhigh": "English Horn squeals",
+  "sounds.pipeorgans.english_horn_high": "English Horn squeaks",
+  "sounds.pipeorgans.english_horn_medium": "English Horn speaks",
+  "sounds.pipeorgans.english_horn_low": "English Horn grumbles",
+  "sounds.pipeorgans.english_horn_deep": "English Horn rumbles",
 
   "sounds.pipeorgans.diapason_superhigh": "Diapason squeals",
   "sounds.pipeorgans.diapason_high": "Diapason squeaks",
@@ -88,6 +96,12 @@
   "sounds.pipeorgans.posaune_medium": "Posaune grumbles",
   "sounds.pipeorgans.posaune_low": "Posaune rumbles",
   "sounds.pipeorgans.posaune_deep": "Posaune shakes the earth",
+
+  "sounds.pipeorgans.rohrflote_superhigh": "Rohrflöte squeals",
+  "sounds.pipeorgans.rohrflote_high": "Rohrflöte squeaks",
+  "sounds.pipeorgans.rohrflote_medium": "Rohrflöte speaks",
+  "sounds.pipeorgans.rohrflote_low": "Rohrflöte grumbles",
+  "sounds.pipeorgans.rohrflote_deep": "Rohrflöte rumbles",
 
   "sounds.pipeorgans.vox_humana_superhigh": "Vox Humana screeches",
   "sounds.pipeorgans.vox_humana_high": "Vox Humana shouts",

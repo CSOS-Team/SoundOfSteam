@@ -13,6 +13,8 @@ import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlockEntity;
 import com.finchy.pipeorgans.content.pipes.subbass.SubbassBlockEntity;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlockEntity;
 import com.finchy.pipeorgans.content.pipes.vox_humana.VoxHumanaBlockEntity;
+import com.finchy.pipeorgans.content.pipes.englishhorn.EnglishHornBlockEntity;
+import com.finchy.pipeorgans.content.pipes.rohrflote.RohrfloteBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -87,6 +89,16 @@ public class AllBlockEntities {
     public static final RegistryObject<BlockEntityType> VOX_HUMANA_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("vox_humana_block_entity",
                     () -> BlockEntityType.Builder.of(VoxHumanaBlockEntity::new, AllBlocks.VOX_HUMANA.get())
+                            .build(null));
+
+    public static final RegistryObject<BlockEntityType> ENGLISHHORN_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("english_horn_block_entity",
+                    () -> BlockEntityType.Builder.of(EnglishHornBlockEntity::new, AllBlocks.ENGLISHHORN.get())
+                            .build(null));
+
+    public static final RegistryObject<BlockEntityType> ROHRFLOTE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("rohrflote_block_entity",
+                    () -> BlockEntityType.Builder.of(RohrfloteBlockEntity::new, AllBlocks.ROHRFLOTE.get())
                             .build(null));
 
 
