@@ -1,6 +1,6 @@
 {
-  "pipeorgans.creativetab.pipes": "Create: Sound of Steam",
-  "key.category.pipeorgans": "Create: Sound of Steam",
+  "pipeorgans.creativetab.pipes": "Create: Symfonia Pary",
+  "key.category.pipeorgans": "Create: Symfonia Pary",
   "key.pipeorgans.midi_config": "Open MIDI Config GUI",
   "gui.pipeorgans.midi_config": "MIDI Input Device Config",
   "gui.pipeorgans.stop_master": "Stop Master",
@@ -18,7 +18,7 @@
   "item.pipeorgans.dark_oak_boot": "Dark Oak Boot",
   "item.pipeorgans.copper_boot": "Copper Boot",
   "block.pipeorgans.base": "Pipe Base",
-  "block.pipeorgans.stop_master": "Stop Master",
+  "block.pipeorgans.stop_master": "Kontroler Registrów",
   "block.pipeorgans.keyboard_relay": "Keyboard Relay",
   "block.pipeorgans.windchest": "Windchest",
   "block.pipeorgans.windchest_master": "Windchest Controller",
