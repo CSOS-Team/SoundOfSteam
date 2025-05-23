@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "I",
+    "S",
+    "C"
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:nuggets/iron"
+    },
+    "S": {
+      "tag": "forge:ingots/iron"
+    },
+    "C": {
+      "item": "pipeorgans:base"
+    }
+  },
+  "result": {
+    "item": "pipeorgans:english_horn"
+  }
+}
