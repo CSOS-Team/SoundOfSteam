@@ -27,8 +27,7 @@ public class StopMasterBlockItem extends BlockItem {
         BlockPos pos = pContext.getClickedPos();
         ItemStack stack = pContext.getItemInHand();
 
-        if (level.getBlockEntity(pos) instanceof KeyboardRelayBlockEntity // if clicked on a midi source
-                && !level.isClientSide) { // serverside only
+        if (level.getBlockEntity(pos) instanceof KeyboardRelayBlockEntity) {// if clicked on a midi source
             // todo: substitute KBR usages for generic midi source
             CompoundTag tag = stack.getOrCreateTag();
             tag.putIntArray("midi_source_pos",
