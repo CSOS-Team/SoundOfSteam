@@ -6,7 +6,6 @@ import com.finchy.pipeorgans.block.base.BaseBlockEntity;
 import com.finchy.pipeorgans.block.pipes.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.block.pipes.gamba.GambaBlockEntity;
 import com.finchy.pipeorgans.block.pipes.gedeckt.GedecktBlockEntity;
-import com.finchy.pipeorgans.block.pipes.generic.GenericPipeBlockEntity;
 import com.finchy.pipeorgans.block.pipes.nasard.NasardBlockEntity;
 import com.finchy.pipeorgans.block.pipes.piccolo.PiccoloBlockEntity;
 import com.finchy.pipeorgans.block.pipes.posaune.PosauneBlockEntity;
@@ -18,7 +17,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 
 public class AllBlockEntities {
@@ -29,7 +27,7 @@ public class AllBlockEntities {
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BaseBlockEntity>> BASE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("base_block_entity",
-                    () -> BlockEntityType.Builder.of(BaseBlockEntity::new, AllBlocks.GEDECKT.get())
+                    () -> BlockEntityType.Builder.of(BaseBlockEntity::new, AllBlocks.BASE.get())
                             .build(null));
 
 

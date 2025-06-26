@@ -46,6 +46,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("NullableProblems")
 public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -102,8 +103,6 @@ public class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntit
     // on right-click
     @Override
     public @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-            if (player == null)
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
             ItemStack heldItem = player.getItemInHand(hand);
             if (heldItem.getItem() == baseBlock.get().asItem()) {

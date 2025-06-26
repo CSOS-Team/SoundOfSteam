@@ -20,7 +20,7 @@ public class BaseBlockEntity extends SmartBlockEntity {
     public WeakReference<FluidTankBlockEntity> source;
 
     public BaseBlockEntity(BlockPos pos, BlockState state) {
-        super(AllBlockEntities.BASE_BLOCK_ENTITY.get(), pos, state);
+         super(AllBlockEntities.BASE_BLOCK_ENTITY.get(), pos, state);
         source = new WeakReference<>(null);
     }
 

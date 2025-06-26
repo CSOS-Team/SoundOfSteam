@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.block.base;
 
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
+import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.block.IBE;
@@ -25,10 +26,11 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("NullableProblems")
 public class BaseBlock extends Block implements IBE<BaseBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty WALL = BooleanProperty.create("wall");
+    public static final BooleanProperty WALL = WhistleBlock.WALL;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public BaseBlock(Properties pProperties) {
