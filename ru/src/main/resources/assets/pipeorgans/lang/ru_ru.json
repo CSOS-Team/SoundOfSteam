@@ -1,5 +1,5 @@
 {
-  "pipeorgans.creativetab.pipes": "Создание: Звук Steam",
+  "pipeorgans.creativetab.pipes": "Create: Музыка Пара",
   "pipeorgans.stopsize.2": "§72'",
   "pipeorgans.stopsize.223": "§72-2/3'",
   "pipeorgans.stopsize.4": "§74'",
@@ -7,12 +7,12 @@
   "pipeorgans.stopsize.16": "§716'",
   "pipeorgans.stopsize.32": "§732'",
   "pipeorgans.blocks.pipes.replace_pipe_deny": "Недостаточно места!",
-  "item.pipeorgans.brass_boot": "Латунная труба",
+  "item.pipeorgans.brass_boot": "Латунный орган",
   "item.pipeorgans.dark_oak_boot": "Труба из тёмного дуба",
   "item.pipeorgans.copper_boot": "Медная труба",
   "block.pipeorgans.base": "База для труб",
   "block.pipeorgans.windchest": "Органная трактура",
-  "block.pipeorgans.windchest_master": "Пульт органа",
+  "block.pipeorgans.windchest_master": "Контроллер органной трактуры",
   "block.pipeorgans.gedeckt": "Гедект",
   "block.pipeorgans.diapason": "Диапазон",
   "block.pipeorgans.gamba": "Гамба",
@@ -27,10 +27,10 @@
   "sounds.pipeorgans.gedeckt_medium": "Гедект говорит",
   "sounds.pipeorgans.gedeckt_low": "Гедект ворчит",
   "sounds.pipeorgans.gedeckt_deep": "Гедект грохочет",
-  "sounds.pipeorgans.diapason_superhigh": "Диапазон визжит",
-  "sounds.pipeorgans.diapason_high": "Диапазон скрипит",
-  "sounds.pipeorgans.diapason_medium": "Диапазон говорит",
-  "sounds.pipeorgans.diapason_low": "Диапазон ворчит",
+  "sounds.pipeorgans.diapason_superhigh": "Очень высокий диапазон",
+  "sounds.pipeorgans.diapason_high": "Высокий диапазон",
+  "sounds.pipeorgans.diapason_medium": "Средний диапазон",
+  "sounds.pipeorgans.diapason_low": "Низкий диапазон",
   "sounds.pipeorgans.diapason_deep": "Диапазон грохочет",
   "sounds.pipeorgans.gamba_superhigh": "Гамба визжит",
   "sounds.pipeorgans.gamba_high": "Гамба скрипит",
@@ -64,5 +64,5 @@
   "sounds.pipeorgans.vox_humana_high": "Голос человека кричит",
   "sounds.pipeorgans.vox_humana_medium": "Голос человека говорит",
   "sounds.pipeorgans.vox_humana_low": "Голос человека стонет",
-  "sounds.pipeorgans.vox_humana_deep": "Голос человека ревит"
+  "sounds.pipeorgans.vox_humana_deep": "Голос человека ревёт"
 }
