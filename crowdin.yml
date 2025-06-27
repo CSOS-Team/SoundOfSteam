@@ -7,9 +7,9 @@
 "files": [
   {
     "source": "src/main/resources/assets/pipeorgans/lang/en_us.json",
-    "translation": "src/main/resources/assets/pipeorgans/lang/%locale%.json",
+    "translation": "src/main/resources/assets/pipeorgans/lang/%locale_with_underscore%.json",
     "languages_mapping": {
-      "locale": {
+      "locale_with_underscore": {
         "cs-CZ": "cs_cz",
         "nl-NL": "nl_nl",
         "fr-FR": "fr_fr",
