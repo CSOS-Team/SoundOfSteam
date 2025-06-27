@@ -3,7 +3,7 @@
 	"textures": {
 		"0": "pipeorgans:block/windchest/windchest_master",
 		"1": "pipeorgans:block/windchest/windchest",
-		"particle": "pipeorgans:block/windchest/windchest_master"
+		"particle": "pipeorgans:block/particle/windchest_master_particle"
 	},
 	"elements": [
 		{
