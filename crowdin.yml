@@ -7,16 +7,16 @@
 "files": [
   {
     "source": "src/main/resources/assets/pipeorgans/lang/en_us.json",
-    "translation": "src/main/resources/assets/pipeorgans/lang/%locale_with_underscore%.json",
+    "translation": "src/main/resources/assets/pipeorgans/lang/%two_letters_code%.json",
     "languages_mapping": {
-      "locale_with_underscore": {
-        "cs-CZ": "cs_cz",
-        "nl-NL": "nl_nl",
-        "fr-FR": "fr_fr",
-        "de-DE": "de_de",
-        "pl-PL": "pl_pl",
-        "ru-RU": "ru_ru",
-        "es-ES": "es_es"
+      "two_letters_code": {
+        "cs": "cs_cz",
+        "nl": "nl_nl",
+        "fr": "fr_fr",
+        "de": "de_de",
+        "pl": "pl_pl",
+        "ru": "ru_ru",
+        "es": "es_es"
       }
     }
   }
