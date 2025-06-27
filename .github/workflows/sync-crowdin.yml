@@ -1,6 +1,6 @@
 # This workflow will run Crowdin Action that will upload new texts to Crowdin, download the newest translations and create a PR
 # For more information see: https://github.com/crowdin/github-action
-name: Sync Crowdin (1.20.1)
+name: Sync Crowdin
 
 on:
   workflow_dispatch:
