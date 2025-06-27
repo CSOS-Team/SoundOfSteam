@@ -1,24 +1,27 @@
 {
-  "pipeorgans.creativetab.pipes": "Create: Музыка пара",
-
+  "pipeorgans.creativetab.pipes": "Create: Музыка Пара",
+  "key.category.pipeorgans": "Create: Музыка Пара",
+  "key.pipeorgans.midi_config": "Открыть Интерфейс конфигурации MIDI",
+  "gui.pipeorgans.midi_config": "Конфигурация Устройства Ввода MIDI",
+  "gui.pipeorgans.stop_master": "Мастер-остановщик",
+  "gui.pipeorgans.stop_master.channel_label": "Включенные каналы:",
+  "create.goggles.stop_master_source": "Источник: %1$s",
+  "item.stop_master.tooltip": " Источник: ",
   "pipeorgans.stopsize.2": "§72'",
   "pipeorgans.stopsize.223": "§72-2/3'",
   "pipeorgans.stopsize.4": "§74'",
   "pipeorgans.stopsize.8": "§78'",
   "pipeorgans.stopsize.16": "§716'",
   "pipeorgans.stopsize.32": "§732'",
-
   "pipeorgans.blocks.pipes.replace_pipe_deny": "Недостаточно места!",
-
-  "item.pipeorgans.brass_boot": "Латунная труба",
+  "item.pipeorgans.brass_boot": "Латунный орган",
   "item.pipeorgans.dark_oak_boot": "Труба из тёмного дуба",
   "item.pipeorgans.copper_boot": "Медная труба",
-
   "block.pipeorgans.base": "База для труб",
-
+  "block.pipeorgans.stop_master": "Мастер-остановщик",
+  "block.pipeorgans.keyboard_relay": "Клавиатурное реле",
   "block.pipeorgans.windchest": "Органная трактура",
-  "block.pipeorgans.windchest_master": "Пульт органа",
-
+  "block.pipeorgans.windchest_master": "Контроллер органной трактуры",
   "block.pipeorgans.gedeckt": "Гедект",
   "block.pipeorgans.diapason": "Диапазон",
   "block.pipeorgans.gamba": "Гамба",
@@ -28,56 +31,47 @@
   "block.pipeorgans.nasard": "Назард",
   "block.pipeorgans.posaune": "Посаун",
   "block.pipeorgans.vox_humana": "Вокс хумана",
-
   "sounds.pipeorgans.gedeckt_superhigh": "Гедект визжит",
   "sounds.pipeorgans.gedeckt_high": "Гедект скрипит",
   "sounds.pipeorgans.gedeckt_medium": "Гедект говорит",
   "sounds.pipeorgans.gedeckt_low": "Гедект ворчит",
   "sounds.pipeorgans.gedeckt_deep": "Гедект грохочет",
-
-  "sounds.pipeorgans.diapason_superhigh": "Диапазон визжит",
-  "sounds.pipeorgans.diapason_high": "Диапазон скрипит",
-  "sounds.pipeorgans.diapason_medium": "Диапазон говорит",
-  "sounds.pipeorgans.diapason_low": "Диапазон ворчит",
+  "sounds.pipeorgans.diapason_superhigh": "Очень высокий диапазон",
+  "sounds.pipeorgans.diapason_high": "Высокий диапазон",
+  "sounds.pipeorgans.diapason_medium": "Средний диапазон",
+  "sounds.pipeorgans.diapason_low": "Низкий диапазон",
   "sounds.pipeorgans.diapason_deep": "Диапазон грохочет",
-
   "sounds.pipeorgans.gamba_superhigh": "Гамба визжит",
   "sounds.pipeorgans.gamba_high": "Гамба скрипит",
   "sounds.pipeorgans.gamba_medium": "Гамба говорит",
   "sounds.pipeorgans.gamba_low": "Гамба ворчит",
   "sounds.pipeorgans.gamba_deep": "Гамба грохочет",
-
   "sounds.pipeorgans.piccolo_superhigh": "Пикколо пронзает",
   "sounds.pipeorgans.piccolo_high": "Пикколо визжит",
   "sounds.pipeorgans.piccolo_medium": "Пикколо скрипит",
   "sounds.pipeorgans.piccolo_low": "Пикколо ворчит",
   "sounds.pipeorgans.piccolo_deep": "Пикколо грохочет",
-
   "sounds.pipeorgans.subbass_high": "Суббас говорит",
   "sounds.pipeorgans.subbass_medium": "Суббас ворчит",
   "sounds.pipeorgans.subbass_low": "Суббас грохочет",
   "sounds.pipeorgans.subbass_deep": "Суббас сотрясает землю",
-
   "sounds.pipeorgans.trompette_superhigh": "Тромпетт визжит",
   "sounds.pipeorgans.trompette_high": "Тромпетт скрипит",
   "sounds.pipeorgans.trompette_medium": "Тромпетт говорит",
   "sounds.pipeorgans.trompette_low": "Тромпетт ворчит",
   "sounds.pipeorgans.trompette_deep": "Тромпетт грохочет",
-
   "sounds.pipeorgans.nasard_superhigh": "Назард визжит",
   "sounds.pipeorgans.nasard_high": "Назард скрипит",
   "sounds.pipeorgans.nasard_medium": "Назард говорит",
   "sounds.pipeorgans.nasard_low": "Назард ворчит",
   "sounds.pipeorgans.nasard_deep": "Назард грохочет",
-
   "sounds.pipeorgans.posaune_high": "Посаун говорит",
   "sounds.pipeorgans.posaune_medium": "Посаун ворчит",
   "sounds.pipeorgans.posaune_low": "Посаун грохочет",
   "sounds.pipeorgans.posaune_deep": "Посаун сотрясает землю",
-
   "sounds.pipeorgans.vox_humana_superhigh": "Голос человека верещит",
   "sounds.pipeorgans.vox_humana_high": "Голос человека кричит",
   "sounds.pipeorgans.vox_humana_medium": "Голос человека говорит",
   "sounds.pipeorgans.vox_humana_low": "Голос человека стонет",
-  "sounds.pipeorgans.vox_humana_deep": "Голос человека ревит"
+  "sounds.pipeorgans.vox_humana_deep": "Голос человека ревёт"
 }
