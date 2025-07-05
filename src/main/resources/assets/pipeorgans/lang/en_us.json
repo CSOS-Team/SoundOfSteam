@@ -25,6 +25,12 @@
   "item.pipeorgans.dark_oak_boot": "Dark Oak Boot",
   "item.pipeorgans.copper_boot": "Copper Boot",
 
+  "item.pipeorgans.brass_reed": "Brass Reed",
+  "item.pipeorgans.tuning_wire": "Tuning Wire",
+  "item.pipeorgans.incomplete_trompette": "Incomplete Trompette",
+  "item.pipeorgans.incomplete_vox_humana": "Incomplete Vox Humana",
+  "item.pipeorgans.incomplete_posaune": "Incomplete Posaune",
+
   "block.pipeorgans.base": "Pipe Base",
 
   "block.pipeorgans.stop_master": "Stop Master",

@@ -1,4 +1,5 @@
 {
+	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "create:block/copper_redstone_plate",
@@ -92,6 +93,24 @@
 				"up": {"uv": [4.5, 6.5, 5.5, 7.5], "texture": "#2", "cullface": "up"},
 				"down": {"uv": [14.5, 14.5, 15.5, 15.5], "texture": "#2", "cullface": "up"}
 			}
+		},
+		{
+			"from": [2, 16, 8],
+			"to": [3, 17, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 12, 6]},
+			"faces": {
+				"north": {"uv": [10.375, 14.125, 10.5, 14.25], "texture": "#2"},
+				"south": {"uv": [10.5, 14.125, 10.375, 14.25], "texture": "#2"}
+			}
+		},
+		{
+			"from": [3, 13, 8],
+			"to": [4, 17, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 12, 6]},
+			"faces": {
+				"north": {"uv": [10.25, 14.125, 10.375, 14.625], "texture": "#2"},
+				"south": {"uv": [10.25, 14.125, 10.375, 14.625], "texture": "#2"}
+			}
 		}
 	],
 	"display": {
@@ -110,7 +129,7 @@
 			"scale": [0.4, 0.4, 0.4]
 		},
 		"firstperson_lefthand": {
-			"rotation": [0, 225, 0],
+			"rotation": [0, -135, 0],
 			"scale": [0.4, 0.4, 0.4]
 		},
 		"ground": {
@@ -118,7 +137,7 @@
 			"scale": [0.25, 0.25, 0.25]
 		},
 		"gui": {
-			"rotation": [30, 225, 0],
+			"rotation": [30, -135, 0],
 			"scale": [0.625, 0.625, 0.625]
 		},
 		"head": {
@@ -146,6 +165,8 @@
 		3,
 		4,
 		5,
-		6
+		6,
+		7,
+		8
 	]
 }
