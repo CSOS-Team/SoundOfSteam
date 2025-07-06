@@ -3,7 +3,8 @@
 	"textures": {
 		"0": "create:block/copper_redstone_plate",
 		"1_1": "create:block/engine",
-		"1_2": "pipeorgans:block/posaune"
+		"1_2": "pipeorgans:block/posaune",
+		"particle": "create:block/copper_redstone_plate"
 	},
 	"elements": [
 		{
