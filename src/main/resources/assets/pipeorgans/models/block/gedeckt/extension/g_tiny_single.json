@@ -1,4 +1,5 @@
 {
+	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "pipeorgans:block/gedeckt",
@@ -15,6 +16,19 @@
 				"south": {"uv": [0.75, 7, 1.25, 8], "texture": "#0"},
 				"west": {"uv": [0.75, 7, 1.25, 8], "texture": "#0"},
 				"up": {"uv": [0.75, 8.75, 1.25, 9.25], "texture": "#0"}
+			}
+		},
+		{
+			"from": [7, 8, 7],
+			"to": [9, 10, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 4, 7]},
+			"faces": {
+				"north": {"uv": [0.875, 11.5, 1.125, 11.75], "texture": "#0"},
+				"east": {"uv": [0.875, 11.5, 1.125, 11.75], "texture": "#0"},
+				"south": {"uv": [0.875, 11.5, 1.125, 11.75], "texture": "#0"},
+				"west": {"uv": [0.875, 11.5, 1.125, 11.75], "texture": "#0"},
+				"up": {"uv": [0.875, 10.375, 1.125, 10.625], "texture": "#0"},
+				"down": {"uv": [0.875, 13.25, 1.125, 13.5], "texture": "#0"}
 			}
 		}
 	]
