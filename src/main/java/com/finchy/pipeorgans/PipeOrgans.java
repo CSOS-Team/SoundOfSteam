@@ -3,9 +3,8 @@ package com.finchy.pipeorgans;
 import com.finchy.pipeorgans.init.*;
 import com.finchy.pipeorgans.midi.Proxy;
 import com.finchy.pipeorgans.midi.client.ClientProxy;
-import com.finchy.pipeorgans.midi.pitchMappings.AllPitchMappings;
 import com.finchy.pipeorgans.midi.server.ServerProxy;
-import com.finchy.pipeorgans.network.PacketHandler;
+import com.finchy.pipeorgans.network.AllPackets;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -55,8 +54,7 @@ public class PipeOrgans {
         AllItems.register(modEventBus);
         AllSoundEvents.register(modEventBus);
         AllMenuTypes.register(modEventBus);
-
-        AllPitchMappings.register();
+        AllPackets.registerPackets();
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> PipeOrgansClient.onCtorClient(modEventBus, MinecraftForge.EVENT_BUS));
 
@@ -70,7 +68,6 @@ public class PipeOrgans {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(PacketHandler::register);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

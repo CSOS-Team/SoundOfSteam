@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.midi.pitchMappings;
+package com.finchy.pipeorgans.midi;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -7,16 +7,12 @@ import net.minecraft.world.item.Items;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PipeCentricPitchMapping extends PitchMapping {
-
-    public PipeCentricPitchMapping() {
-        setMappings();
-    }
+public class PitchMapping {
 
     private static final Map<Integer, Item> pitchMap = new HashMap<>();
 
     // set 6-114 (F#-1 to F#8)
-    static void setMappings() {
+    static {
         pitchMap.put(6, Items.RED_CONCRETE); // F#(-1)
         pitchMap.put(7, Items.ORANGE_CONCRETE);
         pitchMap.put(8, Items.YELLOW_CONCRETE);
@@ -137,18 +133,7 @@ public class PipeCentricPitchMapping extends PitchMapping {
         pitchMap.put(114, Items.BLACK_BANNER); // F#8
     }
 
-    @Override
-    public String name() {
-        return "Pipe-Centric";
-    }
-
-    @Override
-    public String description() {
-        return "A mapping based on the start of a pipe's range (F#). It uses different colours of blocks to indicate a note, and different types of coloured blocks to specify the octave.";
-    }
-
-    @Override
-    public ItemStack getStack(int pitch) {
+    public static ItemStack getStack(int pitch) {
         return new ItemStack(pitchMap.get(pitch));
     }
 }

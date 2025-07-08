@@ -3,8 +3,7 @@ package com.finchy.pipeorgans.content.midi.stopMaster;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
 import com.finchy.pipeorgans.gui.StopMasterMenu;
 import com.finchy.pipeorgans.init.AllBlockEntities;
-import com.finchy.pipeorgans.midi.pitchMappings.AllPitchMappings;
-import com.finchy.pipeorgans.midi.pitchMappings.PitchMapping;
+import com.finchy.pipeorgans.midi.PitchMapping;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import com.finchy.pipeorgans.util.MathUtils;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
@@ -29,14 +28,11 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
 
 @SuppressWarnings("DataFlowIssue")
 public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation, MenuProvider {
 
     private BlockPos linkedCoord = null;
-
-    private PitchMapping mapping;
 
     private StopMasterLinkBehaviour link;
     private int transmittedSignal;
@@ -52,7 +48,6 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
         toggleChannel(1);
         setChannel(2, true);
         setChannel(3, true);
-        mapping = AllPitchMappings.PIPE_CENTRIC; // DEVELOPMENT ONLY
     }
 
     @Override
@@ -81,11 +76,6 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
         }
         tag.putInt("channels", channels);
 
-        if (mapping != null) {
-            tag.putString("mapping", mapping.name());
-        } else {
-            tag.putString("mapping", "pipe_centric");
-        }
         super.write(tag, clientPacket);
     }
 
@@ -101,7 +91,6 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
         channels = tag.getInt("channels");
 
         String mappingID = tag.getString("mapping");
-        mapping = AllPitchMappings.getMapping(mappingID);
 
         super.read(tag, clientPacket);
     }
@@ -154,7 +143,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
     public void setNoteFrequency(int pitch, int velocity) {
 
         // determine frequency to be used for note
-        ItemStack freq = mapping.getStack(pitch);
+        ItemStack freq = PitchMapping.getStack(pitch);
 
         link.setNoteFrequency(freq, velocity>0);
 
@@ -169,18 +158,6 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
         if (link != null)
             link.notifySignalChange();
     }
-
-    public PitchMapping getMapping() {
-        return mapping;
-    }
-
-    public void setMapping(String newMapping) {
-        if (!Objects.equals(newMapping, "")) { // empty string represents no change
-            mapping = AllPitchMappings.getMapping(newMapping);
-        }
-    }
-
-
 
     // MIDI
 

@@ -1,8 +1,8 @@
 package com.finchy.pipeorgans.midi.client;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.network.PacketHandler;
-import com.finchy.pipeorgans.network.packet.MidiMessageC2SPacket;
+import com.finchy.pipeorgans.network.AllPackets;
+import com.finchy.pipeorgans.network.packet.MidiMessagePacket;
 import com.finchy.pipeorgans.util.MidiUtils;
 
 import net.minecraft.client.Minecraft;
@@ -51,8 +51,8 @@ public class MidiDeviceInputReceiver implements Receiver {
     }
 
     public void sendNotePacket(Byte channel, Byte note, Byte velocity, Player player) {
-        MidiMessageC2SPacket packet = MidiMessageC2SPacket.createNotePacket(channel, note, velocity, player.getUUID(), player.getOnPos());
-        PacketHandler.sendToServer(packet);
+        MidiMessagePacket packet = new MidiMessagePacket(channel, note, velocity, player.getUUID(), player.getOnPos());
+        AllPackets.getChannel().sendToServer(packet);
     }
 
 }

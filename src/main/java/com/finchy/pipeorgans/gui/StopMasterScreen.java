@@ -1,8 +1,8 @@
 package com.finchy.pipeorgans.gui;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.network.PacketHandler;
-import com.finchy.pipeorgans.network.packet.UpdateStopMasterC2SPacket;
+import com.finchy.pipeorgans.network.AllPackets;
+import com.finchy.pipeorgans.network.packet.UpdateStopMasterPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -64,13 +64,13 @@ public class StopMasterScreen extends AbstractContainerScreen<StopMasterMenu> {
 
     protected void addChannelButton(int channel, int x, int y) {
         addRenderableWidget(Button.builder(
-                Component.literal(Integer.toString(channel+1)), b -> sendUpdatePacket(channel, "") // toggle channel, don't touch mapping
+                Component.literal(Integer.toString(channel+1)), b -> sendUpdatePacket(channel) // toggle channel
         ).pos(leftPos+x, topPos+y).size(16, 16).build());
     }
 
-    public void sendUpdatePacket(int toggledChannel, String newMapping) {
-        UpdateStopMasterC2SPacket packet = UpdateStopMasterC2SPacket.createPacket(toggledChannel, newMapping, menu.blockEntity.getBlockPos());
-        PacketHandler.sendToServer(packet);
+    public void sendUpdatePacket(int toggledChannel) {
+        UpdateStopMasterPacket packet = new UpdateStopMasterPacket(toggledChannel, menu.blockEntity.getBlockPos());
+        AllPackets.getChannel().sendToServer(packet);
     }
 
     @Override

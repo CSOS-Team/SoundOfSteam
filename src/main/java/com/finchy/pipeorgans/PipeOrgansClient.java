@@ -15,12 +15,6 @@ public class  PipeOrgansClient {
     public static void onCtorClient(IEventBus modEventBus, IEventBus forgeEventBus) {
         modEventBus.addListener(PipeOrgansClient::clientInit);
         AllPartialModels.init();
-
-        List<Component> availableMidis = MIDI_LOADER.getAvailableMidis();
-        availableMidis.forEach(midi -> {
-            PipeOrgans.LOGGER.info("AVAILABLE MIDI: {}", midi.getString());
-        });
-
     }
 
     public static void clientInit(final FMLClientSetupEvent event) {
