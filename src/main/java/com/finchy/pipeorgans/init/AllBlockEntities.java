@@ -4,6 +4,7 @@ import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlockEntity;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
 import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockEntity;
+import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaBlockEntity;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlockEntity;
@@ -35,6 +36,11 @@ public class AllBlockEntities {
     public static final RegistryObject<BlockEntityType> KEYBOARD_RELAY_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("keyboard_relay_block_entity",
                     () -> BlockEntityType.Builder.of(KeyboardRelayBlockEntity::new, AllBlocks.KEYBOARD_RELAY.get())
+                            .build(null));
+
+    public static final RegistryObject<BlockEntityType> TRACKER_BAR_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tracker_bar_block_entity",
+                    () -> BlockEntityType.Builder.of(TrackerBarBlockEntity::new, AllBlocks.TRACKER_BAR.get())
                             .build(null));
 
     public static final RegistryObject<BlockEntityType> STOP_MASTER_BLOCK_ENTITY =
