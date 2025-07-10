@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "item": "pipeorgans:nasard"
+    },
+    "title": {
+      "translate": "advancement.pipeorgans.nasard"
+    },
+    "description": {
+      "translate": "advancement.pipeorgans.nasard.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "pipeorgans:pipebase",
+  "criteria": {
+    "example": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": [
+                "pipeorgans:nasard"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
