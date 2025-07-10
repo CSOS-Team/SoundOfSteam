@@ -3,6 +3,7 @@ package com.finchy.pipeorgans;
 import com.finchy.pipeorgans.init.*;
 import com.finchy.pipeorgans.midi.Proxy;
 import com.finchy.pipeorgans.midi.client.ClientProxy;
+import com.finchy.pipeorgans.midi.server.ServerMidiLoader;
 import com.finchy.pipeorgans.midi.server.ServerProxy;
 import com.finchy.pipeorgans.network.AllPackets;
 import com.mojang.logging.LogUtils;
@@ -31,16 +32,14 @@ public class PipeOrgans {
 
     // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "pipeorgans";
-
-    // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    protected static Proxy proxy;
+    public static final ServerMidiLoader MIDI_RECEIVER = new ServerMidiLoader();
 
+    protected static Proxy proxy;
     public static Proxy getProxy() {
         return proxy;
     }
-
     public static void setProxy(Proxy inProxy) {
         proxy = inProxy;
     }

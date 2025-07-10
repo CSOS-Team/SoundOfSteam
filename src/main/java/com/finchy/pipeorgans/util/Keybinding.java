@@ -5,7 +5,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import org.lwjgl.glfw.GLFW;
 
-public class Keybinding {
+public class     Keybinding {
     public static final String KEY_CATEGORY_PIPEORGANS = "key.category.pipeorgans";
 
     public static final String MIDI_CONFIG_TRANSLATE = "key.pipeorgans.midi_config";

@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.event;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.PipeOrgansClient;
 import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterRenderer;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonRenderer;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaRenderer;
@@ -23,6 +24,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -65,7 +67,20 @@ public class ClientEvents {
         public static void onKeyInput(InputEvent.Key event) {
             if (Keybinding.MIDI_CONFIG_KEY.consumeClick()) {
                 ClientsideGUIWrapper.openMidiConfigGUI(Minecraft.getInstance().level);
+                PipeOrgansClient.MIDI_SENDER.refresh();
+                PipeOrgansClient.MIDI_SENDER.startNewUpload("test.mid");
             }
         }
+
+        @SubscribeEvent
+        public static void onTick(TickEvent.ClientTickEvent event) {
+            if (!isGameActive())
+                return;
+            PipeOrgansClient.MIDI_SENDER.tick();
+        }
+    }
+
+    protected static boolean isGameActive() {
+        return !(Minecraft.getInstance().level == null || Minecraft.getInstance().player == null);
     }
 }

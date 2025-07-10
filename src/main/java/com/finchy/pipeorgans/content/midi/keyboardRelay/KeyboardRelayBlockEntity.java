@@ -1,10 +1,10 @@
 package com.finchy.pipeorgans.content.midi.keyboardRelay;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
 import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
-import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.UUID;
 
 @SuppressWarnings("DataFlowIssue")
-public class KeyboardRelayBlockEntity extends SmartBlockEntity {
+public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
 
     private UUID user = null;
     private boolean deactivatedThisTick;

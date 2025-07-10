@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.midi.stopMaster;
 
-import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
+import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
 import com.finchy.pipeorgans.gui.StopMasterMenu;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.midi.PitchMapping;
@@ -183,7 +183,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
 
 
 
-    public void linkToSource(KeyboardRelayBlockEntity source) {
+    public void linkToSource(MidiSourceBlockEntity source) {
         // initiated in stopmaster
         if (linkedCoord == null) {
             linkedCoord = source.getBlockPos();
@@ -194,21 +194,21 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
 
     public void linkToSource(Level level, BlockPos pos) {
         // initiated in stopmaster
-        if (level.getBlockEntity(pos) instanceof KeyboardRelayBlockEntity be) { // if pos actually corresponds to a midi source
+        if (level.getBlockEntity(pos) instanceof MidiSourceBlockEntity be) { // if pos actually corresponds to a midi source
             linkToSource(be);
         }
     }
 
     public void removeSource() {
-        // initiated in KBR
+        // initiated in midi source
         linkedCoord = null;
         notifyUpdate();
     }
 
     public void onBlockRemoved() {
         if (linkedCoord != null) {
-            if (level.getBlockEntity(linkedCoord) instanceof KeyboardRelayBlockEntity kbr) { // get kbr at linked coord
-                kbr.removeStopMaster(this); // remove this stopmaster from linked source
+            if (level.getBlockEntity(linkedCoord) instanceof MidiSourceBlockEntity source) { // get source at linked coord
+                source.removeStopMaster(this); // remove this stopmaster from linked source
             }
         }
     }

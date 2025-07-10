@@ -1,38 +1,119 @@
 package com.finchy.pipeorgans.midi.client;
 
+import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.network.AllPackets;
+import com.finchy.pipeorgans.network.packet.MidiUploadPacket;
 import com.simibubi.create.foundation.utility.FilesHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.InputStream;
+import java.nio.file.*;
+import java.util.*;
+
+import static com.finchy.pipeorgans.util.MidiUtils.MidiFileParser.isValidMidi;
+import static com.finchy.pipeorgans.util.MidiUtils.MidiFileParser.validateSizeLimitation;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientMidiLoader {
 
     private List<Component> availableMidis;
+    private Map<String, InputStream> activeUploads;
+    private int packetCycle;
 
-    private static final String directory = "midi_files";
-    private static final String extension = ".mid";
+    private static final int PACKET_DELAY = 10;
+    private static final String DIRECTORY = "midi_files";
+    private static final String EXTENSION = ".mid";
 
     public ClientMidiLoader() {
         availableMidis = new ArrayList<>();
+        activeUploads = new HashMap<>();
         refresh();
     }
 
+    public void tick() {
+        if (activeUploads.isEmpty())
+            return;
+        if (packetCycle-- > 0)
+            return;
+        packetCycle = PACKET_DELAY;
+
+        for (String midi : new HashSet<>(activeUploads.keySet()))
+            continueUpload(midi);
+    }
+
+    public void startNewUpload(String midi) {
+        Path path = Paths.get(DIRECTORY, midi);
+        if (!Files.exists(path)) {
+            PipeOrgans.LOGGER.error("Missing .mid file: {}", path.toString());
+            return;
+        }
+
+        InputStream in;
+        try {
+            long size = Files.size(path);
+
+            if(!validateSizeLimitation(size))
+                return;
+
+            if (!isValidMidi(path.toFile())) {
+                LocalPlayer player = Minecraft.getInstance().player;
+                if (player != null)
+                    player.displayClientMessage(Component.literal(".mid file is in the wrong format"), false); // make translatable later
+                return;
+            }
+
+            in = Files.newInputStream(path, StandardOpenOption.READ);
+            activeUploads.put(midi, in);
+            AllPackets.getChannel().sendToServer(MidiUploadPacket.begin(midi, size));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void continueUpload(String midi) {
+        if (activeUploads.containsKey(midi)) {
+            int maxPacketSize = 1024; // max midi packet size; add to config later
+            byte[] data = new byte[maxPacketSize];
+            try {
+                int status = activeUploads.get(midi).read(data);
+                if (status != -1) {
+                    if (status < maxPacketSize)
+                        data = Arrays.copyOf(data, status);
+                    if (Minecraft.getInstance().level != null)
+                        AllPackets.getChannel().sendToServer(MidiUploadPacket.write(midi, data));
+                    else {
+                        activeUploads.remove(midi);
+                        return;
+                    }
+                }
+                if (status < maxPacketSize)
+                    finishUpload(midi);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void finishUpload(String midi) {
+        if (activeUploads.containsKey(midi)) {
+            AllPackets.getChannel().sendToServer(MidiUploadPacket.finish(midi));
+            activeUploads.remove(midi);
+        }
+    }
+
     public void refresh() {
-        FilesHelper.createFolderIfMissing(directory);
+        FilesHelper.createFolderIfMissing(DIRECTORY);
         availableMidis.clear();
 
         try {
-            Files.list(Paths.get(directory+"/"))
-                    .filter(f -> !Files.isDirectory(f) && f.getFileName().toString().endsWith(extension)).forEach(path -> { // get all files in midi_files/, then filter based on whether they're a folder and end with .mid
+            Files.list(Paths.get(DIRECTORY +"/"))
+                    .filter(f -> !Files.isDirectory(f) && f.getFileName().toString().endsWith(EXTENSION)).forEach(path -> { // get all files in midi_files/, then filter based on whether they're a folder and end with .mid
                         if (Files.isDirectory(path)) // if path is a folder ending with .mid, not a .mid file
                             return; // this seems redundant, but create does it, so...
 
@@ -47,9 +128,9 @@ public class ClientMidiLoader {
         availableMidis.sort((aT, bT) -> {
             String a = aT.getString();
             String b = bT.getString();
-            if (a.endsWith(extension))
+            if (a.endsWith(EXTENSION))
                 a = a.substring(0, a.length()-4); // remove the .mid from the end
-            if (b.endsWith(extension))
+            if (b.endsWith(EXTENSION))
                 b = b.substring(0, b.length()-4); // as above
 
             int aLen = a.length();
@@ -107,7 +188,7 @@ public class ClientMidiLoader {
     }
 
     public Path getPath(String name) {
-        return Paths.get(directory, name + extension);
+        return Paths.get(DIRECTORY, name + EXTENSION);
     }
 
 }
