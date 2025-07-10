@@ -15,8 +15,8 @@ import java.io.InputStream;
 import java.nio.file.*;
 import java.util.*;
 
-import static com.finchy.pipeorgans.util.MidiUtils.MidiParser.isValidMidi;
-import static com.finchy.pipeorgans.util.MidiUtils.MidiParser.validateSizeLimitation;
+import static com.finchy.pipeorgans.util.MidiUtils.MidiFileParser.isValidMidi;
+import static com.finchy.pipeorgans.util.MidiUtils.MidiFileParser.validateSizeLimitation;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientMidiLoader {

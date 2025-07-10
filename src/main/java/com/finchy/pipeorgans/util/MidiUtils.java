@@ -29,9 +29,16 @@ public abstract class MidiUtils {
         return sm.getCommand() == ShortMessage.NOTE_OFF || sm.getData2() == 0; // if message is note off OR velocity == 0
     }
 
-    public abstract class MidiParser {
+    public static boolean isTempoChange(MidiMessage msg) {
+        if (msg instanceof MetaMessage mm) {
+            return mm.getType() == 0x51;
+        }
+        return false;
+    }
 
-        public static List<Queue<MidiEvent>> parseMidiFile(String midi, String owner) {
+    public abstract static class MidiFileParser {
+
+        public static Sequence getSequenceFromFile(String midi, String owner) throws IOException, InvalidMidiDataException {
             midi = "test.mid";
             owner = "Dev";
 
@@ -41,45 +48,45 @@ public abstract class MidiUtils {
                 return null;
             }
             InputStream in;
-            try {
-                long size = Files.size(path);
 
-                if (!validateSizeLimitation(size)) {
-                    PipeOrgans.LOGGER.error(".mid file is too large!: {}", path);
-                    return null;
-                }
+            long size = Files.size(path);
 
-                if (!isValidMidi(path.toFile())) {
-                    LocalPlayer player = Minecraft.getInstance().player;
-                    if (player != null)
-                        player.displayClientMessage(Component.literal(".mid file is in the wrong format"), false); // make translatable later
-                    return null;
-                }
-
-                in = Files.newInputStream(path, StandardOpenOption.READ);
-                Sequence sequence = MidiSystem.getSequence(in);
-
-                List<Queue<MidiEvent>> trackList = new ArrayList<>();
-                for (Track track : sequence.getTracks()) {
-                    Queue<MidiEvent> eventQueue = new LinkedList<>();
-
-                    for (int i = 0; i < track.size(); i++) {
-                        MidiEvent event = track.get(i);
-                        eventQueue.add(event);
-                    }
-                    trackList.add(eventQueue);
-                    PipeOrgans.LOGGER.info("ADDED TRACK!");
-                }
-                PipeOrgans.LOGGER.info("FINISHED PARSING MIDI!");
-                return trackList;
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InvalidMidiDataException e) {
-                e.printStackTrace();
+            if (!validateSizeLimitation(size)) {
+                PipeOrgans.LOGGER.error(".mid file is too large!: {}", path);
+                return null;
             }
 
-            return null;
+            if (!isValidMidi(path.toFile())) {
+                LocalPlayer player = Minecraft.getInstance().player;
+                if (player != null)
+                    player.displayClientMessage(Component.literal(".mid file is in the wrong format"), false); // make translatable later
+                return null;
+            }
+
+            in = Files.newInputStream(path, StandardOpenOption.READ);
+            return MidiSystem.getSequence(in);
+        }
+
+        public static int getResolution(Sequence sequence) {
+            return sequence.getResolution();
+        }
+
+        public static List<Queue<MidiEvent>> parseMidiEvents(Sequence sequence) {
+
+            List<Queue<MidiEvent>> trackList = new ArrayList<>();
+            for (Track track : sequence.getTracks()) {
+                Queue<MidiEvent> eventQueue = new LinkedList<>();
+
+                for (int i = 0; i < track.size(); i++) {
+                    MidiEvent event = track.get(i);
+                    eventQueue.add(event);
+                }
+                trackList.add(eventQueue);
+                PipeOrgans.LOGGER.info("ADDED TRACK!");
+            }
+            PipeOrgans.LOGGER.info("FINISHED PARSING MIDI!");
+            return trackList;
+
         }
 
         // check the first 4 bytes of the given file to see if they match the header 4D 54 68 64
