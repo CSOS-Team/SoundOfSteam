@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.midi;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -134,6 +135,10 @@ public class PitchMapping {
     }
 
     public static ItemStack getStack(int pitch) {
+        if (!pitchMap.containsKey(pitch)) {
+            PipeOrgans.LOGGER.error("PITCH {} OUT OF RANGE FOR PITCH MAP", pitch);
+            return new ItemStack(Items.LIGHT_BLUE_TERRACOTTA);
+        }
         return new ItemStack(pitchMap.get(pitch));
     }
 }

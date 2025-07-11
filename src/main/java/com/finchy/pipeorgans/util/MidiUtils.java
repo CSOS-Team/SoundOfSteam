@@ -26,14 +26,20 @@ public abstract class MidiUtils {
     }
 
     public static boolean isNoteOff(ShortMessage sm) {
-        return sm.getCommand() == ShortMessage.NOTE_OFF || sm.getData2() == 0; // if message is note off OR velocity == 0
+        return (sm.getCommand() == ShortMessage.NOTE_OFF) || // if message is note off
+                (sm.getCommand() == ShortMessage.NOTE_ON && sm.getData2() == 0); // OR if message is not on AND velocity == 0
+    }
+
+    public static boolean isShortMessage(MidiMessage msg) {
+        return msg instanceof ShortMessage;
     }
 
     public static boolean isTempoChange(MidiMessage msg) {
-        if (msg instanceof MetaMessage mm) {
-            return mm.getType() == 0x51;
-        }
-        return false;
+        return (msg instanceof MetaMessage mm) && (mm.getType() == 0x51);
+    }
+
+    public static boolean isFileEnd(MidiMessage msg) {
+        return (msg instanceof MetaMessage mm) && (mm.getType() == 0x2F);
     }
 
     public abstract static class MidiFileParser {

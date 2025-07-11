@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
+import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockItem;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
@@ -20,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
+@SuppressWarnings("NullableProblems")
 public class TrackerBarBlock extends Block implements IBE<TrackerBarBlockEntity> {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -46,19 +48,6 @@ public class TrackerBarBlock extends Block implements IBE<TrackerBarBlockEntity>
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pLevel.isClientSide)
-            return InteractionResult.PASS;
-        if (pHand.equals(InteractionHand.OFF_HAND))
-            return InteractionResult.PASS;
-        withBlockEntityDo(pLevel, pPos, be -> {
-            be.loadSequence("", "");
-            be.startSequencer();
-        });
-        return InteractionResult.SUCCESS;
-    }
-
-    @Override
     public Class<TrackerBarBlockEntity> getBlockEntityClass() {
         return TrackerBarBlockEntity.class;
     }
@@ -69,5 +58,28 @@ public class TrackerBarBlock extends Block implements IBE<TrackerBarBlockEntity>
     }
 
 
+    @Override
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (pLevel.isClientSide)
+            return InteractionResult.PASS;
+        if (pHand.equals(InteractionHand.OFF_HAND))
+            return InteractionResult.PASS;
+        if (pPlayer.getItemInHand(pHand).getItem() instanceof StopMasterBlockItem) // if player is linking stopmaster
+            return InteractionResult.PASS;
 
+        withBlockEntityDo(pLevel, pPos, be -> {
+            be.loadSequence("", "");
+            be.resumeSequencer();
+        });
+        return InteractionResult.SUCCESS;
+    }
+    @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
+        if (!pState.is(pNewState.getBlock())) {
+            if (!pLevel.isClientSide) {
+                withBlockEntityDo(pLevel, pPos, TrackerBarBlockEntity::onBlockRemoved);
+            }
+        }
+        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+    }
 }

@@ -41,78 +41,11 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
     @Override
-    protected void write(CompoundTag tag, boolean clientPacket) {
-        ListTag coordsList = new ListTag();
-        for (BlockPos pos : linkedCoords) { // for every linked position
-            CompoundTag posTag = new CompoundTag();
-            posTag.putInt("x", pos.getX()); // put x/y/z coords in tag
-            posTag.putInt("y", pos.getY());
-            posTag.putInt("z", pos.getZ());
-            coordsList.add(posTag); // add coords to list
-        }
-        tag.put("linked_coords", coordsList); // add list to NBT
-
-        super.write(tag, clientPacket);
+    public void reactToNote(boolean on) {
+        level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, on), 3); //  turn power on/off
     }
 
     @Override
-    protected void read(CompoundTag tag, boolean clientPacket) {
-        ListTag coordsList = tag.getList("linked_coords", Tag.TAG_COMPOUND); // get coords from NBT
-        linkedCoords.clear(); // clear this blockentity's current list
-
-        for (int i=0; i<coordsList.size(); i++) { // for every coord in list
-            CompoundTag posTag = coordsList.getCompound(i);
-            int x = posTag.getInt("x"); // get x/y/z
-            int y = posTag.getInt("y");
-            int z = posTag.getInt("z");
-            linkedCoords.add(new BlockPos(x, y, z)); // add pos to this blockentity's list
-        }
-        super.read(tag, clientPacket);
-    }
-
-    public void handleMidiObject(MidiMessageServerObject mm) {
-        for (BlockPos pos : linkedCoords) { // for every linked position
-            if (level.getBlockEntity(pos) instanceof StopMasterBlockEntity sm) { // if stopmaster is at that location
-                sm.receiveMidiSignal(mm); // send midi to stopmaster
-            }
-        }
-        if (mm.velocity > 0) { // if note on
-            if (activeNotes == 0) { // if a note has just been pressed
-                level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, true), 3); //  turn power on
-            }
-            activeNotes++;
-
-        } else { // if note off
-            if (activeNotes>0) { // if there are notes being held
-                activeNotes--;
-                if (activeNotes == 0) { // if the last note has just been taken off
-                    level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, false), 3); //  turn power off
-                }
-            }
-        }
-    }
-
-    public void linkStopMaster(StopMasterBlockEntity be) {
-        BlockPos pos = be.getBlockPos(); // get pos of stopmaster
-        if (!linkedCoords.contains(pos)) { // if stopmaster has not already been linked
-            linkedCoords.add(pos); // add pos to list
-        }
-        notifyUpdate();
-    }
-
-    public void removeStopMaster(StopMasterBlockEntity be) {
-        linkedCoords.remove(be.getBlockPos()); // remove pos from list
-        notifyUpdate();
-    }
-
-    public void removeFromAllStopMasters() {
-        for (BlockPos pos : linkedCoords) { // for every linked position
-            if (level.getBlockEntity(pos) instanceof StopMasterBlockEntity sm) { // if stopmaster is at that location
-                sm.removeSource(); // remove source from stopmaster
-            }
-        }
-    }
-
     public void onBlockRemoved() {
         Entity playerEntity = ((ServerLevel)this.level).getEntity(this.user);
         if (playerEntity instanceof Player) {
@@ -193,6 +126,8 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
             }
         }
     }
+
+
 
     public static boolean playerInRange(Player player, Level world, BlockPos pos) {
         if (player.level() != world) {
