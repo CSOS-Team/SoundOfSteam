@@ -1,17 +1,28 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.content.base.BaseBlock;
+import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
+import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlock;
 import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockItem;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
+import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
+import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaBlock;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlock;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem;
+import com.finchy.pipeorgans.content.pipes.generic.PipeExtensionGenerator;
+import com.finchy.pipeorgans.content.pipes.generic.PipeGenerator;
 import com.finchy.pipeorgans.content.pipes.nasard.NasardBlock;
 import com.finchy.pipeorgans.content.pipes.nasard.NasardExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloBlock;
+import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlock;
 import com.finchy.pipeorgans.content.pipes.posaune.PosauneExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.subbass.SubbassBlock;
+import com.finchy.pipeorgans.content.pipes.subbass.SubbassExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlock;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.viola.ViolaBlock;
@@ -20,15 +31,8 @@ import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlock;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaExtensionBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
-import com.finchy.pipeorgans.content.base.BaseBlock;
-import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
-import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlock;
-import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
-import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloBlock;
-import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.subbass.SubbassBlock;
-import com.finchy.pipeorgans.content.pipes.subbass.SubbassExtensionBlock;
+import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -41,7 +45,15 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
+import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
+import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
+
 public class AllBlocks {
+    private static final CreateRegistrate REGISTRATE = PipeOrgans.registrate();
+
+    static {
+        REGISTRATE.setCreativeTab(AllCreativeModeTabs.PIPE_ORGANS);
+    }
 
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, PipeOrgans.MOD_ID);
@@ -75,6 +87,148 @@ public class AllBlocks {
 
 
 
+    public static final BlockEntry<DiapasonBlock> DIAPASON = REGISTRATE.block("diapason", DiapasonBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<DiapasonExtensionBlock> DIAPASON_EXTENSION = REGISTRATE.block("diapason_extension", DiapasonExtensionBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeExtensionGenerator()::generate)
+            .register();
+
+    public static final BlockEntry<GambaBlock> GAMBA = REGISTRATE.block("gamba", GambaBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<GambaExtensionBlock> GAMBA_EXTENSION = REGISTRATE.block("gamba_extension", GambaExtensionBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeExtensionGenerator()::generate)
+            .register();
+
+    public static final BlockEntry<GedecktBlock> GEDECKT = REGISTRATE.block("gedeckt", GedecktBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<GedecktExtensionBlock> GEDECKT_EXTENSION = REGISTRATE.block("gedeckt_extension", GedecktExtensionBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeExtensionGenerator()::generate)
+            .register();
+
+    public static final BlockEntry<NasardBlock> NASARD = REGISTRATE.block("nasard", NasardBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<NasardExtensionBlock> NASARD_EXTENSION = REGISTRATE.block("nasard_extension", NasardExtensionBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeExtensionGenerator()::generate)
+            .register();
+
+    public static final BlockEntry<PiccoloBlock> PICCOLO = REGISTRATE.block("piccolo", PiccoloBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<PiccoloExtensionBlock> PICCOLO_EXTENSION = REGISTRATE.block("piccolo_extension", PiccoloExtensionBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeExtensionGenerator()::generate)
+            .register();
+
+    public static final BlockEntry<PosauneBlock> POSAUNE = REGISTRATE.block("posaune", PosauneBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<PosauneExtensionBlock> POSAUNE_EXTENSION = REGISTRATE.block("posaune_extension", PosauneExtensionBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeExtensionGenerator()::generate)
+            .register();
+
+    public static final BlockEntry<SubbassBlock> SUBBASS = REGISTRATE.block("subbass", SubbassBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<SubbassExtensionBlock> SUBBASS_EXTENSION = REGISTRATE.block("subbass_extension", SubbassExtensionBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeExtensionGenerator()::generate)
+            .register();
+
+    public static final BlockEntry<TrompetteBlock> TROMPETTE = REGISTRATE.block("trompette", TrompetteBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<TrompetteExtensionBlock> TROMPETTE_EXTENSION = REGISTRATE.block("trompette_extension", TrompetteExtensionBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeExtensionGenerator()::generate)
+            .register();
+
+    public static final BlockEntry<ViolaBlock> VIOLA = REGISTRATE.block("viola", ViolaBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<ViolaExtensionBlock> VIOLA_EXTENSION = REGISTRATE.block("viola_extension", ViolaExtensionBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeExtensionGenerator()::generate)
+            .register();
+
+    public static final BlockEntry<VoxHumanaBlock> VOX_HUMANA = REGISTRATE.block("vox_humana", VoxHumanaBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<VoxHumanaExtensionBlock> VOX_HUMANA_EXTENSION = REGISTRATE.block("vox_humana_extension", VoxHumanaExtensionBlock::new)
+            .initialProperties(() -> com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+            .transform(pickaxeOnly())
+            .blockstate(new PipeExtensionGenerator()::generate)
+            .register();
+
+
+    /*
     public static final RegistryObject<DiapasonBlock> DIAPASON = registerPipeBlock("diapason", "8",
             () -> new DiapasonBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
                     .requiresCorrectToolForDrops()));
@@ -154,6 +308,7 @@ public class AllBlocks {
     public static final RegistryObject<ViolaExtensionBlock> VIOLA_EXTENSION = registerBlockWithoutItem("viola_extension",
             () -> new ViolaExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
                     .requiresCorrectToolForDrops()));
+     */
 
 
 

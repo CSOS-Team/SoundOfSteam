@@ -5,6 +5,7 @@ import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.block.IBE;
+import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -46,8 +47,8 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final EnumProperty<EPipeSizes.PipeSize> SIZE = EnumProperty.create("size", EPipeSizes.PipeSize.class);
 
-    protected RegistryObject<? extends GenericPipeBlock> baseBlock;
-    protected RegistryObject<? extends GenericExtensionBlock> extensionBlock;
+    protected BlockEntry<? extends GenericPipeBlock> baseBlock;
+    protected BlockEntry<? extends GenericExtensionBlock> extensionBlock;
     protected RegistryObject<BlockEntityType> blockEntityType;
 
     public final int EPB;

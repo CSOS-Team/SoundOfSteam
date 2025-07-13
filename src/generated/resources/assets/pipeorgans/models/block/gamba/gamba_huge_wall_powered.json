@@ -1,0 +1,6 @@
+{
+  "parent": "pipeorgans:block/gamba/gamba_huge_wall",
+  "textures": {
+    "2": "pipeorgans:block/copper_redstone_plate_powered"
+  }
+}

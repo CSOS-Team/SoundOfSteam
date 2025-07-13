@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
@@ -22,7 +23,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.RegistryObject;
 
 public abstract class GenericExtensionBlock<P extends Enum<P> & EExtensionShapes.ExtensionShape & StringRepresentable> extends Block implements IWrenchable {
 
@@ -30,7 +30,7 @@ public abstract class GenericExtensionBlock<P extends Enum<P> & EExtensionShapes
     public static final EnumProperty<EPipeSizes.PipeSize> SIZE = GenericPipeBlock.SIZE;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    protected RegistryObject<? extends GenericPipeBlock> baseBlock;
+    protected BlockEntry<? extends GenericPipeBlock> baseBlock;
 
     public GenericExtensionBlock(Properties pProperties, EnumProperty<P> shapeProperty) {
         super(pProperties);

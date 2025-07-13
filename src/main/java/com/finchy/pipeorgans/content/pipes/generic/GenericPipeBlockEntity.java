@@ -8,6 +8,7 @@ import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.CreateLang;
+import com.tterrag.registrate.util.entry.BlockEntry;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.math.VecHelper;
@@ -35,7 +36,7 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
 
     protected float steamJetOffset;
 
-    protected RegistryObject<? extends GenericPipeBlock> baseBlock;
+    protected BlockEntry<? extends GenericPipeBlock> baseBlock;
 
     public GenericPipeBlockEntity(BlockPos pos, BlockState state, RegistryObject<BlockEntityType> blockEntity) {
         super(blockEntity.get(), pos, state);

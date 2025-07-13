@@ -1,0 +1,6 @@
+{
+  "parent": "pipeorgans:block/nasard/nasard_medium_wall",
+  "textures": {
+    "2": "pipeorgans:block/copper_redstone_plate_powered"
+  }
+}
