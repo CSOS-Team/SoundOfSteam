@@ -70,6 +70,12 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> VOX_HUMANA_LOW = registerSoundEvent("vox_humana_low");
     public static final RegistryObject<SoundEvent> VOX_HUMANA_DEEP = registerSoundEvent("vox_humana_deep");
 
+    public static final RegistryObject<SoundEvent> VIOLA_SUPERHIGH = registerSoundEvents("viola_superhigh");
+    public static final RegistryObject<SoundEvent> VIOLA_HIGH = registerSoundEvents("viola_high");
+    public static final RegistryObject<SoundEvent> VIOLA_MEDIUM = registerSoundEvents("viola_medium");
+    public static final RegistryObject<SoundEvent> VIOLA_LOW = registerSoundEvents("viola_low");
+    public static final RegistryObject<SoundEvent> VIOLA_DEEP = registerSoundEvents("viola_deep");
+
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(PipeOrgans.MOD_ID, name)));

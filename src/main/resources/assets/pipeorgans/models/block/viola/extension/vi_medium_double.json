@@ -1,0 +1,46 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/viola",
+		"particle": "pipeorgans:block/particle/viola_particle"
+	},
+	"elements": [
+		{
+			"from": [5, 0, 4],
+			"to": [11, 8, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 8, 4]},
+			"faces": {
+				"north": {"uv": [4.625, 6.5, 5.375, 7.5], "texture": "#0"},
+				"east": {"uv": [4.5, 6.5, 5.5, 7.5], "texture": "#0"},
+				"south": {"uv": [4.625, 6.5, 5.375, 7.5], "texture": "#0"},
+				"west": {"uv": [4.5, 6.5, 5.5, 7.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [5, 8, 4],
+			"to": [11, 16, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 16, 4]},
+			"faces": {
+				"north": {"uv": [4.625, 6.5, 5.375, 7.5], "texture": "#0"},
+				"east": {"uv": [4.5, 6.5, 5.5, 7.5], "texture": "#0"},
+				"south": {"uv": [4.625, 6.5, 5.375, 7.5], "texture": "#0"},
+				"west": {"uv": [4.5, 6.5, 5.5, 7.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "rim_medium",
+			"from": [4, 16, 3],
+			"to": [12, 18, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 16, 4]},
+			"faces": {
+				"north": {"uv": [4.5, 10, 5.5, 10.25], "texture": "#0"},
+				"east": {"uv": [4.375, 10, 5.625, 10.25], "texture": "#0"},
+				"south": {"uv": [4.5, 10, 5.5, 10.25], "texture": "#0"},
+				"west": {"uv": [4.375, 10, 5.625, 10.25], "texture": "#0"},
+				"up": {"uv": [4.625, 8.375, 5.375, 9.375], "texture": "#0"},
+				"down": {"uv": [4.625, 8.375, 5.375, 9.375], "texture": "#0"}
+			}
+		}
+	]
+}
