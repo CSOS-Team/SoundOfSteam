@@ -2,15 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "#",
-    "D",
+    "#",
     "S"
   ],
   "key": {
+
     "#": {
-      "item": "minecraft:iron_nugget"
-    },
-    "D": {
-      "item": "minecraft:iron_ingot"
+      "item": "create:weathered_iron_block"
     },
     "S": {
       "item": "pipeorgans:base"

@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.content.pipes.viola;
 
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
 import com.finchy.pipeorgans.init.AllBlocks;
+import com.finchy.pipeorgans.init.AllShapes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,6 +18,6 @@ public class ViolaExtensionBlock extends DoubleExtensionBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return Shapes.block();
+        return AllShapes.stringExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
     }
 }
