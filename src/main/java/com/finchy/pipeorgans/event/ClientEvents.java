@@ -11,6 +11,7 @@ import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloRenderer;
 import com.finchy.pipeorgans.content.pipes.posaune.PosauneRenderer;
 import com.finchy.pipeorgans.content.pipes.subbass.SubbassRenderer;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteRenderer;
+import com.finchy.pipeorgans.content.pipes.viola.ViolaRenderer;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaRenderer;
 import com.finchy.pipeorgans.gui.ClientsideGUIWrapper;
 import com.finchy.pipeorgans.gui.StopMasterScreen;
@@ -50,6 +51,7 @@ public class ClientEvents {
             event.registerBlockEntityRenderer(AllBlockEntities.NASARD_BLOCK_ENTITY.get(), NasardRenderer::new);
             event.registerBlockEntityRenderer(AllBlockEntities.POSAUNE_BLOCK_ENTITY.get(), PosauneRenderer::new);
             event.registerBlockEntityRenderer(AllBlockEntities.VOX_HUMANA_BLOCK_ENTITY.get(), VoxHumanaRenderer::new);
+            event.registerBlockEntityRenderer(AllBlockEntities.VIOLA_BLOCK_ENTITY.get(), ViolaRenderer::new);
 
             event.registerBlockEntityRenderer(AllBlockEntities.STOP_MASTER_BLOCK_ENTITY.get(), StopMasterRenderer::new);
         }

@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.viola;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
+import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -26,17 +26,20 @@ public class ViolaRenderer extends SafeBlockEntityRenderer<ViolaBlockEntity> {
             return;
 
         Direction direction = blockState.getValue(ViolaBlock.FACING);
-        GenericWhistleProperties.WhistleSize size = blockState.getValue(ViolaBlock.SIZE);
+        EPipeSizes.PipeSize size = blockState.getValue(ViolaBlock.SIZE);
 
-        PartialModel mouth = size == GenericWhistleProperties.WhistleSize.TINY ? AllPartialModels.VIOLA_MOUTH_TINY :
-                size == GenericWhistleProperties.WhistleSize.SMALL ? AllPartialModels.VIOLA_MOUTH_SMALL :
-                size == GenericWhistleProperties.WhistleSize.MEDIUM ? AllPartialModels.VIOLA_MOUTH_MEDIUM :
-                        size == GenericWhistleProperties.WhistleSize.LARGE ? AllPartialModels.VIOLA_MOUTH_LARGE : AllPartialModels.VIOLA_MOUTH_HUGE;
+        PartialModel mouth = switch (size) {
+            case TINY -> AllPartialModels.VIOLA_MOUTH_TINY;
+            case SMALL -> AllPartialModels.VIOLA_MOUTH_SMALL;
+            case MEDIUM -> AllPartialModels.VIOLA_MOUTH_MEDIUM;
+            case LARGE -> AllPartialModels.VIOLA_MOUTH_LARGE;
+            case HUGE -> AllPartialModels.VIOLA_MOUTH_HUGE;
+        };
 
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
             float wiggleProgress = (AnimationTickHolder.getTicks(be.getLevel()) + partialTicks) /8f;
-            offset -= (float) (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f);
+            offset -= (float) (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 8f);
         }
 
         CachedBuffers.partial(mouth, blockState)

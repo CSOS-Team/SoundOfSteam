@@ -1,14 +1,26 @@
 package com.finchy.pipeorgans.content.pipes.viola;
 
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ViolaBlock extends GenericPipeBlock {
+public class ViolaBlock extends DoublePipeBlock {
     public ViolaBlock(Properties pProperties) {
         super(pProperties);
         baseBlock = AllBlocks.VIOLA;
         extensionBlock = AllBlocks.VIOLA_EXTENSION;
-        blockEntity = AllBlockEntities.VIOLA_BLOCK_ENTITY;
+        blockEntityType = AllBlockEntities.VIOLA_BLOCK_ENTITY;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return Shapes.block();
     }
 }

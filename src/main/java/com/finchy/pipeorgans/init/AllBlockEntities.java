@@ -13,6 +13,7 @@ import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloBlockEntity;
 import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlockEntity;
 import com.finchy.pipeorgans.content.pipes.subbass.SubbassBlockEntity;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlockEntity;
+import com.finchy.pipeorgans.content.pipes.viola.ViolaBlockEntity;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -93,6 +94,11 @@ public class AllBlockEntities {
     public static final RegistryObject<BlockEntityType> VOX_HUMANA_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("vox_humana_block_entity",
                     () -> BlockEntityType.Builder.of(VoxHumanaBlockEntity::new, AllBlocks.VOX_HUMANA.get())
+                            .build(null));
+
+    public static final RegistryObject<BlockEntityType> VIOLA_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("viola_block_entity",
+                    () -> BlockEntityType.Builder.of(ViolaBlockEntity::new, AllBlocks.VIOLA.get())
                             .build(null));
 
 

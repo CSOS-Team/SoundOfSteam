@@ -14,6 +14,8 @@ import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlock;
 import com.finchy.pipeorgans.content.pipes.posaune.PosauneExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlock;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.viola.ViolaBlock;
+import com.finchy.pipeorgans.content.pipes.viola.ViolaExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlock;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaExtensionBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
@@ -143,6 +145,14 @@ public class AllBlocks {
 
     public static final RegistryObject<VoxHumanaExtensionBlock> VOX_HUMANA_EXTENSION = registerBlockWithoutItem("vox_humana_extension",
             () -> new VoxHumanaExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<ViolaBlock> VIOLA = registerPipeBlock("viola", "8",
+            () -> new ViolaBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<ViolaExtensionBlock> VIOLA_EXTENSION = registerBlockWithoutItem("viola_extension",
+            () -> new ViolaExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
                     .requiresCorrectToolForDrops()));
 
 
