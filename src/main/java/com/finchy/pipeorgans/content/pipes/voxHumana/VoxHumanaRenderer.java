@@ -1,6 +1,6 @@
-package com.finchy.pipeorgans.content.pipes.vox_humana;
+package com.finchy.pipeorgans.content.pipes.voxHumana;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
+import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -19,17 +19,21 @@ public class VoxHumanaRenderer extends SafeBlockEntityRenderer<VoxHumanaBlockEnt
 
     @Override
     protected void renderSafe(VoxHumanaBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
+
         BlockState blockState = be.getBlockState();
         if (!(blockState.getBlock() instanceof VoxHumanaBlock))
             return;
 
         Direction direction = blockState.getValue(VoxHumanaBlock.FACING);
-        GenericWhistleProperties.WhistleSize size = blockState.getValue(VoxHumanaBlock.SIZE);
+        EPipeSizes.PipeSize size = blockState.getValue(VoxHumanaBlock.SIZE);
 
-        PartialModel mouth = size == GenericWhistleProperties.WhistleSize.TINY ? AllPartialModels.VOX_HUMANA_MOUTH_TINY :
-                size == GenericWhistleProperties.WhistleSize.SMALL ? AllPartialModels.VOX_HUMANA_MOUTH_SMALL :
-                size == GenericWhistleProperties.WhistleSize.MEDIUM ? AllPartialModels.VOX_HUMANA_MOUTH_MEDIUM :
-                size == GenericWhistleProperties.WhistleSize.LARGE ? AllPartialModels.VOX_HUMANA_MOUTH_LARGE : AllPartialModels.VOX_HUMANA_MOUTH_HUGE;
+        PartialModel mouth = switch (size) {
+            case TINY -> AllPartialModels.VOX_HUMANA_MOUTH_TINY;
+            case SMALL -> AllPartialModels.VOX_HUMANA_MOUTH_SMALL;
+            case MEDIUM -> AllPartialModels.VOX_HUMANA_MOUTH_MEDIUM;
+            case LARGE -> AllPartialModels.VOX_HUMANA_MOUTH_LARGE;
+            case HUGE -> AllPartialModels.VOX_HUMANA_MOUTH_HUGE;
+        };
 
         float chaseTarget = be.animation.getChaseTarget();
 

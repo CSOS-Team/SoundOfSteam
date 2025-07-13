@@ -1,8 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
-
-import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
@@ -10,17 +8,13 @@ import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.CreateLang;
-
+import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.math.VecHelper;
-import net.createmod.catnip.animation.LerpedFloat;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,31 +27,25 @@ import net.minecraftforge.registries.RegistryObject;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import static com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock.FACING;
-import static com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock.getAttachedDirection;
-import static com.finchy.pipeorgans.init.AllSoundEvents.TROMPETTE_DEEP;
-
-public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
+public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
     public WeakReference<FluidTankBlockEntity> source;
     public LerpedFloat animation;
-    protected int pitch;
+    public int pitch;
 
     protected float steamJetOffset;
-    protected GenericPipeBlock pipeBlock;
 
-    public GenericPipeBlockEntity(BlockPos pos, BlockState blockState, RegistryObject<BlockEntityType> blockEntity) {
-        super(blockEntity.get(), pos, blockState);
+    protected RegistryObject<? extends GenericPipeBlock> baseBlock;
+
+    public GenericPipeBlockEntity(BlockPos pos, BlockState state, RegistryObject<BlockEntityType> blockEntity) {
+        super(blockEntity.get(), pos, state);
         source = new WeakReference<>(null);
         animation = LerpedFloat.angular();
         steamJetOffset = 0.125f;
-        pipeBlock = (GenericPipeBlock) blockState.getBlock();
     }
 
     @Override
-    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
-
-    }
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
     @Override
     protected void write(CompoundTag tag, boolean clientPacket) {
@@ -85,9 +73,9 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
                 .orElse(false);
     }
 
-    protected GenericWhistleProperties.WhistleSize getOctave() {
+    protected EPipeSizes.PipeSize getOctave() {
         return getBlockState().getOptionalValue(GenericPipeBlock.SIZE)
-                .orElse(GenericWhistleProperties.WhistleSize.MEDIUM);
+                .orElse(EPipeSizes.PipeSize.MEDIUM);
     }
 
     @Override
@@ -102,11 +90,11 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
         FluidTankBlockEntity tank = getTank();
 
         BlockState state = getBlockState();
-        BlockPos attachedPos = getBlockPos().relative(getAttachedDirection(state));
+        BlockPos attachedPos = getBlockPos().relative(GenericPipeBlock.getAttachedDirection(state));
         BlockState attachedState = level.getBlockState(attachedPos);
         boolean isActive = false;
         if (attachedState.getBlock() instanceof WindchestBlock windchest) {
-            isActive = windchest.isMasterActive(level, attachedState.getValue(FACING), attachedPos);
+            isActive = windchest.isMasterActive(level, attachedState.getValue(GenericPipeBlock.FACING), attachedPos);
         }
 
         boolean powered;
@@ -123,43 +111,9 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
     }
 
     @OnlyIn(Dist.CLIENT)
-    protected GenericSoundInstance soundInstance;
+    protected abstract void tickAudio(EPipeSizes.PipeSize size, boolean powered);
 
-    @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(GenericWhistleProperties.WhistleSize size, boolean powered) {
-        if (!powered) {
-            if (soundInstance != null) {
-                soundInstance.fadeOut();
-                soundInstance = null;
-            }
-            return;
-        }
-
-        float f = (float) Math.pow(2, -pitch / 12.0);
-        boolean particle = level.getGameTime() % 8 == 0;
-        Vec3 eyePosition = Minecraft.getInstance().cameraEntity.getEyePosition();
-        float maxVolume = (float) Mth.clamp((64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64, 0, 1);
-
-        if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
-            Minecraft.getInstance()
-                    .getSoundManager()
-                    .play(soundInstance = new GenericSoundInstance(size, worldPosition, TROMPETTE_DEEP.get()));
-
-            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
-
-            particle = true;
-        }
-
-        soundInstance.keepAlive();
-        soundInstance.setPitch(f);
-
-        if (!particle)
-            return;
-
-        createSteamJet(size);
-    }
-
-    public void createSteamJet(GenericWhistleProperties.WhistleSize size) {
+    public void createSteamJet(EPipeSizes.PipeSize size) {
         Direction facing = getBlockState().getOptionalValue(GenericPipeBlock.FACING)
                 .orElse(Direction.SOUTH);
         float angle = 180 + AngleHelper.horizontalAngle(facing);
@@ -173,47 +127,21 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
         level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
     }
 
-    public void updatePitch() {
-
-        BlockPos currentPos = worldPosition.above();
-        int newPitch;
-        for (newPitch=0; newPitch<=12; newPitch+=pipeBlock.extensionsPerBlock) {
-            BlockState blockState = level.getBlockState(currentPos);
-            if (!(blockState.getBlock() instanceof GenericExtensionBlock))
-                break;
-
-            if (blockState.getValue(GenericExtensionBlock.SHAPE) == GenericWhistleProperties.QuadrupleExtensionShape.SINGLE) {
-                newPitch += (int) (pipeBlock.extensionsPerBlock*0.25);
-                break;
-            }
-            if (blockState.getValue(GenericExtensionBlock.SHAPE) == GenericWhistleProperties.QuadrupleExtensionShape.DOUBLE) {
-                newPitch += (int) (pipeBlock.extensionsPerBlock*0.5);
-                break;
-            }
-            if (blockState.getValue(GenericExtensionBlock.SHAPE) == GenericWhistleProperties.QuadrupleExtensionShape.TRIPLE) {
-                newPitch += (int) (pipeBlock.extensionsPerBlock*0.75);
-                break;
-            }
-
-            currentPos = currentPos.above();
-        }
-        if (pitch == newPitch)
-            return;
-        pitch = newPitch;
-
-        notifyUpdate();
-
-        FluidTankBlockEntity tank = getTank();
-        if (tank != null && tank.boiler != null)
-            tank.boiler.checkPipeOrganAdvancement(tank);
+    public void createReedSteamJet() {
+        double yPos = ((double) pitch/ baseBlock.get().EPB) +1 + steamJetOffset;
+        Vec3 v = new Vec3(0, yPos, 0).add(Vec3.atBottomCenterOf(worldPosition));
+        Vec3 m = new Vec3(0, 1, 0);
+        level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
     }
+
+    public abstract void updatePitch();
 
     public FluidTankBlockEntity getTank() {
         FluidTankBlockEntity tank = source.get();
         if (tank == null || tank.isRemoved()) {
             if (tank != null)
                 source = new WeakReference<>(null);
-            Direction facing = getAttachedDirection(getBlockState());
+            Direction facing = GenericPipeBlock.getAttachedDirection(getBlockState());
             BlockEntity be = level.getBlockEntity(worldPosition.relative(facing));
             if (be instanceof FluidTankBlockEntity tankBe)
                 source = new WeakReference<>(tank = tankBe);
@@ -222,4 +150,5 @@ public class GenericPipeBlockEntity extends SmartBlockEntity implements IHaveGog
             return null;
         return tank.getControllerBE();
     }
+
 }

@@ -3,6 +3,19 @@ package com.finchy.pipeorgans.init;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockItem;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
+import com.finchy.pipeorgans.content.pipes.gamba.GambaBlock;
+import com.finchy.pipeorgans.content.pipes.gamba.GambaExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlock;
+import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem;
+import com.finchy.pipeorgans.content.pipes.nasard.NasardBlock;
+import com.finchy.pipeorgans.content.pipes.nasard.NasardExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlock;
+import com.finchy.pipeorgans.content.pipes.posaune.PosauneExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlock;
+import com.finchy.pipeorgans.content.pipes.trompette.TrompetteExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlock;
+import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaExtensionBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.finchy.pipeorgans.content.base.BaseBlock;
@@ -10,23 +23,10 @@ import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.gamba.GambaBlock;
-import com.finchy.pipeorgans.content.pipes.gamba.GambaExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlock;
-import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.nasard.NasardBlock;
-import com.finchy.pipeorgans.content.pipes.nasard.NasardExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloBlock;
 import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlock;
-import com.finchy.pipeorgans.content.pipes.posaune.PosauneExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.subbass.SubbassBlock;
 import com.finchy.pipeorgans.content.pipes.subbass.SubbassExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlock;
-import com.finchy.pipeorgans.content.pipes.trompette.TrompetteExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.vox_humana.VoxHumanaBlock;
-import com.finchy.pipeorgans.content.pipes.vox_humana.VoxHumanaExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -73,14 +73,6 @@ public class AllBlocks {
 
 
 
-    public static final RegistryObject<GedecktBlock> GEDECKT = registerPipeBlock("gedeckt", "8",
-            () -> new GedecktBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)
-                    .requiresCorrectToolForDrops()));
-
-    public static final RegistryObject<GedecktExtensionBlock> GEDECKT_EXTENSION = registerBlockWithoutItem("gedeckt_extension",
-            () -> new GedecktExtensionBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)
-                    .requiresCorrectToolForDrops()));
-
     public static final RegistryObject<DiapasonBlock> DIAPASON = registerPipeBlock("diapason", "8",
             () -> new DiapasonBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
                     .requiresCorrectToolForDrops()));
@@ -90,11 +82,27 @@ public class AllBlocks {
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<GambaBlock> GAMBA = registerPipeBlock("gamba", "4",
-            () -> new GambaBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+            () -> new GambaBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<GambaExtensionBlock> GAMBA_EXTENSION = registerBlockWithoutItem("gamba_extension",
-            () -> new GambaExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+            () -> new GambaExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<GedecktBlock> GEDECKT = registerPipeBlock("gedeckt", "8",
+            () -> new GedecktBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<GedecktExtensionBlock> GEDECKT_EXTENSION = registerBlockWithoutItem("gedeckt_extension",
+            () -> new GedecktExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<NasardBlock> NASARD = registerPipeBlock("nasard", "223",
+            () -> new NasardBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<NasardExtensionBlock> NASARD_EXTENSION = registerBlockWithoutItem("nasard_extension",
+            () -> new NasardExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<PiccoloBlock> PICCOLO = registerPipeBlock("piccolo", "2",
@@ -103,6 +111,14 @@ public class AllBlocks {
 
     public static final RegistryObject<PiccoloExtensionBlock> PICCOLO_EXTENSION = registerBlockWithoutItem("piccolo_extension",
             () -> new PiccoloExtensionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<PosauneBlock> POSAUNE = registerPipeBlock("posaune", "32",
+            () -> new PosauneBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<PosauneExtensionBlock> POSAUNE_EXTENSION = registerBlockWithoutItem("posaune_extension",
+            () -> new PosauneExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<SubbassBlock> SUBBASS = registerPipeBlock("subbass",  "16",
@@ -114,35 +130,19 @@ public class AllBlocks {
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<TrompetteBlock> TROMPETTE = registerPipeBlock("trompette", "8",
-            () -> new TrompetteBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.BRASS_BLOCK.get())
+            () -> new TrompetteBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<TrompetteExtensionBlock> TROMPETTE_EXTENSION = registerBlockWithoutItem("trompette_extension",
-            () -> new TrompetteExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.BRASS_BLOCK.get())
-                    .requiresCorrectToolForDrops()));
-
-    public static final RegistryObject<NasardBlock> NASARD = registerPipeBlock("nasard", "223",
-            () -> new NasardBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
-                    .requiresCorrectToolForDrops()));
-
-    public static final RegistryObject<NasardExtensionBlock> NASARD_EXTENSION = registerBlockWithoutItem("nasard_extension",
-            () -> new NasardExtensionBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
-                    .requiresCorrectToolForDrops()));
-
-    public static final RegistryObject<PosauneBlock> POSAUNE = registerPipeBlock("posaune", "32",
-            () -> new PosauneBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)
-                    .requiresCorrectToolForDrops()));
-
-    public static final RegistryObject<PosauneExtensionBlock> POSAUNE_EXTENSION = registerBlockWithoutItem("posaune_extension",
-            () -> new PosauneExtensionBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)
+            () -> new TrompetteExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<VoxHumanaBlock> VOX_HUMANA = registerPipeBlock("vox_humana", "8",
-            () -> new VoxHumanaBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
+            () -> new VoxHumanaBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
                     .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<VoxHumanaExtensionBlock> VOX_HUMANA_EXTENSION = registerBlockWithoutItem("vox_humana_extension",
-            () -> new VoxHumanaExtensionBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
+            () -> new VoxHumanaExtensionBlock(BlockBehaviour.Properties.copy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
                     .requiresCorrectToolForDrops()));
 
 

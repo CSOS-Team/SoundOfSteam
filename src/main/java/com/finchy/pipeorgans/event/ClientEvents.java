@@ -11,7 +11,7 @@ import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloRenderer;
 import com.finchy.pipeorgans.content.pipes.posaune.PosauneRenderer;
 import com.finchy.pipeorgans.content.pipes.subbass.SubbassRenderer;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteRenderer;
-import com.finchy.pipeorgans.content.pipes.vox_humana.VoxHumanaRenderer;
+import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaRenderer;
 import com.finchy.pipeorgans.gui.ClientsideGUIWrapper;
 import com.finchy.pipeorgans.gui.StopMasterScreen;
 import com.finchy.pipeorgans.init.AllBlockEntities;

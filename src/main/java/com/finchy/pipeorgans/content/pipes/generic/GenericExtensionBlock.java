@@ -1,10 +1,9 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
-import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -15,9 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -27,60 +24,30 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.RegistryObject;
 
-public class GenericExtensionBlock extends Block implements IWrenchable {
+public abstract class GenericExtensionBlock<P extends Enum<P> & EExtensionShapes.ExtensionShape & StringRepresentable> extends Block implements IWrenchable {
 
-    public static final EnumProperty<GenericWhistleProperties.QuadrupleExtensionShape> SHAPE =
-            EnumProperty.create("shape", GenericWhistleProperties.QuadrupleExtensionShape.class);
-    public static final EnumProperty<GenericWhistleProperties.WhistleSize> SIZE = GenericPipeBlock.SIZE;
+    public final EnumProperty<P> SHAPE;
+    public static final EnumProperty<EPipeSizes.PipeSize> SIZE = GenericPipeBlock.SIZE;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    public RegistryObject<? extends GenericPipeBlock> baseBlock;
+    protected RegistryObject<? extends GenericPipeBlock> baseBlock;
 
-    public GenericExtensionBlock(Properties pProperties) {
+    public GenericExtensionBlock(Properties pProperties, EnumProperty<P> shapeProperty) {
         super(pProperties);
-        registerDefaultState(defaultBlockState()
-                .setValue(SHAPE, GenericWhistleProperties.QuadrupleExtensionShape.DOUBLE)
-                .setValue(SIZE, GenericWhistleProperties.WhistleSize.MEDIUM)
-                .setValue(FACING, Direction.NORTH));
+        this.SHAPE = shapeProperty;
+        registerDefaultStateWithSize();
     }
+
+    protected abstract void registerDefaultStateWithSize();
 
     @Override
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return AllShapes.getGenericExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
-    }
+    public abstract VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext);
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        super.createBlockStateDefinition(pBuilder.add(SHAPE, SIZE, FACING));
-    }
+    public abstract boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos);
 
     @Override
-    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        BlockState below = pLevel.getBlockState(pPos.below());
-        return (below.is(this) && below.getValue(SHAPE) == GenericWhistleProperties.QuadrupleExtensionShape.QUAD_CONNECTED)
-                || below.getBlock() instanceof GenericPipeBlock;
-    }
-
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
-                                  BlockPos pCurrentPos, BlockPos pFacingPos) {
-        if (pFacing.getAxis() != Direction.Axis.Y)
-            return pState;
-
-        if (pFacing == Direction.UP) {
-            boolean connected = pState.getValue(SHAPE) == GenericWhistleProperties.QuadrupleExtensionShape.QUAD_CONNECTED;
-            boolean shouldConnect = pLevel.getBlockState(pCurrentPos.above())
-                    .is(this);
-            if (!connected && shouldConnect)
-                return pState.setValue(SHAPE, GenericWhistleProperties.QuadrupleExtensionShape.QUAD_CONNECTED);
-            if (connected && !shouldConnect)
-                return pState.setValue(SHAPE, GenericWhistleProperties.QuadrupleExtensionShape.QUAD);
-            return pState;
-        }
-
-        return !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState()
-                : pState.setValue(SIZE, pLevel.getBlockState(pCurrentPos.below())
-                .getValue(SIZE));
-    }
+    public abstract BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos);
 
     public static BlockPos findRoot(LevelAccessor pLevel, BlockPos pPos) {
         BlockPos currentPos = pPos.below();
@@ -99,6 +66,10 @@ public class GenericExtensionBlock extends Block implements IWrenchable {
                 new BlockHitResult(context.getClickLocation(), context.getClickedFace(), target, context.isInside()));
     }
 
+    public boolean isDirectional() {
+        return false;
+    }
+
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
@@ -106,30 +77,20 @@ public class GenericExtensionBlock extends Block implements IWrenchable {
         if (heldItem.getItem() != this.baseBlock.get().asItem()) {
             return InteractionResult.PASS;
         }
-        BlockPos rootFound = findRoot(pLevel, pPos);
-        BlockState blockState = pLevel.getBlockState(rootFound);
+        BlockPos root = findRoot(pLevel, pPos);
+        BlockState blockState = pLevel.getBlockState(root);
         if (blockState.getBlock() instanceof GenericPipeBlock pipe)
-            return pipe.use(blockState, pLevel, rootFound, pPlayer, pHand,
-                    new BlockHitResult(pHit.getLocation(), pHit.getDirection(), rootFound, pHit.isInside()));
+            return pipe.use(blockState, pLevel, root, pPlayer, pHand,
+                    new BlockHitResult(pHit.getLocation(), pHit.getDirection(), root, pHit.isInside()));
         return InteractionResult.PASS;
     }
 
     @Override
-    public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
-        Level world = context.getLevel();
-        BlockPos pos = context.getClickedPos();
+    public abstract InteractionResult onSneakWrenched(BlockState state, UseOnContext context);
 
-        if (context.getClickLocation().y < context.getClickedPos()
-                .getY() + .5f || state.getValue(SHAPE) == GenericWhistleProperties.QuadrupleExtensionShape.DOUBLE)
-            return IWrenchable.super.onSneakWrenched(state, context);
-        if (!(world instanceof ServerLevel))
-            return InteractionResult.SUCCESS;
-        world.setBlock(pos, state.setValue(SHAPE, GenericWhistleProperties.QuadrupleExtensionShape.DOUBLE), 3);
-        IWrenchable.playRemoveSound(world, pos);
-        return InteractionResult.SUCCESS;
+    public InteractionResult sneakWrenchedRemove(BlockState state, UseOnContext context) {
+        return IWrenchable.super.onSneakWrenched(state, context);
     }
-
-    public InteractionResult sneakWrenchedRemove(BlockState state, UseOnContext context) { return IWrenchable.super.onSneakWrenched(state, context); }
 
     @Override
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {
@@ -139,6 +100,10 @@ public class GenericExtensionBlock extends Block implements IWrenchable {
         if (blockState.getBlock()instanceof GenericPipeBlock pipe)
             return pipe.onWrenched(blockState, relocateContext(context, findRoot));
         return IWrenchable.super.onWrenched(state, context);
+    }
+
+    protected InteractionResult callSuperOnSneakWrenched(BlockState state, UseOnContext context) {
+        return IWrenchable.super.onSneakWrenched(state, context);
     }
 
     @Override

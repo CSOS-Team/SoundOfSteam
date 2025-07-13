@@ -1,18 +1,22 @@
 package com.finchy.pipeorgans.content.pipes.posaune;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
-import com.finchy.pipeorgans.content.pipes.generic.GenericSoundInstance;
+import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.GenericSoundInstance;
 import net.minecraft.core.BlockPos;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class PosauneSoundInstance extends GenericSoundInstance {
 
-    public PosauneSoundInstance(GenericWhistleProperties.WhistleSize size, BlockPos worldPosition) {
-        super(size, worldPosition, (
-                size == GenericWhistleProperties.WhistleSize.SMALL ? POSAUNE_HIGH :
-                size == GenericWhistleProperties.WhistleSize.MEDIUM ? POSAUNE_MEDIUM :
-                size == GenericWhistleProperties.WhistleSize.LARGE ? POSAUNE_LOW : POSAUNE_DEEP
-        ).get());
+    public PosauneSoundInstance(EPipeSizes.PipeSize size, BlockPos worldPosition) {
+        super(size, worldPosition,
+                (switch (size) {
+                    case TINY -> POSAUNE_SUPERHIGH;
+                    case SMALL -> POSAUNE_HIGH;
+                    case MEDIUM -> POSAUNE_MEDIUM;
+                    case LARGE -> POSAUNE_LOW;
+                    case HUGE -> POSAUNE_DEEP;
+                }).get()
+        );
     }
 }

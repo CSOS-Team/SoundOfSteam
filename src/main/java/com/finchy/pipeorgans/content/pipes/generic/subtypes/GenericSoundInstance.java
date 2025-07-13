@@ -1,5 +1,6 @@
-package com.finchy.pipeorgans.content.pipes.generic;
+package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
+import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
@@ -13,9 +14,9 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
 
     private boolean active;
     private int keepAlive;
-    private GenericWhistleProperties.WhistleSize size;
+    private EPipeSizes.PipeSize size;
 
-    public GenericSoundInstance(GenericWhistleProperties.WhistleSize size, BlockPos worldPosition, SoundEvent soundEvent) {
+    public GenericSoundInstance(EPipeSizes.PipeSize size, BlockPos worldPosition, SoundEvent soundEvent) {
         super(soundEvent,
                 SoundSource.RECORDS,
                 SoundInstance.createUnseededRandom());
@@ -31,7 +32,7 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
         z = v.z;
     }
 
-    public GenericWhistleProperties.WhistleSize getOctave() { return size; }
+    public EPipeSizes.PipeSize getOctave() { return size; }
 
     public void fadeOut() { this.active = false; }
 

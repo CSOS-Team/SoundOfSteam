@@ -48,8 +48,9 @@ public class PipeOrgans {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         AllCreativeModeTabs.register(modEventBus);
-        AllBlockEntities.register(modEventBus);
+
         AllBlocks.register(modEventBus);
+        AllBlockEntities.register(modEventBus);
         AllItems.register(modEventBus);
         AllSoundEvents.register(modEventBus);
         AllMenuTypes.register(modEventBus);

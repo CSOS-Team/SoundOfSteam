@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.trompette;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
-import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
@@ -11,27 +10,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class TrompetteBlock extends GenericPipeBlock {
-
+public class TrompetteBlock extends DoublePipeBlock {
     public TrompetteBlock(Properties pProperties) {
         super(pProperties);
         baseBlock = AllBlocks.TROMPETTE;
         extensionBlock = AllBlocks.TROMPETTE_EXTENSION;
-        blockEntity = AllBlockEntities.TROMPETTE_BLOCK_ENTITY;
-        shape = GenericWhistleProperties.WhistleShape.SLIM;
+        blockEntityType = AllBlockEntities.TROMPETTE_BLOCK_ENTITY;
+
     }
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        GenericWhistleProperties.WhistleSize size = pState.getValue(SIZE);
-        if (size == GenericWhistleProperties.WhistleSize.TINY) { // don't allow sizes smaller than tiny
-            size = GenericWhistleProperties.WhistleSize.SMALL;
-        }
-        return AllShapes.getCompleteWhistleShape(
-            size,
-            shape,
-            pState.getValue(WALL),
-            pState.getValue(FACING)
-        );
+        return AllShapes.slimPipeShape(pState.getValue(SIZE), pState.getValue(WALL), pState.getValue(FACING));
     }
 }

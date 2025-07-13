@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.piccolo;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
+import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.init.AllPartialModels;
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
@@ -28,17 +28,20 @@ public class PiccoloRenderer extends SafeBlockEntityRenderer<PiccoloBlockEntity>
             return;
 
         Direction direction = blockState.getValue(PiccoloBlock.FACING);
-        GenericWhistleProperties.WhistleSize size = blockState.getValue(PiccoloBlock.SIZE);
+        EPipeSizes.PipeSize size = blockState.getValue(PiccoloBlock.SIZE);
 
-        PartialModel mouth = size == GenericWhistleProperties.WhistleSize.TINY ? AllPartialModels.PICCOLO_MOUTH_TINY :
-                size == GenericWhistleProperties.WhistleSize.SMALL ? AllPartialModels.PICCOLO_MOUTH_SMALL :
-                size == GenericWhistleProperties.WhistleSize.MEDIUM ? AllPartialModels.PICCOLO_MOUTH_MEDIUM :
-                        size == GenericWhistleProperties.WhistleSize.LARGE ? AllPartialModels.PICCOLO_MOUTH_LARGE : AllPartialModels.PICCOLO_MOUTH_HUGE;
+        PartialModel mouth = switch (size) {
+            case TINY -> AllPartialModels.PICCOLO_MOUTH_TINY;
+            case SMALL -> AllPartialModels.PICCOLO_MOUTH_SMALL;
+            case MEDIUM -> AllPartialModels.PICCOLO_MOUTH_MEDIUM;
+            case LARGE -> AllPartialModels.PICCOLO_MOUTH_LARGE;
+            case HUGE -> AllPartialModels.PICCOLO_MOUTH_HUGE;
+        };
 
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
             float wiggleProgress = (AnimationTickHolder.getTicks(be.getLevel()) + partialTicks) /8f;
-            offset -= (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f);
+            offset -= (float) (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f);
         }
 
         CachedBuffers.partial(mouth, blockState)

@@ -1,19 +1,22 @@
 package com.finchy.pipeorgans.content.pipes.nasard;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
-import com.finchy.pipeorgans.content.pipes.generic.GenericSoundInstance;
+import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.GenericSoundInstance;
 import net.minecraft.core.BlockPos;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class NasardSoundInstance extends GenericSoundInstance {
 
-    public NasardSoundInstance(GenericWhistleProperties.WhistleSize size, BlockPos worldPosition) {
-        super(size, worldPosition, (
-                size == GenericWhistleProperties.WhistleSize.TINY ? NASARD_SUPERHIGH :
-                size == GenericWhistleProperties.WhistleSize.SMALL ? NASARD_HIGH :
-                size == GenericWhistleProperties.WhistleSize.MEDIUM ? NASARD_MEDIUM :
-                size == GenericWhistleProperties.WhistleSize.LARGE ? NASARD_LOW : NASARD_DEEP
-        ).get());
+    public NasardSoundInstance(EPipeSizes.PipeSize size, BlockPos worldPosition) {
+        super(size, worldPosition,
+                (switch (size) {
+                    case TINY -> NASARD_SUPERHIGH;
+                    case SMALL -> NASARD_HIGH;
+                    case MEDIUM -> NASARD_MEDIUM;
+                    case LARGE -> NASARD_LOW;
+                    case HUGE -> NASARD_DEEP;
+                }).get()
+        );
     }
 }

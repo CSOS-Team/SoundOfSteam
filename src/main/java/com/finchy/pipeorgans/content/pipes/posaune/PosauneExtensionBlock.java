@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.posaune;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes.PedalExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.SingleExtensionBlock;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
 import net.minecraft.core.BlockPos;
@@ -10,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class PosauneExtensionBlock extends PedalExtensionBlock {
+public class PosauneExtensionBlock extends SingleExtensionBlock {
     public PosauneExtensionBlock(Properties pProperties) {
         super(pProperties);
         this.baseBlock = AllBlocks.POSAUNE;
@@ -18,8 +17,6 @@ public class PosauneExtensionBlock extends PedalExtensionBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        GenericWhistleProperties.WhistleSize size = pState.getValue(SIZE);
-        if (size == GenericWhistleProperties.WhistleSize.TINY) { size = GenericWhistleProperties.WhistleSize.SMALL; }
-        return AllShapes.getSlimExtensionShape(pState.getValue(SHAPE), size);
+        return AllShapes.slimExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
     }
 }

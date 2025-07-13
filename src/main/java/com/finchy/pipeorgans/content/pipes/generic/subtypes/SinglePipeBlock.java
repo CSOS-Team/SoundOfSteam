@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
-import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import net.minecraft.core.BlockPos;
@@ -12,10 +11,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class QuadruplePipeBlock extends GenericPipeBlock {
+public abstract class SinglePipeBlock extends GenericPipeBlock {
 
-    public QuadruplePipeBlock(Properties pProperties) {
-        super(pProperties, 4);
+    public SinglePipeBlock(Properties pProperties) {
+        super(pProperties, 1);
     }
 
     @Override
@@ -33,34 +32,14 @@ public abstract class QuadruplePipeBlock extends GenericPipeBlock {
         SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.get();
         SoundEvent hitSound = soundtype.getHitSound();
 
-        for (int i = 1; i <= 12; i+=4) {
+        for (int i = 1; i <= 12; i++) {
             BlockState blockState = pLevel.getBlockState(currentPos);
 
-            if (blockState.getBlock() instanceof QuadrupleExtensionBlock) { // if block above is extension
-
-                if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) != EExtensionShapes.QuadrupleShape.QUAD
-                        && blockState.getValue(QuadrupleExtensionBlock.SHAPE) != EExtensionShapes.QuadrupleShape.QUAD_CONNECTED) { // if extension above is single, double, or triple
-
-                    BlockState toSet = blockState.cycle(QuadrupleExtensionBlock.SHAPE); // cycle to the next shape
-                    if (extensionBlock.get().isDirectional())      // only set direction if the extension is directional
-                        toSet = toSet.setValue(FACING, facing);    // (would cause a crash otherwise)
-                    pLevel.setBlock(currentPos, toSet, 3);
-
-                    if (playSound) {
-                        switch (blockState.getValue(QuadrupleExtensionBlock.SHAPE)) {
-                            case SINGLE -> i++;
-                            case DOUBLE -> i+=2;
-                            case TRIPLE -> i+=3;
-                        }
-                        float pPitch = (float) Math.pow(2, -i / 12.0);
-                        pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
-                        pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
-                    }
-                    return;
-                }
+            if (blockState.getBlock() instanceof SingleExtensionBlock) {
                 currentPos = currentPos.above();
                 continue;
             }
+
             if (!blockState.canBeReplaced()) {
                 return;
             }

@@ -1,9 +1,10 @@
-package com.finchy.pipeorgans.content.pipes.vox_humana;
+package com.finchy.pipeorgans.content.pipes.voxHumana;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
+import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes.ReedBlockEntity;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadruplePipeBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
 import net.createmod.catnip.math.AngleHelper;
@@ -17,9 +18,10 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class VoxHumanaBlockEntity extends ReedBlockEntity { // could extend GenericPipeBlockEntity, but just to make it clearer
+public class VoxHumanaBlockEntity extends QuadruplePipeBlockEntity {
     public VoxHumanaBlockEntity(BlockPos pos, BlockState blockState) {
         super(pos, blockState, AllBlockEntities.VOX_HUMANA_BLOCK_ENTITY);
+        baseBlock = AllBlocks.VOX_HUMANA;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -27,7 +29,7 @@ public class VoxHumanaBlockEntity extends ReedBlockEntity { // could extend Gene
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(GenericWhistleProperties.WhistleSize size, boolean powered) {
+    protected void tickAudio(EPipeSizes.PipeSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
@@ -61,15 +63,15 @@ public class VoxHumanaBlockEntity extends ReedBlockEntity { // could extend Gene
     }
 
     @Override
-    public void createSteamJet(GenericWhistleProperties.WhistleSize size) { // custom steam jet
+    public void createSteamJet(EPipeSizes.PipeSize size) {
         Direction facing = getBlockState().getOptionalValue(GenericPipeBlock.FACING)
                 .orElse(Direction.SOUTH);
-        float angle = 180+AngleHelper.horizontalAngle(facing);
+        float angle = 180+ AngleHelper.horizontalAngle(facing);
 
         float yOffset = pitch==0?0.125f:0;
         double yPos = ((double) pitch/4)+1 + yOffset;
 
-        if (size == GenericWhistleProperties.WhistleSize.TINY) { size = GenericWhistleProperties.WhistleSize.SMALL; }
+        if (size == EPipeSizes.PipeSize.TINY) { size = EPipeSizes.PipeSize.SMALL; }
         double zOffset = (2 / 16f*size.ordinal()) + (pitch==0?0:0.0625);
 
         Vec3 v = VecHelper.rotate(

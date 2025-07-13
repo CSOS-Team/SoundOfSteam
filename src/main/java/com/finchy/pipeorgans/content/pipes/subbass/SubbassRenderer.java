@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.content.pipes.subbass;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
+import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
+import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.init.AllPartialModels;
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
@@ -27,11 +28,15 @@ public class SubbassRenderer extends SafeBlockEntityRenderer<SubbassBlockEntity>
             return;
 
         Direction direction = blockState.getValue(SubbassBlock.FACING);
-        GenericWhistleProperties.WhistleSize size = blockState.getValue(SubbassBlock.SIZE);
+        EPipeSizes.PipeSize size = blockState.getValue(SubbassBlock.SIZE);
 
-        PartialModel mouth = size == GenericWhistleProperties.WhistleSize.SMALL ? AllPartialModels.SUBBASS_MOUTH_SMALL :
-                size == GenericWhistleProperties.WhistleSize.MEDIUM ? AllPartialModels.SUBBASS_MOUTH_MEDIUM :
-                size == GenericWhistleProperties.WhistleSize.LARGE ? AllPartialModels.SUBBASS_MOUTH_LARGE : AllPartialModels.SUBBASS_MOUTH_HUGE;
+        PartialModel mouth = switch (size) {
+            case TINY -> AllPartialModels.SUBBASS_MOUTH_TINY;
+            case SMALL -> AllPartialModels.SUBBASS_MOUTH_SMALL;
+            case MEDIUM -> AllPartialModels.SUBBASS_MOUTH_MEDIUM;
+            case LARGE -> AllPartialModels.SUBBASS_MOUTH_LARGE;
+            case HUGE -> AllPartialModels.SUBBASS_MOUTH_HUGE;
+        };
 
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {

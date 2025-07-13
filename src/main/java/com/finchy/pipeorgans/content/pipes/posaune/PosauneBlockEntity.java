@@ -1,8 +1,9 @@
 package com.finchy.pipeorgans.content.pipes.posaune;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes.ReedBlockEntity;
+import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.SinglePipeBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -12,10 +13,10 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class PosauneBlockEntity extends ReedBlockEntity {
+public class PosauneBlockEntity extends SinglePipeBlockEntity {
     public PosauneBlockEntity(BlockPos pos, BlockState blockState) {
         super(pos, blockState, AllBlockEntities.POSAUNE_BLOCK_ENTITY);
-        steamJetOffset = 0.25f;
+        baseBlock = AllBlocks.POSAUNE;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -23,7 +24,7 @@ public class PosauneBlockEntity extends ReedBlockEntity {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(GenericWhistleProperties.WhistleSize size, boolean powered) {
+    protected void tickAudio(EPipeSizes.PipeSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
@@ -53,6 +54,6 @@ public class PosauneBlockEntity extends ReedBlockEntity {
         if (!particle)
             return;
 
-        createSteamJet(size);
+        createReedSteamJet();
     }
 }

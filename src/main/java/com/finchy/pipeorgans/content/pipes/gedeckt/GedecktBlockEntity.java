@@ -1,8 +1,9 @@
 package com.finchy.pipeorgans.content.pipes.gedeckt;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockEntity;
+import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -12,9 +13,10 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class GedecktBlockEntity extends GenericPipeBlockEntity {
+public class GedecktBlockEntity extends DoublePipeBlockEntity {
     public GedecktBlockEntity(BlockPos pos, BlockState blockState) {
         super(pos, blockState, AllBlockEntities.GEDECKT_BLOCK_ENTITY);
+        baseBlock = AllBlocks.GEDECKT;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -22,7 +24,7 @@ public class GedecktBlockEntity extends GenericPipeBlockEntity {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(GenericWhistleProperties.WhistleSize size, boolean powered) {
+    protected void tickAudio(EPipeSizes.PipeSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();

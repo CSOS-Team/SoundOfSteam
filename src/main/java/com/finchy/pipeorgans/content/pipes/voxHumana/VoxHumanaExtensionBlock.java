@@ -1,6 +1,5 @@
-package com.finchy.pipeorgans.content.pipes.vox_humana;
+package com.finchy.pipeorgans.content.pipes.voxHumana;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericWhistleProperties;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadrupleExtensionBlock;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
@@ -17,9 +16,12 @@ public class VoxHumanaExtensionBlock extends QuadrupleExtensionBlock {
     }
 
     @Override
+    public boolean isDirectional() {
+        return true;
+    }
+
+    @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        GenericWhistleProperties.WhistleSize size = pState.getValue(SIZE);
-        if (size == GenericWhistleProperties.WhistleSize.TINY) { size = GenericWhistleProperties.WhistleSize.SMALL; }
-        return AllShapes.getSlimExtensionShape(pState.getValue(SHAPE), size);
+        return AllShapes.slimExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
     }
 }
