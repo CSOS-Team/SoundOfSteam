@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "D",
+    "S"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_nugget"
+    },
+    "D": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "pipeorgans:base"
+    }
+  },
+  "result": {
+    "item": "pipeorgans:viola",
+    "count": 1
+  }
+}

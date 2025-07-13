@@ -168,6 +168,61 @@
     ]
   },
 
+  "viola_superhigh": {
+    "subtitle": "sounds.pipeorgans.viola_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:viola/vi_superhigh"
+      }
+    ]
+  },
+
+  "viola_high": {
+    "subtitle": "sounds.pipeorgans.viola_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:viola/vi_high"
+      }
+    ]
+  },
+
+  "viola_medium": {
+    "subtitle": "sounds.pipeorgans.viola_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:viola/vi_medium"
+      }
+    ]
+  },
+
+  "viola_low": {
+    "subtitle": "sounds.pipeorgans.viola_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:viola/vi_low"
+      }
+    ]
+  },
+
+  "viola_deep": {
+    "subtitle": "sounds.pipeorgans.viola_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:viola/vi_deep"
+      }
+    ]
+  },
+
 
 
   "piccolo_superhigh": {
