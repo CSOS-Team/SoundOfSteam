@@ -1,13 +1,10 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
 import net.minecraft.util.StringRepresentable;
-import org.jetbrains.annotations.NotNull;
 
 public class EExtensionShapes {
 
-    public interface ExtensionShape {
-        int getIndex();
-    }
+    public interface ExtensionShape {}
 
     public enum QuadrupleShape implements ExtensionShape, StringRepresentable {
         SINGLE("single"), DOUBLE("double"), TRIPLE("triple"), QUAD("quad"), QUAD_CONNECTED("quad_connected");
@@ -20,11 +17,6 @@ public class EExtensionShapes {
         @Override
         public String getSerializedName() {
             return name;
-        }
-
-        @Override
-        public int getIndex() {
-            return ordinal();
         }
     }
 
@@ -40,11 +32,6 @@ public class EExtensionShapes {
         public String getSerializedName() {
             return name;
         }
-
-        @Override
-        public int getIndex() {
-            return ordinal();
-        }
     }
 
     public enum SingleShape implements ExtensionShape, StringRepresentable {
@@ -58,11 +45,6 @@ public class EExtensionShapes {
         @Override
         public String getSerializedName() {
             return name;
-        }
-
-        @Override
-        public int getIndex() {
-            return ordinal();
         }
     }
 

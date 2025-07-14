@@ -21,34 +21,10 @@
 
   "pipeorgans.blocks.pipes.replace_pipe_deny": "Not enough space!",
 
-  "item.pipeorgans.brass_boot": "Brass Boot",
-  "item.pipeorgans.dark_oak_boot": "Dark Oak Boot",
-  "item.pipeorgans.copper_boot": "Copper Boot",
-
-  "item.pipeorgans.brass_reed": "Brass Reed",
-  "item.pipeorgans.tuning_wire": "Tuning Wire",
-  "item.pipeorgans.incomplete_trompette": "Incomplete Trompette",
-  "item.pipeorgans.incomplete_vox_humana": "Incomplete Vox Humana",
-  "item.pipeorgans.incomplete_posaune": "Incomplete Posaune",
-
-  "block.pipeorgans.base": "Pipe Base",
-
-  "block.pipeorgans.stop_master": "Stop Master",
   "block.pipeorgans.keyboard_relay": "Keyboard Relay",
 
   "block.pipeorgans.windchest": "Windchest",
   "block.pipeorgans.windchest_master": "Windchest Controller",
-
-  "block.pipeorgans.gedeckt": "Gedeckt",
-  "block.pipeorgans.diapason": "Diapason",
-  "block.pipeorgans.gamba": "Gamba",
-  "block.pipeorgans.viola": "Viola",
-  "block.pipeorgans.piccolo": "Piccolo",
-  "block.pipeorgans.subbass": "Subbass",
-  "block.pipeorgans.trompette": "Trompette",
-  "block.pipeorgans.nasard": "Nasard",
-  "block.pipeorgans.posaune": "Posaune",
-  "block.pipeorgans.vox_humana": "Vox Humana",
 
   "sounds.pipeorgans.gedeckt_superhigh": "Gedeckt squeals",
   "sounds.pipeorgans.gedeckt_high": "Gedeckt squeaks",

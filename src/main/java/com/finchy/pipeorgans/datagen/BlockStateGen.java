@@ -1,6 +1,9 @@
-package com.finchy.pipeorgans.content.pipes.generic;
+package com.finchy.pipeorgans.datagen;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.content.base.BaseBlock;
+import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadrupleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.SingleExtensionBlock;
@@ -12,7 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.ModelFile;
 
-public class PipeGenerators {
+public class BlockStateGen {
 
     public static class PipeGenerator extends SpecialBlockStateGen {
         @Override
@@ -30,22 +33,13 @@ public class PipeGenerators {
             String wall = state.getValue(GenericPipeBlock.WALL) ? "wall" : "floor";
             String size = state.getValue(GenericPipeBlock.SIZE).getSerializedName();
             boolean powered = state.getValue(GenericPipeBlock.POWERED);
-            ModelFile model = partialPipeModel(ctx, prov, size, wall);
+            ModelFile model = AssetLookup.partialStandardModel(ctx, prov, size, wall);
             if (!powered)
                 return model;
             ResourceLocation parentLocation = model.getLocation();
             return prov.models()
                     .withExistingParent(parentLocation.getPath() + "_powered", parentLocation)
                     .texture("0", "pipeorgans:block/copper_redstone_plate_powered");
-        }
-
-        public static ModelFile partialPipeModel(DataGenContext<?, ?> ctx, RegistrateBlockstateProvider prov, String... suffix) {
-            String string = "/"+ctx.getName();
-            for (String suf : suffix)
-                if (!suf.isEmpty())
-                    string += "_" + suf;
-            final String location = "block/"+ctx.getName()+string;
-            return prov.models().getExistingFile(prov.modLoc(location));
         }
     }
 
@@ -74,22 +68,32 @@ public class PipeGenerators {
                 PipeOrgans.LOGGER.error("Pipe extension {} has no valid shape property", ctx.getName());
                 shape = "";
             }
-            return partialExtensionModel(ctx, prov, size, shape);
+            return AssetLookup.partialExtensionModel(ctx, prov, size, shape);
+        }
+    }
+
+    public static class BaseGenerator extends SpecialBlockStateGen {
+        @Override
+        protected int getXRotation(BlockState state) {
+            return 0;
         }
 
-        public static ModelFile partialExtensionModel(DataGenContext<?, ?> ctx, RegistrateBlockstateProvider prov, String... suffix) {
-            String pipeName;
-            if (ctx.getName().endsWith("_extension"))
-                pipeName = ctx.getName().substring(0, ctx.getName().length() - "_extension".length());
-            else
-                pipeName = ctx.getName();
+        @Override
+        protected int getYRotation(BlockState state) {
+            return horizontalAngle(state.getValue(BaseBlock.FACING));
+        }
 
-            String string = "/extension/"+pipeName;
-            for (String suf : suffix)
-                if (!suf.isEmpty())
-                    string += "_" + suf;
-            final String location = "block/"+pipeName+string;
-            return prov.models().getExistingFile(prov.modLoc(location));
+        @Override
+        public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov, BlockState state) {
+            String wall = state.getValue(BaseBlock.WALL) ? "wall" : "floor";
+            boolean powered = state.getValue(GenericPipeBlock.POWERED);
+            ModelFile model = AssetLookup.partialStandardModel(ctx, prov, wall);
+            if (!powered)
+                return model;
+            ResourceLocation parentLocation = model.getLocation();
+            return prov.models()
+                    .withExistingParent(parentLocation.getPath() + "_powered", parentLocation)
+                    .texture("0", "pipeorgans:block/copper_redstone_plate_powered");
         }
     }
 }

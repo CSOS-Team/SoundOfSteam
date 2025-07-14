@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans;
 
+import com.finchy.pipeorgans.datagen.PipeOrgansDatagen;
 import com.finchy.pipeorgans.init.*;
 import com.finchy.pipeorgans.midi.Proxy;
 import com.finchy.pipeorgans.midi.client.ClientProxy;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -58,10 +60,12 @@ public class PipeOrgans {
 
         AllBlocks.register(modEventBus);
         AllBlockEntities.register(modEventBus);
-        AllItems.register(modEventBus);
+        AllItems.register();
         AllSoundEvents.register(modEventBus);
         AllMenuTypes.register(modEventBus);
         AllPackets.registerPackets();
+
+        modEventBus.addListener(EventPriority.LOWEST, PipeOrgansDatagen::gatherData);
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> PipeOrgansClient.onCtorClient(modEventBus, MinecraftForge.EVENT_BUS));
 

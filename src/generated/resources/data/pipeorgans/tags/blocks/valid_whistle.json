@@ -1,0 +1,14 @@
+{
+  "values": [
+    "pipeorgans:diapason",
+    "pipeorgans:gamba",
+    "pipeorgans:gedeckt",
+    "pipeorgans:nasard",
+    "pipeorgans:piccolo",
+    "pipeorgans:posaune",
+    "pipeorgans:subbass",
+    "pipeorgans:trompette",
+    "pipeorgans:viola",
+    "pipeorgans:vox_humana"
+  ]
+}
