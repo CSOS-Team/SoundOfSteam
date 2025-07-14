@@ -1,49 +1,229 @@
 {
   "variants": {
-    "shape=double,size=huge": {
+    "facing=east,shape=double,size=huge": {
+      "model": "pipeorgans:block/viola/extension/viola_huge_double",
+      "y": 270
+    },
+    "facing=east,shape=double,size=large": {
+      "model": "pipeorgans:block/viola/extension/viola_large_double",
+      "y": 270
+    },
+    "facing=east,shape=double,size=medium": {
+      "model": "pipeorgans:block/viola/extension/viola_medium_double",
+      "y": 270
+    },
+    "facing=east,shape=double,size=small": {
+      "model": "pipeorgans:block/viola/extension/viola_small_double",
+      "y": 270
+    },
+    "facing=east,shape=double,size=tiny": {
+      "model": "pipeorgans:block/viola/extension/viola_tiny_double",
+      "y": 270
+    },
+    "facing=east,shape=double_connected,size=huge": {
+      "model": "pipeorgans:block/viola/extension/viola_huge_double_connected",
+      "y": 270
+    },
+    "facing=east,shape=double_connected,size=large": {
+      "model": "pipeorgans:block/viola/extension/viola_large_double_connected",
+      "y": 270
+    },
+    "facing=east,shape=double_connected,size=medium": {
+      "model": "pipeorgans:block/viola/extension/viola_medium_double_connected",
+      "y": 270
+    },
+    "facing=east,shape=double_connected,size=small": {
+      "model": "pipeorgans:block/viola/extension/viola_small_double_connected",
+      "y": 270
+    },
+    "facing=east,shape=double_connected,size=tiny": {
+      "model": "pipeorgans:block/viola/extension/viola_tiny_double_connected",
+      "y": 270
+    },
+    "facing=east,shape=single,size=huge": {
+      "model": "pipeorgans:block/viola/extension/viola_huge_single",
+      "y": 270
+    },
+    "facing=east,shape=single,size=large": {
+      "model": "pipeorgans:block/viola/extension/viola_large_single",
+      "y": 270
+    },
+    "facing=east,shape=single,size=medium": {
+      "model": "pipeorgans:block/viola/extension/viola_medium_single",
+      "y": 270
+    },
+    "facing=east,shape=single,size=small": {
+      "model": "pipeorgans:block/viola/extension/viola_small_single",
+      "y": 270
+    },
+    "facing=east,shape=single,size=tiny": {
+      "model": "pipeorgans:block/viola/extension/viola_tiny_single",
+      "y": 270
+    },
+    "facing=north,shape=double,size=huge": {
+      "model": "pipeorgans:block/viola/extension/viola_huge_double",
+      "y": 180
+    },
+    "facing=north,shape=double,size=large": {
+      "model": "pipeorgans:block/viola/extension/viola_large_double",
+      "y": 180
+    },
+    "facing=north,shape=double,size=medium": {
+      "model": "pipeorgans:block/viola/extension/viola_medium_double",
+      "y": 180
+    },
+    "facing=north,shape=double,size=small": {
+      "model": "pipeorgans:block/viola/extension/viola_small_double",
+      "y": 180
+    },
+    "facing=north,shape=double,size=tiny": {
+      "model": "pipeorgans:block/viola/extension/viola_tiny_double",
+      "y": 180
+    },
+    "facing=north,shape=double_connected,size=huge": {
+      "model": "pipeorgans:block/viola/extension/viola_huge_double_connected",
+      "y": 180
+    },
+    "facing=north,shape=double_connected,size=large": {
+      "model": "pipeorgans:block/viola/extension/viola_large_double_connected",
+      "y": 180
+    },
+    "facing=north,shape=double_connected,size=medium": {
+      "model": "pipeorgans:block/viola/extension/viola_medium_double_connected",
+      "y": 180
+    },
+    "facing=north,shape=double_connected,size=small": {
+      "model": "pipeorgans:block/viola/extension/viola_small_double_connected",
+      "y": 180
+    },
+    "facing=north,shape=double_connected,size=tiny": {
+      "model": "pipeorgans:block/viola/extension/viola_tiny_double_connected",
+      "y": 180
+    },
+    "facing=north,shape=single,size=huge": {
+      "model": "pipeorgans:block/viola/extension/viola_huge_single",
+      "y": 180
+    },
+    "facing=north,shape=single,size=large": {
+      "model": "pipeorgans:block/viola/extension/viola_large_single",
+      "y": 180
+    },
+    "facing=north,shape=single,size=medium": {
+      "model": "pipeorgans:block/viola/extension/viola_medium_single",
+      "y": 180
+    },
+    "facing=north,shape=single,size=small": {
+      "model": "pipeorgans:block/viola/extension/viola_small_single",
+      "y": 180
+    },
+    "facing=north,shape=single,size=tiny": {
+      "model": "pipeorgans:block/viola/extension/viola_tiny_single",
+      "y": 180
+    },
+    "facing=south,shape=double,size=huge": {
       "model": "pipeorgans:block/viola/extension/viola_huge_double"
     },
-    "shape=double,size=large": {
+    "facing=south,shape=double,size=large": {
       "model": "pipeorgans:block/viola/extension/viola_large_double"
     },
-    "shape=double,size=medium": {
+    "facing=south,shape=double,size=medium": {
       "model": "pipeorgans:block/viola/extension/viola_medium_double"
     },
-    "shape=double,size=small": {
+    "facing=south,shape=double,size=small": {
       "model": "pipeorgans:block/viola/extension/viola_small_double"
     },
-    "shape=double,size=tiny": {
+    "facing=south,shape=double,size=tiny": {
       "model": "pipeorgans:block/viola/extension/viola_tiny_double"
     },
-    "shape=double_connected,size=huge": {
+    "facing=south,shape=double_connected,size=huge": {
       "model": "pipeorgans:block/viola/extension/viola_huge_double_connected"
     },
-    "shape=double_connected,size=large": {
+    "facing=south,shape=double_connected,size=large": {
       "model": "pipeorgans:block/viola/extension/viola_large_double_connected"
     },
-    "shape=double_connected,size=medium": {
+    "facing=south,shape=double_connected,size=medium": {
       "model": "pipeorgans:block/viola/extension/viola_medium_double_connected"
     },
-    "shape=double_connected,size=small": {
+    "facing=south,shape=double_connected,size=small": {
       "model": "pipeorgans:block/viola/extension/viola_small_double_connected"
     },
-    "shape=double_connected,size=tiny": {
+    "facing=south,shape=double_connected,size=tiny": {
       "model": "pipeorgans:block/viola/extension/viola_tiny_double_connected"
     },
-    "shape=single,size=huge": {
+    "facing=south,shape=single,size=huge": {
       "model": "pipeorgans:block/viola/extension/viola_huge_single"
     },
-    "shape=single,size=large": {
+    "facing=south,shape=single,size=large": {
       "model": "pipeorgans:block/viola/extension/viola_large_single"
     },
-    "shape=single,size=medium": {
+    "facing=south,shape=single,size=medium": {
       "model": "pipeorgans:block/viola/extension/viola_medium_single"
     },
-    "shape=single,size=small": {
+    "facing=south,shape=single,size=small": {
       "model": "pipeorgans:block/viola/extension/viola_small_single"
     },
-    "shape=single,size=tiny": {
+    "facing=south,shape=single,size=tiny": {
       "model": "pipeorgans:block/viola/extension/viola_tiny_single"
+    },
+    "facing=west,shape=double,size=huge": {
+      "model": "pipeorgans:block/viola/extension/viola_huge_double",
+      "y": 90
+    },
+    "facing=west,shape=double,size=large": {
+      "model": "pipeorgans:block/viola/extension/viola_large_double",
+      "y": 90
+    },
+    "facing=west,shape=double,size=medium": {
+      "model": "pipeorgans:block/viola/extension/viola_medium_double",
+      "y": 90
+    },
+    "facing=west,shape=double,size=small": {
+      "model": "pipeorgans:block/viola/extension/viola_small_double",
+      "y": 90
+    },
+    "facing=west,shape=double,size=tiny": {
+      "model": "pipeorgans:block/viola/extension/viola_tiny_double",
+      "y": 90
+    },
+    "facing=west,shape=double_connected,size=huge": {
+      "model": "pipeorgans:block/viola/extension/viola_huge_double_connected",
+      "y": 90
+    },
+    "facing=west,shape=double_connected,size=large": {
+      "model": "pipeorgans:block/viola/extension/viola_large_double_connected",
+      "y": 90
+    },
+    "facing=west,shape=double_connected,size=medium": {
+      "model": "pipeorgans:block/viola/extension/viola_medium_double_connected",
+      "y": 90
+    },
+    "facing=west,shape=double_connected,size=small": {
+      "model": "pipeorgans:block/viola/extension/viola_small_double_connected",
+      "y": 90
+    },
+    "facing=west,shape=double_connected,size=tiny": {
+      "model": "pipeorgans:block/viola/extension/viola_tiny_double_connected",
+      "y": 90
+    },
+    "facing=west,shape=single,size=huge": {
+      "model": "pipeorgans:block/viola/extension/viola_huge_single",
+      "y": 90
+    },
+    "facing=west,shape=single,size=large": {
+      "model": "pipeorgans:block/viola/extension/viola_large_single",
+      "y": 90
+    },
+    "facing=west,shape=single,size=medium": {
+      "model": "pipeorgans:block/viola/extension/viola_medium_single",
+      "y": 90
+    },
+    "facing=west,shape=single,size=small": {
+      "model": "pipeorgans:block/viola/extension/viola_small_single",
+      "y": 90
+    },
+    "facing=west,shape=single,size=tiny": {
+      "model": "pipeorgans:block/viola/extension/viola_tiny_single",
+      "y": 90
     }
   }
 }

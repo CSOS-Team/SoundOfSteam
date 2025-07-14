@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -15,9 +16,23 @@ public class GenericPipeBlockItem extends BlockItem {
 
     String stopSize;
 
-    public GenericPipeBlockItem(Block pBlock, Properties pProperties, String stopSize) {
+    public enum StopSize implements StringRepresentable {
+        TWO("2"), TWOANDTWOTHIRDS("223"), FOUR("4"), EIGHT("8"), SIXTEEN("16"), THIRTYTWO("32");
+
+        private final String size;
+        StopSize(String size) {
+            this.size = size;
+        }
+
+        @Override
+        public String getSerializedName() {
+            return size;
+        }
+    }
+
+    public GenericPipeBlockItem(Block pBlock, Properties pProperties, StopSize stopSize) {
         super(pBlock, pProperties);
-        this.stopSize = stopSize;
+        this.stopSize = stopSize.getSerializedName();
     }
 
     @Override

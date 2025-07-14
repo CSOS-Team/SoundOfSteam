@@ -1,42 +1,32 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 public class AllItems {
 
-    public static final DeferredRegister<Item> ITEMS =
-            DeferredRegister.create(ForgeRegistries.ITEMS, PipeOrgans.MOD_ID);
+    private static final CreateRegistrate REGISTRATE = PipeOrgans.registrate();
 
-    public static final RegistryObject<Item> BRASS_BOOT = ITEMS.register("brass_boot",
-            () -> new Item(new Item.Properties()));
+    static {
+        REGISTRATE.setCreativeTab(AllCreativeModeTabs.PIPE_ORGANS);
+    }
 
-    public static final RegistryObject<Item> DARK_OAK_BOOT = ITEMS.register("dark_oak_boot",
-            () -> new Item(new Item.Properties()));
+    public static final ItemEntry<Item> BRASS_BOOT = REGISTRATE.item("brass_boot", Item::new).register();
+    public static final ItemEntry<Item> DARK_OAK_BOOT = REGISTRATE.item("dark_oak_boot", Item::new).register();
+    public static final ItemEntry<Item> COPPER_BOOT = REGISTRATE.item("copper_boot", Item::new).register();
+    public static final ItemEntry<Item> BRASS_REED = REGISTRATE.item("brass_reed", Item::new).register();
+    public static final ItemEntry<Item> TUNING_WIRE = REGISTRATE.item("tuning_wire", Item::new).register();
 
-    public static final RegistryObject<Item> COPPER_BOOT = ITEMS.register("copper_boot",
-            () -> new Item(new Item.Properties()));
+    public static final ItemEntry<Item> INCOMPLETE_TROMPETTE = REGISTRATE.item("incomplete_trompette", Item::new)
+            .properties(p -> p.stacksTo(1)).register();
+    public static final ItemEntry<Item> INCOMPLETE_VOX_HUMANA = REGISTRATE.item("incomplete_vox_humana", Item::new)
+            .properties(p -> p.stacksTo(1)).register();
+    public static final ItemEntry<Item> INCOMPLETE_POSAUNE = REGISTRATE.item("incomplete_posaune", Item::new)
+            .properties(p -> p.stacksTo(1)).register();
 
-    public static final RegistryObject<Item> BRASS_REED = ITEMS.register("brass_reed",
-            () -> new Item(new Item.Properties()));
+    public static void register() {
 
-    public static final RegistryObject<Item> TUNING_WIRE = ITEMS.register("tuning_wire",
-            () -> new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> INCOMPLETE_TROMPETTE = ITEMS.register("incomplete_trompette",
-            () -> new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> INCOMPLETE_VOX_HUMANA = ITEMS.register("incomplete_vox_humana",
-            () -> new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> INCOMPLETE_POSAUNE = ITEMS.register("incomplete_posaune",
-            () -> new Item(new Item.Properties()));
-
-    public static void register(IEventBus eventBus) {
-        ITEMS.register(eventBus);
     }
 }

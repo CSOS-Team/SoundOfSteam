@@ -17,6 +17,11 @@ public class ViolaExtensionBlock extends DoubleExtensionBlock {
     }
 
     @Override
+    public boolean isDirectional() {
+        return true;
+    }
+
+    @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return AllShapes.stringExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
     }
