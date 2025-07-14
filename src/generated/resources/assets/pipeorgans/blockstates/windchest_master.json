@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,powered=false,windy=false": {
+      "model": "pipeorgans:block/windchest_master/windchest_master",
+      "y": 90
+    },
+    "facing=east,powered=false,windy=true": {
+      "model": "pipeorgans:block/windchest_master/windchest_master",
+      "y": 90
+    },
+    "facing=east,powered=true,windy=false": {
+      "model": "pipeorgans:block/windchest_master/windchest_master_powered",
+      "y": 90
+    },
+    "facing=east,powered=true,windy=true": {
+      "model": "pipeorgans:block/windchest_master/windchest_master_powered",
+      "y": 90
+    },
+    "facing=north,powered=false,windy=false": {
+      "model": "pipeorgans:block/windchest_master/windchest_master"
+    },
+    "facing=north,powered=false,windy=true": {
+      "model": "pipeorgans:block/windchest_master/windchest_master"
+    },
+    "facing=north,powered=true,windy=false": {
+      "model": "pipeorgans:block/windchest_master/windchest_master_powered"
+    },
+    "facing=north,powered=true,windy=true": {
+      "model": "pipeorgans:block/windchest_master/windchest_master_powered"
+    },
+    "facing=south,powered=false,windy=false": {
+      "model": "pipeorgans:block/windchest_master/windchest_master",
+      "y": 180
+    },
+    "facing=south,powered=false,windy=true": {
+      "model": "pipeorgans:block/windchest_master/windchest_master",
+      "y": 180
+    },
+    "facing=south,powered=true,windy=false": {
+      "model": "pipeorgans:block/windchest_master/windchest_master_powered",
+      "y": 180
+    },
+    "facing=south,powered=true,windy=true": {
+      "model": "pipeorgans:block/windchest_master/windchest_master_powered",
+      "y": 180
+    },
+    "facing=west,powered=false,windy=false": {
+      "model": "pipeorgans:block/windchest_master/windchest_master",
+      "y": 270
+    },
+    "facing=west,powered=false,windy=true": {
+      "model": "pipeorgans:block/windchest_master/windchest_master",
+      "y": 270
+    },
+    "facing=west,powered=true,windy=false": {
+      "model": "pipeorgans:block/windchest_master/windchest_master_powered",
+      "y": 270
+    },
+    "facing=west,powered=true,windy=true": {
+      "model": "pipeorgans:block/windchest_master/windchest_master_powered",
+      "y": 270
+    }
+  }
+}
