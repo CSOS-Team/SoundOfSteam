@@ -23,6 +23,6 @@ public class ViolaExtensionBlock extends DoubleExtensionBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return AllShapes.stringExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
+        return AllShapes.stringExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE), pState.getValue(FACING));
     }
 }
