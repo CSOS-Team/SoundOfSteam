@@ -2,20 +2,20 @@ package com.finchy.pipeorgans.content.pipes.diapason;
 
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlockEntity;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
-import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class DiapasonBlockEntity extends DoublePipeBlockEntity {
-    public DiapasonBlockEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, AllBlockEntities.DIAPASON_BLOCK_ENTITY);
+    public DiapasonBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+        super(type, pos, blockState);
         baseBlock = AllBlocks.DIAPASON;
     }
 

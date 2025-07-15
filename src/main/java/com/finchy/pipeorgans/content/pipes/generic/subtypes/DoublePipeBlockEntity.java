@@ -11,8 +11,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 public abstract class DoublePipeBlockEntity extends GenericPipeBlockEntity {
 
-    public DoublePipeBlockEntity(BlockPos pos, BlockState state, RegistryObject<BlockEntityType> blockEntity) {
-        super(pos, state, blockEntity);
+    public DoublePipeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
     @Override

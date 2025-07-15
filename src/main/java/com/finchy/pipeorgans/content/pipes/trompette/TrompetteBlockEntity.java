@@ -8,14 +8,15 @@ import com.simibubi.create.AllSoundEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class TrompetteBlockEntity extends DoublePipeBlockEntity {
-    public TrompetteBlockEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, AllBlockEntities.TROMPETTE_BLOCK_ENTITY);
+    public TrompetteBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+        super(type, pos, blockState);
         baseBlock = AllBlocks.TROMPETTE;
     }
 

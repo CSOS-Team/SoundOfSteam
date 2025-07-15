@@ -38,8 +38,8 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
 
     protected BlockEntry<? extends GenericPipeBlock> baseBlock;
 
-    public GenericPipeBlockEntity(BlockPos pos, BlockState state, RegistryObject<BlockEntityType> blockEntity) {
-        super(blockEntity.get(), pos, state);
+    public GenericPipeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
         source = new WeakReference<>(null);
         animation = LerpedFloat.angular();
         steamJetOffset = 0.125f;

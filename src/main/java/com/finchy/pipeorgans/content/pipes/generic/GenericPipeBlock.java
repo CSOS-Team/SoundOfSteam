@@ -5,6 +5,7 @@ import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.block.IBE;
+import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -49,7 +50,7 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
 
     protected BlockEntry<? extends GenericPipeBlock> baseBlock;
     protected BlockEntry<? extends GenericExtensionBlock> extensionBlock;
-    protected RegistryObject<BlockEntityType> blockEntityType;
+    protected BlockEntityEntry<? extends GenericPipeBlockEntity> blockEntityType;
 
     public final int EPB;
 

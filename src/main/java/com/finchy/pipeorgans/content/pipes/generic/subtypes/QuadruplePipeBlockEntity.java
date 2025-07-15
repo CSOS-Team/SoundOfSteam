@@ -11,8 +11,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 public abstract class QuadruplePipeBlockEntity extends GenericPipeBlockEntity {
 
-    public QuadruplePipeBlockEntity(BlockPos pos, BlockState state, RegistryObject<BlockEntityType> blockEntity) {
-        super(pos, state, blockEntity);
+    public QuadruplePipeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
     @Override
