@@ -21,11 +21,6 @@
 
   "pipeorgans.blocks.pipes.replace_pipe_deny": "Not enough space!",
 
-  "block.pipeorgans.keyboard_relay": "Keyboard Relay",
-
-  "block.pipeorgans.windchest": "Windchest",
-  "block.pipeorgans.windchest_master": "Windchest Controller",
-
   "sounds.pipeorgans.gedeckt_superhigh": "Gedeckt squeals",
   "sounds.pipeorgans.gedeckt_high": "Gedeckt squeaks",
   "sounds.pipeorgans.gedeckt_medium": "Gedeckt speaks",

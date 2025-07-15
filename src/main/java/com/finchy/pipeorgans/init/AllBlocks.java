@@ -67,8 +67,10 @@ public class AllBlocks {
             .initialProperties(() -> Blocks.COPPER_BLOCK)
             .properties(p -> p.requiresCorrectToolForDrops())
             .transform(pickaxeOnly())
+            .lang("Pipe Base") // override default name generated from id "base"
             .blockstate(new BaseGenerator()::generate)
-            .simpleItem()
+            .item()
+            .transform(customItemModel())
             .register();
 
     public static final BlockEntry<KeyboardRelayBlock> KEYBOARD_RELAY = REGISTRATE.block("keyboard_relay", KeyboardRelayBlock::new)
@@ -76,7 +78,8 @@ public class AllBlocks {
             .properties(p -> p.requiresCorrectToolForDrops())
             .transform(pickaxeOnly())
             .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
-            .simpleItem()
+            .item()
+            .transform(customItemModel())
             .register();
 
     public static final RegistryObject<TrackerBarBlock> TRACKER_BAR = registerBlock("tracker_bar",
@@ -89,7 +92,8 @@ public class AllBlocks {
                     .requiresCorrectToolForDrops()
                     .noOcclusion())
             .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
-            .simpleItem()
+            .item()
+            .transform(customItemModel())
             .register();
 
     public static final BlockEntry<WindchestMasterBlock> WINDCHEST_MASTER = REGISTRATE.block("windchest_master", WindchestMasterBlock::new)
@@ -97,8 +101,10 @@ public class AllBlocks {
             .properties(p -> p
                     .requiresCorrectToolForDrops()
                     .noOcclusion())
+            .lang("Windchest Controller")
             .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
-            .simpleItem()
+            .item()
+            .transform(customItemModel())
             .register();
 
     public static final BlockEntry<StopMasterBlock> STOP_MASTER = REGISTRATE.block("stop_master", StopMasterBlock::new)

@@ -49,7 +49,7 @@
   "block.pipeorgans.vox_humana": "Vox Humana",
   "block.pipeorgans.vox_humana_extension": "Vox Humana Extension",
   "block.pipeorgans.windchest": "Windchest",
-  "block.pipeorgans.windchest_master": "Windchest Controller",
+  "block.pipeorgans.windchest_master": "Windchest Master",
   "create.goggles.stop_master_source": "Source: %1$s",
   "gui.pipeorgans.midi_config": "MIDI Input Device Config",
   "gui.pipeorgans.stop_master": "Stop Master",
