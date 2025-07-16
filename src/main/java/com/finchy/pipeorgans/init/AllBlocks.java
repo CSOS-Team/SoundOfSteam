@@ -32,8 +32,8 @@ import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlock;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaExtensionBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
-import com.finchy.pipeorgans.datagen.AssetLookup;
-import com.finchy.pipeorgans.datagen.BlockStateGen.*;
+import com.finchy.pipeorgans.data.AssetLookup;
+import com.finchy.pipeorgans.data.BlockStateGen.*;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
@@ -66,6 +66,7 @@ public class AllBlocks {
     public static final BlockEntry<BaseBlock> BASE = REGISTRATE.block("base", BaseBlock::new)
             .initialProperties(() -> Blocks.COPPER_BLOCK)
             .properties(p -> p.requiresCorrectToolForDrops())
+            .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
             .transform(pickaxeOnly())
             .lang("Pipe Base") // override default name generated from id "base"
             .blockstate(new BaseGenerator()::generate)
@@ -82,9 +83,10 @@ public class AllBlocks {
             .transform(customItemModel())
             .register();
 
-    public static final RegistryObject<TrackerBarBlock> TRACKER_BAR = registerBlock("tracker_bar",
-            () -> new TrackerBarBlock(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)
-                    .requiresCorrectToolForDrops()));
+    public static final BlockEntry<TrackerBarBlock> TRACKER_BAR = REGISTRATE.block("tracker_bar", TrackerBarBlock::new)
+            .initialProperties(() -> Blocks.COPPER_BLOCK)
+            .simpleItem()
+            .register();
 
     public static final BlockEntry<WindchestBlock> WINDCHEST = REGISTRATE.block("windchest", WindchestBlock::new)
             .initialProperties(() -> Blocks.OAK_PLANKS)

@@ -7,6 +7,7 @@ import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.sound.midi.*;
@@ -24,8 +25,8 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity {
     private int ppq;
     private int tickStep = 1;
 
-    public TrackerBarBlockEntity(BlockPos pos, BlockState state) {
-        super(AllBlockEntities.TRACKER_BAR_BLOCK_ENTITY.get(), pos, state);
+    public TrackerBarBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+        super(type, pos, blockState);
     }
 
     @Override

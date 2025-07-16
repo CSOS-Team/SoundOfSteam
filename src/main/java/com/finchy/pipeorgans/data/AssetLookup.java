@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.datagen;
+package com.finchy.pipeorgans.data;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.tterrag.registrate.providers.DataGenContext;

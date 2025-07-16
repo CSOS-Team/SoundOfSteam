@@ -1,5 +1,6 @@
 {
   "values": [
+    "pipeorgans:base",
     "pipeorgans:diapason",
     "pipeorgans:gamba",
     "pipeorgans:gedeckt",

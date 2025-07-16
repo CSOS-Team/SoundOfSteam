@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
@@ -29,12 +30,8 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
     private UUID user = null;
     private boolean deactivatedThisTick;
 
-    private final List<BlockPos> linkedCoords = new ArrayList<>();
-
-    private int activeNotes;
-
-    public KeyboardRelayBlockEntity(BlockPos pos, BlockState state) {
-        super(AllBlockEntities.KEYBOARD_RELAY_BLOCK_ENTITY.get(), pos, state);
+    public KeyboardRelayBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+        super(type, pos, blockState);
     }
 
     @Override

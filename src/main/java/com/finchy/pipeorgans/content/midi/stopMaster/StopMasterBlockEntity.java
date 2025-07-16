@@ -22,6 +22,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.apache.commons.lang3.tuple.Pair;
@@ -41,10 +42,10 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
 
     private int channels = 0;
 
-    private List<Integer> activeNotes;
+    private final List<Integer> activeNotes;
 
-    public StopMasterBlockEntity(BlockPos pos, BlockState state) {
-        super(AllBlockEntities.STOP_MASTER_BLOCK_ENTITY.get(), pos, state);
+    public StopMasterBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+        super(type, pos, blockState);
         toggleChannel(0);
         activeNotes = new ArrayList<>();
     }

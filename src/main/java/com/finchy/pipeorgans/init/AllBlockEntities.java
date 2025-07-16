@@ -4,6 +4,7 @@ import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlockEntity;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
 import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockEntity;
+import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterRenderer;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonRenderer;
@@ -34,38 +35,30 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
-@SuppressWarnings({"DataFlowIssue", "rawtypes"})
 public class AllBlockEntities {
     private static final CreateRegistrate REGISTRATE = PipeOrgans.registrate();
-
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, PipeOrgans.MOD_ID);
 
     public static final BlockEntityEntry<BaseBlockEntity> BASE_BLOCK_ENTITY = REGISTRATE
             .blockEntity("base_block_entity", BaseBlockEntity::new)
             .validBlock(AllBlocks.BASE)
             .register();
 
-    public static final RegistryObject<BlockEntityType> KEYBOARD_RELAY_BLOCK_ENTITY =
-            BLOCK_ENTITIES.register("keyboard_relay_block_entity",
-                    () -> BlockEntityType.Builder.of(KeyboardRelayBlockEntity::new, AllBlocks.KEYBOARD_RELAY.get())
-                            .build(null));
+    public static final BlockEntityEntry<KeyboardRelayBlockEntity> KEYBOARD_RELAY_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("keyboard_relay_block_entity", KeyboardRelayBlockEntity::new)
+            .validBlock(AllBlocks.KEYBOARD_RELAY)
+            .register();
 
-    public static final RegistryObject<BlockEntityType> TRACKER_BAR_BLOCK_ENTITY =
-            BLOCK_ENTITIES.register("tracker_bar_block_entity",
-                    () -> BlockEntityType.Builder.of(TrackerBarBlockEntity::new, AllBlocks.TRACKER_BAR.get())
-                            .build(null));
+    public static final BlockEntityEntry<TrackerBarBlockEntity> TRACKER_BAR_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("tracker_bar_block_entity", TrackerBarBlockEntity::new)
+            .validBlock(AllBlocks.TRACKER_BAR)
+            .register();
 
-    public static final RegistryObject<BlockEntityType> STOP_MASTER_BLOCK_ENTITY =
-            BLOCK_ENTITIES.register("stop_master_block_entity",
-                    () -> BlockEntityType.Builder.of(StopMasterBlockEntity::new, AllBlocks.STOP_MASTER.get())
-                            .build(null));
+    public static final BlockEntityEntry<StopMasterBlockEntity> STOP_MASTER_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("stop_master_block_entity", StopMasterBlockEntity::new)
+            .validBlock(AllBlocks.STOP_MASTER)
+            .renderer(() -> StopMasterRenderer::new)
+            .register();
 
 
 
@@ -141,7 +134,6 @@ public class AllBlockEntities {
 
 
 
-    public static void register(IEventBus eventBus) {
-        BLOCK_ENTITIES.register(eventBus);
+    public static void register() {
     }
 }

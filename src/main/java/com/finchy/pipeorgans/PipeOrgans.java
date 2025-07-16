@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans;
 
-import com.finchy.pipeorgans.datagen.PipeOrgansDatagen;
+import com.finchy.pipeorgans.data.PipeOrgansDatagen;
 import com.finchy.pipeorgans.init.*;
 import com.finchy.pipeorgans.midi.Proxy;
 import com.finchy.pipeorgans.midi.client.ClientProxy;
@@ -59,7 +59,7 @@ public class PipeOrgans {
         AllCreativeModeTabs.register(modEventBus);
 
         AllBlocks.register(modEventBus);
-        AllBlockEntities.register(modEventBus);
+        AllBlockEntities.register();
         AllItems.register();
         AllSoundEvents.register(modEventBus);
         AllMenuTypes.register(modEventBus);
