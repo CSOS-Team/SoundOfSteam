@@ -223,6 +223,62 @@
     ]
   },
 
+  "vox_celeste_superhigh": {
+    "subtitle": "sounds.pipeorgans.vox_celeste_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_celeste/vc_superhigh"
+      }
+    ]
+  },
+
+
+  "vox_celeste_high": {
+    "subtitle": "sounds.pipeorgans.vox_celeste_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_celeste/vc_high"
+      }
+    ]
+  },
+
+  "vox_celeste_medium": {
+    "subtitle": "sounds.pipeorgans.vox_celeste_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_celeste/vc_medium"
+      }
+    ]
+  },
+
+  "vox_celeste_low": {
+    "subtitle": "sounds.pipeorgans.vox_celeste_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_celeste/vc_low"
+      }
+    ]
+  },
+
+  "vox_celeste_deep": {
+    "subtitle": "sounds.pipeorgans.vox_celeste_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_celeste/vc_deep"
+      }
+    ]
+  },
+
 
 
   "piccolo_superhigh": {

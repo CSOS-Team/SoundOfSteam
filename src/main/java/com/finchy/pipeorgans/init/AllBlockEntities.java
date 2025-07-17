@@ -25,6 +25,8 @@ import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlockEntity;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteRenderer;
 import com.finchy.pipeorgans.content.pipes.viola.ViolaBlockEntity;
 import com.finchy.pipeorgans.content.pipes.viola.ViolaRenderer;
+import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteBlockEntity;
+import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteRenderer;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlockEntity;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -115,6 +117,12 @@ public class AllBlockEntities {
             ViolaBlockEntity::new,
             AllBlocks.VIOLA,
             () -> ViolaRenderer::new);
+
+    public static final BlockEntityEntry<VoxCelesteBlockEntity> VOX_CELESTE_BLOCK_ENTITY = registerPipeBlockEntity(
+            "vox_celeste_block_entity",
+            VoxCelesteBlockEntity::new,
+            AllBlocks.VOX_CELESTE,
+            () -> VoxCelesteRenderer::new);
 
     public static final BlockEntityEntry<VoxHumanaBlockEntity> VOX_HUMANA_BLOCK_ENTITY = registerPipeBlockEntity(
             "vox_humana_block_entity",

@@ -28,6 +28,8 @@ import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlock;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.viola.ViolaBlock;
 import com.finchy.pipeorgans.content.pipes.viola.ViolaExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteBlock;
+import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlock;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaExtensionBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
@@ -220,6 +222,17 @@ public class AllBlocks {
     public static final BlockEntry<ViolaExtensionBlock> VIOLA_EXTENSION = registerExtensionBlock(
             "viola_extension",
             ViolaExtensionBlock::new,
+            com.simibubi.create.AllBlocks.WEATHERED_IRON_BLOCK);
+
+    public static final BlockEntry<VoxCelesteBlock> VOX_CELESTE = registerPipeBlock(
+            "vox_celeste",
+            VoxCelesteBlock::new,
+            com.simibubi.create.AllBlocks.WEATHERED_IRON_BLOCK,
+            StopSize.EIGHT);
+
+    public static final BlockEntry<VoxCelesteExtensionBlock> VOX_CELESTE_EXTENSION = registerExtensionBlock(
+            "vox_celeste_extension",
+            VoxCelesteExtensionBlock::new,
             com.simibubi.create.AllBlocks.WEATHERED_IRON_BLOCK);
 
     public static final BlockEntry<VoxHumanaBlock> VOX_HUMANA = registerPipeBlock(

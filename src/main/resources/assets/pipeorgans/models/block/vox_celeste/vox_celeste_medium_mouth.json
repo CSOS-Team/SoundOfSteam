@@ -1,0 +1,23 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/vox_celeste",
+		"particle": "pipeorgans:block/particle/vox_celeste_particle"
+	},
+	"elements": [
+		{
+			"from": [7, 7, 3.9],
+			"to": [9, 8, 3.9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 3.9]},
+			"faces": {
+				"north": {"uv": [4.875, 0.875, 5.125, 1], "texture": "#0"},
+				"east": {"uv": [0, 0, 0, 1], "texture": "#0"},
+				"south": {"uv": [4.875, 0.875, 5.125, 1], "texture": "#0"},
+				"west": {"uv": [0, 0, 0, 1], "texture": "#0"},
+				"up": {"uv": [0, 0, 2, 0], "texture": "#0"},
+				"down": {"uv": [0, 0, 2, 0], "texture": "#0"}
+			}
+		}
+	]
+}

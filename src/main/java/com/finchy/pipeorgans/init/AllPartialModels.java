@@ -65,7 +65,13 @@ public class AllPartialModels {
     VIOLA_MOUTH_SMALL = block("viola/viola_small_mouth"),
     VIOLA_MOUTH_MEDIUM = block("viola/viola_medium_mouth"),
     VIOLA_MOUTH_LARGE = block("viola/viola_large_mouth"),
-    VIOLA_MOUTH_HUGE = block("viola/viola_huge_mouth")
+    VIOLA_MOUTH_HUGE = block("viola/viola_huge_mouth"),
+
+    VOX_CELESTE_MOUTH_TINY = block("vox_celeste/vox_celeste_tiny_mouth"),
+    VOX_CELESTE_MOUTH_SMALL = block("vox_celeste/vox_celeste_small_mouth"),
+    VOX_CELESTE_MOUTH_MEDIUM = block("vox_celeste/vox_celeste_medium_mouth"),
+    VOX_CELESTE_MOUTH_LARGE = block("vox_celeste/vox_celeste_large_mouth"),
+    VOX_CELESTE_MOUTH_HUGE = block("vox_celeste/vox_celeste_huge_mouth")
     ;
 
 
