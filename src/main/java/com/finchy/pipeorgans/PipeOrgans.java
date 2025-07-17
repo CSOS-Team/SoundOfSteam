@@ -58,11 +58,11 @@ public class PipeOrgans {
 
         AllCreativeModeTabs.register(modEventBus);
 
-        AllBlocks.register(modEventBus);
+        AllBlocks.register();
         AllBlockEntities.register();
         AllItems.register();
         AllSoundEvents.register(modEventBus);
-        AllMenuTypes.register(modEventBus);
+        AllMenuTypes.register();
         AllPackets.registerPackets();
 
         modEventBus.addListener(EventPriority.LOWEST, PipeOrgansDatagen::gatherData);

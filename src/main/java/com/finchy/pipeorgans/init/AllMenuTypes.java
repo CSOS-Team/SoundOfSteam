@@ -2,28 +2,26 @@ package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.gui.StopMasterMenu;
+import com.finchy.pipeorgans.gui.StopMasterScreen;
+import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.tterrag.registrate.builders.MenuBuilder;
+import com.tterrag.registrate.util.entry.MenuEntry;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.network.IContainerFactory;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 public class AllMenuTypes {
-    public static final DeferredRegister<MenuType<?>> MENUS =
-            DeferredRegister.create(ForgeRegistries.MENU_TYPES, PipeOrgans.MOD_ID);
 
-    public static final RegistryObject<MenuType<StopMasterMenu>> STOP_MASTER_MENU =
-            registerMenuType("stop_master_menu", StopMasterMenu::new);
+    public static final MenuEntry<StopMasterMenu> STOP_MASTER_MENU =
+            register("stop_master_menu", StopMasterMenu::new, () -> StopMasterScreen::new);
 
-    private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
-        return MENUS.register(name, () -> IForgeMenuType.create(factory));
+    private static <C extends AbstractContainerMenu, S extends Screen & MenuAccess<C>> MenuEntry<C> register(
+            String name, MenuBuilder.ForgeMenuFactory<C> factory, NonNullSupplier<MenuBuilder.ScreenFactory<C, S>> screenFactory) {
+        return PipeOrgans.registrate().menu(name, factory, screenFactory).register();
     }
 
-    public static void register(IEventBus eventBus) {
-        MENUS.register(eventBus);
+    public static void register() {
     }
 
 }

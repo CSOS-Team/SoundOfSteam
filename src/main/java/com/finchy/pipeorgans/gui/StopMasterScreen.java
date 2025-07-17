@@ -1,8 +1,6 @@
 package com.finchy.pipeorgans.gui;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.network.AllPackets;
-import com.finchy.pipeorgans.network.packet.UpdateStopMasterPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -62,15 +60,10 @@ public class StopMasterScreen extends AbstractContainerScreen<StopMasterMenu> {
 
     }
 
-    protected void addChannelButton(int channel, int x, int y) {
+    private void addChannelButton(int channel, int x, int y) {
         addRenderableWidget(Button.builder(
-                Component.literal(Integer.toString(channel+1)), b -> sendUpdatePacket(channel) // toggle channel
+                Component.literal(Integer.toString(channel+1)), b -> menu.toggleChannel(channel) // toggle channel
         ).pos(leftPos+x, topPos+y).size(16, 16).build());
-    }
-
-    public void sendUpdatePacket(int toggledChannel) {
-        UpdateStopMasterPacket packet = new UpdateStopMasterPacket(toggledChannel, menu.blockEntity.getBlockPos());
-        AllPackets.getChannel().sendToServer(packet);
     }
 
     @Override
@@ -93,7 +86,7 @@ public class StopMasterScreen extends AbstractContainerScreen<StopMasterMenu> {
 
     protected void renderChecks(GuiGraphics pGuiGraphics) {
         for (int i=0; i<=15; i++) {
-            if (menu.blockEntity.getChannel(i)) { // if channel is enabled
+            if (menu.getChannel(i)) { // if channel is enabled
                 int x = (26 + (int) Math.floor(((double) i /4))*40);
                 int y = (36 + (i % 4)*18);
                 pGuiGraphics.blit(GUI_TEXTURE, leftPos+x, topPos+y, 176, 0, 16, 16, 256, 256);
