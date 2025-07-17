@@ -43,12 +43,6 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-
-import java.util.function.Supplier;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
@@ -59,9 +53,6 @@ public class AllBlocks {
     static {
         REGISTRATE.setCreativeTab(AllCreativeModeTabs.PIPE_ORGANS);
     }
-
-    public static final DeferredRegister<Block> BLOCKS =
-            DeferredRegister.create(ForgeRegistries.BLOCKS, PipeOrgans.MOD_ID);
 
     // declare blocks here
 
@@ -269,12 +260,7 @@ public class AllBlocks {
                 .register();
     }
 
-    private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
-        return BLOCKS.register(name, block);
-    }
 
-
-    public static void register(IEventBus eventBus) {
-        BLOCKS.register(eventBus);
+    public static void register() {
     }
 }

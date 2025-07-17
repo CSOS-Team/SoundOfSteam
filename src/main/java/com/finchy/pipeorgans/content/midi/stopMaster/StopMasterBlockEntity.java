@@ -3,6 +3,7 @@ package com.finchy.pipeorgans.content.midi.stopMaster;
 import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
 import com.finchy.pipeorgans.gui.StopMasterMenu;
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.init.AllMenuTypes;
 import com.finchy.pipeorgans.midi.PitchMapping;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import com.finchy.pipeorgans.util.MathUtils;
@@ -116,7 +117,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
     @Override
     @Nullable
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return new StopMasterMenu(pContainerId, pPlayerInventory, this);
+        return new StopMasterMenu(AllMenuTypes.STOP_MASTER_MENU.get(), pContainerId, pPlayerInventory, this);
     }
 
 
@@ -163,12 +164,20 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
         return (channels & mask) != 0;
     }
 
+    public int getChannels() {
+        return channels;
+    }
+
     public void setChannel(int channel, boolean state) {
         if (channel < 0) return;
         channels = state?
                 ( channels | (1 << channel)) // all 0s, plus the bit that you want to set on
                 : ( channels & (((int)(Math.pow(2, 16))-1) - (int)Math.pow(2, channel)) ); // all 1s, minus the bit that you want to set off
         notifyUpdate();
+    }
+
+    public void setChannels(int channels) {
+        this.channels = channels;
     }
 
     public void toggleChannel(int channel) {

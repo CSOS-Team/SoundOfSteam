@@ -37,7 +37,6 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             AllPartialModels.init();
-            MenuScreens.register(AllMenuTypes.STOP_MASTER_MENU.get(), StopMasterScreen::new);
         }
 
         @SubscribeEvent
