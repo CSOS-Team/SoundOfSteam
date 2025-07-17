@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.midi.stopMaster;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
 import com.finchy.pipeorgans.gui.StopMasterMenu;
 import com.finchy.pipeorgans.init.AllBlockEntities;
@@ -17,6 +18,8 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -26,6 +29,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.network.NetworkHooks;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
@@ -47,7 +52,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
 
     public StopMasterBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        toggleChannel(0);
+        setChannel(0, true);
         activeNotes = new ArrayList<>();
     }
 
@@ -93,6 +98,16 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
         super.read(tag, clientPacket);
     }
 
+    public InteractionResult use(Player player) {
+        if (player == null || player instanceof FakePlayer)
+            return InteractionResult.PASS;
+
+        if (level.isClientSide)
+            return InteractionResult.SUCCESS;
+        NetworkHooks.openScreen((ServerPlayer) player, this, worldPosition);
+        return InteractionResult.SUCCESS;
+    }
+
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         String link;
@@ -117,7 +132,7 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
     @Override
     @Nullable
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return new StopMasterMenu(AllMenuTypes.STOP_MASTER_MENU.get(), pContainerId, pPlayerInventory, this);
+        return StopMasterMenu.create(pContainerId, pPlayerInventory, this);
     }
 
 
@@ -178,6 +193,8 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
 
     public void setChannels(int channels) {
         this.channels = channels;
+        PipeOrgans.LOGGER.info("SMBE @ {}: SET CHANNELS TO {}", worldPosition.toShortString(), channels);
+        notifyUpdate();
     }
 
     public void toggleChannel(int channel) {

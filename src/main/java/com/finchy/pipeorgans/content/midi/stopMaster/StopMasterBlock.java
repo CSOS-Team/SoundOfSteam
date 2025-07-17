@@ -70,12 +70,7 @@ public class StopMasterBlock extends Block implements IBE<StopMasterBlockEntity>
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        return onBlockEntityUse(pLevel, pPos, sm -> {
-            if (pPlayer instanceof ServerPlayer sp) {
-                NetworkHooks.openScreen(sp, sm, sm.getBlockPos());
-            }
-            return InteractionResult.SUCCESS;
-        });
+        return onBlockEntityUse(pLevel, pPos, sm -> sm.use(pPlayer));
     }
 
     @Override

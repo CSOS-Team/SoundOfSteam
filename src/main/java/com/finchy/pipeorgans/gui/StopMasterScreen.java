@@ -1,15 +1,17 @@
 package com.finchy.pipeorgans.gui;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.network.AllPackets;
+import com.finchy.pipeorgans.network.packet.UpdateStopMasterPacket;
+import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 @SuppressWarnings("NullableProblems")
-public class StopMasterScreen extends AbstractContainerScreen<StopMasterMenu> {
+public class StopMasterScreen extends AbstractSimiContainerScreen<StopMasterMenu> {
 
     private static final ResourceLocation GUI_TEXTURE = PipeOrgans.asResource("textures/gui/stop_master.png");
     private static final int GUI_WIDTH = 170;
@@ -62,8 +64,13 @@ public class StopMasterScreen extends AbstractContainerScreen<StopMasterMenu> {
 
     private void addChannelButton(int channel, int x, int y) {
         addRenderableWidget(Button.builder(
-                Component.literal(Integer.toString(channel+1)), b -> menu.toggleChannel(channel) // toggle channel
+                Component.literal(Integer.toString(channel+1)), b -> sendUpdatePacket(channel) // toggle channel
         ).pos(leftPos+x, topPos+y).size(16, 16).build());
+    }
+
+    public void sendUpdatePacket(int toggledChannel) {
+        UpdateStopMasterPacket packet = new UpdateStopMasterPacket(toggledChannel, menu.contentHolder.getBlockPos());
+        AllPackets.getChannel().sendToServer(packet);
     }
 
     @Override
@@ -86,7 +93,7 @@ public class StopMasterScreen extends AbstractContainerScreen<StopMasterMenu> {
 
     protected void renderChecks(GuiGraphics pGuiGraphics) {
         for (int i=0; i<=15; i++) {
-            if (menu.getChannel(i)) { // if channel is enabled
+            if (menu.contentHolder.getChannel(i)) { // if channel is enabled
                 int x = (26 + (int) Math.floor(((double) i /4))*40);
                 int y = (36 + (i % 4)*18);
                 pGuiGraphics.blit(GUI_TEXTURE, leftPos+x, topPos+y, 176, 0, 16, 16, 256, 256);

@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.gui;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockEntity;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllMenuTypes;
@@ -19,25 +20,12 @@ import java.util.List;
 
 public class StopMasterMenu extends MenuBase<StopMasterBlockEntity> {
 
-    private int channels = 0;
-
     public StopMasterMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
     }
 
     public StopMasterMenu(MenuType<?> type, int id, Inventory inv, StopMasterBlockEntity be) {
         super(type, id, inv, be);
-    }
-
-    public boolean getChannel(int channel) {
-        int mask = 1 << channel;
-        return (channels & mask) != 0;
-    }
-
-    public void toggleChannel(int channel) {
-        if (channel < 0) return;
-        int mask = 1 << channel;
-        channels = channels ^ mask;
     }
 
     public static StopMasterMenu create(int id, Inventory inv, StopMasterBlockEntity be) {
@@ -54,8 +42,6 @@ public class StopMasterMenu extends MenuBase<StopMasterBlockEntity> {
         ClientLevel world = Minecraft.getInstance().level;
         BlockEntity blockEntity = world.getBlockEntity(extraData.readBlockPos());
         if (blockEntity instanceof StopMasterBlockEntity be) {
-            be.readClient(extraData.readNbt());
-
             return be;
         }
         return null;
@@ -65,10 +51,10 @@ public class StopMasterMenu extends MenuBase<StopMasterBlockEntity> {
     protected void initAndReadInventory(StopMasterBlockEntity contentHolder) {}
 
     @Override
-    protected void addSlots() {}
+    protected void addSlots() {
+        addPlayerSlots(-1000, 0);
+    }
 
     @Override
-    protected void saveData(StopMasterBlockEntity contentHolder) {
-        contentHolder.setChannels(channels);
-    }
+    protected void saveData(StopMasterBlockEntity contentHolder) {}
 }

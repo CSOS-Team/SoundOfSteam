@@ -52,14 +52,12 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
     }
 
     public void tryStartUsing(Player player) {
-        PipeOrgans.LOGGER.info("TRY START USING");
         if (!deactivatedThisTick && !hasUser() && !playerIsUsing(player) && playerInRange(player, level, worldPosition)) {
             startUsing(player);
         }
     }
 
     public void tryStopUsing(Player player) {
-        PipeOrgans.LOGGER.info("TRY STOP USING");
         if (isUsedBy(player)) {
             stopUsing(player);
         }
@@ -74,7 +72,6 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
     }
 
     private void stopUsing(Player player) {
-        PipeOrgans.LOGGER.info("STOP USING");
         user = null;
         if (player != null) {
             player.getPersistentData().remove("UsingKBRelayPos");
