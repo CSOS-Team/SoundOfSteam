@@ -19,7 +19,7 @@ public class BoilerDataEvaluateMixin {
     @ModifyExpressionValue(method = "evaluate", at = @At("MIXINEXTRAS:EXPRESSION"))
     private boolean checkOtherWhistleBlocks(boolean original, @Local(ordinal=1) BlockState attachedState) {
         return original
-                || attachedState.is(AllTags.Blocks.VALID_WHISTLES);
+                || attachedState.is(AllTags.AllBlockTags.VALID_WHISTLE.tag);
     }
 
 }

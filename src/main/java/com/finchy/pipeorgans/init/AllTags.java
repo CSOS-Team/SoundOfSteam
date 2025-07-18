@@ -101,16 +101,6 @@ public class AllTags {
         }
     }
 
-    public static class Blocks {
-
-        public static final TagKey<Block> VALID_WHISTLES = tag("valid_whistles");
-
-
-        private static TagKey<Block> tag(String name) {
-            return BlockTags.create(new ResourceLocation(PipeOrgans.MOD_ID, name));
-        }
-    }
-
     public static void init() {
         AllBlockTags.init();
     }
