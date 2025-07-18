@@ -3,20 +3,16 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"2": "pipeorgans:block/vox_celeste",
-		"particle": "pipeorgans:block/particle/vox_celeste_particle"
+		"particle": "pipeorgans:block/vox_celeste"
 	},
 	"elements": [
 		{
-			"from": [6, 7, 2.9],
-			"to": [10, 8, 2.9],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7.5, 2.9]},
+			"from": [6, 6, 1.9],
+			"to": [10, 8, 1.9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7.5, 1.9]},
 			"faces": {
-				"north": {"uv": [2.75, 0.875, 3.25, 1], "texture": "#2"},
-				"east": {"uv": [0, 0, 0, 1], "texture": "#2"},
-				"south": {"uv": [2.75, 0.875, 3.25, 1], "texture": "#2"},
-				"west": {"uv": [0, 0, 0, 1], "texture": "#2"},
-				"up": {"uv": [0, 0, 3, 0], "texture": "#2"},
-				"down": {"uv": [0, 0, 3, 0], "texture": "#2"}
+				"north": {"uv": [2.75, 0.875, 3.25, 1.125], "texture": "#2"},
+				"south": {"uv": [2.75, 0.875, 3.25, 1.125], "texture": "#2"}
 			}
 		}
 	]
