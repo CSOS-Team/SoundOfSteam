@@ -8,14 +8,14 @@
   "key": {
 
     "#": {
-      "item": "create:industrial_iron_block"
+      "item": "create:weathered_iron_block"
     },
     "S": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "item": "pipeorgans:viola",
+    "item": "pipeorgans:vox_celeste",
     "count": 1
   }
 }

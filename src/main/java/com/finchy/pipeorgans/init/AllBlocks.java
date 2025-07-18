@@ -207,13 +207,13 @@ public class AllBlocks {
     public static final BlockEntry<ViolaBlock> VIOLA = registerPipeBlock(
             "viola",
             ViolaBlock::new,
-            com.simibubi.create.AllBlocks.WEATHERED_IRON_BLOCK,
+            com.simibubi.create.AllBlocks.INDUSTRIAL_IRON_BLOCK,
             StopSize.EIGHT);
 
     public static final BlockEntry<ViolaExtensionBlock> VIOLA_EXTENSION = registerExtensionBlock(
             "viola_extension",
             ViolaExtensionBlock::new,
-            com.simibubi.create.AllBlocks.WEATHERED_IRON_BLOCK);
+            com.simibubi.create.AllBlocks.INDUSTRIAL_IRON_BLOCK);
 
     public static final BlockEntry<VoxCelesteBlock> VOX_CELESTE = registerPipeBlock(
             "vox_celeste",
