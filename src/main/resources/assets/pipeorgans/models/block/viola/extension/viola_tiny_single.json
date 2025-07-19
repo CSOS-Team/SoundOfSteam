@@ -2,7 +2,8 @@
 	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "pipeorgans:block/viola"
+		"0": "pipeorgans:block/viola",
+		"particle": "pipeorgans:block/particle/viola_particle"
 	},
 	"elements": [
 		{
