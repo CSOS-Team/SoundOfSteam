@@ -77,13 +77,13 @@ public class AllBlockEntities {
             () -> GambaRenderer::new);
 
     public static final BlockEntityEntry<GedecktBlockEntity> GEDECKT_BLOCK_ENTITY = registerPipeBlockEntity(
-            "gamba_block_entity",
+            "gedeckt_block_entity",
             GedecktBlockEntity::new,
             AllBlocks.GEDECKT,
             () -> GedecktRenderer::new);
 
     public static final BlockEntityEntry<NasardBlockEntity> NASARD_BLOCK_ENTITY = registerPipeBlockEntity(
-            "gedeckt_block_entity",
+            "nasard_block_entity",
             NasardBlockEntity::new,
             AllBlocks.NASARD,
             () -> NasardRenderer::new);
