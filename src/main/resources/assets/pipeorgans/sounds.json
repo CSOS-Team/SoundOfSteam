@@ -597,5 +597,60 @@
         "name": "pipeorgans:vox_humana/vh_deep"
       }
     ]
+  },
+
+  "hohlflute_superhigh": {
+    "subtitle": "sounds.pipeorgans.hohlflute_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:hohlflute/hf_superhigh"
+      }
+    ]
+  },
+
+  "hohlflute_high": {
+    "subtitle": "sounds.pipeorgans.hohlflute_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:hohlflute/hf_high"
+      }
+    ]
+  },
+
+  "hohlflute_medium": {
+    "subtitle": "sounds.pipeorgans.hohlflute_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:hohlflute/hf_medium"
+      }
+    ]
+  },
+
+  "hohlflute_low": {
+    "subtitle": "sounds.pipeorgans.hohlflute_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:hohlflute/hf_low"
+      }
+    ]
+  },
+
+  "hohlflute_deep": {
+    "subtitle": "sounds.pipeorgans.hohlflute_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:hohlflute/hf_deep"
+      }
+    ]
   }
 }

@@ -12,6 +12,8 @@ import com.finchy.pipeorgans.content.pipes.gamba.GambaBlock;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlock;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteBlock;
+import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem;
@@ -148,6 +150,17 @@ public class AllBlocks {
             "gedeckt_extension",
             GedecktExtensionBlock::new,
             () -> Blocks.SPRUCE_PLANKS);
+
+    public static final BlockEntry<HohlfluteBlock> HOHLFLUTE = registerPipeBlock(
+            "hohlflute",
+            HohlfluteBlock::new,
+            () -> Blocks.BIRCH_PLANKS,
+            StopSize.FOUR);
+
+    public static final BlockEntry<HohlfluteExtensionBlock> HOHLFLUTE_EXTENSION = registerExtensionBlock(
+            "hohlflute_extension",
+            HohlfluteExtensionBlock::new,
+            () -> Blocks.BIRCH_PLANKS);
 
     public static final BlockEntry<NasardBlock> NASARD = registerPipeBlock(
             "nasard",

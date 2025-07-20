@@ -27,6 +27,12 @@
   "sounds.pipeorgans.gedeckt_low": "Gedeckt grumbles",
   "sounds.pipeorgans.gedeckt_deep": "Gedeckt rumbles",
 
+  "sounds.pipeorgans.hohlflute_superhigh": "Hohlflute squeals",
+  "sounds.pipeorgans.hohlflute_high": "Hohlflute squeaks",
+  "sounds.pipeorgans.hohlflute_medium": "Hohlflute speaks",
+  "sounds.pipeorgans.hohlflute_low": "Hohlflute grumbles",
+  "sounds.pipeorgans.hohlflute_deep": "Hohlflute rumbles",
+
   "sounds.pipeorgans.diapason_superhigh": "Diapason squeals",
   "sounds.pipeorgans.diapason_high": "Diapason squeaks",
   "sounds.pipeorgans.diapason_medium": "Diapason speaks",
@@ -91,6 +97,8 @@
   "advancement.pipeorgans.pipebase.desc": "Craft or Obtain a Pipe Base",
   "advancement.pipeorgans.gedeckt": "Capped Harmony",
   "advancement.pipeorgans.gedeckt.desc": "Place a Gedeckt Pipe",
+  "advancement.pipeorgans.hohlflute": "Hohl in One",
+  "advancement.pipeorgans.hohlflute.desc": "Place a Hohlflute Pipe",
   "advancement.pipeorgans.diapason": "The Principal Voice",
   "advancement.pipeorgans.diapason.desc": "Place a Diapason Pipe",
   "advancement.pipeorgans.gamba": "Shrill Strings",

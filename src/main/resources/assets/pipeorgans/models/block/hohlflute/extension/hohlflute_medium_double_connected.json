@@ -1,0 +1,21 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/hohlflute",
+		"particle": "pipeorgans:block/particle/hohlflute_particle"
+	},
+	"elements": [
+		{
+			"from": [4, 0, 4],
+			"to": [12, 16, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 3]},
+			"faces": {
+				"north": {"uv": [4.5, 6, 5.5, 8], "texture": "#0"},
+				"east": {"uv": [4.5, 6, 5.5, 8], "texture": "#0"},
+				"south": {"uv": [4.5, 6, 5.5, 8], "texture": "#0"},
+				"west": {"uv": [4.5, 6, 5.5, 8], "texture": "#0"}
+			}
+		}
+	]
+}

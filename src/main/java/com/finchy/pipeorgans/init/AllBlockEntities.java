@@ -13,6 +13,8 @@ import com.finchy.pipeorgans.content.pipes.gamba.GambaRenderer;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlockEntity;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktRenderer;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockEntity;
+import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteBlockEntity;
+import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteRenderer;
 import com.finchy.pipeorgans.content.pipes.nasard.NasardBlockEntity;
 import com.finchy.pipeorgans.content.pipes.nasard.NasardRenderer;
 import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloBlockEntity;
@@ -81,6 +83,12 @@ public class AllBlockEntities {
             GedecktBlockEntity::new,
             AllBlocks.GEDECKT,
             () -> GedecktRenderer::new);
+
+    public static final BlockEntityEntry<HohlfluteBlockEntity> HOHLFLUTE_BLOCK_ENTITY = registerPipeBlockEntity(
+            "hohlflute_block_entity",
+            HohlfluteBlockEntity::new,
+            AllBlocks.HOHLFLUTE,
+            () -> HohlfluteRenderer::new);
 
     public static final BlockEntityEntry<NasardBlockEntity> NASARD_BLOCK_ENTITY = registerPipeBlockEntity(
             "nasard_block_entity",

@@ -1,19 +1,19 @@
 {
   "display": {
     "icon": {
-      "item": "pipeorgans:vox_celeste"
+      "item": "pipeorgans:hohlflute"
     },
     "title": {
-      "translate": "advancement.pipeorgans.vox_celeste"
+      "translate": "advancement.pipeorgans.hohlflute"
     },
-    "description": {
-      "translate": "advancement.pipeorgans.vox_celeste.desc"
-    },
-    "frame": "task",
+      "description": {
+        "translate": "advancement.pipeorgans.hohlflute.desc"
+      },
+        "frame": "task",
     "show_toast": true,
     "announce_to_chat": true
   },
-  "parent": "pipeorgans:viola",
+  "parent": "pipeorgans:gedeckt",
   "criteria": {
     "example": {
       "trigger": "minecraft:placed_block",
@@ -23,7 +23,7 @@
             "condition": "minecraft:match_tool",
             "predicate": {
               "items": [
-                "pipeorgans:vox_celeste"
+                "pipeorgans:hohlflute"
               ]
             }
           }

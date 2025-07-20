@@ -13,6 +13,12 @@ public class AllPartialModels {
     GEDECKT_MOUTH_LARGE = block("gedeckt/gedeckt_large_mouth"),
     GEDECKT_MOUTH_HUGE = block("gedeckt/gedeckt_huge_mouth"),
 
+    HOHLFLUTE_MOUTH_TINY = block("hohlflute/hohlflute_tiny_mouth"),
+    HOHLFLUTE_MOUTH_SMALL = block("hohlflute/hohlflute_small_mouth"),
+    HOHLFLUTE_MOUTH_MEDIUM = block("hohlflute/hohlflute_medium_mouth"),
+    HOHLFLUTE_MOUTH_LARGE = block("hohlflute/hohlflute_large_mouth"),
+    HOHLFLUTE_MOUTH_HUGE = block("hohlflute/hohlflute_huge_mouth"),
+
     DIAPASON_MOUTH_TINY = block("diapason/diapason_tiny_mouth"),
     DIAPASON_MOUTH_SMALL = block("diapason/diapason_small_mouth"),
     DIAPASON_MOUTH_MEDIUM = block("diapason/diapason_medium_mouth"),

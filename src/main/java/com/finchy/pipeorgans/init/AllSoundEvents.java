@@ -22,6 +22,12 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> GEDECKT_LOW = registerSoundEvent("gedeckt_low");
     public static final RegistryObject<SoundEvent> GEDECKT_DEEP = registerSoundEvent("gedeckt_deep");
 
+    public static final RegistryObject<SoundEvent> HOHLFLUTE_SUPERHIGH = registerSoundEvent("hohlflute_superhigh");
+    public static final RegistryObject<SoundEvent> HOHLFLUTE_HIGH = registerSoundEvent("hohlflute_high");
+    public static final RegistryObject<SoundEvent> HOHLFLUTE_MEDIUM = registerSoundEvent("hohlflute_medium");
+    public static final RegistryObject<SoundEvent> HOHLFLUTE_LOW = registerSoundEvent("hohlflute_low");
+    public static final RegistryObject<SoundEvent> HOHLFLUTE_DEEP = registerSoundEvent("hohlflute_deep");
+
     public static final RegistryObject<SoundEvent> DIAPASON_SUPERHIGH = registerSoundEvent("diapason_superhigh");
     public static final RegistryObject<SoundEvent> DIAPASON_HIGH = registerSoundEvent("diapason_high");
     public static final RegistryObject<SoundEvent> DIAPASON_MEDIUM = registerSoundEvent("diapason_medium");
