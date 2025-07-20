@@ -5,6 +5,7 @@ import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -68,8 +70,7 @@ public class TrackerBarBlock extends Block implements IBE<TrackerBarBlockEntity>
             return InteractionResult.PASS;
 
         withBlockEntityDo(pLevel, pPos, be -> {
-            be.loadSequence("", "");
-            be.resumeSequencer();
+            NetworkHooks.openScreen((ServerPlayer) pPlayer, be, be::sendToMenu);
         });
         return InteractionResult.SUCCESS;
     }

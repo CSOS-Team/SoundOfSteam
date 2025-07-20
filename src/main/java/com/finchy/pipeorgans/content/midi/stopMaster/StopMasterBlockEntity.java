@@ -2,9 +2,6 @@ package com.finchy.pipeorgans.content.midi.stopMaster;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
-import com.finchy.pipeorgans.gui.StopMasterMenu;
-import com.finchy.pipeorgans.init.AllBlockEntities;
-import com.finchy.pipeorgans.init.AllMenuTypes;
 import com.finchy.pipeorgans.midi.PitchMapping;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import com.finchy.pipeorgans.util.MathUtils;

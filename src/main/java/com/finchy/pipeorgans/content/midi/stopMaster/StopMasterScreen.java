@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.gui;
+package com.finchy.pipeorgans.content.midi.stopMaster;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.network.AllPackets;
