@@ -1,4 +1,5 @@
 {
+	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "create:block/copper_redstone_plate",
@@ -50,11 +51,11 @@
 			"to": [9, 18, 9],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 12, 7]},
 			"faces": {
-				"north": {"uv": [4.875, 11.25, 5.125, 11.5], "texture": "#2"},
-				"east": {"uv": [4.875, 11.25, 5.125, 11.5], "texture": "#2"},
-				"south": {"uv": [4.875, 11.25, 5.125, 11.5], "texture": "#2"},
-				"west": {"uv": [4.875, 11.25, 5.125, 11.5], "texture": "#2"},
-				"up": {"uv": [4.875, 10.375, 5.125, 10.625], "texture": "#2"}
+				"north": {"uv": [4.875, 11.25, 5.125, 11.5], "texture": "#2", "cullface": "up"},
+				"east": {"uv": [4.875, 11.25, 5.125, 11.5], "texture": "#2", "cullface": "up"},
+				"south": {"uv": [4.875, 11.25, 5.125, 11.5], "texture": "#2", "cullface": "up"},
+				"west": {"uv": [4.875, 11.25, 5.125, 11.5], "texture": "#2", "cullface": "up"},
+				"up": {"uv": [4.875, 10.375, 5.125, 10.625], "texture": "#2", "cullface": "up"}
 			}
 		}
 	],
@@ -108,6 +109,5 @@
 		},
 		2,
 		3
-	],
-	"format_version": "1.21.6"
+	]
 }
