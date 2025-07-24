@@ -109,6 +109,18 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         }
     }
 
+    public void unloadSequence() {
+        currentSequence = null;
+        currentMidi = "";
+        currentMidiOwner = "";
+        channelInstruments.clear();
+        resetSequencer();
+    }
+
+    public boolean isSequenceLoaded() {
+        return currentSequence != null && currentMidi != null && currentMidiOwner != null;
+    }
+
     private void setChannelInstrument(int channel, int program) {
         channelInstruments.set(channel, MidiUtils.GeneralMidiInstrument.fromProgram(program).name);
     }
@@ -172,25 +184,21 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         tickStep = 1;
     }
 
-    public void resumeSequencer() {
-        playing = true;
-        PipeOrgans.LOGGER.info("RESUMED PLAYING");
+    public void pressTogglePlayButton() {
+        if (isSequenceLoaded()) {
+            toggleSequencer();
+        }
     }
 
-    public void pauseSequencer() {
-        playing = false;
-        PipeOrgans.LOGGER.info("PAUSED PLAYING");
+    public void pressStopButton() {
+        resetSequencer();
+        PipeOrgans.LOGGER.info("STOPPED PLAYING");
     }
 
     public void startSequencer() {
         resetSequencer();
         playing = true;
         PipeOrgans.LOGGER.info("STARTED PLAYING");
-    }
-
-    public void stopSequencer() {
-        resetSequencer();
-        PipeOrgans.LOGGER.info("STOPPED PLAYING");
     }
 
     public void toggleSequencer() {

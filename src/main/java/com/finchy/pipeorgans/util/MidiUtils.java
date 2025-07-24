@@ -103,7 +103,7 @@ public abstract class MidiUtils {
                     MidiMessage msg = event.getMessage();
 
                     if (msg instanceof ShortMessage sm && isProgramChange(sm)) {
-                        channelInstrumentConsumer.accept(sm.getChannel(), sm.getData1()); // set instruments
+                        //channelInstrumentConsumer.accept(sm.getChannel(), sm.getData1()); // set instruments
 
                     } else if (msg instanceof MetaMessage mm && isTempoChange(mm)) {
                         tempoConsumer.accept(mm.getData()); // set tempo

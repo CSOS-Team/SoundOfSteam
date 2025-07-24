@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.content.midi.MusicRollItem;
 import com.finchy.pipeorgans.data.AssetLookup;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -21,6 +22,8 @@ public class AllItems {
             COPPER_BOOT = REGISTRATE.item("copper_boot", Item::new).register(),
             BRASS_REED = REGISTRATE.item("brass_reed", Item::new).register(),
             TUNING_WIRE = REGISTRATE.item("tuning_wire", Item::new).register();
+
+    public static final ItemEntry<MusicRollItem> MUSIC_ROLL = REGISTRATE.item("music_roll", MusicRollItem::new).register();
 
     public static final ItemEntry<SequencedAssemblyItem>
             INCOMPLETE_TROMPETTE = sequencedPipeIngredient("incomplete_trompette"),

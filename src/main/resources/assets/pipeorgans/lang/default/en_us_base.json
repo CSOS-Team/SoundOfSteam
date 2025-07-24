@@ -9,6 +9,8 @@
   "gui.pipeorgans.stop_master": "Stop Master",
   "gui.pipeorgans.stop_master.channel_label": "Enabled channels:",
 
+  "item.pipeorgans.music_roll.invalid": "[!] Invalid Item - Use the Roll Puncher instead",
+
   "create.goggles.stop_master_source": "Source: %1$s",
   "item.stop_master.tooltip": "Source: ",
 

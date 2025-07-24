@@ -70,6 +70,8 @@
   "item.pipeorgans.incomplete_posaune": "Incomplete Posaune",
   "item.pipeorgans.incomplete_trompette": "Incomplete Trompette",
   "item.pipeorgans.incomplete_vox_humana": "Incomplete Vox Humana",
+  "item.pipeorgans.music_roll": "Music Roll",
+  "item.pipeorgans.music_roll.invalid": "[!] Invalid Item - Use the Roll Puncher instead",
   "item.pipeorgans.tuning_wire": "Tuning Wire",
   "item.stop_master.tooltip": "Source: ",
   "key.category.pipeorgans": "Create: Sound of Steam",

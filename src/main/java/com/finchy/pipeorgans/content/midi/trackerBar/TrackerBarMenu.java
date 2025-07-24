@@ -51,8 +51,9 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
         inputSlot = new SlotItemHandler(contentHolder.inventory, 0, 12, 62) {
             @Override
             public boolean mayPlace(@NotNull ItemStack stack) {
-                return AllItems.BRASS_BOOT.isIn(stack);
+                return AllItems.MUSIC_ROLL.isIn(stack);
             }
+
         };
 
         addSlot(inputSlot);
