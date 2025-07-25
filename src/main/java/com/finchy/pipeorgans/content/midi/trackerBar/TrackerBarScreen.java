@@ -41,8 +41,11 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
         int x = leftPos;
         int y = topPos;
 
+        boolean buttonsActive = menu.contentHolder.playing || isMusicRollValid(menu.getSlot(0).getItem());
+
+        // add buttons 'n such
         playButton = new IconButton(x+153, y+129, AllIcons.I_PLAY);
-        playButton.active = false;
+        playButton.active = buttonsActive;
         playButton.withCallback(() -> {
            menu.contentHolder.pressTogglePlayButton();
            playButton.setIcon(menu.contentHolder.playing ? AllIcons.I_PAUSE : AllIcons.I_PLAY);
@@ -50,7 +53,7 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
         // todo: need to sort out proper logic for initialising these buttons correctly depending on contents of block entity
 
         stopButton = new IconButton(x+175, y+129, AllIcons.I_STOP);
-        stopButton.active = false;
+        stopButton.active = buttonsActive;
         stopButton.withCallback(() -> {
            menu.contentHolder.pressStopButton();
            playButton.setIcon(AllIcons.I_PLAY);
@@ -70,7 +73,7 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
             prevItem = stack;
 
             if (!stack.equals(ItemStack.EMPTY)) { // item has been LOADED
-                if (stack.hasTag()) { // item has tag
+                if (isMusicRollValid(stack)) { // item has tag
                     playButton.active = true;
                     playButton.setIcon(AllIcons.I_PLAY);
                     stopButton.active = true;
@@ -80,9 +83,9 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
                     menu.contentHolder.loadSequence(midi, owner);
                     return;
 
-                } // else, item has been loaded, but has invalid tag
+                } // else: an invalid item has been loaded
 
-            } // else, item has been REMOVED
+            } // else: item has been REMOVED
             playButton.active = false;
             playButton.setIcon(AllIcons.I_PLAY);
             stopButton.active = false;
@@ -90,6 +93,13 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
 
         } // item hasn't changed, so we don't care
 
+    }
+
+    private static boolean isMusicRollValid(ItemStack stack) {
+        return stack.getItem() instanceof MusicRollItem && // just in case they use commands or something
+                stack.hasTag() && // if it even has a tag
+                stack.getTag().contains("Owner") &&
+                stack.getTag().contains("File");
     }
 
     @Override
