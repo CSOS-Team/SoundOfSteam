@@ -1,15 +1,14 @@
 package com.finchy.pipeorgans.util;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.content.midi.MusicRollItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 
 import javax.sound.midi.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,39 +40,47 @@ public abstract class MidiUtils {
         return mm.getType() == 0x2F;
     }
 
+    public static boolean isMusicRollValid(ItemStack stack) {
+        return stack.getItem() instanceof MusicRollItem && // just in case they use commands or something
+                stack.hasTag() && // if it even has a tag
+                stack.getTag().contains("Owner") &&
+                stack.getTag().contains("File");
+    }
+
     public abstract static class MidiFileParser {
 
-        public static Sequence getSequenceFromFile(String midi, String owner) throws IOException, InvalidMidiDataException {
-            midi = "test.mid";
-            owner = "Dev";
+        public static Sequence getSequenceFromFile(String midi, String owner) throws MidiLoadException {
 
             Path path = Paths.get("midi_files/uploaded", owner, midi);
             if (!Files.exists(path)) {
-                PipeOrgans.LOGGER.error("Missing .mid file: {}", path);
-                return null;
+                throw new MidiLoadException("MIDI file does not exist: " + path);
             }
-            InputStream in;
 
-            long size = Files.size(path);
+            try {
+                long size = Files.size(path);
 
-            if (!validateSizeLimitation(size)) {
-                PipeOrgans.LOGGER.error(".mid file is too large!: {}", path);
-                return null;
+                if (!validateSizeLimitation(size)) {
+                    throw new MidiLoadException("MIDI file is too large: " + size + " bytes");
+                }
+            } catch (IOException e) {
+                throw new MidiLoadException("Failed to check file size for: " + path, e);
             }
 
             if (!isValidMidi(path.toFile())) {
                 LocalPlayer player = Minecraft.getInstance().player;
                 if (player != null)
                     player.displayClientMessage(Component.literal(".mid file is in the wrong format"), false); // make translatable later
-                return null;
+                throw new MidiLoadException("MIDI file is in the wrong format: " + path);
             }
 
-            in = Files.newInputStream(path, StandardOpenOption.READ);
-            return MidiSystem.getSequence(in);
-        }
-
-        public static int getResolution(Sequence sequence) {
-            return sequence.getResolution();
+            try {
+                InputStream in = Files.newInputStream(path, StandardOpenOption.READ);
+                return MidiSystem.getSequence(in);
+            } catch (InvalidMidiDataException e) {
+                throw new MidiLoadException("MIDI System was unable to get sequence from file: " + path, e);
+            } catch (IOException e) {
+                throw new MidiLoadException("IO error while reading MIDI file: " + path, e);
+            }
         }
 
         public static List<Queue<MidiEvent>> parseMidiEvents(Sequence sequence) {

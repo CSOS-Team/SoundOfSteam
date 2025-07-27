@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
-import com.finchy.pipeorgans.init.AllItems;
 import com.finchy.pipeorgans.init.AllMenuTypes;
 import com.simibubi.create.foundation.gui.menu.MenuBase;
 import net.minecraft.client.Minecraft;
@@ -8,12 +7,11 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.SlotItemHandler;
-import org.jetbrains.annotations.NotNull;
 
 public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
@@ -48,16 +46,24 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
     @Override
     protected void addSlots() {
-        inputSlot = new SlotItemHandler(contentHolder.inventory, 0, 12, 62) {
-            @Override
-            public boolean mayPlace(@NotNull ItemStack stack) {
-                return AllItems.MUSIC_ROLL.isIn(stack);
-            }
-
-        };
+        inputSlot = new TrackerBarSlot(contentHolder.inventory, 0, 12, 62, stack -> {
+            contentHolder.onRollChanged(stack);
+        });
 
         addSlot(inputSlot);
         addPlayerSlots(81, 175);
+
+        addDataSlot(new DataSlot() {
+            @Override
+            public int get() {
+                return contentHolder.areButtonsEnabled() ? 1 : 0;
+            }
+
+            @Override
+            public void set(int pValue) {
+                contentHolder.setButtonsEnabled(pValue == 1);
+            }
+        });
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.content.midi.MusicRollItem;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
@@ -9,19 +8,18 @@ import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.gui.widget.IconButton;
 import net.createmod.catnip.gui.element.GuiGameElement;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+
+import static com.finchy.pipeorgans.util.MidiUtils.isMusicRollValid;
 
 public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu> {
 
     private static final ResourceLocation GUI_TEXTURE = PipeOrgans.asResource("textures/gui/tracker_bar.png");
     private static final int GUI_WIDTH = 330;
     private static final int GUI_HEIGHT = 153;
-
-    private ItemStack prevItem;
 
     protected IconButton playButton;
     protected IconButton stopButton;
@@ -41,7 +39,7 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
         int x = leftPos;
         int y = topPos;
 
-        boolean buttonsActive = menu.contentHolder.playing || isMusicRollValid(menu.getSlot(0).getItem());
+        boolean buttonsActive = menu.contentHolder.areButtonsEnabled();
 
         // add buttons 'n such
         playButton = new IconButton(x+153, y+129, AllIcons.I_PLAY);
@@ -59,8 +57,6 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
            playButton.setIcon(AllIcons.I_PLAY);
         });
 
-        prevItem = menu.getSlot(0).getItem();
-
         addRenderableWidgets(playButton, stopButton);
 
     }
@@ -68,38 +64,15 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
     @Override
     protected void containerTick() {
         super.containerTick();
-        ItemStack stack = menu.getSlot(0).getItem();
-        if (!stack.equals(prevItem, false)) { // if item in slot has changed
-            prevItem = stack;
 
-            if (!stack.equals(ItemStack.EMPTY)) { // item has been LOADED
-                if (isMusicRollValid(stack)) { // item has tag
-                    playButton.active = true;
-                    playButton.setIcon(AllIcons.I_PLAY);
-                    stopButton.active = true;
-                    CompoundTag tag = stack.getTag();
-                    String midi = tag.getString("File");
-                    String owner = tag.getString("Owner");
-                    menu.contentHolder.loadSequence(midi, owner);
-                    return;
+        boolean buttonsActive = menu.contentHolder.areButtonsEnabled();
 
-                } // else: an invalid item has been loaded
+        playButton.active = buttonsActive;
+        stopButton.active = buttonsActive;
 
-            } // else: item has been REMOVED
-            playButton.active = false;
+        if (!buttonsActive) {
             playButton.setIcon(AllIcons.I_PLAY);
-            stopButton.active = false;
-            menu.contentHolder.unloadSequence();
-
-        } // item hasn't changed, so we don't care
-
-    }
-
-    private static boolean isMusicRollValid(ItemStack stack) {
-        return stack.getItem() instanceof MusicRollItem && // just in case they use commands or something
-                stack.hasTag() && // if it even has a tag
-                stack.getTag().contains("Owner") &&
-                stack.getTag().contains("File");
+        }
     }
 
     @Override

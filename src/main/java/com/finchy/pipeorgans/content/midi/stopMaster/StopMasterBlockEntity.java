@@ -240,6 +240,8 @@ public class StopMasterBlockEntity extends SmartBlockEntity implements IHaveGogg
             return;
         }
 
+        PipeOrgans.LOGGER.info("NOTE: {}, VELOCITY: {}, CHANNEL: {}", mm.note, mm.velocity, mm.channel);
+
         if (mm.velocity > 0) { // if note on
             handleNoteOn(mm.note, mm.velocity);
         } else { // if note off

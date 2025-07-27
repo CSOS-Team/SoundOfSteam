@@ -3,6 +3,7 @@ package com.finchy.pipeorgans.content.midi.trackerBar;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
 import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
+import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
@@ -12,13 +13,13 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 import javax.sound.midi.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
@@ -33,7 +34,8 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     private int ppq;
     private int tickStep = 1;
     public double bpm;
-    public final List<String> channelInstruments;
+    public List<String> channelInstruments;
+    private boolean buttonsEnabled = false;
 
     public TrackerBarInventory inventory;
 
@@ -91,22 +93,30 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
-    public void loadSequence(String midi, String owner) {
-        try {
-            Sequence sequence = MidiUtils.MidiFileParser.getSequenceFromFile(midi, owner);
-            if (sequence == null) {
-                PipeOrgans.LOGGER.error("Tried to load invalid sequence into tracker bar! {}, {}", midi, owner);
-                return;
+    public void onRollChanged(ItemStack stack) {
+        if (stack.isEmpty())
+            unloadSequence();
+        if (MidiUtils.isMusicRollValid(stack)) {
+            try {
+                CompoundTag tag = stack.getTag();
+                loadSequence(tag.getString("File"), tag.getString("Owner"));
+                buttonsEnabled = true;
+            } catch (MidiLoadException e) {
+                buttonsEnabled = false;
             }
-            currentSequence = MidiUtils.MidiFileParser.parseMidiEvents(sequence);
-            ppq = MidiUtils.MidiFileParser.getResolution(sequence);
-            MidiUtils.MidiFileParser.initialParse(sequence, this::setChannelInstrument, this::setTempo);
-            currentMidi = midi;
-            currentMidiOwner = owner;
-
-        } catch (IOException | InvalidMidiDataException e) {
-            e.printStackTrace();
+        } else {
+            buttonsEnabled = false;
         }
+    }
+
+    public void loadSequence(String midi, String owner) throws MidiLoadException {
+        Sequence sequence = MidiUtils.MidiFileParser.getSequenceFromFile(midi, owner);
+
+        currentSequence = MidiUtils.MidiFileParser.parseMidiEvents(sequence);
+        ppq = sequence.getResolution();
+        MidiUtils.MidiFileParser.initialParse(sequence, this::setChannelInstrument, this::setTempo);
+        currentMidi = midi;
+        currentMidiOwner = owner;
     }
 
     public void unloadSequence() {
@@ -115,6 +125,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         currentMidiOwner = "";
         channelInstruments.clear();
         resetSequencer();
+        haltAllStopMasters();
     }
 
     public boolean isSequenceLoaded() {
@@ -161,13 +172,21 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
                         handleMidiObject(new MidiMessageServerObject(channel, data1, 0)); // distribute to linked stopmasters with velocity 0
 
                     } else if (MidiUtils.isProgramChange(sm)) { // setting instrument on a particular channel
-                        channelInstruments.set(channel, MidiUtils.GeneralMidiInstrument.fromProgram(data1).name);
+                        //channelInstruments.set(channel, MidiUtils.GeneralMidiInstrument.fromProgram(data1).name);
                     }
                 }
 
             }
         }
         tickPosition += tickStep;
+    }
+
+    public boolean areButtonsEnabled() {
+        return buttonsEnabled;
+    }
+
+    public void setButtonsEnabled(boolean value) {
+        buttonsEnabled = value;
     }
 
     public String getCurrentMidi() {
@@ -204,6 +223,8 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     public void toggleSequencer() {
         playing = !playing;
         PipeOrgans.LOGGER.info("TOGGLED PLAYING");
+        if (!playing)
+            haltAllStopMasters();
     }
 
 }
