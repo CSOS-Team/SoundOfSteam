@@ -1,0 +1,21 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/prestant",
+		"particle": "pipeorgans:block/prestant"
+	},
+	"elements": [
+		{
+			"from": [3, 0, 3],
+			"to": [13, 16, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 3]},
+			"faces": {
+				"north": {"uv": [6.375, 6, 7.625, 8], "texture": "#0"},
+				"east": {"uv": [6.375, 6, 7.625, 8], "texture": "#0"},
+				"south": {"uv": [6.375, 6, 7.625, 8], "texture": "#0"},
+				"west": {"uv": [6.375, 6, 7.625, 8], "texture": "#0"}
+			}
+		}
+	]
+}

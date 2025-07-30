@@ -8,6 +8,8 @@ import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockItem;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.prestant.PrestantBlock;
+import com.finchy.pipeorgans.content.pipes.prestant.PrestantExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaBlock;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlock;
@@ -127,6 +129,17 @@ public class AllBlocks {
     public static final BlockEntry<DiapasonExtensionBlock> DIAPASON_EXTENSION = registerExtensionBlock(
             "diapason_extension",
             DiapasonExtensionBlock::new,
+            com.simibubi.create.AllBlocks.ZINC_BLOCK);
+
+    public static final BlockEntry<PrestantBlock> PRESTANT = registerPipeBlock(
+            "prestant",
+            PrestantBlock::new,
+            com.simibubi.create.AllBlocks.ZINC_BLOCK,
+            StopSize.FOUR);
+
+    public static final BlockEntry<PrestantExtensionBlock> PRESTANT_EXTENSION = registerExtensionBlock(
+            "prestant_extension",
+            PrestantExtensionBlock::new,
             com.simibubi.create.AllBlocks.ZINC_BLOCK);
 
     public static final BlockEntry<GambaBlock> GAMBA = registerPipeBlock(

@@ -34,6 +34,12 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> DIAPASON_LOW = registerSoundEvent("diapason_low");
     public static final RegistryObject<SoundEvent> DIAPASON_DEEP = registerSoundEvent("diapason_deep");
 
+    public static final RegistryObject<SoundEvent> PRESTANT_SUPERHIGH = registerSoundEvent("prestant_superhigh");
+    public static final RegistryObject<SoundEvent> PRESTANT_HIGH = registerSoundEvent("prestant_high");
+    public static final RegistryObject<SoundEvent> PRESTANT_MEDIUM = registerSoundEvent("prestant_medium");
+    public static final RegistryObject<SoundEvent> PRESTANT_LOW = registerSoundEvent("prestant_low");
+    public static final RegistryObject<SoundEvent> PRESTANT_DEEP = registerSoundEvent("prestant_deep");
+
     public static final RegistryObject<SoundEvent> GAMBA_SUPERHIGH = registerSoundEvent("gamba_superhigh");
     public static final RegistryObject<SoundEvent> GAMBA_HIGH = registerSoundEvent("gamba_high");
     public static final RegistryObject<SoundEvent> GAMBA_MEDIUM = registerSoundEvent("gamba_medium");

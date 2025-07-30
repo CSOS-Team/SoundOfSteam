@@ -8,6 +8,8 @@ import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterRenderer;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonRenderer;
+import com.finchy.pipeorgans.content.pipes.prestant.PrestantBlockEntity;
+import com.finchy.pipeorgans.content.pipes.prestant.PrestantRenderer;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaBlockEntity;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaRenderer;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlockEntity;
@@ -71,6 +73,12 @@ public class AllBlockEntities {
             DiapasonBlockEntity::new,
             AllBlocks.DIAPASON,
             () -> DiapasonRenderer::new);
+
+    public static final BlockEntityEntry<PrestantBlockEntity> PRESTANT_BLOCK_ENTITY = registerPipeBlockEntity(
+            "prestant_block_entity",
+            PrestantBlockEntity::new,
+            AllBlocks.PRESTANT,
+            () -> PrestantRenderer::new);
 
     public static final BlockEntityEntry<GambaBlockEntity> GAMBA_BLOCK_ENTITY = registerPipeBlockEntity(
             "gamba_block_entity",

@@ -41,6 +41,12 @@
   "sounds.pipeorgans.diapason_low": "Diapason grumbles",
   "sounds.pipeorgans.diapason_deep": "Diapason rumbles",
 
+  "sounds.pipeorgans.prestant_superhigh": "Prestant squeals",
+  "sounds.pipeorgans.prestant_high": "Prestant squeaks",
+  "sounds.pipeorgans.prestant_medium": "Prestant speaks",
+  "sounds.pipeorgans.prestant_low": "Prestant grumbles",
+  "sounds.pipeorgans.prestant_deep": "Prestant rumbles",
+
   "sounds.pipeorgans.gamba_superhigh": "Gamba squeals",
   "sounds.pipeorgans.gamba_high": "Gamba squeaks",
   "sounds.pipeorgans.gamba_medium": "Gamba speaks",
@@ -103,6 +109,8 @@
   "advancement.pipeorgans.hohlflute.desc": "Place a Hohlflute Pipe",
   "advancement.pipeorgans.diapason": "The Principal Voice",
   "advancement.pipeorgans.diapason.desc": "Place a Diapason Pipe",
+  "advancement.pipeorgans.prestant": "Pressed and Prestant",
+  "advancement.pipeorgans.prestant.desc": "Place a Prestant Pipe",
   "advancement.pipeorgans.gamba": "Shrill Strings",
   "advancement.pipeorgans.gamba.desc": "Place a Gamba Pipe",
   "advancement.pipeorgans.viola": "Bowless Beauty",

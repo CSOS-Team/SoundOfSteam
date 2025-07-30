@@ -25,6 +25,13 @@ public class AllPartialModels {
     DIAPASON_MOUTH_LARGE = block("diapason/diapason_large_mouth"),
     DIAPASON_MOUTH_HUGE = block("diapason/diapason_huge_mouth"),
 
+    PRESTANT_MOUTH_TINY = block("prestant/prestant_tiny_mouth"),
+    PRESTANT_MOUTH_SMALL = block("prestant/prestant_small_mouth"),
+    PRESTANT_MOUTH_MEDIUM = block("prestant/prestant_medium_mouth"),
+    PRESTANT_MOUTH_LARGE = block("prestant/prestant_large_mouth"),
+    PRESTANT_MOUTH_HUGE = block("prestant/prestant_huge_mouth"),
+
+
     GAMBA_MOUTH_TINY = block("gamba/gamba_tiny_mouth"),
     GAMBA_MOUTH_SMALL = block("gamba/gamba_small_mouth"),
     GAMBA_MOUTH_MEDIUM = block("gamba/gamba_medium_mouth"),
