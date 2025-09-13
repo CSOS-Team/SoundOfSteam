@@ -2,8 +2,7 @@ package com.finchy.pipeorgans.midi.client;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.network.AllPackets;
-import com.finchy.pipeorgans.network.packet.MidiMessagePacket;
-import com.finchy.pipeorgans.util.MidiUtils;
+import com.finchy.pipeorgans.network.packet.KBRMidiMessagePacket;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
@@ -32,26 +31,12 @@ public class MidiDeviceInputReceiver implements Receiver {
         Player player = Minecraft.getInstance().player;
 
         if (player != null && PipeOrgans.getProxy().isClient()) { // only run on client
-            if (MidiUtils.isNoteOn(sm)) { // if message is note on
-                sendNotePacket( // send packet with channel, note, velocity, player
-                        Integer.valueOf(sm.getChannel()).byteValue(),
-                        sm.getMessage()[1],
-                        sm.getMessage()[2],
-                        player
-                );
-            } else if (MidiUtils.isNoteOff(sm)) { // if message is note off
-                sendNotePacket( // send packet with channel, note, 0 velocity, player
-                        Integer.valueOf(sm.getChannel()).byteValue(),
-                        sm.getMessage()[1],
-                        Integer.valueOf(0).byteValue(),
-                        player
-                );
-            }
+            sendNotePacket(sm);
         }
     }
 
-    public void sendNotePacket(Byte channel, Byte note, Byte velocity, Player player) {
-        MidiMessagePacket packet = new MidiMessagePacket(channel, note, velocity, player.getUUID(), player.getOnPos());
+    public void sendNotePacket(ShortMessage sm) {
+        KBRMidiMessagePacket packet = new KBRMidiMessagePacket(sm);
         AllPackets.getChannel().sendToServer(packet);
     }
 

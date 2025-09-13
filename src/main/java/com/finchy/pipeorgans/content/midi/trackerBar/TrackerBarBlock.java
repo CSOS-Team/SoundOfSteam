@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
-import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockItem;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
@@ -66,8 +65,8 @@ public class TrackerBarBlock extends Block implements IBE<TrackerBarBlockEntity>
             return InteractionResult.PASS;
         if (pHand.equals(InteractionHand.OFF_HAND))
             return InteractionResult.PASS;
-        if (pPlayer.getItemInHand(pHand).getItem() instanceof StopMasterBlockItem) // if player is linking stopmaster
-            return InteractionResult.PASS;
+        //if (pPlayer.getItemInHand(pHand).getItem() instanceof StopMasterBlockItem) // if player is linking stopmaster
+        //    return InteractionResult.PASS;
 
         withBlockEntityDo(pLevel, pPos, be -> {
             NetworkHooks.openScreen((ServerPlayer) pPlayer, be, be::sendToMenu);

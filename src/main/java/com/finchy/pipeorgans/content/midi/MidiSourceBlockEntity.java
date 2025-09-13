@@ -1,7 +1,5 @@
 package com.finchy.pipeorgans.content.midi;
 
-import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockEntity;
-import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -9,7 +7,10 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.ShortMessage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,12 +54,10 @@ public abstract class MidiSourceBlockEntity extends SmartBlockEntity {
         super.read(tag, clientPacket);
     }
 
-    public void handleMidiObject(MidiMessageServerObject mm) {
-        for (BlockPos pos : linkedCoords) { // for every linked position
-            if (level.getBlockEntity(pos) instanceof StopMasterBlockEntity sm) { // if stopmaster is at that location
-                sm.receiveMidiSignal(mm); // send midi to stopmaster
-            }
-        }
+    public abstract void handleMidiMessage(MidiMessage mm);
+
+    public void handleNote(ShortMessage sm) {
+        /*
         if (mm.velocity > 0) { // if note on
             if (activeNotes == 0) { // if a note has just been pressed
                 reactToNote(true);
@@ -73,41 +72,14 @@ public abstract class MidiSourceBlockEntity extends SmartBlockEntity {
                 }
             }
         }
+         */
     }
 
-    protected void reactToNote(boolean on) {}
-
-    public void linkStopMaster(StopMasterBlockEntity be) {
-        BlockPos pos = be.getBlockPos(); // get pos of stopmaster
-        if (!linkedCoords.contains(pos)) { // if stopmaster has not already been linked
-            linkedCoords.add(pos); // add pos to list
-        }
-        notifyUpdate();
-    }
-
-    public void removeStopMaster(StopMasterBlockEntity be) {
-        linkedCoords.remove(be.getBlockPos()); // remove pos from list
-        notifyUpdate();
-    }
-
-    public void removeFromAllStopMasters() {
-        for (BlockPos pos : linkedCoords) { // for every linked position
-            if (level.getBlockEntity(pos) instanceof StopMasterBlockEntity sm) { // if stopmaster is at that location
-                sm.removeSource(); // remove source from stopmaster
-                sm.stopAllNotes(); // stop all notes from playing
-            }
-        }
-    }
-
-    public void haltAllStopMasters() {
-        for (BlockPos pos : linkedCoords) { // for every linked position
-            if (level.getBlockEntity(pos) instanceof StopMasterBlockEntity sm) { // if stopmaster is at that location
-                sm.stopAllNotes(); // stop all notes from playing
-            }
-        }
+    public void reactToNote(boolean on) {
+        level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, on), 3); //  turn power on/off
     }
 
     public void onBlockRemoved() {
-        removeFromAllStopMasters();
+        //removeFromAllStopMasters();
     }
 }

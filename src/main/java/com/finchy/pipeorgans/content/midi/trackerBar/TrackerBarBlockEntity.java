@@ -2,7 +2,6 @@ package com.finchy.pipeorgans.content.midi.trackerBar;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
-import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -125,7 +124,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         currentMidiOwner = "";
         channelInstruments.clear();
         resetSequencer();
-        haltAllStopMasters();
+        // haltAllStopMasters();
     }
 
     public boolean isSequenceLoaded() {
@@ -157,19 +156,13 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
 
                     } else if (MidiUtils.isFileEnd(mm)) { // if it's a file end MetaMessage
                         resetSequencer();
-                        haltAllStopMasters(); // ngl... i have no idea why there are notes remaining. but this fixes it. soo....
+                        // haltAllStopMasters(); // ngl... i have no idea why there are notes remaining. but this fixes it. soo....
                         break;
                     }
 
                 } else if (msg instanceof ShortMessage sm) { // if it's a ShortMessage
-
-                    int channel = sm.getChannel();
-                    int data1 = sm.getData1();
-                    if (MidiUtils.isNoteOn(sm)) { // if it's a note on ShortMessage
-                        int velocity = sm.getData2();
-                        handleMidiObject(new MidiMessageServerObject(channel, data1, velocity)); // distribute to linked stopmasters
-                    } else if (MidiUtils.isNoteOff(sm)) { // if it's a note off ShortMessage
-                        handleMidiObject(new MidiMessageServerObject(channel, data1, 0)); // distribute to linked stopmasters with velocity 0
+                    if (MidiUtils.isNoteOn(sm) || MidiUtils.isNoteOff(sm)) {
+                        handleNote(sm);
 
                     } else if (MidiUtils.isProgramChange(sm)) { // setting instrument on a particular channel
                         //channelInstruments.set(channel, MidiUtils.GeneralMidiInstrument.fromProgram(data1).name);
@@ -179,6 +172,11 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
             }
         }
         tickPosition += tickStep;
+    }
+
+    @Override
+    public void handleMidiMessage(MidiMessage mm) {
+
     }
 
     public boolean areButtonsEnabled() {
@@ -223,8 +221,8 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     public void toggleSequencer() {
         playing = !playing;
         PipeOrgans.LOGGER.info("TOGGLED PLAYING");
-        if (!playing)
-            haltAllStopMasters();
+        if (!playing) {}
+            // haltAllStopMasters();
     }
 
 }

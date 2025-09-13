@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.network;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.network.packet.MidiMessagePacket;
+import com.finchy.pipeorgans.network.packet.KBRMidiMessagePacket;
 import com.finchy.pipeorgans.network.packet.MidiUploadPacket;
 import com.finchy.pipeorgans.network.packet.UpdateStopMasterPacket;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
@@ -21,7 +21,7 @@ import static net.minecraftforge.network.NetworkDirection.PLAY_TO_SERVER;
 public enum AllPackets {
 
     // client to server
-      MIDI_MESSAGE(MidiMessagePacket.class, MidiMessagePacket::new, PLAY_TO_SERVER),
+      MIDI_MESSAGE(KBRMidiMessagePacket.class, KBRMidiMessagePacket::new, PLAY_TO_SERVER),
       MIDI_UPLOAD(MidiUploadPacket.class, MidiUploadPacket::new, PLAY_TO_SERVER),
       UPDATE_STOP_MASTER(UpdateStopMasterPacket.class, UpdateStopMasterPacket::new, PLAY_TO_SERVER);
 

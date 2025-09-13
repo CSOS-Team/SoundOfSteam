@@ -1,10 +1,7 @@
 package com.finchy.pipeorgans.network.packet;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.simibubi.create.Create;
-import com.simibubi.create.content.schematics.table.SchematicTableMenu;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;

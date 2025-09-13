@@ -1,15 +1,9 @@
 package com.finchy.pipeorgans.content.midi.keyboardRelay;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
-import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockEntity;
-import com.finchy.pipeorgans.init.AllBlockEntities;
-import com.finchy.pipeorgans.midi.server.MidiMessageServerObject;
+import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -20,7 +14,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 
-import java.util.ArrayList;
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.ShortMessage;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,18 +32,12 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
-    @Override
-    public void reactToNote(boolean on) {
-        level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, on), 3); //  turn power on/off
-    }
-
-    @Override
     public void onBlockRemoved() {
         Entity playerEntity = ((ServerLevel)this.level).getEntity(this.user);
         if (playerEntity instanceof Player) {
             tryStopUsing((Player)playerEntity);
         }
-        removeFromAllStopMasters();
+        // removeFromAllStopMasters();
     }
 
     public void tryStartUsing(Player player) {
@@ -121,7 +110,12 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
         }
     }
 
-
+    @Override
+    public void handleMidiMessage(MidiMessage mm) {
+        if (mm instanceof ShortMessage sm && (MidiUtils.isNoteOn(sm) || MidiUtils.isNoteOff(sm))) {
+            handleNote(sm);
+        }
+    }
 
     public static boolean playerInRange(Player player, Level world, BlockPos pos) {
         if (player.level() != world) {
