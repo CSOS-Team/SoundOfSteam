@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.midi.keyboardRelay;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -14,8 +15,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 
+import javax.sound.midi.MetaMessage;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
+import javax.sound.midi.SysexMessage;
 import java.util.List;
 import java.util.UUID;
 
@@ -114,6 +117,7 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
     public void handleMidiMessage(MidiMessage mm) {
         if (mm instanceof ShortMessage sm && (MidiUtils.isNoteOn(sm) || MidiUtils.isNoteOff(sm))) {
             handleNote(sm);
+            PipeOrgans.LOGGER.info("HANDLED");
         }
     }
 

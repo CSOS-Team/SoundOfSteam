@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.midi.keyboardRelay;
 
-import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockItem;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
@@ -80,10 +79,12 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
         if (pHand.equals(InteractionHand.OFF_HAND)) { // temporary, to prevent function being called twice
             return InteractionResult.PASS;
         }
+        /*
         if (pPlayer.getItemInHand(pHand).getItem() instanceof StopMasterBlockItem) { // if player is linking stopmaster
             // surely there's a better way to do it?
             return InteractionResult.PASS;
         }
+         */
 
         if (KeyboardRelayBlockEntity.playerInRange(pPlayer, pLevel, pPos)) { // if player close enough
 

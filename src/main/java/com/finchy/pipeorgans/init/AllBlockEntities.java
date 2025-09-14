@@ -3,8 +3,6 @@ package com.finchy.pipeorgans.init;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlockEntity;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
-import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockEntity;
-import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterRenderer;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonRenderer;
@@ -58,12 +56,6 @@ public class AllBlockEntities {
     public static final BlockEntityEntry<TrackerBarBlockEntity> TRACKER_BAR_BLOCK_ENTITY = REGISTRATE
             .blockEntity("tracker_bar_block_entity", TrackerBarBlockEntity::new)
             .validBlock(AllBlocks.TRACKER_BAR)
-            .register();
-
-    public static final BlockEntityEntry<StopMasterBlockEntity> STOP_MASTER_BLOCK_ENTITY = REGISTRATE
-            .blockEntity("stop_master_block_entity", StopMasterBlockEntity::new)
-            .validBlock(AllBlocks.STOP_MASTER)
-            .renderer(() -> StopMasterRenderer::new)
             .register();
 
 

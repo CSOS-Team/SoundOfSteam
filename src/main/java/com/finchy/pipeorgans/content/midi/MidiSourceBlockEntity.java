@@ -1,10 +1,12 @@
 package com.finchy.pipeorgans.content.midi;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -12,16 +14,25 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 //@SuppressWarnings("DataFlowIssue")
 public abstract class MidiSourceBlockEntity extends SmartBlockEntity {
 
     private final List<BlockPos> linkedCoords = new ArrayList<>();
-    private int activeNotes;
+    private final HashMap<Integer, RedstoneMidiLink.ManualNoteFrequency> activeNotes;
+    private RedstoneMidiLink link;
 
     public MidiSourceBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
+        activeNotes = new HashMap<>();
+    }
+
+    @Override
+    public void setLevel(Level pLevel) {
+        super.setLevel(pLevel);
+        link = new RedstoneMidiLink(pLevel, worldPosition);
     }
 
     @Override
@@ -57,22 +68,24 @@ public abstract class MidiSourceBlockEntity extends SmartBlockEntity {
     public abstract void handleMidiMessage(MidiMessage mm);
 
     public void handleNote(ShortMessage sm) {
-        /*
-        if (mm.velocity > 0) { // if note on
-            if (activeNotes == 0) { // if a note has just been pressed
+        if (sm.getData2() > 0) { // if note on
+            PipeOrgans.LOGGER.info("NOTE ON");
+            if (!link.areNotesActive()) { // if no notes are currently pressed
                 reactToNote(true);
+                PipeOrgans.LOGGER.info("TURNED POWER ON");
             }
-            activeNotes++;
+            link.activateNote(sm.getChannel(), sm.getData1(), sm.getData2());
+            PipeOrgans.LOGGER.info("ACTIVATED NOTE");
 
         } else { // if note off
-            if (activeNotes>0) { // if there are notes being held
-                activeNotes--;
-                if (activeNotes == 0) { // if the last note has just been taken off
-                    reactToNote(false); //  turn power off
-                }
+            PipeOrgans.LOGGER.info("NOTE OFF");
+            link.deactivateNote(sm.getChannel(), sm.getData1());
+            if (!link.areNotesActive()) { // if the last note has just been taken off
+                reactToNote(false);
+                PipeOrgans.LOGGER.info("TURNED POWER OFF");
             }
+            PipeOrgans.LOGGER.info("DEACTIVATED NOTE");
         }
-         */
     }
 
     public void reactToNote(boolean on) {

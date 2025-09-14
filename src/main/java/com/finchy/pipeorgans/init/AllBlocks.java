@@ -3,8 +3,6 @@ package com.finchy.pipeorgans.init;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlock;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
-import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlock;
-import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterBlockItem;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
@@ -103,18 +101,6 @@ public class AllBlocks {
             .lang("Windchest Controller")
             .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
             .item()
-            .transform(customItemModel())
-            .register();
-
-    public static final BlockEntry<StopMasterBlock> STOP_MASTER = REGISTRATE.block("stop_master", StopMasterBlock::new)
-            .initialProperties(() -> Blocks.COPPER_BLOCK)
-            .properties(p -> p
-                    .requiresCorrectToolForDrops()
-                    .noOcclusion()
-            )
-            .transform(pickaxeOnly())
-            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
-            .item(StopMasterBlockItem::new)
             .transform(customItemModel())
             .register();
 

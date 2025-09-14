@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries. DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 public class AllCreativeModeTabs {
@@ -41,7 +41,6 @@ public class AllCreativeModeTabs {
                         output.accept(AllItems.COPPER_BOOT.get());
                         output.accept(AllItems.BRASS_REED.get());
                         output.accept(AllItems.TUNING_WIRE.get());
-                        output.accept(AllBlocks.STOP_MASTER.get());
                         output.accept(AllBlocks.KEYBOARD_RELAY.get());
                     })
                     .build());

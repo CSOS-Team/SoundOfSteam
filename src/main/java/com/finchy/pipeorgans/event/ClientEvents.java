@@ -2,14 +2,11 @@ package com.finchy.pipeorgans.event;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.PipeOrgansClient;
-import com.finchy.pipeorgans.content.midi.stopMaster.StopMasterRenderer;
 import com.finchy.pipeorgans.gui.ClientsideGUIWrapper;
-import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.finchy.pipeorgans.util.Keybinding;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.event.TickEvent;
@@ -26,11 +23,12 @@ public class ClientEvents {
             AllPartialModels.init();
         }
 
+        /*
         @SubscribeEvent
         public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
 
-            event.registerBlockEntityRenderer(AllBlockEntities.STOP_MASTER_BLOCK_ENTITY.get(), StopMasterRenderer::new);
         }
+         */
 
         @SubscribeEvent
         public static void onKeyRegister(RegisterKeyMappingsEvent event) {
