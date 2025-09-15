@@ -4,29 +4,44 @@ import com.finchy.pipeorgans.PipeOrgans;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 //@SuppressWarnings("DataFlowIssue")
-public abstract class MidiSourceBlockEntity extends SmartBlockEntity {
+public abstract class MidiSourceBlockEntity extends SmartBlockEntity implements MenuProvider {
 
-    private final List<BlockPos> linkedCoords = new ArrayList<>();
+    private final ItemStackHandler storedGhostInv = new ItemStackHandler(9) {
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return true; // change this later
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
+    };
+
     private final HashMap<Integer, RedstoneMidiLink.ManualNoteFrequency> activeNotes;
     private RedstoneMidiLink link;
 
     public MidiSourceBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         activeNotes = new HashMap<>();
+    }
+
+    public ItemStackHandler getStoredGhostItems() {
+        return storedGhostInv;
     }
 
     @Override
@@ -37,31 +52,13 @@ public abstract class MidiSourceBlockEntity extends SmartBlockEntity {
 
     @Override
     protected void write(CompoundTag tag, boolean clientPacket) {
-        ListTag coordsList = new ListTag();
-        for (BlockPos pos : linkedCoords) { // for every linked position
-            CompoundTag posTag = new CompoundTag();
-            posTag.putInt("x", pos.getX()); // put x/y/z coords in tag
-            posTag.putInt("y", pos.getY());
-            posTag.putInt("z", pos.getZ());
-            coordsList.add(posTag); // add coords to list
-        }
-        tag.put("linked_coords", coordsList); // add list to NBT
-
+        tag.put("frequencyItems", storedGhostInv.serializeNBT());
         super.write(tag, clientPacket);
     }
 
     @Override
     protected void read(CompoundTag tag, boolean clientPacket) {
-        ListTag coordsList = tag.getList("linked_coords", Tag.TAG_COMPOUND); // get coords from NBT
-        linkedCoords.clear(); // clear this blockentity's current list
-
-        for (int i=0; i<coordsList.size(); i++) { // for every coord in list
-            CompoundTag posTag = coordsList.getCompound(i);
-            int x = posTag.getInt("x"); // get x/y/z
-            int y = posTag.getInt("y");
-            int z = posTag.getInt("z");
-            linkedCoords.add(new BlockPos(x, y, z)); // add pos to this blockentity's list
-        }
+        storedGhostInv.deserializeNBT(tag);
         super.read(tag, clientPacket);
     }
 
@@ -95,4 +92,5 @@ public abstract class MidiSourceBlockEntity extends SmartBlockEntity {
     public void onBlockRemoved() {
         //removeFromAllStopMasters();
     }
+
 }

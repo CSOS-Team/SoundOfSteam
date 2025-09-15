@@ -76,7 +76,7 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
             return InteractionResult.PASS;
         }
 
-        if (pHand.equals(InteractionHand.OFF_HAND)) { // temporary, to prevent function being called twice
+        if (pHand.equals(InteractionHand.OFF_HAND)) {
             return InteractionResult.PASS;
         }
         /*

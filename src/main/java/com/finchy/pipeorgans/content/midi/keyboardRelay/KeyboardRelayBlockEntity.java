@@ -5,20 +5,22 @@ import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
+import org.jetbrains.annotations.Nullable;
 
-import javax.sound.midi.MetaMessage;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
-import javax.sound.midi.SysexMessage;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,6 +43,16 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
             tryStopUsing((Player)playerEntity);
         }
         // removeFromAllStopMasters();
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.literal("Keyboard Relay");
+    }
+
+    @Override
+    public @Nullable AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+        return null;
     }
 
     public void tryStartUsing(Player player) {
@@ -125,7 +137,7 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
         if (player.level() != world) {
             return false;
         }
-        double reach = 0.4 * player.getAttributeValue(ForgeMod.BLOCK_REACH.get());
-        return player.distanceToSqr(Vec3.atCenterOf(pos)) < reach * reach;
+        return player.distanceToSqr(Vec3.atCenterOf(pos)) < Math.pow(player.getAttributeValue(ForgeMod.BLOCK_REACH.get()), 2);
     }
+
 }
