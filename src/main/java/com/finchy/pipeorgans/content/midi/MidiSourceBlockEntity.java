@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.content.midi;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +21,7 @@ import java.util.HashMap;
 //@SuppressWarnings("DataFlowIssue")
 public abstract class MidiSourceBlockEntity extends SmartBlockEntity implements MenuProvider {
 
-    private final ItemStackHandler storedGhostInv = new ItemStackHandler(9) {
+    public ItemStackHandler storedGhostInv = new ItemStackHandler(16) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             return true; // change this later
@@ -30,18 +31,21 @@ public abstract class MidiSourceBlockEntity extends SmartBlockEntity implements 
         public int getSlotLimit(int slot) {
             return 1;
         }
+
+        @Override
+        protected void onContentsChanged(int slot) {
+            super.onContentsChanged(slot);
+            setChanged();
+            if (!level.isClientSide()) {
+                link.changeFrequencyKey(slot, getStackInSlot(slot));
+            }
+        }
     };
 
-    private final HashMap<Integer, RedstoneMidiLink.ManualNoteFrequency> activeNotes;
     private RedstoneMidiLink link;
 
     public MidiSourceBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        activeNotes = new HashMap<>();
-    }
-
-    public ItemStackHandler getStoredGhostItems() {
-        return storedGhostInv;
     }
 
     @Override
@@ -58,14 +62,14 @@ public abstract class MidiSourceBlockEntity extends SmartBlockEntity implements 
 
     @Override
     protected void read(CompoundTag tag, boolean clientPacket) {
-        storedGhostInv.deserializeNBT(tag);
+        storedGhostInv.deserializeNBT(tag.getCompound("frequencyItems"));
         super.read(tag, clientPacket);
     }
 
     public abstract void handleMidiMessage(MidiMessage mm);
 
     public void handleNote(ShortMessage sm) {
-        if (sm.getData2() > 0) { // if note on
+        if (MidiUtils.isNoteOn(sm)) { // if note on
             PipeOrgans.LOGGER.info("NOTE ON");
             if (!link.areNotesActive()) { // if no notes are currently pressed
                 reactToNote(true);

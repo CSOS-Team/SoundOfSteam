@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.content.midi.keyboardRelay;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
+import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarMenu;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
@@ -52,7 +53,7 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return null;
+        return KeyboardRelayMenu.create(pContainerId, pPlayerInventory, this);
     }
 
     public void tryStartUsing(Player player) {

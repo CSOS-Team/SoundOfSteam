@@ -11,6 +11,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 public class KeyboardRelayMenu extends GhostItemMenu<KeyboardRelayBlockEntity> {
 
@@ -24,7 +25,7 @@ public class KeyboardRelayMenu extends GhostItemMenu<KeyboardRelayBlockEntity> {
 
     @Override
     protected ItemStackHandler createGhostInventory() {
-        return contentHolder.getStoredGhostItems();
+        return contentHolder.storedGhostInv;
     }
 
     @Override
@@ -49,16 +50,14 @@ public class KeyboardRelayMenu extends GhostItemMenu<KeyboardRelayBlockEntity> {
 
     @Override
     protected void addSlots() {
-
+        addPlayerSlots(8, 131);
+        for (int i=0; i<16; i++) {
+            addSlot(new SlotItemHandler(ghostInventory, i, i*18, 0));
+        }
     }
 
     @Override
     protected void saveData(KeyboardRelayBlockEntity contentHolder) {
-
-    }
-
-    @Override
-    public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
-        return null;
+        contentHolder.storedGhostInv = ghostInventory;
     }
 }

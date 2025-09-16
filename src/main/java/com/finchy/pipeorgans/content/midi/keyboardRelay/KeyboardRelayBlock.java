@@ -6,6 +6,7 @@ import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -73,21 +75,17 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (pLevel.isClientSide) { // serverside only
-            return InteractionResult.PASS;
+            return InteractionResult.SUCCESS;
         }
 
         if (pHand.equals(InteractionHand.OFF_HAND)) {
             return InteractionResult.PASS;
         }
-        /*
-        if (pPlayer.getItemInHand(pHand).getItem() instanceof StopMasterBlockItem) { // if player is linking stopmaster
-            // surely there's a better way to do it?
-            return InteractionResult.PASS;
-        }
-         */
+        if (pPlayer.isShiftKeyDown()) {
+            withBlockEntityDo(pLevel, pPos, be -> NetworkHooks.openScreen((ServerPlayer) pPlayer, be, be::sendToMenu));
+            return InteractionResult.SUCCESS;
 
-        if (KeyboardRelayBlockEntity.playerInRange(pPlayer, pLevel, pPos)) { // if player close enough
-
+        }  else if (KeyboardRelayBlockEntity.playerInRange(pPlayer, pLevel, pPos)) {
             if (!KeyboardRelayBlockEntity.playerIsUsing(pPlayer)) { // if player is not currently using a keyboard relay
                 withBlockEntityDo(pLevel, pPos, be -> be.tryStartUsing(pPlayer)); // start using relay
 
@@ -99,6 +97,13 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
+        /*
+        if (pPlayer.getItemInHand(pHand).getItem() instanceof StopMasterBlockItem) { // if player is linking stopmaster
+            // surely there's a better way to do it?
+            return InteractionResult.PASS;
+        }
+         */
+
     }
 
     @Override

@@ -17,6 +17,7 @@ import java.util.*;
 public class RedstoneMidiLink {
 
     public final List<Frequency> FrequencyKeys;
+    // list of channels, each channel being a map of active pitches and the corresponding ManualNoteFrequency
     private final ArrayList<Map<Integer, ManualNoteFrequency>> activeNotes;
     static final int TIMEOUT = 2;
     private final Level world;
@@ -78,6 +79,30 @@ public class RedstoneMidiLink {
 
     }
 
+    public void changeFrequencyKey(int channel, ItemStack newKey) {
+        for (Map.Entry<Integer, ManualNoteFrequency> entry : activeNotes.get(channel).entrySet()) {
+            ManualNoteFrequency oldNote = entry.getValue();
+
+            if (oldNote.getSecond().getFirst().getStack().equals(newKey)) // if the new key is the same as the existing key
+                return;
+            Create.REDSTONE_LINK_NETWORK_HANDLER.removeFromNetwork(world, oldNote);
+
+            Frequency pitchFreq = oldNote.getSecond().getSecond();
+            ManualNoteFrequency newNoteFrequency = ManualNoteFrequency.create(oldNote.pos, Frequency.of(newKey), pitchFreq, oldNote.strength);
+            entry.setValue(newNoteFrequency);
+            Create.REDSTONE_LINK_NETWORK_HANDLER.addToNetwork(world, newNoteFrequency);
+
+            FrequencyKeys.set(channel, Frequency.of(newKey));
+        }
+
+    }
+
+    public void stopAllNotes() {
+        activeNotes.forEach(c -> c.forEach(
+                (i, n) -> c.remove(i)
+        ));
+    }
+
     public ManualNoteFrequency noteFrequency(int channel, int pitch, int velocity) {
         Frequency keyFreq = FrequencyKeys.get(channel);
         Frequency pitchFreq = Frequency.of(PitchMapping.getStack(pitch));
@@ -95,6 +120,7 @@ public class RedstoneMidiLink {
         Map<Integer, ManualNoteFrequency> channelNotes = activeNotes.get(channel);
         if (channelNotes.containsKey(pitch)) {
             ManualNoteFrequency noteFrequency = channelNotes.get(pitch);
+            channelNotes.remove(pitch);
             Create.REDSTONE_LINK_NETWORK_HANDLER.removeFromNetwork(world, noteFrequency);
         }
     }
