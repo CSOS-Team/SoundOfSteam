@@ -2,6 +2,23 @@
   "values": [
     "pipeorgans:base",
     "pipeorgans:keyboard_relay",
-    "pipeorgans:stop_master"
+    "pipeorgans:diapason",
+    "pipeorgans:diapason_extension",
+    "pipeorgans:prestant",
+    "pipeorgans:prestant_extension",
+    "pipeorgans:gamba",
+    "pipeorgans:gamba_extension",
+    "pipeorgans:nasard",
+    "pipeorgans:nasard_extension",
+    "pipeorgans:piccolo",
+    "pipeorgans:piccolo_extension",
+    "pipeorgans:trompette",
+    "pipeorgans:trompette_extension",
+    "pipeorgans:viola",
+    "pipeorgans:viola_extension",
+    "pipeorgans:vox_celeste",
+    "pipeorgans:vox_celeste_extension",
+    "pipeorgans:vox_humana",
+    "pipeorgans:vox_humana_extension"
   ]
 }

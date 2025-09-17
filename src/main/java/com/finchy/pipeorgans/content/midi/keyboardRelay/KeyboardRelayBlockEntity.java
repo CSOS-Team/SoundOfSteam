@@ -130,7 +130,6 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
     public void handleMidiMessage(MidiMessage mm) {
         if (mm instanceof ShortMessage sm && (MidiUtils.isNoteOn(sm) || MidiUtils.isNoteOff(sm))) {
             handleNote(sm);
-            PipeOrgans.LOGGER.info("HANDLED");
         }
     }
 

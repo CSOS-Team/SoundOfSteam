@@ -136,7 +136,7 @@ public class PitchMapping {
 
     public static ItemStack getStack(int pitch) {
         if (!pitchMap.containsKey(pitch)) {
-            PipeOrgans.LOGGER.error("PITCH {} OUT OF RANGE FOR PITCH MAP", pitch);
+            PipeOrgans.LOGGER.error("Pitch {} out of range for pitch map", pitch);
             return new ItemStack(Items.LIGHT_BLUE_TERRACOTTA);
         }
         return new ItemStack(pitchMap.get(pitch));
