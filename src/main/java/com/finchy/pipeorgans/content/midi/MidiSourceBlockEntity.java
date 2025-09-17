@@ -70,22 +70,16 @@ public abstract class MidiSourceBlockEntity extends SmartBlockEntity implements 
 
     public void handleNote(ShortMessage sm) {
         if (MidiUtils.isNoteOn(sm)) { // if note on
-            PipeOrgans.LOGGER.info("NOTE ON");
             if (!link.areNotesActive()) { // if no notes are currently pressed
                 reactToNote(true);
-                PipeOrgans.LOGGER.info("TURNED POWER ON");
             }
             link.activateNote(sm.getChannel(), sm.getData1(), sm.getData2());
-            PipeOrgans.LOGGER.info("ACTIVATED NOTE");
 
         } else { // if note off
-            PipeOrgans.LOGGER.info("NOTE OFF");
             link.deactivateNote(sm.getChannel(), sm.getData1());
             if (!link.areNotesActive()) { // if the last note has just been taken off
                 reactToNote(false);
-                PipeOrgans.LOGGER.info("TURNED POWER OFF");
             }
-            PipeOrgans.LOGGER.info("DEACTIVATED NOTE");
         }
     }
 

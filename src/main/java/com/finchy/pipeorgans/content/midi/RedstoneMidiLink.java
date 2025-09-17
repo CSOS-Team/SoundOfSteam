@@ -45,7 +45,11 @@ public class RedstoneMidiLink {
         }
 
         public static ManualNoteFrequency create(BlockPos pos, Frequency key, Frequency pitch, int velocity) {
-            return new ManualNoteFrequency(pos, Couple.create(key, pitch), Math.round(MathUtils.map(velocity, 0, 127, 0, 15)));
+            return new ManualNoteFrequency(pos, Couple.create(key, pitch), velocity);
+        }
+
+        public static int midiVelocityToRedstone(int velocity) {
+            return Math.round(MathUtils.map(velocity, 0, 127, 0, 15));
         }
 
         @Override
@@ -91,9 +95,8 @@ public class RedstoneMidiLink {
             ManualNoteFrequency newNoteFrequency = ManualNoteFrequency.create(oldNote.pos, Frequency.of(newKey), pitchFreq, oldNote.strength);
             entry.setValue(newNoteFrequency);
             Create.REDSTONE_LINK_NETWORK_HANDLER.addToNetwork(world, newNoteFrequency);
-
-            FrequencyKeys.set(channel, Frequency.of(newKey));
         }
+        FrequencyKeys.set(channel, Frequency.of(newKey));
 
     }
 
@@ -106,14 +109,13 @@ public class RedstoneMidiLink {
     public ManualNoteFrequency noteFrequency(int channel, int pitch, int velocity) {
         Frequency keyFreq = FrequencyKeys.get(channel);
         Frequency pitchFreq = Frequency.of(PitchMapping.getStack(pitch));
-        return ManualNoteFrequency.create(pos, keyFreq, pitchFreq, velocity);
+        return ManualNoteFrequency.create(pos, keyFreq, pitchFreq, ManualNoteFrequency.midiVelocityToRedstone(velocity));
     }
 
     public void activateNote(int channel, int pitch, int velocity) {
         ManualNoteFrequency noteFrequency = noteFrequency(channel, pitch, velocity);
         Create.REDSTONE_LINK_NETWORK_HANDLER.addToNetwork(world, noteFrequency);
         activeNotes.get(channel).put(pitch, noteFrequency);
-        PipeOrgans.LOGGER.info("ADDED TO NETWORK");
     }
 
     public void deactivateNote(int channel, int pitch) {
