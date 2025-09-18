@@ -6,9 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -50,9 +48,15 @@ public class KeyboardRelayMenu extends GhostItemMenu<KeyboardRelayBlockEntity> {
 
     @Override
     protected void addSlots() {
-        addPlayerSlots(8, 131);
-        for (int i=0; i<16; i++) {
-            addSlot(new SlotItemHandler(ghostInventory, i, i*18, 0));
+        addPlayerSlots(12, 161);
+        int x = 31;
+        int y = 24;
+        int slot = 0;
+
+        for (int column=0; column<4; column++) {
+            for (int row=0; row<4; row++) {
+                addSlot(new SlotItemHandler(ghostInventory, slot++, column*42 + x, row*20 + y));
+            }
         }
     }
 
