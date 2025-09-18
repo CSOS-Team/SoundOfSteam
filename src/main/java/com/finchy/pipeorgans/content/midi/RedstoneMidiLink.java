@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.midi;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.midi.PitchMapping;
 import com.finchy.pipeorgans.util.MathUtils;
 import com.simibubi.create.Create;
@@ -108,9 +107,13 @@ public class RedstoneMidiLink {
     }
 
     public void stopAllNotes() {
-        activeNotes.forEach(c -> c.forEach(
-                (i, n) -> c.remove(i)
-        ));
+        for (Map<Integer, ManualNoteFrequency> entry : activeNotes) {
+            for (Iterator<Map.Entry<Integer, ManualNoteFrequency>> noteIterator = entry.entrySet().iterator(); noteIterator.hasNext(); ) {
+                Map.Entry<Integer, ManualNoteFrequency> noteEntry = noteIterator.next();
+                noteIterator.remove();
+                Create.REDSTONE_LINK_NETWORK_HANDLER.removeFromNetwork(world, noteEntry.getValue());
+            }
+        }
     }
 
     public ManualNoteFrequency noteFrequency(int channel, int pitch, int velocity) {
