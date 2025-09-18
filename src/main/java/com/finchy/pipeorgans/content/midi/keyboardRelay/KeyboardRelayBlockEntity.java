@@ -83,6 +83,7 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
         }
         level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, false), 3); //  turn power off
         deactivatedThisTick = true;
+        link.stopAllNotes();
         notifyUpdate();
     }
 

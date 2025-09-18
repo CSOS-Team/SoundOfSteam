@@ -21,37 +21,38 @@ import java.util.HashMap;
 //@SuppressWarnings("DataFlowIssue")
 public abstract class MidiSourceBlockEntity extends SmartBlockEntity implements MenuProvider {
 
-    public ItemStackHandler storedGhostInv = new ItemStackHandler(16) {
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return true; // change this later
-        }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return 1;
-        }
-
-        @Override
-        protected void onContentsChanged(int slot) {
-            super.onContentsChanged(slot);
-            setChanged();
-            if (!level.isClientSide()) {
-                link.changeFrequencyKey(slot, getStackInSlot(slot));
-            }
-        }
-    };
-
-    private RedstoneMidiLink link;
+    public ItemStackHandler storedGhostInv;
+    protected RedstoneMidiLink link;
 
     public MidiSourceBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
+        storedGhostInv = new ItemStackHandler(16) {
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return true; // change this later
+            }
+
+            @Override
+            public int getSlotLimit(int slot) {
+                return 1;
+            }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
+                setChanged();
+                if (!level.isClientSide()) {
+                    link.changeFrequencyKey(slot, getStackInSlot(slot));
+                }
+            }
+        };
     }
 
     @Override
     public void setLevel(Level pLevel) {
         super.setLevel(pLevel);
         link = new RedstoneMidiLink(pLevel, worldPosition);
+        link.setFrequencyKeysOnLoad(storedGhostInv);
     }
 
     @Override
@@ -88,7 +89,7 @@ public abstract class MidiSourceBlockEntity extends SmartBlockEntity implements 
     }
 
     public void onBlockRemoved() {
-        //removeFromAllStopMasters();
+        link.stopAllNotes();
     }
 
 }

@@ -11,6 +11,7 @@ import net.createmod.catnip.data.IntAttached;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.*;
 
@@ -81,6 +82,12 @@ public class RedstoneMidiLink {
             return getSecond();
         }
 
+    }
+
+    public void setFrequencyKeysOnLoad(ItemStackHandler ghostInv) {
+        for (int i = 0; i < 16; i++) {
+            FrequencyKeys.set(i, Frequency.of(ghostInv.getStackInSlot(i)));
+        }
     }
 
     public void changeFrequencyKey(int channel, ItemStack newKey) {
