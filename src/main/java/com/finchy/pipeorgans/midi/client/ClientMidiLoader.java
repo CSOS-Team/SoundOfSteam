@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.midi.client;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.content.midi.trackerBar.MidiFileParser;
 import com.finchy.pipeorgans.network.AllPackets;
 import com.finchy.pipeorgans.network.packet.MidiUploadPacket;
 import com.simibubi.create.foundation.utility.FilesHelper;
@@ -14,9 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
 import java.util.*;
-
-import static com.finchy.pipeorgans.util.MidiUtils.MidiFileParser.isValidMidi;
-import static com.finchy.pipeorgans.util.MidiUtils.MidiFileParser.validateSizeLimitation;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientMidiLoader {
@@ -49,7 +47,7 @@ public class ClientMidiLoader {
     public void startNewUpload(String midi) {
         Path path = Paths.get(DIRECTORY, midi);
         if (!Files.exists(path)) {
-            PipeOrgans.LOGGER.error("Missing .mid file: {}", path.toString());
+            PipeOrgans.LOGGER.error("Missing .mid file: {}", path);
             return;
         }
 
@@ -57,10 +55,10 @@ public class ClientMidiLoader {
         try {
             long size = Files.size(path);
 
-            if(!validateSizeLimitation(size))
+            if(!MidiFileParser.validateSizeLimitation(size))
                 return;
 
-            if (!isValidMidi(path.toFile())) {
+            if (!MidiFileParser.isValidMidi(path.toFile())) {
                 LocalPlayer player = Minecraft.getInstance().player;
                 if (player != null)
                     player.displayClientMessage(Component.literal(".mid file is in the wrong format"), false); // make translatable later

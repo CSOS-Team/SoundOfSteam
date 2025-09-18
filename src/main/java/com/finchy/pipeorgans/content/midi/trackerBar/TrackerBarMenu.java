@@ -46,9 +46,7 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
     @Override
     protected void addSlots() {
-        inputSlot = new TrackerBarSlot(contentHolder.inventory, 0, 12, 62, stack -> {
-            contentHolder.onRollChanged(stack);
-        });
+        inputSlot = new TrackerBarSlot(contentHolder.inventory, 0, 12, 62, stack -> contentHolder.onRollChanged(stack));
 
         addSlot(inputSlot);
         addPlayerSlots(81, 175);

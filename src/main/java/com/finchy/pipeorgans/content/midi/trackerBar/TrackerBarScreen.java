@@ -13,8 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
-import static com.finchy.pipeorgans.util.MidiUtils.isMusicRollValid;
-
 public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu> {
 
     private static final ResourceLocation GUI_TEXTURE = PipeOrgans.asResource("textures/gui/tracker_bar.png");
@@ -46,7 +44,7 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
         playButton.active = buttonsActive;
         playButton.withCallback(() -> {
            menu.contentHolder.pressTogglePlayButton();
-           playButton.setIcon(menu.contentHolder.playing ? AllIcons.I_PAUSE : AllIcons.I_PLAY);
+           playButton.setIcon(menu.contentHolder.sequencer.isPlaying() ? AllIcons.I_PAUSE : AllIcons.I_PLAY);
         });
         // todo: need to sort out proper logic for initialising these buttons correctly depending on contents of block entity
 

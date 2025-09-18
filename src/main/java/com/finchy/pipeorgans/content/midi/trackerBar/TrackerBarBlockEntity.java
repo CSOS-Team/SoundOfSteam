@@ -19,22 +19,12 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 import javax.sound.midi.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements MenuProvider {
 
-    public boolean playing = false;
-    public int tickPosition = 0;
-    private List<Queue<MidiEvent>> currentSequence = null;
-    private String currentMidi = "";
-    private String currentMidiOwner = "";
-    private int ppq;
-    private int tickStep = 1;
-    public double bpm;
-    public List<String> channelInstruments;
     private boolean buttonsEnabled = false;
+    protected final MidiSequencer sequencer;
 
     public TrackerBarInventory inventory;
 
@@ -52,11 +42,8 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
 
     public TrackerBarBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        channelInstruments = new ArrayList<>(16);
-        for (int i = 0; i < 16; i++) {
-            channelInstruments.add(MidiUtils.GeneralMidiInstrument.EMPTY.name);
-        }
         inventory = new TrackerBarInventory();
+        sequencer = new MidiSequencer(this::handleMidiMessage, link::stopAllNotes);
     }
 
     @Override
@@ -84,8 +71,8 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     @Override
     public void tick() {
         super.tick();
-        if (playing) {
-            tickSequencer();
+        if (sequencer.isPlaying()) {
+            sequencer.tick();
         }
     }
 
@@ -94,11 +81,11 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
 
     public void onRollChanged(ItemStack stack) {
         if (stack.isEmpty())
-            unloadSequence();
+            sequencer.unloadSequence();
         if (MidiUtils.isMusicRollValid(stack)) {
             try {
                 CompoundTag tag = stack.getTag();
-                loadSequence(tag.getString("File"), tag.getString("Owner"));
+                sequencer.loadSequence(tag.getString("File"), tag.getString("Owner"));
                 buttonsEnabled = true;
             } catch (MidiLoadException e) {
                 buttonsEnabled = false;
@@ -108,75 +95,11 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         }
     }
 
-    public void loadSequence(String midi, String owner) throws MidiLoadException {
-        Sequence sequence = MidiUtils.MidiFileParser.getSequenceFromFile(midi, owner);
-
-        currentSequence = MidiUtils.MidiFileParser.parseMidiEvents(sequence);
-        ppq = sequence.getResolution();
-        MidiUtils.MidiFileParser.initialParse(sequence, this::setChannelInstrument, this::setTempo);
-        currentMidi = midi;
-        currentMidiOwner = owner;
-    }
-
-    public void unloadSequence() {
-        currentSequence = null;
-        currentMidi = "";
-        currentMidiOwner = "";
-        channelInstruments.clear();
-        resetSequencer();
-        // haltAllStopMasters();
-    }
-
-    public boolean isSequenceLoaded() {
-        return currentSequence != null && currentMidi != null && currentMidiOwner != null;
-    }
-
-    private void setChannelInstrument(int channel, int program) {
-        channelInstruments.set(channel, MidiUtils.GeneralMidiInstrument.fromProgram(program).name);
-    }
-
-    private void setTempo(byte[] data) {
-        int microsPerQ = ((data[0] & 0xFF) << 16) | // combine into a single int
-                ((data[1] & 0xFF) << 8) |
-                (data[2] & 0xFF);
-        float midiTPS = (1000000f / microsPerQ) * ppq;
-        tickStep = Math.round(midiTPS/20);
-        bpm = 60000000.0 / microsPerQ;
-    }
-
-    private void tickSequencer() {
-        for (Queue<MidiEvent> track : currentSequence) {
-            while (track.peek() != null && track.peek().getTick() <= tickPosition) {
-                MidiMessage msg = track.poll().getMessage();
-
-                if (msg instanceof MetaMessage mm) { // if it's a MetaMessage
-
-                    if (MidiUtils.isTempoChange(mm)) { // if it's a tempo change MetaMessage
-                        setTempo(mm.getData());
-
-                    } else if (MidiUtils.isFileEnd(mm)) { // if it's a file end MetaMessage
-                        resetSequencer();
-                        // haltAllStopMasters(); // ngl... i have no idea why there are notes remaining. but this fixes it. soo....
-                        break;
-                    }
-
-                } else if (msg instanceof ShortMessage sm) { // if it's a ShortMessage
-                    if (MidiUtils.isNoteOn(sm) || MidiUtils.isNoteOff(sm)) {
-                        handleNote(sm);
-
-                    } else if (MidiUtils.isProgramChange(sm)) { // setting instrument on a particular channel
-                        //channelInstruments.set(channel, MidiUtils.GeneralMidiInstrument.fromProgram(data1).name);
-                    }
-                }
-
-            }
-        }
-        tickPosition += tickStep;
-    }
-
     @Override
     public void handleMidiMessage(MidiMessage mm) {
-
+        if (mm instanceof ShortMessage sm && (MidiUtils.isNoteOn(sm) || MidiUtils.isNoteOff(sm))) {
+            handleNote(sm);
+        }
     }
 
     public boolean areButtonsEnabled() {
@@ -187,42 +110,15 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         buttonsEnabled = value;
     }
 
-    public String getCurrentMidi() {
-        return currentMidi;
-    }
-
-    public String getCurrentMidiOwner() {
-        return currentMidiOwner;
-    }
-
-    public void resetSequencer() {
-        playing = false;
-        tickPosition = 0;
-        tickStep = 1;
-    }
-
     public void pressTogglePlayButton() {
-        if (isSequenceLoaded()) {
-            toggleSequencer();
+        if (sequencer.isSequenceLoaded()) {
+            sequencer.toggle();
         }
     }
 
     public void pressStopButton() {
-        resetSequencer();
+        sequencer.reset();
         PipeOrgans.LOGGER.info("STOPPED PLAYING");
-    }
-
-    public void startSequencer() {
-        resetSequencer();
-        playing = true;
-        PipeOrgans.LOGGER.info("STARTED PLAYING");
-    }
-
-    public void toggleSequencer() {
-        playing = !playing;
-        PipeOrgans.LOGGER.info("TOGGLED PLAYING");
-        if (!playing) {}
-            // haltAllStopMasters();
     }
 
 }
