@@ -33,7 +33,7 @@ public class KeyboardRelayScreen extends AbstractSimiContainerScreen<KeyboardRel
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        graphics.drawString(font, title, leftPos+(178-font.width(title))/2, topPos+2, 0x505050, false);
+        graphics.drawString(font, title, (178-font.width(title))/2, 4, 0x505050, false);
     }
 
     @Override
@@ -48,15 +48,5 @@ public class KeyboardRelayScreen extends AbstractSimiContainerScreen<KeyboardRel
                 .<GuiGameElement.GuiRenderBuilder>at(leftPos + GUI_WIDTH, topPos + GUI_HEIGHT - 40, -200)
                 .scale(3)
                 .render(pGuiGraphics);
-
-        int x = 31;
-        int y = 24;
-        int slot = 0;
-
-        for (int column=0; column<4; column++) {
-            for (int row=0; row<4; row++) {
-                (slot++, column*42 + 31, row*20 + 24);
-            }
-        }
     }
 }
