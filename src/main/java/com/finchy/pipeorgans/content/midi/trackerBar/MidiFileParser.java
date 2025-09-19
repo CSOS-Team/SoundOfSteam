@@ -80,13 +80,14 @@ public abstract class MidiFileParser {
     public static void initialParse(Sequence sequence, BiConsumer<Integer, Integer> channelInstrumentConsumer, Consumer<byte[]> tempoConsumer) {
         Track[] tracks = sequence.getTracks();
         for (Track track : tracks) {
+            int trackEndTick = 1;
             for (int i = 0; i < track.size(); i++) {
                 MidiEvent event = track.get(i);
                 if (event.getTick() > 0) break; // we don't care about events after the track starts playing; we'll handle those after playing starts
                 MidiMessage msg = event.getMessage();
 
                 if (msg instanceof ShortMessage sm && MidiUtils.isProgramChange(sm)) {
-                    //channelInstrumentConsumer.accept(sm.getChannel(), sm.getData1()); // set instruments
+                    channelInstrumentConsumer.accept(sm.getChannel(), sm.getData1()); // set instruments
 
                 } else if (msg instanceof MetaMessage mm && MidiUtils.isTempoChange(mm)) {
                     tempoConsumer.accept(mm.getData()); // set tempo

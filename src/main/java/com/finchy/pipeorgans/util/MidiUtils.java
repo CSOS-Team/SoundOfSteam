@@ -25,7 +25,7 @@ public abstract class MidiUtils {
         return mm.getType() == 0x51;
     }
 
-    public static boolean isFileEnd(MetaMessage mm) {
+    public static boolean isTrackEnd(MetaMessage mm) {
         return mm.getType() == 0x2F;
     }
 
