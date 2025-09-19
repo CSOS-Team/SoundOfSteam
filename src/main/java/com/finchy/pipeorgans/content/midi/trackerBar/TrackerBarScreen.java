@@ -2,6 +2,8 @@ package com.finchy.pipeorgans.content.midi.trackerBar;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.init.AllBlocks;
+import com.finchy.pipeorgans.network.AllPackets;
+import com.finchy.pipeorgans.network.packet.TrackerBarGUIPacket;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
@@ -42,21 +44,19 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
         // add buttons 'n such
         playButton = new IconButton(x+153, y+129, AllIcons.I_PLAY);
         playButton.active = buttonsActive;
-        playButton.withCallback(() -> {
-           menu.contentHolder.pressTogglePlayButton();
-           playButton.setIcon(menu.contentHolder.sequencer.isPlaying() ? AllIcons.I_PAUSE : AllIcons.I_PLAY);
-        });
+        playButton.withCallback(() -> sendUpdatePacket("play"));
         // todo: need to sort out proper logic for initialising these buttons correctly depending on contents of block entity
 
         stopButton = new IconButton(x+175, y+129, AllIcons.I_STOP);
         stopButton.active = buttonsActive;
-        stopButton.withCallback(() -> {
-           menu.contentHolder.pressStopButton();
-           playButton.setIcon(AllIcons.I_PLAY);
-        });
+        stopButton.withCallback(() -> sendUpdatePacket("stop"));
 
         addRenderableWidgets(playButton, stopButton);
 
+    }
+
+    private void sendUpdatePacket(String button) {
+        AllPackets.getChannel().sendToServer(new TrackerBarGUIPacket(button, menu.contentHolder.getBlockPos()));
     }
 
     @Override
@@ -68,9 +68,7 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
         playButton.active = buttonsActive;
         stopButton.active = buttonsActive;
 
-        if (!buttonsActive) {
-            playButton.setIcon(AllIcons.I_PLAY);
-        }
+        playButton.setIcon((!buttonsActive || !menu.contentHolder.isPlaying()) ? AllIcons.I_PLAY : AllIcons.I_PAUSE);
     }
 
     @Override

@@ -9,6 +9,7 @@ import net.createmod.catnip.data.Couple;
 import net.createmod.catnip.data.IntAttached;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -25,6 +26,8 @@ public class RedstoneMidiLink {
 
     public RedstoneMidiLink(Level world, BlockPos pos) {
         FrequencyKeys = new ArrayList<>(Collections.nCopies(16, Frequency.of(ItemStack.EMPTY)));
+        // set channel 10 to a different frequency by default, as 10 is usually the percussion channel
+        FrequencyKeys.set(9, Frequency.of(new ItemStack(Items.STICK)));
         activeNotes = new ArrayList<>();
         for (int i=0; i<16; i++) {
             activeNotes.add(new HashMap<>());

@@ -54,7 +54,9 @@ public class MidiSequencer {
         currentSequence = null;
         currentMidi = "";
         currentMidiOwner = "";
-        channelInstruments.clear();
+        for (int i=0; i<16; i++) {
+            channelInstruments.set(i, MidiUtils.GeneralMidiInstrument.EMPTY.name);
+        }
         reset();
         noteStop.run();
     }
@@ -125,7 +127,6 @@ public class MidiSequencer {
 
     public void toggle() {
         playing = !playing;
-        PipeOrgans.LOGGER.info("TOGGLED PLAYING");
         if (!playing) {
             noteStop.run();
         }
@@ -135,5 +136,6 @@ public class MidiSequencer {
         playing = false;
         tickPosition = 0;
         tickStep = 1;
+        noteStop.run();
     }
 }

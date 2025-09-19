@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
@@ -13,18 +12,21 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
-import javax.sound.midi.*;
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.ShortMessage;
 import java.util.List;
 
 public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements MenuProvider {
 
     private boolean buttonsEnabled = false;
-    protected final MidiSequencer sequencer;
+    protected MidiSequencer sequencer;
+    public boolean sendUpdate = false;
 
     public TrackerBarInventory inventory;
 
@@ -43,7 +45,6 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     public TrackerBarBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
         inventory = new TrackerBarInventory();
-        sequencer = new MidiSequencer(this::handleMidiMessage, link::stopAllNotes);
     }
 
     @Override
@@ -73,7 +74,14 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         super.tick();
         if (sequencer.isPlaying()) {
             sequencer.tick();
+            notifyUpdate();
         }
+    }
+
+    @Override
+    public void setLevel(Level pLevel) {
+        super.setLevel(pLevel);
+        sequencer = new MidiSequencer(this::handleMidiMessage, link::stopAllNotes);
     }
 
     @Override
@@ -110,6 +118,10 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         buttonsEnabled = value;
     }
 
+    public boolean isPlaying() {
+        return sequencer.isPlaying();
+    }
+
     public void pressTogglePlayButton() {
         if (sequencer.isSequenceLoaded()) {
             sequencer.toggle();
@@ -118,7 +130,6 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
 
     public void pressStopButton() {
         sequencer.reset();
-        PipeOrgans.LOGGER.info("STOPPED PLAYING");
     }
 
 }
