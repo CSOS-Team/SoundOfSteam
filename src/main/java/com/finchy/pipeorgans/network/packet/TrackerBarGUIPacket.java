@@ -44,7 +44,6 @@ public class TrackerBarGUIPacket extends SimplePacketBase {
                 } else if (button.equals("stop")) {
                     be.pressStopButton();
                 }
-                be.sendUpdate = true;
             }
         });
         return true;

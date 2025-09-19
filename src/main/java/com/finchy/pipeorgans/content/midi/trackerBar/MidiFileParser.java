@@ -80,9 +80,9 @@ public abstract class MidiFileParser {
     public static void initialParse(Sequence sequence, BiConsumer<Integer, Integer> channelInstrumentConsumer, Consumer<byte[]> tempoConsumer) {
         Track[] tracks = sequence.getTracks();
         for (Track track : tracks) {
-            int trackEndTick = 1;
             for (int i = 0; i < track.size(); i++) {
                 MidiEvent event = track.get(i);
+
                 if (event.getTick() > 0) break; // we don't care about events after the track starts playing; we'll handle those after playing starts
                 MidiMessage msg = event.getMessage();
 
@@ -94,6 +94,20 @@ public abstract class MidiFileParser {
                 }
             }
         }
+    }
+
+    public static int endTick(Sequence sequence) {
+        Track[] tracks = sequence.getTracks();
+        long songEndTick = 1;
+        for (Track track : tracks) {
+            long trackEndTick = 1;
+            for (int i = 0; i < track.size(); i++) {
+                MidiEvent event = track.get(i);
+                trackEndTick = Math.max(trackEndTick, event.getTick());
+            }
+            songEndTick = Math.max(songEndTick, trackEndTick);
+        }
+        return (int) songEndTick;
     }
 
     // check the first 4 bytes of the given file to see if they match the header 4D 54 68 64

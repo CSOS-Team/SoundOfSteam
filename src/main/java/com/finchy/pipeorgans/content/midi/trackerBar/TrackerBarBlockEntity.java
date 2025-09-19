@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
@@ -26,7 +27,6 @@ import java.util.Queue;
 public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements MenuProvider {
 
     private boolean buttonsEnabled = false;
-    public boolean sendUpdate = false;
 
     private List<Queue<MidiEvent>> currentSequence = null;
 
@@ -108,6 +108,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         currentSequence = MidiFileParser.parseMidiEvents(sequence);
         ppq = sequence.getResolution();
         MidiFileParser.initialParse(sequence, this::setChannelInstrument, this::setTempo);
+        endTick = MidiFileParser.endTick(sequence);
         currentMidi = file;
         currentMidiOwner = owner;
     }
@@ -134,6 +135,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         bpm = 60_000_000f / microsPerQuarterNote;
         float midiTPS = (1000000f/microsPerQuarterNote) * ppq;
         tickStep = Math.round(midiTPS/20);
+        PipeOrgans.LOGGER.info("TICKSTEP: {}", tickStep);
     }
 
     public void setChannelInstrument(int channel, int program) {
@@ -141,18 +143,21 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     }
 
     public void tickSequencer() {
+        trackTick:
         for (Queue<MidiEvent> track : currentSequence) {
             while (track.peek() != null && track.peek().getTick() <= tickPosition) {
                 MidiMessage msg = track.poll().getMessage();
+
+                if (tickPosition >= endTick) {
+                    link.stopAllNotes();
+                    stopSequencer();
+                    break trackTick;
+                }
 
                 if (msg instanceof MetaMessage mm) { // if it's a MetaMessage
 
                     if (MidiUtils.isTempoChange(mm)) { // if it's a tempo change MetaMessage
                         setTempo(mm.getData());
-
-                    } else if (MidiUtils.isTrackEnd(mm)) { // if it's a file end MetaMessage
-                        stopSequencer(); // ngl... i have no idea why there are notes remaining. but this fixes it. soo....
-                        break;
                     }
 
                 } else if (msg instanceof ShortMessage sm) {
