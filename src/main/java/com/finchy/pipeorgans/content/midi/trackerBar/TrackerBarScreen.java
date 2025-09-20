@@ -19,10 +19,11 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
 
     private static final ResourceLocation GUI_TEXTURE = PipeOrgans.asResource("textures/gui/tracker_bar.png");
     private static final int GUI_WIDTH = 330;
-    private static final int GUI_HEIGHT = 153;
+    private static final int GUI_HEIGHT = 203;
 
     protected IconButton playButton;
     protected IconButton stopButton;
+    protected IconButton confirmButton;
 
     private final ItemStack renderedItem = AllBlocks.TRACKER_BAR.asStack();
 
@@ -42,16 +43,18 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
         boolean buttonsActive = menu.contentHolder.getButtonsEnabled();
 
         // add buttons 'n such
-        playButton = new IconButton(x+153, y+129, AllIcons.I_PLAY);
+        playButton = new IconButton(x+153, y+179, AllIcons.I_PLAY);
         playButton.active = buttonsActive;
         playButton.withCallback(() -> sendUpdatePacket("play"));
-        // todo: need to sort out proper logic for initialising these buttons correctly depending on contents of block entity
 
-        stopButton = new IconButton(x+175, y+129, AllIcons.I_STOP);
+        stopButton = new IconButton(x+175, y+179, AllIcons.I_STOP);
         stopButton.active = buttonsActive;
         stopButton.withCallback(() -> sendUpdatePacket("stop"));
 
-        addRenderableWidgets(playButton, stopButton);
+        confirmButton = new IconButton(x + 297, y + 179, AllIcons.I_CONFIRM);
+        confirmButton.withCallback(() -> menu.player.closeContainer());
+
+        addRenderableWidgets(playButton, stopButton, confirmButton);
 
     }
 

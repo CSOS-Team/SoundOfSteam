@@ -18,6 +18,8 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
     private final ContainerData data;
 
+    // todo: need to add ghost inventory to menu (FUUUUUUCKK)
+
     public TrackerBarMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
         this(type, id, inv, (TrackerBarBlockEntity) inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
     }
@@ -50,7 +52,7 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
     @Override
     protected void addSlots() {
         addSlot(new TrackerBarSlot(contentHolder.inventory, 0, 12, 62, stack -> contentHolder.onRollChanged(stack)));
-        addPlayerSlots(81, 175);
+        addPlayerSlots(81, 225);
     }
 
     @Override
