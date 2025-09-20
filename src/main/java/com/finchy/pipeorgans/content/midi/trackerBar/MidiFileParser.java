@@ -70,9 +70,7 @@ public abstract class MidiFileParser {
                 eventQueue.add(event);
             }
             trackList.add(eventQueue);
-            PipeOrgans.LOGGER.info("ADDED TRACK!");
         }
-        PipeOrgans.LOGGER.info("FINISHED PARSING MIDI!");
         return trackList;
 
     }

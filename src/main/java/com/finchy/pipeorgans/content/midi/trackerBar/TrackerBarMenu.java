@@ -71,16 +71,35 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
     @Override
     public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
-        Slot clickedSlot = getSlot(pIndex);
-        if (!clickedSlot.hasItem())
-            return ItemStack.EMPTY;
+        ItemStack newStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(pIndex);
 
-        ItemStack stack = clickedSlot.getItem();
-        if (pIndex < 1)
-            moveItemStackTo(stack, 1, slots.size(), false);
-        else
-            moveItemStackTo(stack, 0, 1, false);
+        if (slot.hasItem()) {
+            ItemStack originalStack = slot.getItem();
+            newStack = originalStack.copy();
 
-        return ItemStack.EMPTY;
+            if (pIndex == 0) {
+                // shift click from be slot into player inv
+                if (!this.moveItemStackTo(originalStack, 1, slots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+                contentHolder.onRollChanged(newStack);
+
+            } else {
+                // shift click from player inv into be slot
+                if (!this.moveItemStackTo(originalStack, 0, 1, false)) {
+                    return ItemStack.EMPTY;
+                }
+                contentHolder.onRollChanged(newStack);
+            }
+
+            if (originalStack.isEmpty()) {
+                slot.set(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
+            }
+        }
+
+        return newStack;
     }
 }
