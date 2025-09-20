@@ -39,7 +39,7 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
         int x = leftPos;
         int y = topPos;
 
-        boolean buttonsActive = menu.contentHolder.areButtonsEnabled();
+        boolean buttonsActive = menu.contentHolder.getButtonsEnabled();
 
         // add buttons 'n such
         playButton = new IconButton(x+153, y+129, AllIcons.I_PLAY);
@@ -63,12 +63,12 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
     protected void containerTick() {
         super.containerTick();
 
-        boolean buttonsActive = menu.contentHolder.areButtonsEnabled();
+        boolean buttonsActive = menu.getButtonsEnabled();
 
         playButton.active = buttonsActive;
         stopButton.active = buttonsActive;
 
-        playButton.setIcon((!buttonsActive || !menu.contentHolder.isPlaying()) ? AllIcons.I_PLAY : AllIcons.I_PAUSE);
+        playButton.setIcon(menu.isPlaying() ? AllIcons.I_PAUSE : AllIcons.I_PLAY);
     }
 
     @Override

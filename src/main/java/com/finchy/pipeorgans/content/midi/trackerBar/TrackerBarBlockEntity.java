@@ -12,6 +12,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,6 +44,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     private String currentMidiOwner = "";
 
     public TrackerBarInventory inventory;
+    protected final ContainerData data;
 
     public class TrackerBarInventory extends ItemStackHandler {
         private final TrackerBarBlockEntity be;
@@ -63,6 +65,28 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         super(type, pos, blockState);
         inventory = new TrackerBarInventory(this);
         channelInstruments = new ArrayList<>(defaultChannelInstruments);
+        data = new ContainerData() {
+            @Override
+            public int get(int pIndex) {
+                return switch (pIndex) {
+                    case 0 -> TrackerBarBlockEntity.this.playing ? 1 : 0;
+                    case 1 -> TrackerBarBlockEntity.this.tickPosition;
+                    case 2 -> (int) (TrackerBarBlockEntity.this.bpm*10);
+                    case 3 -> TrackerBarBlockEntity.this.buttonsEnabled ? 1 : 0;
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int pIndex, int pValue) {
+                // nuh uh
+            }
+
+            @Override
+            public int getCount() {
+                return 4;
+            }
+        };
     }
 
     @Override
@@ -96,7 +120,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return TrackerBarMenu.create(pContainerId, pPlayerInventory, this);
+        return TrackerBarMenu.create(pContainerId, pPlayerInventory, this, data);
     }
 
     @Override
@@ -123,7 +147,6 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     }
 
     public void unloadSequence() {
-        PipeOrgans.LOGGER.info("UNLOADED");
         currentSequence = null;
         currentMidi = "";
         currentMidiOwner = "";
@@ -146,6 +169,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         bpm = 60_000_000f / microsPerQuarterNote;
         float midiTPS = (1000000f/microsPerQuarterNote) * ppq;
         tickStep = Math.round(midiTPS/20);
+        setChanged();
     }
 
     public void setChannelInstrument(int channel, int program) {
@@ -184,6 +208,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
             }
         }
         tickPosition += tickStep;
+        setChanged();
     }
 
     public void toggleSequencer() {
@@ -191,6 +216,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         if (!playing) {
             link.stopAllNotes();
         }
+        setChanged();
     }
 
     public void restartPlayback() {
@@ -202,6 +228,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         } catch (MidiLoadException e) {
             buttonsEnabled = false;
         }
+        setChanged();
     }
 
     public void stopSequencer() {
@@ -216,7 +243,6 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
     public void onRollChanged(ItemStack stack) {
-         PipeOrgans.LOGGER.info("ONROLLCHANGED");
         if (stack.isEmpty()) {
             unloadSequence();
             buttonsEnabled = false;
@@ -231,6 +257,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         } else {
             buttonsEnabled = false;
         }
+        setChanged();
     }
 
     @Override
@@ -240,12 +267,8 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         }
     }
 
-    public boolean areButtonsEnabled() {
+    public boolean getButtonsEnabled() {
         return buttonsEnabled;
-    }
-
-    public void setButtonsEnabled(boolean value) {
-        buttonsEnabled = value;
     }
 
     public boolean isPlaying() {
@@ -254,7 +277,6 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
 
     public void pressTogglePlayButton() {
         if (isSequenceLoaded()) {
-            PipeOrgans.LOGGER.info("PRESSED TOGGLE");
             toggleSequencer();
         }
     }

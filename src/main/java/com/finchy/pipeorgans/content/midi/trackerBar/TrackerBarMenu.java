@@ -7,26 +7,29 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
-    private Slot inputSlot;
+    private final ContainerData data;
 
     public TrackerBarMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
-        super(type, id, inv, extraData);
+        this(type, id, inv, (TrackerBarBlockEntity) inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
     }
 
-    public TrackerBarMenu(MenuType<?> type, int id, Inventory inv, TrackerBarBlockEntity be) {
+    public TrackerBarMenu(MenuType<?> type, int id, Inventory inv, TrackerBarBlockEntity be, ContainerData data) {
         super(type, id, inv, be);
+        this.data = data;
+        addDataSlots(data);
     }
 
-    public static TrackerBarMenu create(int id, Inventory inv, TrackerBarBlockEntity be) {
-        return new TrackerBarMenu(AllMenuTypes.TRACKER_BAR_MENU.get(), id, inv, be);
+    public static TrackerBarMenu create(int id, Inventory inv, TrackerBarBlockEntity be, ContainerData data) {
+        return new TrackerBarMenu(AllMenuTypes.TRACKER_BAR_MENU.get(), id, inv, be, data);
     }
 
     @Override
@@ -46,27 +49,29 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
     @Override
     protected void addSlots() {
-        inputSlot = new TrackerBarSlot(contentHolder.inventory, 0, 12, 62, stack -> contentHolder.onRollChanged(stack));
-
-        addSlot(inputSlot);
+        addSlot(new TrackerBarSlot(contentHolder.inventory, 0, 12, 62, stack -> contentHolder.onRollChanged(stack)));
         addPlayerSlots(81, 175);
-
-        addDataSlot(new DataSlot() {
-            @Override
-            public int get() {
-                return contentHolder.areButtonsEnabled() ? 1 : 0;
-            }
-
-            @Override
-            public void set(int pValue) {
-                contentHolder.setButtonsEnabled(pValue == 1);
-            }
-        });
     }
 
     @Override
     protected void saveData(TrackerBarBlockEntity contentHolder) {
 
+    }
+
+    public boolean isPlaying() {
+        return data.get(0) == 1;
+    }
+
+    public int getTickPosition() {
+        return data.get(1);
+    }
+
+    public float getBPM() {
+        return (float) data.get(2) /10;
+    }
+
+    public boolean getButtonsEnabled() {
+        return data.get(3) == 1;
     }
 
     @Override
