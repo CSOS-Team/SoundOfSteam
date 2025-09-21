@@ -200,7 +200,6 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
                 MidiMessage msg = track.poll().getMessage();
 
                 if (tickPosition >= endTick) {
-                    link.stopAllNotes();
                     restartPlayback();
                     return;
                 }

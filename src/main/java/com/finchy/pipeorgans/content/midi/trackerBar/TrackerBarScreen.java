@@ -18,6 +18,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
+import static org.apache.commons.io.FilenameUtils.removeExtension;
+
 public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu> {
 
     private static final ResourceLocation GUI_TEXTURE = PipeOrgans.asResource("textures/gui/tracker_bar.png");
@@ -110,7 +112,7 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
                 );
             }
         }
-        graphics.drawString(font, shortenText(Component.literal(menu.getLoadedFilename()), 132), 38, 28, 16777215, true);
+        graphics.drawString(font, shortenText(Component.literal(removeExtension(menu.getLoadedFilename())), 132), 38, 28, 16777215, true);
     }
 
     @Override

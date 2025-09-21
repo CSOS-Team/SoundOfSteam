@@ -62,11 +62,9 @@ public class TrackerBarBlock extends Block implements IBE<TrackerBarBlockEntity>
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (pLevel.isClientSide)
-            return InteractionResult.PASS;
+            return InteractionResult.SUCCESS;
         if (pHand.equals(InteractionHand.OFF_HAND))
-            return InteractionResult.PASS;
-        //if (pPlayer.getItemInHand(pHand).getItem() instanceof StopMasterBlockItem) // if player is linking stopmaster
-        //    return InteractionResult.PASS;
+            return InteractionResult.SUCCESS;
 
         withBlockEntityDo(pLevel, pPos, be -> {
             NetworkHooks.openScreen((ServerPlayer) pPlayer, be, be::sendToMenu);

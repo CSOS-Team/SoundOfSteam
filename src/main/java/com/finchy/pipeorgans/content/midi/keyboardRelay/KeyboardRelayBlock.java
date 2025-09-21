@@ -79,7 +79,7 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
         }
 
         if (pHand.equals(InteractionHand.OFF_HAND)) {
-            return InteractionResult.PASS;
+            return InteractionResult.SUCCESS;
         }
         if (pPlayer.isShiftKeyDown()) {
             withBlockEntityDo(pLevel, pPos, be -> NetworkHooks.openScreen((ServerPlayer) pPlayer, be, be::sendToMenu));
@@ -97,12 +97,6 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
-        /*
-        if (pPlayer.getItemInHand(pHand).getItem() instanceof StopMasterBlockItem) { // if player is linking stopmaster
-            // surely there's a better way to do it?
-            return InteractionResult.PASS;
-        }
-         */
 
     }
 
