@@ -48,7 +48,7 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("Keyboard Relay");
+        return Component.translatable("gui.pipeorgans.keyboard_relay");
     }
 
     @Override

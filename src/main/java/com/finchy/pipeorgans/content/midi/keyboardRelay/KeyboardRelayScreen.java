@@ -33,7 +33,7 @@ public class KeyboardRelayScreen extends AbstractSimiContainerScreen<KeyboardRel
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        graphics.drawString(font, title, (178-font.width(title))/2, 4, 0x505050, false);
+        graphics.drawString(font, title, (177-font.width(title))/2, 4, 0x505050, false);
     }
 
     @Override

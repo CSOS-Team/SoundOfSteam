@@ -37,8 +37,8 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     private int tickStep = 1;
     public double bpm;
     public int endTick = 1;
-    public List<String> channelInstruments;
-    public static final List<String> defaultChannelInstruments = new ArrayList<>(Collections.nCopies(16, MidiUtils.GeneralMidiInstrument.EMPTY.name));
+    public List<MidiUtils.GeneralMidiInstrument> channelInstruments;
+    public static final List<MidiUtils.GeneralMidiInstrument> defaultChannelInstruments = new ArrayList<>(Collections.nCopies(16, MidiUtils.GeneralMidiInstrument.EMPTY));
 
     private String currentMidi = "";
     private String currentMidiOwner = "";
@@ -69,10 +69,28 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
             @Override
             public int get(int pIndex) {
                 return switch (pIndex) {
-                    case 0 -> TrackerBarBlockEntity.this.playing ? 1 : 0;
-                    case 1 -> TrackerBarBlockEntity.this.tickPosition;
-                    case 2 -> (int) (TrackerBarBlockEntity.this.bpm*10);
-                    case 3 -> TrackerBarBlockEntity.this.buttonsEnabled ? 1 : 0;
+                    case 0 -> TrackerBarBlockEntity.this.channelInstruments.get(0).program;
+                    case 1 -> TrackerBarBlockEntity.this.channelInstruments.get(1).program;
+                    case 2 -> TrackerBarBlockEntity.this.channelInstruments.get(2).program;
+                    case 3 -> TrackerBarBlockEntity.this.channelInstruments.get(3).program;
+                    case 4 -> TrackerBarBlockEntity.this.channelInstruments.get(4).program;
+                    case 5 -> TrackerBarBlockEntity.this.channelInstruments.get(5).program;
+                    case 6 -> TrackerBarBlockEntity.this.channelInstruments.get(6).program;
+                    case 7 -> TrackerBarBlockEntity.this.channelInstruments.get(7).program;
+                    case 8 -> TrackerBarBlockEntity.this.channelInstruments.get(8).program;
+                    case 9 -> TrackerBarBlockEntity.this.channelInstruments.get(9).program;
+                    case 10 -> TrackerBarBlockEntity.this.channelInstruments.get(10).program;
+                    case 11 -> TrackerBarBlockEntity.this.channelInstruments.get(11).program;
+                    case 12 -> TrackerBarBlockEntity.this.channelInstruments.get(12).program;
+                    case 13 -> TrackerBarBlockEntity.this.channelInstruments.get(13).program;
+                    case 14 -> TrackerBarBlockEntity.this.channelInstruments.get(14).program;
+                    case 15 -> TrackerBarBlockEntity.this.channelInstruments.get(15).program;
+
+                    case 16 -> TrackerBarBlockEntity.this.playing ? 1 : 0;
+                    case 17 -> TrackerBarBlockEntity.this.tickPosition;
+                    case 18 -> TrackerBarBlockEntity.this.endTick;
+                    case 19 -> (int) (TrackerBarBlockEntity.this.bpm*10);
+                    case 20 -> TrackerBarBlockEntity.this.buttonsEnabled ? 1 : 0;
                     default -> 0;
                 };
             }
@@ -84,7 +102,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
 
             @Override
             public int getCount() {
-                return 4;
+                return 21;
             }
         };
     }
@@ -115,7 +133,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("Tracker Bar");
+        return Component.translatable("gui.pipeorgans.tracker_bar");
     }
 
     @Override
@@ -173,7 +191,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     }
 
     public void setChannelInstrument(int channel, int program) {
-        channelInstruments.set(channel, MidiUtils.GeneralMidiInstrument.fromProgram(program).name);
+        channelInstruments.set(channel, MidiUtils.GeneralMidiInstrument.fromProgram(program));
     }
 
     public void tickSequencer() {
@@ -197,7 +215,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
                     if (MidiUtils.isNoteOn(sm) || MidiUtils.isNoteOff(sm)) {
                         handleNote(sm);
                     } else if (MidiUtils.isProgramChange(sm)) {
-                        channelInstruments.set(sm.getChannel(), MidiUtils.GeneralMidiInstrument.fromProgram(sm.getData1()).name);
+                        channelInstruments.set(sm.getChannel(), MidiUtils.GeneralMidiInstrument.fromProgram(sm.getData1()));
                     }
                     // not worrying about control changes or anything else for now
                 } /* else if (msg instanceof SysexMessage sx) {
@@ -242,7 +260,8 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
-    public void onRollChanged(ItemStack stack) {
+    public void onRollChanged() {
+        ItemStack stack = inventory.getStackInSlot(0);
         if (stack.isEmpty()) {
             unloadSequence();
             buttonsEnabled = false;

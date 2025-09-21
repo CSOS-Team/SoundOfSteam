@@ -23,7 +23,9 @@ public class AllItems {
             BRASS_REED = REGISTRATE.item("brass_reed", Item::new).register(),
             TUNING_WIRE = REGISTRATE.item("tuning_wire", Item::new).register();
 
-    public static final ItemEntry<MusicRollItem> MUSIC_ROLL = REGISTRATE.item("music_roll", MusicRollItem::new).register();
+    public static final ItemEntry<MusicRollItem> MUSIC_ROLL = REGISTRATE.item("music_roll", MusicRollItem::new)
+            .properties(p -> p.stacksTo(1))
+            .register();
 
     public static final ItemEntry<SequencedAssemblyItem>
             INCOMPLETE_TROMPETTE = sequencedPipeIngredient("incomplete_trompette"),

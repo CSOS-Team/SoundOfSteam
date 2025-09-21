@@ -8,7 +8,10 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.gui.widget.IconButton;
+import com.simibubi.create.foundation.gui.widget.Label;
 import net.createmod.catnip.gui.element.GuiGameElement;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +27,10 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
     protected IconButton playButton;
     protected IconButton stopButton;
     protected IconButton confirmButton;
+
+    protected Label titleLabel;
+
+    private static final int maxInstrumentLabelWidth = 63;
 
     private final ItemStack renderedItem = AllBlocks.TRACKER_BAR.asStack();
 
@@ -56,10 +63,31 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
 
         addRenderableWidgets(playButton, stopButton, confirmButton);
 
+        titleLabel = new Label(41, 26, Component.empty());
+
     }
 
     private void sendUpdatePacket(String button) {
         AllPackets.getChannel().sendToServer(new TrackerBarGUIPacket(button, menu.contentHolder.getBlockPos()));
+    }
+
+    private static Component shortenText(Component componentIn) {
+        Font font = Minecraft.getInstance().font;
+        if (font.width(componentIn) <= TrackerBarScreen.maxInstrumentLabelWidth)
+            return componentIn;
+
+        String trim = "...";
+        int trimWidth = font.width(trim);
+        String raw = componentIn.getString();
+        int rawLength = raw.length();
+
+        for (int i = rawLength; i>0; i--) {
+            String sub = raw.substring(0, i);
+            if (font.width(sub) + trimWidth <= TrackerBarScreen.maxInstrumentLabelWidth)
+                return Component.literal(sub + trim).setStyle(componentIn.getStyle());
+        }
+        // if nothing fits, somehow
+        return Component.literal(trim).setStyle(componentIn.getStyle());
     }
 
     @Override
@@ -72,6 +100,20 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
         stopButton.active = buttonsActive;
 
         playButton.setIcon(menu.isPlaying() ? AllIcons.I_PAUSE : AllIcons.I_PLAY);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
+        graphics.drawString(font, title, (314-font.width(title))/2, 4, 0x505050, false);
+        int channel = 0;
+        for (int column=0; column<4; column++) {
+            for (int row=0; row<4; row++) {
+                graphics.drawString(
+                        font, shortenText(menu.getChannelInstrument(channel++)),
+                        column*69+38, row*18+48, 16777215, true
+                );
+            }
+        }
     }
 
     @Override
