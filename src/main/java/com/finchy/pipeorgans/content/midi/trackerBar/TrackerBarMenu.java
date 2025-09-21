@@ -57,8 +57,8 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
         addPlayerSlots(81, 225);
         addSlot(new TrackerBarSlot(contentHolder.inventory, 0, 12, 62, stack -> contentHolder.onRollChanged()));
         int slot = 0;
-        for (int column=0; column<8; column++) {
-            for (int row=0; row<2; row++) {
+        for (int row=0; row<2; row++) {
+            for (int column=0; column<8; column++) {
                 addSlot(new SlotItemHandler(contentHolder.storedGhostInv, slot++, column*39 + 26, row*20 + 133));
             }
         }
@@ -92,6 +92,10 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
     public boolean getButtonsEnabled() {
         return data.get(20) == 1;
+    }
+
+    public String getLoadedFilename() {
+        return contentHolder.getCurrentMidi();
     }
 
     @Override

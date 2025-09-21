@@ -290,8 +290,8 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         return buttonsEnabled;
     }
 
-    public boolean isPlaying() {
-        return playing;
+    public String getCurrentMidi() {
+        return currentMidi;
     }
 
     public void pressTogglePlayButton() {

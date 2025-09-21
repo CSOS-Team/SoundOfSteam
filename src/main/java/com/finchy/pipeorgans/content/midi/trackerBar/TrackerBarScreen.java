@@ -28,8 +28,6 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
     protected IconButton stopButton;
     protected IconButton confirmButton;
 
-    protected Label titleLabel;
-
     private static final int maxInstrumentLabelWidth = 63;
 
     private final ItemStack renderedItem = AllBlocks.TRACKER_BAR.asStack();
@@ -63,17 +61,15 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
 
         addRenderableWidgets(playButton, stopButton, confirmButton);
 
-        titleLabel = new Label(41, 26, Component.empty());
-
     }
 
     private void sendUpdatePacket(String button) {
         AllPackets.getChannel().sendToServer(new TrackerBarGUIPacket(button, menu.contentHolder.getBlockPos()));
     }
 
-    private static Component shortenText(Component componentIn) {
+    private static Component shortenText(Component componentIn, int maxWidth) {
         Font font = Minecraft.getInstance().font;
-        if (font.width(componentIn) <= TrackerBarScreen.maxInstrumentLabelWidth)
+        if (font.width(componentIn) <= maxWidth)
             return componentIn;
 
         String trim = "...";
@@ -83,7 +79,7 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
 
         for (int i = rawLength; i>0; i--) {
             String sub = raw.substring(0, i);
-            if (font.width(sub) + trimWidth <= TrackerBarScreen.maxInstrumentLabelWidth)
+            if (font.width(sub) + trimWidth <= maxWidth)
                 return Component.literal(sub + trim).setStyle(componentIn.getStyle());
         }
         // if nothing fits, somehow
@@ -106,14 +102,15 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         graphics.drawString(font, title, (314-font.width(title))/2, 4, 0x505050, false);
         int channel = 0;
-        for (int column=0; column<4; column++) {
-            for (int row=0; row<4; row++) {
+        for (int row=0; row<4; row++) {
+            for (int column=0; column<4; column++) {
                 graphics.drawString(
-                        font, shortenText(menu.getChannelInstrument(channel++)),
+                        font, shortenText(menu.getChannelInstrument(channel++), maxInstrumentLabelWidth),
                         column*69+38, row*18+48, 16777215, true
                 );
             }
         }
+        graphics.drawString(font, shortenText(Component.literal(menu.getLoadedFilename()), 132), 38, 28, 16777215, true);
     }
 
     @Override
