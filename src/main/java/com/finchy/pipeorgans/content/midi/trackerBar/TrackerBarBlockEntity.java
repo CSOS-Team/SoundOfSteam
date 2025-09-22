@@ -4,7 +4,7 @@ import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiSourceBehaviour;
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
-import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Queue;
 
 @SuppressWarnings({"DataFlowIssue", "NullableProblems"})
-public class TrackerBarBlockEntity extends SmartBlockEntity implements MenuProvider {
+public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuProvider {
 
     private List<Queue<MidiEvent>> currentSequence = null;
 
@@ -159,7 +159,7 @@ public class TrackerBarBlockEntity extends SmartBlockEntity implements MenuProvi
     @Override
     public void tick() {
         super.tick();
-        if (playing) {
+        if (playing && speed > 0) {
             tickSequencer();
         }
     }

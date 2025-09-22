@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -8,31 +9,26 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
 
 @SuppressWarnings("NullableProblems")
-public class TrackerBarBlock extends Block implements IBE<TrackerBarBlockEntity> {
+public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<TrackerBarBlockEntity> {
 
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public TrackerBarBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
-                .setValue(FACING, Direction.NORTH)
+                .setValue(HORIZONTAL_FACING, Direction.NORTH)
                 .setValue(POWERED, false)
         );
     }
@@ -40,16 +36,8 @@ public class TrackerBarBlock extends Block implements IBE<TrackerBarBlockEntity>
     // define blockstate params
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(POWERED);
         super.createBlockStateDefinition(builder);
-        builder.add(FACING, POWERED);
-    }
-
-    @Override
-    @Nullable
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        Direction facing = pContext.getHorizontalDirection().getOpposite();
-        return Objects.requireNonNull(super.getStateForPlacement(pContext))
-                .setValue(FACING, facing);
     }
 
     @Override
@@ -83,5 +71,17 @@ public class TrackerBarBlock extends Block implements IBE<TrackerBarBlockEntity>
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+    }
+
+    @Override
+    public Direction.Axis getRotationAxis(BlockState state) {
+        return state.getValue(HORIZONTAL_FACING)
+                .getClockWise()
+                .getAxis();
+    }
+
+    @Override
+    public boolean hasShaftTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
+        return getRotationAxis(state) == face.getAxis();
     }
 }
