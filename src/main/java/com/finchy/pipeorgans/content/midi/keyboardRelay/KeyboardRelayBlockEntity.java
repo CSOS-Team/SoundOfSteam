@@ -1,13 +1,14 @@
 package com.finchy.pipeorgans.content.midi.keyboardRelay;
 
-import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
-import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarMenu;
+import com.finchy.pipeorgans.content.midi.MidiSourceBehaviour;
 import com.finchy.pipeorgans.util.MidiUtils;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -25,25 +26,41 @@ import javax.sound.midi.ShortMessage;
 import java.util.List;
 import java.util.UUID;
 
-@SuppressWarnings("DataFlowIssue")
-public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
+@SuppressWarnings({"DataFlowIssue", "NullableProblems"})
+public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuProvider {
 
     private UUID user = null;
     private boolean deactivatedThisTick;
+
+    MidiSourceBehaviour midiSourceBehaviour;
 
     public KeyboardRelayBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
     }
 
     @Override
-    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+        behaviours.add(midiSourceBehaviour = new MidiSourceBehaviour(this));
+    }
 
     public void onBlockRemoved() {
         Entity playerEntity = ((ServerLevel)this.level).getEntity(this.user);
         if (playerEntity instanceof Player) {
             tryStopUsing((Player)playerEntity);
         }
-        // removeFromAllStopMasters();
+        midiSourceBehaviour.link.stopAllNotes();
+    }
+
+    @Override
+    protected void write(CompoundTag tag, boolean clientPacket) {
+        super.write(tag, clientPacket);
+        midiSourceBehaviour.write(tag, clientPacket);
+    }
+
+    @Override
+    protected void read(CompoundTag tag, boolean clientPacket) {
+        super.read(tag, clientPacket);
+        midiSourceBehaviour.read(tag, clientPacket);
     }
 
     @Override
@@ -83,7 +100,7 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
         }
         level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, false), 3); //  turn power off
         deactivatedThisTick = true;
-        link.stopAllNotes();
+        midiSourceBehaviour.link.stopAllNotes();
         notifyUpdate();
     }
 
@@ -127,10 +144,9 @@ public class KeyboardRelayBlockEntity extends MidiSourceBlockEntity {
         }
     }
 
-    @Override
     public void handleMidiMessage(MidiMessage mm) {
         if (mm instanceof ShortMessage sm && (MidiUtils.isNoteOn(sm) || MidiUtils.isNoteOff(sm))) {
-            handleNote(sm);
+            midiSourceBehaviour.handleNote(sm);
         }
     }
 

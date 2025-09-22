@@ -1,31 +1,34 @@
 package com.finchy.pipeorgans.content.midi;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
-import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
-import java.util.HashMap;
 
-//@SuppressWarnings("DataFlowIssue")
-public abstract class MidiSourceBlockEntity extends SmartBlockEntity implements MenuProvider {
+public class MidiSourceBehaviour extends BlockEntityBehaviour {
+
+    public static final BehaviourType<MidiSourceBehaviour> TYPE = new BehaviourType<>();
 
     public ItemStackHandler storedGhostInv;
-    protected RedstoneMidiLink link;
+    public RedstoneMidiLink link;
 
-    public MidiSourceBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
+    protected Level level;
+    protected BlockPos pos;
+
+    public MidiSourceBehaviour(SmartBlockEntity be) {
+        super(be);
+        level = be.getLevel();
+        pos = be.getBlockPos();
+
         storedGhostInv = new ItemStackHandler(16) {
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
@@ -40,34 +43,33 @@ public abstract class MidiSourceBlockEntity extends SmartBlockEntity implements 
             @Override
             protected void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
-                setChanged();
-                if (!level.isClientSide()) {
+                blockEntity.setChanged();
+                if (!blockEntity.getLevel().isClientSide()) {
                     link.changeFrequencyKey(slot, getStackInSlot(slot));
                 }
             }
         };
-    }
 
-    @Override
-    public void setLevel(Level pLevel) {
-        super.setLevel(pLevel);
-        link = new RedstoneMidiLink(pLevel, worldPosition);
+        link = new RedstoneMidiLink(be);
         link.setFrequencyKeysOnLoad(storedGhostInv);
     }
 
     @Override
-    protected void write(CompoundTag tag, boolean clientPacket) {
-        tag.put("frequencyItems", storedGhostInv.serializeNBT());
-        super.write(tag, clientPacket);
+    public BehaviourType<?> getType() {
+        return null;
     }
 
     @Override
-    protected void read(CompoundTag tag, boolean clientPacket) {
-        storedGhostInv.deserializeNBT(tag.getCompound("frequencyItems"));
-        super.read(tag, clientPacket);
+    public void write(CompoundTag tag, boolean clientPacket) {
+        super.write(tag, clientPacket);
+        tag.put("frequencyItems", storedGhostInv.serializeNBT());
     }
 
-    public abstract void handleMidiMessage(MidiMessage mm);
+    @Override
+    public void read(CompoundTag tag, boolean clientPacket) {
+        super.read(tag, clientPacket);
+        storedGhostInv.deserializeNBT(tag.getCompound("frequencyItems"));
+    }
 
     public void handleNote(ShortMessage sm) {
         if (MidiUtils.isNoteOn(sm)) { // if note on
@@ -85,11 +87,11 @@ public abstract class MidiSourceBlockEntity extends SmartBlockEntity implements 
     }
 
     public void reactToNote(boolean on) {
-        level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, on), 3); //  turn power on/off
+        level.setBlock(pos, blockEntity.getBlockState().setValue(BlockStateProperties.POWERED, on), 3); //  turn power on/off
     }
+
 
     public void onBlockRemoved() {
         link.stopAllNotes();
     }
-
 }

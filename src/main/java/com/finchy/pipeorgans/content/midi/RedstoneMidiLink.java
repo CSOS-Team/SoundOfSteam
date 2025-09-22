@@ -10,7 +10,7 @@ import net.createmod.catnip.data.IntAttached;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.*;
@@ -21,10 +21,9 @@ public class RedstoneMidiLink {
     // list of channels, each channel being a map of active pitches and the corresponding ManualNoteFrequency
     private final ArrayList<Map<Integer, ManualNoteFrequency>> activeNotes;
     static final int TIMEOUT = 2;
-    private final Level world;
-    private final BlockPos pos;
+    private final BlockEntity be;
 
-    public RedstoneMidiLink(Level world, BlockPos pos) {
+    public RedstoneMidiLink(BlockEntity be) {
         FrequencyKeys = new ArrayList<>(Collections.nCopies(16, Frequency.of(ItemStack.EMPTY)));
         // set channel 10 to a different frequency by default, as 10 is usually the percussion channel
         FrequencyKeys.set(9, Frequency.of(new ItemStack(Items.STICK)));
@@ -32,8 +31,7 @@ public class RedstoneMidiLink {
         for (int i=0; i<16; i++) {
             activeNotes.add(new HashMap<>());
         }
-        this.world = world;
-        this.pos = pos;
+        this.be = be;
     }
 
     public static class ManualNoteFrequency extends IntAttached<Couple<Frequency>> implements IRedstoneLinkable {
@@ -98,12 +96,12 @@ public class RedstoneMidiLink {
 
             if (oldNote.getSecond().getFirst().getStack().equals(newKey)) // if the new key is the same as the existing key
                 return;
-            Create.REDSTONE_LINK_NETWORK_HANDLER.removeFromNetwork(world, oldNote);
+            Create.REDSTONE_LINK_NETWORK_HANDLER.removeFromNetwork(be.getLevel(), oldNote);
 
             Frequency pitchFreq = oldNote.getSecond().getSecond();
             ManualNoteFrequency newNoteFrequency = ManualNoteFrequency.create(oldNote.pos, Frequency.of(newKey), pitchFreq, oldNote.strength);
             entry.setValue(newNoteFrequency);
-            Create.REDSTONE_LINK_NETWORK_HANDLER.addToNetwork(world, newNoteFrequency);
+            Create.REDSTONE_LINK_NETWORK_HANDLER.addToNetwork(be.getLevel(), newNoteFrequency);
         }
         FrequencyKeys.set(channel, Frequency.of(newKey));
 
@@ -114,7 +112,7 @@ public class RedstoneMidiLink {
             for (Iterator<Map.Entry<Integer, ManualNoteFrequency>> noteIterator = entry.entrySet().iterator(); noteIterator.hasNext(); ) {
                 Map.Entry<Integer, ManualNoteFrequency> noteEntry = noteIterator.next();
                 noteIterator.remove();
-                Create.REDSTONE_LINK_NETWORK_HANDLER.removeFromNetwork(world, noteEntry.getValue());
+                Create.REDSTONE_LINK_NETWORK_HANDLER.removeFromNetwork(be.getLevel(), noteEntry.getValue());
             }
         }
     }
@@ -122,12 +120,12 @@ public class RedstoneMidiLink {
     public ManualNoteFrequency noteFrequency(int channel, int pitch, int velocity) {
         Frequency keyFreq = FrequencyKeys.get(channel);
         Frequency pitchFreq = Frequency.of(PitchMapping.getStack(pitch));
-        return ManualNoteFrequency.create(pos, keyFreq, pitchFreq, ManualNoteFrequency.midiVelocityToRedstone(velocity));
+        return ManualNoteFrequency.create(be.getBlockPos(), keyFreq, pitchFreq, ManualNoteFrequency.midiVelocityToRedstone(velocity));
     }
 
     public void activateNote(int channel, int pitch, int velocity) {
         ManualNoteFrequency noteFrequency = noteFrequency(channel, pitch, velocity);
-        Create.REDSTONE_LINK_NETWORK_HANDLER.addToNetwork(world, noteFrequency);
+        Create.REDSTONE_LINK_NETWORK_HANDLER.addToNetwork(be.getLevel(), noteFrequency);
         activeNotes.get(channel).put(pitch, noteFrequency);
     }
 
@@ -136,7 +134,7 @@ public class RedstoneMidiLink {
         if (channelNotes.containsKey(pitch)) {
             ManualNoteFrequency noteFrequency = channelNotes.get(pitch);
             channelNotes.remove(pitch);
-            Create.REDSTONE_LINK_NETWORK_HANDLER.removeFromNetwork(world, noteFrequency);
+            Create.REDSTONE_LINK_NETWORK_HANDLER.removeFromNetwork(be.getLevel(), noteFrequency);
         }
     }
 

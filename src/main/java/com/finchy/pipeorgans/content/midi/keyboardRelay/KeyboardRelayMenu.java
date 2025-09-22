@@ -23,7 +23,7 @@ public class KeyboardRelayMenu extends GhostItemMenu<KeyboardRelayBlockEntity> {
 
     @Override
     protected ItemStackHandler createGhostInventory() {
-        return contentHolder.storedGhostInv;
+        return contentHolder.midiSourceBehaviour.storedGhostInv;
     }
 
     @Override
@@ -47,6 +47,11 @@ public class KeyboardRelayMenu extends GhostItemMenu<KeyboardRelayBlockEntity> {
     }
 
     @Override
+    protected void saveData(KeyboardRelayBlockEntity contentHolder) {
+        contentHolder.midiSourceBehaviour.storedGhostInv = ghostInventory;
+    }
+
+    @Override
     protected void addSlots() {
         addPlayerSlots(12, 161);
         int x = 31;
@@ -60,8 +65,4 @@ public class KeyboardRelayMenu extends GhostItemMenu<KeyboardRelayBlockEntity> {
         }
     }
 
-    @Override
-    protected void saveData(KeyboardRelayBlockEntity contentHolder) {
-        contentHolder.storedGhostInv = ghostInventory;
-    }
 }

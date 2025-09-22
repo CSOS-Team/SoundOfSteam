@@ -1,9 +1,10 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.content.midi.MidiSourceBlockEntity;
+import com.finchy.pipeorgans.content.midi.MidiSourceBehaviour;
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -25,12 +26,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
 
-public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements MenuProvider {
-
-    private boolean buttonsEnabled = false;
+@SuppressWarnings({"DataFlowIssue", "NullableProblems"})
+public class TrackerBarBlockEntity extends SmartBlockEntity implements MenuProvider {
 
     private List<Queue<MidiEvent>> currentSequence = null;
 
+    private boolean buttonsEnabled = false;
     private boolean playing = false;
     private int tickPosition = 0;
     private int ppq;
@@ -45,6 +46,8 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
 
     public TrackerBarInventory inventory;
     protected final ContainerData data;
+
+    MidiSourceBehaviour midiSourceBehaviour;
 
     public class TrackerBarInventory extends ItemStackHandler {
         private final TrackerBarBlockEntity be;
@@ -107,12 +110,23 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         };
     }
 
+
+    @Override
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+        behaviours.add(midiSourceBehaviour = new MidiSourceBehaviour(this));
+    }
+
+    public void onBlockRemoved() {
+        midiSourceBehaviour.link.stopAllNotes();
+    }
+
     @Override
     protected void write(CompoundTag tag, boolean clientPacket) {
         super.write(tag, clientPacket);
         tag.put("Inventory", inventory.serializeNBT());
         tag.putString("File", currentMidi);
         tag.putString("Owner", currentMidiOwner);
+        midiSourceBehaviour.write(tag, clientPacket);
     }
 
     @Override
@@ -129,6 +143,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
             PipeOrgans.LOGGER.error("Exception when loading data from Tracker Bar NBT: {}", e.getMessage());
             buttonsEnabled = false;
         }
+        midiSourceBehaviour.read(tag, clientPacket);
     }
 
     @Override
@@ -172,7 +187,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
         playing = false;
         tickPosition = 0;
         tickStep = 1;
-        link.stopAllNotes();
+        midiSourceBehaviour.link.stopAllNotes();
         notifyUpdate();
     }
 
@@ -212,7 +227,7 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
 
                 } else if (msg instanceof ShortMessage sm) {
                     if (MidiUtils.isNoteOn(sm) || MidiUtils.isNoteOff(sm)) {
-                        handleNote(sm);
+                        midiSourceBehaviour.handleNote(sm);
                     } else if (MidiUtils.isProgramChange(sm)) {
                         channelInstruments.set(sm.getChannel(), MidiUtils.GeneralMidiInstrument.fromProgram(sm.getData1()));
                     }
@@ -231,14 +246,14 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     public void toggleSequencer() {
         playing = !playing;
         if (!playing) {
-            link.stopAllNotes();
+            midiSourceBehaviour.link.stopAllNotes();
         }
         setChanged();
     }
 
     public void restartPlayback() {
         playing = false;
-        link.stopAllNotes();
+        midiSourceBehaviour.link.stopAllNotes();
         tickPosition = 0;
         try {
             loadSequence(currentMidi, currentMidiOwner);
@@ -251,13 +266,10 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
     public void stopSequencer() {
         playing = false;
         tickPosition = 0;
-        link.stopAllNotes();
+        midiSourceBehaviour.link.stopAllNotes();
     }
 
     // BLOCK ENTITY STUFF
-
-    @Override
-    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
     public void onRollChanged() {
         ItemStack stack = inventory.getStackInSlot(0);
@@ -276,13 +288,6 @@ public class TrackerBarBlockEntity extends MidiSourceBlockEntity implements Menu
             buttonsEnabled = false;
         }
         setChanged();
-    }
-
-    @Override
-    public void handleMidiMessage(MidiMessage mm) {
-        if (mm instanceof ShortMessage sm && (MidiUtils.isNoteOn(sm) || MidiUtils.isNoteOff(sm))) {
-            handleNote(sm);
-        }
     }
 
     public boolean getButtonsEnabled() {
