@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "pipeorgans:block/tracker_bar"
-  }
+  "parent": "pipeorgans:block/tracker_bar/item"
 }

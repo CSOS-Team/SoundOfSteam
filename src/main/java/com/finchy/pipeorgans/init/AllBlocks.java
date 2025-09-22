@@ -82,7 +82,8 @@ public class AllBlocks {
 
     public static final BlockEntry<TrackerBarBlock> TRACKER_BAR = REGISTRATE.block("tracker_bar", TrackerBarBlock::new)
             .initialProperties(() -> Blocks.COPPER_BLOCK)
-            .simpleItem()
+            .item()
+            .transform(customItemModel())
             .register();
 
     public static final BlockEntry<WindchestBlock> WINDCHEST = REGISTRATE.block("windchest", WindchestBlock::new)
