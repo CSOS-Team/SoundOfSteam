@@ -1,7 +1,34 @@
 {
   "variants": {
-    "": {
-      "model": "pipeorgans:block/tracker_bar"
+    "facing=east,powered=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar",
+      "y": 90
+    },
+    "facing=east,powered=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_powered",
+      "y": 90
+    },
+    "facing=north,powered=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar"
+    },
+    "facing=north,powered=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_powered"
+    },
+    "facing=south,powered=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar",
+      "y": 180
+    },
+    "facing=south,powered=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_powered",
+      "y": 180
+    },
+    "facing=west,powered=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar",
+      "y": 270
+    },
+    "facing=west,powered=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_powered",
+      "y": 270
     }
   }
 }

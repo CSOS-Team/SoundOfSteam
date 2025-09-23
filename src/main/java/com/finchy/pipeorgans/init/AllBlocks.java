@@ -82,6 +82,7 @@ public class AllBlocks {
 
     public static final BlockEntry<TrackerBarBlock> TRACKER_BAR = REGISTRATE.block("tracker_bar", TrackerBarBlock::new)
             .initialProperties(() -> Blocks.COPPER_BLOCK)
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
             .item()
             .transform(customItemModel())
             .register();

@@ -159,7 +159,7 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     @Override
     public void tick() {
         super.tick();
-        if (playing && speed > 0) {
+        if (playing && speed != 0) {
             tickSequencer();
         }
     }
