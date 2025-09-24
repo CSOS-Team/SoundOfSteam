@@ -118,6 +118,8 @@
   "advancement.pipeorgans.gedeckt.desc": "Place a Gedeckt Pipe",
   "advancement.pipeorgans.hohlflute": "Hohl in One",
   "advancement.pipeorgans.hohlflute.desc": "Place a Hohlflute Pipe",
+  "advancement.pipeorgans.rohrflote": "The Pipe with a Hat",
+  "advancement.pipeorgans.rohrflote.desc": "Place a Rohrflote Pipe",
   "advancement.pipeorgans.diapason": "The Principal Voice",
   "advancement.pipeorgans.diapason.desc": "Place a Diapason Pipe",
   "advancement.pipeorgans.prestant": "Pressed and Prestant",
@@ -140,6 +142,8 @@
   "advancement.pipeorgans.posaune.desc": "Place a Posaune Pipe",
   "advancement.pipeorgans.vox_humana": "A Choir of Goats",
   "advancement.pipeorgans.vox_humana.desc": "Place a Vox Humana Pipe",
+  "advancement.pipeorgans.english_horn": "Actually from Germany",
+  "advancement.pipeorgans.english_horn.desc": "Place an English Horn Pipe",
   "advancement.pipeorgans.reed": "Are you Reed-y?",
   "advancement.pipeorgans.reed.desc": "Assemble a Reed Pipe by deploying a Boot, Brass Reed and Tuning Wire onto a Pipe Base",
 

@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "item": "pipeorgans:english_horn"
+    },
+    "title": {
+      "translate": "advancement.pipeorgans.english_horn"
+    },
+    "description": {
+      "translate": "advancement.pipeorgans.english_horn.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "pipeorgans:reed",
+  "criteria": {
+    "example": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": [
+                "pipeorgans:english_horn"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
