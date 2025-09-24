@@ -34,6 +34,12 @@
   "sounds.pipeorgans.hohlflute_low": "Hohlflute grumbles",
   "sounds.pipeorgans.hohlflute_deep": "Hohlflute rumbles",
 
+  "sounds.pipeorgans.rohrflote_superhigh": "Rohrflote squeals",
+  "sounds.pipeorgans.rohrflote_high": "Rohrflote squeaks",
+  "sounds.pipeorgans.rohrflote_medium": "Rohrflote speaks",
+  "sounds.pipeorgans.rohrflote_low": "Rohrflote grumbles",
+  "sounds.pipeorgans.rohrflote_deep": "Rohrflote rumbles",
+
   "sounds.pipeorgans.diapason_superhigh": "Diapason squeals",
   "sounds.pipeorgans.diapason_high": "Diapason squeaks",
   "sounds.pipeorgans.diapason_medium": "Diapason speaks",
@@ -80,6 +86,12 @@
   "sounds.pipeorgans.trompette_medium": "Trompette speaks",
   "sounds.pipeorgans.trompette_low": "Trompette grumbles",
   "sounds.pipeorgans.trompette_deep": "Trompette rumbles",
+
+  "sounds.pipeorgans.english_horn_superhigh": "English Horn squeals",
+  "sounds.pipeorgans.english_horn_high": "English Horn squeaks",
+  "sounds.pipeorgans.english_horn_medium": "English Horn speaks",
+  "sounds.pipeorgans.english_horn_low": "English Horn grumbles",
+  "sounds.pipeorgans.english_horn_deep": "English Horn rumbles",
 
   "sounds.pipeorgans.nasard_superhigh": "Nasard squeals",
   "sounds.pipeorgans.nasard_high": "Nasard squeaks",
@@ -273,7 +285,5 @@
   "instrument.pipeorgans.telephone_ring": "Telephone Ring",
   "instrument.pipeorgans.helicopter": "Helicopter",
   "instrument.pipeorgans.applause": "Applause",
-  "instrument.pipeorgans.gunshot": "Gunshot",
-
-  "instrument.pipeorgans.empty": ""
+  "instrument.pipeorgans.gunshot": "Gunshot"
 }
