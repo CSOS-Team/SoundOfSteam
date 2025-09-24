@@ -58,6 +58,12 @@ public class AllPartialModels {
     TROMPETTE_MOUTH_LARGE = block("trompette/trompette_large_mouth"),
     TROMPETTE_MOUTH_HUGE = block("trompette/trompette_huge_mouth"),
 
+    ENGLISH_HORN_MOUTH_TINY = block("english_horn/english_horn_tiny_mouth"),
+    ENGLISH_HORN_MOUTH_SMALL = block("english_horn/english_horn_small_mouth"),
+    ENGLISH_HORN_MOUTH_MEDIUM = block("english_horn/english_horn_medium_mouth"),
+    ENGLISH_HORN_MOUTH_LARGE = block("english_horn/english_horn_large_mouth"),
+    ENGLISH_HORN_MOUTH_HUGE = block("english_horn/english_horn_huge_mouth"),
+
     NASARD_MOUTH_TINY = block("nasard/nasard_tiny_mouth"),
     NASARD_MOUTH_SMALL = block("nasard/nasard_small_mouth"),
     NASARD_MOUTH_MEDIUM = block("nasard/nasard_medium_mouth"),

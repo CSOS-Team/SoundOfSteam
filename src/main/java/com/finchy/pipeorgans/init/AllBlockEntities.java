@@ -7,6 +7,8 @@ import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarVisual;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonRenderer;
+import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornBlockEntity;
+import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornRenderer;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaBlockEntity;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaRenderer;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlockEntity;
@@ -123,6 +125,12 @@ public class AllBlockEntities {
             TrompetteBlockEntity::new,
             AllBlocks.TROMPETTE,
             () -> TrompetteRenderer::new);
+
+    public static final BlockEntityEntry<EnglishHornBlockEntity> ENGLISH_HORN_BLOCK_ENTITY = registerPipeBlockEntity(
+            "english_horn_block_entity",
+            EnglishHornBlockEntity::new,
+            AllBlocks.ENGLISH_HORN,
+            () -> EnglishHornRenderer::new);
 
     public static final BlockEntityEntry<ViolaBlockEntity> VIOLA_BLOCK_ENTITY = registerPipeBlockEntity(
             "viola_block_entity",

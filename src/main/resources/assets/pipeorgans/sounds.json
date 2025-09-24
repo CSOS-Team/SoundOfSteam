@@ -494,6 +494,60 @@
     ]
   },
 
+  "english_horn_superhigh": {
+    "subtitle": "sounds.pipeorgans.english_horn_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:english_horn/eh_superhigh"
+      }
+    ]
+  },
+
+  "english_horn_high": {
+    "subtitle": "sounds.pipeorgans.english_horn_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:english_horn/eh_high"
+      }
+    ]
+  },
+
+  "english_horn_medium": {
+    "subtitle": "sounds.pipeorgans.english_horn_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:english_horn/eh_medium"
+      }
+    ]
+  },
+
+  "english_horn_low": {
+    "subtitle": "sounds.pipeorgans.english_horn_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:english_horn/eh_low"
+      }
+    ]
+  },
+
+  "english_horn_deep": {
+    "subtitle": "sounds.pipeorgans.english_horn_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:english_horn/eh_deep"
+      }
+    ]
+  },
 
 
   "nasard_superhigh": {

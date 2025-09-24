@@ -6,6 +6,8 @@ import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornBlock;
+import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.prestant.PrestantBlock;
 import com.finchy.pipeorgans.content.pipes.prestant.PrestantExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaBlock;
@@ -237,6 +239,19 @@ public class AllBlocks {
     public static final BlockEntry<TrompetteExtensionBlock> TROMPETTE_EXTENSION = registerExtensionBlock(
             "trompette_extension",
             TrompetteExtensionBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<EnglishHornBlock> ENGLISH_HORN = registerPipeBlock(
+            "english_horn",
+            EnglishHornBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<EnglishHornExtensionBlock> ENGLISH_HORN_EXTENSION = registerExtensionBlock(
+            "english_horn_extension",
+            EnglishHornExtensionBlock::new,
             com.simibubi.create.AllBlocks.BRASS_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 
