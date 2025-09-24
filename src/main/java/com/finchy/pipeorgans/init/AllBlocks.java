@@ -26,6 +26,8 @@ import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloBlock;
 import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlock;
 import com.finchy.pipeorgans.content.pipes.posaune.PosauneExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.rohrflote.RohrfloteBlock;
+import com.finchy.pipeorgans.content.pipes.rohrflote.RohrfloteExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.subbass.SubbassBlock;
 import com.finchy.pipeorgans.content.pipes.subbass.SubbassExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlock;
@@ -176,6 +178,19 @@ public class AllBlocks {
             HohlfluteExtensionBlock::new,
             () -> Blocks.BIRCH_PLANKS,
             BlockTags.MINEABLE_WITH_AXE);
+
+    public static final BlockEntry<RohrfloteBlock> ROHRFLOTE = registerPipeBlock(
+            "rohrflote",
+            RohrfloteBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<RohrfloteExtensionBlock> ROHRFLOTE_EXTENSION = registerExtensionBlock(
+            "rohrflote_extension",
+            RohrfloteExtensionBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
     public static final BlockEntry<NasardBlock> NASARD = registerPipeBlock(
             "nasard",

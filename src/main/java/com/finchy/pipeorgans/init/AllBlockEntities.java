@@ -24,6 +24,8 @@ import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlockEntity;
 import com.finchy.pipeorgans.content.pipes.posaune.PosauneRenderer;
 import com.finchy.pipeorgans.content.pipes.prestant.PrestantBlockEntity;
 import com.finchy.pipeorgans.content.pipes.prestant.PrestantRenderer;
+import com.finchy.pipeorgans.content.pipes.rohrflote.RohrfloteBlockEntity;
+import com.finchy.pipeorgans.content.pipes.rohrflote.RohrfloteRenderer;
 import com.finchy.pipeorgans.content.pipes.subbass.SubbassBlockEntity;
 import com.finchy.pipeorgans.content.pipes.subbass.SubbassRenderer;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlockEntity;
@@ -95,6 +97,12 @@ public class AllBlockEntities {
             HohlfluteBlockEntity::new,
             AllBlocks.HOHLFLUTE,
             () -> HohlfluteRenderer::new);
+
+    public static final BlockEntityEntry<RohrfloteBlockEntity> ROHRFLOTE_BLOCK_ENTITY = registerPipeBlockEntity(
+            "rohrflote_block_entity",
+            RohrfloteBlockEntity::new,
+            AllBlocks.ROHRFLOTE,
+            () -> RohrfloteRenderer::new);
 
     public static final BlockEntityEntry<NasardBlockEntity> NASARD_BLOCK_ENTITY = registerPipeBlockEntity(
             "nasard_block_entity",

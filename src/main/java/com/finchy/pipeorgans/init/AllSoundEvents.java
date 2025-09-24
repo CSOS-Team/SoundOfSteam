@@ -28,6 +28,12 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> HOHLFLUTE_LOW = registerSoundEvent("hohlflute_low");
     public static final RegistryObject<SoundEvent> HOHLFLUTE_DEEP = registerSoundEvent("hohlflute_deep");
 
+    public static final RegistryObject<SoundEvent> ROHRFLOTE_SUPERHIGH = registerSoundEvent("rohrflote_superhigh");
+    public static final RegistryObject<SoundEvent> ROHRFLOTE_HIGH = registerSoundEvent("rohrflote_high");
+    public static final RegistryObject<SoundEvent> ROHRFLOTE_MEDIUM = registerSoundEvent("rohrflote_medium");
+    public static final RegistryObject<SoundEvent> ROHRFLOTE_LOW = registerSoundEvent("rohrflote_low");
+    public static final RegistryObject<SoundEvent> ROHRFLOTE_DEEP = registerSoundEvent("rohrflote_deep");
+
     public static final RegistryObject<SoundEvent> DIAPASON_SUPERHIGH = registerSoundEvent("diapason_superhigh");
     public static final RegistryObject<SoundEvent> DIAPASON_HIGH = registerSoundEvent("diapason_high");
     public static final RegistryObject<SoundEvent> DIAPASON_MEDIUM = registerSoundEvent("diapason_medium");

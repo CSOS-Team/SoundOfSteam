@@ -708,6 +708,65 @@
     ]
   },
 
+
+
+  "rohrflote_superhigh": {
+    "subtitle": "sounds.pipeorgans.rohrflote_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:rohrflote/rf_superhigh"
+      }
+    ]
+  },
+
+  "rohrflote_high": {
+    "subtitle": "sounds.pipeorgans.rohrflote_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:rohrflote/rf_high"
+      }
+    ]
+  },
+
+  "rohrflote_medium": {
+    "subtitle": "sounds.pipeorgans.rohrflote_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:rohrflote/rf_medium"
+      }
+    ]
+  },
+
+  "rohrflote_low": {
+    "subtitle": "sounds.pipeorgans.rohrflote_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:rohrflote/rf_low"
+      }
+    ]
+  },
+
+  "rohrflote_deep": {
+    "subtitle": "sounds.pipeorgans.rohrflote_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:rohrflote/rf_deep"
+      }
+    ]
+  },
+
+
+
   "hohlflute_superhigh": {
     "subtitle": "sounds.pipeorgans.hohlflute_superhigh",
     "sounds": [
