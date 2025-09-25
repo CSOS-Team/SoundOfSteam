@@ -95,7 +95,7 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
     }
 
     public String getLoadedFilename() {
-        return contentHolder.getCurrentMidi();
+        return contentHolder.midiSequencerBehaviour.getCurrentMidi();
     }
 
     @Override

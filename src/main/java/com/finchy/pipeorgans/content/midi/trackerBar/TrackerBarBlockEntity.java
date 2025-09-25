@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.content.midi.MidiSequencerBehaviour;
 import com.finchy.pipeorgans.content.midi.MidiSourceBehaviour;
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
@@ -29,25 +30,13 @@ import java.util.Queue;
 @SuppressWarnings({"DataFlowIssue", "NullableProblems"})
 public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuProvider {
 
-    private List<Queue<MidiEvent>> currentSequence = null;
-
     private boolean buttonsEnabled = false;
-    private boolean playing = false;
-    private int tickPosition = 0;
-    private int ppq;
-    private int tickStep = 1;
-    public double bpm;
-    public int endTick = 1;
-    public List<MidiUtils.GeneralMidiInstrument> channelInstruments;
-    public static final List<MidiUtils.GeneralMidiInstrument> defaultChannelInstruments = new ArrayList<>(Collections.nCopies(16, MidiUtils.GeneralMidiInstrument.EMPTY));
-
-    private String currentMidi = "";
-    private String currentMidiOwner = "";
 
     public TrackerBarInventory inventory;
     protected final ContainerData data;
 
     MidiSourceBehaviour midiSourceBehaviour;
+    MidiSequencerBehaviour midiSequencerBehaviour;
 
     public class TrackerBarInventory extends ItemStackHandler {
         private final TrackerBarBlockEntity be;
@@ -67,32 +56,31 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     public TrackerBarBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
         inventory = new TrackerBarInventory(this);
-        channelInstruments = new ArrayList<>(defaultChannelInstruments);
         data = new ContainerData() {
             @Override
             public int get(int pIndex) {
                 return switch (pIndex) {
-                    case 0 -> TrackerBarBlockEntity.this.channelInstruments.get(0).program;
-                    case 1 -> TrackerBarBlockEntity.this.channelInstruments.get(1).program;
-                    case 2 -> TrackerBarBlockEntity.this.channelInstruments.get(2).program;
-                    case 3 -> TrackerBarBlockEntity.this.channelInstruments.get(3).program;
-                    case 4 -> TrackerBarBlockEntity.this.channelInstruments.get(4).program;
-                    case 5 -> TrackerBarBlockEntity.this.channelInstruments.get(5).program;
-                    case 6 -> TrackerBarBlockEntity.this.channelInstruments.get(6).program;
-                    case 7 -> TrackerBarBlockEntity.this.channelInstruments.get(7).program;
-                    case 8 -> TrackerBarBlockEntity.this.channelInstruments.get(8).program;
-                    case 9 -> TrackerBarBlockEntity.this.channelInstruments.get(9).program;
-                    case 10 -> TrackerBarBlockEntity.this.channelInstruments.get(10).program;
-                    case 11 -> TrackerBarBlockEntity.this.channelInstruments.get(11).program;
-                    case 12 -> TrackerBarBlockEntity.this.channelInstruments.get(12).program;
-                    case 13 -> TrackerBarBlockEntity.this.channelInstruments.get(13).program;
-                    case 14 -> TrackerBarBlockEntity.this.channelInstruments.get(14).program;
-                    case 15 -> TrackerBarBlockEntity.this.channelInstruments.get(15).program;
+                    case 0 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(0).program;
+                    case 1 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(1).program;
+                    case 2 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(2).program;
+                    case 3 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(3).program;
+                    case 4 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(4).program;
+                    case 5 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(5).program;
+                    case 6 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(6).program;
+                    case 7 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(7).program;
+                    case 8 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(8).program;
+                    case 9 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(9).program;
+                    case 10 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(10).program;
+                    case 11 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(11).program;
+                    case 12 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(12).program;
+                    case 13 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(13).program;
+                    case 14 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(14).program;
+                    case 15 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(15).program;
 
-                    case 16 -> TrackerBarBlockEntity.this.playing ? 1 : 0;
-                    case 17 -> TrackerBarBlockEntity.this.tickPosition;
-                    case 18 -> TrackerBarBlockEntity.this.endTick;
-                    case 19 -> (int) (TrackerBarBlockEntity.this.bpm*10);
+                    case 16 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.isPlaying() ? 1 : 0;
+                    case 17 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.getTickPosition();
+                    case 18 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.getEndTick();
+                    case 19 -> (int) (TrackerBarBlockEntity.this.midiSequencerBehaviour.get10xBPM());
                     case 20 -> TrackerBarBlockEntity.this.buttonsEnabled ? 1 : 0;
                     default -> 0;
                 };
@@ -114,6 +102,7 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         behaviours.add(midiSourceBehaviour = new MidiSourceBehaviour(this));
+        behaviours.add(midiSequencerBehaviour = new MidiSequencerBehaviour(this));
     }
 
     public void onBlockRemoved() {
@@ -124,8 +113,7 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     protected void write(CompoundTag tag, boolean clientPacket) {
         super.write(tag, clientPacket);
         tag.put("Inventory", inventory.serializeNBT());
-        tag.putString("File", currentMidi);
-        tag.putString("Owner", currentMidiOwner);
+        midiSequencerBehaviour.write(tag, clientPacket);
         midiSourceBehaviour.write(tag, clientPacket);
     }
 
@@ -133,16 +121,7 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     protected void read(CompoundTag tag, boolean clientPacket) {
         super.read(tag, clientPacket);
         inventory.deserializeNBT(tag.getCompound("Inventory"));
-        String midiRead = tag.getString("File");
-        String ownerRead = tag.getString("Owner");
-        try {
-            if (!midiRead.isEmpty() && !ownerRead.isEmpty()) {loadSequence(midiRead, ownerRead);
-                buttonsEnabled = true;
-            } else buttonsEnabled = false;
-        } catch (MidiLoadException e) {
-            PipeOrgans.LOGGER.error("Exception when loading data from Tracker Bar NBT: {}", e.getMessage());
-            buttonsEnabled = false;
-        }
+        midiSequencerBehaviour.read(tag, clientPacket);
         midiSourceBehaviour.read(tag, clientPacket);
     }
 
@@ -159,127 +138,24 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     @Override
     public void tick() {
         super.tick();
-        if (playing && speed != 0) {
-            tickSequencer();
+        if (midiSequencerBehaviour.isPlaying() && speed != 0) {
+            midiSequencerBehaviour.tickSequencer();
         }
     }
 
-    // SEQUENCER
-
-    public void loadSequence(String file, String owner) throws MidiLoadException {
-        Sequence sequence = MidiFileParser.getSequenceFromFile(file, owner);
-
-        currentSequence = MidiFileParser.parseMidiEvents(sequence);
-
-        ppq = sequence.getResolution();
-        MidiFileParser.initialParse(sequence, this::setChannelInstrument, this::setTempo);
-        endTick = MidiFileParser.endTick(sequence);
-        currentMidi = file;
-        currentMidiOwner = owner;
-        notifyUpdate();
+    public void setButtonsEnabled(boolean enabled) {
+        buttonsEnabled = enabled;
     }
-
-    public void unloadSequence() {
-        currentSequence = null;
-        currentMidi = "";
-        currentMidiOwner = "";
-        channelInstruments = new ArrayList<>(defaultChannelInstruments);
-        playing = false;
-        tickPosition = 0;
-        tickStep = 1;
-        midiSourceBehaviour.link.stopAllNotes();
-        notifyUpdate();
-    }
-
-    public boolean isSequenceLoaded() {
-        return currentSequence != null && !currentMidi.isEmpty() && !currentMidiOwner.isEmpty();
-    }
-
-    public void setTempo(byte[] data) {
-        int microsPerQuarterNote = ((data[0] & 0xFF) << 16) | // combine into a single int
-                ((data[1] & 0xFF) << 8) |
-                (data[2] & 0xFF);
-        bpm = 60_000_000f / microsPerQuarterNote;
-        float midiTPS = (1000000f/microsPerQuarterNote) * ppq;
-        tickStep = Math.round(midiTPS/20);
-        setChanged();
-    }
-
-    public void setChannelInstrument(int channel, int program) {
-        channelInstruments.set(channel, MidiUtils.GeneralMidiInstrument.fromProgram(program));
-    }
-
-    public void tickSequencer() {
-        for (Queue<MidiEvent> track : currentSequence) {
-            while (track.peek() != null && track.peek().getTick() <= tickPosition) {
-                MidiMessage msg = track.poll().getMessage();
-
-                if (tickPosition >= endTick) {
-                    restartPlayback();
-                    return;
-                }
-
-                if (msg instanceof MetaMessage mm) { // if it's a MetaMessage
-
-                    if (MidiUtils.isTempoChange(mm)) { // if it's a tempo change MetaMessage
-                        setTempo(mm.getData());
-                    }
-
-                } else if (msg instanceof ShortMessage sm) {
-                    if (MidiUtils.isNoteOn(sm) || MidiUtils.isNoteOff(sm)) {
-                        midiSourceBehaviour.handleNote(sm);
-                    } else if (MidiUtils.isProgramChange(sm)) {
-                        channelInstruments.set(sm.getChannel(), MidiUtils.GeneralMidiInstrument.fromProgram(sm.getData1()));
-                    }
-                    // not worrying about control changes or anything else for now
-                } /* else if (msg instanceof SysexMessage sx) {
-                    // we'll just ignore sysex messages
-                }
-                */
-
-            }
-        }
-        tickPosition += tickStep;
-        setChanged();
-    }
-
-    public void toggleSequencer() {
-        playing = !playing;
-        if (!playing) {
-            midiSourceBehaviour.link.stopAllNotes();
-        }
-        setChanged();
-    }
-
-    public void restartPlayback() {
-        playing = false;
-        midiSourceBehaviour.link.stopAllNotes();
-        tickPosition = 0;
-        try {
-            loadSequence(currentMidi, currentMidiOwner);
-        } catch (MidiLoadException e) {
-            buttonsEnabled = false;
-        }
-        setChanged();
-    }
-
-    public void stopSequencer() {
-        playing = false;
-        tickPosition = 0;
-        midiSourceBehaviour.link.stopAllNotes();
-    }
-
-    // BLOCK ENTITY STUFF
 
     public void onRollChanged() {
         ItemStack stack = inventory.getStackInSlot(0);
         if (stack.isEmpty()) {
-            unloadSequence();
+            midiSequencerBehaviour.unloadSequence();
             buttonsEnabled = false;
         } else if (MidiUtils.isMusicRollValid(stack)) {
             try {
                 CompoundTag tag = stack.getTag();
-                loadSequence(tag.getString("File"), tag.getString("Owner"));
+                midiSequencerBehaviour.loadSequence(tag.getString("File"), tag.getString("Owner"));
                 buttonsEnabled = true;
             } catch (MidiLoadException e) {
                 buttonsEnabled = false;
@@ -294,18 +170,22 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
         return buttonsEnabled;
     }
 
-    public String getCurrentMidi() {
-        return currentMidi;
-    }
-
     public void pressTogglePlayButton() {
-        if (isSequenceLoaded()) {
-            toggleSequencer();
+        if (midiSequencerBehaviour.isSequenceLoaded()) {
+            midiSequencerBehaviour.toggleSequencer();
         }
     }
 
     public void pressStopButton() {
-        restartPlayback();
+        midiSequencerBehaviour.restartPlayback();
+    }
+
+    public void handleNote(ShortMessage sm) {
+        midiSourceBehaviour.handleNote(sm);
+    }
+
+    public void stopAllNotes() {
+        midiSourceBehaviour.link.stopAllNotes();
     }
 
 }

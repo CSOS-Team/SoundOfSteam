@@ -13,6 +13,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.sound.midi.ShortMessage;
+import java.util.List;
 
 public class MidiSourceBehaviour extends BlockEntityBehaviour {
 
@@ -56,18 +57,16 @@ public class MidiSourceBehaviour extends BlockEntityBehaviour {
 
     @Override
     public BehaviourType<?> getType() {
-        return null;
+        return TYPE;
     }
 
     @Override
     public void write(CompoundTag tag, boolean clientPacket) {
-        super.write(tag, clientPacket);
         tag.put("frequencyItems", storedGhostInv.serializeNBT());
     }
 
     @Override
     public void read(CompoundTag tag, boolean clientPacket) {
-        super.read(tag, clientPacket);
         storedGhostInv.deserializeNBT(tag.getCompound("frequencyItems"));
         link.setFrequencyKeysOnLoad(storedGhostInv);
     }
@@ -89,10 +88,5 @@ public class MidiSourceBehaviour extends BlockEntityBehaviour {
 
     public void reactToNote(boolean on) {
         level.setBlock(pos, blockEntity.getBlockState().setValue(BlockStateProperties.POWERED, on), 3); //  turn power on/off
-    }
-
-
-    public void onBlockRemoved() {
-        link.stopAllNotes();
     }
 }

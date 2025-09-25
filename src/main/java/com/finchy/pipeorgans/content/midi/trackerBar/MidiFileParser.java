@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
 import net.minecraft.client.Minecraft;
