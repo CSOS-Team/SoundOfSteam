@@ -69,6 +69,7 @@ public class MidiSourceBehaviour extends BlockEntityBehaviour {
     public void read(CompoundTag tag, boolean clientPacket) {
         super.read(tag, clientPacket);
         storedGhostInv.deserializeNBT(tag.getCompound("frequencyItems"));
+        link.setFrequencyKeysOnLoad(storedGhostInv);
     }
 
     public void handleNote(ShortMessage sm) {
