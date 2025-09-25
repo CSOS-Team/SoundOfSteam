@@ -39,9 +39,9 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.WINDCHEST_MASTER.get());
                         output.accept(AllBlocks.WINDCHEST.get());
                         output.accept(AllItems.BRASS_BOOT.get());
-                        output.accept(AllItems.DARK_OAK_BOOT.get());
                         output.accept(AllItems.COPPER_BOOT.get());
                         output.accept(AllItems.IRON_BOOT.get());
+                        output.accept(AllItems.DARK_OAK_BOOT.get());
                         output.accept(AllItems.BRASS_REED.get());
                         output.accept(AllItems.TUNING_WIRE.get());
                         output.accept(AllBlocks.KEYBOARD_RELAY.get());
