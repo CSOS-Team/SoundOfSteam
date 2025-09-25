@@ -4,7 +4,6 @@ import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
-import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.CreateLang;
@@ -23,7 +22,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -82,11 +80,6 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
     @Override
     public void tick() {
         super.tick();
-        if (!level.isClientSide()) {
-            if (isPowered())
-                award(AllAdvancements.STEAM_WHISTLE);
-            return;
-        }
 
         FluidTankBlockEntity tank = getTank();
 

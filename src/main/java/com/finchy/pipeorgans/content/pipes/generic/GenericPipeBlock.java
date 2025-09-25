@@ -35,12 +35,12 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
+@SuppressWarnings({"NullableProblems", "deprecation"})
 public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -49,7 +49,7 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
     public static final EnumProperty<EPipeSizes.PipeSize> SIZE = EnumProperty.create("size", EPipeSizes.PipeSize.class);
 
     protected BlockEntry<? extends GenericPipeBlock> baseBlock;
-    protected BlockEntry<? extends GenericExtensionBlock> extensionBlock;
+    protected BlockEntry<? extends GenericExtensionBlock<? extends EExtensionShapes.ExtensionShape>> extensionBlock;
     protected BlockEntityEntry<? extends GenericPipeBlockEntity> blockEntityType;
 
     public final int EPB;
