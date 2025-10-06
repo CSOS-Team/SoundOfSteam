@@ -1,0 +1,33 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"3": "pipeorgans:block/haunted_whistle_2",
+		"particle": "pipeorgans:block/particle/haunted_whistle_particle"
+	},
+	"elements": [
+		{
+			"name": "Whistle Large Base",
+			"from": [2, 0, 2],
+			"to": [14, 8, 14],
+			"faces": {
+				"north": {"uv": [12.5, 8.5, 15.5, 10.5], "texture": "#3"},
+				"east": {"uv": [12.5, 8.5, 15.5, 10.5], "texture": "#3"},
+				"south": {"uv": [12.5, 8.5, 15.5, 10.5], "texture": "#3"},
+				"west": {"uv": [12.5, 8.5, 15.5, 10.5], "texture": "#3"}
+			}
+		},
+		{
+			"name": "Whistle Large Base",
+			"from": [2, 8, 2],
+			"to": [14, 16, 14],
+			"faces": {
+				"north": {"uv": [12.5, 8.5, 15.5, 10.5], "texture": "#3"},
+				"east": {"uv": [12.5, 8.5, 15.5, 10.5], "texture": "#3"},
+				"south": {"uv": [12.5, 8.5, 15.5, 10.5], "texture": "#3"},
+				"west": {"uv": [12.5, 8.5, 15.5, 10.5], "texture": "#3"},
+				"down": {"uv": [13.25, 13.25, 15.25, 15.25], "texture": "#3"}
+			}
+		}
+	]
+}

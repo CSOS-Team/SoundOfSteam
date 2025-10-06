@@ -1,4 +1,8 @@
 Audio samples from Piotr Grabowski's Szczecinek and St. John Cantius libraries - https://piotrgrabowski.pl/szczecinek/, https://piotrgrabowski.pl/cracow-st-john-cantius/
 Thanks to Piotr for his permission to use his samples in this project!
 
+Concepts and initial assets for the Posaune, Vox Humana, English Horn, and Rohrflote by @nacho_9412 on Discord
+
+Concept and initial assets for the Haunted Whistle by @kayla_the_bee on Discord
+
 HUGE thank-you to SuperSaiyanChad for creating the 1.21 port!

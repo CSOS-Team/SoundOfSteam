@@ -111,6 +111,62 @@
     ]
   },
 
+
+  "haunted_whistle_superhigh": {
+    "subtitle": "sounds.pipeorgans.haunted_whistle_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:haunted_whistle/hw_superhigh"
+      }
+    ]
+  },
+
+  "haunted_whistle_high": {
+    "subtitle": "sounds.pipeorgans.haunted_whistle_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:haunted_whistle/hw_high"
+      }
+    ]
+  },
+
+  "haunted_whistle_medium": {
+    "subtitle": "sounds.pipeorgans.haunted_whistle_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:haunted_whistle/hw_medium"
+      }
+    ]
+  },
+
+  "haunted_whistle_low": {
+    "subtitle": "sounds.pipeorgans.haunted_whistle_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:haunted_whistle/hw_low"
+      }
+    ]
+  },
+
+  "haunted_whistle_deep": {
+    "subtitle": "sounds.pipeorgans.haunted_whistle_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:haunted_whistle/hw_deep"
+      }
+    ]
+  },
+
   "prestant_superhigh": {
     "subtitle": "sounds.pipeorgans.prestant_superhigh",
     "sounds": [

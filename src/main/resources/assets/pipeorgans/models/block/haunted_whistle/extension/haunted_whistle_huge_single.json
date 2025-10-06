@@ -1,0 +1,37 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"3": "pipeorgans:block/haunted_whistle_2",
+		"particle": "pipeorgans:block/particle/haunted_whistle_particle"
+	},
+	"elements": [
+		{
+			"name": "Whistle Large Base",
+			"from": [2, 0, 2],
+			"to": [14, 8, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -8, 0]},
+			"faces": {
+				"north": {"uv": [12.5, 8.5, 15.5, 10.5], "texture": "#3"},
+				"east": {"uv": [12.5, 8.5, 15.5, 10.5], "texture": "#3"},
+				"south": {"uv": [12.5, 8.5, 15.5, 10.5], "texture": "#3"},
+				"west": {"uv": [12.5, 8.5, 15.5, 10.5], "texture": "#3"},
+				"down": {"uv": [13.25, 13.25, 15.25, 15.25], "texture": "#3"}
+			}
+		},
+		{
+			"name": "Whistle Large Cap",
+			"from": [1, 8, 1],
+			"to": [15, 10, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -8, 0]},
+			"faces": {
+				"north": {"uv": [12.5, 7.75, 15.5, 8.25], "texture": "#3", "cullface": "up"},
+				"east": {"uv": [12.5, 7.75, 15.5, 8.25], "texture": "#3", "cullface": "up"},
+				"south": {"uv": [12.5, 7.75, 15.5, 8.25], "texture": "#3", "cullface": "up"},
+				"west": {"uv": [12.5, 7.75, 15.5, 8.25], "texture": "#3", "cullface": "up"},
+				"up": {"uv": [4.25, 3.75, 7.75, 7.25], "texture": "#3", "cullface": "up"},
+				"down": {"uv": [12.75, 12.75, 15.75, 15.75], "texture": "#3", "cullface": "up"}
+			}
+		}
+	]
+}

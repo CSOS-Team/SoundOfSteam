@@ -40,6 +40,12 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> DIAPASON_LOW = registerSoundEvent("diapason_low");
     public static final RegistryObject<SoundEvent> DIAPASON_DEEP = registerSoundEvent("diapason_deep");
 
+    public static final RegistryObject<SoundEvent> HAUNTED_WHISTLE_SUPERHIGH = registerSoundEvent("haunted_whistle_superhigh");
+    public static final RegistryObject<SoundEvent> HAUNTED_WHISTLE_HIGH = registerSoundEvent("haunted_whistle_high");
+    public static final RegistryObject<SoundEvent> HAUNTED_WHISTLE_MEDIUM = registerSoundEvent("haunted_whistle_medium");
+    public static final RegistryObject<SoundEvent> HAUNTED_WHISTLE_LOW = registerSoundEvent("haunted_whistle_low");
+    public static final RegistryObject<SoundEvent> HAUNTED_WHISTLE_DEEP = registerSoundEvent("haunted_whistle_deep");
+
     public static final RegistryObject<SoundEvent> PRESTANT_SUPERHIGH = registerSoundEvent("prestant_superhigh");
     public static final RegistryObject<SoundEvent> PRESTANT_HIGH = registerSoundEvent("prestant_high");
     public static final RegistryObject<SoundEvent> PRESTANT_MEDIUM = registerSoundEvent("prestant_medium");

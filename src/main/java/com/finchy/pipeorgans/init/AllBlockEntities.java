@@ -14,6 +14,8 @@ import com.finchy.pipeorgans.content.pipes.gamba.GambaRenderer;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlockEntity;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktRenderer;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockEntity;
+import com.finchy.pipeorgans.content.pipes.haunted_whistle.HauntedWhistleBlockEntity;
+import com.finchy.pipeorgans.content.pipes.haunted_whistle.HauntedWhistleRenderer;
 import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteBlockEntity;
 import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteRenderer;
 import com.finchy.pipeorgans.content.pipes.nasard.NasardBlockEntity;
@@ -73,6 +75,12 @@ public class AllBlockEntities {
             DiapasonBlockEntity::new,
             AllBlocks.DIAPASON,
             () -> DiapasonRenderer::new);
+
+    public static final BlockEntityEntry<HauntedWhistleBlockEntity> HAUNTED_WHISTLE_BLOCK_ENTITY = registerPipeBlockEntity(
+            "haunted_whistle_block_entity",
+            HauntedWhistleBlockEntity::new,
+            AllBlocks.HAUNTED_WHISTLE,
+            () -> HauntedWhistleRenderer::new);
 
     public static final BlockEntityEntry<PrestantBlockEntity> PRESTANT_BLOCK_ENTITY = registerPipeBlockEntity(
             "prestant_block_entity",

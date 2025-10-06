@@ -33,6 +33,12 @@ public class AllPartialModels {
     DIAPASON_MOUTH_LARGE = block("diapason/diapason_large_mouth"),
     DIAPASON_MOUTH_HUGE = block("diapason/diapason_huge_mouth"),
 
+    HAUNTED_WHISTLE_MOUTH_TINY = block("haunted_whistle/haunted_whistle_tiny_mouth"),
+    HAUNTED_WHISTLE_MOUTH_SMALL = block("haunted_whistle/haunted_whistle_small_mouth"),
+    HAUNTED_WHISTLE_MOUTH_MEDIUM = block("haunted_whistle/haunted_whistle_medium_mouth"),
+    HAUNTED_WHISTLE_MOUTH_LARGE = block("haunted_whistle/haunted_whistle_large_mouth"),
+    HAUNTED_WHISTLE_MOUTH_HUGE = block("haunted_whistle/haunted_whistle_huge_mouth"),
+
     PRESTANT_MOUTH_TINY = block("prestant/prestant_tiny_mouth"),
     PRESTANT_MOUTH_SMALL = block("prestant/prestant_small_mouth"),
     PRESTANT_MOUTH_MEDIUM = block("prestant/prestant_medium_mouth"),

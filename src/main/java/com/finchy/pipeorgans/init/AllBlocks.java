@@ -8,6 +8,8 @@ import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornBlock;
 import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.haunted_whistle.HauntedWhistleBlock;
+import com.finchy.pipeorgans.content.pipes.haunted_whistle.HauntedWhistleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.prestant.PrestantBlock;
 import com.finchy.pipeorgans.content.pipes.prestant.PrestantExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaBlock;
@@ -125,6 +127,19 @@ public class AllBlocks {
             "diapason_extension",
             DiapasonExtensionBlock::new,
             com.simibubi.create.AllBlocks.ZINC_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<HauntedWhistleBlock> HAUNTED_WHISTLE = registerPipeBlock(
+            "haunted_whistle",
+            HauntedWhistleBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<HauntedWhistleExtensionBlock> HAUNTED_WHISTLE_EXTENSION = registerExtensionBlock(
+            "haunted_whistle_extension",
+            HauntedWhistleExtensionBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 
     public static final BlockEntry<PrestantBlock> PRESTANT = registerPipeBlock(
