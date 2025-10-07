@@ -62,6 +62,7 @@ public class PipeOrgans {
         AllBlockEntities.register();
         AllItems.register();
         AllSoundEvents.register(modEventBus);
+        AllParticleTypes.register(modEventBus);
         AllMenuTypes.register();
         AllPackets.registerPackets();
 

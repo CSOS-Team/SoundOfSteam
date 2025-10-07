@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans;
 
 import com.finchy.pipeorgans.init.AllPartialModels;
+import com.finchy.pipeorgans.init.AllParticleTypes;
 import com.finchy.pipeorgans.midi.client.ClientMidiLoader;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -11,8 +12,10 @@ public class  PipeOrgansClient {
 
     public static void onCtorClient(IEventBus modEventBus, IEventBus forgeEventBus) {
         modEventBus.addListener(PipeOrgansClient::clientInit);
+        modEventBus.addListener(AllParticleTypes::registerFactories);
         AllPartialModels.init();
     }
+
 
     public static void clientInit(final FMLClientSetupEvent event) {
     }

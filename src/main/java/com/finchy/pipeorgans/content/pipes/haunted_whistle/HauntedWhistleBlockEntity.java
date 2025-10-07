@@ -54,6 +54,6 @@ public class HauntedWhistleBlockEntity extends DoublePipeBlockEntity {
         if (!particle)
             return;
 
-        createSteamJet(size);
+        createHauntedJet(size);
     }
 }
