@@ -112,6 +112,7 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> VOX_CELESTE_LOW = registerSoundEvent("vox_celeste_low");
     public static final RegistryObject<SoundEvent> VOX_CELESTE_DEEP = registerSoundEvent("vox_celeste_deep");
 
+    public static final RegistryObject<SoundEvent> HAUNTED_CHIFF = registerSoundEvent("haunted_chiff");
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(PipeOrgans.MOD_ID, name)));

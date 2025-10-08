@@ -167,6 +167,17 @@
     ]
   },
 
+  "haunted_chiff": {
+    "subtitle": "choiff",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:haunted_whistle/haunted_chiff"
+      }
+    ]
+  },
+
   "prestant_superhigh": {
     "subtitle": "sounds.pipeorgans.prestant_superhigh",
     "sounds": [
