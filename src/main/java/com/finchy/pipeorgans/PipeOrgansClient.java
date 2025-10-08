@@ -13,11 +13,10 @@ public class  PipeOrgansClient {
     public static void onCtorClient(IEventBus modEventBus, IEventBus forgeEventBus) {
         modEventBus.addListener(PipeOrgansClient::clientInit);
         modEventBus.addListener(AllParticleTypes::registerFactories);
-        AllPartialModels.init();
     }
 
-
     public static void clientInit(final FMLClientSetupEvent event) {
+        AllPartialModels.init();
     }
 
 }
