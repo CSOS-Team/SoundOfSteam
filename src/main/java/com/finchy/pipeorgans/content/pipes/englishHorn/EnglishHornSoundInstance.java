@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.content.pipes.englishHorn;
 
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes.GenericSoundInstance;
+import com.finchy.pipeorgans.content.pipes.generic.GenericSoundInstance;
 import net.minecraft.core.BlockPos;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;

@@ -149,8 +149,8 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
 
     public void onRollChanged() {
         ItemStack stack = inventory.getStackInSlot(0);
+        midiSequencerBehaviour.unloadSequence();
         if (stack.isEmpty()) {
-            midiSequencerBehaviour.unloadSequence();
             buttonsEnabled = false;
         } else if (MidiUtils.isMusicRollValid(stack)) {
             try {

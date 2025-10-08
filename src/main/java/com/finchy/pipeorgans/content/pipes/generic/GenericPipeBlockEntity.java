@@ -81,7 +81,7 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
     @Override
     public void tick() {
         super.tick();
-
+        if (!level.isClientSide) return;
         FluidTankBlockEntity tank = getTank();
 
         BlockState state = getBlockState();

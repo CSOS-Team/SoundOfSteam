@@ -1,6 +1,5 @@
-package com.finchy.pipeorgans.content.pipes.generic.subtypes;
+package com.finchy.pipeorgans.content.pipes.generic;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
