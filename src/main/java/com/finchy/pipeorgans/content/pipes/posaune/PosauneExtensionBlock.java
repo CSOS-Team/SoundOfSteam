@@ -16,6 +16,11 @@ public class PosauneExtensionBlock extends SingleExtensionBlock {
     }
 
     @Override
+    public boolean isDirectional() {
+        return true;
+    }
+
+    @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return AllShapes.slimExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
     }
