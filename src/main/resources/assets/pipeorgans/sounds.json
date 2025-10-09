@@ -458,7 +458,16 @@
     ]
   },
 
-
+  "subbass_superhigh": {
+    "subtitle": "sounds.pipeorgans.subbass_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:subbass/s_superhigh"
+      }
+    ]
+  },
 
   "subbass_high": {
     "subtitle": "sounds.pipeorgans.subbass_high",

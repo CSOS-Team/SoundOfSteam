@@ -64,7 +64,7 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> PICCOLO_LOW = registerSoundEvent("piccolo_low");
     public static final RegistryObject<SoundEvent> PICCOLO_DEEP = registerSoundEvent("piccolo_deep");
 
-    public static final RegistryObject<SoundEvent> SUBBASS_SUPERHIGH = registerSoundEvent("subbass_blah");
+    public static final RegistryObject<SoundEvent> SUBBASS_SUPERHIGH = registerSoundEvent("subbass_superhigh");
     public static final RegistryObject<SoundEvent> SUBBASS_HIGH = registerSoundEvent("subbass_high");
     public static final RegistryObject<SoundEvent> SUBBASS_MEDIUM = registerSoundEvent("subbass_medium");
     public static final RegistryObject<SoundEvent> SUBBASS_LOW = registerSoundEvent("subbass_low");
