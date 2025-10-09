@@ -58,7 +58,7 @@ public class AllPartialModels {
     PICCOLO_MOUTH_LARGE = block("piccolo/piccolo_large_mouth"),
     PICCOLO_MOUTH_HUGE = block("piccolo/piccolo_huge_mouth"),
 
-    SUBBASS_MOUTH_TINY = block("subbass/subbass_small_mouth"),
+    SUBBASS_MOUTH_TINY = block("subbass/subbass_tiny_mouth"),
     SUBBASS_MOUTH_SMALL = block("subbass/subbass_small_mouth"),
     SUBBASS_MOUTH_MEDIUM = block("subbass/subbass_medium_mouth"),
     SUBBASS_MOUTH_LARGE = block("subbass/subbass_large_mouth"),
@@ -82,7 +82,7 @@ public class AllPartialModels {
     NASARD_MOUTH_LARGE = block("nasard/nasard_large_mouth"),
     NASARD_MOUTH_HUGE = block("nasard/nasard_huge_mouth"),
 
-    POSAUNE_MOUTH_TINY = block("posaune/posaune_small_mouth"),
+    POSAUNE_MOUTH_TINY = block("posaune/posaune_tiny_mouth"),
     POSAUNE_MOUTH_SMALL = block("posaune/posaune_small_mouth"),
     POSAUNE_MOUTH_MEDIUM = block("posaune/posaune_medium_mouth"),
     POSAUNE_MOUTH_LARGE = block("posaune/posaune_large_mouth"),
