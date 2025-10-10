@@ -3,9 +3,10 @@ package com.finchy.pipeorgans.content.pipes.haunted_whistle;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlockEntity;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.init.AllBlocks;
-import com.simibubi.create.AllSoundEvents;
+import com.finchy.pipeorgans.init.AllSoundEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,7 +44,7 @@ public class HauntedWhistleBlockEntity extends DoublePipeBlockEntity {
                     .getSoundManager()
                     .play(soundInstance = new HauntedWhistleSoundInstance(size, worldPosition));
 
-            AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
+            level.playLocalSound(worldPosition, AllSoundEvents.HAUNTED_CHIFF.get(), SoundSource.RECORDS, maxVolume * .6f, f, false);
 
             particle = true;
         }
