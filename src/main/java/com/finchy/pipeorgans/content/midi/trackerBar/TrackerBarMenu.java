@@ -9,17 +9,18 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.SimpleContainerData;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
     private final ContainerData data;
+
+    public ItemStackHandler ghostInventory;
 
     // todo: need to add ghost inventory to menu
 
@@ -50,6 +51,17 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
     @Override
     protected void initAndReadInventory(TrackerBarBlockEntity contentHolder) {
+        ghostInventory = contentHolder.midiSourceBehaviour.storedGhostInv;
+    }
+
+    @Override
+    public boolean canTakeItemForPickAll(ItemStack pStack, Slot pSlot) {
+        return pSlot.container == playerInventory;
+    }
+
+    @Override
+    public boolean canDragTo(Slot pSlot) {
+        return true;
     }
 
     @Override
@@ -59,14 +71,14 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
         int slot = 0;
         for (int row=0; row<2; row++) {
             for (int column=0; column<8; column++) {
-                addSlot(new SlotItemHandler(contentHolder.midiSourceBehaviour.storedGhostInv, slot++, column*39 + 26, row*20 + 89));
+                addSlot(new SlotItemHandler(ghostInventory, slot++, column*39 + 26, row*20 + 89));
             }
         }
     }
 
     @Override
     protected void saveData(TrackerBarBlockEntity contentHolder) {
-
+        contentHolder.midiSourceBehaviour.storedGhostInv = ghostInventory;
     }
 
     public Component getChannelInstrument(int channel) {
@@ -94,8 +106,41 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
         return data.get(20) == 1;
     }
 
-    public String getLoadedFilename() {
-        return contentHolder.midiSequencerBehaviour.getCurrentMidi();
+    // PLAYER INVENTORY IS INDICES 0-35
+    // MUSIC ROLL SLOT IS INDEX 36
+    // GHOST SLOTS ARE INDICES 37-53
+
+    @Override
+    public void clicked(int slotId, int dragType, ClickType clickTypeIn, Player player) {
+        if (slotId <= 36) {
+            super.clicked(slotId, dragType, clickTypeIn, player);
+            return;
+        }
+        if (clickTypeIn == ClickType.THROW)
+            return;
+
+        ItemStack held = getCarried();
+        int slot = slotId - 37;
+        if (clickTypeIn == ClickType.CLONE) {
+            if (player.isCreative() && held.isEmpty()) {
+                ItemStack stackInSlot = ghostInventory.getStackInSlot(slot)
+                        .copy();
+                stackInSlot.setCount(stackInSlot.getMaxStackSize());
+                setCarried(stackInSlot);
+                return;
+            }
+            return;
+        }
+
+        ItemStack insert;
+        if (held.isEmpty()) {
+            insert = ItemStack.EMPTY;
+        } else {
+            insert = held.copy();
+            insert.setCount(1);
+        }
+        ghostInventory.setStackInSlot(slot, insert);
+        getSlot(slotId).setChanged();
     }
 
     @Override
@@ -110,19 +155,36 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
             ItemStack originalStack = slot.getItem();
             newStack = originalStack.copy();
 
-            if (pIndex >= 36) {
-                // shift click from be slot into player inv
-                if (!this.moveItemStackTo(originalStack, 0, 36, true)) {
+            if (pIndex < 36) { // clicked on player slot
+                // shift click from player inv into roll slot
+                if (!this.moveItemStackTo(originalStack, 36, 37, false)) { // failed to move into the roll slot
+                    // unable to move into roll slot, trying ghost slots
+                    for (int i = 0; i < ghostInventory.getSlots(); i++) {
+                        ItemStack stack = ghostInventory.getStackInSlot(i);
+                        if (stack.isEmpty()) {
+                            ItemStack copy = originalStack.copy();
+                            copy.setCount(1);
+                            ghostInventory.insertItem(i, copy, false);
+                            getSlot(i + 36).setChanged();
+                            break;
+                        }
+                    }
                     return ItemStack.EMPTY;
                 }
                 contentHolder.onRollChanged();
 
-            } else {
-                // shift click from player inv into be slot
-                if (!this.moveItemStackTo(originalStack, 36, 53, false)) {
+            } else if (pIndex == 36) { // clicked on roll slot
+                // shift click from roll slot into player inv
+                if (!this.moveItemStackTo(originalStack, 0, 36, true)) {
                     return ItemStack.EMPTY;
                 }
+                // todo: items shift clicking into inventory, not hotbar, for some reason??
                 contentHolder.onRollChanged();
+
+            } else if (pIndex > 36) { // clicked on ghost slot
+                // empty ghost slot that was clicked
+                ghostInventory.extractItem(pIndex - 37, 1, false);
+                getSlot(pIndex).setChanged();
             }
 
             if (originalStack.isEmpty()) {
