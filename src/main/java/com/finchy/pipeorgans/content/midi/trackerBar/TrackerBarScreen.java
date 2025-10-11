@@ -23,7 +23,7 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
 
     private static final ResourceLocation GUI_TEXTURE = PipeOrgans.asResource("textures/gui/tracker_bar.png");
     private static final int GUI_WIDTH = 330;
-    private static final int GUI_HEIGHT = 203;
+    private static final int GUI_HEIGHT = 159;
 
     protected IconButton playButton;
     protected IconButton stopButton;
@@ -49,15 +49,15 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
         boolean buttonsActive = menu.contentHolder.getButtonsEnabled();
 
         // add buttons 'n such
-        playButton = new IconButton(x+153, y+179, AllIcons.I_PLAY);
+        playButton = new IconButton(x+153, y+135, AllIcons.I_PLAY);
         playButton.active = buttonsActive;
         playButton.withCallback(() -> sendUpdatePacket("play"));
 
-        stopButton = new IconButton(x+175, y+179, AllIcons.I_STOP);
+        stopButton = new IconButton(x+175, y+135, AllIcons.I_STOP);
         stopButton.active = buttonsActive;
         stopButton.withCallback(() -> sendUpdatePacket("stop"));
 
-        confirmButton = new IconButton(x + 297, y + 179, AllIcons.I_CONFIRM);
+        confirmButton = new IconButton(x + 297, y + 135, AllIcons.I_CONFIRM);
         confirmButton.withCallback(() -> menu.player.closeContainer());
 
         addRenderableWidgets(playButton, stopButton, confirmButton);
@@ -107,11 +107,10 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
             for (int column=0; column<4; column++) {
                 graphics.drawString(
                         font, shortenText(menu.getChannelInstrument(channel++), maxInstrumentLabelWidth),
-                        column*69+38, row*18+48, 16777215, true
+                        column*69+38, row*12+25, 16777215, true
                 );
             }
         }
-        graphics.drawString(font, shortenText(Component.literal(removeExtension(menu.getLoadedFilename())), 132), 38, 28, 16777215, true);
     }
 
     @Override
