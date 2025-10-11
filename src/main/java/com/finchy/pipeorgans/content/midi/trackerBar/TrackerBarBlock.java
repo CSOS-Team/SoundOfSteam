@@ -42,15 +42,15 @@ public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<Track
 
     private static VoxelShape makeShape(){
         VoxelShape shape = Shapes.empty();
-        shape = Shapes.join(shape, Shapes.box(0.25, 0.125, 0, 0.75, 0.3125, 0.125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.25, 0.75, 0, 0.75, 1, 0.125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.0625, 0.125, 0.125, 0.125, 0.875, 0.875), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.875, 0.125, 0.125, 0.9375, 0.875, 0.875), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0, 0, 0, 1, 0.125, 1), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0, 0.125, 0.875, 1, 0.875, 1), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0, 0.125, 0, 0.25, 1, 0.125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.75, 0.125, 0, 1, 1, 0.125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0, 0.875, 0.125, 1, 1, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0, 0.9375, 1, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0, 0, 0.0625, 0.125, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.875, 0, 0.0625, 1, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.125, 0, 0.0625, 0.875, 0.125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.125, 0.875, 0.0625, 0.875, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.9375, 0.125, 0.875, 1, 0.875, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.9375, 0, 0, 1, 0.125, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.9375, 0.875, 0, 1, 1, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.9375, 0.125, 0, 1, 0.875, 0.125), BooleanOp.OR);
 
         return shape;
     }
