@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -18,6 +19,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 
 @SuppressWarnings("NullableProblems")
@@ -26,11 +31,35 @@ public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<Track
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public TrackerBarBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties
+                .isViewBlocking((state, level, pos) -> false));
         registerDefaultState(defaultBlockState()
                 .setValue(HORIZONTAL_FACING, Direction.NORTH)
                 .setValue(POWERED, false)
         );
+    }
+
+
+    private static VoxelShape makeShape(){
+        VoxelShape shape = Shapes.empty();
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.125, 0, 0.75, 0.3125, 0.125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.75, 0, 0.75, 1, 0.125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0.125, 0.125, 0.125, 0.875, 0.875), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.875, 0.125, 0.125, 0.9375, 0.875, 0.875), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0, 0, 1, 0.125, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.125, 0.875, 1, 0.875, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.125, 0, 0.25, 1, 0.125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.75, 0.125, 0, 1, 1, 0.125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.875, 0.125, 1, 1, 1), BooleanOp.OR);
+
+        return shape;
+    }
+
+    private static final VoxelShape SHAPE = makeShape();
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPE;
     }
 
     // define blockstate params
