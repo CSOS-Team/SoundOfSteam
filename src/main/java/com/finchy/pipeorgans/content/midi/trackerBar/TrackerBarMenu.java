@@ -175,13 +175,12 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
             } else if (pIndex == 36) { // clicked on roll slot
                 // shift click from roll slot into player inv
-                if (!this.moveItemStackTo(originalStack, 0, 36, true)) {
+                if (!this.moveItemStackTo(originalStack, 0, 36, false)) {
                     return ItemStack.EMPTY;
                 }
-                // todo: items shift clicking into inventory, not hotbar, for some reason??
                 contentHolder.onRollChanged();
 
-            } else if (pIndex > 36) { // clicked on ghost slot
+            } else { // clicked on ghost slot
                 // empty ghost slot that was clicked
                 ghostInventory.extractItem(pIndex - 37, 1, false);
                 getSlot(pIndex).setChanged();
