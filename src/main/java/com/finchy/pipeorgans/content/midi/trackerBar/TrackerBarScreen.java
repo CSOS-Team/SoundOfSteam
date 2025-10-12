@@ -119,7 +119,6 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
         for (int row=0; row<4; row++) {
             for (int column=0; column<4; column++) {
                 Component instrumentName = menu.getChannelInstrumentName(channel++);
-                if (instrumentName == null) instrumentName = Component.empty();
                 graphics.drawString(
                         font, shortenText(
                                 Component.literal(channel + ": ").append(instrumentName),
@@ -145,7 +144,7 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
             int hoveredIndexY = (mouseY-labelsHoverY)/INSTRUMENT_LABEL_HEIGHT;
 
             Component hoveredName = menu.getChannelInstrumentName(hoveredIndexX + 4*hoveredIndexY);
-            if (hoveredName == null) return;
+            if (hoveredName.equals(Component.empty())) return;
             List<Component> tooltip = new ArrayList<>();
             tooltip.add(hoveredName);
             graphics.renderComponentTooltip(font, tooltip, mouseX, mouseY);

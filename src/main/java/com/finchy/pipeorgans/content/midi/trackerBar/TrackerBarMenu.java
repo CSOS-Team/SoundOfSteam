@@ -84,7 +84,7 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
             GeneralMidiDrumkit drumkit = GeneralMidiDrumkit.fromProgram(data.get(channel));
             if (drumkit != GeneralMidiDrumkit.EMPTY) return Component.translatable(drumkit.key);
         }
-        return null;
+        return Component.empty();
     }
 
     public boolean isPlaying() {
