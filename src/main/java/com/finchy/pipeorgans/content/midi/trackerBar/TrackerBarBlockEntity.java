@@ -134,16 +134,12 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     protected void write(CompoundTag tag, boolean clientPacket) {
         super.write(tag, clientPacket);
         tag.put("Inventory", inventory.serializeNBT());
-        midiSequencerBehaviour.write(tag, clientPacket);
-        midiSourceBehaviour.write(tag, clientPacket);
     }
 
     @Override
     protected void read(CompoundTag tag, boolean clientPacket) {
         super.read(tag, clientPacket);
         inventory.deserializeNBT(tag.getCompound("Inventory"));
-        midiSequencerBehaviour.read(tag, clientPacket);
-        midiSourceBehaviour.read(tag, clientPacket);
     }
 
     @Override
