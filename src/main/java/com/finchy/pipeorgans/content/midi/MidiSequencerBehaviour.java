@@ -185,4 +185,8 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
     public String getCurrentMidi() {
         return currentMidi;
     }
+
+    public double getPlaybackPercentage() {
+        return (double) tickPosition / endTick;
+    }
 }

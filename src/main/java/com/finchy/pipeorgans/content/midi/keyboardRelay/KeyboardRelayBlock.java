@@ -32,13 +32,13 @@ import java.util.Objects;
 public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final BooleanProperty TRANSMITTING = BooleanProperty.create("transmitting");
 
     public KeyboardRelayBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
-                .setValue(POWERED, false)
+                .setValue(TRANSMITTING, false)
         );
     }
 
@@ -51,7 +51,7 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(FACING, POWERED);
+        builder.add(FACING, TRANSMITTING);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.midi;
 
+import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
@@ -87,6 +88,6 @@ public class MidiSourceBehaviour extends BlockEntityBehaviour {
     }
 
     public void reactToNote(boolean on) {
-        level.setBlock(pos, blockEntity.getBlockState().setValue(BlockStateProperties.POWERED, on), 3); //  turn power on/off
+        level.setBlock(pos, blockEntity.getBlockState().setValue(KeyboardRelayBlock.TRANSMITTING, on), 3); //  turn power on/off
     }
 }

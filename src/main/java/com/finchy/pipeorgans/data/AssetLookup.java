@@ -8,6 +8,7 @@ import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraftforge.client.model.generators.ModelFile;
 
 import java.util.function.Function;
@@ -46,6 +47,12 @@ public class AssetLookup {
     public static Function<BlockState, ModelFile> forPowered(DataGenContext<?, ?> ctx, RegistrateBlockstateProvider prov) {
         return state -> state.getValue(BlockStateProperties.POWERED) ?
                 partialStandardModel(ctx, prov, "powered")
+                : partialStandardModel(ctx, prov);
+    }
+
+    public static Function<BlockState, ModelFile> forBooleanProperty(BooleanProperty property, String suffix, DataGenContext<?, ?> ctx, RegistrateBlockstateProvider prov) {
+        return state -> state.getValue(property) ?
+                partialStandardModel(ctx, prov, suffix)
                 : partialStandardModel(ctx, prov);
     }
 

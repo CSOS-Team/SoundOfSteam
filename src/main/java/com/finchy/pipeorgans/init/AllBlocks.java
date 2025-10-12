@@ -81,14 +81,14 @@ public class AllBlocks {
             .initialProperties(() -> Blocks.COPPER_BLOCK)
             .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
             .transform(pickaxeOnly())
-            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forBooleanProperty(KeyboardRelayBlock.TRANSMITTING, "transmitting", c, p)))
             .item()
             .transform(customItemModel())
             .register();
 
     public static final BlockEntry<TrackerBarBlock> TRACKER_BAR = REGISTRATE.block("tracker_bar", TrackerBarBlock::new)
             .initialProperties(() -> Blocks.COPPER_BLOCK)
-            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forBooleanProperty(TrackerBarBlock.TRANSMITTING, "transmitting", c, p)))
             .item()
             .transform(customItemModel())
             .register();

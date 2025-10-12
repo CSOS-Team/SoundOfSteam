@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
+import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
@@ -13,6 +14,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -29,12 +31,14 @@ import net.minecraftforge.network.NetworkHooks;
 public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<TrackerBarBlockEntity> {
 
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final BooleanProperty TRANSMITTING = KeyboardRelayBlock.TRANSMITTING;
 
     public TrackerBarBlock(Properties pProperties) {
         super(pProperties
                 .isViewBlocking((state, level, pos) -> false));
         registerDefaultState(defaultBlockState()
                 .setValue(HORIZONTAL_FACING, Direction.NORTH)
+                .setValue(TRANSMITTING, false)
                 .setValue(POWERED, false)
         );
     }
@@ -65,7 +69,7 @@ public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<Track
     // define blockstate params
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(POWERED);
+        builder.add(POWERED, TRANSMITTING);
         super.createBlockStateDefinition(builder);
     }
 
@@ -79,6 +83,33 @@ public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<Track
         return AllBlockEntities.TRACKER_BAR_BLOCK_ENTITY.get();
     }
 
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState pState) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
+        BlockEntity be = pLevel.getBlockEntity(pPos);
+        if (be instanceof TrackerBarBlockEntity trackerBar) {
+            return (int) (trackerBar.midiSequencerBehaviour.getPlaybackPercentage() * 15);
+        }
+        return 0;
+    }
+
+    @Override
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean isMoving) {
+        boolean previouslyPowered = pState.getValue(POWERED);
+        boolean neighbourPowered = pLevel.hasNeighborSignal(pPos);
+        if (!previouslyPowered && neighbourPowered) {
+            if (pLevel.getBlockEntity(pPos) instanceof TrackerBarBlockEntity be) {
+                be.pressTogglePlayButton();
+            }
+            pLevel.setBlock(pPos, pState.setValue(POWERED, true), 3);
+        } else if (previouslyPowered && !neighbourPowered) {
+            pLevel.setBlock(pPos, pState.setValue(POWERED, false), 3);
+        }
+    }
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {

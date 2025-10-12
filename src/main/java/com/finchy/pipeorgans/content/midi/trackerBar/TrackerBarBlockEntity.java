@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiSequencerBehaviour;
 import com.finchy.pipeorgans.content.midi.MidiSourceBehaviour;
 import com.finchy.pipeorgans.util.MidiLoadException;
@@ -8,6 +7,7 @@ import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
@@ -18,17 +18,20 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.sound.midi.*;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Queue;
 
 @SuppressWarnings({"DataFlowIssue", "NullableProblems"})
 public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuProvider {
+
+    protected LazyOptional<IItemHandler> itemCapability;
 
     private boolean buttonsEnabled = false;
 
@@ -96,13 +99,31 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
                 return 21;
             }
         };
+        itemCapability = LazyOptional.of(() -> inventory);
     }
 
+    @Override
+    public void remove() {
+        super.remove();
+    }
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         behaviours.add(midiSourceBehaviour = new MidiSourceBehaviour(this));
         behaviours.add(midiSequencerBehaviour = new MidiSequencerBehaviour(this));
+    }
+
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (isItemHandlerCap(cap))
+            return itemCapability.cast();
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        itemCapability.invalidate();
     }
 
     public void onBlockRemoved() {

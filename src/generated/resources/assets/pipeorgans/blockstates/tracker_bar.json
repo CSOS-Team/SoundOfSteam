@@ -1,33 +1,63 @@
 {
   "variants": {
-    "facing=east,powered=false": {
+    "facing=east,powered=false,transmitting=false": {
       "model": "pipeorgans:block/tracker_bar/tracker_bar",
       "y": 90
     },
-    "facing=east,powered=true": {
-      "model": "pipeorgans:block/tracker_bar/tracker_bar_powered",
+    "facing=east,powered=false,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting",
       "y": 90
     },
-    "facing=north,powered=false": {
+    "facing=east,powered=true,transmitting=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar",
+      "y": 90
+    },
+    "facing=east,powered=true,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting",
+      "y": 90
+    },
+    "facing=north,powered=false,transmitting=false": {
       "model": "pipeorgans:block/tracker_bar/tracker_bar"
     },
-    "facing=north,powered=true": {
-      "model": "pipeorgans:block/tracker_bar/tracker_bar_powered"
+    "facing=north,powered=false,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting"
     },
-    "facing=south,powered=false": {
+    "facing=north,powered=true,transmitting=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar"
+    },
+    "facing=north,powered=true,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting"
+    },
+    "facing=south,powered=false,transmitting=false": {
       "model": "pipeorgans:block/tracker_bar/tracker_bar",
       "y": 180
     },
-    "facing=south,powered=true": {
-      "model": "pipeorgans:block/tracker_bar/tracker_bar_powered",
+    "facing=south,powered=false,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting",
       "y": 180
     },
-    "facing=west,powered=false": {
+    "facing=south,powered=true,transmitting=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar",
+      "y": 180
+    },
+    "facing=south,powered=true,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting",
+      "y": 180
+    },
+    "facing=west,powered=false,transmitting=false": {
       "model": "pipeorgans:block/tracker_bar/tracker_bar",
       "y": 270
     },
-    "facing=west,powered=true": {
-      "model": "pipeorgans:block/tracker_bar/tracker_bar_powered",
+    "facing=west,powered=false,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting",
+      "y": 270
+    },
+    "facing=west,powered=true,transmitting=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar",
+      "y": 270
+    },
+    "facing=west,powered=true,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting",
       "y": 270
     }
   }
