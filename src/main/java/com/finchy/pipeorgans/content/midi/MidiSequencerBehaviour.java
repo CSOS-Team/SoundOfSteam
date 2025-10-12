@@ -28,8 +28,8 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
     private int tickStep = 1;
     private double bpm;
     private int endTick = 1;
-    public List<MidiUtils.GeneralMidiInstrument> channelInstruments;
-    private static final List<MidiUtils.GeneralMidiInstrument> defaultChannelInstruments = new ArrayList<>(Collections.nCopies(16, MidiUtils.GeneralMidiInstrument.EMPTY));
+    public List<Integer> channelInstruments;
+    private static final List<Integer> defaultChannelInstruments = new ArrayList<>(Collections.nCopies(16, -1));
 
     private String currentMidi = "";
     private String currentMidiOwner = "";
@@ -105,7 +105,7 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
     }
 
     public void setChannelInstrument(int channel, int program) {
-        channelInstruments.set(channel, MidiUtils.GeneralMidiInstrument.fromProgram(program));
+        channelInstruments.set(channel, program);
     }
 
     public void tickSequencer() {
@@ -128,7 +128,7 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
                     if (MidiUtils.isNoteOn(sm) || MidiUtils.isNoteOff(sm)) {
                         ((TrackerBarBlockEntity) blockEntity).handleNote(sm);
                     } else if (MidiUtils.isProgramChange(sm)) {
-                        channelInstruments.set(sm.getChannel(), MidiUtils.GeneralMidiInstrument.fromProgram(sm.getData1()));
+                        channelInstruments.set(sm.getChannel(), sm.getData1());
                     }
                     // not worrying about control changes or anything else for now
                 } /* else if (msg instanceof SysexMessage sx) {

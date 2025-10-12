@@ -60,27 +60,27 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
             @Override
             public int get(int pIndex) {
                 return switch (pIndex) {
-                    case 0 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(0).program;
-                    case 1 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(1).program;
-                    case 2 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(2).program;
-                    case 3 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(3).program;
-                    case 4 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(4).program;
-                    case 5 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(5).program;
-                    case 6 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(6).program;
-                    case 7 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(7).program;
-                    case 8 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(8).program;
-                    case 9 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(9).program;
-                    case 10 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(10).program;
-                    case 11 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(11).program;
-                    case 12 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(12).program;
-                    case 13 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(13).program;
-                    case 14 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(14).program;
-                    case 15 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(15).program;
+                    case 0 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(0);
+                    case 1 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(1);
+                    case 2 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(2);
+                    case 3 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(3);
+                    case 4 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(4);
+                    case 5 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(5);
+                    case 6 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(6);
+                    case 7 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(7);
+                    case 8 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(8);
+                    case 9 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(9);
+                    case 10 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(10);
+                    case 11 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(11);
+                    case 12 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(12);
+                    case 13 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(13);
+                    case 14 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(14);
+                    case 15 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.channelInstruments.get(15);
 
                     case 16 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.isPlaying() ? 1 : 0;
                     case 17 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.getTickPosition();
                     case 18 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.getEndTick();
-                    case 19 -> (int) (TrackerBarBlockEntity.this.midiSequencerBehaviour.get10xBPM());
+                    case 19 -> TrackerBarBlockEntity.this.midiSequencerBehaviour.get10xBPM();
                     case 20 -> TrackerBarBlockEntity.this.buttonsEnabled ? 1 : 0;
                     default -> 0;
                 };

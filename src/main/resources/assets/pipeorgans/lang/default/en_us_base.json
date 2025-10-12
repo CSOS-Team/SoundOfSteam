@@ -298,6 +298,14 @@
   "instrument.pipeorgans.applause": "Applause",
   "instrument.pipeorgans.gunshot": "Gunshot",
 
+  "instrument.pipeorgans.standard_drum_kit": "Standard Drum Kit",
+  "instrument.pipeorgans.room_drum_kit": "Room Drum Kit",
+  "instrument.pipeorgans.power_drum_kit": "Power Drum Kit",
+  "instrument.pipeorgans.electric_drum_kit": "Electric Drum Kit",
+  "instrument.pipeorgans.rap_tr808_drums": "Rap TR808 Drums",
+  "instrument.pipeorgans.jazz_drum_kit": "Jazz Drum Kit",
+  "instrument.pipeorgans.brush_kit": "Brush Kit",
+
   "instrument.pipeorgans.empty": ""
 
 }

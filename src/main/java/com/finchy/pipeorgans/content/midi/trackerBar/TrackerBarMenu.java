@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
 import com.finchy.pipeorgans.init.AllMenuTypes;
-import com.finchy.pipeorgans.util.MidiUtils;
+import com.finchy.pipeorgans.util.MidiUtils.GeneralMidiInstrument;
+import com.finchy.pipeorgans.util.MidiUtils.GeneralMidiDrumkit;
 import com.simibubi.create.foundation.gui.menu.MenuBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -12,7 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -60,11 +60,6 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
     }
 
     @Override
-    public boolean canDragTo(Slot pSlot) {
-        return true;
-    }
-
-    @Override
     protected void addSlots() {
         addPlayerSlots(81, 181);
         addSlot(new TrackerBarSlot(contentHolder.inventory, 0, 12, 39, stack -> contentHolder.onRollChanged()));
@@ -81,9 +76,15 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
         contentHolder.midiSourceBehaviour.storedGhostInv = ghostInventory;
     }
 
-    public Component getChannelInstrument(int channel) {
-        String translatable = MidiUtils.GeneralMidiInstrument.fromProgram(data.get(channel)).key;
-        return Component.literal(channel+1 + ": ").append(Component.translatable(translatable));
+    public Component getChannelInstrumentName(int channel) {
+        if (channel != 9) {
+            GeneralMidiInstrument instrument = GeneralMidiInstrument.fromProgram(data.get(channel));
+            if (instrument != GeneralMidiInstrument.EMPTY) return Component.translatable(instrument.key);
+        } else {
+            GeneralMidiDrumkit drumkit = GeneralMidiDrumkit.fromProgram(data.get(channel));
+            if (drumkit != GeneralMidiDrumkit.EMPTY) return Component.translatable(drumkit.key);
+        }
+        return null;
     }
 
     public boolean isPlaying() {

@@ -200,9 +200,44 @@ public abstract class MidiUtils {
         }
 
         public static GeneralMidiInstrument fromProgram(int program) {
-            return BY_PROGRAM.get(program);
+            GeneralMidiInstrument fromProgram = BY_PROGRAM.get(program);
+            if (fromProgram == null) return EMPTY;
+            return fromProgram;
         }
 
     }
 
+    public enum GeneralMidiDrumkit {
+        STANDARD_DRUM_KIT(0, "instrument.pipeorgans.standard_drum_kit"),
+        ROOM_DRUM_KIT(8, "instrument.pipeorgans.room_drum_kit"),
+        POWER_DRUM_KIT(16, "instrument.pipeorgans.power_drum_kit"),
+        ELECTRIC_DRUM_KIT(24, "instrument.pipeorgans.electric_drum_kit"),
+        RAP_TR808_DRUMS(25, "instrument.pipeorgans.rap_tr808_drums"),
+        JAZZ_DRUM_KIT(32, "instrument.pipeorgans.jazz_drum_kit"),
+        BRUSH_KIT(40, "instrument.pipeorgans.brush_kit"),
+
+        EMPTY(-1, "instrument.pipeorgans.empty");
+
+        public final String key;
+        public final int program;
+
+        GeneralMidiDrumkit(int program, String key) {
+            this.program = program;
+            this.key = key;
+        }
+
+        private static final Map<Integer, GeneralMidiDrumkit> BY_PROGRAM = new HashMap<>();
+        static {
+            for (GeneralMidiDrumkit instrument : values()) {
+                BY_PROGRAM.put(instrument.program, instrument);
+            }
+        }
+
+        public static GeneralMidiDrumkit fromProgram(int program) {
+            GeneralMidiDrumkit fromProgram = BY_PROGRAM.get(program);
+            if (fromProgram == null) return STANDARD_DRUM_KIT;
+            return fromProgram;
+        }
+
+    }
 }

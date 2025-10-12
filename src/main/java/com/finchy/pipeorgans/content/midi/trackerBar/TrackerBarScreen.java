@@ -17,7 +17,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
-import static org.apache.commons.io.FilenameUtils.removeExtension;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu> {
 
@@ -29,7 +30,19 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
     protected IconButton stopButton;
     protected IconButton confirmButton;
 
-    private static final int maxInstrumentLabelWidth = 63;
+    private static final int BUTTONS_Y = 135;
+    private static final int PLAY_X = 153;
+    private static final int STOP_X = 175;
+    private static final int CONFIRM_X = 297;
+
+    private static final int MAX_INSTRUMENT_LABEL_WIDTH = 63;
+    private static final int INSTRUMENT_LABELS_TEXT_X = 38;
+    private static final int INSTRUMENT_LABELS_TEXT_Y = 25;
+
+    private static final int INSTRUMENT_LABELS_HOVER_X = 35;
+    private static final int INSTRUMENT_LABELS_HOVER_Y = 23;
+    private static final int INSTRUMENT_LABEL_WIDTH = 69;
+    private static final int INSTRUMENT_LABEL_HEIGHT = 12;
 
     private final ItemStack renderedItem = AllBlocks.TRACKER_BAR.asStack();
 
@@ -49,15 +62,15 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
         boolean buttonsActive = menu.contentHolder.getButtonsEnabled();
 
         // add buttons 'n such
-        playButton = new IconButton(x+153, y+135, AllIcons.I_PLAY);
+        playButton = new IconButton(x+PLAY_X, y+BUTTONS_Y, AllIcons.I_PLAY);
         playButton.active = buttonsActive;
         playButton.withCallback(() -> sendUpdatePacket("play"));
 
-        stopButton = new IconButton(x+175, y+135, AllIcons.I_STOP);
+        stopButton = new IconButton(x+STOP_X, y+BUTTONS_Y, AllIcons.I_STOP);
         stopButton.active = buttonsActive;
         stopButton.withCallback(() -> sendUpdatePacket("stop"));
 
-        confirmButton = new IconButton(x + 297, y + 135, AllIcons.I_CONFIRM);
+        confirmButton = new IconButton(x+CONFIRM_X, y+BUTTONS_Y, AllIcons.I_CONFIRM);
         confirmButton.withCallback(() -> menu.player.closeContainer());
 
         addRenderableWidgets(playButton, stopButton, confirmButton);
@@ -105,11 +118,37 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
         int channel = 0;
         for (int row=0; row<4; row++) {
             for (int column=0; column<4; column++) {
+                Component instrumentName = menu.getChannelInstrumentName(channel++);
+                if (instrumentName == null) instrumentName = Component.empty();
                 graphics.drawString(
-                        font, shortenText(menu.getChannelInstrument(channel++), maxInstrumentLabelWidth),
-                        column*69+38, row*12+25, 16777215, true
+                        font, shortenText(
+                                Component.literal(channel + ": ").append(instrumentName),
+                                MAX_INSTRUMENT_LABEL_WIDTH
+                        ),
+                        column*INSTRUMENT_LABEL_WIDTH+INSTRUMENT_LABELS_TEXT_X,
+                        row*INSTRUMENT_LABEL_HEIGHT+INSTRUMENT_LABELS_TEXT_Y,
+                        16777215, true
                 );
             }
+        }
+    }
+
+    @Override
+    protected void renderForeground(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        super.renderForeground(graphics, mouseX, mouseY, partialTicks);
+        int labelsHoverX = INSTRUMENT_LABELS_HOVER_X + leftPos;
+        int labelsHoverY = INSTRUMENT_LABELS_HOVER_Y + topPos;
+
+        if (labelsHoverX+1 <= mouseX && mouseX <= labelsHoverX+INSTRUMENT_LABEL_WIDTH*4-1
+                && labelsHoverY+1 <= mouseY && mouseY <= labelsHoverY+INSTRUMENT_LABEL_HEIGHT*4-1) {
+            int hoveredIndexX = (mouseX-labelsHoverX)/INSTRUMENT_LABEL_WIDTH;
+            int hoveredIndexY = (mouseY-labelsHoverY)/INSTRUMENT_LABEL_HEIGHT;
+
+            Component hoveredName = menu.getChannelInstrumentName(hoveredIndexX + 4*hoveredIndexY);
+            if (hoveredName == null) return;
+            List<Component> tooltip = new ArrayList<>();
+            tooltip.add(hoveredName);
+            graphics.renderComponentTooltip(font, tooltip, mouseX, mouseY);
         }
     }
 
