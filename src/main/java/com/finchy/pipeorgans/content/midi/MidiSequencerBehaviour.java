@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.content.midi;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.content.midi.trackerBar.MidiFileParser;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
@@ -18,7 +17,7 @@ import java.util.Queue;
 
 public class MidiSequencerBehaviour extends BlockEntityBehaviour {
 
-    public static final BehaviourType<MidiSourceBehaviour> TYPE = new BehaviourType<>();
+    public static final BehaviourType<MidiSequencerBehaviour> TYPE = new BehaviourType<>();
 
     private List<Queue<MidiEvent>> currentSequence = null;
 

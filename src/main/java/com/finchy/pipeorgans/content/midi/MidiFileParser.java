@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.content.midi.trackerBar;
+package com.finchy.pipeorgans.content.midi;
 
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;

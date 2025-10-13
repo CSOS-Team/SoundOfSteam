@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.midi.client;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.content.midi.trackerBar.MidiFileParser;
+import com.finchy.pipeorgans.content.midi.MidiFileParser;
 import com.finchy.pipeorgans.network.AllPackets;
 import com.finchy.pipeorgans.network.packet.MidiUploadPacket;
 import com.simibubi.create.foundation.utility.FilesHelper;

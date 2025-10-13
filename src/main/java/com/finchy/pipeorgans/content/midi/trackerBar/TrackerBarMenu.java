@@ -1,8 +1,9 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
+import com.finchy.pipeorgans.content.midi.MidiSourceBehaviour;
 import com.finchy.pipeorgans.init.AllMenuTypes;
-import com.finchy.pipeorgans.util.MidiUtils.GeneralMidiInstrument;
 import com.finchy.pipeorgans.util.MidiUtils.GeneralMidiDrumkit;
+import com.finchy.pipeorgans.util.MidiUtils.GeneralMidiInstrument;
 import com.simibubi.create.foundation.gui.menu.MenuBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -51,7 +52,7 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
     @Override
     protected void initAndReadInventory(TrackerBarBlockEntity contentHolder) {
-        ghostInventory = contentHolder.midiSourceBehaviour.storedGhostInv;
+        ghostInventory = contentHolder.getBehaviour(MidiSourceBehaviour.TYPE).storedGhostInv;
     }
 
     @Override
@@ -73,7 +74,7 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
     @Override
     protected void saveData(TrackerBarBlockEntity contentHolder) {
-        contentHolder.midiSourceBehaviour.storedGhostInv = ghostInventory;
+        contentHolder.getBehaviour(MidiSourceBehaviour.TYPE).storedGhostInv = ghostInventory;
     }
 
     public Component getChannelInstrumentName(int channel) {

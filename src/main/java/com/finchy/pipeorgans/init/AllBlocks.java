@@ -54,6 +54,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
+import static com.simibubi.create.api.behaviour.display.DisplaySource.displaySource;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 //TODO Roll puncher
@@ -91,6 +92,7 @@ public class AllBlocks {
             .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forBooleanProperty(TrackerBarBlock.TRANSMITTING, "transmitting", c, p)))
             .item()
             .transform(customItemModel())
+            .transform(displaySource(AllDisplaySources.TRACKER_BAR_BPM))
             .register();
 
     public static final BlockEntry<WindchestBlock> WINDCHEST = REGISTRATE.block("windchest", WindchestBlock::new)

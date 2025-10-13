@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
+import com.finchy.pipeorgans.content.midi.MidiSequencerBehaviour;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
@@ -92,7 +93,7 @@ public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<Track
     public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
         BlockEntity be = pLevel.getBlockEntity(pPos);
         if (be instanceof TrackerBarBlockEntity trackerBar) {
-            return (int) (trackerBar.midiSequencerBehaviour.getPlaybackPercentage() * 15);
+            return (int) (trackerBar.getBehaviour(MidiSequencerBehaviour.TYPE).getPlaybackPercentage() * 15);
         }
         return 0;
     }
