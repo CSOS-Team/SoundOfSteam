@@ -8,6 +8,9 @@
   "gui.pipeorgans.keyboard_relay": "Keyboard Relay",
   "gui.pipeorgans.tracker_bar": "Tracker Bar",
 
+  "pipeorgans.display_source.tracker_bar_filename": "Filename",
+  "pipeorgans.display_source.tracker_bar_bpm": "BPM",
+
   "item.pipeorgans.music_roll.invalid": "[!] Invalid Item - Use the Roll Puncher instead",
 
   "create.goggles.stop_master_source": "Source: %1$s",

@@ -92,6 +92,7 @@ public class AllBlocks {
             .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forBooleanProperty(TrackerBarBlock.TRANSMITTING, "transmitting", c, p)))
             .item()
             .transform(customItemModel())
+            .transform(displaySource(AllDisplaySources.TRACKER_BAR_FILENAME))
             .transform(displaySource(AllDisplaySources.TRACKER_BAR_BPM))
             .register();
 
