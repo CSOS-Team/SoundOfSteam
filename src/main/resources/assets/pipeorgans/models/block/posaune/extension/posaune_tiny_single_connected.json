@@ -1,4 +1,5 @@
 {
+	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "pipeorgans:block/posaune",
@@ -10,10 +11,10 @@
 			"to": [10, 16, 10],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
 			"faces": {
-				"north": {"uv": [0.75, 6, 1.25, 8], "texture": "#0"},
-				"east": {"uv": [0.75, 6, 1.25, 8], "texture": "#0"},
-				"south": {"uv": [0.75, 6, 1.25, 8], "texture": "#0"},
-				"west": {"uv": [0.75, 6, 1.25, 8], "texture": "#0"}
+				"north": {"uv": [10.75, 6, 11.25, 8], "texture": "#0"},
+				"east": {"uv": [10.75, 6, 11.25, 8], "texture": "#0"},
+				"south": {"uv": [10.75, 6, 11.25, 8], "texture": "#0"},
+				"west": {"uv": [10.75, 6, 11.25, 8], "texture": "#0"}
 			}
 		}
 	]

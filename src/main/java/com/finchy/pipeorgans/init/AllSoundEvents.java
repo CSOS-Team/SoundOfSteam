@@ -88,7 +88,7 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent> NASARD_LOW = registerSoundEvent("nasard_low");
     public static final RegistryObject<SoundEvent> NASARD_DEEP = registerSoundEvent("nasard_deep");
 
-    public static final RegistryObject<SoundEvent> POSAUNE_SUPERHIGH = registerSoundEvent("posaune_blah");
+    public static final RegistryObject<SoundEvent> POSAUNE_SUPERHIGH = registerSoundEvent("posaune_superhigh");
     public static final RegistryObject<SoundEvent> POSAUNE_HIGH = registerSoundEvent("posaune_high");
     public static final RegistryObject<SoundEvent> POSAUNE_MEDIUM = registerSoundEvent("posaune_medium");
     public static final RegistryObject<SoundEvent> POSAUNE_LOW = registerSoundEvent("posaune_low");

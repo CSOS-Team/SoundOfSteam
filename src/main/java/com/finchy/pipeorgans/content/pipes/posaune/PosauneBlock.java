@@ -9,7 +9,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-//TODO Add tiny Posaune
 public class PosauneBlock extends SinglePipeBlock {
     public PosauneBlock(Properties pProperties) {
         super(pProperties);

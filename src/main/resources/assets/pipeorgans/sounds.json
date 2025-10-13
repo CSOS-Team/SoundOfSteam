@@ -680,7 +680,16 @@
     ]
   },
 
-
+  "posaune_superhigh": {
+    "subtitle": "sounds.pipeorgans.posaune_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:posaune/ps_superhigh"
+      }
+    ]
+  },
 
   "posaune_high": {
     "subtitle": "sounds.pipeorgans.posaune_high",
