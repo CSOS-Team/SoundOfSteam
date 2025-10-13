@@ -15,7 +15,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.*;
 
-public class RedstoneMidiLink {
+public class RedstoneMidiTransmitter {
 
     public final List<Frequency> FrequencyKeys;
     // list of channels, each channel being a map of active pitches and the corresponding ManualNoteFrequency
@@ -23,7 +23,7 @@ public class RedstoneMidiLink {
     static final int TIMEOUT = 2;
     private final BlockEntity be;
 
-    public RedstoneMidiLink(BlockEntity be) {
+    public RedstoneMidiTransmitter(BlockEntity be) {
         FrequencyKeys = new ArrayList<>(Collections.nCopies(16, Frequency.of(ItemStack.EMPTY)));
         // set channel 10 to a different frequency by default, as 10 is usually the percussion channel
         FrequencyKeys.set(9, Frequency.of(new ItemStack(Items.STICK)));

@@ -9,19 +9,17 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.sound.midi.ShortMessage;
-import java.util.List;
 
 public class MidiSourceBehaviour extends BlockEntityBehaviour {
 
     public static final BehaviourType<MidiSourceBehaviour> TYPE = new BehaviourType<>();
 
     public ItemStackHandler storedGhostInv;
-    public RedstoneMidiLink link;
+    public RedstoneMidiTransmitter link;
 
     protected Level level;
     protected BlockPos pos;
@@ -52,7 +50,7 @@ public class MidiSourceBehaviour extends BlockEntityBehaviour {
             }
         };
 
-        link = new RedstoneMidiLink(be);
+        link = new RedstoneMidiTransmitter(be);
         link.setFrequencyKeysOnLoad(storedGhostInv);
     }
 
