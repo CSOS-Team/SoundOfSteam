@@ -186,7 +186,7 @@ public abstract class AllShapes {
         };
     }
 
-    // slim double extension
+    // string double extension
     public static VoxelShape stringExtensionShape(EExtensionShapes.DoubleShape shape, EPipeSizes.PipeSize size, Direction facing) {
         return switch (shape) {
             case SINGLE -> switch (size) {
@@ -206,7 +206,7 @@ public abstract class AllShapes {
         };
     }
 
-    // slim quadruple extension
+    // string quadruple extension
     public static VoxelShape stringExtensionShape(EExtensionShapes.QuadrupleShape shape, EPipeSizes.PipeSize size, Direction facing) {
         return switch (shape) {
             case SINGLE -> switch (size) {
@@ -360,12 +360,18 @@ public abstract class AllShapes {
         // shape for floor variant is BASE.get(UP)
         BASE_BLOCK_WALL = shape(1, 1, 0, 15, 15, 3)
                 .add(5, 3, 3, 11, 9, 11)
-            .add(5, 9, 5, 11, 11, 11)
+                .add(5, 9, 5, 11, 11, 11)
                 .forHorizontal(Direction.NORTH),
 
         KBR = shape(0, 0, 4, 16, 2, 16)
                 .add(0, 2, 6, 16, 16, 16)
+                .forHorizontal(Direction.NORTH),
+
+        TRACKER_BAR = shape(0, 0, 0, 16, 3, 2)
+                .add(0, 0, 2, 16, 16, 16)
+                .add(0, 14, 0, 16, 16, 2)
                 .forHorizontal(Direction.NORTH);
+
 
 
 

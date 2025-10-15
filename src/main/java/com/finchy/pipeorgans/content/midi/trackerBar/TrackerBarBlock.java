@@ -3,6 +3,7 @@ package com.finchy.pipeorgans.content.midi.trackerBar;
 import com.finchy.pipeorgans.content.midi.MidiSequencerBehaviour;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
@@ -44,27 +45,9 @@ public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<Track
         );
     }
 
-
-    private static VoxelShape makeShape(){
-        VoxelShape shape = Shapes.empty();
-        shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0, 0.9375, 1, 1), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0, 0, 0, 0.0625, 0.125, 1), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0, 0.875, 0, 0.0625, 1, 1), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0, 0.125, 0, 0.0625, 0.875, 0.125), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0, 0.125, 0.875, 0.0625, 0.875, 1), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.9375, 0.125, 0.875, 1, 0.875, 1), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.9375, 0, 0, 1, 0.125, 1), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.9375, 0.875, 0, 1, 1, 1), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.9375, 0.125, 0, 1, 0.875, 0.125), BooleanOp.OR);
-
-        return shape;
-    }
-
-    private static final VoxelShape SHAPE = makeShape();
-
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return AllShapes.TRACKER_BAR.get(state.getValue(HORIZONTAL_FACING));
     }
 
     // define blockstate params
