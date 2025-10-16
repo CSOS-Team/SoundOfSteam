@@ -38,10 +38,14 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     public TrackerBarInventory inventory;
     protected final ContainerData data;
 
+    private float rollerAngle = 0f;
+    private float rollerVelocity = 0f;
+    private static final float MAX_ROLLER_VELOCITY = 21.666f;
+
     MidiSourceBehaviour midiSourceBehaviour;
     MidiSequencerBehaviour midiSequencerBehaviour;
 
-    public class TrackerBarInventory extends ItemStackHandler {
+    public static class TrackerBarInventory extends ItemStackHandler {
         private final TrackerBarBlockEntity be;
 
         public TrackerBarInventory(TrackerBarBlockEntity be) {
@@ -103,11 +107,6 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     }
 
     @Override
-    public void remove() {
-        super.remove();
-    }
-
-    @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         behaviours.add(midiSourceBehaviour = new MidiSourceBehaviour(this));
         behaviours.add(midiSequencerBehaviour = new MidiSequencerBehaviour(this));
@@ -157,11 +156,19 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
         super.tick();
         if (midiSequencerBehaviour.isPlaying() && speed != 0) {
             midiSequencerBehaviour.tickSequencer();
+            rollerVelocity = MAX_ROLLER_VELOCITY;
+            rollerAngle += rollerVelocity;
+        } else {
+            rollerVelocity = 0;
         }
     }
 
     public void setButtonsEnabled(boolean enabled) {
         buttonsEnabled = enabled;
+    }
+
+    public float getRollerAngle(float partialTicks) {
+        return (rollerAngle + rollerVelocity*partialTicks)/360;
     }
 
     public void onRollChanged() {
