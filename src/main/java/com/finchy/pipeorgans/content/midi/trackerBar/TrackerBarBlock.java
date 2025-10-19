@@ -97,6 +97,10 @@ public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<Track
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (pHit.getDirection().equals(pState.getValue(HORIZONTAL_FACING).getClockWise())
+                || pHit.getDirection().equals(pState.getValue(HORIZONTAL_FACING).getCounterClockWise()))
+            return InteractionResult.PASS; // prevent opening the menu when clicking on either of the shaft faces
+
         if (pLevel.isClientSide)
             return InteractionResult.SUCCESS;
         if (pHand.equals(InteractionHand.OFF_HAND))
