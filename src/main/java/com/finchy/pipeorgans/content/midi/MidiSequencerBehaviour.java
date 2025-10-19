@@ -47,6 +47,8 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
     public void write(CompoundTag tag, boolean clientPacket) {
         tag.putString("File", currentMidi);
         tag.putString("Owner", currentMidiOwner);
+        tag.putBoolean("Playing", playing);
+        tag.putInt("TickPosition", tickPosition);
     }
 
     @Override
@@ -57,11 +59,17 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
             if (!midiRead.isEmpty() && !ownerRead.isEmpty()) {
                 loadSequence(midiRead, ownerRead);
                 setButtonsEnabled(true);
-            } else setButtonsEnabled(false);
+            } else {
+                setButtonsEnabled(false);
+                return;
+            }
         } catch (MidiLoadException e) {
             PipeOrgans.LOGGER.error("Exception when loading data from Tracker Bar NBT: {}", e.getMessage());
             setButtonsEnabled(false);
+            return;
         }
+        playing = tag.getBoolean("Playing");
+        tickPosition = tag.getInt("TickPosition");
     }
 
     public void loadSequence(String file, String owner) throws MidiLoadException {
@@ -100,7 +108,7 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
         bpm = 60_000_000f / microsPerQuarterNote;
         float midiTPS = (1000000f/microsPerQuarterNote) * ppq;
         tickStep = Math.round(midiTPS/20);
-        blockEntity.setChanged();
+        blockEntity.notifyUpdate();
     }
 
     public void setChannelInstrument(int channel, int program) {
@@ -138,7 +146,7 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
             }
         }
         tickPosition += tickStep;
-        blockEntity.setChanged();
+        blockEntity.notifyUpdate();
     }
 
     public void toggleSequencer() {
@@ -146,7 +154,7 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
         if (!playing) {
             ((TrackerBarBlockEntity) blockEntity).stopAllNotes();
         }
-        blockEntity.setChanged();
+        blockEntity.notifyUpdate();
     }
 
     public void restartPlayback() {
@@ -158,7 +166,7 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
         } catch (MidiLoadException e) {
             setButtonsEnabled(false);
         }
-        blockEntity.setChanged();
+        blockEntity.notifyUpdate();
     }
 
     private void setButtonsEnabled(boolean enabled) {

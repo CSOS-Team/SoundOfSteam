@@ -2,10 +2,13 @@ package com.finchy.pipeorgans.content.midi.trackerBar;
 
 import com.finchy.pipeorgans.content.midi.MidiSequencerBehaviour;
 import com.finchy.pipeorgans.content.midi.MidiSourceBehaviour;
+import com.finchy.pipeorgans.init.AllPartialModels;
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -18,6 +21,9 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
@@ -38,9 +44,8 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     public TrackerBarInventory inventory;
     protected final ContainerData data;
 
-    private float rollerAngle = 0f;
-    private float rollerVelocity = 0f;
-    private static final float MAX_ROLLER_VELOCITY = 21.666f;
+    public float rollerAngle = 0f;
+    public static final float MAX_ROLLER_VELOCITY = 21.666f;
 
     MidiSourceBehaviour midiSourceBehaviour;
     MidiSequencerBehaviour midiSequencerBehaviour;
@@ -156,10 +161,7 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
         super.tick();
         if (midiSequencerBehaviour.isPlaying() && speed != 0) {
             midiSequencerBehaviour.tickSequencer();
-            rollerVelocity = MAX_ROLLER_VELOCITY;
-            rollerAngle += rollerVelocity;
-        } else {
-            rollerVelocity = 0;
+            rollerAngle += MAX_ROLLER_VELOCITY;
         }
     }
 
@@ -168,7 +170,7 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     }
 
     public float getRollerAngle(float partialTicks) {
-        return (rollerAngle + rollerVelocity*partialTicks)/360;
+        return midiSequencerBehaviour.isPlaying() ? (rollerAngle + MAX_ROLLER_VELOCITY*partialTicks)/360 : rollerAngle;
     }
 
     public void onRollChanged() {

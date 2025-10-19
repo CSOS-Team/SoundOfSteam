@@ -7,14 +7,14 @@
 	"elements": [
 		{
 			"name": "top roll",
-			"from": [1.125, 6.625, 6.625],
-			"to": [14.875, 9.375, 9.375],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"from": [6.625, 1.125, 6.625],
+			"to": [9.375, 14.875, 9.375],
+			"rotation": {"angle": 0, "axis": "z", "origin": [8, 8, 8]},
 			"faces": {
-				"north": {"uv": [0.25, 9.5, 3.75, 10.25], "texture": "#0"},
-				"south": {"uv": [0.25, 9.5, 3.75, 10.25], "texture": "#0"},
-				"up": {"uv": [0.25, 9.5, 3.75, 10.25], "rotation": 180, "texture": "#0"},
-				"down": {"uv": [0.25, 9.5, 3.75, 10.25], "rotation": 180, "texture": "#0"}
+				"north": {"uv": [0.25, 9.5, 3.75, 10.25], "rotation": 90, "texture": "#0"},
+				"east": {"uv": [0.25, 9.5, 3.75, 10.25], "rotation": 90, "texture": "#0"},
+				"south": {"uv": [0.25, 9.5, 3.75, 10.25], "rotation": 270, "texture": "#0"},
+				"west": {"uv": [0.25, 9.5, 3.75, 10.25], "rotation": 90, "texture": "#0"}
 			}
 		}
 	],

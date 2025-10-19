@@ -13,6 +13,7 @@ import dev.engine_room.flywheel.lib.visual.SimpleDynamicVisual;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 import java.util.function.Consumer;
@@ -23,24 +24,41 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
     private final TransformedInstance roller1;
     private final TransformedInstance roller2;
 
+    private final Matrix4f baseTransform1 = new Matrix4f();
+    private final Matrix4f baseTransform2 = new Matrix4f();
+
     public TrackerBarVisual(VisualizationContext context, TrackerBarBlockEntity blockEntity, float partialTick) {
         super(context, blockEntity, partialTick);
 
-        roller1 = instancerProvider().instancer(InstanceTypes.TRANSFORMED, Models.partial(AllPartialModels.TRACKER_BAR_ROLLER))
-                .createInstance();
-
-        roller2 = instancerProvider().instancer(InstanceTypes.TRANSFORMED, Models.partial(AllPartialModels.TRACKER_BAR_ROLLER))
-                .createInstance();
-
-        animateRollers(partialTick);
+        Direction shaft = blockState.getValue(BlockStateProperties.HORIZONTAL_FACING).getClockWise();
 
         rotatingModel = instancerProvider().instancer(AllInstanceTypes.ROTATING, Models.partial(AllPartialModels.TRACKER_BAR_SHAFT))
                 .createInstance();
 
         rotatingModel.setup(blockEntity)
                 .setPosition(getVisualPosition())
-                .rotateToFace(blockState.getValue(BlockStateProperties.HORIZONTAL_FACING).getClockWise())
+                .rotateToFace(shaft)
                 .setChanged();
+
+
+        roller1 = instancerProvider().instancer(InstanceTypes.TRANSFORMED, Models.partial(AllPartialModels.TRACKER_BAR_ROLLER))
+                .createInstance();
+        roller2 = instancerProvider().instancer(InstanceTypes.TRANSFORMED, Models.partial(AllPartialModels.TRACKER_BAR_ROLLER))
+                .createInstance();
+
+        roller1.translate(getVisualPosition())
+                .translate(0, 4.5/16f, 0)
+                .center()
+                .rotate(new Quaternionf().rotateTo(0, -1, 0, shaft.getStepX(), shaft.getStepY(), shaft.getStepZ()));
+        baseTransform1.set(roller1.pose);
+
+        roller2.translate(getVisualPosition())
+                .translate(0, -5.5/16f, 0)
+                .center()
+                .rotate(new Quaternionf().rotateTo(0, -1, 0, shaft.getStepX(), shaft.getStepY(), shaft.getStepZ()));
+        baseTransform2.set(roller2.pose);
+
+        animateRollers(partialTick);
 
     }
 
@@ -50,14 +68,15 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
     }
 
     private void animateRollers(float partialTicks) {
-        Direction facing = blockState.getValue(BlockStateProperties.HORIZONTAL_FACING).getClockWise();
         float angle = blockEntity.getRollerAngle(partialTicks);
 
-        roller1.setIdentityTransform()
-                .translate(getVisualPosition())
-                .center()
-                .rotate(angle, Direction.get(Direction.AxisDirection.POSITIVE, facing.getAxis()))
-                .rotate(new Quaternionf().rotateTo(1, 0, 0, facing.getStepX(), facing.getStepY(), facing.getStepZ()))
+        roller1.setTransform(baseTransform1)
+                .rotateY(angle)
+                .uncenter()
+                .setChanged();
+
+        roller2.setTransform(baseTransform2)
+                .rotateY(angle)
                 .uncenter()
                 .setChanged();
     }

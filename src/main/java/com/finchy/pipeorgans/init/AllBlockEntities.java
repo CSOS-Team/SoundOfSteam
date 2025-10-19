@@ -4,6 +4,7 @@ import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlockEntity;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
+import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarRenderer;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarVisual;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonRenderer;
@@ -38,7 +39,6 @@ import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteBlockEntity;
 import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteRenderer;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlockEntity;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaRenderer;
-import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockEntityBuilder;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
@@ -65,7 +65,7 @@ public class AllBlockEntities {
             .blockEntity("tracker_bar_block_entity", TrackerBarBlockEntity::new)
             .visual(() -> TrackerBarVisual::new)
             .validBlock(AllBlocks.TRACKER_BAR)
-            .renderer(() -> KineticBlockEntityRenderer::new)
+            .renderer(() -> TrackerBarRenderer::new)
             .register();
 
 
