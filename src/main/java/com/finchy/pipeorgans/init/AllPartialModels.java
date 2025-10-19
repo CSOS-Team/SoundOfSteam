@@ -7,8 +7,9 @@ public class AllPartialModels {
 
     public static final PartialModel
 
-    TRACKER_BAR_SHAFT = block("tracker_bar/tracker_bar_shaft"),
-    TRACKER_BAR_ROLLER = block("tracker_bar/tracker_bar_roller"),
+    TRACKER_BAR_SHAFT = block("tracker_bar/shaft"),
+    TRACKER_BAR_ROLLER = block("tracker_bar/roller"),
+    TRACKER_BAR_PAPER = block("tracker_bar/paper"),
 
     GEDECKT_MOUTH_TINY = block("gedeckt/gedeckt_tiny_mouth"),
     GEDECKT_MOUTH_SMALL = block("gedeckt/gedeckt_small_mouth"),

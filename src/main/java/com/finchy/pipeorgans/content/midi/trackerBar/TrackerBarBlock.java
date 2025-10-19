@@ -23,9 +23,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 
@@ -106,9 +104,7 @@ public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<Track
         if (pHand.equals(InteractionHand.OFF_HAND))
             return InteractionResult.SUCCESS;
 
-        withBlockEntityDo(pLevel, pPos, be -> {
-            NetworkHooks.openScreen((ServerPlayer) pPlayer, be, be::sendToMenu);
-        });
+        withBlockEntityDo(pLevel, pPos, be -> NetworkHooks.openScreen((ServerPlayer) pPlayer, be, be::sendToMenu));
         return InteractionResult.SUCCESS;
     }
     @Override

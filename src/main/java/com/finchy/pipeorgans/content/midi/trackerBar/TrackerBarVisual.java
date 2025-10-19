@@ -1,8 +1,10 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
 import com.finchy.pipeorgans.init.AllPartialModels;
+import com.finchy.pipeorgans.init.AllSpriteShifts;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityVisual;
 import com.simibubi.create.content.kinetics.base.RotatingInstance;
+import com.simibubi.create.content.processing.burner.ScrollInstance;
 import com.simibubi.create.foundation.render.AllInstanceTypes;
 import dev.engine_room.flywheel.api.instance.Instance;
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
@@ -10,6 +12,7 @@ import dev.engine_room.flywheel.lib.instance.InstanceTypes;
 import dev.engine_room.flywheel.lib.instance.TransformedInstance;
 import dev.engine_room.flywheel.lib.model.Models;
 import dev.engine_room.flywheel.lib.visual.SimpleDynamicVisual;
+import net.createmod.catnip.render.SpriteShiftEntry;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
@@ -24,8 +27,12 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
     private final TransformedInstance roller1;
     private final TransformedInstance roller2;
 
+    @Nullable
+    private ScrollInstance paper;
+
     private final Matrix4f baseTransform1 = new Matrix4f();
     private final Matrix4f baseTransform2 = new Matrix4f();
+    private final Quaternionf paperRotation;
 
     public TrackerBarVisual(VisualizationContext context, TrackerBarBlockEntity blockEntity, float partialTick) {
         super(context, blockEntity, partialTick);
@@ -58,6 +65,8 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
                 .rotate(new Quaternionf().rotateTo(0, -1, 0, shaft.getStepX(), shaft.getStepY(), shaft.getStepZ()));
         baseTransform2.set(roller2.pose);
 
+        paperRotation = new Quaternionf().rotationXYZ(0f, shaft.getCounterClockWise().toYRot(), 0f);
+
         animateRollers(partialTick);
 
     }
@@ -65,6 +74,14 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
     @Override
     public void beginFrame(Context ctx) {
         animateRollers(ctx.partialTick());
+
+        boolean sequenceLoaded = blockEntity.midiSequencerBehaviour.isSequenceLoaded();
+        if (sequenceLoaded && paper == null) {
+            setupPaperInstance();
+        } else if (!sequenceLoaded && paper != null) {
+            paper.delete();
+            paper = null;
+        }
     }
 
     private void animateRollers(float partialTicks) {
@@ -81,11 +98,27 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
                 .setChanged();
     }
 
+    private void setupPaperInstance() {
+        paper = instancerProvider().instancer(AllInstanceTypes.SCROLLING, Models.partial(AllPartialModels.TRACKER_BAR_PAPER))
+                .createInstance();
+        paper.position(getVisualPosition());
+        paper.rotation(paperRotation);
+
+        SpriteShiftEntry spriteShift = AllSpriteShifts.SCROLLING_MUSIC;
+        float spriteHeight = spriteShift.getTarget().getV1() - spriteShift.getTarget().getV0();
+
+        paper.speedV = (blockEntity.midiSequencerBehaviour.isPlaying() && blockEntity.getSpeed() != 0) ? (1/32f) : 0;
+        paper.scaleV = spriteHeight/2;
+        paper.diffV = spriteShift.getTarget().getV0() - spriteShift.getOriginal().getV0();
+
+    }
+
     @Override
     protected void _delete() {
         rotatingModel.delete();
         roller1.delete();
         roller2.delete();
+        if (paper != null) paper.delete();
     }
 
     @Override
@@ -96,7 +129,7 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
 
     @Override
     public void updateLight(float partialTick) {
-        relight(rotatingModel, roller1, roller2);
+        relight(rotatingModel, roller1, roller2, paper);
     }
 
     @Override
@@ -104,5 +137,6 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
         consumer.accept(rotatingModel);
         consumer.accept(roller1);
         consumer.accept(roller2);
+        if (paper != null) consumer.accept(paper);
     }
 }
