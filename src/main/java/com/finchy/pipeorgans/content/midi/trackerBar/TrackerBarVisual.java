@@ -14,6 +14,7 @@ import dev.engine_room.flywheel.lib.model.Models;
 import dev.engine_room.flywheel.lib.visual.SimpleDynamicVisual;
 import net.createmod.catnip.render.SpriteShiftEntry;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
@@ -65,7 +66,7 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
                 .rotate(new Quaternionf().rotateTo(0, -1, 0, shaft.getStepX(), shaft.getStepY(), shaft.getStepZ()));
         baseTransform2.set(roller2.pose);
 
-        paperRotation = new Quaternionf().rotationXYZ(0f, shaft.getCounterClockWise().toYRot(), 0f);
+        paperRotation = new Quaternionf().rotationXYZ(0f, shaft.getCounterClockWise().toYRot()* Mth.DEG_TO_RAD, 0f);
 
         animateRollers(partialTick);
 
@@ -101,15 +102,12 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
     private void setupPaperInstance() {
         paper = instancerProvider().instancer(AllInstanceTypes.SCROLLING, Models.partial(AllPartialModels.TRACKER_BAR_PAPER))
                 .createInstance();
-        paper.position(getVisualPosition());
-        paper.rotation(paperRotation);
-
-        SpriteShiftEntry spriteShift = AllSpriteShifts.SCROLLING_MUSIC;
-        float spriteHeight = spriteShift.getTarget().getV1() - spriteShift.getTarget().getV0();
-
-        paper.speedV = (blockEntity.midiSequencerBehaviour.isPlaying() && blockEntity.getSpeed() != 0) ? (1/32f) : 0;
-        paper.scaleV = spriteHeight/2;
-        paper.diffV = spriteShift.getTarget().getV0() - spriteShift.getOriginal().getV0();
+        paper.setSpriteShift(AllSpriteShifts.SCROLLING_MUSIC, 1, 0.5f)
+                .position(getVisualPosition())
+                .rotation(paperRotation)
+                .speed(0, (blockEntity.midiSequencerBehaviour.isPlaying() && blockEntity.getSpeed() != 0) ? (1/32f) : 0)
+                .colorRgb(RotatingInstance.colorFromBE(blockEntity))
+                .setChanged();
 
     }
 
