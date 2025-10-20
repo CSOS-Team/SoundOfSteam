@@ -12,7 +12,6 @@ import dev.engine_room.flywheel.lib.instance.InstanceTypes;
 import dev.engine_room.flywheel.lib.instance.TransformedInstance;
 import dev.engine_room.flywheel.lib.model.Models;
 import dev.engine_room.flywheel.lib.visual.SimpleDynamicVisual;
-import net.createmod.catnip.render.SpriteShiftEntry;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -78,7 +77,9 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
 
         boolean sequenceLoaded = blockEntity.midiSequencerBehaviour.isSequenceLoaded();
         if (sequenceLoaded && paper == null) {
-            setupPaperInstance();
+            paper = instancerProvider().instancer(AllInstanceTypes.SCROLLING, Models.partial(AllPartialModels.TRACKER_BAR_PAPER))
+                    .createInstance();
+            setupPaper(paper);
         } else if (!sequenceLoaded && paper != null) {
             paper.delete();
             paper = null;
@@ -99,9 +100,7 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
                 .setChanged();
     }
 
-    private void setupPaperInstance() {
-        paper = instancerProvider().instancer(AllInstanceTypes.SCROLLING, Models.partial(AllPartialModels.TRACKER_BAR_PAPER))
-                .createInstance();
+    private void setupPaper(ScrollInstance paper) {
         paper.setSpriteShift(AllSpriteShifts.SCROLLING_MUSIC, 1, 0.5f)
                 .position(getVisualPosition())
                 .rotation(paperRotation)
@@ -109,7 +108,6 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
                 .colorRgb(RotatingInstance.colorFromBE(blockEntity))
                 .light(computePackedLight())
                 .setChanged();
-
     }
 
     @Override
@@ -124,6 +122,9 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
     public void update(float partialTick) {
         rotatingModel.setup(blockEntity)
                 .setChanged();
+        if (paper != null) {
+            setupPaper(paper);
+        }
     }
 
     @Override
