@@ -63,6 +63,7 @@ public class PipeOrgans {
         AllDisplaySources.register();
         AllItems.register();
         AllSoundEvents.register(modEventBus);
+        AllSpriteShifts.register();
         AllParticleTypes.register(modEventBus);
         AllMenuTypes.register();
         AllPackets.registerPackets();

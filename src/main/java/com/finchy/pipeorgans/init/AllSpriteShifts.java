@@ -7,9 +7,8 @@ import net.createmod.catnip.render.SpriteShifter;
 public class AllSpriteShifts {
 
     public static final SpriteShiftEntry SCROLLING_MUSIC =
-            SpriteShifter.get(PipeOrgans.asResource("block/tracker_bar/paper"), PipeOrgans.asResource("block/tracker_bar/paper_scroll"));
+            SpriteShifter.get(PipeOrgans.asResource("block/tracker_bar/paper_texture"), PipeOrgans.asResource("block/tracker_bar/paper_scroll_texture"));
 
-    private static SpriteShiftEntry get(String originalLocation, String targetLocation) {
-        return SpriteShifter.get(PipeOrgans.asResource(originalLocation), PipeOrgans.asResource(targetLocation));
+    public static void register() {
     }
 }

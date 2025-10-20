@@ -107,6 +107,7 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
                 .rotation(paperRotation)
                 .speed(0, (blockEntity.midiSequencerBehaviour.isPlaying() && blockEntity.getSpeed() != 0) ? (1/32f) : 0)
                 .colorRgb(RotatingInstance.colorFromBE(blockEntity))
+                .light(computePackedLight())
                 .setChanged();
 
     }
