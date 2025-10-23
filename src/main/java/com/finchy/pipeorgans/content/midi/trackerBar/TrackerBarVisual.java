@@ -37,7 +37,8 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
     public TrackerBarVisual(VisualizationContext context, TrackerBarBlockEntity blockEntity, float partialTick) {
         super(context, blockEntity, partialTick);
 
-        Direction shaft = blockState.getValue(BlockStateProperties.HORIZONTAL_FACING).getClockWise();
+        Direction facing = blockState.getValue(BlockStateProperties.HORIZONTAL_FACING);
+        Direction shaft = facing.getClockWise();
 
         rotatingModel = instancerProvider().instancer(AllInstanceTypes.ROTATING, Models.partial(AllPartialModels.TRACKER_BAR_SHAFT))
                 .createInstance();
@@ -46,7 +47,6 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
                 .setPosition(getVisualPosition())
                 .rotateToFace(shaft)
                 .setChanged();
-
 
         roller1 = instancerProvider().instancer(InstanceTypes.TRANSFORMED, Models.partial(AllPartialModels.TRACKER_BAR_ROLLER))
                 .createInstance();
@@ -60,30 +60,22 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
         baseTransform1.set(roller1.pose);
 
         roller2.translate(getVisualPosition())
-                .translate(0, -5.5/16f, 0)
+                .translate(facing.getStepX()/16f, -5.5/16f, facing.getStepZ()/16f)
                 .center()
                 .rotate(new Quaternionf().rotateTo(0, -1, 0, shaft.getStepX(), shaft.getStepY(), shaft.getStepZ()));
         baseTransform2.set(roller2.pose);
 
-        paperRotation = new Quaternionf().rotationXYZ(0f, shaft.getCounterClockWise().toYRot()* Mth.DEG_TO_RAD, 0f);
+        if (facing.equals(Direction.NORTH) || facing.equals(Direction.SOUTH)) facing = facing.getOpposite();
+        paperRotation = new Quaternionf().rotationXYZ(0f, facing.toYRot()* Mth.DEG_TO_RAD, 0f);
 
         animateRollers(partialTick);
-
+        checkPaper();
     }
 
     @Override
     public void beginFrame(Context ctx) {
         animateRollers(ctx.partialTick());
-
-        boolean sequenceLoaded = blockEntity.midiSequencerBehaviour.isSequenceLoaded();
-        if (sequenceLoaded && paper == null) {
-            paper = instancerProvider().instancer(AllInstanceTypes.SCROLLING, Models.partial(AllPartialModels.TRACKER_BAR_PAPER))
-                    .createInstance();
-            setupPaper(paper);
-        } else if (!sequenceLoaded && paper != null) {
-            paper.delete();
-            paper = null;
-        }
+        checkPaper();
     }
 
     private void animateRollers(float partialTicks) {
@@ -100,11 +92,23 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
                 .setChanged();
     }
 
+    private void checkPaper() {
+        boolean sequenceLoaded = blockEntity.midiSequencerBehaviour.isSequenceLoaded();
+        if (sequenceLoaded && paper == null) {
+            paper = instancerProvider().instancer(AllInstanceTypes.SCROLLING, Models.partial(AllPartialModels.TRACKER_BAR_PAPER))
+                    .createInstance();
+            setupPaper(paper);
+        } else if (!sequenceLoaded && paper != null) {
+            paper.delete();
+            paper = null;
+        }
+    }
+
     private void setupPaper(ScrollInstance paper) {
         paper.setSpriteShift(AllSpriteShifts.SCROLLING_MUSIC, 1, 0.5f)
                 .position(getVisualPosition())
                 .rotation(paperRotation)
-                .speed(0, (blockEntity.midiSequencerBehaviour.isPlaying() && blockEntity.getSpeed() != 0) ? (1/32f) : 0)
+                .speed(0, blockEntity.getScrollSpeed())
                 .colorRgb(RotatingInstance.colorFromBE(blockEntity))
                 .light(computePackedLight())
                 .setChanged();
@@ -122,9 +126,9 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
     public void update(float partialTick) {
         rotatingModel.setup(blockEntity)
                 .setChanged();
-        if (paper != null) {
-            setupPaper(paper);
-        }
+        if (paper != null)
+            paper.speed(0, blockEntity.getScrollSpeed())
+            .setChanged();
     }
 
     @Override

@@ -5,6 +5,6 @@
   "model": "pipeorgans:models/block/tracker_bar/tracker_bar_paper.obj",
   "render_type": "minecraft:cutout",
   "textures": {
-    "0": "pipeorgans:block/tracker_bar/music"
+    "0": "pipeorgans:block/tracker_bar/paper"
   }
 }

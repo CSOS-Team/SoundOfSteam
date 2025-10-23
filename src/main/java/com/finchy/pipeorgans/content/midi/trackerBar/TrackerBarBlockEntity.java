@@ -40,6 +40,7 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
 
     public float rollerAngle = 0f;
     public static final float MAX_ROLLER_VELOCITY = 21.666f;
+    public static final float SCROLL_SPEED = 1/32f;
 
     MidiSourceBehaviour midiSourceBehaviour;
     MidiSequencerBehaviour midiSequencerBehaviour;
@@ -165,6 +166,10 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
 
     public float getRollerAngle(float partialTicks) {
         return midiSequencerBehaviour.isPlaying() ? (rollerAngle + MAX_ROLLER_VELOCITY*partialTicks)/360 : rollerAngle;
+    }
+
+    public float getScrollSpeed() {
+        return (midiSequencerBehaviour.isPlaying() && speed != 0) ? SCROLL_SPEED : 0;
     }
 
     public void onRollChanged() {
