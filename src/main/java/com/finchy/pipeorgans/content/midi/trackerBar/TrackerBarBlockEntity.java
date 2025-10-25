@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.content.midi.trackerBar;
 
 import com.finchy.pipeorgans.content.midi.MidiSequencerBehaviour;
 import com.finchy.pipeorgans.content.midi.MidiSourceBehaviour;
+import com.finchy.pipeorgans.init.AllSoundEvents;
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
@@ -10,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -25,7 +27,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.sound.midi.*;
+import javax.sound.midi.ShortMessage;
 import java.util.List;
 
 @SuppressWarnings({"DataFlowIssue", "NullableProblems"})
@@ -177,11 +179,13 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
         midiSequencerBehaviour.unloadSequence();
         if (stack.isEmpty()) {
             buttonsEnabled = false;
+            if (!level.isClientSide) level.playSound(null, getBlockPos(), AllSoundEvents.TRACKER_BAR_CHANGE_ROLL.get(), SoundSource.BLOCKS, 1f, 1f);
         } else if (MidiUtils.isMusicRollValid(stack)) {
             try {
                 CompoundTag tag = stack.getTag();
                 midiSequencerBehaviour.loadSequence(tag.getString("File"), tag.getString("Owner"));
                 buttonsEnabled = true;
+                if (!level.isClientSide) level.playSound(null, getBlockPos(), AllSoundEvents.TRACKER_BAR_CHANGE_ROLL.get(), SoundSource.BLOCKS, 1f, 1f);
             } catch (MidiLoadException e) {
                 buttonsEnabled = false;
             }

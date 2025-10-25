@@ -6,7 +6,9 @@
 
   "gui.pipeorgans.midi_config": "MIDI Input Device Config",
   "gui.pipeorgans.keyboard_relay": "Keyboard Relay",
+
   "gui.pipeorgans.tracker_bar": "Tracker Bar",
+  "sounds.pipeorgans.tracker_bar_change_roll": "Paper roll rustles",
 
   "pipeorgans.display_source.tracker_bar_filename": "Filename",
   "pipeorgans.display_source.tracker_bar_bpm": "BPM",

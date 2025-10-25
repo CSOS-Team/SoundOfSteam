@@ -16,103 +16,107 @@ public class AllSoundEvents {
 
     // declare sounds here
 
-    public static final RegistryObject<SoundEvent> GEDECKT_SUPERHIGH = registerSoundEvent("gedeckt_superhigh");
-    public static final RegistryObject<SoundEvent> GEDECKT_HIGH = registerSoundEvent("gedeckt_high");
-    public static final RegistryObject<SoundEvent> GEDECKT_MEDIUM = registerSoundEvent("gedeckt_medium");
-    public static final RegistryObject<SoundEvent> GEDECKT_LOW = registerSoundEvent("gedeckt_low");
-    public static final RegistryObject<SoundEvent> GEDECKT_DEEP = registerSoundEvent("gedeckt_deep");
+    public static final RegistryObject<SoundEvent>
 
-    public static final RegistryObject<SoundEvent> HOHLFLUTE_SUPERHIGH = registerSoundEvent("hohlflute_superhigh");
-    public static final RegistryObject<SoundEvent> HOHLFLUTE_HIGH = registerSoundEvent("hohlflute_high");
-    public static final RegistryObject<SoundEvent> HOHLFLUTE_MEDIUM = registerSoundEvent("hohlflute_medium");
-    public static final RegistryObject<SoundEvent> HOHLFLUTE_LOW = registerSoundEvent("hohlflute_low");
-    public static final RegistryObject<SoundEvent> HOHLFLUTE_DEEP = registerSoundEvent("hohlflute_deep");
+    TRACKER_BAR_CHANGE_ROLL = registerSoundEvent("tracker_bar_change_roll"),
+    
+     GEDECKT_SUPERHIGH = registerSoundEvent("gedeckt_superhigh"),
+     GEDECKT_HIGH = registerSoundEvent("gedeckt_high"),
+     GEDECKT_MEDIUM = registerSoundEvent("gedeckt_medium"),
+     GEDECKT_LOW = registerSoundEvent("gedeckt_low"),
+     GEDECKT_DEEP = registerSoundEvent("gedeckt_deep"),
 
-    public static final RegistryObject<SoundEvent> ROHRFLOTE_SUPERHIGH = registerSoundEvent("rohrflote_superhigh");
-    public static final RegistryObject<SoundEvent> ROHRFLOTE_HIGH = registerSoundEvent("rohrflote_high");
-    public static final RegistryObject<SoundEvent> ROHRFLOTE_MEDIUM = registerSoundEvent("rohrflote_medium");
-    public static final RegistryObject<SoundEvent> ROHRFLOTE_LOW = registerSoundEvent("rohrflote_low");
-    public static final RegistryObject<SoundEvent> ROHRFLOTE_DEEP = registerSoundEvent("rohrflote_deep");
+     HOHLFLUTE_SUPERHIGH = registerSoundEvent("hohlflute_superhigh"),
+     HOHLFLUTE_HIGH = registerSoundEvent("hohlflute_high"),
+     HOHLFLUTE_MEDIUM = registerSoundEvent("hohlflute_medium"),
+     HOHLFLUTE_LOW = registerSoundEvent("hohlflute_low"),
+     HOHLFLUTE_DEEP = registerSoundEvent("hohlflute_deep"),
 
-    public static final RegistryObject<SoundEvent> DIAPASON_SUPERHIGH = registerSoundEvent("diapason_superhigh");
-    public static final RegistryObject<SoundEvent> DIAPASON_HIGH = registerSoundEvent("diapason_high");
-    public static final RegistryObject<SoundEvent> DIAPASON_MEDIUM = registerSoundEvent("diapason_medium");
-    public static final RegistryObject<SoundEvent> DIAPASON_LOW = registerSoundEvent("diapason_low");
-    public static final RegistryObject<SoundEvent> DIAPASON_DEEP = registerSoundEvent("diapason_deep");
+     ROHRFLOTE_SUPERHIGH = registerSoundEvent("rohrflote_superhigh"),
+     ROHRFLOTE_HIGH = registerSoundEvent("rohrflote_high"),
+     ROHRFLOTE_MEDIUM = registerSoundEvent("rohrflote_medium"),
+     ROHRFLOTE_LOW = registerSoundEvent("rohrflote_low"),
+     ROHRFLOTE_DEEP = registerSoundEvent("rohrflote_deep"),
 
-    public static final RegistryObject<SoundEvent> HAUNTED_WHISTLE_SUPERHIGH = registerSoundEvent("haunted_whistle_superhigh");
-    public static final RegistryObject<SoundEvent> HAUNTED_WHISTLE_HIGH = registerSoundEvent("haunted_whistle_high");
-    public static final RegistryObject<SoundEvent> HAUNTED_WHISTLE_MEDIUM = registerSoundEvent("haunted_whistle_medium");
-    public static final RegistryObject<SoundEvent> HAUNTED_WHISTLE_LOW = registerSoundEvent("haunted_whistle_low");
-    public static final RegistryObject<SoundEvent> HAUNTED_WHISTLE_DEEP = registerSoundEvent("haunted_whistle_deep");
+     DIAPASON_SUPERHIGH = registerSoundEvent("diapason_superhigh"),
+     DIAPASON_HIGH = registerSoundEvent("diapason_high"),
+     DIAPASON_MEDIUM = registerSoundEvent("diapason_medium"),
+     DIAPASON_LOW = registerSoundEvent("diapason_low"),
+     DIAPASON_DEEP = registerSoundEvent("diapason_deep"),
 
-    public static final RegistryObject<SoundEvent> PRESTANT_SUPERHIGH = registerSoundEvent("prestant_superhigh");
-    public static final RegistryObject<SoundEvent> PRESTANT_HIGH = registerSoundEvent("prestant_high");
-    public static final RegistryObject<SoundEvent> PRESTANT_MEDIUM = registerSoundEvent("prestant_medium");
-    public static final RegistryObject<SoundEvent> PRESTANT_LOW = registerSoundEvent("prestant_low");
-    public static final RegistryObject<SoundEvent> PRESTANT_DEEP = registerSoundEvent("prestant_deep");
+     HAUNTED_WHISTLE_SUPERHIGH = registerSoundEvent("haunted_whistle_superhigh"),
+     HAUNTED_WHISTLE_HIGH = registerSoundEvent("haunted_whistle_high"),
+     HAUNTED_WHISTLE_MEDIUM = registerSoundEvent("haunted_whistle_medium"),
+     HAUNTED_WHISTLE_LOW = registerSoundEvent("haunted_whistle_low"),
+     HAUNTED_WHISTLE_DEEP = registerSoundEvent("haunted_whistle_deep"),
 
-    public static final RegistryObject<SoundEvent> GAMBA_SUPERHIGH = registerSoundEvent("gamba_superhigh");
-    public static final RegistryObject<SoundEvent> GAMBA_HIGH = registerSoundEvent("gamba_high");
-    public static final RegistryObject<SoundEvent> GAMBA_MEDIUM = registerSoundEvent("gamba_medium");
-    public static final RegistryObject<SoundEvent> GAMBA_LOW = registerSoundEvent("gamba_low");
-    public static final RegistryObject<SoundEvent> GAMBA_DEEP = registerSoundEvent("gamba_deep");
+     PRESTANT_SUPERHIGH = registerSoundEvent("prestant_superhigh"),
+     PRESTANT_HIGH = registerSoundEvent("prestant_high"),
+     PRESTANT_MEDIUM = registerSoundEvent("prestant_medium"),
+     PRESTANT_LOW = registerSoundEvent("prestant_low"),
+     PRESTANT_DEEP = registerSoundEvent("prestant_deep"),
 
-    public static final RegistryObject<SoundEvent> PICCOLO_SUPERHIGH = registerSoundEvent("piccolo_superhigh");
-    public static final RegistryObject<SoundEvent> PICCOLO_HIGH = registerSoundEvent("piccolo_high");
-    public static final RegistryObject<SoundEvent> PICCOLO_MEDIUM = registerSoundEvent("piccolo_medium");
-    public static final RegistryObject<SoundEvent> PICCOLO_LOW = registerSoundEvent("piccolo_low");
-    public static final RegistryObject<SoundEvent> PICCOLO_DEEP = registerSoundEvent("piccolo_deep");
+     GAMBA_SUPERHIGH = registerSoundEvent("gamba_superhigh"),
+     GAMBA_HIGH = registerSoundEvent("gamba_high"),
+     GAMBA_MEDIUM = registerSoundEvent("gamba_medium"),
+     GAMBA_LOW = registerSoundEvent("gamba_low"),
+     GAMBA_DEEP = registerSoundEvent("gamba_deep"),
 
-    public static final RegistryObject<SoundEvent> SUBBASS_SUPERHIGH = registerSoundEvent("subbass_superhigh");
-    public static final RegistryObject<SoundEvent> SUBBASS_HIGH = registerSoundEvent("subbass_high");
-    public static final RegistryObject<SoundEvent> SUBBASS_MEDIUM = registerSoundEvent("subbass_medium");
-    public static final RegistryObject<SoundEvent> SUBBASS_LOW = registerSoundEvent("subbass_low");
-    public static final RegistryObject<SoundEvent> SUBBASS_DEEP = registerSoundEvent("subbass_deep");
+     PICCOLO_SUPERHIGH = registerSoundEvent("piccolo_superhigh"),
+     PICCOLO_HIGH = registerSoundEvent("piccolo_high"),
+     PICCOLO_MEDIUM = registerSoundEvent("piccolo_medium"),
+     PICCOLO_LOW = registerSoundEvent("piccolo_low"),
+     PICCOLO_DEEP = registerSoundEvent("piccolo_deep"),
 
-    public static final RegistryObject<SoundEvent> TROMPETTE_SUPERHIGH = registerSoundEvent("trompette_superhigh");
-    public static final RegistryObject<SoundEvent> TROMPETTE_HIGH = registerSoundEvent("trompette_high");
-    public static final RegistryObject<SoundEvent> TROMPETTE_MEDIUM = registerSoundEvent("trompette_medium");
-    public static final RegistryObject<SoundEvent> TROMPETTE_LOW = registerSoundEvent("trompette_low");
-    public static final RegistryObject<SoundEvent> TROMPETTE_DEEP = registerSoundEvent("trompette_deep");
+     SUBBASS_SUPERHIGH = registerSoundEvent("subbass_superhigh"),
+     SUBBASS_HIGH = registerSoundEvent("subbass_high"),
+     SUBBASS_MEDIUM = registerSoundEvent("subbass_medium"),
+     SUBBASS_LOW = registerSoundEvent("subbass_low"),
+     SUBBASS_DEEP = registerSoundEvent("subbass_deep"),
 
-    public static final RegistryObject<SoundEvent> ENGLISH_HORN_SUPERHIGH = registerSoundEvent("english_horn_superhigh");
-    public static final RegistryObject<SoundEvent> ENGLISH_HORN_HIGH = registerSoundEvent("english_horn_high");
-    public static final RegistryObject<SoundEvent> ENGLISH_HORN_MEDIUM = registerSoundEvent("english_horn_medium");
-    public static final RegistryObject<SoundEvent> ENGLISH_HORN_LOW = registerSoundEvent("english_horn_low");
-    public static final RegistryObject<SoundEvent> ENGLISH_HORN_DEEP = registerSoundEvent("english_horn_deep");
+     TROMPETTE_SUPERHIGH = registerSoundEvent("trompette_superhigh"),
+     TROMPETTE_HIGH = registerSoundEvent("trompette_high"),
+     TROMPETTE_MEDIUM = registerSoundEvent("trompette_medium"),
+     TROMPETTE_LOW = registerSoundEvent("trompette_low"),
+     TROMPETTE_DEEP = registerSoundEvent("trompette_deep"),
 
-    public static final RegistryObject<SoundEvent> NASARD_SUPERHIGH = registerSoundEvent("nasard_superhigh");
-    public static final RegistryObject<SoundEvent> NASARD_HIGH = registerSoundEvent("nasard_high");
-    public static final RegistryObject<SoundEvent> NASARD_MEDIUM = registerSoundEvent("nasard_medium");
-    public static final RegistryObject<SoundEvent> NASARD_LOW = registerSoundEvent("nasard_low");
-    public static final RegistryObject<SoundEvent> NASARD_DEEP = registerSoundEvent("nasard_deep");
+     ENGLISH_HORN_SUPERHIGH = registerSoundEvent("english_horn_superhigh"),
+     ENGLISH_HORN_HIGH = registerSoundEvent("english_horn_high"),
+     ENGLISH_HORN_MEDIUM = registerSoundEvent("english_horn_medium"),
+     ENGLISH_HORN_LOW = registerSoundEvent("english_horn_low"),
+     ENGLISH_HORN_DEEP = registerSoundEvent("english_horn_deep"),
 
-    public static final RegistryObject<SoundEvent> POSAUNE_SUPERHIGH = registerSoundEvent("posaune_superhigh");
-    public static final RegistryObject<SoundEvent> POSAUNE_HIGH = registerSoundEvent("posaune_high");
-    public static final RegistryObject<SoundEvent> POSAUNE_MEDIUM = registerSoundEvent("posaune_medium");
-    public static final RegistryObject<SoundEvent> POSAUNE_LOW = registerSoundEvent("posaune_low");
-    public static final RegistryObject<SoundEvent> POSAUNE_DEEP = registerSoundEvent("posaune_deep");
+     NASARD_SUPERHIGH = registerSoundEvent("nasard_superhigh"),
+     NASARD_HIGH = registerSoundEvent("nasard_high"),
+     NASARD_MEDIUM = registerSoundEvent("nasard_medium"),
+     NASARD_LOW = registerSoundEvent("nasard_low"),
+     NASARD_DEEP = registerSoundEvent("nasard_deep"),
 
-    public static final RegistryObject<SoundEvent> VOX_HUMANA_SUPERHIGH = registerSoundEvent("vox_humana_superhigh");
-    public static final RegistryObject<SoundEvent> VOX_HUMANA_HIGH = registerSoundEvent("vox_humana_high");
-    public static final RegistryObject<SoundEvent> VOX_HUMANA_MEDIUM = registerSoundEvent("vox_humana_medium");
-    public static final RegistryObject<SoundEvent> VOX_HUMANA_LOW = registerSoundEvent("vox_humana_low");
-    public static final RegistryObject<SoundEvent> VOX_HUMANA_DEEP = registerSoundEvent("vox_humana_deep");
+     POSAUNE_SUPERHIGH = registerSoundEvent("posaune_superhigh"),
+     POSAUNE_HIGH = registerSoundEvent("posaune_high"),
+     POSAUNE_MEDIUM = registerSoundEvent("posaune_medium"),
+     POSAUNE_LOW = registerSoundEvent("posaune_low"),
+     POSAUNE_DEEP = registerSoundEvent("posaune_deep"),
 
-    public static final RegistryObject<SoundEvent> VIOLA_SUPERHIGH = registerSoundEvent("viola_superhigh");
-    public static final RegistryObject<SoundEvent> VIOLA_HIGH = registerSoundEvent("viola_high");
-    public static final RegistryObject<SoundEvent> VIOLA_MEDIUM = registerSoundEvent("viola_medium");
-    public static final RegistryObject<SoundEvent> VIOLA_LOW = registerSoundEvent("viola_low");
-    public static final RegistryObject<SoundEvent> VIOLA_DEEP = registerSoundEvent("viola_deep");
+     VOX_HUMANA_SUPERHIGH = registerSoundEvent("vox_humana_superhigh"),
+     VOX_HUMANA_HIGH = registerSoundEvent("vox_humana_high"),
+     VOX_HUMANA_MEDIUM = registerSoundEvent("vox_humana_medium"),
+     VOX_HUMANA_LOW = registerSoundEvent("vox_humana_low"),
+     VOX_HUMANA_DEEP = registerSoundEvent("vox_humana_deep"),
 
-    public static final RegistryObject<SoundEvent> VOX_CELESTE_SUPERHIGH = registerSoundEvent("vox_celeste_superhigh");
-    public static final RegistryObject<SoundEvent> VOX_CELESTE_HIGH = registerSoundEvent("vox_celeste_high");
-    public static final RegistryObject<SoundEvent> VOX_CELESTE_MEDIUM = registerSoundEvent("vox_celeste_medium");
-    public static final RegistryObject<SoundEvent> VOX_CELESTE_LOW = registerSoundEvent("vox_celeste_low");
-    public static final RegistryObject<SoundEvent> VOX_CELESTE_DEEP = registerSoundEvent("vox_celeste_deep");
+     VIOLA_SUPERHIGH = registerSoundEvent("viola_superhigh"),
+     VIOLA_HIGH = registerSoundEvent("viola_high"),
+     VIOLA_MEDIUM = registerSoundEvent("viola_medium"),
+     VIOLA_LOW = registerSoundEvent("viola_low"),
+     VIOLA_DEEP = registerSoundEvent("viola_deep"),
 
-    public static final RegistryObject<SoundEvent> HAUNTED_CHIFF = registerSoundEvent("haunted_chiff");
+     VOX_CELESTE_SUPERHIGH = registerSoundEvent("vox_celeste_superhigh"),
+     VOX_CELESTE_HIGH = registerSoundEvent("vox_celeste_high"),
+     VOX_CELESTE_MEDIUM = registerSoundEvent("vox_celeste_medium"),
+     VOX_CELESTE_LOW = registerSoundEvent("vox_celeste_low"),
+     VOX_CELESTE_DEEP = registerSoundEvent("vox_celeste_deep"),
+
+     HAUNTED_CHIFF = registerSoundEvent("haunted_chiff");
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(PipeOrgans.MOD_ID, name)));

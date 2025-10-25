@@ -6,6 +6,7 @@ import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
+import com.simibubi.create.foundation.item.ItemHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -113,6 +114,7 @@ public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<Track
             if (!pLevel.isClientSide) {
                 withBlockEntityDo(pLevel, pPos, TrackerBarBlockEntity::onBlockRemoved);
             }
+            withBlockEntityDo(pLevel, pPos, be -> ItemHelper.dropContents(pLevel, pPos, be.inventory));
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
     }

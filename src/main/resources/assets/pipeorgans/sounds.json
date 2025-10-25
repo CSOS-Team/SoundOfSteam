@@ -1,4 +1,14 @@
 {
+  "tracker_bar_change_roll": {
+    "subtitle": "sounds.pipeorgans.tracker_bar_change_roll",
+    "sounds": [
+      {
+        "type": "event",
+        "name": "minecraft:item.book.page_turn"
+      }
+    ]
+  },
+
   "gedeckt_superhigh": {
     "subtitle": "sounds.pipeorgans.gedeckt_superhigh",
     "sounds": [

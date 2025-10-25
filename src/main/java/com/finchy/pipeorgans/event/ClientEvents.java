@@ -44,7 +44,6 @@ public class ClientEvents {
             if (Keybinding.MIDI_CONFIG_KEY.consumeClick()) {
                 ClientsideGUIWrapper.openMidiConfigGUI(Minecraft.getInstance().level);
                 PipeOrgansClient.MIDI_SENDER.refresh();
-                PipeOrgansClient.MIDI_SENDER.startNewUpload("test.mid");
             }
         }
 
