@@ -32,6 +32,7 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
 
     private String currentMidi = "";
     private String currentMidiOwner = "";
+    private boolean renderPaper = false;
 
     public MidiSequencerBehaviour(SmartBlockEntity be) {
         super(be);
@@ -45,26 +46,31 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
 
     @Override
     public void write(CompoundTag tag, boolean clientPacket) {
+        if (clientPacket) tag.putBoolean("RenderPaper", renderPaper);
+
         tag.putString("File", currentMidi);
         tag.putString("Owner", currentMidiOwner);
         tag.putBoolean("Playing", playing);
         tag.putInt("TickPosition", tickPosition);
+
     }
 
     @Override
     public void read(CompoundTag tag, boolean clientPacket) {
+        if (clientPacket) renderPaper = tag.getBoolean("RenderPaper");
+
         String midiRead = tag.getString("File");
         String ownerRead = tag.getString("Owner");
         try {
             if (!midiRead.isEmpty() && !ownerRead.isEmpty()) {
-                loadSequence(midiRead, ownerRead);
+                if (!midiRead.equals(currentMidi) || !ownerRead.equals(currentMidiOwner)) loadSequence(midiRead, ownerRead);
                 setButtonsEnabled(true);
             } else {
                 setButtonsEnabled(false);
                 return;
             }
         } catch (MidiLoadException e) {
-            PipeOrgans.LOGGER.error("Exception when loading data from Tracker Bar NBT: {}", e.getMessage());
+            PipeOrgans.LOGGER.error("Exception when loading from Tracker Bar NBT: {}", e.getMessage());
             setButtonsEnabled(false);
             return;
         }
@@ -72,7 +78,12 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
         tickPosition = tag.getInt("TickPosition");
     }
 
+    private boolean isClientside() {
+        return (getWorld() != null && getWorld().isClientSide);
+    }
+
     public void loadSequence(String file, String owner) throws MidiLoadException {
+        if (isClientside()) return;
         Sequence sequence = MidiFileParser.getSequenceFromFile(file, owner);
         currentSequence = MidiFileParser.parseMidiEvents(sequence);
 
@@ -82,6 +93,7 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
         endTick = MidiFileParser.endTick(sequence);
         currentMidi = file;
         currentMidiOwner = owner;
+        renderPaper = true;
         blockEntity.notifyUpdate();
     }
 
@@ -93,11 +105,13 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
         playing = false;
         tickPosition = 0;
         tickStep = 1;
+        renderPaper = false;
         ((TrackerBarBlockEntity) blockEntity).stopAllNotes();
         blockEntity.notifyUpdate();
     }
 
     public boolean isSequenceLoaded() {
+        if (isClientside()) return renderPaper;
         return currentSequence != null && !currentMidi.isEmpty() && !currentMidiOwner.isEmpty();
     }
 
@@ -116,6 +130,7 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
     }
 
     public void tickSequencer() {
+        if (isClientside()) return;
         for (Queue<MidiEvent> track : currentSequence) {
             while (track.peek() != null && track.peek().getTick() <= tickPosition) {
                 MidiMessage msg = track.poll().getMessage();
@@ -146,7 +161,6 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
             }
         }
         tickPosition += tickStep;
-        blockEntity.notifyUpdate();
     }
 
     public void toggleSequencer() {

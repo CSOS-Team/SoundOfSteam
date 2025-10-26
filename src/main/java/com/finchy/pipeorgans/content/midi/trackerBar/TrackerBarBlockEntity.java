@@ -194,7 +194,6 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
         } else {
             buttonsEnabled = false;
         }
-        setChanged();
     }
 
     public boolean getButtonsEnabled() {

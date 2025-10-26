@@ -93,12 +93,12 @@ public class TrackerBarVisual extends KineticBlockEntityVisual<TrackerBarBlockEn
     }
 
     private void checkPaper() {
-        boolean sequenceLoaded = blockEntity.midiSequencerBehaviour.isSequenceLoaded();
-        if (sequenceLoaded && paper == null) {
+        boolean shouldRender = blockEntity.midiSequencerBehaviour.isSequenceLoaded();
+        if (shouldRender && paper == null) {
             paper = instancerProvider().instancer(AllInstanceTypes.SCROLLING, Models.partial(AllPartialModels.TRACKER_BAR_PAPER))
                     .createInstance();
             setupPaper(paper);
-        } else if (!sequenceLoaded && paper != null) {
+        } else if (!shouldRender && paper != null) {
             paper.delete();
             paper = null;
         }
