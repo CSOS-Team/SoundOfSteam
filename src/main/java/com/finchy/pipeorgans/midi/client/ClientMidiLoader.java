@@ -106,7 +106,7 @@ public class ClientMidiLoader {
     }
 
     public void refresh() {
-        FilesHelper.createFolderIfMissing(DIRECTORY);
+        FilesHelper.createFolderIfMissing(Paths.get(DIRECTORY));
         availableMidis.clear();
 
         try {

@@ -68,8 +68,9 @@ public class ServerMidiLoader {
     }
 
     public void handleNewUpload(ServerPlayer player, String midi, long size, BlockPos pos) {
-        String playerPath = serverMidiPath + "/" + player.getGameProfile().getName();
+        String playerPathString = serverMidiPath + "/" + player.getGameProfile().getName();
         String playerMidiId = player.getGameProfile().getName() + "/" + midi;
+        Path playerPath = Paths.get(playerPathString);
         FilesHelper.createFolderIfMissing(playerPath);
 
         if (!midi.endsWith(".mid")) {
@@ -103,11 +104,11 @@ public class ServerMidiLoader {
             Files.deleteIfExists(uploadPath);
 
             long count;
-            try (Stream<Path> list = Files.list(Paths.get(playerPath))) {
+            try (Stream<Path> list = Files.list(playerPath)) {
                 count = list.count();
             }
             if (count >= 16) { // max number of midi files; add to config later
-                Stream<Path> list2 = Files.list(Paths.get(playerPath));
+                Stream<Path> list2 = Files.list(playerPath);
                 Optional<Path> lastFilePath = list2.filter(f -> !Files.isDirectory(f))
                         .min(Comparator.comparingLong(f -> f.toFile().lastModified()));
                 list2.close();

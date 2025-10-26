@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.midi.trackerBar;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiSequencerBehaviour;
 import com.finchy.pipeorgans.content.midi.MidiSourceBehaviour;
 import com.finchy.pipeorgans.init.AllSoundEvents;
@@ -181,12 +182,13 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
             buttonsEnabled = false;
             if (!level.isClientSide) level.playSound(null, getBlockPos(), AllSoundEvents.TRACKER_BAR_CHANGE_ROLL.get(), SoundSource.BLOCKS, 1f, 1f);
         } else if (MidiUtils.isMusicRollValid(stack)) {
+            if (!level.isClientSide) level.playSound(null, getBlockPos(), AllSoundEvents.TRACKER_BAR_CHANGE_ROLL.get(), SoundSource.BLOCKS, 1f, 1f);
             try {
                 CompoundTag tag = stack.getTag();
                 midiSequencerBehaviour.loadSequence(tag.getString("File"), tag.getString("Owner"));
                 buttonsEnabled = true;
-                if (!level.isClientSide) level.playSound(null, getBlockPos(), AllSoundEvents.TRACKER_BAR_CHANGE_ROLL.get(), SoundSource.BLOCKS, 1f, 1f);
             } catch (MidiLoadException e) {
+                PipeOrgans.LOGGER.warn(e.toString());
                 buttonsEnabled = false;
             }
         } else {
