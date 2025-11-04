@@ -9,8 +9,6 @@ import net.minecraft.world.phys.Vec3;
 
 public class GenericSoundInstance extends AbstractTickableSoundInstance {
 
-    // if you're making a custom pipe, just copy this entire class
-
     private boolean active;
     private int keepAlive;
     private EPipeSizes.PipeSize size;

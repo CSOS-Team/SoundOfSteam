@@ -1,18 +1,23 @@
 package com.finchy.pipeorgans.content.pipes.nasard;
 
+import com.finchy.pipeorgans.ClientConfig;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.List;
 
 public class NasardBlockEntity extends DoublePipeBlockEntity {
     public NasardBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
@@ -22,6 +27,16 @@ public class NasardBlockEntity extends DoublePipeBlockEntity {
 
     @OnlyIn(Dist.CLIENT)
     protected NasardSoundInstance soundInstance;
+
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        String[] pitches = CreateLang.translateDirect("generic.notes")
+                .getString()
+                .split(";");
+        int displayPitch = ClientConfig.displayMutationSoundingPitch ? pitch+5 : pitch;
+        CreateLang.translate("generic.pitch", pitches[displayPitch % pitches.length]).forGoggles(tooltip);
+        return true;
+    }
 
     @Override
     @OnlyIn(Dist.CLIENT)

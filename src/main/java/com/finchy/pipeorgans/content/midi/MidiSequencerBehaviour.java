@@ -98,6 +98,7 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
     }
 
     public void unloadSequence() {
+        if (isClientside()) return;
         currentSequence = null;
         currentMidi = "";
         currentMidiOwner = "";

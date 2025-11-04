@@ -16,7 +16,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
@@ -89,7 +88,7 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
         user = player.getUUID();
         player.getPersistentData().putIntArray("UsingKBRelayPos", new int[]{worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()});
 
-        level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, false), 3); //  turn power off
+        level.setBlock(worldPosition, getBlockState().setValue(KeyboardRelayBlock.TRANSMITTING, false), 3); //  turn power off
         notifyUpdate();
     }
 
@@ -98,7 +97,7 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
         if (player != null) {
             player.getPersistentData().remove("UsingKBRelayPos");
         }
-        level.setBlock(worldPosition, getBlockState().setValue(BlockStateProperties.POWERED, false), 3); //  turn power off
+        level.setBlock(worldPosition, getBlockState().setValue(KeyboardRelayBlock.TRANSMITTING, false), 3); //  turn power off
         deactivatedThisTick = true;
         midiSourceBehaviour.link.stopAllNotes();
         notifyUpdate();

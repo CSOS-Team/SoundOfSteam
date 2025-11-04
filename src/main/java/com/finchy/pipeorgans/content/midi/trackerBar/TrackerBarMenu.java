@@ -26,7 +26,9 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
     // todo: need to add ghost inventory to menu
 
     public TrackerBarMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
-        this(type, id, inv, (TrackerBarBlockEntity) inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(21));
+        super(type, id, inv, extraData);
+        this.data = new SimpleContainerData(21);
+        addDataSlots(data);
     }
 
     public TrackerBarMenu(MenuType<?> type, int id, Inventory inv, TrackerBarBlockEntity be, ContainerData data) {
