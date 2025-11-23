@@ -2,6 +2,7 @@
   "values": [
     "pipeorgans:base",
     "pipeorgans:keyboard_relay",
+    "pipeorgans:roll_puncher",
     "pipeorgans:diapason",
     "pipeorgans:diapason_extension",
     "pipeorgans:haunted_whistle",

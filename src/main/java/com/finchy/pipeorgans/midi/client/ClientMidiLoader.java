@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.midi.client;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiFileParser;
+import com.finchy.pipeorgans.midi.PipeOrgansPaths;
 import com.finchy.pipeorgans.network.AllPackets;
 import com.finchy.pipeorgans.network.packet.MidiUploadPacket;
 import com.simibubi.create.foundation.utility.FilesHelper;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
 import java.util.*;
+import java.util.stream.Stream;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientMidiLoader {
@@ -24,7 +26,6 @@ public class ClientMidiLoader {
     private int packetCycle;
 
     private static final int PACKET_DELAY = 10;
-    private static final String DIRECTORY = "midi_files";
     private static final String EXTENSION = ".mid";
 
     public ClientMidiLoader() {
@@ -45,7 +46,7 @@ public class ClientMidiLoader {
     }
 
     public void startNewUpload(String midi) {
-        Path path = Paths.get(DIRECTORY, midi);
+        Path path = PipeOrgansPaths.MIDIS_DIR.resolve(midi);
         if (!Files.exists(path)) {
             PipeOrgans.LOGGER.error("Missing .mid file: {}", path);
             return;
@@ -106,16 +107,15 @@ public class ClientMidiLoader {
     }
 
     public void refresh() {
-        FilesHelper.createFolderIfMissing(Paths.get(DIRECTORY));
+        FilesHelper.createFolderIfMissing(PipeOrgansPaths.MIDIS_DIR);
         availableMidis.clear();
 
-        try {
-            Files.list(Paths.get(DIRECTORY +"/"))
-                    .filter(f -> !Files.isDirectory(f) && f.getFileName().toString().endsWith(EXTENSION)).forEach(path -> { // get all files in midi_files/, then filter based on whether they're a folder and end with .mid
-                        if (Files.isDirectory(path)) // if path is a folder ending with .mid, not a .mid file
-                            return; // this seems redundant, but create does it, so...
+        try (Stream<Path> paths = Files.list(PipeOrgansPaths.MIDIS_DIR)) {
+            paths.filter(f -> !Files.isDirectory(f) && f.getFileName().toString().endsWith(EXTENSION)).forEach(path -> { // get all files in midi_files/, then filter based on whether they're a folder and end with .mid
+                if (Files.isDirectory(path)) // if path is a folder ending with .mid, not a .mid file
+                    return; // this seems redundant, but create does it, so...
 
-                        availableMidis.add(Component.literal(path.getFileName().toString())); // add to list of available midis
+                availableMidis.add(Component.literal(path.getFileName().toString())); // add to list of available midis
                     });
         } catch (NoSuchFileException e) {
             // no midis in the folder
@@ -183,10 +183,6 @@ public class ClientMidiLoader {
 
     public List<Component> getAvailableMidis() {
         return availableMidis;
-    }
-
-    public Path getPath(String name) {
-        return Paths.get(DIRECTORY, name + EXTENSION);
     }
 
 }

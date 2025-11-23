@@ -3,6 +3,7 @@ package com.finchy.pipeorgans.init;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlock;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
+import com.finchy.pipeorgans.content.midi.rollpuncher.RollPuncherBlock;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
@@ -48,7 +49,6 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -57,6 +57,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import static com.simibubi.create.api.behaviour.display.DisplaySource.displaySource;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
+import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 //TODO Roll puncher
 public class AllBlocks {
@@ -117,6 +118,15 @@ public class AllBlocks {
             .item()
             .transform(customItemModel())
             .register();
+
+    public static final BlockEntry<RollPuncherBlock> ROLL_PUNCHER = REGISTRATE.block("roll_puncher", RollPuncherBlock::new)
+            .initialProperties(() -> Blocks.LECTERN)
+            .transform(axeOrPickaxe())
+            .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models()
+                    .getExistingFile(ctx.getId()), 0))
+            .simpleItem()
+            .register();
+
 
 
 

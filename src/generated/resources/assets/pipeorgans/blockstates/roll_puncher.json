@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "pipeorgans:block/roll_puncher",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "pipeorgans:block/roll_puncher",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "pipeorgans:block/roll_puncher"
+    },
+    "facing=west": {
+      "model": "pipeorgans:block/roll_puncher",
+      "y": 90
+    }
+  }
+}

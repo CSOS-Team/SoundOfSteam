@@ -1,12 +1,17 @@
 package com.finchy.pipeorgans.midi.server;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.content.midi.MusicRollItem;
+import com.finchy.pipeorgans.content.midi.rollpuncher.RollPuncherBlockEntity;
+import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.foundation.utility.FilesHelper;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -94,13 +99,12 @@ public class ServerMidiLoader {
             return;
 
         try {
-            // confirm player is at midi table
-            //SchematicTableBlockEntity table = getTable(player.getCommandSenderWorld(), pos);
-            //if (table == null)
-            //    return;
-            // ^ adapt this to the midi table, whenever it's added
+            // confirm player is at roll puncher
+            RollPuncherBlockEntity puncher = getPuncher(player.getCommandSenderWorld(), pos);
+            if (puncher == null)
+                return;
 
-            // delete schematic with same name
+            // delete midi file with same name
             Files.deleteIfExists(uploadPath);
 
             long count;
@@ -121,8 +125,7 @@ public class ServerMidiLoader {
             activeUploads.put(playerMidiId, new MidiUploadEntry(writer, size, player.level(), pos));
 
             // notify block entity
-            //table.startUpload(schematic);
-            // ^ adapt this to the midi table, whenever it's added
+            puncher.startUpload(midi);
 
         } catch (IOException e) {
             PipeOrgans.LOGGER.error("Exception thrown when starting upload: {}", playerMidiId);
@@ -154,12 +157,12 @@ public class ServerMidiLoader {
                 entry.stream.write(data);
                 entry.idleTime = 0;
 
-                //SchematicTableBlockEntity table = getTable(entry.world, entry.tablePos);
-                //if (table == null)
-                //    return;
-                //table.uploadingProgress = (float) ((double) entry.bytesUploaded / entry.totalBytes);
-                //table.sendUpdate = true;
-                // ^ adapt this to the midi table, whenever it's added
+                RollPuncherBlockEntity puncher = getPuncher(entry.world, entry.tablePos);
+                if (puncher == null)
+                    return;
+                puncher.uploadingProgress = (float) ((double) entry.bytesUploaded / entry.totalBytes);
+                puncher.sendUpdate = true;
+
             } catch (IOException e) {
                 PipeOrgans.LOGGER.error("Exception thrown when uploading .mid file: {}", playerMidiId);
                 e.printStackTrace();
@@ -186,24 +189,20 @@ public class ServerMidiLoader {
         if (pos == null)
             return;
 
-        //SchematicTableBlockEntity table = getTable(entry.world, pos);
-        //if (table != null)
-        //    table.finishUpload();
-        // ^ adapt this to the midi table, whenever it's added
+        RollPuncherBlockEntity puncher = getPuncher(entry.world, pos);
+        if (puncher != null)
+            puncher.finishUpload();
     }
 
-    /*
-    public SchematicTableBlockEntity getTable(Level world, BlockPos pos) {
+    public RollPuncherBlockEntity getPuncher(Level world, BlockPos pos) {
 		BlockEntity be = world.getBlockEntity(pos);
-		if (!(be instanceof SchematicTableBlockEntity table))
+		if (!(be instanceof RollPuncherBlockEntity puncher))
 			return null;
-		return table;
+		return puncher;
 	}
-     */
-    // ^ adapt this to the midi table, whenever it's added
 
-    public void handleFinishedUpload(ServerPlayer player, String schematic) {
-        String playerMidiId = player.getGameProfile().getName() + "/" + schematic;
+    public void handleFinishedUpload(ServerPlayer player, String midi) {
+        String playerMidiId = player.getGameProfile().getName() + "/" + midi;
 
         if (activeUploads.containsKey(playerMidiId)) {
             try {
@@ -216,19 +215,16 @@ public class ServerMidiLoader {
                 if (pos == null)
                     return;
 
-                /*
                 BlockState blockState = world.getBlockState(pos);
-                if (AllBlocks.SCHEMATIC_TABLE.get() != blockState.getBlock())
+                if (AllBlocks.ROLL_PUNCHER.get() != blockState.getBlock())
 					return;
 
-				SchematicTableBlockEntity table = getTable(world, pos);
-				if (table == null)
+				RollPuncherBlockEntity puncher = getPuncher(world, pos);
+				if (puncher == null)
 					return;
-				table.finishUpload();
-				table.inventory.setStackInSlot(1, SchematicItem.create(world, schematic, player.getGameProfile()
+				puncher.finishUpload();
+				puncher.inventory.setStackInSlot(1, MusicRollItem.create(midi, player.getGameProfile()
 					.getName()));
-                */
-                // ^ adapt this to the midi table, whenever it's added
 
             } catch (IOException e) {
                 PipeOrgans.LOGGER.error("Exception thrown when finishing upload: {}", playerMidiId);

@@ -1,7 +1,9 @@
 package com.finchy.pipeorgans.network.packet;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.content.midi.rollpuncher.RollPuncherMenu;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
@@ -66,10 +68,9 @@ public class MidiUploadPacket extends SimplePacketBase {
             if (player == null)
                 return;
             if (code == BEGIN) {
-                //BlockPos pos = ((SchematicTableMenu) player.containerMenu).contentHolder
-                //        .getBlockPos();
-                PipeOrgans.MIDI_RECEIVER.handleNewUpload(player, midi, size, player.blockPosition());
-                // ^ adapt this to the midi table, whenever it's added
+                BlockPos pos = ((RollPuncherMenu) player.containerMenu).contentHolder
+                        .getBlockPos();
+                PipeOrgans.MIDI_RECEIVER.handleNewUpload(player, midi, size, pos);
             }
             if (code == WRITE)
                 PipeOrgans.MIDI_RECEIVER.handleWriteRequest(player, midi, data);

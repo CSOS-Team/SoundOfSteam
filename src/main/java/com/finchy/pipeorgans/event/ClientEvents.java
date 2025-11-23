@@ -43,7 +43,6 @@ public class ClientEvents {
         public static void onKeyInput(InputEvent.Key event) {
             if (Keybinding.MIDI_CONFIG_KEY.consumeClick()) {
                 ClientsideGUIWrapper.openMidiConfigGUI(Minecraft.getInstance().level);
-                PipeOrgansClient.MIDI_SENDER.refresh();
             }
         }
 

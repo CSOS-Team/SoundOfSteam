@@ -10,6 +10,14 @@
   "gui.pipeorgans.tracker_bar": "Tracker Bar",
   "sounds.pipeorgans.tracker_bar_change_roll": "Paper roll rustles",
 
+  "gui.pipeorgans.roll_puncher.title": "Roll Puncher",
+  "gui.pipeorgans.roll_puncher.uploading": "Uploading...",
+  "gui.pipeorgans.roll_puncher.finished": "Upload Finished!",
+  "gui.pipeorgans.roll_puncher.refresh": "Refresh Files",
+  "gui.pipeorgans.roll_puncher.open_folder": "Open Folder",
+  "gui.pipeorgans.roll_puncher.noMidis": "No MIDI Files Saved",
+  "gui.pipeorgans.roll_puncher.availableMidis": "Available MIDI Files",
+
   "pipeorgans.display_source.tracker_bar_filename": "Filename",
   "pipeorgans.display_source.tracker_bar_bpm": "BPM",
 
