@@ -370,6 +370,16 @@ public abstract class AllShapes {
         TRACKER_BAR = shape(0, 0, 0, 16, 3, 2)
                 .add(0, 0, 2, 16, 16, 16)
                 .add(0, 14, 0, 16, 16, 2)
+                .forHorizontal(Direction.NORTH),
+
+        ROLL_PUNCHER_HITBOX = shape(4, 0, 4, 12, 13, 12)
+                .add(0, 10, 2, 16, 13, 6)
+                .add(0, 11.5, 6, 16, 14.5, 10)
+                .add(0, 13, 10, 16, 16, 14)
+                .forHorizontal(Direction.NORTH),
+
+        ROLL_PUNCHER_COLLISION_BOX = shape(4, 0, 4, 12, 12, 12)
+                .add(0, 11, 10, 16, 13, 14)
                 .forHorizontal(Direction.NORTH);
 
 

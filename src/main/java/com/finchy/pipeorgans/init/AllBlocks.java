@@ -123,7 +123,7 @@ public class AllBlocks {
             .initialProperties(() -> Blocks.LECTERN)
             .transform(axeOrPickaxe())
             .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models()
-                    .getExistingFile(ctx.getId()), 0))
+                    .getExistingFile(ctx.getId()), 180))
             .simpleItem()
             .register();
 

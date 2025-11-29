@@ -1,7 +1,0 @@
-{
-	"parent": "pipeorgans:block/stop_master/stop_master",
-	"textures": {
-		"1": "create:block/redstone_antenna_powered",
-		"4": "pipeorgans:block/stop_master/stop_master_sides_powered"
-	}
-}
