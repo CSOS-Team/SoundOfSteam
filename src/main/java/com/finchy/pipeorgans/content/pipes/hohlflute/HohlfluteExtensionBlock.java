@@ -17,6 +17,6 @@ public class HohlfluteExtensionBlock extends DoubleExtensionBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return AllShapes.genericExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
+        return AllShapes.slimExtensionShape(pState.getValue(SHAPE), pState.getValue(SIZE));
     }
 }
