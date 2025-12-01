@@ -2,29 +2,23 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "TR",
-    "IP",
-    " C"
+    " S",
+    "BPB",
+    " S"
   ],
   "key": {
-    "T": {
-      "item": "create:transmitter"
-    },
-    "C": {
+    "B": {
       "item": "create:brass_casing"
     },
-    "R": {
-      "item": "minecraft:redstone"
-    },
-    "I": {
-      "tag": "forge:ingots/iron"
+    "S": {
+      "item": "create:shaft"
     },
     "P": {
       "item": "create:precision_mechanism"
     }
   },
   "result": {
-    "item": "pipeorgans:keyboard_relay",
+    "item": "pipeorgans:tracker_bar",
     "count": 1
   }
 }
