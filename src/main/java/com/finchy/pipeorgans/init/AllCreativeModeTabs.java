@@ -48,6 +48,7 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.KEYBOARD_RELAY.get());
                         output.accept(AllBlocks.TRACKER_BAR.get());
                         output.accept(AllItems.MUSIC_ROLL.get());
+                        output.accept(AllBlocks.ROLL_PUNCHER.get());
                     })
                     .build());
 
