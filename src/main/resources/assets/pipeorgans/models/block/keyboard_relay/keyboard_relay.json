@@ -1,11 +1,11 @@
 {
+	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"render_type": "minecraft:cutout",
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "pipeorgans:block/keyboard_relay/kbr",
 		"1": "pipeorgans:block/keyboard_relay/kbr_shell",
-		"2_1": "create:block/redstone_antenna",
 		"particle": "pipeorgans:block/keyboard_relay/kbr_particle"
 	},
 	"elements": [
@@ -89,48 +89,6 @@
 				"up": {"uv": [16, 14, 8, 8], "texture": "#1"},
 				"down": {"uv": [8, 8, 0, 14], "texture": "#1"}
 			}
-		},
-		{
-			"name": "AntennaX",
-			"from": [16, 11, 10],
-			"to": [17, 21, 13],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 10, 6]},
-			"faces": {
-				"north": {"uv": [0, 0, 0, 0], "texture": "#2_1"},
-				"east": {"uv": [0, 0, 3, 10], "texture": "#2_1"},
-				"south": {"uv": [0, 0, 0, 0], "texture": "#2_1"},
-				"west": {"uv": [0, 0, 3, 10], "texture": "#2_1"},
-				"up": {"uv": [0, 0, 0, 0], "rotation": 270, "texture": "#2_1"},
-				"down": {"uv": [0, 9, 3, 10], "rotation": 90, "texture": "#2_1"}
-			}
-		},
-		{
-			"name": "AntennaZ",
-			"from": [15, 11, 11],
-			"to": [18, 21, 12],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 10, 6]},
-			"faces": {
-				"north": {"uv": [0, 0, 3, 10], "texture": "#2_1"},
-				"east": {"uv": [0, 0, 0, 0], "texture": "#2_1"},
-				"south": {"uv": [0, 0, 3, 10], "texture": "#2_1"},
-				"west": {"uv": [0, 0, 0, 0], "texture": "#2_1"},
-				"up": {"uv": [0, 0, 0, 0], "rotation": 270, "texture": "#2_1"},
-				"down": {"uv": [0, 0, 0, 0], "rotation": 90, "texture": "#2_1"}
-			}
-		},
-		{
-			"name": "AntennaTop",
-			"from": [16, 19, 11],
-			"to": [17, 20, 12],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 10, 6]},
-			"faces": {
-				"north": {"uv": [0, 0, 0, 0], "texture": "#2_1"},
-				"east": {"uv": [0, 0, 0, 0], "texture": "#2_1"},
-				"south": {"uv": [0, 0, 0, 0], "texture": "#2_1"},
-				"west": {"uv": [0, 0, 0, 0], "texture": "#2_1"},
-				"up": {"uv": [1, 1, 2, 2], "rotation": 270, "texture": "#2_1"},
-				"down": {"uv": [0, 0, 0, 0], "rotation": 90, "texture": "#2_1"}
-			}
 		}
 	],
 	"display": {
@@ -149,7 +107,7 @@
 			"scale": [0.4, 0.4, 0.4]
 		},
 		"firstperson_lefthand": {
-			"rotation": [0, 225, 0],
+			"rotation": [0, -135, 0],
 			"scale": [0.4, 0.4, 0.4]
 		},
 		"ground": {
@@ -157,27 +115,11 @@
 			"scale": [0.25, 0.25, 0.25]
 		},
 		"gui": {
-			"rotation": [30, 225, 0],
+			"rotation": [30, -135, 0],
 			"scale": [0.625, 0.625, 0.625]
 		},
 		"fixed": {
 			"scale": [0.5, 0.5, 0.5]
 		}
-	},
-	"groups": [
-		0,
-		1,
-		2,
-		3,
-		4,
-		5,
-		6,
-		7,
-		{
-			"name": "antenna",
-			"origin": [8, 8, 8],
-			"color": 0,
-			"children": [8, 9, 10]
-		}
-	]
+	}
 }
