@@ -129,7 +129,7 @@ public abstract class MidiFileParser {
     public static boolean validateSizeLimitation(long size) {
         if (Minecraft.getInstance().hasSingleplayerServer())
             return true;
-        long maxSize = CommonConfig.midiFileSizeLimit; // max midi file size; add to config later
+        long maxSize = CommonConfig.midiFileSizeLimit;
         if (size > maxSize * 1000) {
             LocalPlayer player = Minecraft.getInstance().player;
             if (player != null) {

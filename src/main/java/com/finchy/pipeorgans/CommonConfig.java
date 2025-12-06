@@ -23,11 +23,4 @@ public class CommonConfig {
             midiFileSizeLimit = MIDI_FILE_SIZE_LIMIT.get();
         }
     }
-
-    @SubscribeEvent
-    public static void onReload(ModConfigEvent.Reloading event) {
-        if (event.getConfig().getSpec() == SPEC) {
-            midiFileSizeLimit = MIDI_FILE_SIZE_LIMIT.get();
-        }
-    }
 }

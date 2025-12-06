@@ -235,7 +235,7 @@ public class ServerMidiLoader {
     }
 
     private boolean validateMidiSizeOnServer(ServerPlayer player, long size) {
-        long maxFileSize = CommonConfig.midiFileSizeLimit; // max midi file size; add to config later
+        long maxFileSize = CommonConfig.midiFileSizeLimit;
         if (size > maxFileSize * 1000) {
             player.sendSystemMessage(Component.literal("Midi upload too large") // make translatable later
                     .append(Component.literal(" (" + size/1000 + " KB).")));
