@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.midi;
 
+import com.finchy.pipeorgans.CommonConfig;
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
 import net.minecraft.client.Minecraft;
@@ -128,7 +129,7 @@ public abstract class MidiFileParser {
     public static boolean validateSizeLimitation(long size) {
         if (Minecraft.getInstance().hasSingleplayerServer())
             return true;
-        int maxSize = 256; // max midi file size; add to config later
+        long maxSize = CommonConfig.midiFileSizeLimit; // max midi file size; add to config later
         if (size > maxSize * 1000) {
             LocalPlayer player = Minecraft.getInstance().player;
             if (player != null) {
