@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.midi.server;
 
-import com.finchy.pipeorgans.CommonConfig;
+import com.finchy.pipeorgans.ServerConfig;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MusicRollItem;
 import com.finchy.pipeorgans.content.midi.rollpuncher.RollPuncherBlockEntity;
@@ -235,10 +235,10 @@ public class ServerMidiLoader {
     }
 
     private boolean validateMidiSizeOnServer(ServerPlayer player, long size) {
-        long maxFileSize = CommonConfig.midiFileSizeLimit;
-        if (size > maxFileSize * 1000) {
+        long maxFileSize = ServerConfig.midiFileSizeLimit;
+        if (size > maxFileSize * 1024L) {
             player.sendSystemMessage(Component.literal("Midi upload too large") // make translatable later
-                    .append(Component.literal(" (" + size/1000 + " KB).")));
+                    .append(Component.literal(" (" + size/1024 + " KB).")));
             player.sendSystemMessage(Component.literal("Maximum size is")
                     .append(Component.literal(" " + maxFileSize + " KB")));
             return false;

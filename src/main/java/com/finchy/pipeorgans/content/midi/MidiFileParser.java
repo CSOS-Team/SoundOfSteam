@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.midi;
 
-import com.finchy.pipeorgans.CommonConfig;
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
 import net.minecraft.client.Minecraft;
@@ -127,19 +126,6 @@ public abstract class MidiFileParser {
     }
 
     public static boolean validateSizeLimitation(long size) {
-        if (Minecraft.getInstance().hasSingleplayerServer())
-            return true;
-        long maxSize = CommonConfig.midiFileSizeLimit;
-        if (size > maxSize * 1000) {
-            LocalPlayer player = Minecraft.getInstance().player;
-            if (player != null) {
-                player.displayClientMessage(Component.literal("Midi upload too large") // make translatable later
-                        .append(Component.literal(" (" + size/1000 + " KB).")), false);
-                player.displayClientMessage(Component.literal("Maximum size is")
-                        .append(Component.literal(" " + maxSize + " KB")), false);
-            }
-            return false;
-        }
         return true;
     }
 }

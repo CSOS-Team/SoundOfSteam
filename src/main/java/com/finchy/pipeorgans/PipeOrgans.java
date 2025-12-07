@@ -85,7 +85,7 @@ public class PipeOrgans {
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
 
         proxy.init();
     }
