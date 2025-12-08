@@ -52,7 +52,7 @@ public class ServerMidiLoader {
 
     public void tick() {
         // detect timed-out uploads
-        int timeout = 600; // schematic idle timeout; add to config later
+        int timeout = ServerConfig.midiIdleTimeout;
         for (String upload : activeUploads.keySet()) {
             MidiUploadEntry entry = activeUploads.get(upload);
             if (entry.idleTime++ > timeout) {
@@ -112,7 +112,7 @@ public class ServerMidiLoader {
             try (Stream<Path> list = Files.list(playerPath)) {
                 count = list.count();
             }
-            if (count >= 16) { // max number of midi files; add to config later
+            if (count >= ServerConfig.maxMidiFiles) {
                 Stream<Path> list2 = Files.list(playerPath);
                 Optional<Path> lastFilePath = list2.filter(f -> !Files.isDirectory(f))
                         .min(Comparator.comparingLong(f -> f.toFile().lastModified()));
@@ -142,7 +142,7 @@ public class ServerMidiLoader {
             entry.bytesUploaded += data.length;
 
             // size validations
-            if (data.length > 1024) { // max midi packet size; add to config later
+            if (data.length > ServerConfig.maxMidiPacketSize) {
                 PipeOrgans.LOGGER.warn("Oversized Midi upload packet received: {}", playerMidiId);
                 cancelUpload(playerMidiId);
                 return;
