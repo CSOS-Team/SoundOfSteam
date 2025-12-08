@@ -44,10 +44,14 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
 
     public void onBlockRemoved() {
         Entity playerEntity = ((ServerLevel)this.level).getEntity(this.user);
-        if (playerEntity instanceof Player) {
-            tryStopUsing((Player)playerEntity);
+        if (playerEntity instanceof Player player) {
+            if (isUsedBy(player)) {
+                user = null;
+                if (player != null) {
+                    player.getPersistentData().remove("UsingKBRelayPos");
+                }
+            }
         }
-        midiSourceBehaviour.link.stopAllNotes();
     }
 
     @Override
