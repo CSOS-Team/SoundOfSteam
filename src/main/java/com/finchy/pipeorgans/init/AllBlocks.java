@@ -47,7 +47,6 @@ import com.finchy.pipeorgans.data.AssetLookup;
 import com.finchy.pipeorgans.data.BlockStateGen.*;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.infrastructure.config.CStress;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
@@ -59,8 +58,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import static com.simibubi.create.api.behaviour.display.DisplaySource.displaySource;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
-import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
-import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
+import static com.simibubi.create.foundation.data.TagGen.*;
+
 //TODO Roll puncher
 public class AllBlocks {
     private static final CreateRegistrate REGISTRATE = PipeOrgans.registrate();
@@ -92,12 +91,13 @@ public class AllBlocks {
             .register();
 
     public static final BlockEntry<TrackerBarBlock> TRACKER_BAR = REGISTRATE.block("tracker_bar", TrackerBarBlock::new)
-            .initialProperties(() -> Blocks.COPPER_BLOCK)
+            .initialProperties(com.simibubi.create.AllBlocks.BRASS_BLOCK)
             .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forBooleanProperty(TrackerBarBlock.TRANSMITTING, "transmitting", c, p)))
             .item()
             .transform(customItemModel())
             .transform(displaySource(AllDisplaySources.TRACKER_BAR_FILENAME))
             .transform(displaySource(AllDisplaySources.TRACKER_BAR_BPM))
+            .transform(pickaxeOnly())
             .onRegister(block -> BlockStressValues.IMPACTS.register(block, () -> 4.0)) // todo: add stress config for this. also probably a minimum speed for the tracker bar
             .register();
 
@@ -109,6 +109,7 @@ public class AllBlocks {
             .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
             .item()
             .transform(customItemModel())
+            .transform(axeOnly())
             .register();
 
     public static final BlockEntry<WindchestMasterBlock> WINDCHEST_MASTER = REGISTRATE.block("windchest_master", WindchestMasterBlock::new)
@@ -120,6 +121,7 @@ public class AllBlocks {
             .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
             .item()
             .transform(customItemModel())
+            .transform(axeOrPickaxe())
             .register();
 
     public static final BlockEntry<RollPuncherBlock> ROLL_PUNCHER = REGISTRATE.block("roll_puncher", RollPuncherBlock::new)
