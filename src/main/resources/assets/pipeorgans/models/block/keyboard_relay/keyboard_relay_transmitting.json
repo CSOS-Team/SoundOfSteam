@@ -1,3 +1,6 @@
 {
-	"parent": "pipeorgans:block/keyboard_relay/keyboard_relay"
+	"parent": "pipeorgans:block/keyboard_relay/keyboard_relay",
+	"textures": {
+		"2_1": "create:block/redstone_antenna_powered"
+	}
 }
