@@ -125,6 +125,7 @@ public class AllBlocks {
     public static final BlockEntry<RollPuncherBlock> ROLL_PUNCHER = REGISTRATE.block("roll_puncher", RollPuncherBlock::new)
             .initialProperties(() -> Blocks.LECTERN)
             .transform(axeOrPickaxe())
+            .lang("Roll Authoring Table")
             .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models()
                     .getExistingFile(ctx.getId()), 180))
             .simpleItem()
