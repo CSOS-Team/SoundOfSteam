@@ -19,7 +19,7 @@ public class GenericPipeBlockItem extends BlockItem {
     public enum StopSize implements StringRepresentable {
         TWO("2"), TWOANDTWOTHIRDS("223"), FOUR("4"), EIGHT("8"), SIXTEEN("16"), THIRTYTWO("32");
 
-        private final String size;
+        public final String size;
         StopSize(String size) {
             this.size = size;
         }

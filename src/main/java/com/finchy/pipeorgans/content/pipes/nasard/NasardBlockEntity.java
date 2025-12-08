@@ -34,7 +34,8 @@ public class NasardBlockEntity extends DoublePipeBlockEntity {
                 .getString()
                 .split(";");
         int displayPitch = ClientConfig.displayMutationSoundingPitch ? pitch+5 : pitch;
-        CreateLang.translate("generic.pitch", pitches[displayPitch % pitches.length]).forGoggles(tooltip);
+        int octave = 5-getOctave().ordinal() + (pitch<=1?1:0) + 2;
+        CreateLang.translate("generic.pitch", pitches[displayPitch % pitches.length]).add(Component.literal(String.valueOf(octave))).forGoggles(tooltip);
         return true;
     }
 

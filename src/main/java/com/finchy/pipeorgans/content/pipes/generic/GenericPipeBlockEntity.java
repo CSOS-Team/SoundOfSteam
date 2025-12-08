@@ -64,7 +64,10 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         String[] pitches = CreateLang.translateDirect("generic.notes")
                 .getString()
                 .split(";");
-        CreateLang.translate("generic.pitch", pitches[pitch % pitches.length]).forGoggles(tooltip);
+        int stopSize = Integer.parseInt(((GenericPipeBlockItem) getBlockState().getBlock().asItem()).stopSize);
+        double octave = 5-getOctave().ordinal() + (pitch<=6?1:0) - (Math.log(stopSize/8)/Math.log(2));
+        CreateLang.translate("generic.pitch", pitches[pitch % pitches.length]).add(Component.literal(String.valueOf(octave)))
+                .forGoggles(tooltip);
         return true;
     }
 
