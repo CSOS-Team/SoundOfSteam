@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.midi;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
@@ -9,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -86,6 +88,8 @@ public class MidiSourceBehaviour extends BlockEntityBehaviour {
     }
 
     public void reactToNote(boolean on) {
-        level.setBlock(pos, blockEntity.getBlockState().setValue(KeyboardRelayBlock.TRANSMITTING, on), 3); //  turn power on/off
+        BlockState state = blockEntity.getBlockState();
+        state = state.setValue(KeyboardRelayBlock.TRANSMITTING, on);
+        blockEntity.getLevel().setBlock(pos, state, 3); //  turn power on/off
     }
 }

@@ -139,7 +139,10 @@ public class RedstoneMidiTransmitter {
     }
 
     public boolean areNotesActive() {
-        return !activeNotes.isEmpty();
+        for (Map<Integer, ManualNoteFrequency> i : activeNotes) {
+            if (!i.isEmpty()) return true;
+        }
+        return false;
     }
 
 }
