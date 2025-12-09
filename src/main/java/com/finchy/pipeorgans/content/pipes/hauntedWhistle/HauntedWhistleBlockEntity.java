@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.content.pipes.haunted_whistle;
+package com.finchy.pipeorgans.content.pipes.hauntedWhistle;
 
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlockEntity;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
