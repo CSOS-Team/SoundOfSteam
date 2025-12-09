@@ -1,165 +1,375 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.block.WindchestBlock;
-import com.finchy.pipeorgans.block.WindchestMasterBlock;
-import com.finchy.pipeorgans.block.base.BaseBlock;
-import com.finchy.pipeorgans.block.pipes.diapason.DiapasonBlock;
-import com.finchy.pipeorgans.block.pipes.diapason.DiapasonExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.gamba.GambaBlock;
-import com.finchy.pipeorgans.block.pipes.gamba.GambaExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.gedeckt.GedecktBlock;
-import com.finchy.pipeorgans.block.pipes.gedeckt.GedecktExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.nasard.NasardBlock;
-import com.finchy.pipeorgans.block.pipes.nasard.NasardExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.piccolo.PiccoloBlock;
-import com.finchy.pipeorgans.block.pipes.piccolo.PiccoloExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.posaune.PosauneBlock;
-import com.finchy.pipeorgans.block.pipes.posaune.PosauneExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.subbass.SubbassBlock;
-import com.finchy.pipeorgans.block.pipes.subbass.SubbassExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.trompette.TrompetteBlock;
-import com.finchy.pipeorgans.block.pipes.trompette.TrompetteExtensionBlock;
-import com.finchy.pipeorgans.block.pipes.vox_humana.VoxHumanaBlock;
-import com.finchy.pipeorgans.block.pipes.vox_humana.VoxHumanaExtensionBlock;
-import com.finchy.pipeorgans.item.GenericPipeBlockItem;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
+import com.finchy.pipeorgans.content.base.BaseBlock;
+import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
+import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlock;
+import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
+import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
+import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornBlock;
+import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.hauntedWhistle.HauntedWhistleBlock;
+import com.finchy.pipeorgans.content.pipes.hauntedWhistle.HauntedWhistleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.prestant.PrestantBlock;
+import com.finchy.pipeorgans.content.pipes.prestant.PrestantExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.gamba.GambaBlock;
+import com.finchy.pipeorgans.content.pipes.gamba.GambaExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlock;
+import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteBlock;
+import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem;
+import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem.StopSize;
+import com.finchy.pipeorgans.content.pipes.nasard.NasardBlock;
+import com.finchy.pipeorgans.content.pipes.nasard.NasardExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloBlock;
+import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlock;
+import com.finchy.pipeorgans.content.pipes.posaune.PosauneExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.rohrflote.RohrfloteBlock;
+import com.finchy.pipeorgans.content.pipes.rohrflote.RohrfloteExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.subbass.SubbassBlock;
+import com.finchy.pipeorgans.content.pipes.subbass.SubbassExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlock;
+import com.finchy.pipeorgans.content.pipes.trompette.TrompetteExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.viola.ViolaBlock;
+import com.finchy.pipeorgans.content.pipes.viola.ViolaExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteBlock;
+import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlock;
+import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaExtensionBlock;
+import com.finchy.pipeorgans.content.windchest.WindchestBlock;
+import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
+import com.finchy.pipeorgans.data.AssetLookup;
+import com.finchy.pipeorgans.data.BlockStateGen.*;
+import com.simibubi.create.api.stress.BlockStressValues;
+import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.nullness.NonNullFunction;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
+import static com.simibubi.create.api.behaviour.display.DisplaySource.displaySource;
+import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
+import static com.simibubi.create.foundation.data.TagGen.*;
 
-import java.util.function.Supplier;
-
+//TODO Roll puncher
 public class AllBlocks {
+    private static final CreateRegistrate REGISTRATE = PipeOrgans.registrate();
 
-    public static final DeferredRegister<Block> BLOCKS =
-            DeferredRegister.create(BuiltInRegistries.BLOCK, PipeOrgans.MOD_ID);
+    static {
+        REGISTRATE.setCreativeTab(AllCreativeModeTabs.PIPE_ORGANS);
+    }
 
     // declare blocks here
 
-    public static final DeferredHolder<Block, BaseBlock> BASE = registerBlock("base",
-            () -> new BaseBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK)
-                    .requiresCorrectToolForDrops()));
+    public static final BlockEntry<BaseBlock> BASE = REGISTRATE.block("base", BaseBlock::new)
+            .initialProperties(() -> Blocks.COPPER_BLOCK)
+            .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
+            .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
+            .transform(pickaxeOnly())
+            .lang("Pipe Base") // override default name generated from id "base"
+            .blockstate(new BaseGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
 
-    public static final DeferredHolder<Block, WindchestBlock> WINDCHEST = registerBlock("windchest",
-            () -> new WindchestBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)
-                    .requiresCorrectToolForDrops().noOcclusion()));
+    public static final BlockEntry<KeyboardRelayBlock> KEYBOARD_RELAY = REGISTRATE.block("keyboard_relay", KeyboardRelayBlock::new)
+            .initialProperties(() -> Blocks.COPPER_BLOCK)
+            .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
+            .transform(pickaxeOnly())
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forBooleanProperty(KeyboardRelayBlock.TRANSMITTING, "transmitting", c, p)))
+            .item()
+            .transform(customItemModel())
+            .register();
 
-    public static final DeferredHolder<Block, WindchestMasterBlock> WINDCHEST_MASTER = registerBlock("windchest_master",
-            () -> new WindchestMasterBlock(BlockBehaviour.Properties.ofFullCopy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
-                    .requiresCorrectToolForDrops().noOcclusion()));
+    public static final BlockEntry<TrackerBarBlock> TRACKER_BAR = REGISTRATE.block("tracker_bar", TrackerBarBlock::new)
+            .initialProperties(com.simibubi.create.AllBlocks.BRASS_BLOCK)
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forBooleanProperty(TrackerBarBlock.TRANSMITTING, "transmitting", c, p)))
+            .item()
+            .transform(customItemModel())
+            .transform(displaySource(AllDisplaySources.TRACKER_BAR_FILENAME))
+            .transform(displaySource(AllDisplaySources.TRACKER_BAR_BPM))
+            .transform(pickaxeOnly())
+            .onRegister(block -> BlockStressValues.IMPACTS.register(block, () -> 4.0)) // todo: add stress config for this. also probably a minimum speed for the tracker bar
+            .register();
 
+    public static final BlockEntry<WindchestBlock> WINDCHEST = REGISTRATE.block("windchest", WindchestBlock::new)
+            .initialProperties(() -> Blocks.OAK_PLANKS)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .item()
+            .transform(customItemModel())
+            .transform(axeOnly())
+            .register();
 
+    public static final BlockEntry<WindchestMasterBlock> WINDCHEST_MASTER = REGISTRATE.block("windchest_master", WindchestMasterBlock::new)
+            .initialProperties(() -> Blocks.OAK_PLANKS)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .lang("Windchest Controller")
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .item()
+            .transform(customItemModel())
+            .transform(axeOrPickaxe())
+            .register();
 
-    public static final DeferredHolder<Block, GedecktBlock> GEDECKT = registerPipeBlock("gedeckt", "8",
-            () -> new GedecktBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS)
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, GedecktExtensionBlock> GEDECKT_EXTENSION = registerBlockWithoutItem("gedeckt_extension",
-            () -> new GedecktExtensionBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS)
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, DiapasonBlock> DIAPASON = registerPipeBlock("diapason", "8",
-            () -> new DiapasonBlock(BlockBehaviour.Properties.ofFullCopy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, DiapasonExtensionBlock> DIAPASON_EXTENSION = registerBlockWithoutItem("diapason_extension",
-            () -> new DiapasonExtensionBlock(BlockBehaviour.Properties.ofFullCopy(com.simibubi.create.AllBlocks.ZINC_BLOCK.get())
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, GambaBlock> GAMBA = registerPipeBlock("gamba", "4",
-            () -> new GambaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, GambaExtensionBlock> GAMBA_EXTENSION = registerBlockWithoutItem("gamba_extension",
-            () -> new GambaExtensionBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, PiccoloBlock> PICCOLO = registerPipeBlock("piccolo", "2",
-            () -> new PiccoloBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, PiccoloExtensionBlock> PICCOLO_EXTENSION = registerBlockWithoutItem("piccolo_extension",
-            () -> new PiccoloExtensionBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, SubbassBlock> SUBBASS = registerPipeBlock("subbass",  "16",
-            () -> new SubbassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_PLANKS)
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, SubbassExtensionBlock> SUBBASS_EXTENSION = registerBlockWithoutItem("subbass_extension",
-            () -> new SubbassExtensionBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_PLANKS)
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, TrompetteBlock> TROMPETTE = registerPipeBlock("trompette", "8",
-            () -> new TrompetteBlock(BlockBehaviour.Properties.ofFullCopy(com.simibubi.create.AllBlocks.BRASS_BLOCK.get())
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, TrompetteExtensionBlock> TROMPETTE_EXTENSION = registerBlockWithoutItem("trompette_extension",
-            () -> new TrompetteExtensionBlock(BlockBehaviour.Properties.ofFullCopy(com.simibubi.create.AllBlocks.BRASS_BLOCK.get())
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, NasardBlock> NASARD = registerPipeBlock("nasard", "223",
-            () -> new NasardBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK)
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, NasardExtensionBlock> NASARD_EXTENSION = registerBlockWithoutItem("nasard_extension",
-            () -> new NasardExtensionBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK)
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, PosauneBlock> POSAUNE = registerPipeBlock("posaune", "32",
-            () -> new PosauneBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_PLANKS)
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, PosauneExtensionBlock> POSAUNE_EXTENSION = registerBlockWithoutItem("posaune_extension",
-            () -> new PosauneExtensionBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_PLANKS)
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, VoxHumanaBlock> VOX_HUMANA = registerPipeBlock("vox_humana", "8",
-            () -> new VoxHumanaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK)
-                    .requiresCorrectToolForDrops()));
-
-    public static final DeferredHolder<Block, VoxHumanaExtensionBlock> VOX_HUMANA_EXTENSION = registerBlockWithoutItem("vox_humana_extension",
-            () -> new VoxHumanaExtensionBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK)
-                    .requiresCorrectToolForDrops()));
+    public static final BlockEntry<RollPuncherBlock> ROLL_PUNCHER = REGISTRATE.block("roll_puncher", RollPuncherBlock::new)
+            .initialProperties(() -> Blocks.LECTERN)
+            .transform(axeOrPickaxe())
+            .lang("Roll Authoring Table")
+            .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models()
+                    .getExistingFile(ctx.getId()), 180))
+            .simpleItem()
+            .register();
 
 
 
-    private static <T extends Block> DeferredHolder<Block, T> registerPipeBlock(String name, String octave, Supplier<T> block) {
-        DeferredHolder<Block,T> toReturn = BLOCKS.register(name, block);
-        registerPipeBlockItem(name, toReturn, octave);
-        return toReturn;
+
+    public static final BlockEntry<DiapasonBlock> DIAPASON = registerPipeBlock(
+            "diapason",
+            DiapasonBlock::new,
+            com.simibubi.create.AllBlocks.ZINC_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<DiapasonExtensionBlock> DIAPASON_EXTENSION = registerExtensionBlock(
+            "diapason_extension",
+            DiapasonExtensionBlock::new,
+            com.simibubi.create.AllBlocks.ZINC_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<HauntedWhistleBlock> HAUNTED_WHISTLE = registerPipeBlock(
+            "haunted_whistle",
+            HauntedWhistleBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<HauntedWhistleExtensionBlock> HAUNTED_WHISTLE_EXTENSION = registerExtensionBlock(
+            "haunted_whistle_extension",
+            HauntedWhistleExtensionBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<PrestantBlock> PRESTANT = registerPipeBlock(
+            "prestant",
+            PrestantBlock::new,
+            com.simibubi.create.AllBlocks.ZINC_BLOCK,
+            StopSize.FOUR,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<PrestantExtensionBlock> PRESTANT_EXTENSION = registerExtensionBlock(
+            "prestant_extension",
+            PrestantExtensionBlock::new,
+            com.simibubi.create.AllBlocks.ZINC_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<GambaBlock> GAMBA = registerPipeBlock(
+            "gamba",
+            GambaBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            StopSize.FOUR,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<GambaExtensionBlock> GAMBA_EXTENSION = registerExtensionBlock(
+            "gamba_extension",
+            GambaExtensionBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<GedecktBlock> GEDECKT = registerPipeBlock(
+            "gedeckt",
+            GedecktBlock::new,
+            () -> Blocks.SPRUCE_PLANKS,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_AXE);
+
+    public static final BlockEntry<GedecktExtensionBlock> GEDECKT_EXTENSION = registerExtensionBlock(
+            "gedeckt_extension",
+            GedecktExtensionBlock::new,
+            () -> Blocks.SPRUCE_PLANKS,
+            BlockTags.MINEABLE_WITH_AXE);
+
+    public static final BlockEntry<HohlfluteBlock> HOHLFLUTE = registerPipeBlock(
+            "hohlflute",
+            HohlfluteBlock::new,
+            () -> Blocks.BIRCH_PLANKS,
+            StopSize.FOUR,
+            BlockTags.MINEABLE_WITH_AXE);
+
+    public static final BlockEntry<HohlfluteExtensionBlock> HOHLFLUTE_EXTENSION = registerExtensionBlock(
+            "hohlflute_extension",
+            HohlfluteExtensionBlock::new,
+            () -> Blocks.BIRCH_PLANKS,
+            BlockTags.MINEABLE_WITH_AXE);
+
+    public static final BlockEntry<RohrfloteBlock> ROHRFLOTE = registerPipeBlock(
+            "rohrflote",
+            RohrfloteBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<RohrfloteExtensionBlock> ROHRFLOTE_EXTENSION = registerExtensionBlock(
+            "rohrflote_extension",
+            RohrfloteExtensionBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<NasardBlock> NASARD = registerPipeBlock(
+            "nasard",
+            NasardBlock::new,
+            () -> Blocks.COPPER_BLOCK,
+            StopSize.TWOANDTWOTHIRDS,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<NasardExtensionBlock> NASARD_EXTENSION = registerExtensionBlock(
+            "nasard_extension",
+            NasardExtensionBlock::new,
+            () -> Blocks.COPPER_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<PiccoloBlock> PICCOLO = registerPipeBlock(
+            "piccolo",
+            PiccoloBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            StopSize.TWO,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<PiccoloExtensionBlock> PICCOLO_EXTENSION = registerExtensionBlock(
+            "piccolo_extension",
+            PiccoloExtensionBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<PosauneBlock> POSAUNE = registerPipeBlock(
+            "posaune",
+            PosauneBlock::new,
+            () -> Blocks.DARK_OAK_PLANKS,
+            StopSize.THIRTYTWO,
+            BlockTags.MINEABLE_WITH_AXE);
+
+    public static final BlockEntry<PosauneExtensionBlock> POSAUNE_EXTENSION = registerExtensionBlock(
+            "posaune_extension",
+            PosauneExtensionBlock::new,
+            () -> Blocks.DARK_OAK_PLANKS,
+            BlockTags.MINEABLE_WITH_AXE);
+
+    public static final BlockEntry<SubbassBlock> SUBBASS = registerPipeBlock(
+            "subbass",
+            SubbassBlock::new,
+            () -> Blocks.DARK_OAK_PLANKS,
+            StopSize.SIXTEEN,
+            BlockTags.MINEABLE_WITH_AXE);
+
+    public static final BlockEntry<SubbassExtensionBlock> SUBBASS_EXTENSION = registerExtensionBlock(
+            "subbass_extension",
+            SubbassExtensionBlock::new,
+            () -> Blocks.DARK_OAK_PLANKS,
+            BlockTags.MINEABLE_WITH_AXE);
+
+    public static final BlockEntry<TrompetteBlock> TROMPETTE = registerPipeBlock(
+            "trompette",
+            TrompetteBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<TrompetteExtensionBlock> TROMPETTE_EXTENSION = registerExtensionBlock(
+            "trompette_extension",
+            TrompetteExtensionBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<EnglishHornBlock> ENGLISH_HORN = registerPipeBlock(
+            "english_horn",
+            EnglishHornBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<EnglishHornExtensionBlock> ENGLISH_HORN_EXTENSION = registerExtensionBlock(
+            "english_horn_extension",
+            EnglishHornExtensionBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<ViolaBlock> VIOLA = registerPipeBlock(
+            "viola",
+            ViolaBlock::new,
+            com.simibubi.create.AllBlocks.INDUSTRIAL_IRON_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<ViolaExtensionBlock> VIOLA_EXTENSION = registerExtensionBlock(
+            "viola_extension",
+            ViolaExtensionBlock::new,
+            com.simibubi.create.AllBlocks.INDUSTRIAL_IRON_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<VoxCelesteBlock> VOX_CELESTE = registerPipeBlock(
+            "vox_celeste",
+            VoxCelesteBlock::new,
+            com.simibubi.create.AllBlocks.WEATHERED_IRON_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<VoxCelesteExtensionBlock> VOX_CELESTE_EXTENSION = registerExtensionBlock(
+            "vox_celeste_extension",
+            VoxCelesteExtensionBlock::new,
+            com.simibubi.create.AllBlocks.WEATHERED_IRON_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<VoxHumanaBlock> VOX_HUMANA = registerPipeBlock(
+            "vox_humana",
+            VoxHumanaBlock::new,
+            () -> Blocks.COPPER_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<VoxHumanaExtensionBlock> VOX_HUMANA_EXTENSION = registerExtensionBlock(
+            "vox_humana_extension",
+            VoxHumanaExtensionBlock::new,
+            () -> Blocks.COPPER_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    private static <T extends GenericPipeBlock> BlockEntry<T> registerPipeBlock(
+            String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
+            NonNullSupplier<? extends Block> initialPropertiesCopier,
+            StopSize stopsize, TagKey<Block> toolTag) {
+        return REGISTRATE.block(name, factory)
+                .initialProperties(initialPropertiesCopier)
+                .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
+                .blockstate(new PipeGenerator()::generate)
+                .item((b,p) -> new GenericPipeBlockItem(b, p, stopsize))
+                .transform(customItemModel())
+                .tag(toolTag)
+                .register();
     }
 
-    private static <T extends Block> DeferredHolder<Block, T> registerBlockWithoutItem(String name, Supplier<T> block) {
-        DeferredHolder<Block, T> toReturn = BLOCKS.register(name, block);
-        return toReturn;
-    }
-
-    private static <T extends Block> void registerPipeBlockItem(String name, DeferredHolder<Block, T> block, String octave) {
-        AllItems.ITEMS.register(name, () -> new GenericPipeBlockItem(block.get(), new Item.Properties(), octave));
-    }
-
-
-
-    private static <T extends Block> DeferredHolder<Block, T> registerBlock(String name, Supplier<T> block) {
-        DeferredHolder<Block, T> toReturn = BLOCKS.register(name, block);
-        registerBlockItem(name, toReturn);
-        return toReturn;
-    }
-
-    private static <T extends Block> DeferredHolder<Item, BlockItem> registerBlockItem(String name, Supplier<T> block) {
-        return AllItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    private static <T extends GenericExtensionBlock<?>> BlockEntry<T> registerExtensionBlock(
+            String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
+            NonNullSupplier<? extends Block> initialPropertiesCopier, TagKey<Block> toolTag) {
+        return REGISTRATE.block(name, factory)
+                .initialProperties(initialPropertiesCopier)
+                .blockstate(new PipeExtensionGenerator()::generate)
+                .tag(toolTag)
+                .register();
     }
 
 
-    public static void register(IEventBus eventBus) {
-        BLOCKS.register(eventBus);
+
+    public static void register() {
     }
 }

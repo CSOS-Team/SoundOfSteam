@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.mixin;
 
-import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.block.WindchestMasterBlock;
+import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlock;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
 import net.minecraft.core.BlockPos;

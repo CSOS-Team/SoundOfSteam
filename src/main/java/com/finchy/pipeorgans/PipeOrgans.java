@@ -1,53 +1,112 @@
 package com.finchy.pipeorgans;
 
+import com.finchy.pipeorgans.data.PipeOrgansDatagen;
 import com.finchy.pipeorgans.init.*;
+import com.finchy.pipeorgans.midi.Proxy;
+import com.finchy.pipeorgans.midi.client.ClientProxy;
+import com.finchy.pipeorgans.midi.server.ServerMidiLoader;
+import com.finchy.pipeorgans.midi.server.ServerProxy;
+import com.finchy.pipeorgans.network.AllPackets;
 import com.mojang.logging.LogUtils;
-import com.tterrag.registrate.util.RegistrateDistExecutor;
+import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.item.ItemDescription;
+import com.simibubi.create.foundation.item.KineticStats;
+import com.simibubi.create.foundation.item.TooltipModifier;
+import net.createmod.catnip.lang.FontHelper;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/neoforge.mods.toml file
+// The value here should match an entry in the META-INF/mods.toml file
 @Mod(PipeOrgans.MOD_ID)
-public class PipeOrgans
-{
-    // Define mod id in a common place for everything to reference
-    public static final String MOD_ID = "pipeorgans";
+public class PipeOrgans {
 
-    // Directly reference a slf4j logger
-    public static final Logger LOGGER = LogUtils.getLogger();
-
-    public PipeOrgans(IEventBus modEventBus, ModContainer container)
-    {
-        modEventBus.addListener(this::commonSetup);
-        AllCreativeModeTabs.register(modEventBus);
-        AllBlockEntities.register(modEventBus);
-        AllBlocks.register(modEventBus);
-        AllItems.register(modEventBus);
-        AllSoundEvents.register(modEventBus);
-
-        RegistrateDistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> PipeOrgansClient.onCtorClient(modEventBus, NeoForge.EVENT_BUS));
-
-        NeoForge.EVENT_BUS.register(this);
-
-        container.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+    static {
+        setProxy(DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new));
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {}
+    // Define mod id in a common place for everything to reference
+    public static final String MOD_ID = "pipeorgans";
+    public static final Logger LOGGER = LogUtils.getLogger();
 
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
+    private static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID)
+            .defaultCreativeTab((ResourceKey<CreativeModeTab>) null)
+            .setTooltipModifierFactory(item ->
+                    new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
+                            .andThen(TooltipModifier.mapNull(KineticStats.create(item)))
+            );
+
+    public static final ServerMidiLoader MIDI_RECEIVER = new ServerMidiLoader();
+
+    protected static Proxy proxy;
+    public static Proxy getProxy() {
+        return proxy;
+    }
+    public static void setProxy(Proxy inProxy) {
+        proxy = inProxy;
+    }
+
+    public PipeOrgans() {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        REGISTRATE.registerEventListeners(modEventBus);
+
+        AllCreativeModeTabs.register(modEventBus);
+
+        AllBlocks.register();
+        AllBlockEntities.register();
+        AllDisplaySources.register();
+        AllItems.register();
+        AllSoundEvents.register(modEventBus);
+        AllSpriteShifts.register();
+        AllParticleTypes.register(modEventBus);
+        AllMenuTypes.register();
+        AllPackets.registerPackets();
+
+        modEventBus.addListener(EventPriority.LOWEST, PipeOrgansDatagen::gatherData);
+
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> PipeOrgansClient.onCtorClient(modEventBus, MinecraftForge.EVENT_BUS));
+
+        MinecraftForge.EVENT_BUS.register(this);
+
+        // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
+
+        proxy.init();
+    }
+
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {}
 
+    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModEvents {
+
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event) {
+            AllPartialModels.init();
+        }
+    }
+
     public static ResourceLocation asResource(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+        return new ResourceLocation(MOD_ID, path);
+    }
+
+    public static CreateRegistrate registrate() {
+        return REGISTRATE;
     }
 }

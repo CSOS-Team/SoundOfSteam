@@ -1,48 +1,83 @@
 package com.finchy.pipeorgans.init;
 
-import com.finchy.pipeorgans.block.Generic;
+import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
+import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import net.createmod.catnip.math.VoxelShaper;
 import net.minecraft.core.Direction;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class AllShapes {
+public abstract class AllShapes {
 
-    public static VoxelShape add(VoxelShape a, VoxelShape b) {
-        return Shapes.join(a, b, BooleanOp.OR);
+    public static VoxelShape genericPipeShape(EPipeSizes.PipeSize size, boolean wall, Direction facing) {
+        VoxelShape base = wall? BASE.get(facing.getOpposite()) : BASE.get(Direction.UP);
+        return shape(switch (size) {
+                    case TINY -> GENERIC_TINY_BASE;
+                    case SMALL -> GENERIC_SMALL_BASE;
+                    case MEDIUM -> GENERIC_MEDIUM_BASE;
+                    case LARGE -> GENERIC_LARGE_BASE;
+                    case HUGE -> GENERIC_HUGE_BASE;
+                }
+        ).add(base).build();
     }
 
-    public static VoxelShape getBase(Direction face) {
-        return switch (face) {
-            case NORTH -> BASE_NORTH;
-            case EAST -> BASE_EAST;
-            case SOUTH -> BASE_SOUTH;
-            case WEST -> BASE_WEST;
-            case UP, DOWN -> Shapes.block();
-        };
+    public static VoxelShape slimPipeShape(EPipeSizes.PipeSize size, boolean wall, Direction facing) {
+        VoxelShape base = wall? BASE.get(facing.getOpposite()) : BASE.get(Direction.UP);
+        return shape(switch (size) {
+                    case TINY -> SLIM_TINY_BASE;
+                    case SMALL -> SLIM_SMALL_BASE;
+                    case MEDIUM -> SLIM_MEDIUM_BASE;
+                    case LARGE -> SLIM_LARGE_BASE;
+                    case HUGE -> SLIM_HUGE_BASE;
+                }
+        ).add(base).build();
     }
 
-    public static VoxelShape getBlockBase(Direction face) {
-        return switch (face) {
-            case NORTH -> BASE_BLOCK_NORTH;
-            case EAST -> BASE_BLOCK_EAST;
-            case SOUTH -> BASE_BLOCK_SOUTH;
-            case WEST -> BASE_BLOCK_WEST;
-            case UP, DOWN -> Shapes.block();
-        };
+    public static VoxelShape stringPipeShape(EPipeSizes.PipeSize size, boolean wall, Direction facing) {
+        VoxelShape base = wall? BASE.get(facing.getOpposite()) : BASE.get(Direction.UP);
+        return shape(switch (size) {
+                    case TINY -> STRING_TINY_BASE.get(facing);
+                    case SMALL -> STRING_SMALL_BASE.get(facing);
+                    case MEDIUM -> STRING_MEDIUM_BASE.get(facing);
+                    case LARGE -> STRING_LARGE_BASE.get(facing);
+                    case HUGE -> STRING_HUGE_BASE.get(facing);
+                }
+        ).add(base).build();
     }
 
-    public static VoxelShape getGenericBase(Generic.WhistleSize size) {
+    // generic single extension
+    public static VoxelShape genericExtensionShape(EExtensionShapes.SingleShape shape, EPipeSizes.PipeSize size) {
         return switch (size) {
-            case TINY -> GENERIC_TINY_BASE;
-            case SMALL -> GENERIC_SMALL_BASE;
-            case MEDIUM -> GENERIC_MEDIUM_BASE;
-            case LARGE -> GENERIC_LARGE_BASE;
-            case HUGE -> GENERIC_HUGE_BASE;
+            case TINY -> GENERIC_EXTENSION_TINY_QUAD;
+            case SMALL -> GENERIC_EXTENSION_SMALL_QUAD;
+            case MEDIUM -> GENERIC_EXTENSION_MEDIUM_QUAD;
+            case LARGE -> GENERIC_EXTENSION_LARGE_QUAD;
+            case HUGE -> GENERIC_EXTENSION_HUGE_QUAD;
         };
     }
 
-    public static VoxelShape getGenericExtensionShape(Generic.QuadrupleExtensionShape shape, Generic.WhistleSize size) {
+    // generic double extension
+    public static VoxelShape genericExtensionShape(EExtensionShapes.DoubleShape shape, EPipeSizes.PipeSize size) {
+        return switch (shape) {
+            case SINGLE -> switch (size) {
+                case TINY -> GENERIC_EXTENSION_TINY_DOUBLE;
+                case SMALL -> GENERIC_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> GENERIC_EXTENSION_LARGE_DOUBLE;
+                case HUGE -> GENERIC_EXTENSION_HUGE_DOUBLE;
+            };
+            case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
+                case TINY -> GENERIC_EXTENSION_TINY_QUAD;
+                case SMALL -> GENERIC_EXTENSION_SMALL_QUAD;
+                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_QUAD;
+                case LARGE -> GENERIC_EXTENSION_LARGE_QUAD;
+                case HUGE -> GENERIC_EXTENSION_HUGE_QUAD;
+            };
+        };
+    }
+
+    // generic quadruple extension
+    public static VoxelShape genericExtensionShape(EExtensionShapes.QuadrupleShape shape, EPipeSizes.PipeSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> GENERIC_EXTENSION_TINY_SINGLE;
@@ -66,26 +101,48 @@ public class AllShapes {
                 case HUGE -> GENERIC_EXTENSION_HUGE_TRIPLE;
             };
             case QUAD, QUAD_CONNECTED -> switch (size) {
-                case TINY -> GENERIC_EXTENSION_TINY_QUADRUPLE;
-                case SMALL -> GENERIC_EXTENSION_SMALL_QUADRUPLE;
-                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_QUADRUPLE;
-                case LARGE -> GENERIC_EXTENSION_LARGE_QUADRUPLE;
-                case HUGE -> GENERIC_EXTENSION_HUGE_QUADRUPLE;
+                case TINY -> GENERIC_EXTENSION_TINY_QUAD;
+                case SMALL -> GENERIC_EXTENSION_SMALL_QUAD;
+                case MEDIUM -> GENERIC_EXTENSION_MEDIUM_QUAD;
+                case LARGE -> GENERIC_EXTENSION_LARGE_QUAD;
+                case HUGE -> GENERIC_EXTENSION_HUGE_QUAD;
             };
         };
     }
 
-    public static VoxelShape getSlimBase(Generic.WhistleSize size) {
+    // slim single extension
+    public static VoxelShape slimExtensionShape(EExtensionShapes.SingleShape shape, EPipeSizes.PipeSize size) {
         return switch (size) {
-            case TINY -> SLIM_TINY_BASE;
-            case SMALL -> SLIM_SMALL_BASE;
-            case MEDIUM -> SLIM_MEDIUM_BASE;
-            case LARGE -> SLIM_LARGE_BASE;
-            case HUGE -> SLIM_HUGE_BASE;
+            case TINY -> SLIM_EXTENSION_TINY_QUAD;
+            case SMALL -> SLIM_EXTENSION_SMALL_QUAD;
+            case MEDIUM -> SLIM_EXTENSION_MEDIUM_QUAD;
+            case LARGE -> SLIM_EXTENSION_LARGE_QUAD;
+            case HUGE -> SLIM_EXTENSION_HUGE_QUAD;
         };
     }
 
-    public static VoxelShape getSlimExtensionShape(Generic.QuadrupleExtensionShape shape, Generic.WhistleSize size) {
+    // slim double extension
+    public static VoxelShape slimExtensionShape(EExtensionShapes.DoubleShape shape, EPipeSizes.PipeSize size) {
+        return switch (shape) {
+            case SINGLE -> switch (size) {
+                case TINY -> SLIM_EXTENSION_TINY_DOUBLE;
+                case SMALL -> SLIM_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> SLIM_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> SLIM_EXTENSION_LARGE_DOUBLE;
+                case HUGE -> SLIM_EXTENSION_HUGE_DOUBLE;
+            };
+            case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
+                case TINY -> SLIM_EXTENSION_TINY_QUAD;
+                case SMALL -> SLIM_EXTENSION_SMALL_QUAD;
+                case MEDIUM -> SLIM_EXTENSION_MEDIUM_QUAD;
+                case LARGE -> SLIM_EXTENSION_LARGE_QUAD;
+                case HUGE -> SLIM_EXTENSION_HUGE_QUAD;
+            };
+        };
+    }
+
+    // slim quadruple extension
+    public static VoxelShape slimExtensionShape(EExtensionShapes.QuadrupleShape shape, EPipeSizes.PipeSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> SLIM_EXTENSION_TINY_SINGLE;
@@ -101,7 +158,6 @@ public class AllShapes {
                 case LARGE -> SLIM_EXTENSION_LARGE_DOUBLE;
                 case HUGE -> SLIM_EXTENSION_HUGE_DOUBLE;
             };
-
             case TRIPLE -> switch (size) {
                 case TINY -> SLIM_EXTENSION_TINY_TRIPLE;
                 case SMALL -> SLIM_EXTENSION_SMALL_TRIPLE;
@@ -109,7 +165,6 @@ public class AllShapes {
                 case LARGE -> SLIM_EXTENSION_LARGE_TRIPLE;
                 case HUGE -> SLIM_EXTENSION_HUGE_TRIPLE;
             };
-
             case QUAD, QUAD_CONNECTED -> switch (size) {
                 case TINY -> SLIM_EXTENSION_TINY_QUAD;
                 case SMALL -> SLIM_EXTENSION_SMALL_QUAD;
@@ -120,130 +175,222 @@ public class AllShapes {
         };
     }
 
-    // SLIM
+    // string single extension
+    public static VoxelShape stringExtensionShape(EExtensionShapes.SingleShape shape, EPipeSizes.PipeSize size, Direction facing) {
+        return switch (size) {
+            case TINY -> STRING_EXTENSION_TINY_QUAD.get(facing);
+            case SMALL -> STRING_EXTENSION_SMALL_QUAD.get(facing);
+            case MEDIUM -> STRING_EXTENSION_MEDIUM_QUAD.get(facing);
+            case LARGE -> STRING_EXTENSION_LARGE_QUAD.get(facing);
+            case HUGE -> STRING_EXTENSION_HUGE_QUAD.get(facing);
+        };
+    }
 
-    public static VoxelShape SLIM_TINY_BASE = Shapes.box(0.375, 0.25, 0.375, 0.625, 1, 0.625);
-    public static VoxelShape SLIM_SMALL_BASE = Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 1, 0.6875);
-    public static VoxelShape SLIM_MEDIUM_BASE = Shapes.box(0.25, 0.1875, 0.25, 0.75, 1, 0.75);
-    public static VoxelShape SLIM_LARGE_BASE = Shapes.box(0.1875, 0.1875, 0.1875, 0.8125, 1, 0.8125);
-    public static VoxelShape SLIM_HUGE_BASE = Shapes.box(0.125, 0.1875, 0.125, 0.875, 1, 0.875);
+    // string double extension
+    public static VoxelShape stringExtensionShape(EExtensionShapes.DoubleShape shape, EPipeSizes.PipeSize size, Direction facing) {
+        return switch (shape) {
+            case SINGLE -> switch (size) {
+                case TINY -> STRING_EXTENSION_TINY_DOUBLE.get(facing);
+                case SMALL -> STRING_EXTENSION_SMALL_DOUBLE.get(facing);
+                case MEDIUM -> STRING_EXTENSION_MEDIUM_DOUBLE.get(facing);
+                case LARGE -> STRING_EXTENSION_LARGE_DOUBLE.get(facing);
+                case HUGE -> STRING_EXTENSION_HUGE_DOUBLE.get(facing);
+            };
+            case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
+                case TINY -> STRING_EXTENSION_TINY_QUAD.get(facing);
+                case SMALL -> STRING_EXTENSION_SMALL_QUAD.get(facing);
+                case MEDIUM -> STRING_EXTENSION_MEDIUM_QUAD.get(facing);
+                case LARGE -> STRING_EXTENSION_LARGE_QUAD.get(facing);
+                case HUGE -> STRING_EXTENSION_HUGE_QUAD.get(facing);
+            };
+        };
+    }
 
-    public static VoxelShape SLIM_EXTENSION_TINY_SINGLE = Shapes.box(0.375, 0, 0.375, 0.625, 0.25, 0.625);
-    public static VoxelShape SLIM_EXTENSION_TINY_DOUBLE = Shapes.box(0.375, 0, 0.375, 0.625, 0.5, 0.625);
-    public static VoxelShape SLIM_EXTENSION_TINY_TRIPLE = Shapes.box(0.375, 0, 0.375, 0.625, 0.75, 0.625);
-    public static VoxelShape SLIM_EXTENSION_TINY_QUAD = Shapes.box(0.375, 0, 0.375, 0.625, 1, 0.625);
-
-    public static VoxelShape SLIM_EXTENSION_SMALL_SINGLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.25, 0.6875);
-    public static VoxelShape SLIM_EXTENSION_SMALL_DOUBLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.5, 0.6875);
-    public static VoxelShape SLIM_EXTENSION_SMALL_TRIPLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.75, 0.6875);
-    public static VoxelShape SLIM_EXTENSION_SMALL_QUAD = Shapes.box(0.3125, 0, 0.3125, 0.6875, 1, 0.6875);
-
-    public static VoxelShape SLIM_EXTENSION_MEDIUM_SINGLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.25, 0.75);
-    public static VoxelShape SLIM_EXTENSION_MEDIUM_DOUBLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.5, 0.75);
-    public static VoxelShape SLIM_EXTENSION_MEDIUM_TRIPLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.75, 0.75);
-    public static VoxelShape SLIM_EXTENSION_MEDIUM_QUAD = Shapes.box(0.25, 0, 0.25, 0.75, 1, 0.75);
-
-    public static VoxelShape SLIM_EXTENSION_LARGE_SINGLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.25, 0.8125);
-    public static VoxelShape SLIM_EXTENSION_LARGE_DOUBLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5, 0.8125);
-    public static VoxelShape SLIM_EXTENSION_LARGE_TRIPLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.75, 0.8125);
-    public static VoxelShape SLIM_EXTENSION_LARGE_QUAD = Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125);
-
-    public static VoxelShape SLIM_EXTENSION_HUGE_SINGLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.25, 0.875);
-    public static VoxelShape SLIM_EXTENSION_HUGE_DOUBLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.5, 0.875);
-    public static VoxelShape SLIM_EXTENSION_HUGE_TRIPLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.75, 0.875);
-    public static VoxelShape SLIM_EXTENSION_HUGE_QUAD = Shapes.box(0.125, 0, 0.125, 0.875, 1, 0.875);
-
-    // GENERIC
-
-    public static VoxelShape GENERIC_TINY_BASE = Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 1, 0.6875);
-    public static VoxelShape GENERIC_SMALL_BASE = Shapes.box(0.25, 0.1875, 0.25, 0.75, 1, 0.75);
-    public static VoxelShape GENERIC_MEDIUM_BASE = Shapes.box(0.1875, 0.1875, 0.1875, 0.8125, 1, 0.8125);
-    public static VoxelShape GENERIC_LARGE_BASE = Shapes.box(0.125, 0.1875, 0.125, 0.875, 1, 0.875);
-    public static VoxelShape GENERIC_HUGE_BASE = Shapes.box(0.0625, 0.1875, 0.0625, 0.9375, 1, 0.9375);
-
-    public static VoxelShape GENERIC_EXTENSION_TINY_SINGLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.25, 0.6875);
-    public static VoxelShape GENERIC_EXTENSION_TINY_DOUBLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.5, 0.6875);
-    public static VoxelShape GENERIC_EXTENSION_TINY_TRIPLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.75, 0.6875);
-    public static VoxelShape GENERIC_EXTENSION_TINY_QUADRUPLE = Shapes.box(0.3125, 0, 0.3125, 0.6875, 1, 0.6875);
-
-    public static VoxelShape GENERIC_EXTENSION_SMALL_SINGLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.25, 0.75);
-    public static VoxelShape GENERIC_EXTENSION_SMALL_DOUBLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.5, 0.75);
-    public static VoxelShape GENERIC_EXTENSION_SMALL_TRIPLE = Shapes.box(0.25, 0, 0.25, 0.75, 0.75, 0.75);
-    public static VoxelShape GENERIC_EXTENSION_SMALL_QUADRUPLE = Shapes.box(0.25, 0, 0.25, 0.75, 1, 0.75);
-
-    public static VoxelShape GENERIC_EXTENSION_MEDIUM_SINGLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.25, 0.8125);
-    public static VoxelShape GENERIC_EXTENSION_MEDIUM_DOUBLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.5, 0.8125);
-    public static VoxelShape GENERIC_EXTENSION_MEDIUM_TRIPLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.75, 0.8125);
-    public static VoxelShape GENERIC_EXTENSION_MEDIUM_QUADRUPLE = Shapes.box(0.1875, 0, 0.1875, 0.8125, 1, 0.8125);
-
-    public static VoxelShape GENERIC_EXTENSION_LARGE_SINGLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.25, 0.875);
-    public static VoxelShape GENERIC_EXTENSION_LARGE_DOUBLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.5, 0.875);
-    public static VoxelShape GENERIC_EXTENSION_LARGE_TRIPLE = Shapes.box(0.125, 0, 0.125, 0.875, 0.75, 0.875);
-    public static VoxelShape GENERIC_EXTENSION_LARGE_QUADRUPLE = Shapes.box(0.125, 0, 0.125, 0.875, 1, 0.875);
-
-    public static VoxelShape GENERIC_EXTENSION_HUGE_SINGLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.25, 0.9375);
-    public static VoxelShape GENERIC_EXTENSION_HUGE_DOUBLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.5, 0.9375);
-    public static VoxelShape GENERIC_EXTENSION_HUGE_TRIPLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.75, 0.9375);
-    public static VoxelShape GENERIC_EXTENSION_HUGE_QUADRUPLE = Shapes.box(0.0625, 0, 0.0625, 0.9375, 1, 0.9375);
-
-    // BASES
-
-    public static VoxelShape BASE_FLOOR = add(
-            Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.1875, 0.9375),
-            Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 0.6875, 0.6875)
-    );
-
-    public static VoxelShape BASE_NORTH = add(
-            Shapes.box(0.0625, 0.0625, 0, 0.9375, 0.9375, 0.1875),
-            Shapes.box(0.3125, 0.1875, 0.1875, 0.6875, 0.5625, 0.6875)
-    );
-
-    public static VoxelShape BASE_EAST = add(
-            Shapes.box(0.8125, 0.0625, 0.0625, 1, 0.9375, 0.9375),
-            Shapes.box(0.3125, 0.1875, 0.3125, 0.8125, 0.5625, 0.6875)
-    );
-
-    public static VoxelShape BASE_SOUTH = add(
-            Shapes.box(0.0625, 0.0625, 0.8125, 0.9375, 0.9375, 1),
-            Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 0.5625, 0.8125)
-    );
-
-    public static VoxelShape BASE_WEST = add(
-            Shapes.box(0, 0.0625, 0.0625, 0.1875, 0.9375, 0.9375),
-            Shapes.box(0.1875, 0.1875, 0.3125, 0.6875, 0.5625, 0.6875)
-    );
+    // string quadruple extension
+    public static VoxelShape stringExtensionShape(EExtensionShapes.QuadrupleShape shape, EPipeSizes.PipeSize size, Direction facing) {
+        return switch (shape) {
+            case SINGLE -> switch (size) {
+                case TINY -> STRING_EXTENSION_TINY_SINGLE.get(facing);
+                case SMALL -> STRING_EXTENSION_SMALL_SINGLE.get(facing);
+                case MEDIUM -> STRING_EXTENSION_MEDIUM_SINGLE.get(facing);
+                case LARGE -> STRING_EXTENSION_LARGE_SINGLE.get(facing);
+                case HUGE -> STRING_EXTENSION_HUGE_SINGLE.get(facing);
+            };
+            case DOUBLE -> switch (size) {
+                case TINY -> STRING_EXTENSION_TINY_DOUBLE.get(facing);
+                case SMALL -> STRING_EXTENSION_SMALL_DOUBLE.get(facing);
+                case MEDIUM -> STRING_EXTENSION_MEDIUM_DOUBLE.get(facing);
+                case LARGE -> STRING_EXTENSION_LARGE_DOUBLE.get(facing);
+                case HUGE -> STRING_EXTENSION_HUGE_DOUBLE.get(facing);
+            };
+            case TRIPLE -> switch (size) {
+                case TINY -> STRING_EXTENSION_TINY_TRIPLE.get(facing);
+                case SMALL -> STRING_EXTENSION_SMALL_TRIPLE.get(facing);
+                case MEDIUM -> STRING_EXTENSION_MEDIUM_TRIPLE.get(facing);
+                case LARGE -> STRING_EXTENSION_LARGE_TRIPLE.get(facing);
+                case HUGE -> STRING_EXTENSION_HUGE_TRIPLE.get(facing);
+            };
+            case QUAD, QUAD_CONNECTED -> switch (size) {
+                case TINY -> STRING_EXTENSION_TINY_QUAD.get(facing);
+                case SMALL -> STRING_EXTENSION_SMALL_QUAD.get(facing);
+                case MEDIUM -> STRING_EXTENSION_MEDIUM_QUAD.get(facing);
+                case LARGE -> STRING_EXTENSION_LARGE_QUAD.get(facing);
+                case HUGE -> STRING_EXTENSION_HUGE_QUAD.get(facing);
+            };
+        };
+    }
 
 
 
-    public static VoxelShape BASE_BLOCK_TOP = Shapes.box(0.3125, 0.5625, 0.3125, 0.6875, 0.6875, 0.6875);
+    // DEFINITIONS
+    private static final VoxelShape
+        // GENERIC
+        GENERIC_TINY_BASE = shape(5, 3, 5, 11, 16, 11).build(),
+        GENERIC_SMALL_BASE = shape(4, 3, 4, 12, 16, 12).build(),
+        GENERIC_MEDIUM_BASE = shape(3, 3, 3, 13, 16, 13).build(),
+        GENERIC_LARGE_BASE = shape(2, 3, 2, 14, 16, 14).build(),
+        GENERIC_HUGE_BASE = shape(1, 3, 1, 15, 16, 15).build(),
 
-    public static VoxelShape BASE_BLOCK_NORTH = add(
-            add(Shapes.box(0.0625, 0.0625, 0, 0.9375, 0.9375, 0.1875), Shapes.box(0.3125, 0.1875, 0.1875, 0.6875, 0.5625, 0.6875)),
-            BASE_BLOCK_TOP
-    );
+        GENERIC_EXTENSION_TINY_SINGLE = shape(5, 0, 5, 11, 4, 11).build(),
+        GENERIC_EXTENSION_TINY_DOUBLE = shape(5, 0, 5, 11, 8, 11).build(),
+        GENERIC_EXTENSION_TINY_TRIPLE = shape(5, 0, 5, 11, 12, 11).build(),
+        GENERIC_EXTENSION_TINY_QUAD = shape(5, 0, 5, 11, 16, 11).build(),
 
-    public static VoxelShape BASE_BLOCK_EAST = add(
-            add(Shapes.box(0.8125, 0.0625, 0.0625, 1, 0.9375, 0.9375), Shapes.box(0.3125, 0.1875, 0.3125, 0.8125, 0.5625, 0.6875)),
-            BASE_BLOCK_TOP
-    );
+        GENERIC_EXTENSION_SMALL_SINGLE = shape(4, 0, 4, 12, 4, 12).build(),
+        GENERIC_EXTENSION_SMALL_DOUBLE = shape(4, 0, 4, 12, 8, 12).build(),
+        GENERIC_EXTENSION_SMALL_TRIPLE = shape(4, 0, 4, 12, 12, 12).build(),
+        GENERIC_EXTENSION_SMALL_QUAD = shape(4, 0, 4, 12, 16, 12).build(),
 
-    public static VoxelShape BASE_BLOCK_SOUTH = add(
-            add(Shapes.box(0.0625, 0.0625, 0.8125, 0.9375, 0.9375, 1), Shapes.box(0.3125, 0.1875, 0.3125, 0.6875, 0.5625, 0.8125)),
-            BASE_BLOCK_TOP
-    );
+        GENERIC_EXTENSION_MEDIUM_SINGLE = shape(3, 0, 3, 13, 4, 13).build(),
+        GENERIC_EXTENSION_MEDIUM_DOUBLE = shape(3, 0, 3, 13, 8, 13).build(),
+        GENERIC_EXTENSION_MEDIUM_TRIPLE = shape(3, 0, 3, 13, 12, 13).build(),
+        GENERIC_EXTENSION_MEDIUM_QUAD = shape(3, 0, 3, 13, 16, 13).build(),
 
-    public static VoxelShape BASE_BLOCK_WEST = add(
-            add(Shapes.box(0, 0.0625, 0.0625, 0.1875, 0.9375, 0.9375), Shapes.box(0.1875, 0.1875, 0.3125, 0.6875, 0.5625, 0.6875)),
-            BASE_BLOCK_TOP
-    );
+        GENERIC_EXTENSION_LARGE_SINGLE = shape(2, 0, 2, 14, 4, 14).build(),
+        GENERIC_EXTENSION_LARGE_DOUBLE = shape(2, 0, 2, 14, 8, 14).build(),
+        GENERIC_EXTENSION_LARGE_TRIPLE = shape(2, 0, 2, 14, 12, 14).build(),
+        GENERIC_EXTENSION_LARGE_QUAD = shape(2, 0, 2, 14, 16, 14).build(),
+
+        GENERIC_EXTENSION_HUGE_SINGLE = shape(1, 0, 1, 15, 4, 15).build(),
+        GENERIC_EXTENSION_HUGE_DOUBLE = shape(1, 0, 1, 15, 8, 15).build(),
+        GENERIC_EXTENSION_HUGE_TRIPLE = shape(1, 0, 1, 15, 12, 15).build(),
+        GENERIC_EXTENSION_HUGE_QUAD = shape(1, 0, 1, 15, 16, 15).build(),
+
+        // SLIM
+        SLIM_TINY_BASE = shape(6, 4, 6, 10, 16, 10).build(),
+        SLIM_SMALL_BASE = shape(5, 3, 5, 11, 16, 11).build(),
+        SLIM_MEDIUM_BASE = shape(4, 3, 4, 12, 16, 12).build(),
+        SLIM_LARGE_BASE = shape(3, 3, 3, 13, 16, 13).build(),
+        SLIM_HUGE_BASE = shape(2, 3, 2, 14, 16, 14).build(),
+
+        SLIM_EXTENSION_TINY_SINGLE = shape(6, 0, 6, 10, 4, 10).build(),
+        SLIM_EXTENSION_TINY_DOUBLE = shape(6, 0, 6, 10, 8, 10).build(),
+        SLIM_EXTENSION_TINY_TRIPLE = shape(6, 0, 6, 10, 12, 10).build(),
+        SLIM_EXTENSION_TINY_QUAD = shape(6, 0, 6, 10, 16, 10).build(),
+
+        SLIM_EXTENSION_SMALL_SINGLE = shape(5, 0, 5, 11, 4, 11).build(),
+        SLIM_EXTENSION_SMALL_DOUBLE = shape(5, 0, 5, 11, 8, 11).build(),
+        SLIM_EXTENSION_SMALL_TRIPLE = shape(5, 0, 5, 11, 12, 11).build(),
+        SLIM_EXTENSION_SMALL_QUAD = shape(5, 0, 5, 11, 16, 11).build(),
+
+        SLIM_EXTENSION_MEDIUM_SINGLE = shape(4, 0, 4, 12, 4, 12).build(),
+        SLIM_EXTENSION_MEDIUM_DOUBLE = shape(4, 0, 4, 12, 8, 12).build(),
+        SLIM_EXTENSION_MEDIUM_TRIPLE = shape(4, 0, 4, 12, 12, 12).build(),
+        SLIM_EXTENSION_MEDIUM_QUAD = shape(4, 0, 4, 12, 16, 12).build(),
+
+        SLIM_EXTENSION_LARGE_SINGLE = shape(3, 0, 3, 13, 4, 13).build(),
+        SLIM_EXTENSION_LARGE_DOUBLE = shape(3, 0, 3, 13, 8, 13).build(),
+        SLIM_EXTENSION_LARGE_TRIPLE = shape(3, 0, 3, 13, 12, 13).build(),
+        SLIM_EXTENSION_LARGE_QUAD = shape(3, 0, 3, 13, 16, 13).build(),
+
+        SLIM_EXTENSION_HUGE_SINGLE = shape(2, 0, 2, 14, 4, 14).build(),
+        SLIM_EXTENSION_HUGE_DOUBLE = shape(2, 0, 2, 14, 8, 14).build(),
+        SLIM_EXTENSION_HUGE_TRIPLE = shape(2, 0, 2, 14, 12, 14).build(),
+        SLIM_EXTENSION_HUGE_QUAD = shape(2, 0, 2, 14, 16, 14).build();
+
+        // STRING PIPES
+
+    private static final VoxelShaper // apologies for the brief interruption...
+
+        STRING_TINY_BASE = shape(5, 3, 5, 11, 16, 11).forHorizontal(Direction.NORTH),
+        STRING_SMALL_BASE = shape(5, 3, 4, 11, 16, 12).forHorizontal(Direction.NORTH),
+        STRING_MEDIUM_BASE = shape(4, 3, 3, 12, 16, 13).forHorizontal(Direction.NORTH),
+        STRING_LARGE_BASE = shape(3, 3, 2, 13, 16, 14).forHorizontal(Direction.NORTH),
+        STRING_HUGE_BASE = shape(2, 3, 1, 14, 16, 15).forHorizontal(Direction.NORTH),
+
+        STRING_EXTENSION_TINY_SINGLE = shape(5, 0, 5, 11, 4, 11).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_TINY_DOUBLE = shape(5, 0, 5, 11, 8, 11).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_TINY_TRIPLE = shape(5, 0, 5, 11, 12, 11).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_TINY_QUAD = shape(5, 0, 5, 11, 16, 11).forHorizontal(Direction.NORTH),
+
+        STRING_EXTENSION_SMALL_SINGLE = shape(5, 0, 4, 11, 4, 12).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_SMALL_DOUBLE = shape(5, 0, 4, 11, 8, 12).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_SMALL_TRIPLE = shape(5, 0, 4, 11, 12, 12).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_SMALL_QUAD = shape(5, 0, 4, 11, 16, 12).forHorizontal(Direction.NORTH),
+
+        STRING_EXTENSION_MEDIUM_SINGLE = shape(4, 0, 3, 12, 4, 13).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_MEDIUM_DOUBLE = shape(4, 0, 3, 12, 8, 13).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_MEDIUM_TRIPLE = shape(4, 0, 3, 12, 12, 13).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_MEDIUM_QUAD = shape(4, 0, 3, 12, 16, 13).forHorizontal(Direction.NORTH),
+
+        STRING_EXTENSION_LARGE_SINGLE = shape(3, 0, 2, 13, 4, 14).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_LARGE_DOUBLE = shape(3, 0, 2, 13, 8, 14).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_LARGE_TRIPLE = shape(3, 0, 2, 13, 12, 14).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_LARGE_QUAD = shape(3, 0, 2, 13, 16, 14).forHorizontal(Direction.NORTH),
+
+        STRING_EXTENSION_HUGE_SINGLE = shape(2, 0, 1, 14, 4, 15).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_HUGE_DOUBLE = shape(2, 0, 1, 14, 8, 15).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_HUGE_TRIPLE = shape(2, 0, 1, 14, 12, 15).forHorizontal(Direction.NORTH),
+        STRING_EXTENSION_HUGE_QUAD = shape(2, 0, 1, 14, 16, 15).forHorizontal(Direction.NORTH);
+
+    // ...back to our scheduled programming
+    // ^ this joke will become a lot funnier once we actually add other VoxelShapes
+
+
+
+    // OTHER VOXELSHAPERS
+    public static final VoxelShaper
+
+        BASE = shape(1, 0, 1, 15, 3, 15)
+                .add(5, 3, 5, 11, 11, 11)
+                .forDirectional(Direction.UP),
+
+        // this is for the STANDALONE BLOCK called base, NOT the base VoxelShape that is used for pipes!
+        // unfortunately their names are... kind of identical
+        // shape for floor variant is BASE.get(UP)
+        BASE_BLOCK_WALL = shape(1, 1, 0, 15, 15, 3)
+                .add(5, 3, 3, 11, 9, 11)
+                .add(5, 9, 5, 11, 11, 11)
+                .forHorizontal(Direction.NORTH),
+
+        KBR = shape(0, 0, 4, 16, 2, 16)
+                .add(0, 2, 6, 16, 16, 16)
+                .forHorizontal(Direction.NORTH),
+
+        TRACKER_BAR = shape(0, 0, 0, 16, 3, 2)
+                .add(0, 0, 2, 16, 16, 16)
+                .add(0, 14, 0, 16, 16, 2)
+                .forHorizontal(Direction.NORTH),
+
+        ROLL_PUNCHER_HITBOX = shape(4, 0, 4, 12, 13, 12)
+                .add(0, 10, 2, 16, 13, 6)
+                .add(0, 11.5, 6, 16, 14.5, 10)
+                .add(0, 13, 10, 16, 16, 14)
+                .forHorizontal(Direction.NORTH),
+
+        ROLL_PUNCHER_COLLISION_BOX = shape(4, 0, 4, 12, 12, 12)
+                .add(0, 11, 10, 16, 13, 14)
+                .forHorizontal(Direction.NORTH);
 
 
 
 
-    // WINDCHEST
-    public static VoxelShape WINDCHEST = add(
-            add(Shapes.box(0, 0, 0, 1, 0.6875, 1), Shapes.box(0, 0.8125, 0, 1, 1, 1)),
-            Shapes.box(0.1875, 0.6875, 0.1875, 0.8125, 0.8125, 0.8125)
-    );
+    private static com.simibubi.create.AllShapes.Builder shape(VoxelShape shape) {
+        return new com.simibubi.create.AllShapes.Builder(shape);
+    }
+
+    private static com.simibubi.create.AllShapes.Builder shape(double x1, double y1, double z1, double x2, double y2, double z2) {
+        return shape(Block.box(x1, y1, z1, x2, y2, z2));
+    }
 
 }
