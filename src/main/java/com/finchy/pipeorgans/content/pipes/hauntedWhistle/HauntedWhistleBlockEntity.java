@@ -1,11 +1,16 @@
 package com.finchy.pipeorgans.content.pipes.hauntedWhistle;
 
+import com.finchy.pipeorgans.content.particles.hauntedJet.HauntedJetParticleData;
+import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlockEntity;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllSoundEvents;
+import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -55,6 +60,20 @@ public class HauntedWhistleBlockEntity extends DoublePipeBlockEntity {
         if (!particle)
             return;
 
-        createHauntedJet(size);
+        createSteamJet(size);
+    }
+
+    public void createSteamJet(EPipeSizes.PipeSize size) {
+        Direction facing = getBlockState().getOptionalValue(GenericPipeBlock.FACING)
+                .orElse(Direction.SOUTH);
+        float angle = 180 + AngleHelper.horizontalAngle(facing);
+        Vec3 sizeOffset = VecHelper.rotate(new Vec3(0, -0.4f, 1 / 16f * size.ordinal()), angle, Direction.Axis.Y);
+        Vec3 offset = VecHelper.rotate(new Vec3(0, 1, 0.75f), angle, Direction.Axis.Y);
+        Vec3 v = offset.scale(.45f)
+                .add(sizeOffset)
+                .add(Vec3.atCenterOf(worldPosition));
+        Vec3 m = offset.subtract(Vec3.atLowerCornerOf(facing.getNormal())
+                .scale(.75f));
+        level.addParticle(new HauntedJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
     }
 }

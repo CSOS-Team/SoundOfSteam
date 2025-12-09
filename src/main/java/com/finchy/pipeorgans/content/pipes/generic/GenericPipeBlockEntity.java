@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
 import com.finchy.pipeorgans.ClientConfig;
-import com.finchy.pipeorgans.content.particles.hauntedJet.HauntedJetParticleData;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
@@ -70,14 +69,13 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         int stopSize = Integer.parseInt(((GenericPipeBlockItem) getBlockState()
                 .getBlock().asItem()).stopSize);
 
-        // Ensure floating point: stopSize / 8.0
         double octave = 5 - getOctave().ordinal()
                 + (pitch <= 6 ? 1 : 0)
                 - (Math.log(stopSize / 8.0) / Math.log(2));
 
         boolean useBrackets = ClientConfig.showOctaveBrackets;
 
-        String octaveText = useBrackets
+        String octaveText = (useBrackets || (int) octave == -1)
                 ? "(" + (int) Math.round(octave) + ")"
                 : String.valueOf((int) Math.round(octave));
 
@@ -142,20 +140,6 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         Vec3 m = offset.subtract(Vec3.atLowerCornerOf(facing.getNormal())
                 .scale(.75f));
         level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
-    }
-
-    public void createHauntedJet(EPipeSizes.PipeSize size) {
-        Direction facing = getBlockState().getOptionalValue(GenericPipeBlock.FACING)
-                .orElse(Direction.SOUTH);
-        float angle = 180 + AngleHelper.horizontalAngle(facing);
-        Vec3 sizeOffset = VecHelper.rotate(new Vec3(0, -0.4f, 1 / 16f * size.ordinal()), angle, Direction.Axis.Y);
-        Vec3 offset = VecHelper.rotate(new Vec3(0, 1, 0.75f), angle, Direction.Axis.Y);
-        Vec3 v = offset.scale(.45f)
-                .add(sizeOffset)
-                .add(Vec3.atCenterOf(worldPosition));
-        Vec3 m = offset.subtract(Vec3.atLowerCornerOf(facing.getNormal())
-                .scale(.75f));
-        level.addParticle(new HauntedJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
     }
 
     public void createReedSteamJet() {
