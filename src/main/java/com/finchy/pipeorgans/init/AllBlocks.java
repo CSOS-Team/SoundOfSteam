@@ -3,7 +3,7 @@ package com.finchy.pipeorgans.init;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlock;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
-import com.finchy.pipeorgans.content.midi.rollpuncher.RollPuncherBlock;
+import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlock;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;

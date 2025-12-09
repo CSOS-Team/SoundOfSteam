@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.content.midi.rollpuncher;
+package com.finchy.pipeorgans.content.midi.rollPuncher;
 
 import com.finchy.pipeorgans.init.AllItems;
 import com.finchy.pipeorgans.init.AllMenuTypes;

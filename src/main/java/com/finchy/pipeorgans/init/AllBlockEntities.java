@@ -3,7 +3,7 @@ package com.finchy.pipeorgans.init;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlockEntity;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
-import com.finchy.pipeorgans.content.midi.rollpuncher.RollPuncherBlockEntity;
+import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarRenderer;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarVisual;

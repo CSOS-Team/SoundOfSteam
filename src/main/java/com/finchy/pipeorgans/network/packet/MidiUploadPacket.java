@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.network.packet;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.content.midi.rollpuncher.RollPuncherMenu;
+import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherMenu;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;

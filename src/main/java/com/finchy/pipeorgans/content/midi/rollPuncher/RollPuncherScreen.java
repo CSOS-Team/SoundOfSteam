@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.content.midi.rollpuncher;
+package com.finchy.pipeorgans.content.midi.rollPuncher;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.PipeOrgansClient;
