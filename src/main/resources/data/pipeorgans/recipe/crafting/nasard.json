@@ -8,13 +8,13 @@
   ],
   "key": {
     "Z": {
-      "tag": "c:ingots/copper"
+      "tag": "forge:ingots/copper"
     },
     "C": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "id": "pipeorgans:nasard"
+    "item": "pipeorgans:nasard"
   }
 }

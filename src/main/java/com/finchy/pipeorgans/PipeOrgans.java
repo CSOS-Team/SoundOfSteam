@@ -69,11 +69,15 @@ public class PipeOrgans {
         AllParticleTypes.register(modEventBus);
         AllMenuTypes.register();
         AllPackets.register();
+        AllDataComponents.register(modEventBus);
 
         container.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         container.registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
 
+        modEventBus.addListener(EventPriority.HIGHEST, PipeOrgansDatagen::gatherDataHighPriority);
         modEventBus.addListener(EventPriority.LOWEST, PipeOrgansDatagen::gatherData);
+
+        proxy.init();
 
     }
 

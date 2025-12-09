@@ -1,4 +1,4 @@
- {
+{
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
@@ -17,11 +17,11 @@
       "item": "minecraft:redstone"
     },
     "Z": {
-      "tag": "c:ingots/zinc"
+      "tag": "forge:ingots/zinc"
     }
   },
   "result": {
-    "id": "pipeorgans:windchest_master",
+    "item": "pipeorgans:windchest_master",
     "count": 1
   }
 }

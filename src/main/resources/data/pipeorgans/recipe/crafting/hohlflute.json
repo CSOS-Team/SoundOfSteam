@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "P",
+    "S",
+    "C"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:birch_planks"
+    },
+    "S": {
+      "item": "minecraft:birch_slab"
+    },
+    "C": {
+      "item": "pipeorgans:base"
+    }
+  },
+  "result": {
+    "item": "pipeorgans:hohlflute"
+  }
+}

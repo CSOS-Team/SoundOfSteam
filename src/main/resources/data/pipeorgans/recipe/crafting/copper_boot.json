@@ -7,11 +7,11 @@
   ],
   "key": {
     "C": {
-      "tag": "c:ingots/copper"
+      "tag": "forge:plates/copper"
     }
   },
   "result": {
-    "id": "pipeorgans:copper_boot",
+    "item": "pipeorgans:copper_boot",
     "count": 6
   }
 }

@@ -21,7 +21,7 @@
     }
   },
   "result": {
-    "id": "pipeorgans:windchest",
+    "item": "pipeorgans:windchest",
     "count": 6
   }
 }

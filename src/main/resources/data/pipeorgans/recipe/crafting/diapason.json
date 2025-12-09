@@ -8,13 +8,13 @@
   ],
   "key": {
     "Z": {
-      "tag": "c:ingots/zinc"
+      "tag": "forge:ingots/zinc"
     },
     "C": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "id": "pipeorgans:diapason"
+    "item": "pipeorgans:diapason"
   }
 }

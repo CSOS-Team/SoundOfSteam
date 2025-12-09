@@ -1,0 +1,35 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/subbass",
+		"particle": "pipeorgans:block/particle/subbass_particle"
+	},
+	"elements": [
+		{
+			"from": [6, 0, 6],
+			"to": [10, 16, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [2.75, 12, 3.25, 14], "texture": "#0"},
+				"east": {"uv": [2.75, 12, 3.25, 14], "texture": "#0"},
+				"south": {"uv": [2.75, 12, 3.25, 14], "texture": "#0"},
+				"west": {"uv": [2.75, 12, 3.25, 14], "texture": "#0"}
+			}
+		},
+		{
+			"name": "rim_medium",
+			"from": [5, 16, 5],
+			"to": [11, 18, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 12, 7]},
+			"faces": {
+				"north": {"uv": [2.625, 11.75, 3.375, 12], "texture": "#0", "cullface": "up"},
+				"east": {"uv": [2.625, 11.75, 3.375, 12], "texture": "#0", "cullface": "up"},
+				"south": {"uv": [2.625, 11.75, 3.375, 12], "texture": "#0", "cullface": "up"},
+				"west": {"uv": [2.625, 11.75, 3.375, 12], "texture": "#0", "cullface": "up"},
+				"up": {"uv": [2.625, 14.625, 3.375, 15.375], "texture": "#0", "cullface": "up"},
+				"down": {"uv": [0.625, 14.625, 1.375, 15.375], "texture": "#0", "cullface": "up"}
+			}
+		}
+	]
+}

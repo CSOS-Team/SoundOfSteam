@@ -1,0 +1,88 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/haunted_whistle_2",
+		"particle": "pipeorgans:block/particle/haunted_whistle_particle"
+	},
+	"elements": [
+		{
+			"name": "Centre",
+			"from": [7, 6, 5.5],
+			"to": [9, 12, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -1, 1]},
+			"faces": {
+				"north": {"uv": [1.5, 0.25, 2, 1.75], "texture": "#0"},
+				"up": {"uv": [13.25, 14.75, 13.75, 15], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [4.5, 2, 5, 2.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Back",
+			"from": [7, 5, 6.5],
+			"to": [9, 12, 7.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -1, 0]},
+			"faces": {
+				"north": {"uv": [4.5, 2, 5, 2.5], "texture": "#0"},
+				"south": {"uv": [1.5, 2.25, 2, 4], "texture": "#0"},
+				"up": {"uv": [14, 14.5, 14.5, 14.75], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [4.5, 2.375, 5, 2.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Back",
+			"from": [7, 5, 7.5],
+			"to": [9, 12, 10.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -1, 0]},
+			"faces": {
+				"north": {"uv": [4.5, 2, 5, 2.5], "texture": "#0"},
+				"south": {"uv": [1.5, 2.25, 2, 4], "texture": "#0"},
+				"up": {"uv": [14, 12.75, 14.5, 13.5], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [4.5, 2, 5, 2.375], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Left",
+			"from": [5.5, 5, 5.5],
+			"to": [7, 12, 10.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, 0, 0]},
+			"faces": {
+				"north": {"uv": [2, 0.25, 2.25, 2], "texture": "#0"},
+				"east": {"uv": [4.5, 2.25, 5, 2.75], "texture": "#0"},
+				"south": {"uv": [1.25, 2.25, 1.5, 4], "texture": "#0"},
+				"west": {"uv": [1.25, 2.25, 2.25, 4], "texture": "#0"},
+				"up": {"uv": [14.5, 13.5, 15, 15], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [4.5, 2, 5, 2.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Right",
+			"from": [9, 5, 5.5],
+			"to": [10.5, 12, 10.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -1, 0]},
+			"faces": {
+				"north": {"uv": [1.25, 0.25, 1.5, 2], "texture": "#0"},
+				"east": {"uv": [1.25, 2.25, 2.25, 4], "texture": "#0"},
+				"south": {"uv": [2, 2.25, 2.25, 4], "texture": "#0"},
+				"west": {"uv": [5, 2, 4.5, 2.5], "texture": "#0"},
+				"up": {"uv": [13.5, 13.5, 14, 15], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [4.5, 1.75, 5, 2.25], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "Whistle Tiny",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "Whistle Tiny Mouth",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [0, 1, 2, 3, 4]
+				}
+			]
+		}
+	]
+}

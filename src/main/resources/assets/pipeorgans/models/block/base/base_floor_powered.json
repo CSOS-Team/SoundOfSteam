@@ -1,6 +1,0 @@
-{
-	"parent": "pipeorgans:block/base/base_floor",
-	"textures": {
-		"0": "create:block/copper_redstone_plate_powered"
-	}
-}

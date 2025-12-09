@@ -1,0 +1,13 @@
+{
+  "type": "create:haunting",
+  "ingredients": [
+    {
+      "item": "create:steam_whistle"
+    }
+  ],
+  "results": [
+    {
+      "item": "pipeorgans:haunted_whistle"
+    }
+  ]
+}

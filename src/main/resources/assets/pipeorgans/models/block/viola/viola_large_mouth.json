@@ -1,0 +1,19 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"2": "pipeorgans:block/viola",
+		"particle": "pipeorgans:block/viola"
+	},
+	"elements": [
+		{
+			"from": [6, 6, 1.9],
+			"to": [10, 8, 1.9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7.5, 1.9]},
+			"faces": {
+				"north": {"uv": [2.75, 0.875, 3.25, 1.125], "texture": "#2"},
+				"south": {"uv": [2.75, 0.875, 3.25, 1.125], "texture": "#2"}
+			}
+		}
+	]
+}

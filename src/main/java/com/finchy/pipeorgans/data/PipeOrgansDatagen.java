@@ -16,8 +16,13 @@ import java.util.function.BiConsumer;
 
 public class PipeOrgansDatagen {
 
+    public static void gatherDataHighPriority(GatherDataEvent event) {
+        if (event.getMods().contains(PipeOrgans.MOD_ID))
+            addExtraRegistrateData();
+    }
+
     public static void gatherData(GatherDataEvent event) {
-        addExtraRegistrateData();
+        if (!event.getMods().contains(PipeOrgans.MOD_ID)) return;
 
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();

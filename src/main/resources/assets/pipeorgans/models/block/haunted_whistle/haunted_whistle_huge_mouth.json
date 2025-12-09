@@ -1,0 +1,76 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/haunted_whistle_2",
+		"particle": "pipeorgans:block/particle/haunted_whistle_particle"
+	},
+	"elements": [
+		{
+			"name": "Centre",
+			"from": [5, 7, 1.5],
+			"to": [11, 12, 4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, -1]},
+			"faces": {
+				"north": {"uv": [1.25, 7, 2.75, 8.25], "texture": "#0"},
+				"up": {"uv": [13.75, 15.25, 14.75, 15.75], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [3, 11.5, 3.5, 12], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Back",
+			"from": [5, 5, 4],
+			"to": [11, 12, 14.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, -1]},
+			"faces": {
+				"north": {"uv": [3, 11.5, 3.5, 12], "texture": "#0"},
+				"south": {"uv": [1.25, 9, 2.75, 10.75], "texture": "#0"},
+				"up": {"uv": [13.75, 12.75, 14.75, 15.25], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [3, 11.5, 3.5, 12], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Left",
+			"from": [1.5, 5, 1.5],
+			"to": [5, 12, 14.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, 0, -1]},
+			"faces": {
+				"north": {"uv": [2.75, 7, 3.5, 8.75], "texture": "#0"},
+				"east": {"uv": [3, 11.5, 3.5, 12], "texture": "#0"},
+				"south": {"uv": [0.5, 9, 1.25, 10.75], "texture": "#0"},
+				"west": {"uv": [0.5, 9, 3.5, 10.75], "texture": "#0"},
+				"up": {"uv": [14.75, 12.75, 15.5, 15.75], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [3, 11.5, 3.5, 12], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Right",
+			"from": [11, 5, 1.5],
+			"to": [14.5, 12, 14.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [1, 0, -1]},
+			"faces": {
+				"north": {"uv": [0.5, 7, 1.25, 8.75], "texture": "#0"},
+				"east": {"uv": [0.5, 9, 3.5, 10.75], "texture": "#0"},
+				"south": {"uv": [2.75, 9, 3.5, 10.75], "texture": "#0"},
+				"west": {"uv": [3.5, 11.5, 3, 12], "texture": "#0"},
+				"up": {"uv": [13, 12.75, 13.75, 15.75], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [3, 11.5, 3.5, 12], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "Whistle Large",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "Whistle Large Mouth",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [0, 1, 2, 3]
+				}
+			]
+		}
+	]
+}

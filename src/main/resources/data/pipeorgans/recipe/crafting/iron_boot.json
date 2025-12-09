@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "B B",
+    " B "
+  ],
+  "key": {
+    "B": {
+      "tag": "forge:plates/iron"
+    }
+  },
+  "result": {
+    "item": "pipeorgans:iron_boot",
+    "count": 6
+  }
+}

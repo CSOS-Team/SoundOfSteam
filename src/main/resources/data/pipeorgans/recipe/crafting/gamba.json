@@ -8,16 +8,16 @@
   ],
   "key": {
     "I": {
-      "tag": "c:ingots/iron"
+      "tag": "forge:ingots/iron"
     },
     "S": {
-      "tag": "c:plates/iron"
+      "tag": "forge:plates/iron"
     },
     "C": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "id": "pipeorgans:gamba"
+    "item": "pipeorgans:gamba"
   }
 }

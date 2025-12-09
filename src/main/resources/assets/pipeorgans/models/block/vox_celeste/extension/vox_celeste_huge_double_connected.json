@@ -1,0 +1,32 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "pipeorgans:block/vox_celeste",
+		"particle": "pipeorgans:block/particle/vox_celeste_particle"
+	},
+	"elements": [
+		{
+			"from": [2, 8, 1],
+			"to": [14, 16, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 8, 2]},
+			"faces": {
+				"north": {"uv": [0.25, 4.75, 1.75, 5.75], "texture": "#1"},
+				"east": {"uv": [0.125, 6.75, 1.875, 7.75], "texture": "#1"},
+				"south": {"uv": [0.25, 4.75, 1.75, 5.75], "texture": "#1"},
+				"west": {"uv": [0.125, 6.75, 1.875, 7.75], "texture": "#1"}
+			}
+		},
+		{
+			"from": [2, 0, 1],
+			"to": [14, 8, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 2]},
+			"faces": {
+				"north": {"uv": [0.25, 4.75, 1.75, 5.75], "texture": "#1"},
+				"east": {"uv": [0.125, 6.75, 1.875, 7.75], "texture": "#1"},
+				"south": {"uv": [0.25, 4.75, 1.75, 5.75], "texture": "#1"},
+				"west": {"uv": [0.125, 6.75, 1.875, 7.75], "texture": "#1"}
+			}
+		}
+	]
+}

@@ -7,11 +7,11 @@
   ],
   "key": {
     "B": {
-      "tag": "c:ingots/brass"
+      "tag": "forge:plates/brass"
     }
   },
   "result": {
-    "id": "pipeorgans:brass_boot",
+    "item": "pipeorgans:brass_boot",
     "count": 6
   }
 }

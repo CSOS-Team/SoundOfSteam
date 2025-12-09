@@ -1,0 +1,65 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "pipeorgans:base"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "item": "pipeorgans:vox_humana"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "pipeorgans:base"
+        },
+        {
+          "item": "pipeorgans:copper_boot"
+        }
+      ],
+      "results": [
+        {
+          "item": "pipeorgans:base"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "pipeorgans:base"
+        },
+        {
+          "item": "pipeorgans:brass_reed"
+        }
+      ],
+      "results": [
+        {
+          "item": "pipeorgans:base"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "pipeorgans:base"
+        },
+        {
+          "item": "pipeorgans:tuning_wire"
+        }
+      ],
+      "results": [
+        {
+          "item": "pipeorgans:vox_humana"
+        }
+      ]
+    }
+  ],
+  "transitionalItem": {
+    "item": "pipeorgans:incomplete_vox_humana"
+  }
+}
