@@ -33,9 +33,17 @@ public class NasardBlockEntity extends DoublePipeBlockEntity {
         String[] pitches = CreateLang.translateDirect("generic.notes")
                 .getString()
                 .split(";");
-        int displayPitch = ClientConfig.displayMutationSoundingPitch ? pitch+5 : pitch;
-        int octave = 5-getOctave().ordinal() + (pitch<=1?1:0) + 2;
-        CreateLang.translate("generic.pitch", pitches[displayPitch % pitches.length]).add(Component.literal(String.valueOf(octave))).forGoggles(tooltip);
+
+        int displayPitch = ClientConfig.displayMutationSoundingPitch ? pitch + 5 : pitch;
+        int octave = 5 - getOctave().ordinal() + (pitch <= 1 ? 1 : 0) + 2;
+
+        // Add parentheses around the octave
+        String octaveText = "(" + octave + ")";
+
+        CreateLang.translate("generic.pitch", pitches[displayPitch % pitches.length])
+                .add(Component.literal(octaveText))
+                .forGoggles(tooltip);
+
         return true;
     }
 
