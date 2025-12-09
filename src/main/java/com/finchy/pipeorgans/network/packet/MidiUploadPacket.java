@@ -2,71 +2,43 @@ package com.finchy.pipeorgans.network.packet;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherMenu;
-import com.simibubi.create.foundation.networking.SimplePacketBase;
+import com.finchy.pipeorgans.network.AllPackets;
+import io.netty.buffer.ByteBuf;
+import net.createmod.catnip.codecs.stream.CatnipStreamCodecBuilders;
+import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
 
-public class MidiUploadPacket extends SimplePacketBase {
+public record MidiUploadPacket(int code, long size, String midi, byte[] data) implements ServerboundPacketPayload {
 
     public static final int BEGIN = 0;
     public static final int WRITE = 1;
     public static final int FINISH = 2;
 
-    private int code;
-    private long size;
-    private String midi;
-    private byte[] data;
-
-    public MidiUploadPacket(int code, String midi) {
-        this.code = code;
-        this.midi = midi;
-    }
+    public static final StreamCodec<ByteBuf, MidiUploadPacket> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.VAR_INT, MidiUploadPacket::code,
+            ByteBufCodecs.VAR_LONG, MidiUploadPacket::size,
+            CatnipStreamCodecBuilders.nullable(ByteBufCodecs.stringUtf8(256)), MidiUploadPacket::midi,
+            CatnipStreamCodecBuilders.nullable(ByteBufCodecs.byteArray(Integer.MAX_VALUE)), MidiUploadPacket::data,
+            MidiUploadPacket::new
+    );
 
     public static MidiUploadPacket begin(String midi, long size) {
-        MidiUploadPacket pkt = new MidiUploadPacket(BEGIN, midi);
-        pkt.size = size;
-        return pkt;
+        return new MidiUploadPacket(BEGIN, size, midi, null);
     }
 
     public static MidiUploadPacket write(String midi, byte[] data) {
-        MidiUploadPacket pkt = new MidiUploadPacket(WRITE, midi);
-        pkt.data = data;
-        return pkt;
+        return new MidiUploadPacket(WRITE, 0, midi, data);
     }
 
     public static MidiUploadPacket finish(String midi) {
-        return new MidiUploadPacket(FINISH, midi);
-    }
-
-    public MidiUploadPacket(FriendlyByteBuf buffer) {
-        code = buffer.readInt();
-        midi = buffer.readUtf(256);
-
-        if (code == BEGIN)
-            size = buffer.readLong();
-        if (code == WRITE)
-            data = buffer.readByteArray();
+        return new MidiUploadPacket(FINISH, 0, midi, null);
     }
 
     @Override
-    public void write(FriendlyByteBuf buffer) {
-        buffer.writeInt(code);
-        buffer.writeUtf(midi);
-
-        if (code == BEGIN)
-            buffer.writeLong(size);
-        if (code == WRITE)
-            buffer.writeByteArray(data);
-    }
-
-    @Override
-    public boolean handle(NetworkEvent.Context context) {
-        context.enqueueWork(() -> {
-            ServerPlayer player = context.getSender();
-            if (player == null)
-                return;
+    public void handle(ServerPlayer player) {
             if (code == BEGIN) {
                 BlockPos pos = ((RollPuncherMenu) player.containerMenu).contentHolder
                         .getBlockPos();
@@ -76,7 +48,10 @@ public class MidiUploadPacket extends SimplePacketBase {
                 PipeOrgans.MIDI_RECEIVER.handleWriteRequest(player, midi, data);
             if (code == FINISH)
                 PipeOrgans.MIDI_RECEIVER.handleFinishedUpload(player, midi);
-        });
-        return true;
+    }
+
+    @Override
+    public PacketTypeProvider getTypeProvider() {
+        return AllPackets.MIDI_UPLOAD;
     }
 }

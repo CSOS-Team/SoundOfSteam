@@ -3,14 +3,14 @@ package com.finchy.pipeorgans.midi.client;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiFileParser;
 import com.finchy.pipeorgans.midi.PipeOrgansPaths;
-import com.finchy.pipeorgans.network.AllPackets;
 import com.finchy.pipeorgans.network.packet.MidiUploadPacket;
 import com.simibubi.create.foundation.utility.FilesHelper;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,7 +68,7 @@ public class ClientMidiLoader {
 
             in = Files.newInputStream(path, StandardOpenOption.READ);
             activeUploads.put(midi, in);
-            AllPackets.getChannel().sendToServer(MidiUploadPacket.begin(midi, size));
+            CatnipServices.NETWORK.sendToServer(MidiUploadPacket.begin(midi, size));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,7 +85,7 @@ public class ClientMidiLoader {
                     if (status < maxPacketSize)
                         data = Arrays.copyOf(data, status);
                     if (Minecraft.getInstance().level != null)
-                        AllPackets.getChannel().sendToServer(MidiUploadPacket.write(midi, data));
+                        CatnipServices.NETWORK.sendToServer(MidiUploadPacket.write(midi, data));
                     else {
                         activeUploads.remove(midi);
                         return;
@@ -101,13 +101,13 @@ public class ClientMidiLoader {
 
     private void finishUpload(String midi) {
         if (activeUploads.containsKey(midi)) {
-            AllPackets.getChannel().sendToServer(MidiUploadPacket.finish(midi));
+            CatnipServices.NETWORK.sendToServer(MidiUploadPacket.finish(midi));
             activeUploads.remove(midi);
         }
     }
 
     public void refresh() {
-        FilesHelper.createFolderIfMissing(PipeOrgansPaths.MIDIS_DIR);
+        FilesHelper.createFolderIfMissing(PipeOrgansPaths.MIDIS_DIR.toString());
         availableMidis.clear();
 
         try (Stream<Path> paths = Files.list(PipeOrgansPaths.MIDIS_DIR)) {

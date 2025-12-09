@@ -1,15 +1,18 @@
 package com.finchy.pipeorgans.midi.client;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.network.AllPackets;
 import com.finchy.pipeorgans.network.packet.KBRMidiMessagePacket;
 
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.ShortMessage;
+import javax.sound.midi.SysexMessage;
+
+import static com.finchy.pipeorgans.network.packet.KBRMidiMessagePacket.*;
 
 public class MidiDeviceInputReceiver implements Receiver {
 
@@ -17,9 +20,7 @@ public class MidiDeviceInputReceiver implements Receiver {
 
     @Override
     public void send(MidiMessage message, long timeStamp) {
-        if (open && message instanceof ShortMessage sm) {
-            handleMessage(sm);
-        }
+        if (open) handleMessage(message);
     }
 
     @Override
@@ -27,17 +28,25 @@ public class MidiDeviceInputReceiver implements Receiver {
         open = false;
     }
 
-    protected void handleMessage(ShortMessage sm) {
+    protected void handleMessage(MidiMessage message) {
         Player player = Minecraft.getInstance().player;
 
         if (player != null && PipeOrgans.getProxy().isClient()) { // only run on client
-            sendNotePacket(sm);
+            sendNotePacket(message);
         }
     }
 
-    public void sendNotePacket(ShortMessage sm) {
-        KBRMidiMessagePacket packet = new KBRMidiMessagePacket(sm);
-        AllPackets.getChannel().sendToServer(packet);
+    public void sendNotePacket(MidiMessage message) {
+        int code = OTHER_CODE;
+        if (message instanceof ShortMessage) {
+            code = SHORT_CODE;
+        } else if (message instanceof SysexMessage) {
+            code = SYSEX_CODE;
+        } /* else if (message instanceof MetaMessage) {
+            code = META_CODE;
+         */
+        byte[] data = message.getMessage();
+        CatnipServices.NETWORK.sendToServer(new KBRMidiMessagePacket(code, data.length, data));
     }
 
 }

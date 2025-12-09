@@ -3,13 +3,15 @@ package com.finchy.pipeorgans.content.midi.trackerBar;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.MidiSequencerBehaviour;
 import com.finchy.pipeorgans.content.midi.MidiSourceBehaviour;
+import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.init.AllDataComponents;
 import com.finchy.pipeorgans.init.AllSoundEvents;
 import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
@@ -21,11 +23,9 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 import javax.sound.midi.ShortMessage;
@@ -33,8 +33,6 @@ import java.util.List;
 
 @SuppressWarnings({"DataFlowIssue", "NullableProblems"})
 public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuProvider {
-
-    protected LazyOptional<IItemHandler> itemCapability;
 
     private boolean buttonsEnabled = false;
 
@@ -106,7 +104,14 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
                 return 21;
             }
         };
-        itemCapability = LazyOptional.of(() -> inventory);
+    }
+
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                AllBlockEntities.TRACKER_BAR_BLOCK_ENTITY.get(),
+                (be, context) -> be.inventory
+        );
     }
 
     @Override
@@ -115,33 +120,20 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
         behaviours.add(midiSequencerBehaviour = new MidiSequencerBehaviour(this));
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (isItemHandlerCap(cap))
-            return itemCapability.cast();
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        itemCapability.invalidate();
-    }
-
     public void onBlockRemoved() {
         midiSourceBehaviour.link.stopAllNotes();
     }
 
     @Override
-    protected void write(CompoundTag tag, boolean clientPacket) {
-        super.write(tag, clientPacket);
-        tag.put("Inventory", inventory.serializeNBT());
+    protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(tag, registries, clientPacket);
+        tag.put("Inventory", inventory.serializeNBT(registries));
     }
 
     @Override
-    protected void read(CompoundTag tag, boolean clientPacket) {
-        super.read(tag, clientPacket);
-        inventory.deserializeNBT(tag.getCompound("Inventory"));
+    protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(tag, registries, clientPacket);
+        inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
     }
 
     @Override
@@ -184,8 +176,7 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
         } else if (MidiUtils.isMusicRollValid(stack)) {
             if (!level.isClientSide) level.playSound(null, getBlockPos(), AllSoundEvents.TRACKER_BAR_CHANGE_ROLL.get(), SoundSource.BLOCKS, 1f, 1f);
             try {
-                CompoundTag tag = stack.getTag();
-                midiSequencerBehaviour.loadSequence(tag.getString("File"), tag.getString("Owner"));
+                midiSequencerBehaviour.loadSequence(stack.get(AllDataComponents.MIDI_FILE), stack.get(AllDataComponents.MIDI_OWNER));
                 buttonsEnabled = true;
             } catch (MidiLoadException e) {
                 PipeOrgans.LOGGER.warn(e.toString());

@@ -4,8 +4,8 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.IInteractionChecker;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -14,7 +14,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -46,15 +46,10 @@ public class RollPuncherBlockEntity extends SmartBlockEntity implements MenuProv
         uploadingProgress = 0;
     }
 
-    public void sendToMenu(FriendlyByteBuf buffer) {
-        buffer.writeBlockPos(getBlockPos());
-        buffer.writeNbt(getUpdateTag());
-    }
-
     @Override
-    protected void read(CompoundTag tag, boolean clientPacket) {
-        inventory.deserializeNBT(tag.getCompound("Inventory"));
-        super.read(tag, clientPacket);
+    protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
+        super.read(tag, registries, clientPacket);
 
         if (!clientPacket) return;
         if (tag.contains("Uploading")) {
@@ -69,9 +64,9 @@ public class RollPuncherBlockEntity extends SmartBlockEntity implements MenuProv
     }
 
     @Override
-    protected void write(CompoundTag tag, boolean clientPacket) {
-        tag.put("Inventory", inventory.serializeNBT());
-        super.write(tag, clientPacket);
+    protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        tag.put("Inventory", inventory.serializeNBT(registries));
+        super.write(tag, registries, clientPacket);
 
         if (clientPacket && isUploading) {
             tag.putBoolean("Uploading", true);

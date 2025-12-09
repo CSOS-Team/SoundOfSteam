@@ -9,35 +9,33 @@ import com.simibubi.create.foundation.particle.ICustomParticleData;
 import net.createmod.catnip.lang.Lang;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-
-import static net.minecraft.Util.name;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public enum AllParticleTypes {
 
     HAUNTED_JET(HauntedJetParticleData::new);
 
 
-    private final com.finchy.pipeorgans.init.AllParticleTypes.ParticleEntry<?> entry;
+    private final ParticleEntry<?> entry;
 
     <D extends ParticleOptions> AllParticleTypes(Supplier<? extends ICustomParticleData<D>> typeFactory) {
         String name = Lang.asId(name());
-        entry = new com.finchy.pipeorgans.init.AllParticleTypes.ParticleEntry<>(name, typeFactory);
+        entry = new ParticleEntry<>(name, typeFactory);
     }
 
     public static void register(IEventBus modEventBus) {
-        com.finchy.pipeorgans.init.AllParticleTypes.ParticleEntry.REGISTER.register(modEventBus);
+        ParticleEntry.REGISTER.register(modEventBus);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @net.neoforged.api.distmarker.OnlyIn(net.neoforged.api.distmarker.Dist.CLIENT)
     public static void registerFactories(RegisterParticleProvidersEvent event) {
-        for (com.finchy.pipeorgans.init.AllParticleTypes particle : values())
+        for (AllParticleTypes particle : values())
             particle.entry.registerFactory(event);
     }
 
@@ -50,11 +48,11 @@ public enum AllParticleTypes {
     }
 
     private static class ParticleEntry<D extends ParticleOptions> {
-        private static final DeferredRegister<ParticleType<?>> REGISTER = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES,  PipeOrgans.MOD_ID);
+        private static final DeferredRegister<ParticleType<?>> REGISTER = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE,  PipeOrgans.MOD_ID);
 
         private final String name;
         private final Supplier<? extends ICustomParticleData<D>> typeFactory;
-        private final RegistryObject<ParticleType<D>> object;
+        private final DeferredHolder<ParticleType<?>, ParticleType<D>> object;
 
         public ParticleEntry(String name, Supplier<? extends ICustomParticleData<D>> typeFactory) {
             this.name = name;

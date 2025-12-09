@@ -5,11 +5,13 @@ import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -17,7 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
 import javax.sound.midi.MidiMessage;
@@ -55,15 +56,15 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
     }
 
     @Override
-    protected void write(CompoundTag tag, boolean clientPacket) {
-        super.write(tag, clientPacket);
-        midiSourceBehaviour.write(tag, clientPacket);
+    protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(tag, registries, clientPacket);
+        midiSourceBehaviour.write(tag, registries, clientPacket);
     }
 
     @Override
-    protected void read(CompoundTag tag, boolean clientPacket) {
-        super.read(tag, clientPacket);
-        midiSourceBehaviour.read(tag, clientPacket);
+    protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(tag, registries, clientPacket);
+        midiSourceBehaviour.read(tag, registries, clientPacket);
     }
 
     @Override
@@ -154,10 +155,8 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
     }
 
     public static boolean playerInRange(Player player, Level world, BlockPos pos) {
-        if (player.level() != world) {
-            return false;
-        }
-        return player.distanceToSqr(Vec3.atCenterOf(pos)) < Math.pow(player.getAttributeValue(ForgeMod.BLOCK_REACH.get()), 2);
+        double reach = 0.4 * player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE);
+        return player.distanceToSqr(Vec3.atCenterOf(pos)) < reach * reach;
     }
 
 }

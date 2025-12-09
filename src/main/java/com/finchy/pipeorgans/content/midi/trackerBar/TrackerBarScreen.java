@@ -2,13 +2,13 @@ package com.finchy.pipeorgans.content.midi.trackerBar;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.init.AllBlocks;
-import com.finchy.pipeorgans.network.AllPackets;
 import com.finchy.pipeorgans.network.packet.TrackerBarGUIPacket;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.gui.widget.IconButton;
 import net.createmod.catnip.gui.element.GuiGameElement;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -78,7 +78,7 @@ public class TrackerBarScreen extends AbstractSimiContainerScreen<TrackerBarMenu
     }
 
     private void sendUpdatePacket(String button) {
-        AllPackets.getChannel().sendToServer(new TrackerBarGUIPacket(button, menu.contentHolder.getBlockPos()));
+        CatnipServices.NETWORK.sendToServer(new TrackerBarGUIPacket(button, menu.contentHolder.getBlockPos()));
     }
 
     private static Component shortenText(Component componentIn, int maxWidth) {

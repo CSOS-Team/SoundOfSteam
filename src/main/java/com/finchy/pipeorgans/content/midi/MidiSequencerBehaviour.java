@@ -7,6 +7,7 @@ import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 
 import javax.sound.midi.*;
@@ -45,7 +46,7 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
     }
 
     @Override
-    public void write(CompoundTag tag, boolean clientPacket) {
+    public void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
         if (clientPacket) tag.putBoolean("RenderPaper", renderPaper);
 
         tag.putString("File", currentMidi);
@@ -56,7 +57,7 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
     }
 
     @Override
-    public void read(CompoundTag tag, boolean clientPacket) {
+    public void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
         if (clientPacket) renderPaper = tag.getBoolean("RenderPaper");
 
         String midiRead = tag.getString("File");

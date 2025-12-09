@@ -1,22 +1,22 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class AllSoundEvents {
 
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
-            DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, PipeOrgans.MOD_ID);
+            DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, PipeOrgans.MOD_ID);
 
 
     // declare sounds here
 
-    public static final RegistryObject<SoundEvent>
+    public static final DeferredHolder<SoundEvent, SoundEvent>
 
     TRACKER_BAR_CHANGE_ROLL = registerSoundEvent("tracker_bar_change_roll"),
     
@@ -118,8 +118,8 @@ public class AllSoundEvents {
 
      HAUNTED_CHIFF = registerSoundEvent("haunted_chiff");
 
-    private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
-        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(PipeOrgans.MOD_ID, name)));
+    private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(String name) {
+        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(PipeOrgans.MOD_ID, name)));
     }
 
     public static void register(IEventBus eventBus) {

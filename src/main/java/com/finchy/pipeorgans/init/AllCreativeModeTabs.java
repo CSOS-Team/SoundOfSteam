@@ -5,15 +5,15 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries. DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class AllCreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PipeOrgans.MOD_ID);
 
-    public static final RegistryObject<CreativeModeTab> PIPE_ORGANS = CREATIVE_MODE_TABS.register("pipe_organs",
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> PIPE_ORGANS = CREATIVE_MODE_TABS.register("pipe_organs",
             () -> CreativeModeTab.builder()
                     .icon(() -> new ItemStack(AllBlocks.DIAPASON.get()))
                     .title(Component.translatable("pipeorgans.creativetab.pipes"))

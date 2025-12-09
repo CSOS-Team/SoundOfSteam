@@ -16,29 +16,29 @@ import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
+import static com.finchy.pipeorgans.ClientConfig.SPEC;
+
+// The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(PipeOrgans.MOD_ID)
 public class PipeOrgans {
 
     static {
-        setProxy(DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new));
+        setProxy(FMLLoader.getDist() == Dist.CLIENT ? new ClientProxy() : new ServerProxy());
     }
 
-    // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "pipeorgans";
     public static final Logger LOGGER = LogUtils.getLogger();
 
@@ -59,9 +59,8 @@ public class PipeOrgans {
         proxy = inProxy;
     }
 
-    public PipeOrgans() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+    public PipeOrgans(IEventBus modEventBus, ModContainer container)
+    {
         REGISTRATE.registerEventListeners(modEventBus);
 
         AllCreativeModeTabs.register(modEventBus);
@@ -74,26 +73,18 @@ public class PipeOrgans {
         AllSpriteShifts.register();
         AllParticleTypes.register(modEventBus);
         AllMenuTypes.register();
-        AllPackets.registerPackets();
+        AllPackets.register();
+
+        NeoForge.EVENT_BUS.register(this);
+
+        container.registerConfig(ModConfig.Type.CLIENT, SPEC);
+        container.registerConfig(ModConfig.Type.SERVER, SPEC);
 
         modEventBus.addListener(EventPriority.LOWEST, PipeOrgansDatagen::gatherData);
 
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> PipeOrgansClient.onCtorClient(modEventBus, MinecraftForge.EVENT_BUS));
-
-        MinecraftForge.EVENT_BUS.register(this);
-
-        // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
-
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
-
-        proxy.init();
     }
 
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {}
-
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
 
         @SubscribeEvent
@@ -103,7 +94,7 @@ public class PipeOrgans {
     }
 
     public static ResourceLocation asResource(String path) {
-        return new ResourceLocation(MOD_ID, path);
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
 
     public static CreateRegistrate registrate() {

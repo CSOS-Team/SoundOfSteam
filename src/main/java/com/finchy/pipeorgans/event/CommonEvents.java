@@ -1,24 +1,29 @@
 package com.finchy.pipeorgans.event;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.server.ServerStoppingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.event.server.ServerStoppingEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class CommonEvents {
 
     @SubscribeEvent
-    public static void onServerTick(TickEvent.ServerTickEvent event) {
-        if (event.phase == TickEvent.Phase.START)
-            return;
+    public static void onServerTick(ServerTickEvent event) {
         PipeOrgans.MIDI_RECEIVER.tick();
     }
 
     @SubscribeEvent
     public static void serverStopping(ServerStoppingEvent event) {
         PipeOrgans.MIDI_RECEIVER.shutdown();
+    }
+
+    @SubscribeEvent
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        TrackerBarBlockEntity.registerCapabilities(event);
     }
 
 }

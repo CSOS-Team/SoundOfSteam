@@ -6,16 +6,16 @@ import com.finchy.pipeorgans.gui.ClientsideGUIWrapper;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.finchy.pipeorgans.util.Keybinding;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 
 public class ClientEvents {
-    @Mod.EventBusSubscriber(modid = PipeOrgans.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = PipeOrgans.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ModEventBusClientEvents {
 
         @SubscribeEvent
@@ -36,7 +36,7 @@ public class ClientEvents {
         }
     }
 
-    @Mod.EventBusSubscriber(modid = PipeOrgans.MOD_ID, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = PipeOrgans.MOD_ID, value = Dist.CLIENT)
     public static class ClientForgeEvents {
 
         @SubscribeEvent
@@ -47,7 +47,7 @@ public class ClientEvents {
         }
 
         @SubscribeEvent
-        public static void onTick(TickEvent.ClientTickEvent event) {
+        public static void onTick(ClientTickEvent event) {
             if (!isGameActive())
                 return;
             PipeOrgansClient.MIDI_SENDER.tick();

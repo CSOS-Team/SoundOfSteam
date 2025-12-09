@@ -1,31 +1,33 @@
 package com.finchy.pipeorgans;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
-@Mod.EventBusSubscriber(modid = PipeOrgans.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
+
+@EventBusSubscriber(modid = PipeOrgans.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class ServerConfig {
 
-    private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    private static final ForgeConfigSpec.IntValue MIDI_FILE_SIZE_LIMIT = BUILDER
+    private static final ModConfigSpec.IntValue MIDI_FILE_SIZE_LIMIT = BUILDER
             .comment("The maximum allowed file size of uploaded MIDI files. [in KiloBytes]")
             .defineInRange("midiFileSizeLimit", 256, 64, 1024);
 
-    private static final ForgeConfigSpec.IntValue MAX_MIDI_FILES = BUILDER
+    private static final ModConfigSpec.IntValue MAX_MIDI_FILES = BUILDER
             .comment("The amount of MIDI files a player can upload until previous ones are overwritten.")
             .defineInRange("maxMidiFiles", 16, 1, 128);
 
-    private static final ForgeConfigSpec.IntValue MAX_MIDI_PACKET_SIZE = BUILDER
+    private static final ModConfigSpec.IntValue MAX_MIDI_PACKET_SIZE = BUILDER
             .comment("The maximum packet size uploaded MIDI files are split into. [in Bytes]")
             .defineInRange("maxMidiPacketSize", 1024, 256, 32767);
 
-    private static final ForgeConfigSpec.IntValue MIDI_IDLE_TIMEOUT = BUILDER
+    private static final ModConfigSpec.IntValue MIDI_IDLE_TIMEOUT = BUILDER
             .comment("Amount of game ticks without new packets arriving until an active MIDI upload process is discarded.")
             .defineInRange("midiIdleTimeout", 600, 100, 1200);
 
-    static final ForgeConfigSpec SPEC = BUILDER.build();
+    static final ModConfigSpec SPEC = BUILDER.build();
 
     public static long midiFileSizeLimit;
     public static int maxMidiFiles;

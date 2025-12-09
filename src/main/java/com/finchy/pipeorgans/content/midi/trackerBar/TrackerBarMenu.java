@@ -7,15 +7,15 @@ import com.finchy.pipeorgans.util.MidiUtils.GeneralMidiInstrument;
 import com.simibubi.create.foundation.gui.menu.MenuBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
@@ -25,7 +25,7 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
     // todo: need to add ghost inventory to menu
 
-    public TrackerBarMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
+    public TrackerBarMenu(MenuType<?> type, int id, Inventory inv, RegistryFriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
         this.data = new SimpleContainerData(21);
         addDataSlots(data);
@@ -42,11 +42,11 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
     }
 
     @Override
-    protected TrackerBarBlockEntity createOnClient(FriendlyByteBuf extraData) {
+    protected TrackerBarBlockEntity createOnClient(RegistryFriendlyByteBuf extraData) {
         ClientLevel world = Minecraft.getInstance().level;
         BlockEntity blockEntity = world.getBlockEntity(extraData.readBlockPos());
         if (blockEntity instanceof TrackerBarBlockEntity trackerBar) {
-            trackerBar.readClient(extraData.readNbt());
+            trackerBar.readClient(extraData.readNbt(), extraData.registryAccess());
             return trackerBar;
         }
         return null;

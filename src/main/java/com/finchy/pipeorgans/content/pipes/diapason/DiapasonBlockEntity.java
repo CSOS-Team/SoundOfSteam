@@ -10,8 +10,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 public class DiapasonBlockEntity extends DoublePipeBlockEntity {
     public DiapasonBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
@@ -19,7 +19,7 @@ public class DiapasonBlockEntity extends DoublePipeBlockEntity {
         baseBlock = AllBlocks.DIAPASON;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @net.neoforged.api.distmarker.OnlyIn(net.neoforged.api.distmarker.Dist.CLIENT)
     protected DiapasonSoundInstance soundInstance;
 
     @Override

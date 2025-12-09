@@ -1,17 +1,17 @@
 package com.finchy.pipeorgans.content.midi;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.sound.midi.ShortMessage;
@@ -62,13 +62,13 @@ public class MidiSourceBehaviour extends BlockEntityBehaviour {
     }
 
     @Override
-    public void write(CompoundTag tag, boolean clientPacket) {
-        tag.put("frequencyItems", storedGhostInv.serializeNBT());
+    public void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        tag.put("frequencyItems", storedGhostInv.serializeNBT(registries));
     }
 
     @Override
-    public void read(CompoundTag tag, boolean clientPacket) {
-        storedGhostInv.deserializeNBT(tag.getCompound("frequencyItems"));
+    public void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        storedGhostInv.deserializeNBT(registries, tag.getCompound("frequencyItems"));
         link.setFrequencyKeysOnLoad(storedGhostInv);
     }
 

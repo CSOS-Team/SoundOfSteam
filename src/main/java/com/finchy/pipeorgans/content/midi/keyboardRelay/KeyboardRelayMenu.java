@@ -4,16 +4,16 @@ import com.finchy.pipeorgans.init.AllMenuTypes;
 import com.simibubi.create.foundation.gui.menu.GhostItemMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class KeyboardRelayMenu extends GhostItemMenu<KeyboardRelayBlockEntity> {
 
-    public KeyboardRelayMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
+    public KeyboardRelayMenu(MenuType<?> type, int id, Inventory inv, RegistryFriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
     }
 
@@ -36,11 +36,11 @@ public class KeyboardRelayMenu extends GhostItemMenu<KeyboardRelayBlockEntity> {
     }
 
     @Override
-    protected KeyboardRelayBlockEntity createOnClient(FriendlyByteBuf extraData) {
+    protected KeyboardRelayBlockEntity createOnClient(RegistryFriendlyByteBuf extraData) {
         ClientLevel world = Minecraft.getInstance().level;
         BlockEntity blockEntity = world.getBlockEntity(extraData.readBlockPos());
         if (blockEntity instanceof KeyboardRelayBlockEntity kbr) {
-            kbr.readClient(extraData.readNbt());
+            kbr.readClient(extraData.readNbt(), extraData.registryAccess());
             return kbr;
         }
         return null;
