@@ -12,7 +12,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 public class CommonEvents {
 
     @SubscribeEvent
-    public static void onServerTick(ServerTickEvent event) {
+    public static void onServerTickPos(ServerTickEvent.Post event) {
         PipeOrgans.MIDI_RECEIVER.tick();
     }
 

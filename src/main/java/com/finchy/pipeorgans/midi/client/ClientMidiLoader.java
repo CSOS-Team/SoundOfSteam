@@ -107,7 +107,7 @@ public class ClientMidiLoader {
     }
 
     public void refresh() {
-        FilesHelper.createFolderIfMissing(PipeOrgansPaths.MIDIS_DIR.toString());
+        FilesHelper.createFolderIfMissing(PipeOrgansPaths.MIDIS_DIR);
         availableMidis.clear();
 
         try (Stream<Path> paths = Files.list(PipeOrgansPaths.MIDIS_DIR)) {

@@ -3,7 +3,6 @@ package com.finchy.pipeorgans.content.pipes.nasard;
 import com.finchy.pipeorgans.ClientConfig;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlockEntity;
-import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.utility.CreateLang;
@@ -30,7 +29,6 @@ public class NasardBlockEntity extends DoublePipeBlockEntity {
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        ClientConfig.syncFromFile();
         String[] pitches = CreateLang.translateDirect("generic.notes")
                 .getString()
                 .split(";");

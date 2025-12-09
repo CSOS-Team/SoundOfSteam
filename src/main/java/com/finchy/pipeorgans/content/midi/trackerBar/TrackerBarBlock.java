@@ -9,8 +9,6 @@ import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -26,7 +24,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
 
 @SuppressWarnings("NullableProblems")
 public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<TrackerBarBlockEntity> {
@@ -95,17 +92,15 @@ public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<Track
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
         if (pHit.getDirection().equals(pState.getValue(HORIZONTAL_FACING).getClockWise())
                 || pHit.getDirection().equals(pState.getValue(HORIZONTAL_FACING).getCounterClockWise()))
             return InteractionResult.PASS; // prevent opening the menu when clicking on either of the shaft faces
 
         if (pLevel.isClientSide)
             return InteractionResult.SUCCESS;
-        if (pHand.equals(InteractionHand.OFF_HAND))
-            return InteractionResult.SUCCESS;
 
-        withBlockEntityDo(pLevel, pPos, be -> NetworkHooks.openScreen((ServerPlayer) pPlayer, be, be::sendToMenu));
+        withBlockEntityDo(pLevel, pPos, be -> pPlayer.openMenu(be, be::sendToMenu));
         return InteractionResult.SUCCESS;
     }
     @Override

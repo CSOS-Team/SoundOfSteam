@@ -2,11 +2,10 @@ package com.finchy.pipeorgans.content.midi.rollPuncher;
 
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
+import com.mojang.serialization.MapCodec;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -21,13 +20,19 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class RollPuncherBlock extends HorizontalDirectionalBlock implements IBE<RollPuncherBlockEntity> {
 
+    public static final MapCodec<RollPuncherBlock> CODEC = simpleCodec(RollPuncherBlock::new);
+
     public RollPuncherBlock(Properties pProperties) {
         super(pProperties);
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -57,11 +62,11 @@ public class RollPuncherBlock extends HorizontalDirectionalBlock implements IBE<
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
         if (pLevel.isClientSide)
             return InteractionResult.SUCCESS;
         withBlockEntityDo(pLevel, pPos,
-                be -> NetworkHooks.openScreen((ServerPlayer) pPlayer, be, be::sendToMenu));
+                be -> pPlayer.openMenu(be, be::sendToMenu));
         return InteractionResult.SUCCESS;
     }
 

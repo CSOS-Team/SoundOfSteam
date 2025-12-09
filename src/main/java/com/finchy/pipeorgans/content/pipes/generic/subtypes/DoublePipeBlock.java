@@ -30,7 +30,7 @@ public abstract class DoublePipeBlock extends GenericPipeBlock {
         Direction facing = base.getValue(FACING);
 
         float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
-        SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.get();
+        SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.value();
         SoundEvent hitSound = soundtype.getHitSound();
 
         for (int i = 1; i <= 12; i+=2) {

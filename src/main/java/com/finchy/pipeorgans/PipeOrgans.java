@@ -19,24 +19,19 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.loading.FMLLoader;
-import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
-
-import static com.finchy.pipeorgans.ClientConfig.SPEC;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(PipeOrgans.MOD_ID)
 public class PipeOrgans {
 
     static {
-        setProxy(FMLLoader.getDist() == Dist.CLIENT ? new ClientProxy() : new ServerProxy());
+        if (FMLEnvironment.dist == Dist.CLIENT) setProxy(new ClientProxy());
+        else setProxy(new ServerProxy());
     }
 
     public static final String MOD_ID = "pipeorgans";
@@ -75,22 +70,11 @@ public class PipeOrgans {
         AllMenuTypes.register();
         AllPackets.register();
 
-        NeoForge.EVENT_BUS.register(this);
-
-        container.registerConfig(ModConfig.Type.CLIENT, SPEC);
-        container.registerConfig(ModConfig.Type.SERVER, SPEC);
+        container.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+        container.registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
 
         modEventBus.addListener(EventPriority.LOWEST, PipeOrgansDatagen::gatherData);
 
-    }
-
-    @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            AllPartialModels.init();
-        }
     }
 
     public static ResourceLocation asResource(String path) {

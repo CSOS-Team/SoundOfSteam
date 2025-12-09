@@ -15,7 +15,8 @@ import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 
 public class ClientEvents {
-    @EventBusSubscriber(modid = PipeOrgans.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+
+    @EventBusSubscriber(Dist.CLIENT)
     public static class ModEventBusClientEvents {
 
         @SubscribeEvent
@@ -47,7 +48,7 @@ public class ClientEvents {
         }
 
         @SubscribeEvent
-        public static void onTick(ClientTickEvent event) {
+        public static void onTickPost(ClientTickEvent.Post event) {
             if (!isGameActive())
                 return;
             PipeOrgansClient.MIDI_SENDER.tick();

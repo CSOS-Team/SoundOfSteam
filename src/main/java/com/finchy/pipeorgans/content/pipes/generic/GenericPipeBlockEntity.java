@@ -62,7 +62,6 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        ClientConfig.syncFromFile();
         String[] pitches = CreateLang.translateDirect("generic.notes")
                 .getString()
                 .split(";");

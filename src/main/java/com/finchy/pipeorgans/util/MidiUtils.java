@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.util;
 
 import com.finchy.pipeorgans.content.midi.MusicRollItem;
+import com.finchy.pipeorgans.init.AllDataComponents;
 import net.minecraft.world.item.ItemStack;
 
 import javax.sound.midi.*;
@@ -31,9 +32,8 @@ public abstract class MidiUtils {
 
     public static boolean isMusicRollValid(ItemStack stack) {
         return stack.getItem() instanceof MusicRollItem && // just in case they use commands or something
-                stack.hasTag() && // if it even has a tag
-                stack.getTag().contains("Owner") &&
-                stack.getTag().contains("File");
+                stack.has(AllDataComponents.MIDI_FILE) &&
+                stack.has(AllDataComponents.MIDI_OWNER);
     }
 
     public enum GeneralMidiInstrument {

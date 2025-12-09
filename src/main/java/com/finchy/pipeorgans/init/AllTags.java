@@ -3,8 +3,8 @@ package com.finchy.pipeorgans.init;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.simibubi.create.Create;
 import net.createmod.catnip.lang.Lang;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -14,29 +14,28 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.Collections;
-
 public class AllTags {
 
-    public static <T> TagKey<T> optionalTag(IForgeRegistry<T> registry, ResourceLocation id) {
-        return registry.tags().createOptionalTagKey(id, Collections.emptySet());
+    public static <T> TagKey<T> optionalTag(Registry<T> registry, ResourceLocation id) {
+        return TagKey.create(registry.key(), id);
     }
 
-    public static <T> TagKey<T> forgeTag(IForgeRegistry<T> registry, String path) {
-        return optionalTag(registry, new ResourceLocation("forge", path));
+    public static <T> TagKey<T> commonTag(Registry<T> registry, String path) {
+        return optionalTag(registry, ResourceLocation.fromNamespaceAndPath("c", path));
     }
 
-    public static TagKey<Block> forgeBlockTag(String path) {
-        return forgeTag(ForgeRegistries.BLOCKS, path);
+    public static TagKey<Block> commonBlockTag(String path) {
+        return commonTag(BuiltInRegistries.BLOCK, path);
     }
 
-    public static TagKey<Item> forgeItemTag(String path) {
-        return forgeTag(BuiltInRegistries.ITEM, path);
+    public static TagKey<Item> commonItemTag(String path) {
+        return commonTag(BuiltInRegistries.ITEM, path);
     }
 
     public enum NameSpace {
         MOD(PipeOrgans.MOD_ID, false, true),
-        CREATE(Create.ID);
+        CREATE(Create.ID),
+        COMMON("c");
 
         public final String id;
         public final boolean optionalDefault;
@@ -77,9 +76,9 @@ public class AllTags {
         }
 
         AllBlockTags(NameSpace namespace, String path, boolean optional, boolean alwaysDatagen) {
-            ResourceLocation id = new ResourceLocation(PipeOrgans.MOD_ID, Lang.asId(name()));
+            ResourceLocation id = ResourceLocation.fromNamespaceAndPath(PipeOrgans.MOD_ID, Lang.asId(name()));
             if (optional)
-                tag = optionalTag(ForgeRegistries.BLOCKS, id);
+                tag = optionalTag(BuiltInRegistries.BLOCK, id);
             else
                 tag = BlockTags.create(id);
             this.alwaysDatagen = alwaysDatagen;

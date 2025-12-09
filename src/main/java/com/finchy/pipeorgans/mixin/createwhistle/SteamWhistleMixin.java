@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.mixin.createwhistle;
 
-
-import com.finchy.pipeorgans.block.WindchestBlock;
+import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;

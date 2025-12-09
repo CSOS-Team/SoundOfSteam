@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -71,18 +72,17 @@ public abstract class GenericExtensionBlock<P extends Enum<P> & EExtensionShapes
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public ItemInteractionResult useItemOn(ItemStack heldItem, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
-        ItemStack heldItem = pPlayer.getItemInHand(pHand);
         if (heldItem.getItem() != this.baseBlock.get().asItem()) {
-            return InteractionResult.PASS;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         BlockPos root = findRoot(pLevel, pPos);
         BlockState blockState = pLevel.getBlockState(root);
         if (blockState.getBlock() instanceof GenericPipeBlock pipe)
-            return pipe.use(blockState, pLevel, root, pPlayer, pHand,
+            return pipe.useItemOn(heldItem, blockState, pLevel, root, pPlayer, pHand,
                     new BlockHitResult(pHit.getLocation(), pHit.getDirection(), root, pHit.isInside()));
-        return InteractionResult.PASS;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     @Override
@@ -119,7 +119,7 @@ public abstract class GenericExtensionBlock<P extends Enum<P> & EExtensionShapes
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
         return new ItemStack(this.baseBlock.get());
     }
 }

@@ -1,11 +1,14 @@
 package com.finchy.pipeorgans;
 
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 // An example config class. This is not required, but it's a good idea to have one to keep your config organized.
 // Demonstrates how to use Forge's config APIs
-@EventBusSubscriber(modid = PipeOrgans.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+
+@EventBusSubscriber
 public class ClientConfig {
 
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
@@ -23,9 +26,19 @@ public class ClientConfig {
     public static boolean displayMutationSoundingPitch;
     public static boolean showOctaveBrackets;
 
-    // Call this whenever you need to ensure runtime values are up-to-date
-    public static void syncFromFile() {
-        displayMutationSoundingPitch = DISPLAY_MUTATION_SOUNDING_PITCH.get();
-        showOctaveBrackets = SHOW_OCTAVE_BRACKETS.get();
+    @SubscribeEvent
+    public static void onLoad(ModConfigEvent.Loading event) {
+        if (event.getConfig().getSpec() == SPEC) {
+            displayMutationSoundingPitch = DISPLAY_MUTATION_SOUNDING_PITCH.get();
+            showOctaveBrackets = SHOW_OCTAVE_BRACKETS.get();
+        }
+    }
+
+    @SubscribeEvent
+    public static void onReloading(ModConfigEvent.Reloading event) {
+        if (event.getConfig().getSpec() == SPEC) {
+            displayMutationSoundingPitch = DISPLAY_MUTATION_SOUNDING_PITCH.get();
+            showOctaveBrackets = SHOW_OCTAVE_BRACKETS.get();
+        }
     }
 }
