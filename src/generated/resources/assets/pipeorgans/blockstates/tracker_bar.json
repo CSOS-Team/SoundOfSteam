@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,powered=false,transmitting=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar",
+      "y": 90
+    },
+    "facing=east,powered=false,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting",
+      "y": 90
+    },
+    "facing=east,powered=true,transmitting=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar",
+      "y": 90
+    },
+    "facing=east,powered=true,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting",
+      "y": 90
+    },
+    "facing=north,powered=false,transmitting=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar"
+    },
+    "facing=north,powered=false,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting"
+    },
+    "facing=north,powered=true,transmitting=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar"
+    },
+    "facing=north,powered=true,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting"
+    },
+    "facing=south,powered=false,transmitting=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar",
+      "y": 180
+    },
+    "facing=south,powered=false,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting",
+      "y": 180
+    },
+    "facing=south,powered=true,transmitting=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar",
+      "y": 180
+    },
+    "facing=south,powered=true,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting",
+      "y": 180
+    },
+    "facing=west,powered=false,transmitting=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar",
+      "y": 270
+    },
+    "facing=west,powered=false,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting",
+      "y": 270
+    },
+    "facing=west,powered=true,transmitting=false": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar",
+      "y": 270
+    },
+    "facing=west,powered=true,transmitting=true": {
+      "model": "pipeorgans:block/tracker_bar/tracker_bar_transmitting",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "values": [
+    "pipeorgans:base",
+    "pipeorgans:diapason",
+    "pipeorgans:haunted_whistle",
+    "pipeorgans:prestant",
+    "pipeorgans:gamba",
+    "pipeorgans:gedeckt",
+    "pipeorgans:hohlflute",
+    "pipeorgans:rohrflote",
+    "pipeorgans:nasard",
+    "pipeorgans:piccolo",
+    "pipeorgans:posaune",
+    "pipeorgans:subbass",
+    "pipeorgans:trompette",
+    "pipeorgans:english_horn",
+    "pipeorgans:viola",
+    "pipeorgans:vox_celeste",
+    "pipeorgans:vox_humana"
+  ]
+}

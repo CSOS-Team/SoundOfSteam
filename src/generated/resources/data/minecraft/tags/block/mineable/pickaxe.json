@@ -1,0 +1,33 @@
+{
+  "values": [
+    "pipeorgans:base",
+    "pipeorgans:keyboard_relay",
+    "pipeorgans:tracker_bar",
+    "pipeorgans:windchest_master",
+    "pipeorgans:roll_puncher",
+    "pipeorgans:diapason",
+    "pipeorgans:diapason_extension",
+    "pipeorgans:haunted_whistle",
+    "pipeorgans:haunted_whistle_extension",
+    "pipeorgans:prestant",
+    "pipeorgans:prestant_extension",
+    "pipeorgans:gamba",
+    "pipeorgans:gamba_extension",
+    "pipeorgans:rohrflote",
+    "pipeorgans:rohrflote_extension",
+    "pipeorgans:nasard",
+    "pipeorgans:nasard_extension",
+    "pipeorgans:piccolo",
+    "pipeorgans:piccolo_extension",
+    "pipeorgans:trompette",
+    "pipeorgans:trompette_extension",
+    "pipeorgans:english_horn",
+    "pipeorgans:english_horn_extension",
+    "pipeorgans:viola",
+    "pipeorgans:viola_extension",
+    "pipeorgans:vox_celeste",
+    "pipeorgans:vox_celeste_extension",
+    "pipeorgans:vox_humana",
+    "pipeorgans:vox_humana_extension"
+  ]
+}
