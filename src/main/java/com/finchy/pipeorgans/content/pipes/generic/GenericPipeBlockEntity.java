@@ -64,12 +64,25 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         String[] pitches = CreateLang.translateDirect("generic.notes")
                 .getString()
                 .split(";");
-        int stopSize = Integer.parseInt(((GenericPipeBlockItem) getBlockState().getBlock().asItem()).stopSize);
-        double octave = 5-getOctave().ordinal() + (pitch<=6?1:0) - (Math.log(stopSize/8)/Math.log(2));
-        CreateLang.translate("generic.pitch", pitches[pitch % pitches.length]).add(Component.literal(String.valueOf(octave)))
+
+        int stopSize = Integer.parseInt(((GenericPipeBlockItem) getBlockState()
+                .getBlock().asItem()).stopSize);
+
+        // Ensure floating point: stopSize / 8.0
+        double octave = 5 - getOctave().ordinal()
+                + (pitch <= 6 ? 1 : 0)
+                - (Math.log(stopSize / 8.0) / Math.log(2));
+
+        // No decimals, placed inside brackets
+        String octaveText = "(" + (int) Math.round(octave) + ")";
+
+        CreateLang.translate("generic.pitch", pitches[pitch % pitches.length])
+                .add(Component.literal(octaveText))
                 .forGoggles(tooltip);
+
         return true;
     }
+
 
     protected boolean isPowered() {
         return getBlockState().getOptionalValue(GenericPipeBlock.POWERED)
