@@ -7,10 +7,12 @@ import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.block.IBE;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -104,8 +106,7 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
             return InteractionResult.SUCCESS;
         }
         if (heldItem.getItem() instanceof GenericPipeBlockItem) { // swapping pipes
-            GenericPipeBlock held = (GenericPipeBlock) ((GenericPipeBlockItem) heldItem.getItem()).getBlock();
-            if (substitutePipe(pState, pLevel, pPos, held) == InteractionResult.SUCCESS) {
+            if (substitutePipe(pState, pLevel, pPos, heldItem, pPlayer) == InteractionResult.SUCCESS) {
                 if (!pPlayer.isCreative()) {
                     heldItem.shrink(1);
                     pPlayer.setItemInHand(pHand, heldItem);
@@ -122,7 +123,8 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
         return InteractionResult.PASS;
     }
 
-    public InteractionResult substitutePipe(BlockState state, Level level, BlockPos pos, GenericPipeBlock held) {
+    public InteractionResult substitutePipe(BlockState state, Level level, BlockPos pos, ItemStack heldItem, Player player) {
+        GenericPipeBlock held = (GenericPipeBlock) ((GenericPipeBlockItem) heldItem.getItem()).getBlock();
         if (level.getBlockEntity(pos) instanceof GenericPipeBlockEntity be) {
             if (this.EPB <= held.EPB) { // new pipe will not be longer, so we can immediately swap the pipes
 
@@ -157,18 +159,20 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
                     }
                 }
             }
-            placeNewPipe(state, level, pos, held, be.pitch);
+            placeNewPipe(state, level, pos, heldItem, player, be.pitch);
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
     }
 
-    protected void placeNewPipe(BlockState state, Level level, BlockPos pos, GenericPipeBlock pipe, int pitch) {
+    protected void placeNewPipe(BlockState state, Level level, BlockPos pos, ItemStack heldItem, Player player, int pitch) {
         EPipeSizes.PipeSize size = state.getValue(SIZE);
         Direction facing = state.getValue(FACING);
         boolean wall = state.getValue(WALL);
         boolean powered = state.getValue(POWERED);
         level.destroyBlock(pos, false);
+
+        GenericPipeBlock pipe = (GenericPipeBlock) ((GenericPipeBlockItem) heldItem.getItem()).getBlock();
 
         level.setBlock(pos, pipe.defaultBlockState()
                 .setValue(SIZE, size)
@@ -181,6 +185,9 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
             for (int i = 1; i <= pitch; i++) {
                 newPipe.incrementSize(level, pos, false);
             }
+        }
+        if (player instanceof ServerPlayer sp) {
+            CriteriaTriggers.PLACED_BLOCK.trigger(sp, pos, heldItem);
         }
     }
 
