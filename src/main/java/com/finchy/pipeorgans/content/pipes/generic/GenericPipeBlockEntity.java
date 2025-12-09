@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
+import com.finchy.pipeorgans.ClientConfig;
 import com.finchy.pipeorgans.content.particles.hauntedJet.HauntedJetParticleData;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
@@ -61,6 +62,7 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        ClientConfig.syncFromFile();
         String[] pitches = CreateLang.translateDirect("generic.notes")
                 .getString()
                 .split(";");
@@ -73,8 +75,12 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
                 + (pitch <= 6 ? 1 : 0)
                 - (Math.log(stopSize / 8.0) / Math.log(2));
 
-        // No decimals, placed inside brackets
-        String octaveText = "(" + (int) Math.round(octave) + ")";
+        boolean useBrackets = ClientConfig.showOctaveBrackets;
+
+        String octaveText = useBrackets
+                ? "(" + (int) Math.round(octave) + ")"
+                : String.valueOf((int) Math.round(octave));
+
 
         CreateLang.translate("generic.pitch", pitches[pitch % pitches.length])
                 .add(Component.literal(octaveText))

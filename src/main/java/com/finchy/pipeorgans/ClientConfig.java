@@ -16,12 +16,18 @@ public class ClientConfig {
             .comment("Whether to display the sounding pitch on mutation pipes while wearing goggles.")
             .define("displayMutationSoundingPitch", true);
 
-    static final ForgeConfigSpec SPEC = BUILDER.build();
+    public static final ForgeConfigSpec.BooleanValue SHOW_OCTAVE_BRACKETS = BUILDER
+            .comment("If true, octave values in goggle tooltips are shown in parentheses.")
+            .define("showOctaveBrackets", false);
+
+    public static final ForgeConfigSpec SPEC = BUILDER.build();
 
     public static boolean displayMutationSoundingPitch;
+    public static boolean showOctaveBrackets;
 
-    @SubscribeEvent
-    static void onLoad(final ModConfigEvent event) {
+    // Call this whenever you need to ensure runtime values are up-to-date
+    public static void syncFromFile() {
         displayMutationSoundingPitch = DISPLAY_MUTATION_SOUNDING_PITCH.get();
+        showOctaveBrackets = SHOW_OCTAVE_BRACKETS.get();
     }
 }
