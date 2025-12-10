@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.content.pipes.generic;
 
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.simibubi.create.AllSoundEvents;
+import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.block.IBE;
@@ -47,7 +48,7 @@ import java.util.Objects;
 public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty WALL = BooleanProperty.create("wall");
+    public static final BooleanProperty WALL = WhistleBlock.WALL;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final EnumProperty<EPipeSizes.PipeSize> SIZE = EnumProperty.create("size", EPipeSizes.PipeSize.class);
 
