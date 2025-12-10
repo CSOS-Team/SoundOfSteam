@@ -1,7 +1,9 @@
 {
+  "parent": "pipeorgans:csosintro",
   "display": {
     "icon": {
-      "item": "pipeorgans:base"
+      "count": 1,
+      "id": "pipeorgans:base"
     },
     "title": {
       "translate": "advancement.pipeorgans.pipebase"
@@ -9,12 +11,9 @@
     "description": {
       "translate": "advancement.pipeorgans.pipebase.desc"
     },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "background": "minecraft:textures/block/cut_copper.png"
+    "show_toast": false,
+    "announce_to_chat": false
   },
-  "parent": "pipeorgans:csosintro",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",

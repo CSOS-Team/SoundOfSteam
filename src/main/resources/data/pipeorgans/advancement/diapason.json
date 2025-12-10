@@ -1,7 +1,9 @@
 {
+  "parent": "pipeorgans:pipebase",
   "display": {
     "icon": {
-      "item": "pipeorgans:diapason"
+      "count": 1,
+      "id": "pipeorgans:diapason"
     },
     "title": {
       "translate": "advancement.pipeorgans.diapason"
@@ -9,11 +11,9 @@
     "description": {
       "translate": "advancement.pipeorgans.diapason.desc"
     },
-    "frame": "task",
     "show_toast": true,
-    "announce_to_chat": true
+    "announce_to_chat": false
   },
-  "parent": "pipeorgans:pipebase",
   "criteria": {
     "example": {
       "trigger": "minecraft:placed_block",

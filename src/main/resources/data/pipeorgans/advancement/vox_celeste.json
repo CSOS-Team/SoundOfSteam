@@ -1,7 +1,8 @@
 {
   "display": {
     "icon": {
-      "item": "pipeorgans:vox_celeste"
+      "count": 1,
+      "id": "pipeorgans:vox_celeste"
     },
     "title": {
       "translate": "advancement.pipeorgans.vox_celeste"
@@ -11,7 +12,7 @@
     },
     "frame": "task",
     "show_toast": true,
-    "announce_to_chat": true
+    "announce_to_chat": false
   },
   "parent": "pipeorgans:viola",
   "criteria": {

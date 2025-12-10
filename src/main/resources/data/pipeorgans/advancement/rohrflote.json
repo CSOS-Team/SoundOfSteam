@@ -1,7 +1,8 @@
 {
   "display": {
     "icon": {
-      "item": "pipeorgans:rohrflote"
+      "count": 1,
+      "id": "pipeorgans:rohrflote"
     },
     "title": {
       "translate": "advancement.pipeorgans.rohrflote"
@@ -11,7 +12,7 @@
     },
     "frame": "task",
     "show_toast": true,
-    "announce_to_chat": true
+    "announce_to_chat": false
   },
   "parent": "pipeorgans:pipebase",
   "criteria": {

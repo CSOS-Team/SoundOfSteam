@@ -1,7 +1,8 @@
 {
   "display": {
     "icon": {
-      "item": "pipeorgans:trompette"
+      "count": 1,
+      "id": "pipeorgans:trompette"
     },
     "title": {
       "translate": "advancement.pipeorgans.trompette"
@@ -11,7 +12,7 @@
     },
     "frame": "task",
     "show_toast": true,
-    "announce_to_chat": true
+    "announce_to_chat": false
   },
   "parent": "pipeorgans:reed",
   "criteria": {

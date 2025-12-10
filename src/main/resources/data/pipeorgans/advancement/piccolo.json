@@ -1,7 +1,8 @@
 {
   "display": {
     "icon": {
-      "item": "pipeorgans:piccolo"
+      "count": 1,
+      "id": "pipeorgans:piccolo"
     },
     "title": {
       "translate": "advancement.pipeorgans.piccolo"
@@ -11,7 +12,7 @@
     },
     "frame": "task",
     "show_toast": true,
-    "announce_to_chat": true
+    "announce_to_chat": false
   },
   "parent": "pipeorgans:pipebase",
   "criteria": {
