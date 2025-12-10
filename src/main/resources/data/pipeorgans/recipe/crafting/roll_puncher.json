@@ -2,23 +2,26 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    " S ",
-    "BPB",
-    " S "
+    " P ",
+    "PQ ",
+    "ISI"
   ],
   "key": {
-    "B": {
-      "item": "create:brass_casing"
+    "P": {
+      "item": "minecraft:spruce_slab"
+    },
+    "Q": {
+      "item": "minecraft:writable_book"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
     },
     "S": {
-      "item": "create:shaft"
-    },
-    "P": {
-      "item": "create:precision_mechanism"
+      "item": "minecraft:smooth_stone"
     }
   },
   "result": {
-    "id": "pipeorgans:tracker_bar",
+    "id": "pipeorgans:roll_puncher",
     "count": 1
   }
 }
