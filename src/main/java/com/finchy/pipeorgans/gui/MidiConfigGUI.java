@@ -149,18 +149,15 @@ public class MidiConfigGUI extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        renderBackground(graphics, mouseX, mouseY, partialTick);
-        // render base texture
-        graphics.blit(GUI_TEXTURE, cornerX, cornerY, 0, 0, GUI_WIDTH, GUI_HEIGHT);
         super.render(graphics, mouseX, mouseY, partialTick);
 
-        renderGraphics(graphics);
-        renderText(graphics);
-    }
+        // render base texture
+        graphics.blit(GUI_TEXTURE, cornerX, cornerY, 0, 0, GUI_WIDTH, GUI_HEIGHT);
 
-    private void renderGraphics(GuiGraphics graphics) {
         graphics.blit(GUI_TEXTURE, cornerX+ REFRESH_BUTTON_X, cornerY+ BUTTONS_Y, REFRESH_BUTTON_U, 0, 16, 16, 256, 256); // refresh button icon
         graphics.blit(GUI_TEXTURE, cornerX+ SAVE_BUTTON_X, cornerY+ BUTTONS_Y, SAVE_BUTTON_U, 0, 16, 16, 256, 256); // save button icon
+
+        renderText(graphics);
     }
 
     private void renderText(GuiGraphics graphics) {
