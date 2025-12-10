@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " P ",
+    "PQ ",
+    "ISI"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:spruce_slab"
+    },
+    "Q": {
+      "item": "minecraft:writable_book"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "S": {
+      "item": "minecraft:smooth_stone"
+    }
+  },
+  "result": {
+    "item": "pipeorgans:roll_puncher"
+  }
+}
