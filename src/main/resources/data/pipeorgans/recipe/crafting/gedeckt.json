@@ -18,6 +18,7 @@
     }
   },
   "result": {
-    "item": "pipeorgans:gedeckt"
+    "id": "pipeorgans:gedeckt",
+    "count": 1
   }
 }

@@ -11,13 +11,14 @@
       "item": "minecraft:cherry_log"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "C": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "item": "pipeorgans:piccolo"
+    "id": "pipeorgans:piccolo",
+    "count": 1
   }
 }

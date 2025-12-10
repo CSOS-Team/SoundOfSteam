@@ -3,6 +3,8 @@
   "ingredient": {
     "item": "pipeorgans:prestant"
   },
-  "result": "pipeorgans:diapason",
-  "count": 1
+  "result": {
+    "count": 1,
+    "id": "pipeorgans:diapason"
+  }
 }

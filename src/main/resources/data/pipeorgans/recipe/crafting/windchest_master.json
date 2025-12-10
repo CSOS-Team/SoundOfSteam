@@ -17,11 +17,11 @@
       "item": "minecraft:redstone"
     },
     "Z": {
-      "tag": "forge:ingots/zinc"
+      "tag": "c:ingots/zinc"
     }
   },
   "result": {
-    "item": "pipeorgans:windchest_master",
+    "id": "pipeorgans:windchest_master",
     "count": 1
   }
 }

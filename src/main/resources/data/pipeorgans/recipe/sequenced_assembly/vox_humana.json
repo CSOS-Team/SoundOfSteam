@@ -3,10 +3,9 @@
   "ingredient": {
     "item": "pipeorgans:base"
   },
-  "loops": 1,
   "results": [
     {
-      "item": "pipeorgans:vox_humana"
+      "id": "pipeorgans:vox_humana"
     }
   ],
   "sequence": [
@@ -14,7 +13,7 @@
       "type": "create:deploying",
       "ingredients": [
         {
-          "item": "pipeorgans:base"
+          "item": "pipeorgans:incomplete_vox_humana"
         },
         {
           "item": "pipeorgans:copper_boot"
@@ -22,7 +21,7 @@
       ],
       "results": [
         {
-          "item": "pipeorgans:base"
+          "id": "pipeorgans:incomplete_vox_humana"
         }
       ]
     },
@@ -30,7 +29,7 @@
       "type": "create:deploying",
       "ingredients": [
         {
-          "item": "pipeorgans:base"
+          "item": "pipeorgans:incomplete_vox_humana"
         },
         {
           "item": "pipeorgans:brass_reed"
@@ -38,7 +37,7 @@
       ],
       "results": [
         {
-          "item": "pipeorgans:base"
+          "id": "pipeorgans:incomplete_vox_humana"
         }
       ]
     },
@@ -46,7 +45,7 @@
       "type": "create:deploying",
       "ingredients": [
         {
-          "item": "pipeorgans:base"
+          "item": "pipeorgans:incomplete_vox_humana"
         },
         {
           "item": "pipeorgans:tuning_wire"
@@ -54,12 +53,12 @@
       ],
       "results": [
         {
-          "item": "pipeorgans:vox_humana"
+          "id": "pipeorgans:incomplete_vox_humana"
         }
       ]
     }
   ],
-  "transitionalItem": {
-    "item": "pipeorgans:incomplete_vox_humana"
+  "transitional_item": {
+    "id": "pipeorgans:incomplete_vox_humana"
   }
 }

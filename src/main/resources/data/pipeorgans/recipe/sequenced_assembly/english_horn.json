@@ -3,10 +3,9 @@
   "ingredient": {
     "item": "pipeorgans:base"
   },
-  "loops": 1,
   "results": [
     {
-      "item": "pipeorgans:english_horn"
+      "id": "pipeorgans:english_horn"
     }
   ],
   "sequence": [
@@ -14,7 +13,7 @@
       "type": "create:deploying",
       "ingredients": [
         {
-          "item": "pipeorgans:base"
+          "item": "pipeorgans:incomplete_english_horn"
         },
         {
           "item": "pipeorgans:iron_boot"
@@ -22,7 +21,7 @@
       ],
       "results": [
         {
-          "item": "pipeorgans:base"
+          "id": "pipeorgans:incomplete_english_horn"
         }
       ]
     },
@@ -30,7 +29,7 @@
       "type": "create:deploying",
       "ingredients": [
         {
-          "item": "pipeorgans:base"
+          "item": "pipeorgans:incomplete_english_horn"
         },
         {
           "item": "pipeorgans:brass_reed"
@@ -38,7 +37,7 @@
       ],
       "results": [
         {
-          "item": "pipeorgans:base"
+          "id": "pipeorgans:incomplete_english_horn"
         }
       ]
     },
@@ -46,7 +45,7 @@
       "type": "create:deploying",
       "ingredients": [
         {
-          "item": "pipeorgans:base"
+          "item": "pipeorgans:incomplete_english_horn"
         },
         {
           "item": "pipeorgans:tuning_wire"
@@ -54,12 +53,12 @@
       ],
       "results": [
         {
-          "item": "pipeorgans:english_horn"
+          "id": "pipeorgans:incomplete_english_horn"
         }
       ]
     }
   ],
-  "transitionalItem": {
-    "item": "pipeorgans:incomplete_english_horn"
+  "transitional_item": {
+    "id": "pipeorgans:incomplete_english_horn"
   }
 }

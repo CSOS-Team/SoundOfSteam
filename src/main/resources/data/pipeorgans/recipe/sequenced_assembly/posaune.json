@@ -3,10 +3,9 @@
   "ingredient": {
     "item": "pipeorgans:base"
   },
-  "loops": 1,
   "results": [
     {
-      "item": "pipeorgans:posaune"
+      "id": "pipeorgans:posaune"
     }
   ],
   "sequence": [
@@ -14,7 +13,7 @@
       "type": "create:deploying",
       "ingredients": [
         {
-          "item": "pipeorgans:base"
+          "item": "pipeorgans:incomplete_posaune"
         },
         {
           "item": "pipeorgans:dark_oak_boot"
@@ -22,7 +21,7 @@
       ],
       "results": [
         {
-          "item": "pipeorgans:base"
+          "id": "pipeorgans:incomplete_posaune"
         }
       ]
     },
@@ -30,7 +29,7 @@
       "type": "create:deploying",
       "ingredients": [
         {
-          "item": "pipeorgans:base"
+          "item": "pipeorgans:incomplete_posaune"
         },
         {
           "item": "pipeorgans:brass_reed"
@@ -38,7 +37,7 @@
       ],
       "results": [
         {
-          "item": "pipeorgans:base"
+          "id": "pipeorgans:incomplete_posaune"
         }
       ]
     },
@@ -46,7 +45,7 @@
       "type": "create:deploying",
       "ingredients": [
         {
-          "item": "pipeorgans:base"
+          "item": "pipeorgans:incomplete_posaune"
         },
         {
           "item": "pipeorgans:tuning_wire"
@@ -54,12 +53,12 @@
       ],
       "results": [
         {
-          "item": "pipeorgans:posaune"
+          "id": "pipeorgans:incomplete_posaune"
         }
       ]
     }
   ],
-  "transitionalItem": {
-    "item": "pipeorgans:incomplete_posaune"
+  "transitional_item": {
+    "id": "pipeorgans:incomplete_posaune"
   }
 }

@@ -17,14 +17,14 @@
       "item": "minecraft:redstone"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "P": {
       "item": "create:precision_mechanism"
     }
   },
   "result": {
-    "item": "pipeorgans:keyboard_relay",
+    "id": "pipeorgans:keyboard_relay",
     "count": 1
   }
 }
