@@ -17,6 +17,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -134,6 +135,14 @@ public class MusicalLinkBlock extends WrenchableDirectionalBlock implements IBE<
         if (!level.getBlockTicks()
                 .willTickThisTick(pos, this))
             level.scheduleTick(pos, this, 1);
+    }
+
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+        BlockPos neighbourPos = pos.relative(state.getValue(FACING)
+                .getOpposite());
+        BlockState neighbour = worldIn.getBlockState(neighbourPos);
+        return !neighbour.canBeReplaced();
     }
 
     @Override
