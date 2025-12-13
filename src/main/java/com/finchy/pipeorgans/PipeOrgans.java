@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans;
 
-import com.finchy.pipeorgans.content.musicalLink.MusicalLinkEventHandler;
 import com.finchy.pipeorgans.data.PipeOrgansDatagen;
 import com.finchy.pipeorgans.init.*;
 import com.finchy.pipeorgans.midi.Proxy;

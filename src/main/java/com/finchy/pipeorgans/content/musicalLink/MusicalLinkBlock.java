@@ -108,7 +108,7 @@ public class MusicalLinkBlock extends WrenchableDirectionalBlock implements IBE<
     }
 
     @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
+    public void onRemove(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pNewState, boolean pMovedByPiston) {
         IBE.onRemove(pState, pLevel, pPos, pNewState);
     }
 
@@ -118,7 +118,7 @@ public class MusicalLinkBlock extends WrenchableDirectionalBlock implements IBE<
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
+    public void neighborChanged(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos fromPos,
                                 boolean isMoving) {
         if (level.isClientSide)
             return;
@@ -137,7 +137,7 @@ public class MusicalLinkBlock extends WrenchableDirectionalBlock implements IBE<
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource r) {
+    public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource r) {
         updateTransmittedSignal(state, level, pos);
 
         if (state.getValue(RECEIVER))
@@ -152,7 +152,7 @@ public class MusicalLinkBlock extends WrenchableDirectionalBlock implements IBE<
     }
 
     @Override
-    public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onPlace(BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, BlockState oldState, boolean isMoving) {
         if (state.getBlock() == oldState.getBlock() || isMoving)
             return;
         updateTransmittedSignal(state, worldIn, pos);
@@ -190,14 +190,14 @@ public class MusicalLinkBlock extends WrenchableDirectionalBlock implements IBE<
     }
 
     @Override
-    public int getDirectSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
+    public int getDirectSignal(BlockState blockState, @NotNull BlockGetter blockAccess, @NotNull BlockPos pos, @NotNull Direction side) {
         if (side != blockState.getValue(FACING))
             return 0;
         return getSignal(blockState, blockAccess, pos, side);
     }
 
     @Override
-    public int getSignal(BlockState state, BlockGetter blockAccess, BlockPos pos, Direction side) {
+    public int getSignal(BlockState state, @NotNull BlockGetter blockAccess, @NotNull BlockPos pos, @NotNull Direction side) {
         if (!state.getValue(RECEIVER))
             return 0;
         return getBlockEntityOptional(blockAccess, pos).map(MusicalLinkBlockEntity::getReceivedSignal)
