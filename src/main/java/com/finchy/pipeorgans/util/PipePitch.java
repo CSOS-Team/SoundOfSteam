@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.util;
 
-import com.finchy.pipeorgans.PipeOrgans;
-import net.minecraft.resources.ResourceLocation;
+import com.finchy.pipeorgans.midi.PitchMapping;
+import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Iterator;
 
@@ -43,6 +44,14 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
             }
             return Octave.values()[nextOrdinal];
         }
+
+        public static Octave fromNumber(int number) {
+            return Octave.values()[number + 1]; // +1 because octave -1 is at index 0
+        }
+
+        public static Octave fromNormalizedName(String normalizedName) {
+            return Octave.valueOf("OCTAVE_" + normalizedName);
+        }
     }
 
     public enum PitchClass {
@@ -65,7 +74,7 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
             this.noteName = noteName;
         }
 
-        public String getNoteName() {
+        public String getName() {
             return noteName;
         }
 
@@ -80,10 +89,28 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
             }
             return PitchClass.values()[nextOrdinal];
         }
+
+        public static PitchClass fromName(String name) {
+            for (PitchClass pc : PitchClass.values()) {
+                if (pc.getName().equals(name)) {
+                    return pc;
+                }
+            }
+            return null;
+        }
+
+        public static PitchClass fromNormalizedName(String normalizedName) {
+            for (PitchClass pc : PitchClass.values()) {
+                if (pc.getNormalizedName().equals(normalizedName)) {
+                    return pc;
+                }
+            }
+            return null;
+        }
     }
 
     public String getName() {
-        return pitchClass().getNoteName() + octave().getNumber();
+        return pitchClass().getName() + octave().getNumber();
     }
 
     public String getNormalizedName() {
@@ -116,5 +143,32 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
 
     public static int totalPitchCount() {
         return PitchClass.values().length * (Octave.values().length - 1) + 1; // minus 1 because octave -1 has only F# to B and 8 has only C to F#, plus one for F#-1 or F#8, depending on how you count it
+    }
+
+    public static PipePitch fromNormalizedName(String normalizedName) {
+        String pcs = normalizedName.substring(0, normalizedName.lastIndexOf('_')).toLowerCase();
+        String octs = normalizedName.substring(pcs.length() + 1).toLowerCase();
+        return new PipePitch(PitchClass.fromNormalizedName(pcs), Octave.fromNormalizedName(octs));
+    }
+
+    public ItemStack getMappedItem() {
+        if (!isValid()) {
+            return ItemStack.EMPTY;
+        }
+        int index = this.octave().ordinal() * PitchClass.values().length + this.pitchClass().ordinal();
+        return PitchMapping.getStack(index);
+    }
+
+    public RedstoneLinkNetworkHandler.Frequency getMappedFrequency() {
+        if (!isValid()) {
+            return RedstoneLinkNetworkHandler.Frequency.EMPTY;
+        }
+        return RedstoneLinkNetworkHandler.Frequency.of(getMappedItem());
+    }
+
+    public static final PipePitch INVALID = new PipePitch(PitchClass.C, Octave.OCTAVE_n1); // not used for the pipes, so can represent an invalid pitch
+
+    public boolean isValid() {
+        return !(this.pitchClass() == PitchClass.C && this.octave() == Octave.OCTAVE_n1);
     }
 }
