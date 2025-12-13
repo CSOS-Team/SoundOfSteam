@@ -3,9 +3,9 @@
     "credit": "Made with Blockbench",
     "parent": "block/block",
     "textures": {
-        "redstone_antenna": "pipeorgans:block/musical_antenna",
-        "particle": "pipeorgans:block/musical_link_body",
-        "redstone_bridge_side": "pipeorgans:block/musical_link_body"
+        "redstone_antenna": "pipeorgans:block/note_antenna_powered",
+        "particle": "pipeorgans:block/note_link_body_powered",
+        "redstone_bridge_side": "pipeorgans:block/note_link_body_powered"
     },
     "elements": [
         {
@@ -427,6 +427,39 @@
                         4
                     ],
                     "texture": "#redstone_bridge_side"
+                }
+            }
+        },
+        {
+            "name": "Dish",
+            "from": [
+                2,
+                1,
+                -1
+            ],
+            "to": [
+                7,
+                6,
+                -1
+            ],
+            "faces": {
+                "north": {
+                    "uv": [
+                        4,
+                        0,
+                        9,
+                        5
+                    ],
+                    "texture": "#redstone_antenna"
+                },
+                "south": {
+                    "uv": [
+                        4,
+                        0,
+                        9,
+                        5
+                    ],
+                    "texture": "#redstone_antenna"
                 }
             }
         }

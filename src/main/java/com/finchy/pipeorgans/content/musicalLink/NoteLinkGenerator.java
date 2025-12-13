@@ -8,16 +8,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.ModelFile;
 
-public class MusicalLinkGenerator extends SpecialBlockStateGen {
+public class NoteLinkGenerator extends SpecialBlockStateGen {
     @Override
     protected int getXRotation(BlockState state) {
-        Direction facing = state.getValue(MusicalLinkBlock.FACING);
+        Direction facing = state.getValue(NoteLinkBlock.FACING);
         return facing == Direction.UP ? 0 : facing == Direction.DOWN ? 180 : 270;
     }
 
     @Override
     protected int getYRotation(BlockState state) {
-        Direction facing = state.getValue(MusicalLinkBlock.FACING);
+        Direction facing = state.getValue(NoteLinkBlock.FACING);
         return facing.getAxis()
                 .isVertical() ? 180 : horizontalAngle(facing);
     }
@@ -25,12 +25,12 @@ public class MusicalLinkGenerator extends SpecialBlockStateGen {
     @Override
     public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov,
                                                 BlockState state) {
-        String variant = state.getValue(MusicalLinkBlock.RECEIVER) ? "receiver" : "transmitter";
-        if (state.getValue(MusicalLinkBlock.FACING).getAxis().isHorizontal())
+        String variant = state.getValue(NoteLinkBlock.RECEIVER) ? "receiver" : "transmitter";
+        if (state.getValue(NoteLinkBlock.FACING).getAxis().isHorizontal())
             variant += "_vertical";
-        if (state.getValue(MusicalLinkBlock.POWERED))
+        if (state.getValue(NoteLinkBlock.POWERED))
             variant += "_powered";
 
-        return prov.models().getExistingFile(prov.modLoc("block/musical_link/" + variant));
+        return prov.models().getExistingFile(prov.modLoc("block/note_link/" + variant));
     }
 }

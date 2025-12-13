@@ -5,8 +5,8 @@ import com.finchy.pipeorgans.content.base.BaseBlock;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlock;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
-import com.finchy.pipeorgans.content.musicalLink.MusicalLinkBlock;
-import com.finchy.pipeorgans.content.musicalLink.MusicalLinkGenerator;
+import com.finchy.pipeorgans.content.musicalLink.NoteLinkBlock;
+import com.finchy.pipeorgans.content.musicalLink.NoteLinkGenerator;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornBlock;
@@ -349,12 +349,12 @@ public class AllBlocks {
             BlockTags.MINEABLE_WITH_PICKAXE);
 
     @SuppressWarnings("removal")
-    public static final BlockEntry<MusicalLinkBlock> MUSICAL_LINK = REGISTRATE.block("musical_link", MusicalLinkBlock::new)
+    public static final BlockEntry<NoteLinkBlock> NOTE_LINK = REGISTRATE.block("note_link", NoteLinkBlock::new)
             .initialProperties(() -> Blocks.SPRUCE_PLANKS)
             .properties(p -> p.mapColor(MapColor.TERRACOTTA_BROWN).forceSolidOn())
             .transform(axeOrPickaxe())
             .tag(com.simibubi.create.AllTags.AllBlockTags.BRITTLE.tag, com.simibubi.create.AllTags.AllBlockTags.SAFE_NBT.tag)
-            .blockstate(new MusicalLinkGenerator()::generate)
+            .blockstate(new NoteLinkGenerator()::generate)
             .addLayer(() -> RenderType::cutoutMipped)   // Marked as deprecated but Create also uses it with the same version of Registrate, so... idc
             .item()
             .transform(customItemModel("_", "transmitter"))

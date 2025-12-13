@@ -19,11 +19,11 @@ import net.minecraft.world.level.Level;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 
-public class MusicalLinkBehaviour extends BlockEntityBehaviour implements IRedstoneLinkable, ClipboardCloneable {
+public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstoneLinkable, ClipboardCloneable {
 
-    public static final BehaviourType<MusicalLinkBehaviour> TYPE = new BehaviourType<>();
+    public static final BehaviourType<NoteLinkBehaviour> TYPE = new BehaviourType<>();
 
-    public MusicalLinkBehaviour(SmartBlockEntity be, IntSupplier transmitter, IntConsumer receiver) {
+    public NoteLinkBehaviour(SmartBlockEntity be, IntSupplier transmitter, IntConsumer receiver) {
         super(be);
         this.transmitter = transmitter;
         this.receiver = receiver;

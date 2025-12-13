@@ -11,7 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
-public class MusicalLinkEventHandler {
+public class NoteLinkEventHandler {
     @SubscribeEvent
     public static void onBlockActivated(PlayerInteractEvent.RightClickBlock event) {
         Level level = event.getLevel();
@@ -22,11 +22,11 @@ public class MusicalLinkEventHandler {
         if (player.isSpectator()) return;
 
         BlockState bs = level.getBlockState(pos);
-        if (!(bs.getBlock() instanceof MusicalLinkBlock musicalLinkBlock)) return;
+        if (!(bs.getBlock() instanceof NoteLinkBlock noteLinkBlock)) return;
 
         if (player.isShiftKeyDown()) {
             if (held.isEmpty()) {
-                if (musicalLinkBlock.onEmptyHandShiftUse(bs, level, pos) == InteractionResult.SUCCESS) {
+                if (noteLinkBlock.onEmptyHandShiftUse(bs, level, pos) == InteractionResult.SUCCESS) {
                     event.setCancellationResult(InteractionResult.SUCCESS);
                     event.setCanceled(true);
                 }

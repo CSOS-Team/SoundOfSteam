@@ -11,9 +11,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-public class MusicalLinkBlockEntity extends SmartBlockEntity {
+public class NoteLinkBlockEntity extends SmartBlockEntity {
 
-    public MusicalLinkBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public NoteLinkBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
@@ -22,7 +22,7 @@ public class MusicalLinkBlockEntity extends SmartBlockEntity {
     private int transmittedSignal;
     private boolean transmitter;
 
-    private MusicalLinkBehaviour link;
+    private NoteLinkBehaviour link;
 
     @Override
 	public void write(CompoundTag compound, boolean clientPacket) {
@@ -66,20 +66,20 @@ public class MusicalLinkBlockEntity extends SmartBlockEntity {
         if (level == null || level.isClientSide) return;
 
         BlockState bs = getBlockState();
-        if (!AllBlocks.MUSICAL_LINK.has(bs)) return;
+        if (!AllBlocks.NOTE_LINK.has(bs)) return;
 
         if (isTransmitterBlock() != transmitter) {
             transmitter = isTransmitterBlock();
-            link.changeMode(transmitter ? MusicalLinkBehaviour.Mode.TRANSMIT : MusicalLinkBehaviour.Mode.RECEIVE);
+            link.changeMode(transmitter ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE);
             updateSelfAndAttached(bs);
         }
 
         if (transmitter) return;
         if (level.isClientSide) return;
 
-        if ((receivedSignal > 0) != bs.getValue(MusicalLinkBlock.POWERED)) {
+        if ((receivedSignal > 0) != bs.getValue(NoteLinkBlock.POWERED)) {
             receivedSignalChanged = true;
-            level.setBlockAndUpdate(worldPosition, bs.cycle(MusicalLinkBlock.POWERED));
+            level.setBlockAndUpdate(worldPosition, bs.cycle(NoteLinkBlock.POWERED));
         }
 
         if (receivedSignalChanged) {
@@ -100,7 +100,7 @@ public class MusicalLinkBlockEntity extends SmartBlockEntity {
     public void updateSelfAndAttached(BlockState blockState) {
         if (level == null)
             return; // safety check, also so IDEA stops complaining
-        Direction attachedFace = blockState.getValue(MusicalLinkBlock.FACING)
+        Direction attachedFace = blockState.getValue(NoteLinkBlock.FACING)
                 .getOpposite();
         BlockPos attachedPos = worldPosition.relative(attachedFace);
         level.blockUpdated(worldPosition, level.getBlockState(worldPosition)
@@ -111,7 +111,7 @@ public class MusicalLinkBlockEntity extends SmartBlockEntity {
     }
 
     protected Boolean isTransmitterBlock() {
-        return !getBlockState().getValue(MusicalLinkBlock.RECEIVER);
+        return !getBlockState().getValue(NoteLinkBlock.RECEIVER);
     }
 
     public int getReceivedSignal() {
@@ -120,7 +120,7 @@ public class MusicalLinkBlockEntity extends SmartBlockEntity {
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
-        behaviours.add(link = new MusicalLinkBehaviour(this,
+        behaviours.add(link = new NoteLinkBehaviour(this,
                         this::getTransmittedSignal,
                         this::setReceivedSignal));
     }

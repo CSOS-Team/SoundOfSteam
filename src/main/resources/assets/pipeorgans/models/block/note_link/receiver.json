@@ -2,9 +2,9 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"1": "pipeorgans:block/musical_link_body",
-		"redstone_antenna": "pipeorgans:block/musical_antenna",
-		"particle": "pipeorgans:block/musical_link_body"
+		"1": "pipeorgans:block/note_link_body",
+		"redstone_antenna": "pipeorgans:block/note_antenna",
+		"particle": "pipeorgans:block/note_link_body"
 	},
 	"elements": [
 		{

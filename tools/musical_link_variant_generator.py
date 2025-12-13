@@ -3,7 +3,7 @@
 import os
 import json
 
-SOURCE_DIR = "src/main/resources/assets/pipeorgans/models/block/musical_link"
+SOURCE_DIR = "src/main/resources/assets/pipeorgans/models/block/note_link"
 
 BASE_FILES = [
     "receiver.json",
@@ -11,8 +11,8 @@ BASE_FILES = [
 ]
 
 REPLACE_TEXTURES_POWERED = [
-    ("pipeorgans:block/musical_link_body", "pipeorgans:block/musical_link_body_powered"),
-    ("pipeorgans:block/musical_antenna", "pipeorgans:block/musical_antenna_powered"),
+    ("pipeorgans:block/note_link_body", "pipeorgans:block/note_link_body_powered"),
+    ("pipeorgans:block/note_antenna", "pipeorgans:block/note_antenna_powered"),
 ]
 
 def main():

@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pipeorgans:musical_link"
+          "name": "pipeorgans:note_link"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "pipeorgans:blocks/musical_link"
+  "random_sequence": "pipeorgans:blocks/note_link"
 }

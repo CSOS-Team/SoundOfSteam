@@ -30,13 +30,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
-public class MusicalLinkBlock extends WrenchableDirectionalBlock implements IBE<MusicalLinkBlockEntity> {
+public class NoteLinkBlock extends WrenchableDirectionalBlock implements IBE<NoteLinkBlockEntity> {
 
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty RECEIVER = BooleanProperty.create("receiver");
 
 
-    public MusicalLinkBlock(Properties properties) {
+    public NoteLinkBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
                 .setValue(POWERED, false)
@@ -99,13 +99,13 @@ public class MusicalLinkBlock extends WrenchableDirectionalBlock implements IBE<
     }
 
     @Override
-    public Class<MusicalLinkBlockEntity> getBlockEntityClass() {
-        return MusicalLinkBlockEntity.class;
+    public Class<NoteLinkBlockEntity> getBlockEntityClass() {
+        return NoteLinkBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends MusicalLinkBlockEntity> getBlockEntityType() {
-        return AllBlockEntities.MUSICAL_LINK_BLOCK_ENTITY.get();
+    public BlockEntityType<? extends NoteLinkBlockEntity> getBlockEntityType() {
+        return AllBlockEntities.NOTE_LINK_BLOCK_ENTITY.get();
     }
 
     @Override
@@ -209,7 +209,7 @@ public class MusicalLinkBlock extends WrenchableDirectionalBlock implements IBE<
     public int getSignal(BlockState state, @NotNull BlockGetter blockAccess, @NotNull BlockPos pos, @NotNull Direction side) {
         if (!state.getValue(RECEIVER))
             return 0;
-        return getBlockEntityOptional(blockAccess, pos).map(MusicalLinkBlockEntity::getReceivedSignal)
+        return getBlockEntityOptional(blockAccess, pos).map(NoteLinkBlockEntity::getReceivedSignal)
                 .orElse(0);
     }
 }
