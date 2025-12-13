@@ -39,6 +39,7 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.BASE.get());
                         output.accept(AllBlocks.WINDCHEST_MASTER.get());
                         output.accept(AllBlocks.WINDCHEST.get());
+                        output.accept(AllBlocks.MUSICAL_LINK.get());
                         output.accept(AllItems.BRASS_BOOT.get());
                         output.accept(AllItems.COPPER_BOOT.get());
                         output.accept(AllItems.IRON_BOOT.get());

@@ -10,6 +10,7 @@
     "pipeorgans:posaune",
     "pipeorgans:posaune_extension",
     "pipeorgans:subbass",
-    "pipeorgans:subbass_extension"
+    "pipeorgans:subbass_extension",
+    "pipeorgans:musical_link"
   ]
 }

@@ -7,6 +7,7 @@ import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarRenderer;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarVisual;
+import com.finchy.pipeorgans.content.musicalLink.MusicalLinkBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonRenderer;
 import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornBlockEntity;
@@ -40,6 +41,7 @@ import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteBlockEntity;
 import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteRenderer;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlockEntity;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaRenderer;
+import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockEntityBuilder;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
@@ -171,6 +173,12 @@ public class AllBlockEntities {
             VoxHumanaBlockEntity::new,
             AllBlocks.VOX_HUMANA,
             () -> VoxHumanaRenderer::new);
+
+    public static final BlockEntityEntry<MusicalLinkBlockEntity> MUSICAL_LINK_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("musical_link", MusicalLinkBlockEntity::new)
+            .validBlocks(AllBlocks.MUSICAL_LINK)
+            .renderer(() -> SmartBlockEntityRenderer::new)
+            .register();
 
     private static <T extends GenericPipeBlockEntity> BlockEntityEntry<T> registerPipeBlockEntity(
             String name, BlockEntityBuilder.BlockEntityFactory<T> factory, NonNullSupplier<? extends Block> block,

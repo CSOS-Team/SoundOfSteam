@@ -5,6 +5,8 @@ import com.finchy.pipeorgans.content.base.BaseBlock;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlock;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
+import com.finchy.pipeorgans.content.musicalLink.MusicalLinkBlock;
+import com.finchy.pipeorgans.content.musicalLink.MusicalLinkGenerator;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornBlock;
@@ -50,11 +52,13 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 
 import static com.simibubi.create.api.behaviour.display.DisplaySource.displaySource;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
@@ -343,6 +347,19 @@ public class AllBlocks {
             VoxHumanaExtensionBlock::new,
             () -> Blocks.COPPER_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
+
+    @SuppressWarnings("removal")
+    public static final BlockEntry<MusicalLinkBlock> MUSICAL_LINK = REGISTRATE.block("musical_link", MusicalLinkBlock::new)
+            .initialProperties(() -> Blocks.SPRUCE_PLANKS)
+            .properties(p -> p.mapColor(MapColor.TERRACOTTA_BROWN).forceSolidOn())
+            .transform(axeOrPickaxe())
+            .tag(com.simibubi.create.AllTags.AllBlockTags.BRITTLE.tag, com.simibubi.create.AllTags.AllBlockTags.SAFE_NBT.tag)
+            .blockstate(new MusicalLinkGenerator()::generate)
+            .addLayer(() -> RenderType::cutoutMipped)   // Marked as deprecated but Create also uses it with the same version of Registrate, so... idc
+            .item()
+            .transform(customItemModel("_", "transmitter"))
+            .register();
+
 
     private static <T extends GenericPipeBlock> BlockEntry<T> registerPipeBlock(
             String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
