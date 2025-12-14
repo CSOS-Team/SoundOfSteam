@@ -1,0 +1,17 @@
+{
+  "display": {
+    "icon": {
+      "item": "pipeorgans:haunted_whistle"
+    },
+    "title": {
+      "translate": "advancement.pipeorgans.haunted_whistle"
+    },
+    "description": {
+      "translate": "advancement.pipeorgans.haunted_whistle.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "pipeorgans:pipebase"
+}

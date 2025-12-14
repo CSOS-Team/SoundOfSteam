@@ -522,7 +522,59 @@
     ]
   },
 
+  "open_wood_superhigh": {
+    "subtitle": "sounds.pipeorgans.open_wood_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:open_wood/ow_superhigh"
+      }
+    ]
+  },
 
+  "open_wood_high": {
+    "subtitle": "sounds.pipeorgans.open_wood_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:open_wood/ow_high"
+      }
+    ]
+  },
+  "open_wood_medium": {
+    "subtitle": "sounds.pipeorgans.open_wood_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:open_wood/ow_medium"
+      }
+    ]
+  },
+
+  "open_wood_low": {
+    "subtitle": "sounds.pipeorgans.open_wood_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:open_wood/ow_low"
+      }
+    ]
+  },
+
+  "open_wood_deep": {
+    "subtitle": "sounds.pipeorgans.open_wood_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:open_wood/ow_deep"
+      }
+    ]
+  },
 
   "trompette_superhigh": {
     "subtitle": "sounds.pipeorgans.trompette_superhigh",

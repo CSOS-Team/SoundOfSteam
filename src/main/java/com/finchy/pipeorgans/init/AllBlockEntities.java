@@ -22,6 +22,8 @@ import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteBlockEntity;
 import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteRenderer;
 import com.finchy.pipeorgans.content.pipes.nasard.NasardBlockEntity;
 import com.finchy.pipeorgans.content.pipes.nasard.NasardRenderer;
+import com.finchy.pipeorgans.content.pipes.openWood.OpenWoodBlockEntity;
+import com.finchy.pipeorgans.content.pipes.openWood.OpenWoodRenderer;
 import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloBlockEntity;
 import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloRenderer;
 import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlockEntity;
@@ -141,6 +143,12 @@ public class AllBlockEntities {
             SubbassBlockEntity::new,
             AllBlocks.SUBBASS,
             () -> SubbassRenderer::new);
+
+    public static final BlockEntityEntry<OpenWoodBlockEntity> OPEN_WOOD_BLOCK_ENTITY = registerPipeBlockEntity(
+            "open_wood_block_entity",
+            OpenWoodBlockEntity::new,
+            AllBlocks.OPEN_WOOD,
+            () -> OpenWoodRenderer::new);
 
     public static final BlockEntityEntry<TrompetteBlockEntity> TROMPETTE_BLOCK_ENTITY = registerPipeBlockEntity(
             "trompette_block_entity",

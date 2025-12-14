@@ -11,6 +11,8 @@ import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornBlock;
 import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.hauntedWhistle.HauntedWhistleBlock;
 import com.finchy.pipeorgans.content.pipes.hauntedWhistle.HauntedWhistleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.openWood.OpenWoodBlock;
+import com.finchy.pipeorgans.content.pipes.openWood.OpenWoodExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.prestant.PrestantBlock;
 import com.finchy.pipeorgans.content.pipes.prestant.PrestantExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaBlock;
@@ -277,6 +279,19 @@ public class AllBlocks {
             "subbass_extension",
             SubbassExtensionBlock::new,
             () -> Blocks.DARK_OAK_PLANKS,
+            BlockTags.MINEABLE_WITH_AXE);
+
+    public static final BlockEntry<OpenWoodBlock> OPEN_WOOD = registerPipeBlock(
+            "open_wood",
+            OpenWoodBlock::new,
+            () -> Blocks.MANGROVE_PLANKS,
+            StopSize.SIXTEEN,
+            BlockTags.MINEABLE_WITH_AXE);
+
+    public static final BlockEntry<OpenWoodExtensionBlock> OPEN_WOOD_EXTENSION = registerExtensionBlock(
+            "open_wood_extension",
+            OpenWoodExtensionBlock::new,
+            () -> Blocks.MANGROVE_PLANKS,
             BlockTags.MINEABLE_WITH_AXE);
 
     public static final BlockEntry<TrompetteBlock> TROMPETTE = registerPipeBlock(

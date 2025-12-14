@@ -74,6 +74,12 @@ public class AllSoundEvents {
      SUBBASS_LOW = registerSoundEvent("subbass_low"),
      SUBBASS_DEEP = registerSoundEvent("subbass_deep"),
 
+    OPEN_WOOD_SUPERHIGH = registerSoundEvent("open_wood_superhigh"),
+    OPEN_WOOD_HIGH = registerSoundEvent("open_wood_high"),
+    OPEN_WOOD_MEDIUM = registerSoundEvent("open_wood_medium"),
+    OPEN_WOOD_LOW = registerSoundEvent("open_wood_low"),
+    OPEN_WOOD_DEEP = registerSoundEvent("open_wood_deep"),
+
      TROMPETTE_SUPERHIGH = registerSoundEvent("trompette_superhigh"),
      TROMPETTE_HIGH = registerSoundEvent("trompette_high"),
      TROMPETTE_MEDIUM = registerSoundEvent("trompette_medium"),

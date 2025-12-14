@@ -10,6 +10,8 @@
     "pipeorgans:posaune",
     "pipeorgans:posaune_extension",
     "pipeorgans:subbass",
-    "pipeorgans:subbass_extension"
+    "pipeorgans:subbass_extension",
+    "pipeorgans:open_wood",
+    "pipeorgans:open_wood_extension"
   ]
 }
