@@ -2,9 +2,12 @@ package com.finchy.pipeorgans.util;
 
 import com.finchy.pipeorgans.midi.PitchMapping;
 import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Stream;
 
 public record PipePitch(PitchClass pitchClass, Octave octave) {
 
@@ -37,6 +40,10 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
             return Integer.toString(number);
         }
 
+        public Component getComponentName() {
+            return Component.translatableWithFallback("pipeorgans.octave." + getNormalizedName(), String.valueOf(getNumber()));
+        }
+
         public Octave next() {
             int nextOrdinal = this.ordinal() + 1;
             if (nextOrdinal >= Octave.values().length) {
@@ -51,6 +58,10 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
 
         public static Octave fromNormalizedName(String normalizedName) {
             return Octave.valueOf("OCTAVE_" + normalizedName);
+        }
+
+        public static List<Component> getAllComponents() {
+            return Stream.of(values()).map(Octave::getComponentName).toList();
         }
     }
 
@@ -90,6 +101,10 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
             return PitchClass.values()[nextOrdinal];
         }
 
+        public Component getComponentName() {
+            return Component.translatableWithFallback("pipeorgans.pitch_class." + getNormalizedName(), getName());
+        }
+
         public static PitchClass fromName(String name) {
             for (PitchClass pc : PitchClass.values()) {
                 if (pc.getName().equals(name)) {
@@ -106,6 +121,10 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
                 }
             }
             return null;
+        }
+
+        public static List<Component> getAllComponents() {
+            return Stream.of(values()).map(PitchClass::getComponentName).toList();
         }
     }
 
@@ -170,5 +189,9 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
 
     public boolean isValid() {
         return !(this.pitchClass() == PitchClass.C && this.octave() == Octave.OCTAVE_n1);
+    }
+
+    public PipePitch copy() {
+        return new PipePitch(this.pitchClass(), this.octave());
     }
 }

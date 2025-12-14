@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.musicalLink;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.util.PipePitch;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.equipment.clipboard.ClipboardCloneable;
@@ -79,12 +80,20 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
         ItemStack is = stack.copy();
         is.setCount(1);
         this.keyFrequency = RedstoneLinkNetworkHandler.Frequency.of(is);
-        if (inNetwork) updateNetworkConnection();
+        PipeOrgans.LOGGER.debug("NoteLinkBehaviour changed key frequency to {}", keyFrequency.getStack());
+        if (inNetwork) {
+            updateNetworkConnection();
+            PipeOrgans.LOGGER.debug("NoteLinkBehaviour updated network connection after key frequency change");
+        }
     }
 
     public void changePitch(PipePitch pitch) {
         this.pitch = pitch;
-        if (inNetwork) updateNetworkConnection();
+        PipeOrgans.LOGGER.debug("NoteLinkBehaviour changed pitch to {}", pitch.getNormalizedName());
+        if (inNetwork) {
+            updateNetworkConnection();
+            PipeOrgans.LOGGER.debug("NoteLinkBehaviour updated network connection after pitch change");
+        }
     }
 
     public void changeMode(Mode mode) {

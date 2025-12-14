@@ -11,8 +11,10 @@ import net.createmod.catnip.data.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
@@ -26,6 +28,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
@@ -86,6 +89,13 @@ public class NoteLinkBlock extends WrenchableDirectionalBlock implements IBE<Not
             level.setBlock(pos, state.setValue(RECEIVER, !wasReceiver), Block.UPDATE_ALL);
             return InteractionResult.SUCCESS;
         });
+    }
+
+    public InteractionResult onEmptyHandUse(BlockState state, Level level, BlockPos pos, Player player) {
+        if (level.isClientSide)
+            return InteractionResult.SUCCESS;
+        withBlockEntityDo(level, pos, be -> NetworkHooks.openScreen((ServerPlayer) player, be, be::sendToMenu));
+        return InteractionResult.SUCCESS;
     }
 
     @Override

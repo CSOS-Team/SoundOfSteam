@@ -1,17 +1,28 @@
 package com.finchy.pipeorgans.content.musicalLink;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.init.AllBlocks;
+import com.finchy.pipeorgans.util.PipePitch;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class NoteLinkBlockEntity extends SmartBlockEntity {
+public class NoteLinkBlockEntity extends SmartBlockEntity implements MenuProvider {
 
     public NoteLinkBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -21,6 +32,9 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
     private int receivedSignal;
     private int transmittedSignal;
     private boolean transmitter;
+
+    private ItemStack key = ItemStack.EMPTY;
+    private PipePitch pitch = PipePitch.INVALID;
 
     private NoteLinkBehaviour link;
 
@@ -123,5 +137,44 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
         behaviours.add(link = new NoteLinkBehaviour(this,
                         this::getTransmittedSignal,
                         this::setReceivedSignal));
+    }
+
+    @Override
+    public @NotNull Component getDisplayName() {
+        return Component.translatable("gui.pipeorgans.note_link");
+    }
+
+    @Override
+    public @Nullable AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+        return NoteLinkMenu.create(pContainerId, pPlayerInventory, this);
+    }
+
+    public void reset() {
+        transmittedSignal = 0;
+        receivedSignal = 0;
+        receivedSignalChanged = false;
+        link.changeKeyFrequency(ItemStack.EMPTY);
+        link.changePitch(PipePitch.INVALID);
+    }
+
+    public ItemStack getKey() {
+        return key;
+    }
+
+    public void setKey(ItemStack key) {
+        this.key = key;
+        key.setCount(1);
+        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.setKey: key set to {}", key);
+        link.changeKeyFrequency(key);
+    }
+
+    public PipePitch getPitch() {
+        return pitch;
+    }
+
+    public void setPitch(PipePitch pitch) {
+        this.pitch = pitch;
+        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.setPitch: pitch set to {}", pitch);
+        link.changePitch(pitch);
     }
 }
