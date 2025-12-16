@@ -7,6 +7,8 @@ import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarRenderer;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarVisual;
+import com.finchy.pipeorgans.content.pipes.bassoon.BassoonBlockEntity;
+import com.finchy.pipeorgans.content.pipes.bassoon.BassoonRenderer;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonRenderer;
 import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornBlockEntity;
@@ -137,6 +139,12 @@ public class AllBlockEntities {
             PosauneBlockEntity::new,
             AllBlocks.POSAUNE,
             () -> PosauneRenderer::new);
+
+    public static final BlockEntityEntry<BassoonBlockEntity> BASSOON_BLOCK_ENTITY = registerPipeBlockEntity(
+            "bassoon_block_entity",
+            BassoonBlockEntity::new,
+            AllBlocks.BASSOON,
+            () -> BassoonRenderer::new);
 
     public static final BlockEntityEntry<SubbassBlockEntity> SUBBASS_BLOCK_ENTITY = registerPipeBlockEntity(
             "subbass_block_entity",

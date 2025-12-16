@@ -5,6 +5,8 @@ import com.finchy.pipeorgans.content.base.BaseBlock;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlock;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
+import com.finchy.pipeorgans.content.pipes.bassoon.BassoonBlock;
+import com.finchy.pipeorgans.content.pipes.bassoon.BassoonExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornBlock;
@@ -267,6 +269,19 @@ public class AllBlocks {
             PosauneExtensionBlock::new,
             () -> Blocks.DARK_OAK_PLANKS,
             BlockTags.MINEABLE_WITH_AXE);
+
+    public static final BlockEntry<BassoonBlock> BASSOON = registerPipeBlock(
+            "bassoon",
+            BassoonBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            StopSize.SIXTEEN,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<BassoonExtensionBlock> BASSOON_EXTENSION = registerExtensionBlock(
+            "bassoon_extension",
+            BassoonExtensionBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
     public static final BlockEntry<SubbassBlock> SUBBASS = registerPipeBlock(
             "subbass",

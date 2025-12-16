@@ -104,6 +104,12 @@ public class AllSoundEvents {
      POSAUNE_LOW = registerSoundEvent("posaune_low"),
      POSAUNE_DEEP = registerSoundEvent("posaune_deep"),
 
+    BASSOON_SUPERHIGH = registerSoundEvent("bassoon_superhigh"),
+    BASSOON_HIGH = registerSoundEvent("bassoon_high"),
+    BASSOON_MEDIUM = registerSoundEvent("bassoon_medium"),
+    BASSOON_LOW = registerSoundEvent("bassoon_low"),
+    BASSOON_DEEP = registerSoundEvent("bassoon_deep"),
+
      VOX_HUMANA_SUPERHIGH = registerSoundEvent("vox_humana_superhigh"),
      VOX_HUMANA_HIGH = registerSoundEvent("vox_humana_high"),
      VOX_HUMANA_MEDIUM = registerSoundEvent("vox_humana_medium"),

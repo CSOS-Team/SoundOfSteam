@@ -96,6 +96,12 @@ public class AllPartialModels {
     POSAUNE_MOUTH_LARGE = block("posaune/posaune_large_mouth"),
     POSAUNE_MOUTH_HUGE = block("posaune/posaune_huge_mouth"),
 
+    BASSOON_MOUTH_TINY = block("bassoon/bassoon_tiny_mouth"),
+    BASSOON_MOUTH_SMALL = block("bassoon/bassoon_small_mouth"),
+    BASSOON_MOUTH_MEDIUM = block("bassoon/bassoon_medium_mouth"),
+    BASSOON_MOUTH_LARGE = block("bassoon/bassoon_large_mouth"),
+    BASSOON_MOUTH_HUGE = block("bassoon/bassoon_huge_mouth"),
+
     VOX_HUMANA_MOUTH_TINY = block("vox_humana/vox_humana_tiny_mouth"),
     VOX_HUMANA_MOUTH_SMALL = block("vox_humana/vox_humana_small_mouth"),
     VOX_HUMANA_MOUTH_MEDIUM = block("vox_humana/vox_humana_medium_mouth"),

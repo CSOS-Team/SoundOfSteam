@@ -1,0 +1,33 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/basoon",
+		"particle": "pipeorgans:block/particle/bassoon_particle"
+	},
+	"elements": [
+		{
+			"from": [6, 0, 6],
+			"to": [10, 16, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 0, 6]},
+			"faces": {
+				"north": {"uv": [0.5, 2.75, 1, 4.75], "texture": "#0"},
+				"east": {"uv": [0.5, 2.75, 1, 4.75], "texture": "#0"},
+				"south": {"uv": [0.5, 2.75, 1, 4.75], "texture": "#0"},
+				"west": {"uv": [0.5, 2.75, 1, 4.75], "texture": "#0"}
+			}
+		},
+		{
+			"from": [6, 16, 6],
+			"to": [10, 17, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 1, 6]},
+			"faces": {
+				"north": {"uv": [0.5, 2.625, 1, 2.75], "texture": "#0"},
+				"east": {"uv": [0.5, 2.625, 1, 2.75], "texture": "#0"},
+				"south": {"uv": [0.5, 2.625, 1, 2.75], "texture": "#0"},
+				"west": {"uv": [0.5, 2.625, 1, 2.75], "texture": "#0"},
+				"up": {"uv": [0.5, 6.375, 1, 6.875], "texture": "#0"}
+			}
+		}
+	]
+}

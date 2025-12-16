@@ -798,6 +798,61 @@
   },
 
 
+  "bassoon_superhigh": {
+    "subtitle": "sounds.pipeorgans.bassoon_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:bassoon/bs_superhigh"
+      }
+    ]
+  },
+
+  "bassoon_high": {
+    "subtitle": "sounds.pipeorgans.bassoon_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:bassoon/bs_high"
+      }
+    ]
+  },
+
+  "bassoon_medium": {
+    "subtitle": "sounds.pipeorgans.bassoon_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:bassoon/bs_medium"
+      }
+    ]
+  },
+
+  "bassoon_low": {
+    "subtitle": "sounds.pipeorgans.bassoon_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:bassoon/bs_low"
+      }
+    ]
+  },
+
+  "bassoon_deep": {
+    "subtitle": "sounds.pipeorgans.bassoon_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:bassoon/bs_deep"
+      }
+    ]
+  },
+
 
   "vox_humana_superhigh": {
     "subtitle": "sounds.pipeorgans.vox_humana_superhigh",
