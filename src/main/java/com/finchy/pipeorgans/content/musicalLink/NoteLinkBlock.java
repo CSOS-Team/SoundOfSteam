@@ -94,7 +94,8 @@ public class NoteLinkBlock extends WrenchableDirectionalBlock implements IBE<Not
     public InteractionResult onEmptyHandUse(BlockState state, Level level, BlockPos pos, Player player) {
         if (level.isClientSide)
             return InteractionResult.SUCCESS;
-        withBlockEntityDo(level, pos, be -> NetworkHooks.openScreen((ServerPlayer) player, be, be::sendToMenu));
+        // withBlockEntityDo(level, pos, be -> NetworkHooks.openScreen((ServerPlayer) player, be, be::sendToMenu)); // broken...
+
         return InteractionResult.SUCCESS;
     }
 

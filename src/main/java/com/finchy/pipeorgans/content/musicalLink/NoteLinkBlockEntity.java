@@ -16,13 +16,12 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class NoteLinkBlockEntity extends SmartBlockEntity implements MenuProvider {
+public class NoteLinkBlockEntity extends SmartBlockEntity {
 
     public NoteLinkBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -139,15 +138,15 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements MenuProvide
                         this::setReceivedSignal));
     }
 
-    @Override
-    public @NotNull Component getDisplayName() {
-        return Component.translatable("gui.pipeorgans.note_link");
-    }
-
-    @Override
-    public @Nullable AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return NoteLinkMenu.create(pContainerId, pPlayerInventory, this);
-    }
+//    @Override
+//    public @NotNull Component getDisplayName() {
+//        return Component.translatable("gui.pipeorgans.note_link");
+//    }
+//
+//    @Override
+//    public @Nullable AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+//        return NoteLinkMenu.create(pContainerId, pPlayerInventory, this);
+//    }
 
     public void reset() {
         transmittedSignal = 0;

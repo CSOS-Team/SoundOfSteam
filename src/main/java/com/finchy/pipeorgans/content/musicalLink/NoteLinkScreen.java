@@ -21,6 +21,11 @@ import net.minecraft.world.entity.player.Inventory;
 
 import java.util.List;
 
+/*
+* For the time being, I cannot get this to work nicely, probably because of client-server syncing issues.
+* So this GUI is currently non-functional, I''m pivoting to in-world inputs for now...
+ */
+
 public class NoteLinkScreen extends AbstractSimiContainerScreen<NoteLinkMenu> {
     public static final ResourceLocation GUI_TEXTURE = PipeOrgans.asResource("textures/gui/note_link.png");
     public static final int GUI_WIDTH = 227;
@@ -87,9 +92,7 @@ public class NoteLinkScreen extends AbstractSimiContainerScreen<NoteLinkMenu> {
 
         confirmButton =
                 new IconButton(x + MAIN_WINDOW_WIDTH - 33, y + MAIN_WINDOW_HEIGHT - 26, AllIcons.I_CONFIRM);
-        confirmButton.withCallback(() -> {
-            menu.saveData(blockEntity);
-        });
+        confirmButton.withCallback(this::confirm);
         addRenderableWidget(confirmButton);
     }
 
@@ -121,5 +124,10 @@ public class NoteLinkScreen extends AbstractSimiContainerScreen<NoteLinkMenu> {
                 .<GuiGameElement.GuiRenderBuilder>at(x + REDSTONE_LINK_DISPLAY_X, y + REDSTONE_LINK_DISPLAY_Y, -200)
                 .scale(3)
                 .render(pGuiGraphics);
+    }
+
+    protected void confirm() {
+        menu.saveData(blockEntity);
+        onClose();
     }
 }
