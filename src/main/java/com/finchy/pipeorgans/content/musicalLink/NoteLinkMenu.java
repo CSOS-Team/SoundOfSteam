@@ -43,9 +43,9 @@ public class NoteLinkMenu extends GhostItemMenu<NoteLinkBlockEntity> {
         super(type, id, inv, contentHolder);
     }
 
-    public static NoteLinkMenu create(int id, Inventory inv, NoteLinkBlockEntity be) {
-        return new NoteLinkMenu(AllMenuTypes.NOTE_LINK_MENU.get(), id, inv, be);
-    }
+//    public static NoteLinkMenu create(int id, Inventory inv, NoteLinkBlockEntity be) {
+//        return new NoteLinkMenu(AllMenuTypes.NOTE_LINK_MENU.get(), id, inv, be);
+//    }
 
     @Override
     protected ItemStackHandler createGhostInventory() {

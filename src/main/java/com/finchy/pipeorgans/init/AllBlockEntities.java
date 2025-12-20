@@ -41,7 +41,7 @@ import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteBlockEntity;
 import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteRenderer;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlockEntity;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaRenderer;
-import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
+import com.finchy.pipeorgans.infrastructure.rendering.VerySmartBlockEntityRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockEntityBuilder;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
@@ -177,7 +177,7 @@ public class AllBlockEntities {
     public static final BlockEntityEntry<NoteLinkBlockEntity> NOTE_LINK_BLOCK_ENTITY = REGISTRATE
             .blockEntity("note_link", NoteLinkBlockEntity::new)
             .validBlocks(AllBlocks.NOTE_LINK)
-            .renderer(() -> SmartBlockEntityRenderer::new)
+            .renderer(() -> VerySmartBlockEntityRenderer::new)
             .register();
 
     private static <T extends GenericPipeBlockEntity> BlockEntityEntry<T> registerPipeBlockEntity(

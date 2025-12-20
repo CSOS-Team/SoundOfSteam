@@ -325,5 +325,6 @@
   "sounds.pipeorgans.vox_humana_low": "Vox Humana groans",
   "sounds.pipeorgans.vox_humana_medium": "Vox Humana speaks",
   "sounds.pipeorgans.vox_humana_superhigh": "Vox Humana screeches",
-  "gui.pipeorgans.note_link": "Note Link"
+  "gui.pipeorgans.note_link": "Note Link",
+  "block.pipeorgans.note_link.key_slot.label": "Key Frequency"
 }

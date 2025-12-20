@@ -1,27 +1,70 @@
 package com.finchy.pipeorgans.content.musicalLink;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.infrastructure.itemValueBox.ItemValueBoxBehaviour;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.util.PipePitch;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Set;
 
 public class NoteLinkBlockEntity extends SmartBlockEntity {
+
+    public static final ValueBoxTransform KEY_SLOT_TRANSFORM = new ValueBoxTransform() {
+        // TODO: adjust to actual model, this is just a placeholder from the RedstoneLink
+        @Override
+        public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
+            Direction facing = state.getValue(NoteLinkBlock.FACING);
+            Vec3 location = VecHelper.voxelSpace(8f, 3.01f, 5.5f);
+
+            if (facing.getAxis().isHorizontal()) {
+                location = VecHelper.voxelSpace(8f, 5.5f, 3.01f);
+                return rotateHorizontally(state, location);
+            }
+
+            location = VecHelper.rotateCentered(location, facing == Direction.DOWN ? 180 : 0, Direction.Axis.X);
+            return location;
+        }
+
+        @Override
+        public void rotate(LevelAccessor level, BlockPos pos, BlockState state, PoseStack ms) {
+            Direction facing = state.getValue(NoteLinkBlock.FACING);
+            float yRot = facing.getAxis()
+                    .isVertical() ? 0 : AngleHelper.horizontalAngle(facing) + 180;
+            float xRot = facing == Direction.UP ? 90 : facing == Direction.DOWN ? 270 : 0;
+            TransformStack.of(ms)
+                    .rotateYDegrees(yRot)
+                    .rotateXDegrees(xRot);
+        }
+
+        @Override
+        public float getScale() {
+            return .4975f;
+        }
+    };
 
     public NoteLinkBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -36,6 +79,7 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
     private PipePitch pitch = PipePitch.INVALID;
 
     private NoteLinkBehaviour link;
+    private ItemValueBoxBehaviour keySlot;
 
     @Override
 	public void write(CompoundTag compound, boolean clientPacket) {
@@ -133,9 +177,22 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+        ItemValueBoxBehaviour.ItemValueBoxGroup keySlotGroup = new ItemValueBoxBehaviour.ItemValueBoxGroup(
+                Set.of(KEY_SLOT_TRANSFORM),
+                (held, player) -> {
+                    setKey(held);
+                    return InteractionResult.SUCCESS;
+                },
+                this::getKey,
+                Component.translatable("block.pipeorgans.note_link.key_slot.label"),
+                List.of()
+        );
+
         behaviours.add(link = new NoteLinkBehaviour(this,
                         this::getTransmittedSignal,
                         this::setReceivedSignal));
+
+        behaviours.add(keySlot = new ItemValueBoxBehaviour(this, List.of(keySlotGroup)));
     }
 
 //    @Override
