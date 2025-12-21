@@ -1,10 +1,7 @@
 package com.finchy.pipeorgans.network;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.network.packet.KBRMidiMessagePacket;
-import com.finchy.pipeorgans.network.packet.MidiUploadPacket;
-import com.finchy.pipeorgans.network.packet.NoteLinkUpdatePacket;
-import com.finchy.pipeorgans.network.packet.TrackerBarGUIPacket;
+import com.finchy.pipeorgans.network.packet.*;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -25,7 +22,9 @@ public enum AllPackets {
     MIDI_MESSAGE(KBRMidiMessagePacket.class, KBRMidiMessagePacket::new, PLAY_TO_SERVER),
     MIDI_UPLOAD(MidiUploadPacket.class, MidiUploadPacket::new, PLAY_TO_SERVER),
     TRACKER_BAR_GUI(TrackerBarGUIPacket.class, TrackerBarGUIPacket::new, PLAY_TO_SERVER),
-    NOTE_LINK_UPDATE(NoteLinkUpdatePacket.class, NoteLinkUpdatePacket::new, PLAY_TO_SERVER);
+    NOTE_LINK_UPDATE(NoteLinkUpdatePacket.class, NoteLinkUpdatePacket::new, PLAY_TO_SERVER),
+
+    REDSTONE_LINK_NETWORK_DEBUG_INFO(RedstoneLinkNetworkDebugInfoPacket.class, RedstoneLinkNetworkDebugInfoPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 
     public static final ResourceLocation CHANNEL_NAME = PipeOrgans.asResource("main");
     public static final int NETWORK_VERSION = 3;

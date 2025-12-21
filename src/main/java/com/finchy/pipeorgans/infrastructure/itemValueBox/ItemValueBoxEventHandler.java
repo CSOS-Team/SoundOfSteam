@@ -10,17 +10,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
 public class ItemValueBoxEventHandler {
+    @SubscribeEvent
     public static void onBlockActivated(PlayerInteractEvent.RightClickBlock event) {
         Level level = event.getLevel();
         BlockPos pos = event.getPos();
         Player player = event.getEntity();
         ItemStack held = event.getItemStack();
 
-        if (player.isSpectator()) return;
+        if (player.isSpectator() || player.isShiftKeyDown()) return;
         if (AllItems.WRENCH.isIn(held)) return;
 
         ItemValueBoxBehaviour behaviour = BlockEntityBehaviour.get(level, pos, ItemValueBoxBehaviour.TYPE);

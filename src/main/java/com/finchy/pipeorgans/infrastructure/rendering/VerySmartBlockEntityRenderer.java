@@ -15,6 +15,6 @@ public class VerySmartBlockEntityRenderer<T extends SmartBlockEntity> extends Sm
     @Override
     protected void renderSafe(T blockEntity, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         super.renderSafe(blockEntity, partialTicks, ms, buffer, light, overlay);
-        ItemValueBoxRenderer.renderOnBlockEntity(blockEntity, partialTicks, ms, buffer, light, overlay);
+        ItemValueBoxRenderer.renderOnBlockEntity(blockEntity, partialTicks, ms, buffer, light, overlay); // I needed to make a whole class just for this. (Wait, mixins?) TODO: maybe use a mixin instead? Is that overkill?
     }
 }

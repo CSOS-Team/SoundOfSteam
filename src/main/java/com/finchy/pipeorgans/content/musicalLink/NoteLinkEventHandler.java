@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.content.musicalLink;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -32,14 +31,15 @@ public class NoteLinkEventHandler {
                     event.setCanceled(true);
                 }
             }
-        } else {
-            if (held.isEmpty()) {
-                if (noteLinkBlock.onEmptyHandUse(bs, level, pos, player) == InteractionResult.SUCCESS) {
-                    event.setCancellationResult(InteractionResult.SUCCESS);
-                    event.setCanceled(true);
-                }
-            }
         }
+//        else {
+//            if (held.isEmpty()) {
+//                if (noteLinkBlock.onEmptyHandUse(bs, level, pos, player) == InteractionResult.SUCCESS) {
+//                    event.setCancellationResult(InteractionResult.SUCCESS);
+//                    event.setCanceled(true);
+//                }
+//            }
+//        }
 
     }
 }

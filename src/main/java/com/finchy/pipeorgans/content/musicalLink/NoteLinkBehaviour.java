@@ -19,7 +19,6 @@ import net.minecraft.world.level.Level;
 
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
-import java.util.function.Supplier;
 
 public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstoneLinkable, ClipboardCloneable {
 
@@ -71,35 +70,43 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
         Create.REDSTONE_LINK_NETWORK_HANDLER.updateNetworkOf(getWorld(), this);
     }
 
-    protected void updateNetworkConnection() {
+    protected void disconnectFromNetwork() {
         Create.REDSTONE_LINK_NETWORK_HANDLER.removeFromNetwork(getWorld(), this);
+        inNetwork = false;
+    }
+
+    protected void connectToNetwork() {
         blockEntity.sendData();
         Create.REDSTONE_LINK_NETWORK_HANDLER.addToNetwork(getWorld(), this);
+        inNetwork = true;
     }
 
     public void changeKeyFrequency(ItemStack stack) {
         ItemStack is = stack.copy();
         is.setCount(1);
+        if (inNetwork) disconnectFromNetwork();
         this.keyFrequency = RedstoneLinkNetworkHandler.Frequency.of(is);
         PipeOrgans.LOGGER.debug("NoteLinkBehaviour changed key frequency to {}", keyFrequency.getStack());
-        if (inNetwork) {
-            updateNetworkConnection();
+        if (!inNetwork) {
+            connectToNetwork();
             PipeOrgans.LOGGER.debug("NoteLinkBehaviour updated network connection after key frequency change");
         }
     }
 
     public void changePitch(PipePitch pitch) {
+        disconnectFromNetwork();
         this.pitch = pitch;
         PipeOrgans.LOGGER.debug("NoteLinkBehaviour changed pitch to {}", pitch.getNormalizedName());
-        if (inNetwork) {
-            updateNetworkConnection();
+        if (!inNetwork) {
+            connectToNetwork();
             PipeOrgans.LOGGER.debug("NoteLinkBehaviour updated network connection after pitch change");
         }
     }
 
     public void changeMode(Mode mode) {
+        if (inNetwork) disconnectFromNetwork();
         this.mode = mode;
-        if (inNetwork) updateNetworkConnection();
+        if (!inNetwork) connectToNetwork();
     }
 
     public void toggleMode() {
@@ -115,8 +122,7 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
         super.initialize();
         if (getWorld().isClientSide)
             return;
-        Create.REDSTONE_LINK_NETWORK_HANDLER.addToNetwork(getWorld(), this);
-        inNetwork = true;
+        connectToNetwork();
     }
 
     @Override
@@ -124,8 +130,7 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
         super.unload();
         if (getWorld().isClientSide)
             return;
-        Create.REDSTONE_LINK_NETWORK_HANDLER.removeFromNetwork(getWorld(), this);
-        inNetwork = false;
+        disconnectFromNetwork();
     }
 
     @Override
@@ -203,5 +208,6 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
         super.read(nbt,  clientPacket);
         keyFrequency = RedstoneLinkNetworkHandler.Frequency.of(ItemStack.of(nbt.getCompound("Key")));
         pitch = PipePitch.fromNormalizedName(nbt.getString("Pitch"));
+        PipeOrgans.LOGGER.debug("NoteLinkBehaviour read from NBT: keyFrequency={}, pitch={}, newPos={}", keyFrequency.getStack(), pitch.getNormalizedName(), newPos);
     }
 }
