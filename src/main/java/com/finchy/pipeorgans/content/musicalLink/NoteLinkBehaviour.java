@@ -35,11 +35,17 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
         RECEIVE
     }
 
+    // FIXME: The network setup seems to not work well on world load. Possible solutions:
+    // - Defer the link behaviour addition like the redstone link does it
+    // - Mixin to the network handler to apply the "one-to-one loading problem" fix implemented there for LinkBehavior
+    //   (see https://github.com/Creators-of-Create/Create/blob/mc1.20.1/dev/src/main/java/com/simibubi/create/content/redstone/link/RedstoneLinkNetworkHandler.java#L122)
+    // Both done, still seems to have issues. Needs further investigation.
+
     Mode mode = Mode.TRANSMIT;
     IntSupplier transmitter;
     IntConsumer receiver;
     RedstoneLinkNetworkHandler.Frequency keyFrequency = RedstoneLinkNetworkHandler.Frequency.EMPTY;
-    PipePitch pitch = PipePitch.INVALID;
+    PipePitch pitch = PipePitch.DEFAULT;
     boolean newPos;
     boolean inNetwork;
 
@@ -119,10 +125,12 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
 
     @Override
     public void initialize() {
+        PipeOrgans.LOGGER.debug("NoteLinkBehaviour initializing at {}", blockEntity.getBlockPos());
         super.initialize();
         if (getWorld().isClientSide)
             return;
         connectToNetwork();
+        newPos = true;
     }
 
     @Override
@@ -140,6 +148,7 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
 
     @Override
     public void setReceivedStrength(int power) {
+        if (!newPos) return;
         receiver.accept(power);
     }
 
@@ -182,6 +191,9 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
 
     public void ackNewPos() {
         this.newPos = false;
+    }
+    public void forceNewPos() {
+        this.newPos = true;
     }
 
     @Override

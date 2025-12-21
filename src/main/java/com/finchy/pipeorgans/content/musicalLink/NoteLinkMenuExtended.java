@@ -34,7 +34,7 @@ public class NoteLinkMenuExtended extends GhostItemMenu<NoteLinkBlockEntity> {
     public static final int PLAYER_INV_Y = NoteLinkScreen.GUI_HEIGHT + 22;
 
     protected ItemStack key = ItemStack.EMPTY;
-    protected PipePitch pitch = PipePitch.INVALID;
+    protected PipePitch pitch = PipePitch.DEFAULT;
 
     public NoteLinkMenuExtended(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
         super(type, id, inv, extraData);

@@ -1,10 +1,12 @@
 package com.finchy.pipeorgans.util;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.midi.PitchMapping;
 import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
+import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
@@ -50,6 +52,10 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
                 return null;
             }
             return Octave.values()[nextOrdinal];
+        }
+
+        public boolean isLessThan(Octave other) {
+            return this.number < other.number;
         }
 
         public static Octave fromNumber(int number) {
@@ -105,6 +111,14 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
             return Component.translatableWithFallback("pipeorgans.pitch_class." + getNormalizedName(), getName());
         }
 
+        public boolean isLessThanOrEqualTo(PitchClass other) {
+            return this.ordinal() <= other.ordinal();
+        }
+
+        public boolean isGreaterThanOrEqualTo(PitchClass other) {
+            return this.ordinal() >= other.ordinal();
+        }
+
         public static PitchClass fromName(String name) {
             for (PitchClass pc : PitchClass.values()) {
                 if (pc.getName().equals(name)) {
@@ -128,6 +142,100 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
         }
     }
 
+    public enum OctaveGroup { // maps to (most, damn you Nasard) the pipe size ranges for clarity / ease of use
+        GROUP_n1_to_0, // values are automatically assigned based on ordinal
+        GROUP_0_to_1,
+        GROUP_1_to_2,
+        GROUP_2_to_3,
+        GROUP_3_to_4,
+        GROUP_4_to_5,
+        GROUP_5_to_6,
+        GROUP_6_to_7,
+        GROUP_7_to_8,
+        GROUP_8_to_9 // not really used, just to make F#8 accessible
+        ;
+
+        private final PipePitch start;
+        private final PipePitch end;
+
+        OctaveGroup() {
+            start = new PipePitch(PitchClass.F_SHARP, Octave.values()[this.ordinal()]);
+
+            if (this.ordinal() + 1 >= Octave.values().length) {  // last group, just for F#8
+                end = new PipePitch(PitchClass.F_SHARP, Octave.OCTAVE_8);
+            } else {
+                end = new PipePitch(PitchClass.F, Octave.values()[this.ordinal() + 1]);
+            }
+        }
+
+        public Iterable<PipePitch> getPitches() {
+            return () -> new Iterator(start, end);
+        }
+
+        public PipePitch getStart() {
+            return start;
+        }
+
+        public PipePitch getEnd() {
+            return end;
+        }
+
+        public PipePitch getOffset(int offset) {
+            if (offset > 11) {
+                throw new IllegalArgumentException("Offset must be between 0 and 11");
+            }
+            int midiNumber = start.getMidiPitchNumber() + offset;
+            return PipePitch.fromMidiPitchNumber(midiNumber);
+        }
+
+        public Component getLabel() {
+            return Component.translatable("pipeorgans.octave_group.label", start.getName(), end.getName());
+        }
+
+        public static List<Component> getAllComponents() {
+            return Stream.of(values()).map(OctaveGroup::getLabel).toList();
+        }
+
+        public static List<Component> getAllFullComponents() { // excludes last group for easier use in UIs
+            return Stream.of(values()).limit(values().length - 1) // exclude last group
+                    .map(OctaveGroup::getLabel).toList();
+        }
+    }
+
+    public static class Iterator implements java.util.Iterator<PipePitch> {
+        private Octave currentOctave;
+        private PitchClass currentPitchClass;
+        private final PipePitch endPitch;
+
+        public Iterator() {
+            this(LOWEST, HIGHEST);
+        }
+
+        public Iterator(PipePitch start, PipePitch end) {
+            this.currentOctave = start.octave();
+            this.currentPitchClass = start.pitchClass();
+            this.endPitch = end;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentOctave.isLessThan(endPitch.octave()) ||
+                    (currentOctave == endPitch.octave() && currentPitchClass.isLessThanOrEqualTo(endPitch.pitchClass()));
+        }
+
+        @Override
+        public PipePitch next() {
+            PipePitch pitch = new PipePitch(currentPitchClass, currentOctave);
+            if (currentPitchClass == PitchClass.B) {
+                currentPitchClass = PitchClass.C;
+                currentOctave = currentOctave.next();
+            } else {
+                currentPitchClass = currentPitchClass.next();
+            }
+            return pitch;
+        }
+    }
+
     public String getName() {
         return pitchClass().getName() + octave().getNumber();
     }
@@ -137,27 +245,7 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
     }
 
     public static Iterable<PipePitch> allPipePitches() {
-        return () -> new Iterator<>() {
-            private Octave currentOctave = Octave.OCTAVE_n1;
-            private PitchClass currentPitchClass = PitchClass.F_SHARP;
-
-            @Override
-            public boolean hasNext() {
-                return currentOctave != Octave.OCTAVE_8 || currentPitchClass != PitchClass.G; // Allow the F#8 pitch to be included
-            }
-
-            @Override
-            public PipePitch next() {
-                PipePitch pitch = new PipePitch(currentPitchClass, currentOctave);
-                if (currentPitchClass == PitchClass.B) {
-                    currentPitchClass = PitchClass.C;
-                    currentOctave = currentOctave.next();
-                } else {
-                    currentPitchClass = currentPitchClass.next();
-                }
-                return pitch;
-            }
-        };
+        return Iterator::new;
     }
 
     public static int totalPitchCount() {
@@ -170,25 +258,61 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
         return new PipePitch(PitchClass.fromNormalizedName(pcs), Octave.fromNormalizedName(octs));
     }
 
-    public ItemStack getMappedItem() {
-        if (!isValid()) {
-            return ItemStack.EMPTY;
+    public int getMidiPitchNumber() {
+        return this.octave().ordinal() * PitchClass.values().length + this.pitchClass().ordinal();
+    }
+
+    public int getPitchIndex() { // index relative to the lowest pitch, useful for UIs
+        return getMidiPitchNumber() - LOWEST.getMidiPitchNumber();
+    }
+
+    public OctaveGroup getOctaveGroup() {
+        int groupIndex = this.octave().ordinal() - 1;
+        if (this.pitchClass().isGreaterThanOrEqualTo(PitchClass.F_SHARP)) groupIndex++;
+        if (groupIndex < 0 || groupIndex >= OctaveGroup.values().length) {
+            return null;
         }
-        int index = this.octave().ordinal() * PitchClass.values().length + this.pitchClass().ordinal();
+        return OctaveGroup.values()[groupIndex];
+    }
+
+    public ItemStack getMappedItem() {
+        int index = getMidiPitchNumber();
         return PitchMapping.getStack(index);
     }
 
     public RedstoneLinkNetworkHandler.Frequency getMappedFrequency() {
-        if (!isValid()) {
-            return RedstoneLinkNetworkHandler.Frequency.EMPTY;
-        }
         return RedstoneLinkNetworkHandler.Frequency.of(getMappedItem());
     }
 
-    public static final PipePitch INVALID = new PipePitch(PitchClass.C, Octave.OCTAVE_n1); // not used for the pipes, so can represent an invalid pitch
+    public static final PipePitch LOWEST = new PipePitch(PitchClass.F_SHARP, Octave.OCTAVE_n1);
+    public static final PipePitch HIGHEST = new PipePitch(PitchClass.F_SHARP, Octave.OCTAVE_8);
+    public static final PipePitch DEFAULT = LOWEST;
 
-    public boolean isValid() {
-        return !(this.pitchClass() == PitchClass.C && this.octave() == Octave.OCTAVE_n1);
+    @Nullable
+    public static PipePitch fromMidiPitchNumber(int midiPitchNumber) {
+        if (midiPitchNumber < LOWEST.getMidiPitchNumber() || midiPitchNumber > HIGHEST.getMidiPitchNumber()) {
+            return null;
+        }
+        int octaveIndex = midiPitchNumber / PitchClass.values().length;
+        int pitchClassIndex = midiPitchNumber % PitchClass.values().length;
+        return new PipePitch(PitchClass.values()[pitchClassIndex], Octave.values()[octaveIndex]);
+    }
+
+    @Nullable
+    public static PipePitch fromPitchIndex(int pitchIndex) {
+        return fromMidiPitchNumber(pitchIndex + LOWEST.getMidiPitchNumber());
+    }
+
+    public static PipePitch fromIndices(int pitchClassIndex, int octaveIndex) {
+        return new PipePitch(PitchClass.values()[pitchClassIndex], Octave.values()[octaveIndex]);
+    }
+
+    public static PipePitch fromOctaveGroupAndOffset(OctaveGroup group, int offset) {
+        return group.getOffset(offset);
+    }
+
+    public static PipePitch fromOctaveGroupAndOffset(int groupIndex, int offset) {
+        return fromOctaveGroupAndOffset(OctaveGroup.values()[groupIndex], offset);
     }
 
     public PipePitch copy() {

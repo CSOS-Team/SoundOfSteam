@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.content.musicalLink;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.infrastructure.itemValueBox.ItemValueBoxBehaviour;
+import com.finchy.pipeorgans.infrastructure.pipePitchScrollValue.PipePitchScrollValueBehaviour;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.util.PipePitch;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -16,17 +17,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Set;
@@ -38,10 +33,10 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
         @Override
         public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
             Direction facing = state.getValue(NoteLinkBlock.FACING);
-            Vec3 location = VecHelper.voxelSpace(8f, 3.01f, 5.5f);
+            Vec3 location = VecHelper.voxelSpace(8f, 3.01f, 11f);
 
             if (facing.getAxis().isHorizontal()) {
-                location = VecHelper.voxelSpace(8f, 5.5f, 3.01f);
+                location = VecHelper.voxelSpace(8f, 11f, 3.01f);
                 return rotateHorizontally(state, location);
             }
 
@@ -60,9 +55,36 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
                     .rotateXDegrees(xRot);
         }
 
+//        @Override
+//        public float getScale() {
+//            return .4975f;
+//        }
+    };
+    public static final ValueBoxTransform PITCH_SLOT_TRANSFORM = new ValueBoxTransform() {
+        // TODO: adjust to actual model, this is just a placeholder from the RedstoneLink
         @Override
-        public float getScale() {
-            return .4975f;
+        public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
+            Direction facing = state.getValue(NoteLinkBlock.FACING);
+            Vec3 location = VecHelper.voxelSpace(8f, 3.01f, 6f);
+
+            if (facing.getAxis().isHorizontal()) {
+                location = VecHelper.voxelSpace(8f, 6f, 3.01f);
+                return rotateHorizontally(state, location);
+            }
+
+            location = VecHelper.rotateCentered(location, facing == Direction.DOWN ? 180 : 0, Direction.Axis.X);
+            return location;
+        }
+
+        @Override
+        public void rotate(LevelAccessor level, BlockPos pos, BlockState state, PoseStack ms) {
+            Direction facing = state.getValue(NoteLinkBlock.FACING);
+            float yRot = facing.getAxis()
+                    .isVertical() ? 0 : AngleHelper.horizontalAngle(facing) + 180;
+            float xRot = facing == Direction.UP ? 90 : facing == Direction.DOWN ? 270 : 0;
+            TransformStack.of(ms)
+                    .rotateYDegrees(yRot)
+                    .rotateXDegrees(xRot);
         }
     };
 
@@ -76,10 +98,11 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
     private boolean transmitter;
 
     private ItemStack key = ItemStack.EMPTY;
-    private PipePitch pitch = PipePitch.INVALID;
+    private PipePitch pitch = PipePitch.DEFAULT;
 
     private NoteLinkBehaviour link;
     private ItemValueBoxBehaviour keySlot;
+    private PipePitchScrollValueBehaviour pitchSlot;
 
     @Override
 	public void write(CompoundTag compound, boolean clientPacket) {
@@ -97,7 +120,7 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
 
 		receivedSignal = compound.getInt("Receive");
 		receivedSignalChanged = compound.getBoolean("ReceivedChanged");
-		if (level == null || level.isClientSide || link.hasNewPos())
+		if (level == null || level.isClientSide || !link.hasNewPos())
 			transmittedSignal = compound.getInt("Transmit");
 	}
 
@@ -188,14 +211,21 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
                 List.of()
         );
 
-        behaviours.add(link = new NoteLinkBehaviour(this,
-                        this::getTransmittedSignal,
-                        this::setReceivedSignal));
-
         behaviours.add(keySlot = new ItemValueBoxBehaviour(this, List.of(keySlotGroup)));
+        behaviours.add(pitchSlot = new PipePitchScrollValueBehaviour(this, PITCH_SLOT_TRANSFORM)
+                .withPipePitchCallback(this::setPitch)
+        );
+
+
+    }
+    @Override
+    public void addBehavioursDeferred(List<BlockEntityBehaviour> behaviours) {
+        behaviours.add(link = new NoteLinkBehaviour(this,
+                this::getTransmittedSignal,
+                this::setReceivedSignal));
     }
 
-//    @Override
+    //    @Override
 //    public @NotNull Component getDisplayName() {
 //        return Component.translatable("gui.pipeorgans.note_link");
 //    }
@@ -210,7 +240,7 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
         receivedSignal = 0;
         receivedSignalChanged = false;
         link.changeKeyFrequency(ItemStack.EMPTY);
-        link.changePitch(PipePitch.INVALID);
+        link.changePitch(PipePitch.DEFAULT);
     }
 
     public ItemStack getKey() {
