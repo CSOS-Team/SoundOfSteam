@@ -1,6 +1,8 @@
 package com.finchy.pipeorgans.content.musicalLink;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.infrastructure.clipboardAssistedPlacement.ClipboardAssistedPlacement;
+import com.finchy.pipeorgans.infrastructure.clipboardAssistedPlacement.ClipboardAssistedPlacementBehaviour;
 import com.finchy.pipeorgans.infrastructure.itemValueBox.ItemValueBoxBehaviour;
 import com.finchy.pipeorgans.infrastructure.pipePitchScrollValue.PipePitchScrollValueBehaviour;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -26,7 +28,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 import java.util.Set;
 
-public class NoteLinkBlockEntity extends SmartBlockEntity {
+public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAssistedPlacement {
 
     public static final ValueBoxTransform KEY_SLOT_TRANSFORM = new ValueBoxTransform() {
         // TODO: adjust to actual model, this is just a placeholder from the RedstoneLink
@@ -216,6 +218,7 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
                 List.of()
         );
 
+        behaviours.add(new ClipboardAssistedPlacementBehaviour(this));
         behaviours.add(keySlot = new ItemValueBoxBehaviour(this, List.of(keySlotGroup)));
         behaviours.add(pitchSlot = new PipePitchScrollValueBehaviour(this, PITCH_SLOT_TRANSFORM)
                 .withPipePitchCallback(this::setPitch)
@@ -266,5 +269,10 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
         key = link.getKey();
         pitch = link.getPitch();
         pitchSlot.setValue(pitch);
+    }
+
+    @Override
+    public void applyPlacementMutation() {
+        setPitch(pitch.next());
     }
 }

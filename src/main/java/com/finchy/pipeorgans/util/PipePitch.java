@@ -286,6 +286,14 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
         return RedstoneLinkNetworkHandler.Frequency.of(getMappedItem());
     }
 
+    public PipePitch next() {
+        int midiNumber = getMidiPitchNumber();
+        if (midiNumber >= HIGHEST.getMidiPitchNumber()) {
+            return null;
+        }
+        return fromMidiPitchNumber(midiNumber + 1);
+    }
+
     public static final PipePitch LOWEST = new PipePitch(PitchClass.F_SHARP, Octave.OCTAVE_n1);
     public static final PipePitch HIGHEST = new PipePitch(PitchClass.F_SHARP, Octave.OCTAVE_8);
     public static final PipePitch DEFAULT = LOWEST;
