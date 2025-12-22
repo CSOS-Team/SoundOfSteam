@@ -14,20 +14,33 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
+import java.util.function.Supplier;
 
 public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstoneLinkable, ClipboardCloneable {
 
     public static final BehaviourType<NoteLinkBehaviour> TYPE = new BehaviourType<>();
 
-    public NoteLinkBehaviour(SmartBlockEntity be, IntSupplier transmitter, IntConsumer receiver) {
+    public NoteLinkBehaviour(SmartBlockEntity be, IntSupplier transmitter, IntConsumer receiver, Mode mode) {
         super(be);
         this.transmitter = transmitter;
         this.receiver = receiver;
+        this.mode = mode;
+    }
+
+    public NoteLinkBehaviour withCycledMode() {
+        NoteLinkBehaviour b = new NoteLinkBehaviour(blockEntity, transmitter, receiver,
+                mode == Mode.RECEIVE ? Mode.TRANSMIT : Mode.RECEIVE
+                );
+        b.keyFrequency = this.keyFrequency;
+        b.pitch = this.pitch;
+        return b;
     }
 
     public enum Mode {
@@ -41,13 +54,19 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
     //   (see https://github.com/Creators-of-Create/Create/blob/mc1.20.1/dev/src/main/java/com/simibubi/create/content/redstone/link/RedstoneLinkNetworkHandler.java#L122)
     // Both done, still seems to have issues. Needs further investigation.
 
-    Mode mode = Mode.TRANSMIT;
-    IntSupplier transmitter;
-    IntConsumer receiver;
-    RedstoneLinkNetworkHandler.Frequency keyFrequency = RedstoneLinkNetworkHandler.Frequency.EMPTY;
-    PipePitch pitch = PipePitch.DEFAULT;
-    boolean newPos;
-    boolean inNetwork;
+    protected Mode mode;
+    protected IntSupplier transmitter;
+    protected IntConsumer receiver;
+    protected RedstoneLinkNetworkHandler.Frequency keyFrequency = RedstoneLinkNetworkHandler.Frequency.EMPTY;
+    protected PipePitch pitch = PipePitch.DEFAULT;
+    protected boolean newPos;
+    protected boolean inNetwork;
+    protected Runnable onLoadedCallback = () -> {};
+
+    public NoteLinkBehaviour withOnLoadedCallback(Runnable callback) {
+        this.onLoadedCallback = callback;
+        return this;
+    }
 
     @Override
     public String getClipboardKey() {
@@ -106,20 +125,6 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
         if (!inNetwork) {
             connectToNetwork();
             PipeOrgans.LOGGER.debug("NoteLinkBehaviour updated network connection after pitch change");
-        }
-    }
-
-    public void changeMode(Mode mode) {
-        if (inNetwork) disconnectFromNetwork();
-        this.mode = mode;
-        if (!inNetwork) connectToNetwork();
-    }
-
-    public void toggleMode() {
-        if (this.mode == Mode.RECEIVE) {
-            changeMode(Mode.TRANSMIT);
-        } else {
-            changeMode(Mode.RECEIVE);
         }
     }
 
@@ -204,7 +209,7 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
     @Override
     public void write(CompoundTag nbt, boolean clientPacket) {
         super.write(nbt, clientPacket);
-        nbt.put("Key", keyFrequency.getStack().serializeNBT());
+        nbt.put("Key", keyFrequency.getStack().save(new CompoundTag()));
         nbt.putString("Pitch", pitch.getNormalizedName());
         nbt.putLong("LastKnownPosition", blockEntity.getBlockPos()
                 .asLong());
@@ -219,7 +224,25 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
 
         super.read(nbt,  clientPacket);
         keyFrequency = RedstoneLinkNetworkHandler.Frequency.of(ItemStack.of(nbt.getCompound("Key")));
-        pitch = PipePitch.fromNormalizedName(nbt.getString("Pitch"));
+        if (!nbt.contains("Pitch"))
+            pitch = PipePitch.DEFAULT;
+        else
+            pitch = PipePitch.fromNormalizedName(nbt.getString("Pitch"));
+        onLoadedCallback.run();
         PipeOrgans.LOGGER.debug("NoteLinkBehaviour read from NBT: keyFrequency={}, pitch={}, newPos={}", keyFrequency.getStack(), pitch.getNormalizedName(), newPos);
+    }
+
+    public RedstoneLinkNetworkHandler.Frequency getKeyFrequency() {
+        return keyFrequency;
+    }
+
+    public ItemStack getKey() {
+        ItemStack is = keyFrequency.getStack().copy();
+        is.setCount(1);
+        return is;
+    }
+
+    public PipePitch getPitch() {
+        return pitch;
     }
 }

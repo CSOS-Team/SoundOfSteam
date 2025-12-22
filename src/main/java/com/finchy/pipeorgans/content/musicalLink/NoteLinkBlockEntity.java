@@ -136,26 +136,36 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
 
     public void transmit(int strength) {
         transmittedSignal = strength;
-        link.notifySignalChange();
+        if (link != null)
+            link.notifySignalChange();
     }
 
     @Override
     public void tick() {
         super.tick();
 
+        if (isTransmitterBlock() != transmitter) {
+            transmitter = isTransmitterBlock();
+            if (link != null) {
+                NoteLinkBehaviour prev = link;
+                removeBehaviour(NoteLinkBehaviour.TYPE);
+                link = prev.withCycledMode();
+            } else {
+                link = new NoteLinkBehaviour(this,
+                        this::getTransmittedSignal,
+                        this::setReceivedSignal,
+                        transmitter ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE
+                ).withOnLoadedCallback(this::onNoteLinkBehaviorLoaded);
+                PipeOrgans.LOGGER.warn("NoteLinkBlockEntity.tick: link behaviour was null when updating mode, recreated at {} (shouldn't happen)", worldPosition);
+            }
+            attachBehaviourLate(link);
+        }
+
+        if (transmitter) return;
         if (level == null || level.isClientSide) return;
 
         BlockState bs = getBlockState();
         if (!AllBlocks.NOTE_LINK.has(bs)) return;
-
-        if (isTransmitterBlock() != transmitter) {
-            transmitter = isTransmitterBlock();
-            link.changeMode(transmitter ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE);
-            updateSelfAndAttached(bs);
-        }
-
-        if (transmitter) return;
-        if (level.isClientSide) return;
 
         if ((receivedSignal > 0) != bs.getValue(NoteLinkBlock.POWERED)) {
             receivedSignalChanged = true;
@@ -222,7 +232,10 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
     public void addBehavioursDeferred(List<BlockEntityBehaviour> behaviours) {
         behaviours.add(link = new NoteLinkBehaviour(this,
                 this::getTransmittedSignal,
-                this::setReceivedSignal));
+                this::setReceivedSignal,
+                transmitter ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE)
+                .withOnLoadedCallback(this::onNoteLinkBehaviorLoaded)
+        );
     }
 
     //    @Override
@@ -262,5 +275,11 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
         this.pitch = pitch;
         PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.setPitch: pitch set to {}", pitch);
         link.changePitch(pitch);
+    }
+
+    protected void onNoteLinkBehaviorLoaded() {
+        key = link.getKey();
+        pitch = link.getPitch();
+        pitchSlot.setValue(pitch);
     }
 }

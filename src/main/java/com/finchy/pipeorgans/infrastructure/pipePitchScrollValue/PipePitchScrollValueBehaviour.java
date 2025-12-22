@@ -64,4 +64,8 @@ public class PipePitchScrollValueBehaviour extends ScrollValueBehaviour {
     protected String defaultFormatValue() {
         return getPipePitchValue().getName();
     }
+
+    public void setValue(PipePitch pitch) {
+        setValue(pitch.getPitchIndex());
+    }
 }

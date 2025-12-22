@@ -253,8 +253,12 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
     }
 
     public static PipePitch fromNormalizedName(String normalizedName) {
-        String pcs = normalizedName.substring(0, normalizedName.lastIndexOf('_')).toLowerCase();
-        String octs = normalizedName.substring(pcs.length() + 1).toLowerCase();
+        int lastUnderscore = normalizedName.lastIndexOf('_');
+        if (lastUnderscore == -1) {
+            throw new IllegalArgumentException("Invalid normalized name: " + normalizedName);
+        }
+        String pcs = normalizedName.substring(0, lastUnderscore).toLowerCase();
+        String octs = normalizedName.substring(lastUnderscore + 1).toLowerCase();
         return new PipePitch(PitchClass.fromNormalizedName(pcs), Octave.fromNormalizedName(octs));
     }
 
