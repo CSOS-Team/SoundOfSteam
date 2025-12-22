@@ -1,10 +1,8 @@
 package com.finchy.pipeorgans.ponder;
 
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
-import net.createmod.catnip.math.Pointing;
 import net.createmod.ponder.api.scene.SceneBuilder;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;
-import net.createmod.ponder.api.scene.Selection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -18,8 +16,7 @@ public class PipePlaybackPonder {
         scene.configureBasePlate(0, 0, 5);
 
         // Begin building animation by showing base layer
-        scene.world().showSection(util.select().layer(0), Direction.UP);
-        scene.idle(5);
+        PonderUtil.revealBasePlate(scene, util, PonderTimings.BUILD_STEP);
 
         BlockPos subbass = util.grid().at(1, 2, 3);
         BlockPos windchest = util.grid().at(1, 1, 3);
@@ -32,69 +29,67 @@ public class PipePlaybackPonder {
         Vec3 controllerVec = util.vector().blockSurface(controller, Direction.NORTH);
         Vec3 windchestVec = util.vector().blockSurface(windchest, Direction.NORTH);
 
-        // Load in cog & shaft powering fan
+        // Reveal cog & shaft powering fan
         for (int i = 5; i >= 4; i--) {
             scene.world().showSection(util.select().position(i, 1, 3), Direction.DOWN);
-            scene.idle(5);
+            scene.idle(PonderTimings.BUILD_STEP);
         }
 
-        scene.world().showSection(util.select().position(fan), Direction.DOWN);
-        scene.idle(5);
+        PonderUtil.revealBlock(scene, util, fan, PonderTimings.BUILD_STEP);
+        PonderUtil.revealBlock(scene, util, controller, PonderTimings.BUILD_STEP);
+        PonderUtil.revealBlock(scene, util, windchest, PonderTimings.BUILD_STEP);
+        PonderUtil.revealBlock(scene, util, subbass, PonderTimings.BUILD_FINISH);
 
-        scene.world().showSection(util.select().position(controller), Direction.DOWN);
-        scene.idle(5);
+        // TEXT 1
 
-        scene.world().showSection(util.select().position(windchest), Direction.DOWN);
-        scene.idle(5);
-
-        scene.world().showSection(util.select().position(subbass), Direction.DOWN);
-        scene.idle(10);
-
-        scene.overlay().showText(70)
+        scene.overlay().showText(PonderTimings.READING_TIME)
                 .text("The windchest controller is powered by an encased fan pushing air")
                 .placeNearTarget()
                 .attachKeyFrame()
                 .pointAt(controllerVec);
 
-        scene.idle(30);
+        scene.idle(PonderTimings.READING_BUFFER);
         scene.effects().rotationDirectionIndicator(fan);
 
-        scene.idle(80);
+        scene.idle(PonderTimings.afterBuffer());
 
-        scene.overlay().showText(70)
+        // TEXT 2
+
+        scene.overlay().showText(PonderTimings.READING_TIME)
                 .text("The windchest must be placed with the red arrow facing the controller")
                 .placeNearTarget()
                 .attachKeyFrame()
                 .pointAt(windchestVec);
 
-        scene.idle(80);
+        scene.idle(PonderTimings.READING_WINDOW);
 
-        scene.world().showSection(util.select().position(controllerLever), Direction.SOUTH);
-        scene.idle(10);
+        // TEXT 3
+        PonderUtil.revealBlock(scene, util, controllerLever, Direction.SOUTH, PonderTimings.BUILD_STEP);
 
-        scene.overlay().showText(70)
+        scene.overlay().showText(PonderTimings.READING_TIME)
                 .text("The controller is activated with a redstone signal")
                 .placeNearTarget()
                 .attachKeyFrame()
                 .pointAt(controllerVec);
 
-        scene.idle(20);
+        scene.idle(PonderTimings.READING_BUFFER);
         scene.world().toggleRedstonePower(util.select().fromTo(controllerLever, controller));
 
-        scene.idle(60);
+        scene.idle(PonderTimings.afterBuffer());
 
-        scene.world().showSection(util.select().position(windchestLever), Direction.SOUTH);
-        scene.idle(10);
-        scene.overlay().showText(70)
+        // TEXT 4
+        PonderUtil.revealBlock(scene, util, windchestLever, Direction.SOUTH, PonderTimings.BUILD_STEP);
+
+        scene.overlay().showText(PonderTimings.READING_TIME)
                 .text("The windchest itself also activates with a redstone signal")
                 .placeNearTarget()
                 .attachKeyFrame()
                 .pointAt(windchestVec);
 
-        scene.idle(20);
+        scene.idle(PonderTimings.READING_BUFFER);
         scene.world().toggleRedstonePower(util.select().fromTo(windchestLever, subbass));
 
-        scene.idle(60);
+        scene.idle(PonderTimings.afterBuffer());
 
         scene.markAsFinished();
     }
