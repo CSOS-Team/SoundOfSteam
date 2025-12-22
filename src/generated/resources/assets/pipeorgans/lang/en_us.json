@@ -241,6 +241,8 @@
   "pipeorgans.creativetab.pipes": "Create: Sound of Steam",
   "pipeorgans.display_source.tracker_bar_bpm": "BPM",
   "pipeorgans.display_source.tracker_bar_filename": "Filename",
+  "pipeorgans.ponder.windchest_controller.header": "Windchest Controller",
+  "pipeorgans.ponder.windchest_controller.text_1": "Text 1 would go here",
   "pipeorgans.stopsize.16": "§716'",
   "pipeorgans.stopsize.2": "§72'",
   "pipeorgans.stopsize.223": "§72-2/3'",

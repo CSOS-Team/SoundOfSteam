@@ -329,6 +329,8 @@
   "instrument.pipeorgans.jazz_drum_kit": "Jazz Drum Kit",
   "instrument.pipeorgans.brush_kit": "Brush Kit",
 
-  "instrument.pipeorgans.empty": ""
+  "instrument.pipeorgans.empty": "",
 
+  "pipeorgans.ponder.windchest_controller.header": "Windchest Controller",
+  "pipeorgans.ponder.windchest_controller.text_1": "Text 1 would go here"
 }
