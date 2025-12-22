@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.content.musicalLink;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.init.AllMenuTypes;
 import com.finchy.pipeorgans.network.AllPackets;
 import com.finchy.pipeorgans.network.packet.NoteLinkUpdatePacket;
 import com.finchy.pipeorgans.util.PipePitch;

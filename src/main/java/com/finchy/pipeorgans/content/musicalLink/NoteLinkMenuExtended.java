@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.content.musicalLink;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.init.AllMenuTypes;
 import com.finchy.pipeorgans.util.PipePitch;
 import com.simibubi.create.foundation.gui.menu.GhostItemMenu;
 import net.minecraft.client.Minecraft;

@@ -54,11 +54,6 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
                     .rotateYDegrees(yRot)
                     .rotateXDegrees(xRot);
         }
-
-//        @Override
-//        public float getScale() {
-//            return .4975f;
-//        }
     };
     public static final ValueBoxTransform PITCH_SLOT_TRANSFORM = new ValueBoxTransform() {
         // TODO: adjust to actual model, this is just a placeholder from the RedstoneLink
@@ -237,16 +232,6 @@ public class NoteLinkBlockEntity extends SmartBlockEntity {
                 .withOnLoadedCallback(this::onNoteLinkBehaviorLoaded)
         );
     }
-
-    //    @Override
-//    public @NotNull Component getDisplayName() {
-//        return Component.translatable("gui.pipeorgans.note_link");
-//    }
-//
-//    @Override
-//    public @Nullable AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-//        return NoteLinkMenu.create(pContainerId, pPlayerInventory, this);
-//    }
 
     public void reset() {
         transmittedSignal = 0;

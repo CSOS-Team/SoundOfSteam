@@ -14,14 +14,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
-import java.util.function.Supplier;
 
 public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstoneLinkable, ClipboardCloneable {
 
@@ -54,9 +51,9 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
     //   (see https://github.com/Creators-of-Create/Create/blob/mc1.20.1/dev/src/main/java/com/simibubi/create/content/redstone/link/RedstoneLinkNetworkHandler.java#L122)
     // Both done, still seems to have issues. Needs further investigation.
 
-    protected Mode mode;
-    protected IntSupplier transmitter;
-    protected IntConsumer receiver;
+    protected final Mode mode;
+    protected final IntSupplier transmitter;
+    protected final IntConsumer receiver;
     protected RedstoneLinkNetworkHandler.Frequency keyFrequency = RedstoneLinkNetworkHandler.Frequency.EMPTY;
     protected PipePitch pitch = PipePitch.DEFAULT;
     protected boolean newPos;

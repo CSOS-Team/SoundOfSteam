@@ -15,9 +15,9 @@ import java.util.Optional;
 
 public class NoteLinkUpdatePacket extends SimplePacketBase {
 
-    protected BlockPos pos;
-    protected ItemStack key;
-    protected PipePitch pitch;
+    protected final BlockPos pos;
+    protected final ItemStack key;
+    protected final PipePitch pitch;
 
     public NoteLinkUpdatePacket(BlockPos pos, ItemStack key, PipePitch pitch) {
         this.pos = pos;

@@ -1,13 +1,11 @@
 package com.finchy.pipeorgans.util;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.midi.PitchMapping;
 import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 

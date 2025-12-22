@@ -32,14 +32,6 @@ public class NoteLinkEventHandler {
                 }
             }
         }
-//        else {
-//            if (held.isEmpty()) {
-//                if (noteLinkBlock.onEmptyHandUse(bs, level, pos, player) == InteractionResult.SUCCESS) {
-//                    event.setCancellationResult(InteractionResult.SUCCESS);
-//                    event.setCanceled(true);
-//                }
-//            }
-//        }
 
     }
 }
