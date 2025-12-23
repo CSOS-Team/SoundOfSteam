@@ -122,49 +122,46 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
         return InteractionResult.PASS;
     }
 
+    public boolean validateReplacementSpace(BlockState state, Level level, BlockPos pos, int pitch) {
+        if (pitch > 0) { // if there are actually any extensions to place
+
+            // check space (pitch/EPB) above base, rounded up
+            int checkDist = (int) Math.ceil(pitch/(float)EPB);
+            BlockPos currentPos = pos;
+            for (int i=1; i<=checkDist; i++) {
+                currentPos = currentPos.above();
+                BlockState currentState = level.getBlockState(currentPos);
+                if (currentState.canBeReplaced() || (currentState.getBlock() instanceof GenericExtensionBlock))
+                    continue;
+                return false; // something in the way
+            }
+        }
+        return true;
+    }
+
+    public void clearOldExtensions(BlockState state, Level level, BlockPos pos, int pitch) {
+        int removeDistance = (int) Math.ceil(pitch/(float)EPB);
+        BlockPos currentPos = pos;
+        for (int i=1; i<=removeDistance; i++) {
+            currentPos = currentPos.above();
+            level.destroyBlock(currentPos, false);
+        }
+    }
+
     public InteractionResult substitutePipe(BlockState state, Level level, BlockPos pos, ItemStack heldItem, Player player) {
         GenericPipeBlock held = (GenericPipeBlock) ((GenericPipeBlockItem) heldItem.getItem()).getBlock();
         if (level.getBlockEntity(pos) instanceof GenericPipeBlockEntity be) {
-            if (this.EPB <= held.EPB) { // new pipe will not be longer, so we can immediately swap the pipes
 
-                int removeDistance = (int) Math.ceil(be.pitch/(float)this.EPB);
-                BlockPos currentPos = pos;
-                for (int i=1; i<=removeDistance; i++) {
-                    currentPos = currentPos.above();
-                    level.destroyBlock(currentPos, false);
-                }
-
-            } else { // if the new pipe MIGHT be longer
-                if (be.pitch > 0) { // if there are actually any extensions to place
-
-                    // check space (pitch/held.EPB) above base, rounded up
-                    int checkDist = (int) Math.ceil(be.pitch/(float)held.EPB);
-                    BlockPos currentPos = pos;
-                    for (int i=1; i<=checkDist; i++) {
-                        currentPos = currentPos.above();
-                        BlockState currentState = level.getBlockState(currentPos);
-                        if (currentState.canBeReplaced() ||
-                                (currentState.getBlock() instanceof GenericExtensionBlock)) {
-                            continue;
-                        }
-                        return InteractionResult.FAIL; // something in the way
-                    }
-                    // success
-                    int removeDistance = (int) Math.ceil(be.pitch/(float)this.EPB);
-                    currentPos = pos;
-                    for (int i=1; i<=removeDistance; i++) {
-                        currentPos = currentPos.above();
-                        level.destroyBlock(currentPos, false);
-                    }
-                }
+            if (held.validateReplacementSpace(state, level, pos, be.pitch)) { // if the new pipe has space to be placed
+                clearOldExtensions(state, level, pos, be.pitch); // remove the extensions that are about to be replaced
+                placeNewPipe(state, level, pos, heldItem, player, be.pitch); // place the new pipe
+                return InteractionResult.SUCCESS;
             }
-            placeNewPipe(state, level, pos, heldItem, player, be.pitch);
-            return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
     }
 
-    protected void placeNewPipe(BlockState state, Level level, BlockPos pos, ItemStack heldItem, Player player, int pitch) {
+    public static void placeNewPipe(BlockState state, Level level, BlockPos pos, ItemStack heldItem, Player player, int pitch) {
         EPipeSizes.PipeSize size = state.getValue(SIZE);
         Direction facing = state.getValue(FACING);
         boolean wall = state.getValue(WALL);

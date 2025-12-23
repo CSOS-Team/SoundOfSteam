@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
 import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

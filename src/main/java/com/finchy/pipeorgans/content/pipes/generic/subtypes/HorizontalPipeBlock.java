@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
 import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -75,6 +76,36 @@ public abstract class HorizontalPipeBlock extends GenericPipeBlock {
                 level.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, volume, pitch);
             }
             return;
+        }
+    }
+
+    @Override
+    public boolean validateReplacementSpace(BlockState state, Level level, BlockPos pos, int pitch) {
+        if (pitch > 0) { // if there are actually any extensions to place
+
+            // check space (pitch/EPB) in front of the base, rounded up
+            Direction outFacing = state.getValue(FACING).getOpposite();
+            int checkDist = (int) Math.ceil(pitch/(float)EPB);
+            BlockPos currentPos = pos;
+            for (int i=1; i<=checkDist; i++) {
+                currentPos = currentPos.relative(outFacing);
+                BlockState currentState = level.getBlockState(currentPos);
+                if (currentState.canBeReplaced() || (currentState.getBlock() instanceof HorizontalExtensionBlock))
+                    continue;
+                return false; // something in the way
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void clearOldExtensions(BlockState state, Level level, BlockPos pos, int pitch) {
+        Direction outFacing = state.getValue(FACING).getOpposite();
+        int removeDistance = (int) Math.ceil(pitch/(float)EPB);
+        BlockPos currentPos = pos;
+        for (int i=1; i<=removeDistance; i++) {
+            currentPos = currentPos.relative(outFacing);
+            level.destroyBlock(currentPos, false);
         }
     }
 }
