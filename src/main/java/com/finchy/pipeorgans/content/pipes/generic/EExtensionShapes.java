@@ -48,4 +48,18 @@ public class EExtensionShapes {
         }
     }
 
+    public enum HorizontalShape implements ExtensionShape, StringRepresentable {
+        SINGLE("single"), DOUBLE("double"), DOUBLE_CONNECTED("double_connected");
+
+        private final String name;
+        HorizontalShape(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String getSerializedName() {
+            return name;
+        }
+    }
+
 }

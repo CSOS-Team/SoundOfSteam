@@ -175,6 +175,26 @@ public abstract class AllShapes {
         };
     }
 
+    // slim double extension horizontal
+    public static VoxelShape slimExtensionShape(EExtensionShapes.HorizontalShape shape, EPipeSizes.PipeSize size) {
+        return switch (shape) {
+            case SINGLE -> switch (size) {
+                case TINY -> SLIM_EXTENSION_TINY_DOUBLE;
+                case SMALL -> SLIM_EXTENSION_SMALL_DOUBLE;
+                case MEDIUM -> SLIM_EXTENSION_MEDIUM_DOUBLE;
+                case LARGE -> SLIM_EXTENSION_LARGE_DOUBLE;
+                case HUGE -> SLIM_EXTENSION_HUGE_DOUBLE;
+            };
+            case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
+                case TINY -> SLIM_EXTENSION_TINY_QUAD;
+                case SMALL -> SLIM_EXTENSION_SMALL_QUAD;
+                case MEDIUM -> SLIM_EXTENSION_MEDIUM_QUAD;
+                case LARGE -> SLIM_EXTENSION_LARGE_QUAD;
+                case HUGE -> SLIM_EXTENSION_HUGE_QUAD;
+            };
+        };
+    }
+
     // string single extension
     public static VoxelShape stringExtensionShape(EExtensionShapes.SingleShape shape, EPipeSizes.PipeSize size, Direction facing) {
         return switch (size) {

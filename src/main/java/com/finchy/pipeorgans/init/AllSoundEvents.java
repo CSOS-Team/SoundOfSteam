@@ -86,6 +86,12 @@ public class AllSoundEvents {
      TROMPETTE_LOW = registerSoundEvent("trompette_low"),
      TROMPETTE_DEEP = registerSoundEvent("trompette_deep"),
 
+    CHAMADE_SUPERHIGH = registerSoundEvent("chamade_superhigh"),
+    CHAMADE_HIGH = registerSoundEvent("chamade_high"),
+    CHAMADE_MEDIUM = registerSoundEvent("chamade_medium"),
+    CHAMADE_LOW = registerSoundEvent("chamade_low"),
+    CHAMADE_DEEP = registerSoundEvent("chamade_deep"),
+
      ENGLISH_HORN_SUPERHIGH = registerSoundEvent("english_horn_superhigh"),
      ENGLISH_HORN_HIGH = registerSoundEvent("english_horn_high"),
      ENGLISH_HORN_MEDIUM = registerSoundEvent("english_horn_medium"),
