@@ -41,28 +41,21 @@ public abstract class HorizontalPipeBlock extends GenericPipeBlock {
 
             // Existing extension
             if (stateAtPos.getBlock() instanceof HorizontalExtensionBlock) {
+                if (stateAtPos.getValue(HorizontalExtensionBlock.SHAPE) == EExtensionShapes.HorizontalShape.SINGLE) {
 
-                if (stateAtPos.getValue(HorizontalExtensionBlock.SHAPE)
-                        == EExtensionShapes.HorizontalShape.SINGLE) {
-
-                    BlockState toSet =
-                            stateAtPos.cycle(HorizontalExtensionBlock.SHAPE);
-
-                    if (extensionBlock.get().isDirectional())
-                        toSet = toSet.setValue(FACING, facing);
-
+                    BlockState toSet = stateAtPos.cycle(HorizontalExtensionBlock.SHAPE);
+                    toSet = toSet.setValue(FACING, facing);
                     level.setBlock(currentPos, toSet, 3);
 
                     if (playSound) {
+                        if (stateAtPos.getValue(HorizontalExtensionBlock.SHAPE) == EExtensionShapes.HorizontalShape.SINGLE)
+                            i++;
                         float pitch = (float) Math.pow(2, -i / 12.0);
-                        level.playSound(null, currentPos, growSound,
-                                SoundSource.BLOCKS, volume / 4f, pitch);
-                        level.playSound(null, currentPos, hitSound,
-                                SoundSource.BLOCKS, volume, pitch);
+                        level.playSound(null, currentPos, growSound, SoundSource.BLOCKS, volume / 4f, pitch);
+                        level.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, volume, pitch);
                     }
                     return;
                 }
-
 
                 currentPos = currentPos.relative(towardPlayer);
                 continue;
@@ -73,22 +66,13 @@ public abstract class HorizontalPipeBlock extends GenericPipeBlock {
                 return;
 
             // Place new extension
-            BlockState toSet =
-                    extensionBlock.get()
-                            .defaultBlockState()
-                            .setValue(SIZE, size);
-
-            if (extensionBlock.get().isDirectional())
-                toSet = toSet.setValue(FACING, facing);
-
+            BlockState toSet = extensionBlock.get().defaultBlockState().setValue(SIZE, size).setValue(FACING, facing);
             level.setBlock(currentPos, toSet, 3);
 
             if (playSound) {
                 float pitch = (float) Math.pow(2, -i / 12.0);
-                level.playSound(null, currentPos, growSound,
-                        SoundSource.BLOCKS, volume / 4f, pitch);
-                level.playSound(null, currentPos, hitSound,
-                        SoundSource.BLOCKS, volume, pitch);
+                level.playSound(null, currentPos, growSound, SoundSource.BLOCKS, volume / 4f, pitch);
+                level.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, volume, pitch);
             }
             return;
         }

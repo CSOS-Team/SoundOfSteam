@@ -88,7 +88,6 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
     public abstract void incrementSize(Level pLevel, BlockPos pos, boolean playSound);
 
     public static void queuePitchUpdate(LevelAccessor level, BlockPos pos) {
-
         BlockState blockState = level.getBlockState(pos);
         if (blockState.getBlock() instanceof GenericPipeBlock pipe && !level.getBlockTicks()
                 .hasScheduledTick(pos, pipe))

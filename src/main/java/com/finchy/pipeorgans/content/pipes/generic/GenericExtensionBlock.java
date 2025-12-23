@@ -3,7 +3,6 @@ package com.finchy.pipeorgans.content.pipes.generic;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -13,7 +12,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -21,8 +19,6 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class GenericExtensionBlock<P extends Enum<P> & EExtensionShapes.ExtensionShape & StringRepresentable> extends Block implements IWrenchable {
 
@@ -40,16 +36,7 @@ public abstract class GenericExtensionBlock<P extends Enum<P> & EExtensionShapes
 
     protected abstract void registerDefaultStateWithSize();
 
-    @Override
-    public abstract VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext);
-
-    @Override
-    public abstract boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos);
-
-    @Override
-    public abstract BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos);
-
-    public static BlockPos findRoot(LevelAccessor pLevel, BlockPos pPos) {
+    public BlockPos findRoot(LevelAccessor pLevel, BlockPos pPos, BlockState state) {
         BlockPos currentPos = pPos.below();
         while (true) {
             BlockState blockState = pLevel.getBlockState(currentPos);
@@ -72,12 +59,11 @@ public abstract class GenericExtensionBlock<P extends Enum<P> & EExtensionShapes
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-
         ItemStack heldItem = pPlayer.getItemInHand(pHand);
         if (heldItem.getItem() != this.baseBlock.get().asItem()) {
             return InteractionResult.PASS;
         }
-        BlockPos root = findRoot(pLevel, pPos);
+        BlockPos root = findRoot(pLevel, pPos, pState);
         BlockState blockState = pLevel.getBlockState(root);
         if (blockState.getBlock() instanceof GenericPipeBlock pipe)
             return pipe.use(blockState, pLevel, root, pPlayer, pHand,
@@ -88,16 +74,12 @@ public abstract class GenericExtensionBlock<P extends Enum<P> & EExtensionShapes
     @Override
     public abstract InteractionResult onSneakWrenched(BlockState state, UseOnContext context);
 
-    public InteractionResult sneakWrenchedRemove(BlockState state, UseOnContext context) {
-        return IWrenchable.super.onSneakWrenched(state, context);
-    }
-
     @Override
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {
         Level level = context.getLevel();
-        BlockPos findRoot = findRoot(level, context.getClickedPos());
+        BlockPos findRoot = findRoot(level, context.getClickedPos(), state);
         BlockState blockState = level.getBlockState(findRoot);
-        if (blockState.getBlock()instanceof GenericPipeBlock pipe)
+        if (blockState.getBlock() instanceof GenericPipeBlock pipe)
             return pipe.onWrenched(blockState, relocateContext(context, findRoot));
         return IWrenchable.super.onWrenched(state, context);
     }
@@ -109,13 +91,13 @@ public abstract class GenericExtensionBlock<P extends Enum<P> & EExtensionShapes
     @Override
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         if (pOldState.getBlock() != this || pOldState.getValue(SHAPE) != pState.getValue(SHAPE))
-            GenericPipeBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
+            GenericPipeBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos, pState));
     }
 
     @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
-        if (pOldState.getBlock() != this || pOldState.getValue(SHAPE) != pState.getValue(SHAPE))
-            GenericPipeBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
+        if (pNewState.getBlock() != this || pNewState.getValue(SHAPE) != pState.getValue(SHAPE))
+            GenericPipeBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos, pState));
     }
 
     @Override

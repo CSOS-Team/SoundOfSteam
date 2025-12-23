@@ -81,7 +81,7 @@ public abstract class QuadrupleExtensionBlock extends GenericExtensionBlock<EExt
 
         if (context.getClickLocation().y < context.getClickedPos()
                 .getY() + .25f || state.getValue(SHAPE) == EExtensionShapes.QuadrupleShape.SINGLE)
-            return sneakWrenchedRemove(state, context);
+            return callSuperOnSneakWrenched(state, context);
 
         if (context.getClickLocation().y < context.getClickedPos()
                 .getY() + .5) {

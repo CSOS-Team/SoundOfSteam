@@ -22,7 +22,7 @@ public abstract class HorizontalPipeBlockEntity extends GenericPipeBlockEntity {
 
         BlockState baseState = getBlockState();
         Direction facing = baseState.getValue(GenericPipeBlock.FACING);
-        Direction forward = facing;
+        Direction forward = facing.getOpposite();
 
         BlockPos currentPos = worldPosition.relative(forward);
 
