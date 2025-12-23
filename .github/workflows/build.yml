@@ -25,4 +25,4 @@ jobs:
       - name: upload "-all" jar
         uses: actions/upload-artifact@v4
         with:
-          path: build/libs/*-all.jar
+          path: build/libs/*.jar
