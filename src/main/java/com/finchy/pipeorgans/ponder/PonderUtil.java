@@ -4,6 +4,7 @@ import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import net.createmod.ponder.api.element.ElementLink;
 import net.createmod.ponder.api.element.WorldSectionElement;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;
+import net.createmod.ponder.api.scene.Selection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
@@ -18,6 +19,11 @@ public final class PonderUtil {
 
     public static void revealBlock(CreateSceneBuilder scene, SceneBuildingUtil util, BlockPos pos, Direction dir, int idle) {
         scene.world().showSection(util.select().position(pos), dir);
+        scene.idle(idle);
+    }
+
+    public static void revealBlocks(CreateSceneBuilder scene, SceneBuildingUtil util, Selection selection, int idle) {
+        scene.world().showSection(selection, Direction.DOWN);
         scene.idle(idle);
     }
 
