@@ -1,8 +1,13 @@
 package com.finchy.pipeorgans.ponder;
 
+import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import net.createmod.ponder.api.element.ElementLink;
 import net.createmod.ponder.api.element.WorldSectionElement;
+import net.createmod.catnip.math.Pointing;
+import net.createmod.ponder.api.PonderPalette;
+import net.createmod.ponder.api.element.InputElementBuilder;
+import net.createmod.ponder.api.element.TextElementBuilder;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.createmod.ponder.api.scene.Selection;
 import net.minecraft.core.BlockPos;
@@ -33,5 +38,58 @@ public final class PonderUtil {
         scene.world().moveSection(blockElement, revealOffset, idle);
 
         scene.idle(idle);
+    }
+
+    public static void showWrenchInteraction(CreateSceneBuilder scene, Vec3 pos, Pointing dir, boolean shift, boolean control, int duration) {
+        InputElementBuilder builder = scene.overlay().showControls(pos, dir, duration)
+                .rightClick()
+                .withItem(AllItems.WRENCH.asStack());
+        if (shift)
+            builder.whileSneaking();
+        if (control)
+            builder.whileCTRL();
+    }
+
+    public static void showWrenchInteraction(CreateSceneBuilder scene, Vec3 pos, Pointing dir, boolean shift, boolean control) {
+        showWrenchInteraction(scene, pos, dir, shift, control, PonderTimings.INTERACTION_DISPLAY_TIME);
+    }
+
+    public static void displayText(CreateSceneBuilder scene, Vec3 pos, String text, boolean attachKeyFrame, boolean placeNearTarget, int duration) {
+        TextElementBuilder textBuilder = scene.overlay().showText(duration)
+                .text(text)
+                .pointAt(pos);
+
+        if (attachKeyFrame)
+            textBuilder.attachKeyFrame();
+        if (placeNearTarget)
+            textBuilder.placeNearTarget();
+    }
+
+    public static void displayTextAndWait(CreateSceneBuilder scene, Vec3 pos, String text, boolean attachKeyFrame, boolean placeNearTarget, int duration, int buffer) {
+        displayText(scene, pos, text, attachKeyFrame, placeNearTarget, duration);
+        scene.idle(duration + buffer);
+    }
+
+    public static void displayTextAndWait(CreateSceneBuilder scene, Vec3 pos, String text, boolean attachKeyFrame, boolean placeNearTarget) {
+        displayTextAndWait(scene, pos, text, attachKeyFrame, placeNearTarget, PonderTimings.READING_TIME, PonderTimings.READING_BUFFER);
+    }
+
+    public static void displayGoggleHint(CreateSceneBuilder scene, Vec3 pos, String text, int duration, boolean attachKeyFrame, boolean placeNearTarget) {
+        scene.overlay().showControls(pos.add(0, -.5f, 0), Pointing.UP, duration)
+                .withItem(AllItems.GOGGLES.asStack());
+        scene.idle(6);
+
+        TextElementBuilder textBuilder = scene.overlay().showText(duration - 10)
+                .text(text)
+                .colored(PonderPalette.BLUE)
+                .pointAt(pos.add(-.5f, 0, .5f));
+
+        if (attachKeyFrame)
+            textBuilder.attachKeyFrame();
+
+        if (placeNearTarget)
+            textBuilder.placeNearTarget();
+
+        scene.idle(duration);
     }
 }

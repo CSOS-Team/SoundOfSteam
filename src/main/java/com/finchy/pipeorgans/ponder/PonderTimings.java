@@ -19,4 +19,8 @@ public final class PonderTimings {
     public static int afterBuffer(int times) {
         return READING_WINDOW - READING_BUFFER * times;
     }
+
+    public static final int INTERACTION_DISPLAY_TIME = TICKS_PER_SECOND * 1;
+
+    public static final int CONTEXT_INFO_BUFFER = TICKS_PER_SECOND / 2;
 }
