@@ -10,6 +10,8 @@ public class PonderIndex {
     public static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
         PonderSceneRegistrationHelper<ItemProviderEntry<?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
 
+        HELPER.forComponents(AllBlocks.ROLL_PUNCHER).addStoryBoard("music_roll_making", RollAuthoringPonder::rollAuthoringTable);
+
         HELPER.forComponents(AllBlocks.WINDCHEST_MASTER)
                 .addStoryBoard("windchest_controller", PipePlaybackPonder::windchestController)
                 .addStoryBoard("boiler_pipe_playback", PipePlaybackPonder::boilerPipePlaying);
