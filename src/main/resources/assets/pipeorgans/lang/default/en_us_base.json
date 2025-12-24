@@ -18,6 +18,10 @@
   "gui.pipeorgans.roll_puncher.noMidis": "No MIDI Files Saved",
   "gui.pipeorgans.roll_puncher.availableMidis": "Available MIDI Files",
 
+  "block.pipeorgans.roll_puncher.tooltip.summary": "Writes saved MIDI files onto a _Music Roll_.",
+  "block.pipeorgans.roll_puncher.tooltip.condition1": "When given a piece of paper or a Music Roll",
+  "block.pipeorgans.roll_puncher.tooltip.behaviour1": "Uploads a chosen File from your MIDI Folder.",
+
   "pipeorgans.display_source.tracker_bar_filename": "Filename",
   "pipeorgans.display_source.tracker_bar_bpm": "BPM",
 

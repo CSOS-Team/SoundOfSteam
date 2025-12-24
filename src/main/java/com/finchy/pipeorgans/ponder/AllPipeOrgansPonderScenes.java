@@ -10,8 +10,7 @@ public class AllPipeOrgansPonderScenes {
     public static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
         PonderSceneRegistrationHelper<ItemProviderEntry<?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
 
-        HELPER.addStoryBoard(AllBlocks.ROLL_PUNCHER, "music_roll_making", RollAuthoringPonder::rollAuthoringTable);
-        HELPER.addStoryBoard(AllBlocks.TRACKER_BAR, "tracker_bar", RollAuthoringPonder::musicRollPlayback);
+        HELPER.addStoryBoard(AllBlocks.TRACKER_BAR, "tracker_bar", TrackerBarPonder::musicRollPlayback);
 
         HELPER.forComponents(AllBlocks.WINDCHEST_MASTER)
                 .addStoryBoard("windchest_controller", PipePlaybackPonder::windchestController);

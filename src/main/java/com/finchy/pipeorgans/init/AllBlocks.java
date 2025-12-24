@@ -53,9 +53,11 @@ import com.finchy.pipeorgans.data.AssetLookup;
 import com.finchy.pipeorgans.data.BlockStateGen.*;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.item.ItemDescription;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -136,7 +138,9 @@ public class AllBlocks {
             .lang("Roll Authoring Table")
             .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models()
                     .getExistingFile(ctx.getId()), 180))
-            .simpleItem()
+            .onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "block.pipeorgans.roll_puncher"))
+            .item()
+            .build()
             .register();
 
 
