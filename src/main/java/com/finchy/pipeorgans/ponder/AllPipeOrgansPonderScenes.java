@@ -15,6 +15,9 @@ public class AllPipeOrgansPonderScenes {
         HELPER.forComponents(AllBlocks.WINDCHEST_MASTER)
                 .addStoryBoard("windchest_controller", PipePlaybackPonder::windchestController);
 
+        HELPER.forComponents(AllBlocks.WINDCHEST)
+                .addStoryBoard("windchest_controller", PipePlaybackPonder::windchestController);
+
         HELPER.forComponents(AllBlocks.PIPE_BLOCKS)
                 .addStoryBoard("pipe_adjusting", PipePlaybackPonder::pipeAdjusting);
     }
