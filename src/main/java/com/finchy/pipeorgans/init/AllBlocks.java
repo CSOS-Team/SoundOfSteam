@@ -7,12 +7,18 @@ import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlock;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
 import com.finchy.pipeorgans.content.musicalLink.NoteLinkBlock;
 import com.finchy.pipeorgans.content.musicalLink.NoteLinkGenerator;
+import com.finchy.pipeorgans.content.pipes.bassoon.BassoonBlock;
+import com.finchy.pipeorgans.content.pipes.bassoon.BassoonExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.chamade.ChamadeBlock;
+import com.finchy.pipeorgans.content.pipes.chamade.ChamadeExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlock;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornBlock;
 import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.hauntedWhistle.HauntedWhistleBlock;
 import com.finchy.pipeorgans.content.pipes.hauntedWhistle.HauntedWhistleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.openWood.OpenWoodBlock;
+import com.finchy.pipeorgans.content.pipes.openWood.OpenWoodExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.prestant.PrestantBlock;
 import com.finchy.pipeorgans.content.pipes.prestant.PrestantExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaBlock;
@@ -270,6 +276,19 @@ public class AllBlocks {
             () -> Blocks.DARK_OAK_PLANKS,
             BlockTags.MINEABLE_WITH_AXE);
 
+    public static final BlockEntry<BassoonBlock> BASSOON = registerPipeBlock(
+            "bassoon",
+            BassoonBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            StopSize.SIXTEEN,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<BassoonExtensionBlock> BASSOON_EXTENSION = registerExtensionBlock(
+            "bassoon_extension",
+            BassoonExtensionBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
     public static final BlockEntry<SubbassBlock> SUBBASS = registerPipeBlock(
             "subbass",
             SubbassBlock::new,
@@ -283,6 +302,19 @@ public class AllBlocks {
             () -> Blocks.DARK_OAK_PLANKS,
             BlockTags.MINEABLE_WITH_AXE);
 
+    public static final BlockEntry<OpenWoodBlock> OPEN_WOOD = registerPipeBlock(
+            "open_wood",
+            OpenWoodBlock::new,
+            () -> Blocks.MANGROVE_PLANKS,
+            StopSize.SIXTEEN,
+            BlockTags.MINEABLE_WITH_AXE);
+
+    public static final BlockEntry<OpenWoodExtensionBlock> OPEN_WOOD_EXTENSION = registerExtensionBlock(
+            "open_wood_extension",
+            OpenWoodExtensionBlock::new,
+            () -> Blocks.MANGROVE_PLANKS,
+            BlockTags.MINEABLE_WITH_AXE);
+
     public static final BlockEntry<TrompetteBlock> TROMPETTE = registerPipeBlock(
             "trompette",
             TrompetteBlock::new,
@@ -293,6 +325,19 @@ public class AllBlocks {
     public static final BlockEntry<TrompetteExtensionBlock> TROMPETTE_EXTENSION = registerExtensionBlock(
             "trompette_extension",
             TrompetteExtensionBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<ChamadeBlock> CHAMADE = registerPipeBlock(
+            "chamade",
+            ChamadeBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<ChamadeExtensionBlock> CHAMADE_EXTENSION = registerExtensionBlock(
+            "chamade_extension",
+            ChamadeExtensionBlock::new,
             com.simibubi.create.AllBlocks.BRASS_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 

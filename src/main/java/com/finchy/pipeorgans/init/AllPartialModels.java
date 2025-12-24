@@ -66,11 +66,23 @@ public class AllPartialModels {
     SUBBASS_MOUTH_LARGE = block("subbass/subbass_large_mouth"),
     SUBBASS_MOUTH_HUGE = block("subbass/subbass_huge_mouth"),
 
+    OPEN_WOOD_MOUTH_TINY = block("open_wood/open_wood_tiny_mouth"),
+    OPEN_WOOD_MOUTH_SMALL = block("open_wood/open_wood_small_mouth"),
+    OPEN_WOOD_MOUTH_MEDIUM = block("open_wood/open_wood_medium_mouth"),
+    OPEN_WOOD_MOUTH_LARGE = block("open_wood/open_wood_large_mouth"),
+    OPEN_WOOD_MOUTH_HUGE = block("open_wood/open_wood_huge_mouth"),
+
     TROMPETTE_MOUTH_TINY = block("trompette/trompette_tiny_mouth"),
     TROMPETTE_MOUTH_SMALL = block("trompette/trompette_small_mouth"),
     TROMPETTE_MOUTH_MEDIUM = block("trompette/trompette_medium_mouth"),
     TROMPETTE_MOUTH_LARGE = block("trompette/trompette_large_mouth"),
     TROMPETTE_MOUTH_HUGE = block("trompette/trompette_huge_mouth"),
+
+    CHAMADE_MOUTH_TINY = block("chamade/chamade_tiny_mouth"),
+    CHAMADE_MOUTH_SMALL = block("chamade/chamade_small_mouth"),
+    CHAMADE_MOUTH_MEDIUM = block("chamade/chamade_medium_mouth"),
+    CHAMADE_MOUTH_LARGE = block("chamade/chamade_large_mouth"),
+    CHAMADE_MOUTH_HUGE = block("chamade/chamade_huge_mouth"),
 
     ENGLISH_HORN_MOUTH_TINY = block("english_horn/english_horn_tiny_mouth"),
     ENGLISH_HORN_MOUTH_SMALL = block("english_horn/english_horn_small_mouth"),
@@ -89,6 +101,12 @@ public class AllPartialModels {
     POSAUNE_MOUTH_MEDIUM = block("posaune/posaune_medium_mouth"),
     POSAUNE_MOUTH_LARGE = block("posaune/posaune_large_mouth"),
     POSAUNE_MOUTH_HUGE = block("posaune/posaune_huge_mouth"),
+
+    BASSOON_MOUTH_TINY = block("bassoon/bassoon_tiny_mouth"),
+    BASSOON_MOUTH_SMALL = block("bassoon/bassoon_small_mouth"),
+    BASSOON_MOUTH_MEDIUM = block("bassoon/bassoon_medium_mouth"),
+    BASSOON_MOUTH_LARGE = block("bassoon/bassoon_large_mouth"),
+    BASSOON_MOUTH_HUGE = block("bassoon/bassoon_huge_mouth"),
 
     VOX_HUMANA_MOUTH_TINY = block("vox_humana/vox_humana_tiny_mouth"),
     VOX_HUMANA_MOUTH_SMALL = block("vox_humana/vox_humana_small_mouth"),

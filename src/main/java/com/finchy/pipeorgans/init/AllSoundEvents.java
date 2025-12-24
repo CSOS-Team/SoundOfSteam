@@ -74,11 +74,23 @@ public class AllSoundEvents {
      SUBBASS_LOW = registerSoundEvent("subbass_low"),
      SUBBASS_DEEP = registerSoundEvent("subbass_deep"),
 
+    OPEN_WOOD_SUPERHIGH = registerSoundEvent("open_wood_superhigh"),
+    OPEN_WOOD_HIGH = registerSoundEvent("open_wood_high"),
+    OPEN_WOOD_MEDIUM = registerSoundEvent("open_wood_medium"),
+    OPEN_WOOD_LOW = registerSoundEvent("open_wood_low"),
+    OPEN_WOOD_DEEP = registerSoundEvent("open_wood_deep"),
+
      TROMPETTE_SUPERHIGH = registerSoundEvent("trompette_superhigh"),
      TROMPETTE_HIGH = registerSoundEvent("trompette_high"),
      TROMPETTE_MEDIUM = registerSoundEvent("trompette_medium"),
      TROMPETTE_LOW = registerSoundEvent("trompette_low"),
      TROMPETTE_DEEP = registerSoundEvent("trompette_deep"),
+
+    CHAMADE_SUPERHIGH = registerSoundEvent("chamade_superhigh"),
+    CHAMADE_HIGH = registerSoundEvent("chamade_high"),
+    CHAMADE_MEDIUM = registerSoundEvent("chamade_medium"),
+    CHAMADE_LOW = registerSoundEvent("chamade_low"),
+    CHAMADE_DEEP = registerSoundEvent("chamade_deep"),
 
      ENGLISH_HORN_SUPERHIGH = registerSoundEvent("english_horn_superhigh"),
      ENGLISH_HORN_HIGH = registerSoundEvent("english_horn_high"),
@@ -97,6 +109,12 @@ public class AllSoundEvents {
      POSAUNE_MEDIUM = registerSoundEvent("posaune_medium"),
      POSAUNE_LOW = registerSoundEvent("posaune_low"),
      POSAUNE_DEEP = registerSoundEvent("posaune_deep"),
+
+    BASSOON_SUPERHIGH = registerSoundEvent("bassoon_superhigh"),
+    BASSOON_HIGH = registerSoundEvent("bassoon_high"),
+    BASSOON_MEDIUM = registerSoundEvent("bassoon_medium"),
+    BASSOON_LOW = registerSoundEvent("bassoon_low"),
+    BASSOON_DEEP = registerSoundEvent("bassoon_deep"),
 
      VOX_HUMANA_SUPERHIGH = registerSoundEvent("vox_humana_superhigh"),
      VOX_HUMANA_HIGH = registerSoundEvent("vox_humana_high"),

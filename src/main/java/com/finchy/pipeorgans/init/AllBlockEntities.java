@@ -8,6 +8,10 @@ import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarRenderer;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarVisual;
 import com.finchy.pipeorgans.content.musicalLink.NoteLinkBlockEntity;
+import com.finchy.pipeorgans.content.pipes.bassoon.BassoonBlockEntity;
+import com.finchy.pipeorgans.content.pipes.bassoon.BassoonRenderer;
+import com.finchy.pipeorgans.content.pipes.chamade.ChamadeBlockEntity;
+import com.finchy.pipeorgans.content.pipes.chamade.ChamadeRenderer;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlockEntity;
 import com.finchy.pipeorgans.content.pipes.diapason.DiapasonRenderer;
 import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornBlockEntity;
@@ -23,6 +27,8 @@ import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteBlockEntity;
 import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteRenderer;
 import com.finchy.pipeorgans.content.pipes.nasard.NasardBlockEntity;
 import com.finchy.pipeorgans.content.pipes.nasard.NasardRenderer;
+import com.finchy.pipeorgans.content.pipes.openWood.OpenWoodBlockEntity;
+import com.finchy.pipeorgans.content.pipes.openWood.OpenWoodRenderer;
 import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloBlockEntity;
 import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloRenderer;
 import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlockEntity;
@@ -138,17 +144,35 @@ public class AllBlockEntities {
             AllBlocks.POSAUNE,
             () -> PosauneRenderer::new);
 
+    public static final BlockEntityEntry<BassoonBlockEntity> BASSOON_BLOCK_ENTITY = registerPipeBlockEntity(
+            "bassoon_block_entity",
+            BassoonBlockEntity::new,
+            AllBlocks.BASSOON,
+            () -> BassoonRenderer::new);
+
     public static final BlockEntityEntry<SubbassBlockEntity> SUBBASS_BLOCK_ENTITY = registerPipeBlockEntity(
             "subbass_block_entity",
             SubbassBlockEntity::new,
             AllBlocks.SUBBASS,
             () -> SubbassRenderer::new);
 
+    public static final BlockEntityEntry<OpenWoodBlockEntity> OPEN_WOOD_BLOCK_ENTITY = registerPipeBlockEntity(
+            "open_wood_block_entity",
+            OpenWoodBlockEntity::new,
+            AllBlocks.OPEN_WOOD,
+            () -> OpenWoodRenderer::new);
+
     public static final BlockEntityEntry<TrompetteBlockEntity> TROMPETTE_BLOCK_ENTITY = registerPipeBlockEntity(
             "trompette_block_entity",
             TrompetteBlockEntity::new,
             AllBlocks.TROMPETTE,
             () -> TrompetteRenderer::new);
+
+    public static final BlockEntityEntry<ChamadeBlockEntity> CHAMADE_BLOCK_ENTITY = registerPipeBlockEntity(
+            "chamade_block_entity",
+            ChamadeBlockEntity::new,
+            AllBlocks.CHAMADE,
+            () -> ChamadeRenderer::new);
 
     public static final BlockEntityEntry<EnglishHornBlockEntity> ENGLISH_HORN_BLOCK_ENTITY = registerPipeBlockEntity(
             "english_horn_block_entity",
