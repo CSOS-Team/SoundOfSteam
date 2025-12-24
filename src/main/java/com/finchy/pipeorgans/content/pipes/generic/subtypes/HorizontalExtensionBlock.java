@@ -25,8 +25,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public abstract class HorizontalExtensionBlock extends GenericExtensionBlock<EExtensionShapes.HorizontalShape> {
 
-    public static final EnumProperty<EExtensionShapes.HorizontalShape> SHAPE =
-            EnumProperty.create("shape", EExtensionShapes.HorizontalShape.class);
+    public static final EnumProperty<EExtensionShapes.HorizontalShape> SHAPE = EnumProperty.create("shape", EExtensionShapes.HorizontalShape.class);
 
     public HorizontalExtensionBlock(Properties properties) {
         super(properties, SHAPE);

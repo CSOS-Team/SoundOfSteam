@@ -1,0 +1,32 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/trompette",
+		"particle": "pipeorgans:block/particle/trompette_particle"
+	},
+	"elements": [
+		{
+			"from": [4, 4, 8],
+			"to": [12, 12, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 7, 16]},
+			"faces": {
+				"east": {"uv": [8.5, 9, 9.5, 10], "rotation": 90, "texture": "#0"},
+				"west": {"uv": [8.5, 9, 9.5, 10], "rotation": 270, "texture": "#0"},
+				"up": {"uv": [8.5, 9, 9.5, 10], "texture": "#0"},
+				"down": {"uv": [8.5, 9, 9.5, 10], "rotation": 180, "texture": "#0"}
+			}
+		},
+		{
+			"from": [4, 4, 0],
+			"to": [12, 12, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 7, 8]},
+			"faces": {
+				"east": {"uv": [8.5, 9, 9.5, 10], "rotation": 90, "texture": "#0"},
+				"west": {"uv": [8.5, 9, 9.5, 10], "rotation": 270, "texture": "#0"},
+				"up": {"uv": [8.5, 9, 9.5, 10], "texture": "#0"},
+				"down": {"uv": [8.5, 9, 9.5, 10], "rotation": 180, "texture": "#0"}
+			}
+		}
+	]
+}
