@@ -192,11 +192,12 @@ public class PipePlaybackPonder {
         scene.title("pipe_adjusting", "Adjusting a pipe's pitch");
         scene.configureBasePlate(1, 0, 5);
 
-        PonderUtil.revealBasePlate(scene, util, PonderTimings.BUILD_STEP);
+        scene.showBasePlate();
+        scene.idle(PonderTimings.BUILD_STEP);
 
         Selection windchest = util.select().fromTo(2, 1, 2, 3, 1, 2);
         Selection fan = util.select().position(1, 1, 2);
-        Selection smallCog = util.select().position(0, 1, 2);
+        Selection cogs = util.select().fromTo(0, 1, 2, 0, 0, 3);
         Selection torch = util.select().position(2, 1, 1);
         Selection lever = util.select().position(3, 1, 1);
         BlockPos diapason = util.grid().at(3, 2, 2);
@@ -214,7 +215,7 @@ public class PipePlaybackPonder {
         scene.world().showSection(fan, Direction.EAST);
         scene.idle(PonderTimings.BUILD_STEP);
         pipe.showPipe(Direction.DOWN);
-        scene.world().showSection(smallCog, Direction.EAST);
+        scene.world().showSection(cogs, Direction.EAST);
         scene.idle(PonderTimings.BUILD_STEP);
         scene.world().showSection(torch, Direction.DOWN);
         scene.idle(PonderTimings.BUILD_STEP);
