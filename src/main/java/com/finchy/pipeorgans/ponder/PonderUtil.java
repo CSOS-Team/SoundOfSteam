@@ -1,5 +1,7 @@
 package com.finchy.pipeorgans.ponder;
 
+import com.finchy.pipeorgans.ponder.element.MidiGuiSlotElement;
+import com.finchy.pipeorgans.ponder.instruction.ShowMidiGuiSlotInstruction;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import net.createmod.ponder.api.element.ElementLink;
@@ -12,6 +14,7 @@ import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.createmod.ponder.api.scene.Selection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 public final class PonderUtil {
@@ -52,6 +55,11 @@ public final class PonderUtil {
 
     public static void showWrenchInteraction(CreateSceneBuilder scene, Vec3 pos, Pointing dir, boolean shift, boolean control) {
         showWrenchInteraction(scene, pos, dir, shift, control, PonderTimings.INTERACTION_DISPLAY_TIME);
+    }
+
+    public static void showMidiGuiSlot(CreateSceneBuilder scene, Vec3 pos, Pointing dir, ItemStack item, int duration) {
+        MidiGuiSlotElement midiGuiSlotElement = new MidiGuiSlotElement(pos, dir, item);
+        scene.addInstruction(new ShowMidiGuiSlotInstruction(midiGuiSlotElement, duration));
     }
 
     public static void displayText(CreateSceneBuilder scene, Vec3 pos, String text, boolean attachKeyFrame, boolean placeNearTarget, int duration) {

@@ -11,13 +11,15 @@ import net.createmod.ponder.api.scene.Selection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
 
 public class PipePlaybackPonder {
     public static void windchestController(SceneBuilder builder, SceneBuildingUtil util) {
         CreateSceneBuilder scene = new CreateSceneBuilder(builder);
 
-        scene.title("windchest_controller", "Playing pipes with Windchests");
+        scene.title("windchest_controller", "Using Windchests");
         scene.configureBasePlate(0, 0, 7);
 
         // Begin building animation by showing base layer
@@ -58,6 +60,10 @@ public class PipePlaybackPonder {
                 .attachKeyFrame()
                 .pointAt(controllerVec);
         scene.idle(80); // wait for 1 second after the text disappears
+
+        PonderUtil.showMidiGuiSlot(scene, diapason1.getCenter().add(0, 0.5f, 0), Pointing.DOWN, new ItemStack(Items.DIAMOND), 20);
+        // this is just a temporary location for this, since i had the file open at the time; we'll remove it eventually
+        // todo: weird line that shows up on right side of screen when rendering with an itemstack other than ItemStack.EMPTY?
 
         // TEXT 2
         scene.overlay().showText(PonderTimings.READING_TIME)
