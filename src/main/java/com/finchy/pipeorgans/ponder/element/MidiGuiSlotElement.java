@@ -48,15 +48,15 @@ public class MidiGuiSlotElement extends AnimatedOverlayElementBase {
         poseStack.translate(sceneToScreen.x + xFade, sceneToScreen.y + yFade, 400);
 
         PonderUI.renderSpeechBox(graphics, 0, 0, width, height, false, direction, true);
-
         poseStack.translate(0, 0, 100);
 
         poseStack.pushPose();
         SPRITE.render(graphics, 1, 1);
+        poseStack.popPose();
 
         if (!item.isEmpty()) {
             GuiGameElement.of(item)
-                    .<GuiGameElement.GuiRenderBuilder>at(20, 1)
+                    .<GuiGameElement.GuiRenderBuilder>at(21, 2)
                     .render(graphics);
             RenderSystem.disableDepthTest();
         }

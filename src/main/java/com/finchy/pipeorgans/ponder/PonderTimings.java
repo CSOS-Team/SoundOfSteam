@@ -20,7 +20,14 @@ public final class PonderTimings {
         return READING_WINDOW - READING_BUFFER * times;
     }
 
-    public static final int INTERACTION_DISPLAY_TIME = TICKS_PER_SECOND * 1;
+    /**
+     * Returns the number of ticks to last N seconds
+    */
+    public static int seconds(int seconds) {
+        return TICKS_PER_SECOND * seconds;
+    }
+
+    public static final int INTERACTION_DISPLAY_TIME = TICKS_PER_SECOND;
 
     public static final int CONTEXT_INFO_BUFFER = TICKS_PER_SECOND / 2;
 }
