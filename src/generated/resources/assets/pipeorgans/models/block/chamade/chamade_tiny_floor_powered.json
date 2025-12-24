@@ -1,0 +1,6 @@
+{
+  "parent": "pipeorgans:block/chamade/chamade_tiny_floor",
+  "textures": {
+    "0": "pipeorgans:block/copper_redstone_plate_powered"
+  }
+}

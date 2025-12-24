@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
 import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,28 +42,21 @@ public abstract class HorizontalPipeBlock extends GenericPipeBlock {
 
             // Existing extension
             if (stateAtPos.getBlock() instanceof HorizontalExtensionBlock) {
+                if (stateAtPos.getValue(HorizontalExtensionBlock.SHAPE) == EExtensionShapes.HorizontalShape.SINGLE) {
 
-                if (stateAtPos.getValue(HorizontalExtensionBlock.SHAPE)
-                        == EExtensionShapes.HorizontalShape.SINGLE) {
-
-                    BlockState toSet =
-                            stateAtPos.cycle(HorizontalExtensionBlock.SHAPE);
-
-                    if (extensionBlock.get().isDirectional())
-                        toSet = toSet.setValue(FACING, facing);
-
+                    BlockState toSet = stateAtPos.cycle(HorizontalExtensionBlock.SHAPE);
+                    toSet = toSet.setValue(FACING, facing);
                     level.setBlock(currentPos, toSet, 3);
 
                     if (playSound) {
+                        if (stateAtPos.getValue(HorizontalExtensionBlock.SHAPE) == EExtensionShapes.HorizontalShape.SINGLE)
+                            i++;
                         float pitch = (float) Math.pow(2, -i / 12.0);
-                        level.playSound(null, currentPos, growSound,
-                                SoundSource.BLOCKS, volume / 4f, pitch);
-                        level.playSound(null, currentPos, hitSound,
-                                SoundSource.BLOCKS, volume, pitch);
+                        level.playSound(null, currentPos, growSound, SoundSource.BLOCKS, volume / 4f, pitch);
+                        level.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, volume, pitch);
                     }
                     return;
                 }
-
 
                 currentPos = currentPos.relative(towardPlayer);
                 continue;
@@ -73,24 +67,45 @@ public abstract class HorizontalPipeBlock extends GenericPipeBlock {
                 return;
 
             // Place new extension
-            BlockState toSet =
-                    extensionBlock.get()
-                            .defaultBlockState()
-                            .setValue(SIZE, size);
-
-            if (extensionBlock.get().isDirectional())
-                toSet = toSet.setValue(FACING, facing);
-
+            BlockState toSet = extensionBlock.get().defaultBlockState().setValue(SIZE, size).setValue(FACING, facing);
             level.setBlock(currentPos, toSet, 3);
 
             if (playSound) {
                 float pitch = (float) Math.pow(2, -i / 12.0);
-                level.playSound(null, currentPos, growSound,
-                        SoundSource.BLOCKS, volume / 4f, pitch);
-                level.playSound(null, currentPos, hitSound,
-                        SoundSource.BLOCKS, volume, pitch);
+                level.playSound(null, currentPos, growSound, SoundSource.BLOCKS, volume / 4f, pitch);
+                level.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, volume, pitch);
             }
             return;
+        }
+    }
+
+    @Override
+    public boolean validateReplacementSpace(BlockState state, Level level, BlockPos pos, int pitch) {
+        if (pitch > 0) { // if there are actually any extensions to place
+
+            // check space (pitch/EPB) in front of the base, rounded up
+            Direction outFacing = state.getValue(FACING).getOpposite();
+            int checkDist = (int) Math.ceil(pitch/(float)EPB);
+            BlockPos currentPos = pos;
+            for (int i=1; i<=checkDist; i++) {
+                currentPos = currentPos.relative(outFacing);
+                BlockState currentState = level.getBlockState(currentPos);
+                if (currentState.canBeReplaced() || (currentState.getBlock() instanceof HorizontalExtensionBlock))
+                    continue;
+                return false; // something in the way
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void clearOldExtensions(BlockState state, Level level, BlockPos pos, int pitch) {
+        Direction outFacing = state.getValue(FACING).getOpposite();
+        int removeDistance = (int) Math.ceil(pitch/(float)EPB);
+        BlockPos currentPos = pos;
+        for (int i=1; i<=removeDistance; i++) {
+            currentPos = currentPos.relative(outFacing);
+            level.destroyBlock(currentPos, false);
         }
     }
 }

@@ -22,6 +22,6 @@ public class ChamadeBlock extends HorizontalPipeBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return AllShapes.slimPipeShape(pState.getValue(SIZE), pState.getValue(WALL), pState.getValue(FACING));
+        return AllShapes.horizontalPipeShape(pState.getValue(SIZE), pState.getValue(WALL), pState.getValue(FACING));
     }
 }

@@ -5,6 +5,7 @@ import com.finchy.pipeorgans.content.base.BaseBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.HorizontalExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadrupleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.SingleExtensionBlock;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
@@ -64,6 +65,8 @@ public class BlockStateGen {
                 shape = state.getValue(DoubleExtensionBlock.SHAPE).getSerializedName();
             else if (state.hasProperty(QuadrupleExtensionBlock.SHAPE))
                 shape = state.getValue(QuadrupleExtensionBlock.SHAPE).getSerializedName();
+            else if (state.hasProperty(HorizontalExtensionBlock.SHAPE))
+                shape = state.getValue(HorizontalExtensionBlock.SHAPE).getSerializedName();
             else {
                 PipeOrgans.LOGGER.error("Pipe extension {} has no valid shape property", ctx.getName());
                 shape = "";

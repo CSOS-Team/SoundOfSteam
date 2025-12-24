@@ -45,6 +45,18 @@ public abstract class AllShapes {
         ).add(base).build();
     }
 
+    public static VoxelShape horizontalPipeShape(EPipeSizes.PipeSize size, boolean wall, Direction facing) {
+        VoxelShape base = wall? BASE.get(facing.getOpposite()) : BASE.get(Direction.UP);
+        return shape(switch (size) {
+                    case TINY -> HORIZONTAL_TINY_BASE.get(facing);
+                    case SMALL -> HORIZONTAL_SMALL_BASE.get(facing);
+                    case MEDIUM -> HORIZONTAL_MEDIUM_BASE.get(facing);
+                    case LARGE -> HORIZONTAL_LARGE_BASE.get(facing);
+                    case HUGE -> HORIZONTAL_HUGE_BASE.get(facing);
+                }
+        ).add(base).build();
+    }
+
     // generic single extension
     public static VoxelShape genericExtensionShape(EExtensionShapes.SingleShape shape, EPipeSizes.PipeSize size) {
         return switch (size) {
@@ -176,21 +188,21 @@ public abstract class AllShapes {
     }
 
     // slim double extension horizontal
-    public static VoxelShape slimExtensionShape(EExtensionShapes.HorizontalShape shape, EPipeSizes.PipeSize size) {
+    public static VoxelShape horizontalExtensionShape(EExtensionShapes.HorizontalShape shape, EPipeSizes.PipeSize size, Direction facing) {
         return switch (shape) {
             case SINGLE -> switch (size) {
-                case TINY -> SLIM_EXTENSION_TINY_DOUBLE;
-                case SMALL -> SLIM_EXTENSION_SMALL_DOUBLE;
-                case MEDIUM -> SLIM_EXTENSION_MEDIUM_DOUBLE;
-                case LARGE -> SLIM_EXTENSION_LARGE_DOUBLE;
-                case HUGE -> SLIM_EXTENSION_HUGE_DOUBLE;
+                case TINY -> HORIZONTAL_EXTENSION_TINY_DOUBLE.get(facing);
+                case SMALL -> HORIZONTAL_EXTENSION_SMALL_DOUBLE.get(facing);
+                case MEDIUM -> HORIZONTAL_EXTENSION_MEDIUM_DOUBLE.get(facing);
+                case LARGE -> HORIZONTAL_EXTENSION_LARGE_DOUBLE.get(facing);
+                case HUGE -> HORIZONTAL_EXTENSION_HUGE_DOUBLE.get(facing);
             };
             case DOUBLE, DOUBLE_CONNECTED -> switch (size) {
-                case TINY -> SLIM_EXTENSION_TINY_QUAD;
-                case SMALL -> SLIM_EXTENSION_SMALL_QUAD;
-                case MEDIUM -> SLIM_EXTENSION_MEDIUM_QUAD;
-                case LARGE -> SLIM_EXTENSION_LARGE_QUAD;
-                case HUGE -> SLIM_EXTENSION_HUGE_QUAD;
+                case TINY -> HORIZONTAL_EXTENSION_TINY_QUAD.get(facing);
+                case SMALL -> HORIZONTAL_EXTENSION_SMALL_QUAD.get(facing);
+                case MEDIUM -> HORIZONTAL_EXTENSION_MEDIUM_QUAD.get(facing);
+                case LARGE -> HORIZONTAL_EXTENSION_LARGE_QUAD.get(facing);
+                case HUGE -> HORIZONTAL_EXTENSION_HUGE_QUAD.get(facing);
             };
         };
     }
@@ -362,6 +374,34 @@ public abstract class AllShapes {
         STRING_EXTENSION_HUGE_DOUBLE = shape(2, 0, 1, 14, 8, 15).forHorizontal(Direction.NORTH),
         STRING_EXTENSION_HUGE_TRIPLE = shape(2, 0, 1, 14, 12, 15).forHorizontal(Direction.NORTH),
         STRING_EXTENSION_HUGE_QUAD = shape(2, 0, 1, 14, 16, 15).forHorizontal(Direction.NORTH);
+
+    // HORIZONTAL PIPES
+
+    private static final VoxelShaper
+
+    //(so just the chamades)
+
+    HORIZONTAL_TINY_BASE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_SMALL_BASE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_MEDIUM_BASE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_LARGE_BASE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_HUGE_BASE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+
+    HORIZONTAL_EXTENSION_TINY_DOUBLE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_TINY_QUAD = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+
+    HORIZONTAL_EXTENSION_SMALL_DOUBLE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_SMALL_QUAD= shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+
+    HORIZONTAL_EXTENSION_MEDIUM_DOUBLE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_MEDIUM_QUAD = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+
+    HORIZONTAL_EXTENSION_LARGE_DOUBLE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_LARGE_QUAD = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+
+    HORIZONTAL_EXTENSION_HUGE_DOUBLE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_HUGE_QUAD = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH);
+
 
     // ...back to our scheduled programming
     // ^ this joke will become a lot funnier once we actually add other VoxelShapes
