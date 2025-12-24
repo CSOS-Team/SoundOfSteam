@@ -13,6 +13,6 @@ public class POPonderPlugin implements PonderPlugin {
 
     @Override
     public void registerScenes(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        PonderIndex.register(helper);
+        AllPipeOrgansPonderScenes.register(helper);
     }
 }

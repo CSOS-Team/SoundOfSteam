@@ -6,7 +6,7 @@ import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.createmod.ponder.api.registration.PonderSceneRegistrationHelper;
 import net.minecraft.resources.ResourceLocation;
 
-public class PonderIndex {
+public class AllPipeOrgansPonderScenes {
     public static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
         PonderSceneRegistrationHelper<ItemProviderEntry<?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
 
@@ -14,7 +14,6 @@ public class PonderIndex {
         HELPER.addStoryBoard(AllBlocks.TRACKER_BAR, "tracker_bar", RollAuthoringPonder::musicRollPlayback);
 
         HELPER.forComponents(AllBlocks.WINDCHEST_MASTER)
-                .addStoryBoard("windchest_controller", PipePlaybackPonder::windchestController)
-                .addStoryBoard("boiler_pipe_playback", PipePlaybackPonder::boilerPipePlaying);
+                .addStoryBoard("windchest_controller", PipePlaybackPonder::windchestController);
     }
 }
