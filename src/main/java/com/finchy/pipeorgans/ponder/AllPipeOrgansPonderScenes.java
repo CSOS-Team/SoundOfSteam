@@ -13,12 +13,12 @@ public class AllPipeOrgansPonderScenes {
         HELPER.addStoryBoard(AllBlocks.TRACKER_BAR, "tracker_bar", TrackerBarPonder::musicRollPlayback);
 
         HELPER.forComponents(AllBlocks.WINDCHEST_MASTER)
-                .addStoryBoard("windchest_controller", PipePlaybackPonder::windchestController);
+                .addStoryBoard("windchests", WindchestPonder::windchests);
 
         HELPER.forComponents(AllBlocks.WINDCHEST)
-                .addStoryBoard("windchest_controller", PipePlaybackPonder::windchestController);
+                .addStoryBoard("windchests", WindchestPonder::windchests);
 
         HELPER.forComponents(AllBlocks.PIPE_BLOCKS)
-                .addStoryBoard("pipe_adjusting", PipePlaybackPonder::pipeAdjusting);
+                .addStoryBoard("pipe_adjusting", WindchestPonder::pipeAdjusting);
     }
 }

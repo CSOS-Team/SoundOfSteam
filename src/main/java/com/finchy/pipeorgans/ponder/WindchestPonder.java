@@ -13,11 +13,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.phys.Vec3;
 
-public class PipePlaybackPonder {
-    public static void windchestController(SceneBuilder builder, SceneBuildingUtil util) {
+public class WindchestPonder {
+    public static void windchests(SceneBuilder builder, SceneBuildingUtil util) {
         CreateSceneBuilder scene = new CreateSceneBuilder(builder);
 
-        scene.title("windchest_controller", "Using Windchests");
+        scene.title("windchests", "Using Windchests");
         scene.configureBasePlate(0, 0, 7);
 
         // Begin building animation by showing base layer
