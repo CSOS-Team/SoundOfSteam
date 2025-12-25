@@ -1,6 +1,9 @@
 package com.finchy.pipeorgans.ponder;
 
 import com.finchy.pipeorgans.init.AllBlocks;
+import com.finchy.pipeorgans.ponder.scenes.PipeScenes;
+import com.finchy.pipeorgans.ponder.scenes.TrackerBarScenes;
+import com.finchy.pipeorgans.ponder.scenes.WindchestScenes;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.createmod.ponder.api.registration.PonderSceneRegistrationHelper;
@@ -10,15 +13,15 @@ public class AllPipeOrgansPonderScenes {
     public static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
         PonderSceneRegistrationHelper<ItemProviderEntry<?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
 
-        HELPER.addStoryBoard(AllBlocks.TRACKER_BAR, "tracker_bar", TrackerBarPonder::musicRollPlayback);
+        HELPER.addStoryBoard(AllBlocks.TRACKER_BAR, "tracker_bar", TrackerBarScenes::musicRollPlayback);
 
         HELPER.forComponents(AllBlocks.WINDCHEST_MASTER)
-                .addStoryBoard("windchests", WindchestPonder::windchests);
+                .addStoryBoard("windchests", WindchestScenes::windchests);
 
         HELPER.forComponents(AllBlocks.WINDCHEST)
-                .addStoryBoard("windchests", WindchestPonder::windchests);
+                .addStoryBoard("windchests", WindchestScenes::windchests);
 
         HELPER.forComponents(AllBlocks.PIPE_BLOCKS)
-                .addStoryBoard("pipe_adjusting", WindchestPonder::pipeAdjusting);
+                .addStoryBoard("pipe_adjusting", PipeScenes::pipeAdjusting);
     }
 }

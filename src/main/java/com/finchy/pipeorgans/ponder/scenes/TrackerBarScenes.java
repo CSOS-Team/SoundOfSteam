@@ -1,5 +1,7 @@
-package com.finchy.pipeorgans.ponder;
+package com.finchy.pipeorgans.ponder.scenes;
 
+import com.finchy.pipeorgans.ponder.PonderTimings;
+import com.finchy.pipeorgans.ponder.PonderUtil;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import net.createmod.catnip.math.Pointing;
 import net.createmod.ponder.api.scene.SceneBuilder;
@@ -10,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
 
-public class TrackerBarPonder {
+public class TrackerBarScenes {
 
     public static void musicRollPlayback(SceneBuilder builder, SceneBuildingUtil util) {
         CreateSceneBuilder scene = new CreateSceneBuilder(builder);

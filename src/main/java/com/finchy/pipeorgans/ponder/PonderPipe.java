@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.ponder;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.*;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
@@ -111,28 +110,31 @@ public class PonderPipe<TS extends Enum<TS> & EExtensionShapes.ExtensionShape & 
         changePipeSize(newSize, particles, defaultTransition);
     }
 
-    public void cyclePipeSize(boolean particles, Transition transition, boolean reverse) {
+    public void cyclePipeSize(Transition transition, boolean reverse) {
         EPipeSizes.PipeSize newSize = EPipeSizes.PipeSize.values()[(currentSize.ordinal() + (reverse ? -1 : 1) + EPipeSizes.PipeSize.values().length) % EPipeSizes.PipeSize.values().length];
         this.currentSize = newSize;
-        scene.world().modifyBlock(pos, bs -> bs.setValue(GenericPipeBlock.SIZE, newSize), particles);
+        scene.world().modifyBlock(pos, bs -> bs.setValue(GenericPipeBlock.SIZE, newSize), false);
         tryBothTransitionParts(transition);
+        for (int i=1; i<=getExtensionBlockHeight(); i++) {
+            scene.world().cycleBlockProperty(pos.above(i), GenericPipeBlock.SIZE);
+        }
     }
 
-    public void cyclePipeSize(boolean particles, boolean reverse) {
-        cyclePipeSize(particles, defaultTransition, reverse);
+    public void cyclePipeSize(boolean reverse) {
+        cyclePipeSize(defaultTransition, reverse);
     }
 
-    public void cyclePipeSize(boolean particles, Transition transition) {
-        cyclePipeSize(particles, transition, false);
+    public void cyclePipeSize(Transition transition) {
+        cyclePipeSize(transition, false);
     }
 
-    public void cyclePipeSize(boolean particles) {
-        cyclePipeSize(particles, false);
+    public void cyclePipeSize() {
+        cyclePipeSize(false);
     }
 
     public void changePipeHeight(int newHeight, boolean particles, Transition transition) {
         for (int i = currentHeight; i < newHeight; i++) {
-            incrementPipeHeight(particles, Transition.NONE);
+            incrementPipeHeight(Transition.NONE);
         }
         for (int i = currentHeight; i > newHeight; i--) {
             decrementPipeHeight(particles, Transition.NONE);
@@ -144,29 +146,29 @@ public class PonderPipe<TS extends Enum<TS> & EExtensionShapes.ExtensionShape & 
         changePipeHeight(newHeight, particles, defaultTransition);
     }
 
-    public void incrementPipeHeight(boolean particles, Transition transition) {
+    public void incrementPipeHeight(Transition transition) {
         if (currentHeight >= 12)
             return;
         BlockPos extensionPos = pos.above(getExtensionBlockHeight());
         if (block instanceof SinglePipeBlock) {
             if (currentHeight > 0)
-                scene.world().modifyBlock(extensionPos, bs -> bs.setValue(SingleExtensionBlock.SHAPE, EExtensionShapes.SingleShape.SINGLE_CONNECTED), particles);
-            scene.world().setBlock(extensionPos.above(), extensionBlock.defaultBlockState().setValue(SingleExtensionBlock.SHAPE, EExtensionShapes.SingleShape.SINGLE).setValue(GenericPipeBlock.SIZE, currentSize), particles);
+                scene.world().modifyBlock(extensionPos, bs -> bs.setValue(SingleExtensionBlock.SHAPE, EExtensionShapes.SingleShape.SINGLE_CONNECTED), false);
+            scene.world().setBlock(extensionPos.above(), extensionBlock.defaultBlockState().setValue(SingleExtensionBlock.SHAPE, EExtensionShapes.SingleShape.SINGLE).setValue(GenericPipeBlock.SIZE, currentSize), false);
         } else if (block instanceof DoublePipeBlock) {
             if (currentHeight % 2 == 0) { // cross-block change required
                 if (currentHeight > 0)
-                    scene.world().modifyBlock(extensionPos, bs -> bs.setValue(DoubleExtensionBlock.SHAPE, EExtensionShapes.DoubleShape.DOUBLE_CONNECTED), particles);
-                scene.world().setBlock(extensionPos.above(), extensionBlock.defaultBlockState().setValue(DoubleExtensionBlock.SHAPE, EExtensionShapes.DoubleShape.SINGLE).setValue(GenericPipeBlock.SIZE, currentSize), particles);
+                    scene.world().modifyBlock(extensionPos, bs -> bs.setValue(DoubleExtensionBlock.SHAPE, EExtensionShapes.DoubleShape.DOUBLE_CONNECTED), false);
+                scene.world().setBlock(extensionPos.above(), extensionBlock.defaultBlockState().setValue(DoubleExtensionBlock.SHAPE, EExtensionShapes.DoubleShape.SINGLE).setValue(GenericPipeBlock.SIZE, currentSize), false);
             } else {
-                scene.world().modifyBlock(extensionPos, bs -> bs.cycle(DoubleExtensionBlock.SHAPE), particles);
+                scene.world().modifyBlock(extensionPos, bs -> bs.cycle(DoubleExtensionBlock.SHAPE), false);
             }
         } else if (block instanceof QuadruplePipeBlock) {
             if (currentHeight % 4 == 0) { // cross-block change required
                 if (currentHeight > 0)
-                    scene.world().modifyBlock(extensionPos, bs -> bs.setValue(QuadrupleExtensionBlock.SHAPE, EExtensionShapes.QuadrupleShape.QUAD_CONNECTED), particles);
-                scene.world().setBlock(extensionPos.above(), extensionBlock.defaultBlockState().setValue(QuadrupleExtensionBlock.SHAPE, EExtensionShapes.QuadrupleShape.SINGLE).setValue(GenericPipeBlock.SIZE, currentSize), particles);
+                    scene.world().modifyBlock(extensionPos, bs -> bs.setValue(QuadrupleExtensionBlock.SHAPE, EExtensionShapes.QuadrupleShape.QUAD_CONNECTED), false);
+                scene.world().setBlock(extensionPos.above(), extensionBlock.defaultBlockState().setValue(QuadrupleExtensionBlock.SHAPE, EExtensionShapes.QuadrupleShape.SINGLE).setValue(GenericPipeBlock.SIZE, currentSize), false);
             } else {
-                scene.world().modifyBlock(extensionPos, bs -> bs.cycle(QuadrupleExtensionBlock.SHAPE), particles);
+                scene.world().modifyBlock(extensionPos, bs -> bs.cycle(QuadrupleExtensionBlock.SHAPE), false);
             }
         }
         scene.world().modifyBlockEntity(pos, block.getBlockEntityClass(), GenericPipeBlockEntity::updatePitch);
@@ -174,8 +176,8 @@ public class PonderPipe<TS extends Enum<TS> & EExtensionShapes.ExtensionShape & 
         tryBothTransitionParts(transition);
     }
 
-    public void incrementPipeHeight(boolean particles) {
-        incrementPipeHeight(particles, defaultTransition);
+    public void incrementPipeHeight() {
+        incrementPipeHeight(defaultTransition);
     }
 
     public void decrementPipeHeight(boolean particles, Transition transition) {
@@ -261,14 +263,7 @@ public class PonderPipe<TS extends Enum<TS> & EExtensionShapes.ExtensionShape & 
     }
 
     public double getExtensionRealHeight() {
-        if (block instanceof SinglePipeBlock) {
-            return currentHeight;
-        } else if (block instanceof DoublePipeBlock) {
-            return currentHeight / 2f;
-        } else if (block instanceof QuadruplePipeBlock) {
-            return currentHeight / 4f;
-        }
-        return currentHeight;
+        return ((float)currentHeight/block.EPB);
     }
 
     public double getExtensionCenterOffset() {
