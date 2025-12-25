@@ -53,7 +53,7 @@ public class WindchestScenes {
                 .text("Windchests allow you to toggle several pipes at once")
                 .placeNearTarget()
                 .attachKeyFrame()
-                .pointAt(controllerVec);
+                .pointAt(windchestVec);
         scene.idle(80); // wait for 1 second after the text disappears
 
         // TEXT 2
@@ -131,7 +131,7 @@ public class WindchestScenes {
                 .text("... as long as the Windchest Controller has power")
                 .placeNearTarget()
                 .attachKeyFrame()
-                .pointAt(pipeVec);
+                .pointAt(controllerVec);
         scene.idle(PonderTimings.READING_BUFFER); // wait for 1 second before deactivating windchest
 
         scene.world().toggleRedstonePower(util.select().fromTo(controllerLever, controller)); // deactivate controller lever and controller
