@@ -11,6 +11,7 @@ import net.createmod.catnip.math.Pointing;
 import net.createmod.ponder.api.PonderPalette;
 import net.createmod.ponder.api.element.ElementLink;
 import net.createmod.ponder.api.element.WorldSectionElement;
+import net.createmod.ponder.api.level.PonderLevel;
 import net.createmod.ponder.api.scene.SceneBuilder;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.createmod.ponder.api.scene.Selection;
@@ -235,52 +236,126 @@ public class PipeScenes {
                 "C#4", 60,
                 true, true);
 
-        /*
-        PonderUtil.displayTextAndWait(scene, diapason.getCenter(), "After placing, adjust a pipe's octave by using a wrench on it to change its size", true, true);
-        pipe.showPitchOverlay(PonderTimings.INTERACTION_DISPLAY_TIME);
-        scene.idle(PonderTimings.READING_BUFFER);
+        scene.markAsFinished();
+    }
 
-        for (int i = 0; i < 5; i++) {
-            PonderUtil.showWrenchInteraction(scene, diapason.getCenter().add(0,.5f, 0), Pointing.DOWN, false, false);
-            scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME / 2);
-            pipe.cyclePipeSize();
-            scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME);
-        }
-        scene.world().restoreBlocks(util.select().position(diapason));
+    public static void pipeSwapping(SceneBuilder builder, SceneBuildingUtil util) {
+        CreateSceneBuilder scene = new CreateSceneBuilder(builder);
 
-        // Test 1.5
-        PonderUtil.displayTextAndWait(scene, diapason.getCenter(), "A pipe's size determines its octave. Increasing the pipe diameter lowers the octave, and vice versa", false, true);
+        scene.title("pipe_swapping", "Swapping different pipes");
+        scene.configureBasePlate(0, 0, 5);
 
-        // Text 2
-        PonderUtil.displayTextAndWait(scene, diapason.getCenter(), "To adjust a pipe's pitch class, use its block on it to make it taller", true, true);
-        for (int i = 0; i < 3; i++) {
-            scene.overlay().showControls(diapason.getCenter().add(.5f, 0, -.5f), Pointing.RIGHT, PonderTimings.INTERACTION_DISPLAY_TIME)
-                    .rightClick()
-                    .withItem(AllBlocks.DIAPASON.asStack());
-            scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME / 2);
-            pipe.incrementPipeHeight();
-            scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME);
-        }
+        scene.showBasePlate();
+        scene.idle(PonderTimings.BUILD_STEP);
 
-        PonderUtil.displayTextAndWait(scene, diapason.getCenter(), "Crouch and use the Wrench on the extensions to remove them, making the pipe shorter", true, true);
-        PonderUtil.showWrenchInteraction(scene, util.vector().topOf(diapason).add(-.5f, pipe.getExtensionRealHeight() - pipe.getExtensionCenterOffset(), .5f), Pointing.LEFT, true, false);
-        scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME / 2);
-        pipe.decrementPipeHeight(true);
-        scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME);
+        PonderLevel level = scene.getScene().getWorld();
 
-        scene.overlay().showOutlineWithText(util.select().position(diapason.above()), PonderTimings.READING_TIME)
-                .text("You can also just break the extension blocks")
+        Selection verticalBlocker = util.select().position(2, 6, 2);
+        Selection horizontalBlocker = util.select().position(2, 2, 0);
+        Selection boilerCampfire = util.select().fromTo(2, 1, 3, 2, 2, 3);
+
+        BlockPos pipePos = util.grid().at(2, 2, 2);
+
+        Selection diapason = util.select().fromTo(2, 2, 2, 2, 4, 2);
+        Selection subbass = util.select().fromTo(0, 2, 2, 0, 6, 2);
+        Selection voxHumana = util.select().fromTo(4, 2, 2, 4, 3, 2);
+        Selection chamade = util.select().fromTo(6, 2, 2, 6, 2, 0);
+        Selection trompette = util.select().fromTo(8, 2, 2, 8, 4, 2);
+
+        scene.world().showSection(boilerCampfire, Direction.DOWN); // reveal boiler and campfire
+        scene.idle(PonderTimings.BUILD_STEP);
+        ElementLink<WorldSectionElement> diapasonElement = scene.world().showIndependentSection(diapason, Direction.SOUTH); // reveal diapason
+        scene.idle(20);
+
+        PonderUtil.displayTextAndWait(scene, util.vector().blockSurface(pipePos, Direction.WEST),
+                "You can instantly change the type of a Pipe by using another Pipe's item on it", true, true);
+
+        scene.overlay().showControls(util.vector().blockSurface(pipePos, Direction.EAST), Pointing.RIGHT, 50)
+                .withItem(AllBlocks.TROMPETTE.asStack())
+                .rightClick();
+        scene.idle(6);
+        scene.world().moveSection(diapasonElement, util.vector().of(0, -1000, 0), 0); // hide diapason
+        scene.world().hideIndependentSection(diapasonElement, null);
+        ElementLink<WorldSectionElement> trompetteElement = scene.world().showIndependentSectionImmediately(trompette); // instantly swap for trompette
+        scene.world().moveSection(trompetteElement, util.vector().of(-6, 0, 0), 0);
+
+        scene.addInstruction(s -> s.getWorld().addBlockDestroyEffects(pipePos, AllBlocks.DIAPASON.getDefaultState()));
+        scene.addInstruction(s -> s.getWorld().addBlockDestroyEffects(pipePos.above(), AllBlocks.DIAPASON.getDefaultState()));
+        scene.addInstruction(s -> s.getWorld().addBlockDestroyEffects(pipePos.above(2), AllBlocks.DIAPASON.getDefaultState()));
+
+        scene.idle(40);
+
+        ElementLink<WorldSectionElement> verticalBlockerElement = scene.world().showIndependentSection(verticalBlocker, Direction.WEST); // reveal vertical blocker
+        scene.idle(PonderTimings.BUILD_FINISH);
+        scene.overlay().showOutline(PonderPalette.BLUE, new Object(), util.select().fromTo(2, 2, 2, 2, 5, 2), 70); // draw blue outline
+        scene.overlay().showOutlineWithText(verticalBlocker, 60) // draw red outline and text
+                .colored(PonderPalette.RED)
+                .pointAt(util.vector().blockSurface(util.grid().at(2, 6, 2), Direction.WEST))
+                .attachKeyFrame()
                 .placeNearTarget()
-                .pointAt(diapason.above().getCenter());
-        scene.idle(PonderTimings.READING_WINDOW);
-        pipe.destroyTopPipeExtension();
+                .text("However, if the new pipe is too long, blocks can get in the way");
+        scene.idle(50);
+        scene.world().moveSection(verticalBlockerElement, util.vector().of(0, -1000, 0), 0); // hide vertical blocker
+        scene.world().hideIndependentSection(verticalBlockerElement, null);
+        scene.addInstruction(s ->
+                s.getWorld().addBlockDestroyEffects(util.grid().at(2, 6, 2), com.simibubi.create.AllBlocks.ANDESITE_CASING.getDefaultState()));
 
-        PonderUtil.displayTextAndWait(scene, diapason.getCenter(), "Increasing the pipe length lowers the pitch, and vice versa", false, true);
+        scene.idle(20);
+        scene.overlay().showText(60)
+                .attachKeyFrame()
+                .text("To fix this, simply remove any blocks that are in the way.")
+                .pointAt(util.vector().blockSurface(util.grid().at(2, 6, 2), Direction.WEST))
+                .placeNearTarget();
+        scene.idle(20);
 
-        PonderUtil.displayGoggleHint(scene, diapason.getCenter(), "The Engineer's Goggles show you the note a pipe will play", PonderTimings.READING_TIME, true, true);
+        scene.overlay().showControls(util.vector().blockSurface(pipePos, Direction.EAST), Pointing.RIGHT, 50)
+                .withItem(AllBlocks.TROMPETTE.asStack())
+                .rightClick();
 
-        scene.world().restoreBlocks(util.select().fromTo(diapason, diapason.above(6)));
-        */
+        scene.idle(6);
+        scene.world().moveSection(trompetteElement, util.vector().of(0, -1000, 0), 0); // hide trompette
+        scene.world().hideIndependentSection(trompetteElement, null);
+        ElementLink<WorldSectionElement> subbassElement = scene.world().showIndependentSectionImmediately(subbass); // instantly swap for subbass
+        scene.world().moveSection(subbassElement, util.vector().of(2, 0, 0), 0);
+
+        scene.addInstruction(s -> s.getWorld().addBlockDestroyEffects(pipePos, AllBlocks.TROMPETTE.getDefaultState()));
+        scene.addInstruction(s -> s.getWorld().addBlockDestroyEffects(pipePos.above(), AllBlocks.TROMPETTE.getDefaultState()));
+        scene.addInstruction(s -> s.getWorld().addBlockDestroyEffects(pipePos.above(2), AllBlocks.TROMPETTE.getDefaultState()));
+        scene.idle(60);
+
+        ElementLink<WorldSectionElement> horizontalBlockerElement = scene.world().showIndependentSection(horizontalBlocker, Direction.WEST); // reveal horizontal blocker
+        scene.idle(PonderTimings.BUILD_FINISH);
+        scene.overlay().showOutline(PonderPalette.BLUE, new Object(), util.select().fromTo(2, 2, 2, 2, 2, 1), 70); // draw blue outline
+        scene.overlay().showOutlineWithText(horizontalBlocker, 60) // draw red outline and text
+                .colored(PonderPalette.RED)
+                .pointAt(util.vector().blockSurface(util.grid().at(2, 2, 0), Direction.WEST))
+                .attachKeyFrame()
+                .placeNearTarget()
+                .text("The same goes for horizontal pipes");
+        scene.idle(50);
+
+        scene.world().moveSection(horizontalBlockerElement, util.vector().of(0, -1000, 0), 0); // hide horizontal blocker
+        scene.world().hideIndependentSection(horizontalBlockerElement, null);
+        scene.addInstruction(s ->
+                s.getWorld().addBlockDestroyEffects(util.grid().at(2, 2, 0), com.simibubi.create.AllBlocks.ANDESITE_CASING.getDefaultState()));
+        scene.idle(20);
+
+        scene.overlay().showControls(util.vector().blockSurface(pipePos, Direction.EAST), Pointing.RIGHT, 50)
+                .withItem(AllBlocks.CHAMADE.asStack())
+                .rightClick();
+
+        scene.idle(6);
+        scene.world().moveSection(subbassElement, util.vector().of(0, -1000, 0), 0); // hide subbass
+        scene.world().hideIndependentSection(subbassElement, null);
+        ElementLink<WorldSectionElement> chamadeElement = scene.world().showIndependentSectionImmediately(chamade); // instantly swap for chamade
+        scene.world().moveSection(chamadeElement, util.vector().of(-4, 0, 0), 0);
+
+        scene.addInstruction(s -> s.getWorld().addBlockDestroyEffects(pipePos, AllBlocks.SUBBASS.getDefaultState()));
+        scene.addInstruction(s -> s.getWorld().addBlockDestroyEffects(pipePos.above(), AllBlocks.SUBBASS.getDefaultState()));
+        scene.addInstruction(s -> s.getWorld().addBlockDestroyEffects(pipePos.above(2), AllBlocks.SUBBASS.getDefaultState()));
+        scene.addInstruction(s -> s.getWorld().addBlockDestroyEffects(pipePos.above(3), AllBlocks.SUBBASS.getDefaultState()));
+        scene.addInstruction(s -> s.getWorld().addBlockDestroyEffects(pipePos.above(4), AllBlocks.SUBBASS.getDefaultState()));
+        scene.idle(40);
 
         scene.markAsFinished();
     }

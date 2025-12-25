@@ -22,6 +22,7 @@ public class AllPipeOrgansPonderScenes {
                 .addStoryBoard("windchests", WindchestScenes::windchests);
 
         HELPER.forComponents(AllBlocks.PIPE_BLOCKS)
-                .addStoryBoard("pipe_adjusting", PipeScenes::pipeAdjusting);
+                .addStoryBoard("pipe_adjusting", PipeScenes::pipeAdjusting)
+                .addStoryBoard("pipe_swapping", PipeScenes::pipeSwapping);
     }
 }
