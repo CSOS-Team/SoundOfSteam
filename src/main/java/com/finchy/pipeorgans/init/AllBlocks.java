@@ -53,14 +53,19 @@ import com.finchy.pipeorgans.data.AssetLookup;
 import com.finchy.pipeorgans.data.BlockStateGen.*;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.item.ItemDescription;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.simibubi.create.api.behaviour.display.DisplaySource.displaySource;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
@@ -136,11 +141,14 @@ public class AllBlocks {
             .lang("Roll Authoring Table")
             .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models()
                     .getExistingFile(ctx.getId()), 180))
-            .simpleItem()
+            .onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "block.pipeorgans.roll_puncher"))
+            .item()
+            .build()
             .register();
 
 
 
+    public static List<BlockEntry<? extends GenericPipeBlock>> PIPE_BLOCKS = new ArrayList<>();
 
     public static final BlockEntry<DiapasonBlock> DIAPASON = registerPipeBlock(
             "diapason",
@@ -389,11 +397,12 @@ public class AllBlocks {
             () -> Blocks.COPPER_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 
+
     private static <T extends GenericPipeBlock> BlockEntry<T> registerPipeBlock(
             String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
             NonNullSupplier<? extends Block> initialPropertiesCopier,
             StopSize stopsize, TagKey<Block> toolTag) {
-        return REGISTRATE.block(name, factory)
+        BlockEntry<T> entry = REGISTRATE.block(name, factory)
                 .initialProperties(initialPropertiesCopier)
                 .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
                 .blockstate(new PipeGenerator()::generate)
@@ -401,6 +410,8 @@ public class AllBlocks {
                 .transform(customItemModel())
                 .tag(toolTag)
                 .register();
+        PIPE_BLOCKS.add(entry);
+        return entry;
     }
 
     private static <T extends GenericExtensionBlock<?>> BlockEntry<T> registerExtensionBlock(

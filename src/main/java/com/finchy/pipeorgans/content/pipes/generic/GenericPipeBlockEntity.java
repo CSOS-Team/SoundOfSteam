@@ -112,13 +112,7 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
             isActive = windchest.isMasterActive(level, attachedState.getValue(GenericPipeBlock.FACING), attachedPos);
         }
 
-        boolean powered;
-        if (isPowered()) {
-            powered = ((tank != null && tank.boiler.isActive() && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0)
-                    || isVirtual()) || isActive );
-        } else {
-            powered = false;
-        }
+        boolean powered = ((tank != null && tank.boiler.isActive() && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0)) || isActive) && isPowered();
 
         animation.chase(powered ? 1 : 0, powered ? .5f : .4f, powered ? LerpedFloat.Chaser.EXP : LerpedFloat.Chaser.LINEAR);
         animation.tickChaser();
