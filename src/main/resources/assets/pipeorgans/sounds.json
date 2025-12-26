@@ -686,6 +686,61 @@
     ]
   },
 
+  "chamade_superhigh": {
+    "subtitle": "sounds.pipeorgans.chamade_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:chamade/ch_superhigh"
+      }
+    ]
+  },
+
+  "chamade_high": {
+    "subtitle": "sounds.pipeorgans.chamade_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:chamade/ch_high"
+      }
+    ]
+  },
+
+  "chamade_medium": {
+    "subtitle": "sounds.pipeorgans.chamade_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:chamade/ch_medium"
+      }
+    ]
+  },
+
+  "chamade_low": {
+    "subtitle": "sounds.pipeorgans.chamade_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:chamade/ch_low"
+      }
+    ]
+  },
+
+  "chamade_deep": {
+    "subtitle": "sounds.pipeorgans.chamade_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:chamade/ch_deep"
+      }
+    ]
+  },
+
 
   "nasard_superhigh": {
     "subtitle": "sounds.pipeorgans.nasard_superhigh",
