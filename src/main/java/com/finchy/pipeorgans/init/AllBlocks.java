@@ -39,6 +39,8 @@ import com.finchy.pipeorgans.content.pipes.rohrflote.RohrfloteBlock;
 import com.finchy.pipeorgans.content.pipes.rohrflote.RohrfloteExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.subbass.SubbassBlock;
 import com.finchy.pipeorgans.content.pipes.subbass.SubbassExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.tierce.TierceBlock;
+import com.finchy.pipeorgans.content.pipes.tierce.TierceExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlock;
 import com.finchy.pipeorgans.content.pipes.trompette.TrompetteExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.viola.ViolaBlock;
@@ -251,6 +253,19 @@ public class AllBlocks {
     public static final BlockEntry<NasardExtensionBlock> NASARD_EXTENSION = registerExtensionBlock(
             "nasard_extension",
             NasardExtensionBlock::new,
+            () -> Blocks.COPPER_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<TierceBlock> TIERCE = registerPipeBlock(
+            "tierce",
+            TierceBlock::new,
+            () -> Blocks.COPPER_BLOCK,
+            StopSize.ONEANDTHREEFIFTHS,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<TierceExtensionBlock> TIERCE_EXTENSION = registerExtensionBlock(
+            "tierce_extension",
+            TierceExtensionBlock::new,
             () -> Blocks.COPPER_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 

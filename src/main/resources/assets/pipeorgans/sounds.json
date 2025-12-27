@@ -797,6 +797,61 @@
     ]
   },
 
+  "tierce_superhigh": {
+    "subtitle": "sounds.pipeorgans.tierce_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:tierce/ti_superhigh"
+      }
+    ]
+  },
+
+  "tierce_high": {
+    "subtitle": "sounds.pipeorgans.tierce_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:tierce/ti_high"
+      }
+    ]
+  },
+
+  "tierce_medium": {
+    "subtitle": "sounds.pipeorgans.tierce_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:tierce/ti_medium"
+      }
+    ]
+  },
+
+  "tierce_low": {
+    "subtitle": "sounds.pipeorgans.tierce_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:tierce/ti_low"
+      }
+    ]
+  },
+
+  "tierce_deep": {
+    "subtitle": "sounds.pipeorgans.tierce_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:tierce/ti_deep"
+      }
+    ]
+  },
+
   "posaune_superhigh": {
     "subtitle": "sounds.pipeorgans.posaune_superhigh",
     "sounds": [

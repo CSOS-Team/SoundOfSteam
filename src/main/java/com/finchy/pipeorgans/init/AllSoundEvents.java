@@ -104,6 +104,12 @@ public class AllSoundEvents {
      NASARD_LOW = registerSoundEvent("nasard_low"),
      NASARD_DEEP = registerSoundEvent("nasard_deep"),
 
+    TIERCE_SUPERHIGH = registerSoundEvent("tierce_superhigh"),
+    TIERCE_HIGH = registerSoundEvent("tierce_high"),
+    TIERCE_MEDIUM = registerSoundEvent("tierce_medium"),
+    TIERCE_LOW = registerSoundEvent("tierce_low"),
+    TIERCE_DEEP = registerSoundEvent("tierce_deep"),
+
      POSAUNE_SUPERHIGH = registerSoundEvent("posaune_superhigh"),
      POSAUNE_HIGH = registerSoundEvent("posaune_high"),
      POSAUNE_MEDIUM = registerSoundEvent("posaune_medium"),
