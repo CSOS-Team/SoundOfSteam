@@ -220,7 +220,7 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAs
 
         behaviours.add(new ClipboardAssistedPlacementBehaviour(this));
         behaviours.add(keySlot = new ItemValueBoxBehaviour(this, List.of(keySlotGroup)));
-        behaviours.add(pitchSlot = new PipePitchScrollValueBehaviour(this, PITCH_SLOT_TRANSFORM)
+        behaviours.add(pitchSlot = new PipePitchScrollValueBehaviour(this, PITCH_SLOT_TRANSFORM, Component.translatable("block.pipeorgans.note_link.pitch_slot.label"))
                 .withPipePitchCallback(this::setPitch)
         );
 

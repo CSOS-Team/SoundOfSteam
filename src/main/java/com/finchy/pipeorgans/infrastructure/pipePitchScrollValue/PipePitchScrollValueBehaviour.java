@@ -16,8 +16,8 @@ import java.util.function.Consumer;
 
 public class PipePitchScrollValueBehaviour extends ScrollValueBehaviour {
     // TODO: Adjust to F#-1 to F#8 range, and use octave groups (F#-1 to F0, F#0 to F1, etc) in the value settings board (prevents the frequency map from complaining and fits better with how most pipes are arranged)
-    public PipePitchScrollValueBehaviour(SmartBlockEntity be, ValueBoxTransform slot) {
-        super(Component.translatable("pipeorgans.pitch.select"), be, slot);
+    public PipePitchScrollValueBehaviour(SmartBlockEntity be, ValueBoxTransform slot, Component label) {
+        super(label, be, slot);
         between(0, PipePitch.HIGHEST.getPitchIndex());
         setValue(PipePitch.DEFAULT.getPitchIndex());
         withFormatter(n -> defaultFormatValue());
