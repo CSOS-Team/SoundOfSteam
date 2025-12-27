@@ -1,0 +1,22 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/tierce",
+		"particle": "pipeorgans:block/particle/tierce_particle"
+	},
+	"elements": [
+		{
+			"from": [5, 0, 5],
+			"to": [11, 4, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [4.625, 4.125, 5.375, 4.625], "texture": "#0"},
+				"east": {"uv": [4.625, 4.125, 5.375, 4.625], "texture": "#0"},
+				"south": {"uv": [4.625, 4.125, 5.375, 4.625], "texture": "#0"},
+				"west": {"uv": [4.625, 4.125, 5.375, 4.625], "texture": "#0"},
+				"up": {"uv": [4.625, 6.875, 5.375, 7.625], "texture": "#0"}
+			}
+		}
+	]
+}

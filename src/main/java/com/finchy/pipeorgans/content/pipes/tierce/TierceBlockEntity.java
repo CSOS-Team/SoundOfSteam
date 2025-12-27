@@ -35,7 +35,7 @@ public class TierceBlockEntity extends QuadruplePipeBlockEntity {
                 .getString()
                 .split(";");
 
-        int displayPitch = ClientConfig.displayMutationSoundingPitch ? pitch + 8 : pitch;
+        int displayPitch = ClientConfig.displayMutationSoundingPitch ? pitch + 20 : pitch;
         int octave = 5 - getOctave().ordinal() + (pitch <= 1 ? 1 : 0) + 2;
 
         boolean useBrackets = ClientConfig.showOctaveBrackets;
