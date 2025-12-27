@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.mixin;
 
-import com.finchy.pipeorgans.content.musicalLink.NoteLinkBehaviour;
+import com.finchy.pipeorgans.content.noteLink.NoteLinkBehaviour;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.redstone.link.IRedstoneLinkable;
 import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler;

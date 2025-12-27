@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.content.musicalLink;
+package com.finchy.pipeorgans.content.noteLink;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;

@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.network.packet;
 
-import com.finchy.pipeorgans.content.musicalLink.NoteLinkBlockEntity;
+import com.finchy.pipeorgans.content.noteLink.NoteLinkBlockEntity;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.util.PipePitch;
 import com.simibubi.create.foundation.networking.SimplePacketBase;

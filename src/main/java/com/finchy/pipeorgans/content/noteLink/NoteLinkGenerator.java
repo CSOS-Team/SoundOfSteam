@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.content.musicalLink;
+package com.finchy.pipeorgans.content.noteLink;
 
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;

@@ -7,7 +7,7 @@ import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarRenderer;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarVisual;
-import com.finchy.pipeorgans.content.musicalLink.NoteLinkBlockEntity;
+import com.finchy.pipeorgans.content.noteLink.NoteLinkBlockEntity;
 import com.finchy.pipeorgans.content.pipes.bassoon.BassoonBlockEntity;
 import com.finchy.pipeorgans.content.pipes.bassoon.BassoonRenderer;
 import com.finchy.pipeorgans.content.pipes.chamade.ChamadeBlockEntity;

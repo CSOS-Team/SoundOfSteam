@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.content.musicalLink;
+package com.finchy.pipeorgans.content.noteLink;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.init.AllBlocks;
