@@ -2,8 +2,8 @@
 	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "pipeorgans:block/trompette",
-		"particle": "pipeorgans:block/particle/trompette_particle"
+		"0": "pipeorgans:block/chamade",
+		"particle": "pipeorgans:block/particle/chamade_particle"
 	},
 	"elements": [
 		{

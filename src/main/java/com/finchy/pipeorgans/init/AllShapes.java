@@ -381,26 +381,26 @@ public abstract class AllShapes {
 
     //(so just the chamades)
 
-    HORIZONTAL_TINY_BASE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
-    HORIZONTAL_SMALL_BASE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
-    HORIZONTAL_MEDIUM_BASE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
-    HORIZONTAL_LARGE_BASE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
-    HORIZONTAL_HUGE_BASE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_TINY_BASE = shape(5, 5, 3, 11, 11, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_SMALL_BASE = shape(5, 5, 3, 11, 11, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_MEDIUM_BASE = shape(4, 4, 3, 12, 12, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_LARGE_BASE = shape(3, 3, 3, 13, 13, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_HUGE_BASE = shape(2, 2, 3, 14, 14, 16).forHorizontal(Direction.NORTH),
 
-    HORIZONTAL_EXTENSION_TINY_DOUBLE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
-    HORIZONTAL_EXTENSION_TINY_QUAD = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_TINY_DOUBLE = shape(5, 5, 0, 11, 11, 8).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_TINY_QUAD = shape(5, 5, 0, 11, 11, 16).forHorizontal(Direction.NORTH),
 
-    HORIZONTAL_EXTENSION_SMALL_DOUBLE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
-    HORIZONTAL_EXTENSION_SMALL_QUAD= shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_SMALL_DOUBLE = shape(5, 5, 0, 11, 11, 8).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_SMALL_QUAD= shape(5, 5, 0, 11, 11, 16).forHorizontal(Direction.NORTH),
 
-    HORIZONTAL_EXTENSION_MEDIUM_DOUBLE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
-    HORIZONTAL_EXTENSION_MEDIUM_QUAD = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_MEDIUM_DOUBLE = shape(4, 4, 0, 12, 12, 8).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_MEDIUM_QUAD = shape(4, 4, 0, 12, 12, 16).forHorizontal(Direction.NORTH),
 
-    HORIZONTAL_EXTENSION_LARGE_DOUBLE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
-    HORIZONTAL_EXTENSION_LARGE_QUAD = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_LARGE_DOUBLE = shape(3, 3, 0, 13, 13, 8).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_LARGE_QUAD = shape(3, 3, 0, 13, 13, 16).forHorizontal(Direction.NORTH),
 
-    HORIZONTAL_EXTENSION_HUGE_DOUBLE = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH),
-    HORIZONTAL_EXTENSION_HUGE_QUAD = shape(0, 0, 0, 16, 16, 16).forHorizontal(Direction.NORTH);
+    HORIZONTAL_EXTENSION_HUGE_DOUBLE = shape(2,2,0,14,14,8).forHorizontal(Direction.NORTH),
+    HORIZONTAL_EXTENSION_HUGE_QUAD = shape(2, 2, 0, 14, 14, 16).forHorizontal(Direction.NORTH);
 
 
     // ...back to our scheduled programming

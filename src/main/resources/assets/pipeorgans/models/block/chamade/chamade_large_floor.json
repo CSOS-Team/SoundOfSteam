@@ -4,8 +4,8 @@
 	"textures": {
 		"0": "create:block/copper_redstone_plate",
 		"1": "create:block/engine",
-		"2": "pipeorgans:block/trompette",
-		"particle": "pipeorgans:block/particle/trompette_particle"
+		"2": "pipeorgans:block/chamade",
+		"particle": "pipeorgans:block/particle/chamade_particle"
 	},
 	"elements": [
 		{
@@ -23,9 +23,9 @@
 		},
 		{
 			"name": "Pipe Large",
-			"from": [4, 3, 6],
-			"to": [12, 12, 14],
-			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 2]},
+			"from": [4, 3, 5],
+			"to": [12, 12, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 1]},
 			"faces": {
 				"north": {"uv": [2, 2, 6, 6.5], "texture": "#1"},
 				"east": {"uv": [2, 2, 6, 6.5], "texture": "#1"},

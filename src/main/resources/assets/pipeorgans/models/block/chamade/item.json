@@ -4,7 +4,7 @@
 	"textures": {
 		"0": "create:block/copper_redstone_plate",
 		"1": "create:block/engine",
-		"2": "pipeorgans:block/trompette",
+		"2": "pipeorgans:block/chamade",
 		"particle": "create:block/copper_redstone_plate"
 	},
 	"elements": [

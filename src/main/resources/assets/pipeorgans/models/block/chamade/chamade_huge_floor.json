@@ -4,8 +4,8 @@
 	"textures": {
 		"0": "create:block/copper_redstone_plate",
 		"1": "create:block/engine",
-		"2": "pipeorgans:block/trompette",
-		"particle": "pipeorgans:block/particle/trompette_particle"
+		"2": "pipeorgans:block/chamade",
+		"particle": "pipeorgans:block/particle/chamade_particle"
 	},
 	"elements": [
 		{
@@ -23,7 +23,7 @@
 		},
 		{
 			"name": "Pipe Large",
-			"from": [3, 3, 3],
+			"from": [3, 3, 4],
 			"to": [13, 11, 13],
 			"faces": {
 				"north": {"uv": [1.5, 2.5, 6.5, 6.5], "texture": "#1"},
