@@ -44,23 +44,59 @@ public class VoxHumanaBlockEntity extends QuadruplePipeBlockEntity {
         float maxVolume = (float) Mth.clamp((64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64, 0, 1);
 
         if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
+            boolean trem = getBlockState().getValue(VoxHumanaBlock.TREM);
             Minecraft.getInstance()
                     .getSoundManager()
-                    .play(soundInstance = new VoxHumanaSoundInstance(size, worldPosition));
+                    .play(soundInstance = new VoxHumanaSoundInstance(size, worldPosition, trem));
 
             AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
-
             particle = true;
         }
 
+
         soundInstance.keepAlive();
         soundInstance.setPitch(f);
+
+        boolean trem = getBlockState().getValue(VoxHumanaBlock.TREM);
+        soundInstance.setTrem(trem);
+
 
         if (!particle)
             return;
 
         createSteamJet(size);
     }
+
+    //tremulant stuff
+
+    @OnlyIn(Dist.CLIENT)
+    private void onTremChanged(boolean trem) {
+        if (soundInstance == null)
+            return;
+
+        soundInstance.setTrem(trem);
+        soundInstance.fadeOut();
+        soundInstance = null;
+    }
+
+
+    @Override
+    public void setBlockState(BlockState newState) {
+        BlockState oldState = this.getBlockState();
+        super.setBlockState(newState);
+
+        if (level == null || !level.isClientSide)
+            return;
+
+        boolean oldTrem = oldState.getValue(VoxHumanaBlock.TREM);
+        boolean newTrem = newState.getValue(VoxHumanaBlock.TREM);
+
+        if (oldTrem != newTrem) {
+            onTremChanged(newTrem);
+        }
+    }
+
+
 
     @Override
     public void createSteamJet(PipeSize size) {

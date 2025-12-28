@@ -1051,6 +1051,61 @@
     ]
   },
 
+  "vox_humana_superhigh_trem": {
+    "subtitle": "sounds.pipeorgans.vox_humana_superhigh_trem",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_humana/vh_superhigh_trem"
+      }
+    ]
+  },
+
+  "vox_humana_high_trem": {
+    "subtitle": "sounds.pipeorgans.vox_humana_high_trem",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_humana/vh_high_trem"
+      }
+    ]
+  },
+
+  "vox_humana_medium_trem": {
+    "subtitle": "sounds.pipeorgans.vox_humana_medium_trem",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_humana/vh_medium_trem"
+      }
+    ]
+  },
+
+  "vox_humana_low_trem": {
+    "subtitle": "sounds.pipeorgans.vox_humana_low_trem",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_humana/vh_low_trem"
+      }
+    ]
+  },
+
+  "vox_humana_deep_trem": {
+    "subtitle": "sounds.pipeorgans.vox_humana_deep_trem",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:vox_humana/vh_deep_trem"
+      }
+    ]
+  },
+
 
 
   "rohrflote_superhigh": {
