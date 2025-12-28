@@ -36,8 +36,19 @@ public class TremulantBlock extends Block implements IWrenchable {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        boolean powered = context.getLevel().hasNeighborSignal(context.getClickedPos());
-        return defaultBlockState().setValue(POWERED, powered);
+        Level level = context.getLevel();
+        BlockPos clickedPos = context.getClickedPos();
+
+        Direction facing = context.getHorizontalDirection();
+        Direction direction = context.getPlayer() != null && context.getPlayer().isShiftKeyDown()
+                ? facing.getOpposite()
+                : facing;
+
+        boolean powered = level.hasNeighborSignal(clickedPos);
+
+        return super.getStateForPlacement(context)
+                .setValue(FACING, direction)
+                .setValue(POWERED, powered);
     }
 
     @Override
@@ -105,7 +116,7 @@ public class TremulantBlock extends Block implements IWrenchable {
         Direction facing = masterState.getValue(WindchestMasterBlock.FACING);
 
         // Update master
-        level.setBlock(masterPos, masterState.setValue(WindchestMasterBlock.TREM, trem), 2);
+        level.setBlock(masterPos, masterState.setValue(WindchestMasterBlock.TREM, trem), 3);
 
         // Update slaves
         BlockPos currentPos = masterPos;
@@ -116,7 +127,7 @@ public class TremulantBlock extends Block implements IWrenchable {
             if (state.getBlock() instanceof WindchestBlock
                     && state.getValue(FACING) == facing.getOpposite()) {
 
-                level.setBlock(currentPos, state.setValue(WindchestBlock.TREM, trem), 2);
+                level.setBlock(currentPos, state.setValue(WindchestBlock.TREM, trem), 3);
             } else {
                 return;
             }
