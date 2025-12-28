@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,powered=false": {
+      "model": "pipeorgans:block/tremulant/tremulant",
+      "y": 90
+    },
+    "facing=east,powered=true": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered",
+      "y": 90
+    },
+    "facing=north,powered=false": {
+      "model": "pipeorgans:block/tremulant/tremulant"
+    },
+    "facing=north,powered=true": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered"
+    },
+    "facing=south,powered=false": {
+      "model": "pipeorgans:block/tremulant/tremulant",
+      "y": 180
+    },
+    "facing=south,powered=true": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered",
+      "y": 180
+    },
+    "facing=west,powered=false": {
+      "model": "pipeorgans:block/tremulant/tremulant",
+      "y": 270
+    },
+    "facing=west,powered=true": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered",
+      "y": 270
+    }
+  }
+}
