@@ -23,20 +23,23 @@ public class WindchestMasterBlock extends Block implements IWrenchable {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty WINDY = BooleanProperty.create("windy");
+    public static final BooleanProperty TREM = BooleanProperty.create("trem");
 
     public WindchestMasterBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
-                .setValue(WINDY, false));
+                .setValue(WINDY, false)
+                .setValue(TREM, false)
+        );
     }
 
     // define blockstate params
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(FACING, POWERED, WINDY);
+        builder.add(FACING, POWERED, WINDY, TREM);
     }
 
     @Override
