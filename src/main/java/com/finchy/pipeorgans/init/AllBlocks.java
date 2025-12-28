@@ -51,6 +51,7 @@ import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlock;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaExtensionBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
+import com.finchy.pipeorgans.content.windchest.tremulant.TremulantBlock;
 import com.finchy.pipeorgans.data.AssetLookup;
 import com.finchy.pipeorgans.data.BlockStateGen.*;
 import com.simibubi.create.api.stress.BlockStressValues;
@@ -135,6 +136,17 @@ public class AllBlocks {
             .item()
             .transform(customItemModel())
             .transform(axeOrPickaxe())
+            .register();
+
+    public static final BlockEntry<TremulantBlock> TREMULANT = REGISTRATE.block("tremulant", TremulantBlock::new)
+            .initialProperties(() -> Blocks.OAK_PLANKS)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .item()
+            .transform(customItemModel())
+            .transform(axeOnly())
             .register();
 
     public static final BlockEntry<RollPuncherBlock> ROLL_PUNCHER = REGISTRATE.block("roll_puncher", RollPuncherBlock::new)

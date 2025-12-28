@@ -128,6 +128,12 @@ public class AllSoundEvents {
      VOX_HUMANA_LOW = registerSoundEvent("vox_humana_low"),
      VOX_HUMANA_DEEP = registerSoundEvent("vox_humana_deep"),
 
+    VOX_HUMANA_SUPERHIGH_TREM = registerSoundEvent("vox_humana_superhigh_trem"),
+    VOX_HUMANA_HIGH_TREM = registerSoundEvent("vox_humana_high_trem"),
+    VOX_HUMANA_MEDIUM_TREM = registerSoundEvent("vox_humana_medium_trem"),
+    VOX_HUMANA_LOW_TREM = registerSoundEvent("vox_humana_low_trem"),
+    VOX_HUMANA_DEEP_TREM = registerSoundEvent("vox_humana_deep_trem"),
+
      VIOLA_SUPERHIGH = registerSoundEvent("viola_superhigh"),
      VIOLA_HIGH = registerSoundEvent("viola_high"),
      VIOLA_MEDIUM = registerSoundEvent("viola_medium"),
