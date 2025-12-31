@@ -12,9 +12,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: 1.20.1
-          fetch-depth: 0
 
       - name: Crowdin Action
         uses: crowdin/github-action@v2
