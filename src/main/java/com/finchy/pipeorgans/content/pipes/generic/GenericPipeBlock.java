@@ -56,7 +56,7 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
 
     public final int EPB;
 
-    public GenericPipeBlock(Properties pProperties, int EPB) {
+    public GenericPipeBlock(Properties pProperties, boolean supportsTrem, int EPB) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)

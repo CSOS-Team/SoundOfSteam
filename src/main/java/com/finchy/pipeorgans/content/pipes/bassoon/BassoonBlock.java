@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.pipes.bassoon;
 
-import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.SinglePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -12,7 +11,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 public class BassoonBlock extends SinglePipeBlock {
     public BassoonBlock(Properties pProperties) {
-        super(pProperties, PipeMaterial.METAL);
+        super(pProperties);
         baseBlock = AllBlocks.BASSOON;
         extensionBlock = AllBlocks.BASSOON_EXTENSION;
         blockEntityType = AllBlockEntities.BASSOON_BLOCK_ENTITY;

@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.pipes.hauntedWhistle;
 
-import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -13,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class HauntedWhistleBlock extends DoublePipeBlock {
     public HauntedWhistleBlock(Properties pProperties) {
-        super(pProperties, PipeMaterial.HAUNTED);
+        super(pProperties);
         baseBlock = AllBlocks.HAUNTED_WHISTLE;
         extensionBlock = AllBlocks.HAUNTED_WHISTLE_EXTENSION;
         blockEntityType = AllBlockEntities.HAUNTED_WHISTLE_BLOCK_ENTITY;

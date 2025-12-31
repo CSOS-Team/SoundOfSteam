@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.pipes.gedeckt;
 
-import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -13,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class GedecktBlock extends DoublePipeBlock {
     public GedecktBlock(Properties pProperties) {
-        super(pProperties, PipeMaterial.WOOD);
+        super(pProperties);
         baseBlock = AllBlocks.GEDECKT;
         extensionBlock = AllBlocks.GEDECKT_EXTENSION;
         blockEntityType = AllBlockEntities.GEDECKT_BLOCK_ENTITY;

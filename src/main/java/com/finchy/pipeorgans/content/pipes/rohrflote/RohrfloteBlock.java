@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.pipes.rohrflote;
 
-import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -13,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class RohrfloteBlock extends DoublePipeBlock {
     public RohrfloteBlock(Properties pProperties) {
-        super(pProperties, PipeMaterial.METAL);
+        super(pProperties);
         baseBlock = AllBlocks.ROHRFLOTE;
         extensionBlock = AllBlocks.ROHRFLOTE_EXTENSION;
         blockEntityType = AllBlockEntities.ROHRFLOTE_BLOCK_ENTITY;

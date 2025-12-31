@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.pipes.hohlflute;
 
-import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -13,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class HohlfluteBlock extends DoublePipeBlock {
     public HohlfluteBlock(Properties pProperties) {
-        super(pProperties, PipeMaterial.WOOD);
+        super(pProperties);
         baseBlock = AllBlocks.HOHLFLUTE;
         extensionBlock = AllBlocks.HOHLFLUTE_EXTENSION;
         blockEntityType = AllBlockEntities.HOHLFLUTE_BLOCK_ENTITY;

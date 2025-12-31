@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.pipes.voxCeleste;
 
-import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -13,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class VoxCelesteBlock extends DoublePipeBlock {
     public VoxCelesteBlock(Properties pProperties) {
-        super(pProperties, PipeMaterial.METAL);
+        super(pProperties);
         baseBlock = AllBlocks.VOX_CELESTE;
         extensionBlock = AllBlocks.VOX_CELESTE_EXTENSION;
         blockEntityType = AllBlockEntities.VOX_CELESTE_BLOCK_ENTITY;
