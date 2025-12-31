@@ -24,6 +24,9 @@ import java.util.concurrent.CompletableFuture;
 
 public class PipeModelGenerator implements DataProvider {
 
+    // todo: fix z-fighting issues with reed pipes (lower base models)
+    // todo: fix z-fighting issue on chamade (???)
+
     private final PackOutput output;
     private final ExistingFileHelper helper;
     private static final String modid = PipeOrgans.MOD_ID;
@@ -36,12 +39,9 @@ public class PipeModelGenerator implements DataProvider {
     @Override
     public CompletableFuture<?> run(CachedOutput pOutput) {
         List<CompletableFuture<?>> futures = new ArrayList<>();
-        /*
         for (BlockEntry<? extends GenericPipeBlock> pipeBlock : AllBlocks.PIPE_BLOCKS) {
-            generateForPipe(pipeBlock);
+            generateForPipe(pOutput, pipeBlock, futures);
         }
-         */
-        generateForPipe(pOutput, AllBlocks.DIAPASON, futures);
 
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
 

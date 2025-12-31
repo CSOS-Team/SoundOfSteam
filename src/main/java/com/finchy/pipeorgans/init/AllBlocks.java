@@ -429,24 +429,6 @@ public class AllBlocks {
         return entry;
     }
 
-    /*private static <T extends GenericPipeBlock> BlockEntry<T> registerTestPipeBlock(
-            String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
-            NonNullSupplier<? extends Block> initialPropertiesCopier,
-            StopSize stopsize, TagKey<Block> toolTag) {
-        BlockEntry<T> entry = REGISTRATE.block(name, factory)
-                .initialProperties(initialPropertiesCopier)
-                .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
-                .blockstate(new TestPipeGenerator()::generate)
-                .item((b,p) -> new GenericPipeBlockItem(b, p, stopsize))
-                .transform(customItemModel())
-                .tag(toolTag)
-                .register();
-        PIPE_BLOCKS.add(entry);
-        return entry;
-    }
-
-     */
-
     private static <T extends GenericExtensionBlock<?>> BlockEntry<T> registerExtensionBlock(
             String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
             NonNullSupplier<? extends Block> initialPropertiesCopier, TagKey<Block> toolTag) {
