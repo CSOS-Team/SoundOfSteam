@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: 1.20.1
 
       - name: Crowdin Action
         uses: crowdin/github-action@v2
@@ -34,6 +36,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: 1.21-neoforge
 
       - name: Crowdin Action
         uses: crowdin/github-action@v2
