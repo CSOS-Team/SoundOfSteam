@@ -11,6 +11,7 @@ import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 
 import java.util.Map;
@@ -25,6 +26,9 @@ public class PipeOrgansDatagen {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+        ExistingFileHelper helper = event.getExistingFileHelper();
+
+        generator.addProvider(event.includeServer(), new PipeModelGenerator(output, helper));
     }
 
     private static void addExtraRegistrateData() {

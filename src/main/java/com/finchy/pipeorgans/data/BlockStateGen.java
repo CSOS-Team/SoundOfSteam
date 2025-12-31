@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.data;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlock;
+import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
@@ -33,16 +34,36 @@ public class BlockStateGen {
         public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov, BlockState state) {
             String wall = state.getValue(GenericPipeBlock.WALL) ? "wall" : "floor";
             String size = state.getValue(GenericPipeBlock.SIZE).getSerializedName();
-            boolean powered = state.getValue(GenericPipeBlock.POWERED);
-            ModelFile model = AssetLookup.partialStandardModel(ctx, prov, size, wall);
-            if (!powered)
-                return model;
-            ResourceLocation parentLocation = model.getLocation();
-            return prov.models()
-                    .withExistingParent(parentLocation.getPath() + "_powered", parentLocation)
-                    .texture("0", "pipeorgans:block/copper_redstone_plate_powered");
+            String powered = state.getValue(GenericPipeBlock.POWERED) ? "powered" : "";
+            ModelFile model = AssetLookup.partialStandardModel(ctx, prov, size, wall, powered);
+            return model;
         }
+
     }
+
+    /*public static class TestPipeGenerator extends SpecialBlockStateGen {
+        @Override
+        protected int getXRotation(BlockState state) {
+            return 0;
+        }
+
+        @Override
+        protected int getYRotation(BlockState state) {
+            return horizontalAngle(state.getValue(GenericPipeBlock.FACING));
+        }
+
+        @Override
+        public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov, BlockState state) {
+            EPipeSizes.PipeSize size = state.getValue(GenericPipeBlock.SIZE);
+            boolean wall = state.getValue(GenericPipeBlock.WALL);
+            boolean powered = state.getValue(GenericPipeBlock.POWERED);
+            return new ModelFile.UncheckedModelFile(prov.modLoc(
+                    "block/" + ctx.getName() + "/" + PipeModelGenerator.createPipeJsonModel(ctx.getName(), size, wall, powered)));
+        }
+
+    }
+
+     */
 
     public static class PipeExtensionGenerator extends SpecialBlockStateGen {
         @Override
