@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class PrestantBlock extends DoublePipeBlock {
     public PrestantBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.PRESTANT;
         extensionBlock = AllBlocks.PRESTANT_EXTENSION;
         blockEntityType = AllBlockEntities.PRESTANT_BLOCK_ENTITY;

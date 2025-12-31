@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class GedecktBlock extends DoublePipeBlock {
     public GedecktBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.GEDECKT;
         extensionBlock = AllBlocks.GEDECKT_EXTENSION;
         blockEntityType = AllBlockEntities.GEDECKT_BLOCK_ENTITY;

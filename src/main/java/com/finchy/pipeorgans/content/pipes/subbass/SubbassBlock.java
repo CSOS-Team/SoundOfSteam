@@ -16,7 +16,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class SubbassBlock extends SinglePipeBlock {
 
     public SubbassBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.SUBBASS;
         extensionBlock = AllBlocks.SUBBASS_EXTENSION;
         blockEntityType = AllBlockEntities.SUBBASS_BLOCK_ENTITY;

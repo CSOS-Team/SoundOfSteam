@@ -1025,7 +1025,7 @@
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:vox_humana/vh_superhigh_trem"
+        "name": "pipeorgans:vox_humana/trem/vh_superhigh_trem"
       }
     ]
   },
@@ -1036,7 +1036,7 @@
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:vox_humana/vh_high_trem"
+        "name": "pipeorgans:vox_humana/trem/vh_high_trem"
       }
     ]
   },
@@ -1047,7 +1047,7 @@
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:vox_humana/vh_medium_trem"
+        "name": "pipeorgans:vox_humana/trem/vh_medium_trem"
       }
     ]
   },
@@ -1058,7 +1058,7 @@
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:vox_humana/vh_low_trem"
+        "name": "pipeorgans:vox_humana/trem/vh_low_trem"
       }
     ]
   },
@@ -1069,7 +1069,7 @@
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:vox_humana/vh_deep_trem"
+        "name": "pipeorgans:vox_humana/trem/vh_deep_trem"
       }
     ]
   },

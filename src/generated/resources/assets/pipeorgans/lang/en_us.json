@@ -380,8 +380,13 @@
   "sounds.pipeorgans.vox_celeste_medium": "Vox Celeste speaks",
   "sounds.pipeorgans.vox_celeste_superhigh": "Vox Celeste squeals",
   "sounds.pipeorgans.vox_humana_deep": "Vox Humana bellows",
+  "sounds.pipeorgans.vox_humana_deep_trem": "Vox Humana trembles",
   "sounds.pipeorgans.vox_humana_high": "Vox Humana shouts",
+  "sounds.pipeorgans.vox_humana_high_trem": "Vox Humana shakes",
   "sounds.pipeorgans.vox_humana_low": "Vox Humana groans",
+  "sounds.pipeorgans.vox_humana_low_trem": "Vox Humana wavers",
   "sounds.pipeorgans.vox_humana_medium": "Vox Humana speaks",
-  "sounds.pipeorgans.vox_humana_superhigh": "Vox Humana screeches"
+  "sounds.pipeorgans.vox_humana_medium_trem": "Vox Humana wobbles",
+  "sounds.pipeorgans.vox_humana_superhigh": "Vox Humana screeches",
+  "sounds.pipeorgans.vox_humana_superhigh_trem": "Vox Humana quivers"
 }

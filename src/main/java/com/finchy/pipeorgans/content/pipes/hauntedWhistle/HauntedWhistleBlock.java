@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class HauntedWhistleBlock extends DoublePipeBlock {
     public HauntedWhistleBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.HAUNTED_WHISTLE;
         extensionBlock = AllBlocks.HAUNTED_WHISTLE_EXTENSION;
         blockEntityType = AllBlockEntities.HAUNTED_WHISTLE_BLOCK_ENTITY;

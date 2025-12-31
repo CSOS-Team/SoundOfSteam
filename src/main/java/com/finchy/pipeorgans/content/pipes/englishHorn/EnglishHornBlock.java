@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class EnglishHornBlock extends DoublePipeBlock {
     public EnglishHornBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.ENGLISH_HORN;
         extensionBlock = AllBlocks.ENGLISH_HORN_EXTENSION;
         blockEntityType = AllBlockEntities.ENGLISH_HORN_BLOCK_ENTITY;

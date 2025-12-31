@@ -157,6 +157,12 @@
   "sounds.pipeorgans.vox_humana_low": "Vox Humana groans",
   "sounds.pipeorgans.vox_humana_deep": "Vox Humana bellows",
 
+  "sounds.pipeorgans.vox_humana_superhigh_trem": "Vox Humana quivers",
+  "sounds.pipeorgans.vox_humana_high_trem": "Vox Humana shakes",
+  "sounds.pipeorgans.vox_humana_medium_trem": "Vox Humana wobbles",
+  "sounds.pipeorgans.vox_humana_low_trem": "Vox Humana wavers",
+  "sounds.pipeorgans.vox_humana_deep_trem": "Vox Humana trembles",
+
   "advancement.pipeorgans.csosintro": "Sound of Steam",
   "advancement.pipeorgans.csosintro.desc": "All Things Pipe and Steamy",
   "advancement.pipeorgans.pipebase": "Crafting the Base-ics",

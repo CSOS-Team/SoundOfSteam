@@ -11,7 +11,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 public class PosauneBlock extends SinglePipeBlock {
     public PosauneBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.POSAUNE;
         extensionBlock = AllBlocks.POSAUNE_EXTENSION;
         blockEntityType = AllBlockEntities.POSAUNE_BLOCK_ENTITY;

@@ -11,7 +11,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 public class BassoonBlock extends SinglePipeBlock {
     public BassoonBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.BASSOON;
         extensionBlock = AllBlocks.BASSOON_EXTENSION;
         blockEntityType = AllBlockEntities.BASSOON_BLOCK_ENTITY;

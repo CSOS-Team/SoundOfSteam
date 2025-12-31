@@ -18,7 +18,6 @@ public class VoxHumanaSoundInstance extends GenericSoundInstance {
         this.trem = trem;
 
     }
-
     public void setTrem(boolean trem) {
         this.trem = trem;
     }
@@ -46,20 +45,33 @@ public class VoxHumanaSoundInstance extends GenericSoundInstance {
 
     //Code if we decide to synthesize trem
 
+   // private static final float TREM_FREQ = 6.0f;   // How fast it changes (in Hz)
+  //  private static final float TREM_HZ_DEPTH = 8.0f; // How much the pitch changes (in Hz)
 
-   // @Override
-  //  public void tick() {
-    //    super.tick();
+
+  //  @Override
+ //   public void tick() {
+   //     super.tick();
 
     //    if (!trem)
-    //        return;
+     //       return;
 
-    //    tremPhase += 2f; // speed
+        // Advance phase: 20 ticks = 1 second
+     //   tremPhase += (float) (2 * Math.PI * TREM_FREQ / 20.0);
 
-     //   float tremAmount = 0.03f; // depth (≈ ±3%)
-     //   float mod = Mth.sin(tremPhase) * tremAmount;
-       // this.pitch += mod;
+        // Base pitch in Hz (A4 = 440 scaled by pitch multiplier)
+    //    float baseHz = 440.0f * this.pitch;
+
+        // Trem modulation in Hz
+     //   float hzOffset = Mth.sin(tremPhase) * TREM_HZ_DEPTH;
+
+        // Convert back to pitch multiplier
+      //  float modulatedPitch = (baseHz + hzOffset) / 440.0f;
+
+     //   this.pitch = modulatedPitch;
    // }
+
+
 
 }
 

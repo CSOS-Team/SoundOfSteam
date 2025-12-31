@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class DiapasonBlock extends DoublePipeBlock {
     public DiapasonBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.DIAPASON;
         extensionBlock = AllBlocks.DIAPASON_EXTENSION;
         blockEntityType = AllBlockEntities.DIAPASON_BLOCK_ENTITY;

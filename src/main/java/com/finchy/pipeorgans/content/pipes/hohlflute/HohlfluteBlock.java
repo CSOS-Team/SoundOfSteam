@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class HohlfluteBlock extends DoublePipeBlock {
     public HohlfluteBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.HOHLFLUTE;
         extensionBlock = AllBlocks.HOHLFLUTE_EXTENSION;
         blockEntityType = AllBlockEntities.HOHLFLUTE_BLOCK_ENTITY;
