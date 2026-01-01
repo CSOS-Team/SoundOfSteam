@@ -1,9 +1,10 @@
 package com.finchy.pipeorgans.infrastructure.clipboardAssistedPlacement;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 
 /**
  * Behavior that allows a block entity to apply mutations when being placed via clipboard-assisted placement.
@@ -13,19 +14,19 @@ import net.minecraft.nbt.CompoundTag;
  */
 public class ClipboardAssistedPlacementBehaviour extends BlockEntityBehaviour {
 
-    protected Runnable applyPlacementMutation;
+    protected ClipboardAssistedPlacement cAP;
 
-    public ClipboardAssistedPlacementBehaviour(SmartBlockEntity be, Runnable applyPlacementMutation) {
+    public ClipboardAssistedPlacementBehaviour(SmartBlockEntity be, ClipboardAssistedPlacement cAP) {
         super(be);
-        this.applyPlacementMutation = applyPlacementMutation;
+        this.cAP = cAP;
     }
 
     public ClipboardAssistedPlacementBehaviour(SmartBlockEntity be) {
         super(be);
         if (be instanceof ClipboardAssistedPlacement cap) {
-            this.applyPlacementMutation = cap::applyPlacementMutation;
+            this.cAP = cap;
         } else {
-            this.applyPlacementMutation = () -> {};
+            this.cAP = ($) -> ClipboardAssistedPlacement.MutationResult.FAILURE_KEEP;
         }
     }
 
@@ -36,13 +37,26 @@ public class ClipboardAssistedPlacementBehaviour extends BlockEntityBehaviour {
         return TYPE;
     }
 
-    public void applyPlacementMutation(ClipboardAssistedPlacementBehaviour previous) {
+    public ClipboardAssistedPlacement.MutationResult applyPlacementMutation(SmartBlockEntity previous) {
         if (previous == null)
-            return;
-        blockEntity.load(previous.blockEntity.saveWithoutMetadata()); // avoids identity conflicts
-        applyPlacementMutation.run();
+            return ClipboardAssistedPlacement.MutationResult.FAILURE_KEEP;
+
+        ClipboardAssistedPlacement.MutationResult result = cAP.applyPlacementMutation(previous);
+        PipeOrgans.LOGGER.debug("Clipboard-assisted placement mutation result: success={}, srcAction={}", result.success(), result.srcAction());
         blockEntity.setChanged();
+        if (blockEntity.getLevel() instanceof ServerLevel level) {
+            level.getChunkAt(blockEntity.getBlockPos()).setUnsaved(true);
+        }
+
         blockEntity.sendData();
         blockEntity.notifyUpdate();
+
+        if (blockEntity.getLevel() instanceof ServerLevel level) {
+            level.scheduleTick(blockEntity.getBlockPos(), blockEntity.getBlockState().getBlock(), 1);
+        }
+
+        PipeOrgans.LOGGER.debug("Notified block entity update after clipboard-assisted placement mutation");
+
+        return result;
     }
 }

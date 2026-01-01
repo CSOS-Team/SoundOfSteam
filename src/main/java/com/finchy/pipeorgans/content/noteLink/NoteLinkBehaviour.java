@@ -24,16 +24,21 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
 
     public static final BehaviourType<NoteLinkBehaviour> TYPE = new BehaviourType<>();
 
-    public NoteLinkBehaviour(SmartBlockEntity be, IntSupplier transmitter, IntConsumer receiver, Mode mode) {
+    public NoteLinkBehaviour(SmartBlockEntity be, IntSupplier transmitter, IntConsumer receiver, Mode mode, ItemStack key, PipePitch pitch) {
         super(be);
         this.transmitter = transmitter;
         this.receiver = receiver;
         this.mode = mode;
+        if (key != null)
+            this.keyFrequency = RedstoneLinkNetworkHandler.Frequency.of(key);
+        if (pitch != null)
+            this.pitch = pitch;
     }
 
     public NoteLinkBehaviour withCycledMode() {
         NoteLinkBehaviour b = new NoteLinkBehaviour(blockEntity, transmitter, receiver,
-                mode == Mode.RECEIVE ? Mode.TRANSMIT : Mode.RECEIVE
+                mode == Mode.RECEIVE ? Mode.TRANSMIT : Mode.RECEIVE,
+                this.keyFrequency.getStack(), this.pitch
                 );
         b.keyFrequency = this.keyFrequency;
         b.pitch = this.pitch;
@@ -58,7 +63,7 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
     protected PipePitch pitch = PipePitch.DEFAULT;
     protected boolean newPos;
     protected boolean inNetwork;
-    protected Runnable onLoadedCallback = () -> {};
+    protected Runnable onLoadedCallback = null;
 
     public NoteLinkBehaviour withOnLoadedCallback(Runnable callback) {
         this.onLoadedCallback = callback;
@@ -116,7 +121,7 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
     }
 
     public void changePitch(PipePitch pitch) {
-        disconnectFromNetwork();
+        if (inNetwork) disconnectFromNetwork();
         this.pitch = pitch;
         PipeOrgans.LOGGER.debug("NoteLinkBehaviour changed pitch to {}", pitch.getNormalizedName());
         if (!inNetwork) {
@@ -128,6 +133,11 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
     @Override
     public void initialize() {
         PipeOrgans.LOGGER.debug("NoteLinkBehaviour initializing at {}", blockEntity.getBlockPos());
+        if (onLoadedCallback == null)
+            if (blockEntity instanceof NoteLinkBehaviourSubscriber nlbs)
+                onLoadedCallback = nlbs::onNoteLinkBehaviorLoaded;
+            else
+                onLoadedCallback = () -> {PipeOrgans.LOGGER.warn("Empty NoteLinkBehaviour onLoadedCallback. Block Entities should implement NoteLinkBehaviourSubscriber");};
         super.initialize();
         if (getWorld().isClientSide)
             return;
@@ -225,7 +235,10 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
             pitch = PipePitch.DEFAULT;
         else
             pitch = PipePitch.fromNormalizedName(nbt.getString("Pitch"));
-        onLoadedCallback.run();
+        if (onLoadedCallback == null)
+            PipeOrgans.LOGGER.warn("NoteLinkBehaviour read from NBT with null onLoadedCallback");
+        else
+            onLoadedCallback.run();
         PipeOrgans.LOGGER.debug("NoteLinkBehaviour read from NBT: keyFrequency={}, pitch={}, newPos={}", keyFrequency.getStack(), pitch.getNormalizedName(), newPos);
     }
 

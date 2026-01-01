@@ -27,38 +27,44 @@ public class ClipboardAssistedPlacementHandler {
 
         if (!(entity instanceof Player player)) return;
 
-        logger.debug("Block placed at {} by {}", pos, player.getName().getString());
-
         ItemStack offhand = player.getOffhandItem();
         if (!offhand.is(com.simibubi.create.AllBlocks.CLIPBOARD.asItem())) return;
-
-        logger.debug("Player is holding a clipboard in offhand");
 
         BlockEntity be = level.getBlockEntity(pos);
         if (be == null) return;
 
-        logger.debug("Block entity found at placed position for block {}", be.getBlockState().getBlock().getName().getString());
-
         ClipboardAssistedPlacementBehaviour target = BlockEntityBehaviour.get(be, ClipboardAssistedPlacementBehaviour.TYPE);
         if (target == null) return;
-
-        logger.debug("Target block entity has ClipboardAssistedPlacementBehaviour");
 
         ClipboardAssistedPlacementData data = ClipboardAssistedPlacementData.fromClipboardItem(offhand, level);
         BlockPos srcPos = data.getPosition(be);
 
-        if (srcPos != null) {
+        if (pos.equals(srcPos)) {
+            data.removePosition(be);
+            data.writeToClipboardItem(offhand, level);
+            return;
+        }
+
+        ClipboardAssistedPlacement.MutationResult result = ClipboardAssistedPlacement.MutationResult.FAILURE_REPLACE;
+
+        if (srcPos != null && !player.isShiftKeyDown()) {
             logger.debug("Source position found in clipboard data: {}", srcPos);
             ClipboardAssistedPlacementBehaviour source = BlockEntityBehaviour.get(level, srcPos, ClipboardAssistedPlacementBehaviour.TYPE);
             if (source != null) {
                 logger.debug("Source block entity found at source position for block {}", source.blockEntity.getBlockState().getBlock().getName().getString());
-                target.applyPlacementMutation(source);
+                result = target.applyPlacementMutation(source.blockEntity);
                 logger.debug("Applied placement mutation from source to target");
             }
         }
 
-        data.setPosition(be, pos);
-        data.writeToClipboardItem(offhand, level);
-        logger.debug("Updated clipboard data with new position {}", pos);
+        if (result.srcAction() == ClipboardAssistedPlacement.SourceAction.REPLACE) {
+            data.setPosition(be, pos);
+            data.writeToClipboardItem(offhand, level);
+            logger.debug("Updated clipboard data with new position {}", pos);
+        } else if (result.srcAction() == ClipboardAssistedPlacement.SourceAction.REMOVE) {
+            data.removePosition(be);
+            data.writeToClipboardItem(offhand, level);
+            logger.debug("Removed position from clipboard data");
+        }
     }
 }

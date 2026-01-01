@@ -18,17 +18,22 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
-public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAssistedPlacement {
+public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAssistedPlacement, NoteLinkBehaviourSubscriber {
 
     public static final ValueBoxTransform KEY_SLOT_TRANSFORM = new ValueBoxTransform() {
         // TODO: adjust to actual model, this is just a placeholder from the RedstoneLink
@@ -94,8 +99,8 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAs
     private int transmittedSignal;
     private boolean transmitter;
 
-    private ItemStack key = ItemStack.EMPTY;
-    private PipePitch pitch = PipePitch.DEFAULT;
+    private ItemStack key = null;
+    private PipePitch pitch = null;
 
     private NoteLinkBehaviour link;
     private ItemValueBoxBehaviour keySlot;
@@ -108,6 +113,7 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAs
 		compound.putBoolean("ReceivedChanged", receivedSignalChanged);
 		compound.putInt("Transmit", transmittedSignal);
 		super.write(compound, clientPacket);
+        PipeOrgans.LOGGER.debug("Stored NoteLink ({}): '{}'", getBlockPos(), compound.getAsString());
 	}
 
 	@Override
@@ -119,6 +125,8 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAs
 		receivedSignalChanged = compound.getBoolean("ReceivedChanged");
 		if (level == null || level.isClientSide || !link.hasNewPos())
 			transmittedSignal = compound.getInt("Transmit");
+
+        PipeOrgans.LOGGER.debug("Loaded NoteLink ({}): '{}'", getBlockPos(), compound.getAsString());
 	}
 
     public int getTransmittedSignal() {
@@ -151,9 +159,10 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAs
                 link = new NoteLinkBehaviour(this,
                         this::getTransmittedSignal,
                         this::setReceivedSignal,
-                        transmitter ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE
+                        transmitter ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE,
+                        key, pitch
                 ).withOnLoadedCallback(this::onNoteLinkBehaviorLoaded);
-                PipeOrgans.LOGGER.warn("NoteLinkBlockEntity.tick: link behaviour was null when updating mode, recreated at {} (shouldn't happen)", worldPosition);
+                PipeOrgans.LOGGER.warn("NoteLinkBlockEntity.tick: NoteLinkBehaviour link was null when updating mode, recreated at {} (shouldn't happen)", worldPosition);
             }
             attachBehaviourLate(link);
         }
@@ -181,7 +190,18 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAs
     public void remove() {
         super.remove();
 
+        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.remove called at {}", worldPosition);
+
         updateSelfAndAttached(getBlockState());
+    }
+
+    /**
+     * Block destroyed or replaced. Requires Block to call IBE::onRemove
+     */
+    @Override
+    public void destroy() {
+        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.destroy called at {}", worldPosition);
+        super.destroy();
     }
 
     public void updateSelfAndAttached(BlockState blockState) {
@@ -223,15 +243,14 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAs
         behaviours.add(pitchSlot = new PipePitchScrollValueBehaviour(this, PITCH_SLOT_TRANSFORM, Component.translatable("block.pipeorgans.note_link.pitch_slot.label"))
                 .withPipePitchCallback(this::setPitch)
         );
-
-
     }
     @Override
     public void addBehavioursDeferred(List<BlockEntityBehaviour> behaviours) {
         behaviours.add(link = new NoteLinkBehaviour(this,
                 this::getTransmittedSignal,
                 this::setReceivedSignal,
-                transmitter ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE)
+                transmitter ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE,
+                key, pitch)
                 .withOnLoadedCallback(this::onNoteLinkBehaviorLoaded)
         );
     }
@@ -244,35 +263,75 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAs
         link.changePitch(PipePitch.DEFAULT);
     }
 
+    @Nullable
     public ItemStack getKey() {
+        if (key == null && link != null) {
+            key = link.getKey();
+        }
         return key;
     }
 
     public void setKey(ItemStack key) {
-        this.key = key;
         key.setCount(1);
+        this.key = key;
         PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.setKey: key set to {}", key);
-        link.changeKeyFrequency(key);
+        if (link != null)
+            link.changeKeyFrequency(key);
     }
 
+    @Nullable
     public PipePitch getPitch() {
+        if (pitch == null && link != null) {
+            pitch = link.getPitch();
+        }
         return pitch;
     }
 
     public void setPitch(PipePitch pitch) {
         this.pitch = pitch;
         PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.setPitch: pitch set to {}", pitch);
-        link.changePitch(pitch);
+        if (link != null)
+            link.changePitch(pitch);
     }
 
-    protected void onNoteLinkBehaviorLoaded() {
+    public void onNoteLinkBehaviorLoaded() {
         key = link.getKey();
         pitch = link.getPitch();
-        pitchSlot.setValue(pitch);
+        pitchSlot.setValueSilent(pitch);
+        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.onNoteLinkBehaviorLoaded: synced key and pitch from NoteLinkBehaviour at {}, now key={}, pitch={}", worldPosition, key, pitch.getNormalizedName());
     }
 
     @Override
-    public void applyPlacementMutation() {
-        setPitch(pitch.next());
+    public MutationResult applyPlacementMutation(SmartBlockEntity previousBE) {
+        if (!(previousBE instanceof NoteLinkBlockEntity previousNoteLink))
+            return MutationResult.FAILURE_KEEP;
+
+        PipePitch next = Objects.requireNonNull(previousNoteLink.getPitch()).next();
+        if (next == null)
+            return MutationResult.FAILURE_REMOVE;
+
+
+        setPitch(next);
+        pitchSlot.setValueSilent(next);
+        setKey(Objects.requireNonNull(previousNoteLink.getKey()));
+
+        setChanged();
+        sendData();
+        notifyUpdate();
+
+        if (getLevel() instanceof ServerLevel serverLevel) {
+            serverLevel.setBlock(getBlockPos(), getBlockState().setValue(NoteLinkBlock.RECEIVER, !previousNoteLink.isTransmitterBlock()), Block.UPDATE_ALL);
+            attachBehaviourLate(link = new NoteLinkBehaviour(this,
+                    this::getTransmittedSignal,
+                    this::setReceivedSignal,
+                    previousNoteLink.isTransmitterBlock() ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE,
+                    key, pitch
+            ).withOnLoadedCallback(this::onNoteLinkBehaviorLoaded));
+            setChanged();
+            sendData();
+            notifyUpdate();
+        }
+
+        return MutationResult.SUCCESS_REPLACE;
     }
 }

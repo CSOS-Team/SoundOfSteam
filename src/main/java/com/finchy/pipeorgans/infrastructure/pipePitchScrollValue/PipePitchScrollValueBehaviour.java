@@ -24,6 +24,8 @@ public class PipePitchScrollValueBehaviour extends ScrollValueBehaviour {
         // This is done like this to be overridable without subclassing
     }
 
+    protected int silentUpdates = 0;
+
     @Override
     public ValueSettingsBoard createBoard(Player player, BlockHitResult hitResult) {
         return new ValueSettingsBoard(
@@ -61,11 +63,27 @@ public class PipePitchScrollValueBehaviour extends ScrollValueBehaviour {
         return this;
     }
 
+    @Override
+    public ScrollValueBehaviour withCallback(Consumer<Integer> valueCallback) {
+        return super.withCallback(v -> {
+            if (silentUpdates > 0) {
+                silentUpdates--;
+                return;
+            }
+            valueCallback.accept(v);
+        });
+    }
+
     protected String defaultFormatValue() {
         return getPipePitchValue().getName();
     }
 
     public void setValue(PipePitch pitch) {
+        setValue(pitch.getPitchIndex());
+    }
+
+    public void setValueSilent(PipePitch pitch) {
+        silentUpdates++;
         setValue(pitch.getPitchIndex());
     }
 }

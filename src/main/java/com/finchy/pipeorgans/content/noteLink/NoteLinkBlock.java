@@ -109,8 +109,12 @@ public class NoteLinkBlock extends WrenchableDirectionalBlock implements IBE<Not
     }
 
     @Override
-    public void onRemove(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pNewState, boolean pMovedByPiston) {
-        IBE.onRemove(pState, pLevel, pPos, pNewState);
+    public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
+        if (!state.is(newState.getBlock())) {
+            if (state.hasBlockEntity()) {
+                IBE.onRemove(state, level, pos, newState);
+            }
+        }
     }
 
     @Override
