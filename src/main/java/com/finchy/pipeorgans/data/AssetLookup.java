@@ -21,7 +21,7 @@ public class AssetLookup {
             if (!suf.isEmpty())
                 string += "_" + suf;
         final String location = "block/"+ctx.getName()+string;
-        return prov.models().getExistingFile(prov.modLoc(location));
+        return new ModelFile.UncheckedModelFile(prov.modLoc(location));
     }
 
     public static ModelFile partialExtensionModel(DataGenContext<?, ?> ctx, RegistrateBlockstateProvider prov, String... suffix) {

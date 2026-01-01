@@ -2,7 +2,7 @@
 	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "pipeorgans:block/basoon",
+		"0": "pipeorgans:block/bassoon",
 		"particle": "pipeorgans:block/particle/bassoon_particle"
 	},
 	"elements": [

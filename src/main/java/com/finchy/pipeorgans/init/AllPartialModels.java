@@ -96,6 +96,12 @@ public class AllPartialModels {
     NASARD_MOUTH_LARGE = block("nasard/nasard_large_mouth"),
     NASARD_MOUTH_HUGE = block("nasard/nasard_huge_mouth"),
 
+    TIERCE_MOUTH_TINY = block("tierce/tierce_tiny_mouth"),
+    TIERCE_MOUTH_SMALL = block("tierce/tierce_small_mouth"),
+    TIERCE_MOUTH_MEDIUM = block("tierce/tierce_medium_mouth"),
+    TIERCE_MOUTH_LARGE = block("tierce/tierce_large_mouth"),
+    TIERCE_MOUTH_HUGE = block("tierce/tierce_huge_mouth"),
+
     POSAUNE_MOUTH_TINY = block("posaune/posaune_tiny_mouth"),
     POSAUNE_MOUTH_SMALL = block("posaune/posaune_small_mouth"),
     POSAUNE_MOUTH_MEDIUM = block("posaune/posaune_medium_mouth"),

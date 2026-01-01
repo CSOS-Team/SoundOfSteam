@@ -1,13 +1,17 @@
 package com.finchy.pipeorgans.data;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.ponder.AllPipeOrgansPonderScenes;
+import com.finchy.pipeorgans.ponder.POPonderPlugin;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.simibubi.create.foundation.utility.FilesHelper;
 import com.tterrag.registrate.providers.ProviderType;
+import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 
 import java.util.Map;
@@ -22,6 +26,9 @@ public class PipeOrgansDatagen {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+        ExistingFileHelper helper = event.getExistingFileHelper();
+
+        generator.addProvider(event.includeServer(), new PipeModelGenerator(output, helper));
     }
 
     private static void addExtraRegistrateData() {
@@ -29,6 +36,7 @@ public class PipeOrgansDatagen {
             BiConsumer<String, String> langConsumer = provider::add; // for every place that generates lang translations, have it provide its lang to the consumer
             // SURRENDER ALL YE TEXTS TO THE GREAT CONSUMER
             provideDefaultLang("en_us_base", langConsumer); // add the entries that already exist
+            providePonderLang(langConsumer);
         });
     }
     
@@ -43,6 +51,12 @@ public class PipeOrgansDatagen {
             String value = entry.getValue().getAsString();
             consumer.accept(key, value);
         }
+    }
+
+
+    private static void providePonderLang(BiConsumer<String, String> consumer) {
+        PonderIndex.addPlugin(new POPonderPlugin());
+        PonderIndex.getLangAccess().provideLang(PipeOrgans.MOD_ID, consumer);
     }
 
 }

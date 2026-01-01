@@ -18,11 +18,16 @@
   "gui.pipeorgans.roll_puncher.noMidis": "No MIDI Files Saved",
   "gui.pipeorgans.roll_puncher.availableMidis": "Available MIDI Files",
 
+  "block.pipeorgans.roll_puncher.tooltip.summary": "Writes saved MIDI files onto a _Music Roll_.",
+  "block.pipeorgans.roll_puncher.tooltip.condition1": "When given a piece of paper or a Music Roll",
+  "block.pipeorgans.roll_puncher.tooltip.behaviour1": "Uploads a chosen File from your MIDI Folder.",
+
   "pipeorgans.display_source.tracker_bar_filename": "Filename",
   "pipeorgans.display_source.tracker_bar_bpm": "BPM",
 
   "item.pipeorgans.music_roll.invalid": "[!] Invalid Item - Use the Roll Authoring Table instead",
 
+  "pipeorgans.stopsize.135": "§71-3/5'",
   "pipeorgans.stopsize.2": "§72'",
   "pipeorgans.stopsize.223": "§72-2/3'",
   "pipeorgans.stopsize.4": "§74'",
@@ -110,6 +115,12 @@
   "sounds.pipeorgans.trompette_low": "Trompette grumbles",
   "sounds.pipeorgans.trompette_deep": "Trompette rumbles",
 
+  "sounds.pipeorgans.chamade_superhigh": "Chamade squeals",
+  "sounds.pipeorgans.chamade_high": "Chamade squeaks",
+  "sounds.pipeorgans.chamade_medium": "Chamade speaks",
+  "sounds.pipeorgans.chamade_low": "Chamade grumbles",
+  "sounds.pipeorgans.chamade_deep": "Chamade rumbles",
+
   "sounds.pipeorgans.english_horn_superhigh": "English Horn squeals",
   "sounds.pipeorgans.english_horn_high": "English Horn squeaks",
   "sounds.pipeorgans.english_horn_medium": "English Horn speaks",
@@ -121,6 +132,12 @@
   "sounds.pipeorgans.nasard_medium": "Nasard speaks",
   "sounds.pipeorgans.nasard_low": "Nasard grumbles",
   "sounds.pipeorgans.nasard_deep": "Nasard rumbles",
+
+  "sounds.pipeorgans.tierce_superhigh": "Tierce squeals",
+  "sounds.pipeorgans.tierce_high": "Tierce squeaks",
+  "sounds.pipeorgans.tierce_medium": "Tierce speaks",
+  "sounds.pipeorgans.tierce_low": "Tierce grumbles",
+  "sounds.pipeorgans.tierce_deep": "Tierce rumbles",
 
   "sounds.pipeorgans.posaune_superhigh": "Posaune squeaks",
   "sounds.pipeorgans.posaune_high": "Posaune speaks",
@@ -146,6 +163,10 @@
   "advancement.pipeorgans.pipebase.desc": "Craft or Obtain a Pipe Base",
   "advancement.pipeorgans.gedeckt": "Capped Harmony",
   "advancement.pipeorgans.gedeckt.desc": "Place a Gedeckt Pipe",
+  "advancement.pipeorgans.open_wood": "Big Boom",
+  "advancement.pipeorgans.open_wood.desc": "Place an Open Wood Pipe",
+  //"advancement.pipeorgans.bourdon": "Little Boom",
+  //"advancement.pipeorgans.bourdon.desc": "Place a Bourdon Pipe",
   "advancement.pipeorgans.hohlflute": "Hohl in One",
   "advancement.pipeorgans.hohlflute.desc": "Place a Hohlflute Pipe",
   "advancement.pipeorgans.rohrflote": "The Pipe with a Hat",
@@ -166,10 +187,16 @@
   "advancement.pipeorgans.subbass.desc": "Place a Subbass Pipe",
   "advancement.pipeorgans.trompette": "HONK",
   "advancement.pipeorgans.trompette.desc": "Place a Trompette Pipe",
+  "advancement.pipeorgans.chamade": "They’re Horizontal Now?!?",
+  "advancement.pipeorgans.chamade.desc": "Place a Chamade Pipe",
   "advancement.pipeorgans.nasard": "The Notes between the Notes",
   "advancement.pipeorgans.nasard.desc": "Place a Nasard Pipe",
+  "advancement.pipeorgans.tierce": "Adds Flavour, Ruins Chords",
+  "advancement.pipeorgans.tierce.desc": "Place a Tierce Pipe",
   "advancement.pipeorgans.posaune": "Rumbling Reeds",
   "advancement.pipeorgans.posaune.desc": "Place a Posaune Pipe",
+  "advancement.pipeorgans.bassoon": "Temperament Issues Included",
+  "advancement.pipeorgans.bassoon.desc": "Place a Bassoon Pipe",
   "advancement.pipeorgans.vox_humana": "A Choir of Goats",
   "advancement.pipeorgans.vox_humana.desc": "Place a Vox Humana Pipe",
   "advancement.pipeorgans.english_horn": "Actually from Germany",
@@ -330,5 +357,4 @@
   "instrument.pipeorgans.brush_kit": "Brush Kit",
 
   "instrument.pipeorgans.empty": ""
-
 }

@@ -1,6 +1,6 @@
 {
   "parent": "pipeorgans:block/trompette/trompette_small_floor",
   "textures": {
-    "0": "pipeorgans:block/copper_redstone_plate_powered"
+    "1": "create:block/copper_redstone_plate_powered"
   }
 }

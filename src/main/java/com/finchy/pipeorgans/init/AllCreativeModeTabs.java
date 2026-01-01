@@ -30,8 +30,10 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.HOHLFLUTE.get());
                         output.accept(AllBlocks.GAMBA.get());
                         output.accept(AllBlocks.NASARD.get());
+                        output.accept(AllBlocks.TIERCE.get());
                         output.accept(AllBlocks.SUBBASS.get());
                         output.accept(AllBlocks.OPEN_WOOD.get());
+                        output.accept(AllBlocks.BASSOON.get());
                         output.accept(AllBlocks.POSAUNE.get());
                         output.accept(AllBlocks.VOX_HUMANA.get());
                         output.accept(AllBlocks.VIOLA.get());
