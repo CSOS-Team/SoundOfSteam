@@ -5,7 +5,7 @@
     "textures": {
         "redstone_antenna": "pipeorgans:block/note_antenna_powered",
         "particle": "pipeorgans:block/note_link_body_powered",
-        "redstone_bridge_side": "pipeorgans:block/note_link_body_powered"
+        "body": "pipeorgans:block/note_link_body_powered"
     },
     "elements": [
         {
@@ -28,7 +28,7 @@
                         12.5,
                         15
                     ],
-                    "texture": "#redstone_bridge_side"
+                    "texture": "#body"
                 },
                 "east": {
                     "uv": [
@@ -38,7 +38,7 @@
                         13
                     ],
                     "rotation": 90,
-                    "texture": "#redstone_bridge_side"
+                    "texture": "#body"
                 },
                 "south": {
                     "uv": [
@@ -47,7 +47,7 @@
                         12.5,
                         15
                     ],
-                    "texture": "#redstone_bridge_side"
+                    "texture": "#body"
                 },
                 "west": {
                     "uv": [
@@ -57,7 +57,7 @@
                         13
                     ],
                     "rotation": 90,
-                    "texture": "#redstone_bridge_side"
+                    "texture": "#body"
                 },
                 "up": {
                     "uv": [
@@ -66,7 +66,7 @@
                         12.5,
                         13
                     ],
-                    "texture": "#redstone_bridge_side"
+                    "texture": "#body"
                 },
                 "down": {
                     "uv": [
@@ -75,7 +75,7 @@
                         5,
                         7
                     ],
-                    "texture": "#redstone_bridge_side"
+                    "texture": "#body"
                 }
             }
         },
@@ -180,255 +180,6 @@
                     "texture": "#redstone_antenna"
                 }
             }
-        },
-        {
-            "from": [
-                6,
-                2.5,
-                9
-            ],
-            "to": [
-                10,
-                3.5,
-                11
-            ],
-            "rotation": {
-                "angle": 0,
-                "axis": "y",
-                "origin": [
-                    6,
-                    3,
-                    9
-                ]
-            },
-            "faces": {
-                "north": {
-                    "uv": [
-                        12.5,
-                        4,
-                        14.5,
-                        4.5
-                    ],
-                    "texture": "#redstone_bridge_side"
-                },
-                "east": {
-                    "uv": [
-                        14,
-                        4,
-                        14.5,
-                        5
-                    ],
-                    "rotation": 270,
-                    "texture": "#redstone_bridge_side"
-                },
-                "south": {
-                    "uv": [
-                        12.5,
-                        4.5,
-                        14.5,
-                        5
-                    ],
-                    "texture": "#redstone_bridge_side"
-                },
-                "west": {
-                    "uv": [
-                        12.5,
-                        4,
-                        13,
-                        5
-                    ],
-                    "rotation": 90,
-                    "texture": "#redstone_bridge_side"
-                },
-                "up": {
-                    "uv": [
-                        12.5,
-                        4,
-                        14.5,
-                        5
-                    ],
-                    "texture": "#redstone_bridge_side"
-                }
-            }
-        },
-        {
-            "from": [
-                7,
-                2.5,
-                11
-            ],
-            "to": [
-                9,
-                3.5,
-                12
-            ],
-            "rotation": {
-                "angle": 0,
-                "axis": "y",
-                "origin": [
-                    7,
-                    0,
-                    11
-                ]
-            },
-            "faces": {
-                "east": {
-                    "uv": [
-                        13.5,
-                        5,
-                        14,
-                        5.5
-                    ],
-                    "texture": "#redstone_bridge_side"
-                },
-                "south": {
-                    "uv": [
-                        13,
-                        5,
-                        14,
-                        5.5
-                    ],
-                    "texture": "#redstone_bridge_side"
-                },
-                "west": {
-                    "uv": [
-                        13,
-                        5,
-                        13.5,
-                        5.5
-                    ],
-                    "texture": "#redstone_bridge_side"
-                },
-                "up": {
-                    "uv": [
-                        13,
-                        5,
-                        14,
-                        5.5
-                    ],
-                    "texture": "#redstone_bridge_side"
-                }
-            }
-        },
-        {
-            "from": [
-                7,
-                2.5,
-                8
-            ],
-            "to": [
-                9,
-                3.5,
-                9
-            ],
-            "rotation": {
-                "angle": 0,
-                "axis": "y",
-                "origin": [
-                    7,
-                    0,
-                    8
-                ]
-            },
-            "faces": {
-                "north": {
-                    "uv": [
-                        13,
-                        3.5,
-                        14,
-                        4
-                    ],
-                    "texture": "#redstone_bridge_side"
-                },
-                "east": {
-                    "uv": [
-                        13.5,
-                        3.5,
-                        14,
-                        4
-                    ],
-                    "texture": "#redstone_bridge_side"
-                },
-                "west": {
-                    "uv": [
-                        13,
-                        3.5,
-                        13.5,
-                        4
-                    ],
-                    "texture": "#redstone_bridge_side"
-                },
-                "up": {
-                    "uv": [
-                        13,
-                        3.5,
-                        14,
-                        4
-                    ],
-                    "texture": "#redstone_bridge_side"
-                }
-            }
-        },
-        {
-            "from": [
-                9,
-                2.5,
-                4
-            ],
-            "to": [
-                10,
-                3.5,
-                9
-            ],
-            "rotation": {
-                "angle": 0,
-                "axis": "y",
-                "origin": [
-                    9,
-                    0,
-                    8
-                ]
-            },
-            "faces": {
-                "north": {
-                    "uv": [
-                        14,
-                        1.5,
-                        14.5,
-                        2
-                    ],
-                    "texture": "#redstone_bridge_side"
-                },
-                "east": {
-                    "uv": [
-                        14,
-                        1.5,
-                        14.5,
-                        4
-                    ],
-                    "rotation": 270,
-                    "texture": "#redstone_bridge_side"
-                },
-                "west": {
-                    "uv": [
-                        14,
-                        1.5,
-                        14.5,
-                        4
-                    ],
-                    "rotation": 90,
-                    "texture": "#redstone_bridge_side"
-                },
-                "up": {
-                    "uv": [
-                        14,
-                        1.5,
-                        14.5,
-                        4
-                    ],
-                    "texture": "#redstone_bridge_side"
-                }
-            }
         }
     ],
     "display": {
@@ -521,27 +272,5 @@
                 0.5
             ]
         }
-    },
-    "groups": [
-        0,
-        1,
-        2,
-        3,
-        {
-            "name": "Note",
-            "origin": [
-                8,
-                8,
-                8
-            ],
-            "color": 0,
-            "children": [
-                4,
-                5,
-                6,
-                7
-            ]
-        },
-        8
-    ]
+    }
 }
