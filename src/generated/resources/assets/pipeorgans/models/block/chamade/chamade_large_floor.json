@@ -563,6 +563,7 @@
     {
       "faces": {
         "down": {
+          "rotation": 180,
           "texture": "#2",
           "uv": [
             0.5,
@@ -599,6 +600,7 @@
           ]
         },
         "up": {
+          "rotation": 180,
           "texture": "#1",
           "uv": [
             1,
@@ -623,6 +625,15 @@
         1
       ],
       "name": "Base",
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
       "to": [
         15,
         3,
@@ -680,13 +691,22 @@
       "from": [
         4,
         3,
-        4
+        5
       ],
       "name": "Pipe Large",
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
       "to": [
         12,
         12,
-        12
+        13
       ]
     }
   ],

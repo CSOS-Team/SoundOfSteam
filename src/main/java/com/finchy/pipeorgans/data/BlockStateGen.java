@@ -41,30 +41,6 @@ public class BlockStateGen {
 
     }
 
-    /*public static class TestPipeGenerator extends SpecialBlockStateGen {
-        @Override
-        protected int getXRotation(BlockState state) {
-            return 0;
-        }
-
-        @Override
-        protected int getYRotation(BlockState state) {
-            return horizontalAngle(state.getValue(GenericPipeBlock.FACING));
-        }
-
-        @Override
-        public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov, BlockState state) {
-            EPipeSizes.PipeSize size = state.getValue(GenericPipeBlock.SIZE);
-            boolean wall = state.getValue(GenericPipeBlock.WALL);
-            boolean powered = state.getValue(GenericPipeBlock.POWERED);
-            return new ModelFile.UncheckedModelFile(prov.modLoc(
-                    "block/" + ctx.getName() + "/" + PipeModelGenerator.createPipeJsonModel(ctx.getName(), size, wall, powered)));
-        }
-
-    }
-
-     */
-
     public static class PipeExtensionGenerator extends SpecialBlockStateGen {
         @Override
         protected int getXRotation(BlockState state) {

@@ -629,7 +629,7 @@
       "name": "Base",
       "rotation": {
         "angle": 0,
-        "axis": "y",
+        "axis": "x",
         "origin": [
           8,
           8,
@@ -665,6 +665,7 @@
           ]
         },
         "north": {
+          "rotation": 180,
           "texture": "#2",
           "uv": [
             3.5,
@@ -695,13 +696,13 @@
       },
       "from": [
         7,
-        3,
+        7,
         7
       ],
-      "name": "Pipe Small",
+      "name": "Pipe Medium",
       "rotation": {
         "angle": 0,
-        "axis": "y",
+        "axis": "x",
         "origin": [
           8,
           8,
@@ -710,7 +711,7 @@
       },
       "to": [
         9,
-        5,
+        9,
         13
       ]
     }

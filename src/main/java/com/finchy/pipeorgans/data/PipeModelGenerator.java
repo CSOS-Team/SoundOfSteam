@@ -3,6 +3,7 @@ package com.finchy.pipeorgans.data;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.HorizontalPipeBlock;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.google.gson.*;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -39,8 +40,8 @@ public class PipeModelGenerator implements DataProvider {
     @Override
     public CompletableFuture<?> run(CachedOutput pOutput) {
         List<CompletableFuture<?>> futures = new ArrayList<>();
-        for (BlockEntry<? extends GenericPipeBlock> pipeBlock : AllBlocks.PIPE_BLOCKS) {
-            generateForPipe(pOutput, pipeBlock, futures);
+        for (BlockEntry<? extends GenericPipeBlock> pipeEntry : AllBlocks.PIPE_BLOCKS) {
+            generateForPipe(pOutput, pipeEntry, futures, (pipeEntry.get() instanceof HorizontalPipeBlock));
         }
 
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
@@ -52,8 +53,9 @@ public class PipeModelGenerator implements DataProvider {
         return "Pipe Model Generator";
     }
 
-    private void generateForPipe(CachedOutput cache, BlockEntry<? extends GenericPipeBlock> blockEntry, List<CompletableFuture<?>> futures) {
+    private void generateForPipe(CachedOutput cache, BlockEntry<? extends GenericPipeBlock> blockEntry, List<CompletableFuture<?>> futures, boolean horizontal) {
         String pipeName = blockEntry.getId().getPath();
+        String horizontalBasePrefix = horizontal ? "horizontal_" : "";
         try {
             for (EPipeSizes.PipeSize size : EPipeSizes.PipeSize.values()) {
                 // load pipe json model
@@ -65,7 +67,7 @@ public class PipeModelGenerator implements DataProvider {
 
                     String combinedName = pipeName+"/"+pipeName+"_"+size.getSerializedName()+"_"+wallString; // e.g. diapason/diapason_medium_wall
                     // load base json model
-                    JsonObject baseJson = loadModel("base_" + size.getSerializedName() + "_" + wallString + ".json"); // e.g. base_medium_floor.json
+                    JsonObject baseJson = loadModel(horizontalBasePrefix + "base_" + size.getSerializedName() + "_" + wallString + ".json"); // e.g. base_medium_floor.json
 
                     // add base geometry to pipe
                     JsonArray pipeElements = copiedPipeJson.getAsJsonArray("elements");
