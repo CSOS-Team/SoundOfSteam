@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.windchest;
 
+import com.finchy.pipeorgans.content.windchest.tremulant.TremulantBlock;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -58,11 +59,19 @@ public class WindchestBlock extends Block implements IWrenchable {
         return false;
     }
 
+    public boolean isMasterTrem(Level level, Direction facing, BlockPos pos) {
+        BlockPos masterPos = getMasterPos(level, facing, pos);
+        if (masterPos != pos) {
+            return level.getBlockState(masterPos).getValue(TREM);
+        }
+        return false;
+    }
+
     public boolean isMasterActive(Level level, Direction facing, BlockPos pos) {
         BlockPos masterPos = getMasterPos(level, facing, pos);
         BlockState masterState = level.getBlockState(masterPos);
         if (masterPos != pos) {
-            return masterState.getValue(POWERED) && masterState.getValue(WINDY);
+            return masterState.getValue(POWERED) && masterState.getValue(WINDY) && masterState.getValue(TREM);
         }
         return false;
         
@@ -93,9 +102,11 @@ public class WindchestBlock extends Block implements IWrenchable {
         BlockPos clickedPos = context.getClickedPos();
         state = level.getBlockState(clickedPos);
         boolean shouldPower = isMasterPowered(level, state.getValue(FACING), clickedPos);
+        boolean shouldTrem = isMasterTrem(level, state.getValue(FACING), clickedPos);
 
-        level.setBlock(clickedPos, state.setValue(POWERED, shouldPower), 3);
-
+        level.setBlock(clickedPos, state
+                .setValue(POWERED, shouldPower)
+                .setValue(TREM, shouldTrem), 3);
         return result;
     }
 
@@ -108,7 +119,8 @@ public class WindchestBlock extends Block implements IWrenchable {
 
         return Objects.requireNonNull(super.getStateForPlacement(pContext))
                 .setValue(FACING, direction)
-                .setValue(POWERED, isMasterPowered(level, direction, clickedPos));
+                .setValue(POWERED, isMasterPowered(level, direction, clickedPos))
+                .setValue(TREM, isMasterTrem(level, direction, clickedPos));
 
     }
 
@@ -117,7 +129,9 @@ public class WindchestBlock extends Block implements IWrenchable {
 
         Direction facing = pState.getValue(FACING);
         if (pPos.relative(facing).equals(pNeighborPos) ) {
-            pLevel.setBlock(pPos, pState.setValue(POWERED, isMasterPowered(pLevel, facing, pPos)), 3);
+            pLevel.setBlock(pPos, pState
+                    .setValue(POWERED, isMasterPowered(pLevel, facing, pPos))
+                    .setValue(TREM, isMasterTrem(pLevel, facing, pPos)), 3);
         }
     }
 
