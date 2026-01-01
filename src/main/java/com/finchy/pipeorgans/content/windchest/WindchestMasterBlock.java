@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.windchest;
 
+import com.finchy.pipeorgans.content.windchest.tremulant.TremulantBlock;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlock;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
@@ -60,12 +61,25 @@ public class WindchestMasterBlock extends Block implements IWrenchable {
 
         Direction facing = state.getValue(FACING);
         BlockPos currentPos = pos;
-        for (int i=0; i<=12; i++) {
+        for (int i = 0; i <= 12; i++) {
             currentPos = currentPos.relative(facing);
             BlockState currentBlock = level.getBlockState(currentPos);
-            if (currentBlock.getBlock() instanceof WindchestBlock && currentBlock.getValue(FACING) == facing.getOpposite()) {
+
+            // Windchest: make the 13 block chain
+            if (currentBlock.getBlock() instanceof WindchestBlock
+                    && currentBlock.getValue(FACING) == facing.getOpposite()) {
+
                 level.setBlock(currentPos, currentBlock.setValue(POWERED, powered), 2);
-            } else { return; }
+                continue;
+            }
+            // Tremulant: only one block
+            if (currentBlock.getBlock() instanceof TremulantBlock
+                    && currentBlock.getValue(FACING) == facing.getOpposite()) {
+
+                level.setBlock(currentPos, currentBlock.setValue(POWERED, powered), 2);
+                return;
+            }
+            return;
         }
     }
 

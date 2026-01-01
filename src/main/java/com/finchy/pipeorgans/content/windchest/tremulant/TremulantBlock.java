@@ -5,7 +5,9 @@ import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
@@ -16,123 +18,111 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
+import java.util.Objects;
+
+import static com.finchy.pipeorgans.content.windchest.WindchestMasterBlock.WINDY;
+
 public class TremulantBlock extends Block implements IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final BooleanProperty TREM = BooleanProperty.create("trem");
+
 
     public TremulantBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
+                .setValue(TREM, false)
         );
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(POWERED, FACING);
+        super.createBlockStateDefinition(builder);
+        builder.add(FACING, POWERED, TREM);
+    }
+
+    public boolean isMasterWindy(Level level, Direction facing, BlockPos pos) {
+        BlockPos masterPos = getMasterPos(level, facing, pos);
+        if (masterPos != pos) {
+            return level.getBlockState(masterPos).getValue(WINDY);
+        }
+        return false;
+    }
+
+    public boolean isMasterPowered(Level level, Direction facing, BlockPos pos) {
+        BlockPos masterPos = getMasterPos(level, facing, pos);
+        if (masterPos != pos) {
+            return level.getBlockState(masterPos).getValue(POWERED);
+        }
+        return false;
+    }
+
+    public boolean isMasterActive(Level level, Direction facing, BlockPos pos) {
+        BlockPos masterPos = getMasterPos(level, facing, pos);
+        BlockState masterState = level.getBlockState(masterPos);
+        if (masterPos != pos) {
+            return masterState.getValue(POWERED) && masterState.getValue(WINDY);
+        }
+        return false;
+    }
+
+    public BlockPos getMasterPos(Level level, Direction facing, BlockPos pos) {
+        BlockPos currentPos = pos;
+        for (int i=0; i<1; i++) {
+            currentPos = currentPos.relative(facing);
+            BlockState currentBlock = level.getBlockState(currentPos);
+            if (currentBlock.getBlock() instanceof WindchestMasterBlock && currentBlock.getValue(FACING) == facing.getOpposite()) {
+                return currentPos;
+            }
+            if ( !(currentBlock.getBlock() instanceof TremulantBlock
+                    && (currentBlock.getValue(FACING) == facing)) ) {
+                break;
+            }
+        }
+        return pos;
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
+    public InteractionResult onWrenched(BlockState state, UseOnContext context) {
+        InteractionResult result = IWrenchable.super.onWrenched(state, context);
+
+        // check whether block should be powered and adjust accordingly
         Level level = context.getLevel();
         BlockPos clickedPos = context.getClickedPos();
+        state = level.getBlockState(clickedPos);
+        boolean shouldPower = isMasterPowered(level, state.getValue(FACING), clickedPos);
 
-        Direction facing = context.getHorizontalDirection();
-        Direction direction = context.getPlayer() != null && context.getPlayer().isShiftKeyDown()
-                ? facing.getOpposite()
-                : facing;
+        level.setBlock(clickedPos, state
+                .setValue(POWERED, shouldPower), 3);
+        return result;
+    }
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        Level level = pContext.getLevel();
+        BlockPos clickedPos = pContext.getClickedPos();
+        Direction facing = pContext.getHorizontalDirection();
+        Direction direction = pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing;
 
-        boolean powered = level.hasNeighborSignal(clickedPos);
-
-        return super.getStateForPlacement(context)
+        return Objects.requireNonNull(super.getStateForPlacement(pContext))
                 .setValue(FACING, direction)
-                .setValue(POWERED, powered);
+                .setValue(POWERED, isMasterPowered(level, direction, clickedPos));
+
     }
 
     @Override
-    public void neighborChanged(
-            BlockState state,
-            Level level,
-            BlockPos pos,
-            Block neighborBlock,
-            BlockPos neighborPos,
-            boolean isMoving
-    ) {
-        if (level.isClientSide)
-            return;
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean pMovedByPiston) {
 
-        boolean powered = level.hasNeighborSignal(pos);
-        boolean wasPowered = state.getValue(POWERED);
-
-        if (powered != wasPowered) {
-            level.setBlock(pos, state.setValue(POWERED, powered), 2);
-            updateWindchests(level, pos, powered);
+        Direction facing = pState.getValue(FACING);
+        if (pPos.relative(facing).equals(pNeighborPos) ) {
+            pLevel.setBlock(pPos, pState
+                    .setValue(POWERED, isMasterPowered(pLevel, facing, pPos)), 3);
         }
     }
 
-    @Override
-    public void onPlace(
-            BlockState state,
-            Level level,
-            BlockPos pos,
-            BlockState oldState,
-            boolean movedByPiston
-    ) {
-        if (level.isClientSide)
-            return;
 
-        updateWindchests(level, pos, state.getValue(POWERED));
-    }
-
-    @Override
-    public void onRemove(
-            BlockState state,
-            Level level,
-            BlockPos pos,
-            BlockState newState,
-            boolean movedByPiston
-    ) {
-        if (level.isClientSide)
-            return;
-
-        updateWindchests(level, pos, false);
-        super.onRemove(state, level, pos, newState, movedByPiston);
-    }
-
-    private void updateWindchests(Level level, BlockPos pos, boolean trem) {
-        for (Direction dir : Direction.values()) {
-            BlockPos targetPos = pos.relative(dir);
-            BlockState targetState = level.getBlockState(targetPos);
-
-            if (targetState.getBlock() instanceof WindchestMasterBlock) {
-                setTremRecursive(level, targetPos, targetState, trem);
-            }
-        }
-    }
-
-    private void setTremRecursive(Level level, BlockPos masterPos, BlockState masterState, boolean trem) {
-        Direction facing = masterState.getValue(WindchestMasterBlock.FACING);
-
-        // Update master
-        level.setBlock(masterPos, masterState.setValue(WindchestMasterBlock.TREM, trem), 3);
-
-        // Update slaves
-        BlockPos currentPos = masterPos;
-        for (int i = 0; i <= 12; i++) {
-            currentPos = currentPos.relative(facing);
-            BlockState state = level.getBlockState(currentPos);
-
-            if (state.getBlock() instanceof WindchestBlock
-                    && state.getValue(FACING) == facing.getOpposite()) {
-
-                level.setBlock(currentPos, state.setValue(WindchestBlock.TREM, trem), 3);
-            } else {
-                return;
-            }
-        }
-    }
     @Override
     public BlockState rotate(BlockState pState, Rotation pRotation) {
         return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
