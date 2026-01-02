@@ -54,7 +54,8 @@ public class WindchestMasterBlock extends Block implements IWrenchable {
 
         return super.getStateForPlacement(pContext)
                 .setValue(FACING, pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing)
-                .setValue(POWERED, level.hasNeighborSignal(clickedPos));
+                .setValue(POWERED, level.hasNeighborSignal(clickedPos))
+                .setValue(TREM, false);
     }
 
     public void updateSlaves(BlockState state, Level level, BlockPos pos, boolean powered) {

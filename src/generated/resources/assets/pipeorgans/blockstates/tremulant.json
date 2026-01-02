@@ -1,32 +1,62 @@
 {
   "variants": {
-    "facing=east,powered=false": {
+    "facing=east,powered=false,trem=false": {
       "model": "pipeorgans:block/tremulant/tremulant",
       "y": 90
     },
-    "facing=east,powered=true": {
+    "facing=east,powered=false,trem=true": {
+      "model": "pipeorgans:block/tremulant/tremulant",
+      "y": 90
+    },
+    "facing=east,powered=true,trem=false": {
       "model": "pipeorgans:block/tremulant/tremulant_powered",
       "y": 90
     },
-    "facing=north,powered=false": {
+    "facing=east,powered=true,trem=true": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered",
+      "y": 90
+    },
+    "facing=north,powered=false,trem=false": {
       "model": "pipeorgans:block/tremulant/tremulant"
     },
-    "facing=north,powered=true": {
+    "facing=north,powered=false,trem=true": {
+      "model": "pipeorgans:block/tremulant/tremulant"
+    },
+    "facing=north,powered=true,trem=false": {
       "model": "pipeorgans:block/tremulant/tremulant_powered"
     },
-    "facing=south,powered=false": {
+    "facing=north,powered=true,trem=true": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered"
+    },
+    "facing=south,powered=false,trem=false": {
       "model": "pipeorgans:block/tremulant/tremulant",
       "y": 180
     },
-    "facing=south,powered=true": {
+    "facing=south,powered=false,trem=true": {
+      "model": "pipeorgans:block/tremulant/tremulant",
+      "y": 180
+    },
+    "facing=south,powered=true,trem=false": {
       "model": "pipeorgans:block/tremulant/tremulant_powered",
       "y": 180
     },
-    "facing=west,powered=false": {
+    "facing=south,powered=true,trem=true": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered",
+      "y": 180
+    },
+    "facing=west,powered=false,trem=false": {
       "model": "pipeorgans:block/tremulant/tremulant",
       "y": 270
     },
-    "facing=west,powered=true": {
+    "facing=west,powered=false,trem=true": {
+      "model": "pipeorgans:block/tremulant/tremulant",
+      "y": 270
+    },
+    "facing=west,powered=true,trem=false": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered",
+      "y": 270
+    },
+    "facing=west,powered=true,trem=true": {
       "model": "pipeorgans:block/tremulant/tremulant_powered",
       "y": 270
     }

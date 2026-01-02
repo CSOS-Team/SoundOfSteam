@@ -108,7 +108,8 @@ public class TremulantBlock extends Block implements IWrenchable {
 
         return Objects.requireNonNull(super.getStateForPlacement(pContext))
                 .setValue(FACING, direction)
-                .setValue(POWERED, isMasterPowered(level, direction, clickedPos));
+                .setValue(POWERED, isMasterPowered(level, direction, clickedPos))
+                .setValue(TREM, level.hasNeighborSignal(clickedPos));
 
     }
 
