@@ -71,7 +71,7 @@ public class WindchestBlock extends Block implements IWrenchable {
         BlockPos masterPos = getMasterPos(level, facing, pos);
         BlockState masterState = level.getBlockState(masterPos);
         if (masterPos != pos) {
-            return masterState.getValue(POWERED) && masterState.getValue(WINDY) && masterState.getValue(TREM);
+            return masterState.getValue(POWERED) && masterState.getValue(WINDY);
         }
         return false;
         
