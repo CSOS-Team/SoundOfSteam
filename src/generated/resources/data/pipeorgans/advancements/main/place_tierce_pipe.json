@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/place_nasard_pipe",
+  "criteria": {
+    "place_tierce_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:tierce",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.tierce.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:tierce"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.tierce"
+    }
+  },
+  "requirements": [
+    [
+      "place_tierce_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

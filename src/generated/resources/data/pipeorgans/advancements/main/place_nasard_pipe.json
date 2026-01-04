@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/craft_pipe_base",
+  "criteria": {
+    "place_nasard_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:nasard",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.nasard.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:nasard"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.nasard"
+    }
+  },
+  "requirements": [
+    [
+      "place_nasard_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

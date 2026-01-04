@@ -29,6 +29,7 @@ public class PipeOrgansDatagen {
         ExistingFileHelper helper = event.getExistingFileHelper();
 
         generator.addProvider(event.includeServer(), new PipeModelGenerator(output, helper));
+        generator.addProvider(event.includeServer(), new Advancements(output, lookupProvider, helper));
     }
 
     private static void addExtraRegistrateData() {

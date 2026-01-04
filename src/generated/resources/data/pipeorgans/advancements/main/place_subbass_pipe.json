@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/place_hohlflute_pipe",
+  "criteria": {
+    "place_subbass_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:subbass",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.subbass.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:subbass"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.subbass"
+    }
+  },
+  "requirements": [
+    [
+      "place_subbass_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

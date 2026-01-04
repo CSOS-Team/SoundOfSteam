@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/place_posaune_pipe",
+  "criteria": {
+    "place_chamade_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:chamade",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.chamade.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:chamade"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.chamade"
+    }
+  },
+  "requirements": [
+    [
+      "place_chamade_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
