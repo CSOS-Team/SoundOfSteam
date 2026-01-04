@@ -30,4 +30,18 @@ public final class PonderTimings {
     public static final int INTERACTION_DISPLAY_TIME = TICKS_PER_SECOND;
 
     public static final int CONTEXT_INFO_BUFFER = TICKS_PER_SECOND / 2;
+
+    public static int getCalculatedReadingTime(String text) {
+        int length = text.length();
+        // min of Base time (1s) + time per character and minimum of 4 seconds
+        // a bit of research suggested an average reading speed of ~16 characters per second for a text of reasonable complexity (both in topic and language).
+        // The one-second base and four-second minimum are to account for very short texts, and were picked pretty arbitrarily.
+        return Math.min(TICKS_PER_SECOND + (int) Math.ceil(length / 16f), TICKS_PER_SECOND * 4);
+    }
+
+    public static int getCalculatedBufferTime(String text) {
+        // min of 10% of reading time or one second as buffer
+        // this is also pretty arbitrary, and will require some testing to see if it feels right.
+        return Math.min((int) Math.ceil(getCalculatedReadingTime(text) * 0.1f), TICKS_PER_SECOND);
+    }
 }
