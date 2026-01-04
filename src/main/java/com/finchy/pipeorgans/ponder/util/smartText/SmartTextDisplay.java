@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.ponder.util.smartText;
 
 import com.finchy.pipeorgans.ponder.PonderTimings;
+import com.finchy.pipeorgans.ponder.util.timing.overrides.TimingTuple;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import net.createmod.catnip.data.Couple;
 import net.createmod.ponder.api.element.TextElementBuilder;
@@ -43,7 +44,7 @@ public class SmartTextDisplay {
         return text.bufferOverride().getFixed(bufferProvider.apply(text.text()));
     }
 
-    public Couple<Integer> show(SmartText text) {
+    public TimingTuple show(SmartText text) {
         int duration = Math.max(
                 getMinDuration(text),
                 getFixedDuration(text)
@@ -53,11 +54,11 @@ public class SmartTextDisplay {
                 getMinBuffer(text),
                 getFixedBuffer(text)
         );
-        return Couple.create(duration, buffer);
+        return new TimingTuple(duration, buffer);
     }
 
     public void showAndIdle(SmartText text) {
-        Couple<Integer> times = show(text);
-        scene.idle(times.getFirst() + times.getSecond());
+        TimingTuple times = show(text);
+        scene.idle(times.total());
     }
 }
