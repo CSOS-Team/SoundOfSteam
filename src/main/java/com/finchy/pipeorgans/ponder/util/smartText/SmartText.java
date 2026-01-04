@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.ponder.util.smartText;
 
-import com.finchy.pipeorgans.ponder.util.actionBuilder.timing.override.TimingOverride;
+import com.finchy.pipeorgans.ponder.util.timing.overrides.TimingOverride;
 import net.createmod.ponder.api.PonderPalette;
 import net.createmod.ponder.api.element.TextElementBuilder;
 import net.minecraft.world.phys.Vec3;
