@@ -10,4 +10,9 @@ public record MinimumTimeOverride(int minimum) implements TimingOverride {
     public int getFixed(int originalFixed) {
         return originalFixed;
     }
+
+    @Override
+    public int getAdded(int originalHighest) {
+        return 0;
+    }
 }
