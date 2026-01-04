@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "basic_pipe": {
+      "conditions": {},
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/block/cut_copper.png",
+    "description": {
+      "translate": "pipeorgans.advancement.csosintro.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:trompette"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "pipeorgans.advancement.csosintro"
+    }
+  },
+  "requirements": [
+    [
+      "basic_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

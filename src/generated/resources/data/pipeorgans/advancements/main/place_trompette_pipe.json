@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/craft_reed",
+  "criteria": {
+    "place_trompette_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:trompette",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.trompette.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:trompette"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.trompette"
+    }
+  },
+  "requirements": [
+    [
+      "place_trompette_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

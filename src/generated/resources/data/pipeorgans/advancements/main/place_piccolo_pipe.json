@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/place_prestant_pipe",
+  "criteria": {
+    "place_piccolo_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:piccolo",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.piccolo.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:piccolo"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.piccolo"
+    }
+  },
+  "requirements": [
+    [
+      "place_piccolo_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

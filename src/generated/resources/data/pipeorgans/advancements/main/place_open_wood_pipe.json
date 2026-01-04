@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/place_piccolo_pipe",
+  "criteria": {
+    "place_open_wood_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:open_wood",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.open_wood.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:open_wood"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.open_wood"
+    }
+  },
+  "requirements": [
+    [
+      "place_open_wood_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

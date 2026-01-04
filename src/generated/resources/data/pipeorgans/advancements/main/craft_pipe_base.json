@@ -1,0 +1,38 @@
+{
+  "parent": "pipeorgans:main/root",
+  "criteria": {
+    "craft_pipe_base": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pipeorgans:base"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.pipebase.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:base"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.pipebase"
+    }
+  },
+  "requirements": [
+    [
+      "craft_pipe_base"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

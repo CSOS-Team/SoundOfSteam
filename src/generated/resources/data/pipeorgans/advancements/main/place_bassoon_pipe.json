@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/place_vox_humana_pipe",
+  "criteria": {
+    "place_bassoon_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:bassoon",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.bassoon.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:bassoon"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.bassoon"
+    }
+  },
+  "requirements": [
+    [
+      "place_bassoon_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

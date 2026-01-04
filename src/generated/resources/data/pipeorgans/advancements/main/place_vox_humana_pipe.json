@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/place_english_horn_pipe",
+  "criteria": {
+    "place_vox_humana_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:vox_humana",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.vox_humana.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:vox_humana"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.vox_humana"
+    }
+  },
+  "requirements": [
+    [
+      "place_vox_humana_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
