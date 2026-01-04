@@ -10,4 +10,9 @@ public record FixedTimeOverride(int fixed) implements TimingOverride {
     public int getFixed(int originalFixed) {
         return fixed;
     }
+
+    @Override
+    public int getAdded(int originalHighest) {
+        return 0;
+    }
 }
