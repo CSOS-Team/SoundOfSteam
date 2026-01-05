@@ -76,22 +76,6 @@ public class SmartTextDisplay {
         this.util = util;
     }
 
-    public int getMinDuration(SmartText text) {
-        return text.durationOverride().getMinimum(durationProvider.apply(text.text()));
-    }
-
-    public int getMinBuffer(SmartText text) {
-        return text.bufferOverride().getMinimum(bufferProvider.apply(text.text()));
-    }
-
-    public int getFixedDuration(SmartText text) {
-        return text.durationOverride().getFixed(durationProvider.apply(text.text()));
-    }
-
-    public int getFixedBuffer(SmartText text) {
-        return text.bufferOverride().getFixed(bufferProvider.apply(text.text()));
-    }
-
     public TimingMap show(SmartText text) {
         ShowAction action = getShowAction(text);
         action.run(scene);
