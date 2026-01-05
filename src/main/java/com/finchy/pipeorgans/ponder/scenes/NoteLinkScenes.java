@@ -10,7 +10,13 @@ import com.finchy.pipeorgans.ponder.PonderWorldRevealer;
 import com.finchy.pipeorgans.ponder.ponderWrappers.PonderNoteLink;
 import com.finchy.pipeorgans.ponder.util.smartText.SmartText;
 import com.finchy.pipeorgans.ponder.util.smartText.SmartTextDisplay;
+import com.finchy.pipeorgans.ponder.util.timing.TimingMap;
+import com.finchy.pipeorgans.ponder.util.timing.overrides.AdditiveTimeOverride;
+import com.finchy.pipeorgans.ponder.util.timing.overrides.FixedTimeOverride;
+import com.finchy.pipeorgans.ponder.util.timing.overrides.TimingOverride;
+import com.finchy.pipeorgans.ponder.util.timing.overrides.TimingTuple;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
+import net.createmod.catnip.data.Pair;
 import net.createmod.catnip.math.Pointing;
 import net.createmod.ponder.api.PonderPalette;
 import net.createmod.ponder.api.scene.SceneBuilder;
@@ -111,76 +117,45 @@ public class NoteLinkScenes {
 
         // Mode switching
         scene.idle(PonderTimings.READING_BUFFER);
-        SmartText modeSwitchWrenchText = receiverLeft.textOnCenter("They can be toggled between transmitter and receiver modes by using a Wrench on them", true, true);
 
-        PonderUtil.displayText(scene, linkReceiverLeftVisualCenter, "They can be toggled between transmitter and receiver modes by using a Wrench on them", true, true, PonderTimings.READING_TIME + PonderTimings.CONTEXT_INFO_BUFFER + PonderTimings.INTERACTION_DISPLAY_TIME);
-        scene.idle(PonderTimings.READING_TIME + PonderTimings.CONTEXT_INFO_BUFFER);
+        TimingMap times = textDisplay.show(receiverLeft.textOnCenter("They can be toggled between transmitter and receiver modes by using a Wrench on them", true, true).withTimings(new AdditiveTimeOverride(PonderTimings.CONTEXT_INFO_BUFFER + PonderTimings.INTERACTION_DISPLAY_TIME), null));
+        scene.idle(times.get(SmartTextDisplay.TimingMapHelp.CHANNEL_COMBINED_HIGHEST, SmartTextDisplay.TimingMapHelp.DURATION_SLOT) + PonderTimings.CONTEXT_INFO_BUFFER);
         PonderUtil.showWrenchInteraction(scene, linkReceiverLeftVisualCenter.add(.5f, 0, 1.5f / 16f), Pointing.RIGHT, false, false);
         scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME / 2);
         scene.world().cycleBlockProperty(linkReceiverLeft, NoteLinkBlock.RECEIVER);
-        scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME / 2 + PonderTimings.READING_BUFFER);
+        scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME / 2 + times.get(SmartTextDisplay.TimingMapHelp.CHANNEL_COMBINED_HIGHEST, SmartTextDisplay.TimingMapHelp.BUFFER_SLOT));
 
-        PonderUtil.displayText(scene, linkReceiverLeftVisualCenter, "... or interacting with them while crouching", true, true, PonderTimings.READING_TIME + PonderTimings.CONTEXT_INFO_BUFFER + PonderTimings.INTERACTION_DISPLAY_TIME);
-        scene.idle(PonderTimings.READING_TIME + PonderTimings.CONTEXT_INFO_BUFFER);
+        times = textDisplay.show(receiverLeft.textOnCenter("... or interacting with them while crouching", true, true).withTimings(new AdditiveTimeOverride(PonderTimings.CONTEXT_INFO_BUFFER + PonderTimings.INTERACTION_DISPLAY_TIME), null));
+        scene.idle(times.get(SmartTextDisplay.TimingMapHelp.CHANNEL_COMBINED_HIGHEST, SmartTextDisplay.TimingMapHelp.DURATION_SLOT) + PonderTimings.CONTEXT_INFO_BUFFER);
         scene.overlay().showControls(linkReceiverLeftVisualCenter.add(.5f, 0, 1.5f / 16f), Pointing.RIGHT, PonderTimings.INTERACTION_DISPLAY_TIME)
                 .rightClick()
                 .whileSneaking();
         scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME / 2);
         scene.world().cycleBlockProperty(linkReceiverLeft, NoteLinkBlock.RECEIVER);
-        scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME / 2 + PonderTimings.READING_BUFFER);
+        scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME / 2 + times.get(SmartTextDisplay.TimingMapHelp.CHANNEL_COMBINED_HIGHEST, SmartTextDisplay.TimingMapHelp.BUFFER_SLOT));
 
         // Pitch frequency selection
-        BlockState bs = scene.getScene().getWorld().getBlockState(linkReceiverLeft);
-        Vec3 leftReceiverPitchSlotPos = linkReceiverLeft.getCenter().subtract(.5f, .5f, .5f).add(NoteLinkBlockEntity.PITCH_SLOT_TRANSFORM.getLocalOffset(scene.getScene().getWorld(), linkReceiverLeft, bs));
-        scene.overlay().chaseBoundingBoxOutline(
-                PonderPalette.WHITE,
-                linkReceiverLeft,
-                new AABB(leftReceiverPitchSlotPos, leftReceiverPitchSlotPos).inflate(3f / 16f, 3f / 16f, 0f),
-                PonderTimings.READING_WINDOW * 2 + PonderTimings.CONTEXT_INFO_BUFFER
-        );
-        PonderUtil.displayTextAndWait(scene, linkReceiverLeftVisualCenter, "This is the Note Link's main feature: The Pitch Frequency slot", true, true);
-        PonderUtil.displayText(scene, linkReceiverLeftVisualCenter, "Hold right-click and select the desired note from the menu by dragging the mouse over it", false, true, PonderTimings.READING_TIME);
-        scene.idle(PonderTimings.CONTEXT_INFO_BUFFER);
-        scene.overlay().showControls(leftReceiverPitchSlotPos.add(.125f, 0, 0), Pointing.RIGHT, PonderTimings.READING_TIME - PonderTimings.CONTEXT_INFO_BUFFER)
+        times = textDisplay.show(receiverLeft.textOnPitchSlot("This is the Note Link's main feature: The Pitch Frequency slot", true, true));
+        TimingMap times2 = textDisplay.show(receiverLeft.textOnPitchSlot("Hold right-click and select the desired note from the menu by dragging the mouse over it", false, true));
+        SmartTextDisplay.ShowAction noteDisplayAction = textDisplay.getShowAction(receiverLeft.textOnPitchSlot("F4", false, true, PonderPalette.GREEN).withTimings(new FixedTimeOverride(PonderTimings.INTERACTION_DISPLAY_TIME), null));
+
+        int firstReadingWindow = times.getChannelTotal(SmartTextDisplay.TimingMapHelp.CHANNEL_TOTAL);
+        int secondReadingWindow = times2.getChannelTotal(SmartTextDisplay.TimingMapHelp.CHANNEL_TOTAL);
+        receiverLeft.showPitchSlot(PonderPalette.WHITE, firstReadingWindow + secondReadingWindow + noteDisplayAction.timings().getChannelTotal(SmartTextDisplay.TimingMapHelp.CHANNEL_TOTAL) + PonderTimings.CONTEXT_INFO_BUFFER);
+        scene.idle(firstReadingWindow + PonderTimings.CONTEXT_INFO_BUFFER);
+        int secondReadingTime = times2.get(SmartTextDisplay.TimingMapHelp.CHANNEL_TOTAL, SmartTextDisplay.TimingMapHelp.DURATION_SLOT);
+        scene.overlay().showControls(receiverLeft.pitchSlotPosition().add(.125f, 0, 0), Pointing.RIGHT, secondReadingTime - PonderTimings.CONTEXT_INFO_BUFFER)
                 .rightClick();
-        scene.idle(PonderTimings.READING_TIME);
-        scene.overlay().showText(PonderTimings.INTERACTION_DISPLAY_TIME)
-                        .pointAt(leftReceiverPitchSlotPos)
-                        .text("F4")
-                        .colored(PonderPalette.GREEN)
-                        .placeNearTarget();
+        scene.idle(secondReadingWindow);
+        noteDisplayAction.runAndIdle(scene);
 
-        scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME + PonderTimings.READING_BUFFER);
+        times = textDisplay.show(receiverMiddle.textOnPitchSlot("D4", true, true, PonderPalette.GREEN).withTimings(new FixedTimeOverride(PonderTimings.INTERACTION_DISPLAY_TIME), null));
+        receiverMiddle.showPitchSlot(PonderPalette.WHITE, times.get(SmartTextDisplay.TimingMapHelp.CHANNEL_TOTAL, SmartTextDisplay.TimingMapHelp.DURATION_SLOT));
+        scene.idle(times.getChannelTotal(SmartTextDisplay.TimingMapHelp.CHANNEL_TOTAL));
 
-        Vec3 middleReceiverPitchSlotPos = leftReceiverPitchSlotPos.subtract(1, 0, 0);
-        scene.overlay().chaseBoundingBoxOutline(
-                PonderPalette.WHITE,
-                linkReceiverMiddle,
-                new AABB(middleReceiverPitchSlotPos, middleReceiverPitchSlotPos).inflate(3f / 16f, 3f / 16f, 0f),
-                PonderTimings.INTERACTION_DISPLAY_TIME
-        );
-        scene.overlay().showText(PonderTimings.INTERACTION_DISPLAY_TIME)
-                .pointAt(middleReceiverPitchSlotPos)
-                .text("D4")
-                .colored(PonderPalette.GREEN)
-                .placeNearTarget();
-
-        scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME + PonderTimings.CONTEXT_INFO_BUFFER);
-
-        Vec3 rightReceiverPitchSlotPos = leftReceiverPitchSlotPos.subtract(2, 0, 0);
-        scene.overlay().chaseBoundingBoxOutline(
-                PonderPalette.WHITE,
-                linkReceiverRight,
-                new AABB(rightReceiverPitchSlotPos, rightReceiverPitchSlotPos).inflate(3f / 16f, 3f / 16f, 0f),
-                PonderTimings.INTERACTION_DISPLAY_TIME
-        );
-        scene.overlay().showText(PonderTimings.INTERACTION_DISPLAY_TIME)
-                .pointAt(rightReceiverPitchSlotPos)
-                .text("A#3")
-                .colored(PonderPalette.GREEN)
-                .placeNearTarget();
-
-        scene.idle(PonderTimings.INTERACTION_DISPLAY_TIME + PonderTimings.CONTEXT_INFO_BUFFER);
+        times = textDisplay.show(receiverRight.textOnPitchSlot("A#3", true, true, PonderPalette.GREEN).withTimings(new FixedTimeOverride(PonderTimings.INTERACTION_DISPLAY_TIME), null));
+        receiverRight.showPitchSlot(PonderPalette.WHITE, times.get(SmartTextDisplay.TimingMapHelp.CHANNEL_TOTAL, SmartTextDisplay.TimingMapHelp.DURATION_SLOT));
+        scene.idle(times.getChannelTotal(SmartTextDisplay.TimingMapHelp.CHANNEL_TOTAL));
 
         // Key frequency selection
         Vec3 leftReceiverKeySlotPos = linkReceiverLeft.getCenter().subtract(.5f, .5f, .5f).add(NoteLinkBlockEntity.KEY_SLOT_TRANSFORM.getLocalOffset(scene.getScene().getWorld(), linkReceiverLeft, bs));

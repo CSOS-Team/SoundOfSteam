@@ -73,6 +73,10 @@ public class PonderNoteLink implements Selection {
         return SmartText.plainPointing(text, pitchSlotPosition(), keyed, nearTarget);
     }
 
+    public SmartText textOnPitchSlot(String text, boolean keyed, boolean nearTarget, PonderPalette color) {
+        return SmartText.coloredPointing(text, pitchSlotPosition(), color, keyed, nearTarget);
+    }
+
     @Override
     public Selection add(Selection other) {
         return util.select().position(pos).add(other);
