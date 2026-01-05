@@ -57,7 +57,7 @@
 			}
 		},
 		{
-			"from": [7, 6, 7],
+			"from": [7, 6, 6.75],
 			"to": [9, 9, 10],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 6]},
 			"faces": {

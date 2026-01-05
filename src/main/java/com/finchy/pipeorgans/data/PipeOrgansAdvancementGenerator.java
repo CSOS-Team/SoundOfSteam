@@ -17,8 +17,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeAdvancementProvider;
-
-import com.finchy.pipeorgans.advancement.PipeBaseTrigger;
 import com.finchy.pipeorgans.content.base.BaseBlock;
 
 

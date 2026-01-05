@@ -140,7 +140,10 @@ public class AllSoundEvents {
      VOX_CELESTE_LOW = registerSoundEvent("vox_celeste_low"),
      VOX_CELESTE_DEEP = registerSoundEvent("vox_celeste_deep"),
 
-     HAUNTED_CHIFF = registerSoundEvent("haunted_chiff");
+     HAUNTED_CHIFF = registerSoundEvent("haunted_chiff"),
+
+    PLACE_WOODEN_PIPE = registerSoundEvent("place_wooden_pipe"),
+    PLACE_METAL_PIPE = registerSoundEvent("place_metal_pipe");
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(PipeOrgans.MOD_ID, name)));
