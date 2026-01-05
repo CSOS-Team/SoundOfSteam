@@ -31,7 +31,7 @@
 			}
 		},
 		{
-			"from": [6, 6, 6],
+			"from": [6, 6, 5.75],
 			"to": [10, 9, 11],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
 			"faces": {

@@ -184,7 +184,6 @@
     {
       "faces": {
         "down": {
-          "cullface": "up",
           "texture": "#0",
           "uv": [
             14.625,
