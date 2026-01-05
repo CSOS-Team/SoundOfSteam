@@ -27,6 +27,14 @@ public class TimingMap {
         this.channelMap = new HashMap<>();
     }
 
+    public TimingMap(TimingMap other) {
+        this.channelWidth = other.channelWidth;
+        this.channelMap = new HashMap<>();
+        for (Map.Entry<Integer, Integer[]> entry : other.channelMap.entrySet()) {
+            this.channelMap.put(entry.getKey(), Arrays.copyOf(entry.getValue(), entry.getValue().length));
+        }
+    }
+
     public Integer[] getChannel(Integer channel) {
         return channelMap.computeIfAbsent(channel, k -> new Integer[channelWidth]);
     }
@@ -96,5 +104,11 @@ public class TimingMap {
             }
             this.channelMap.put(channel, newTimes);
         }
+    }
+
+    public TimingMap withAdded(TimingMap other, int shiftSlots) {
+        TimingMap copy = new TimingMap(this);
+        copy.addMap(other, shiftSlots);
+        return copy;
     }
 }
