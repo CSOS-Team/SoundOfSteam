@@ -4,6 +4,7 @@ public final class PonderTimings {
     private PonderTimings() {}
 
     private static final int TICKS_PER_SECOND = 20;
+    private static final int HALF_SECOND = TICKS_PER_SECOND / 2;
 
     public static final int READING_TIME = TICKS_PER_SECOND * 5;
     public static final int READING_BUFFER = TICKS_PER_SECOND;
@@ -33,10 +34,10 @@ public final class PonderTimings {
 
     public static int getCalculatedReadingTime(String text) {
         int length = text.length();
-        // min of Base time (1s) + time per character and minimum of 4 seconds
+        // min of Base time (1s) + time per character and minimum of 4 seconds. This is halved because Comfy Reading slows reading speed by half, so in Comfy Reading it fits for slower readers, and with it disabled it's less annoying for fast readers.
         // a bit of research suggested an average reading speed of ~16 characters per second for a text of reasonable complexity (both in topic and language).
         // The one-second base and four-second minimum are to account for very short texts, and were picked pretty arbitrarily.
-        return Math.max(TICKS_PER_SECOND + (int) Math.ceil(length / 16f), TICKS_PER_SECOND * 4);
+        return Math.max(TICKS_PER_SECOND + (int) Math.ceil(length / 16f * HALF_SECOND), TICKS_PER_SECOND * 4);
     }
 
     public static int getCalculatedBufferTime(String text) {
