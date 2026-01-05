@@ -3,6 +3,8 @@ package com.finchy.pipeorgans.ponder.util.smartText;
 import com.finchy.pipeorgans.ponder.PonderTimings;
 import com.finchy.pipeorgans.ponder.util.timing.TimingMap;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
+import net.createmod.catnip.data.Pair;
+import net.createmod.ponder.api.scene.SceneBuilder;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;
 
 import java.util.function.Function;
@@ -52,6 +54,16 @@ public class SmartTextDisplay {
         protected static final TimingMap.Calculator COMBINED_HIGHEST_CALCULATOR = (slot, getter) -> Math.max(getter.apply(CHANNEL_MINIMUMS), getter.apply(CHANNEL_FIXED));
         protected static final TimingMap.Calculator TOTAL_CALCULATOR = (slot, getter) -> getter.apply(CHANNEL_COMBINED_HIGHEST) + getter.apply(CHANNEL_ADDED);
     }
+    public record ShowAction(TimingMap timings, Runnable showRunnable) {
+        public void run(SceneBuilder scene) {
+            showRunnable.run();
+        }
+
+        public void runAndIdle(SceneBuilder scene) {
+            run(scene);
+            scene.idle(timings.getChannelTotal(TimingMapHelp.CHANNEL_TOTAL));
+        }
+    }
 
     public SmartTextDisplay(CreateSceneBuilder scene, SceneBuildingUtil util) {
         this(scene, util, PonderTimings::getCalculatedReadingTime, PonderTimings::getCalculatedBufferTime);
@@ -81,6 +93,12 @@ public class SmartTextDisplay {
     }
 
     public TimingMap show(SmartText text) {
+        ShowAction action = getShowAction(text);
+        action.run(scene);
+        return action.timings();
+    }
+
+    public ShowAction getShowAction(SmartText text) {
         TimingMap map = new TimingMap(2);
         map.set(TimingMapHelp.CHANNEL_CALCULATED, TimingMapHelp.DURATION_SLOT, durationProvider.apply(text.text()));
         map.set(TimingMapHelp.CHANNEL_CALCULATED, TimingMapHelp.BUFFER_SLOT, bufferProvider.apply(text.text()));
@@ -91,12 +109,13 @@ public class SmartTextDisplay {
         map.calculateChannel(TimingMapHelp.CHANNEL_ADDED, TimingMapHelp.getAddedCalculator(text));
         map.calculateChannel(TimingMapHelp.CHANNEL_TOTAL, TimingMapHelp.TOTAL_CALCULATOR);
 
-        text.building().accept(scene.overlay().showText(map.get(TimingMapHelp.CHANNEL_TOTAL, TimingMapHelp.DURATION_SLOT)).text(text.text()));
-        return map;
+        Runnable action = () -> text.building().accept(scene.overlay().showText(map.get(TimingMapHelp.CHANNEL_TOTAL, TimingMapHelp.DURATION_SLOT)).text(text.text()));
+
+        return new ShowAction(map, action);
     }
 
     public void showAndIdle(SmartText text) {
-        TimingMap map = show(text);
-        scene.idle(map.getChannelTotal(TimingMapHelp.CHANNEL_TOTAL));
+        ShowAction action = getShowAction(text);
+        action.runAndIdle(scene);
     }
 }
