@@ -96,6 +96,27 @@ public class PonderWorldRevealer {
         scene.idle(section.idleTime().orElse(defaultIdleTime));
     }
 
+    public void revealSectionWithOffset(Section section, Vec3 revealOffset) {
+        var element = scene.world().makeSectionIndependent(section.selection());
+        scene.world().moveSection(element, revealOffset, section.idleTime().orElse(defaultIdleTime));
+        scene.idle(section.idleTime().orElse(defaultIdleTime));
+    }
+
+    public void hideSection(Section section) {
+        scene.world().hideSection(section.selection(), section.direction().getOpposite());
+        scene.idle(section.idleTime().orElse(defaultIdleTime));
+    }
+
+    public void hideSections(Iterable<Section> sections) {
+        for (Section section : sections) {
+            hideSection(section);
+        }
+    }
+
+    public void hideSections(Section... sections) {
+        hideSections(List.of(sections));
+    }
+
     public Section createSection(BoxVolume boxVolume, Direction direction, @Nullable Integer idleTime) {
         return new Section(boxVolume.asSelection(util), direction, Optional.ofNullable(idleTime));
     }
