@@ -35,14 +35,16 @@ import java.util.Set;
 
 public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAssistedPlacement, NoteLinkBehaviourSubscriber {
 
+    protected static final float SLOT_OUTWARD_OFFSET = 2.5f;
+
     public static final ValueBoxTransform KEY_SLOT_TRANSFORM = new ValueBoxTransform() {
         @Override
         public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
             Direction facing = state.getValue(NoteLinkBlock.FACING);
-            Vec3 location = VecHelper.voxelSpace(8f, 3.01f, 11f);
+            Vec3 location = VecHelper.voxelSpace(8f, SLOT_OUTWARD_OFFSET, 11f);
 
             if (facing.getAxis().isHorizontal()) {
-                location = VecHelper.voxelSpace(8f, 11f, 3.01f);
+                location = VecHelper.voxelSpace(8f, 11f, SLOT_OUTWARD_OFFSET);
                 return rotateHorizontally(state, location);
             }
 
@@ -66,10 +68,10 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAs
         @Override
         public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
             Direction facing = state.getValue(NoteLinkBlock.FACING);
-            Vec3 location = VecHelper.voxelSpace(8f, 3.01f, 6f);
+            Vec3 location = VecHelper.voxelSpace(8f, SLOT_OUTWARD_OFFSET, 6f);
 
             if (facing.getAxis().isHorizontal()) {
-                location = VecHelper.voxelSpace(8f, 6f, 3.01f);
+                location = VecHelper.voxelSpace(8f, 6f, SLOT_OUTWARD_OFFSET);
                 return rotateHorizontally(state, location);
             }
 
