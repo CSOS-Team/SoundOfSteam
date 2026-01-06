@@ -1,11 +1,11 @@
 {
-  "parent": "pipeorgans:main/place_vox_humana_pipe",
+  "parent": "pipeorgans:prestant",
   "criteria": {
-    "place_bassoon_pipe": {
+    "0": {
       "conditions": {
         "location": [
           {
-            "block": "pipeorgans:bassoon",
+            "block": "pipeorgans:piccolo",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -16,21 +16,22 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "pipeorgans.advancement.bassoon.desc"
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.piccolo.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "pipeorgans:bassoon"
+      "item": "pipeorgans:piccolo"
     },
     "show_toast": true,
     "title": {
-      "translate": "pipeorgans.advancement.bassoon"
+      "translate": "advancement.pipeorgans.piccolo"
     }
   },
   "requirements": [
     [
-      "place_bassoon_pipe"
+      "0"
     ]
   ],
   "sends_telemetry_event": true

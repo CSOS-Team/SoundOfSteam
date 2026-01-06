@@ -1,11 +1,11 @@
 {
-  "parent": "pipeorgans:main/place_diapason_pipe",
+  "parent": "pipeorgans:nasard",
   "criteria": {
-    "place_prestant_pipe": {
+    "0": {
       "conditions": {
         "location": [
           {
-            "block": "pipeorgans:prestant",
+            "block": "pipeorgans:tierce",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -16,21 +16,22 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "pipeorgans.advancement.prestant.desc"
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.tierce.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "pipeorgans:prestant"
+      "item": "pipeorgans:tierce"
     },
     "show_toast": true,
     "title": {
-      "translate": "pipeorgans.advancement.prestant"
+      "translate": "advancement.pipeorgans.tierce"
     }
   },
   "requirements": [
     [
-      "place_prestant_pipe"
+      "0"
     ]
   ],
   "sends_telemetry_event": true

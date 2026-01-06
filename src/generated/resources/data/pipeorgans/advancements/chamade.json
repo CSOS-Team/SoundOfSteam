@@ -1,11 +1,11 @@
 {
-  "parent": "pipeorgans:main/place_english_horn_pipe",
+  "parent": "pipeorgans:trompette",
   "criteria": {
-    "place_vox_humana_pipe": {
+    "0": {
       "conditions": {
         "location": [
           {
-            "block": "pipeorgans:vox_humana",
+            "block": "pipeorgans:chamade",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -16,21 +16,22 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "pipeorgans.advancement.vox_humana.desc"
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.chamade.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "pipeorgans:vox_humana"
+      "item": "pipeorgans:chamade"
     },
     "show_toast": true,
     "title": {
-      "translate": "pipeorgans.advancement.vox_humana"
+      "translate": "advancement.pipeorgans.chamade"
     }
   },
   "requirements": [
     [
-      "place_vox_humana_pipe"
+      "0"
     ]
   ],
   "sends_telemetry_event": true

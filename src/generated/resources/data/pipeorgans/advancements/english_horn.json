@@ -1,11 +1,11 @@
 {
-  "parent": "pipeorgans:main/place_viola_pipe",
+  "parent": "pipeorgans:chamade",
   "criteria": {
-    "place_vox_celeste_pipe": {
+    "0": {
       "conditions": {
         "location": [
           {
-            "block": "pipeorgans:vox_celeste",
+            "block": "pipeorgans:english_horn",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -16,21 +16,22 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "pipeorgans.advancement.vox_celeste.desc"
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.english_horn.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "pipeorgans:vox_celeste"
+      "item": "pipeorgans:english_horn"
     },
     "show_toast": true,
     "title": {
-      "translate": "pipeorgans.advancement.vox_celeste"
+      "translate": "advancement.pipeorgans.english_horn"
     }
   },
   "requirements": [
     [
-      "place_vox_celeste_pipe"
+      "0"
     ]
   ],
   "sends_telemetry_event": true

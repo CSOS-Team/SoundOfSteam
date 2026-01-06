@@ -1,11 +1,11 @@
 {
-  "parent": "pipeorgans:main/place_hohlflute_pipe",
+  "parent": "pipeorgans:piccolo",
   "criteria": {
-    "place_subbass_pipe": {
+    "0": {
       "conditions": {
         "location": [
           {
-            "block": "pipeorgans:subbass",
+            "block": "pipeorgans:open_wood",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -16,21 +16,22 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "pipeorgans.advancement.subbass.desc"
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.open_wood.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "pipeorgans:subbass"
+      "item": "pipeorgans:open_wood"
     },
     "show_toast": true,
     "title": {
-      "translate": "pipeorgans.advancement.subbass"
+      "translate": "advancement.pipeorgans.open_wood"
     }
   },
   "requirements": [
     [
-      "place_subbass_pipe"
+      "0"
     ]
   ],
   "sends_telemetry_event": true

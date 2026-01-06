@@ -1,11 +1,11 @@
 {
-  "parent": "pipeorgans:main/place_piccolo_pipe",
+  "parent": "pipeorgans:english_horn",
   "criteria": {
-    "place_open_wood_pipe": {
+    "0": {
       "conditions": {
         "location": [
           {
-            "block": "pipeorgans:open_wood",
+            "block": "pipeorgans:vox_humana",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -16,21 +16,22 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "pipeorgans.advancement.open_wood.desc"
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.vox_humana.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "pipeorgans:open_wood"
+      "item": "pipeorgans:vox_humana"
     },
     "show_toast": true,
     "title": {
-      "translate": "pipeorgans.advancement.open_wood"
+      "translate": "advancement.pipeorgans.vox_humana"
     }
   },
   "requirements": [
     [
-      "place_open_wood_pipe"
+      "0"
     ]
   ],
   "sends_telemetry_event": true

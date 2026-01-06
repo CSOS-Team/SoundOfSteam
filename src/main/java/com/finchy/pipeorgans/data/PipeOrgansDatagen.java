@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.data;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.ponder.AllPipeOrgansPonderScenes;
+import com.finchy.pipeorgans.data.advancement.AllAdvancements;
 import com.finchy.pipeorgans.ponder.POPonderPlugin;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -29,7 +29,7 @@ public class PipeOrgansDatagen {
         ExistingFileHelper helper = event.getExistingFileHelper();
 
         generator.addProvider(event.includeServer(), new PipeModelGenerator(output, helper));
-        generator.addProvider(event.includeServer(), new Advancements(output, lookupProvider, helper));
+        generator.addProvider(event.includeServer(), new AllAdvancements(output));
     }
 
     private static void addExtraRegistrateData() {
@@ -38,6 +38,7 @@ public class PipeOrgansDatagen {
             // SURRENDER ALL YE TEXTS TO THE GREAT CONSUMER
             provideDefaultLang("en_us_base", langConsumer); // add the entries that already exist
             providePonderLang(langConsumer);
+            AllAdvancements.provideLang(langConsumer);
         });
     }
     

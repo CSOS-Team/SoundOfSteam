@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans;
 
 import com.finchy.pipeorgans.data.PipeOrgansDatagen;
+import com.finchy.pipeorgans.data.advancement.AllAdvancements;
 import com.finchy.pipeorgans.init.*;
 import com.finchy.pipeorgans.midi.Proxy;
 import com.finchy.pipeorgans.midi.client.ClientProxy;
@@ -27,6 +28,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
@@ -82,12 +84,14 @@ public class PipeOrgans {
 
         MinecraftForge.EVENT_BUS.register(this);
 
-        // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
 
         proxy.init();
+    }
+
+    public static void init(FMLCommonSetupEvent event) {
+        event.enqueueWork(AllAdvancements::register);
     }
 
     @SubscribeEvent

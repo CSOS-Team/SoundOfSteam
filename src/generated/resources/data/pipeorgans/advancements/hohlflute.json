@@ -1,7 +1,7 @@
 {
-  "parent": "pipeorgans:main/place_rohrflote_pipe",
+  "parent": "pipeorgans:rohrflote",
   "criteria": {
-    "place_hohlflute_pipe": {
+    "0": {
       "conditions": {
         "location": [
           {
@@ -16,7 +16,8 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "pipeorgans.advancement.hohlflute.desc"
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.hohlflute.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -25,12 +26,12 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "pipeorgans.advancement.hohlflute"
+      "translate": "advancement.pipeorgans.hohlflute"
     }
   },
   "requirements": [
     [
-      "place_hohlflute_pipe"
+      "0"
     ]
   ],
   "sends_telemetry_event": true
