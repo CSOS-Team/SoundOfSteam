@@ -54,8 +54,7 @@ public class WindchestMasterBlock extends Block implements IWrenchable {
 
         return super.getStateForPlacement(pContext)
                 .setValue(FACING, pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing)
-                .setValue(POWERED, level.hasNeighborSignal(clickedPos))
-                .setValue(TREM, false);
+                .setValue(POWERED, level.hasNeighborSignal(clickedPos));
     }
 
     public void updateSlaves(BlockState state, Level level, BlockPos pos, boolean powered) {
@@ -72,13 +71,6 @@ public class WindchestMasterBlock extends Block implements IWrenchable {
 
                 level.setBlock(currentPos, currentBlock.setValue(POWERED, powered), 2);
                 continue;
-            }
-            // Tremulant: only one block
-            if (currentBlock.getBlock() instanceof TremulantBlock
-                    && currentBlock.getValue(FACING) == facing.getOpposite()) {
-
-                level.setBlock(currentPos, currentBlock.setValue(POWERED, powered), 2);
-                return;
             }
             return;
         }
@@ -103,9 +95,7 @@ public class WindchestMasterBlock extends Block implements IWrenchable {
             pLevel.setBlock(pPos, pState.setValue(POWERED, powered), 2);
             updateSlaves(pState, pLevel, pPos, powered);
         }
-        if (pNeighborBlock instanceof EncasedFanBlock) { updateMasterWindy(pLevel, pPos);
-            pLevel.updateNeighborsAt(pPos, this);}
-        pLevel.updateNeighborsAt(pPos, this);
+        if (pNeighborBlock instanceof EncasedFanBlock) { updateMasterWindy(pLevel, pPos);}
     }
 
     @Override
