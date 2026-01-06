@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,powered=false,wall=false": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal",
+      "y": 90
+    },
+    "facing=east,powered=false,wall=true": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal",
+      "y": 90
+    },
+    "facing=east,powered=true,wall=false": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal_powered",
+      "y": 90
+    },
+    "facing=east,powered=true,wall=true": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal_powered",
+      "y": 90
+    },
+    "facing=north,powered=false,wall=false": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal"
+    },
+    "facing=north,powered=false,wall=true": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal"
+    },
+    "facing=north,powered=true,wall=false": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal_powered"
+    },
+    "facing=north,powered=true,wall=true": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal_powered"
+    },
+    "facing=south,powered=false,wall=false": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal",
+      "y": 180
+    },
+    "facing=south,powered=false,wall=true": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal",
+      "y": 180
+    },
+    "facing=south,powered=true,wall=false": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal_powered",
+      "y": 180
+    },
+    "facing=south,powered=true,wall=true": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal_powered",
+      "y": 180
+    },
+    "facing=west,powered=false,wall=false": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal",
+      "y": 270
+    },
+    "facing=west,powered=false,wall=true": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal",
+      "y": 270
+    },
+    "facing=west,powered=true,wall=false": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal_powered",
+      "y": 270
+    },
+    "facing=west,powered=true,wall=true": {
+      "model": "pipeorgans:block/crash_cymbal/crash_cymbal_powered",
+      "y": 270
+    }
+  }
+}
