@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.data;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlock;
+import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
@@ -33,15 +34,11 @@ public class BlockStateGen {
         public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov, BlockState state) {
             String wall = state.getValue(GenericPipeBlock.WALL) ? "wall" : "floor";
             String size = state.getValue(GenericPipeBlock.SIZE).getSerializedName();
-            boolean powered = state.getValue(GenericPipeBlock.POWERED);
-            ModelFile model = AssetLookup.partialStandardModel(ctx, prov, size, wall);
-            if (!powered)
-                return model;
-            ResourceLocation parentLocation = model.getLocation();
-            return prov.models()
-                    .withExistingParent(parentLocation.getPath() + "_powered", parentLocation)
-                    .texture("0", "pipeorgans:block/copper_redstone_plate_powered");
+            String powered = state.getValue(GenericPipeBlock.POWERED) ? "powered" : "";
+            ModelFile model = AssetLookup.partialStandardModel(ctx, prov, size, wall, powered);
+            return model;
         }
+
     }
 
     public static class PipeExtensionGenerator extends SpecialBlockStateGen {

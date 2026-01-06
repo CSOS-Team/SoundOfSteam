@@ -43,7 +43,7 @@ public class OpenWoodRenderer extends SafeBlockEntityRenderer<OpenWoodBlockEntit
         float offset = be.animation.getValue(partialTicks);
         if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
             float wiggleProgress = (AnimationTickHolder.getTicks(be.getLevel()) + partialTicks) /8f;
-            offset -= (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f);
+            offset -= (float) (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 8f);
         }
 
         CachedBuffers.partial(mouth, blockState)

@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/place_bassoon_pipe",
+  "criteria": {
+    "place_posaune_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:posaune",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.posaune.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:posaune"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.posaune"
+    }
+  },
+  "requirements": [
+    [
+      "place_posaune_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

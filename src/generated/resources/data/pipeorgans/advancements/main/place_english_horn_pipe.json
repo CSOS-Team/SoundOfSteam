@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/place_trompette_pipe",
+  "criteria": {
+    "place_english_horn_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:english_horn",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.english_horn.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:english_horn"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.english_horn"
+    }
+  },
+  "requirements": [
+    [
+      "place_english_horn_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

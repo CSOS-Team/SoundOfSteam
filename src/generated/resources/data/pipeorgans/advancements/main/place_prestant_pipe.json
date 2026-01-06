@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/place_diapason_pipe",
+  "criteria": {
+    "place_prestant_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:prestant",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.prestant.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:prestant"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.prestant"
+    }
+  },
+  "requirements": [
+    [
+      "place_prestant_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

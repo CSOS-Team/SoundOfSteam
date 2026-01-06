@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/craft_pipe_base",
+  "criteria": {
+    "place_viola_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:viola",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.viola.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:viola"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.viola"
+    }
+  },
+  "requirements": [
+    [
+      "place_viola_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

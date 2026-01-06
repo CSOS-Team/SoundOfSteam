@@ -1,0 +1,37 @@
+{
+  "parent": "pipeorgans:main/place_rohrflote_pipe",
+  "criteria": {
+    "place_hohlflute_pipe": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:hohlflute",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.hohlflute.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:hohlflute"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.hohlflute"
+    }
+  },
+  "requirements": [
+    [
+      "place_hohlflute_pipe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

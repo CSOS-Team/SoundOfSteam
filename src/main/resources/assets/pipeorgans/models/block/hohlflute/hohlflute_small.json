@@ -1,0 +1,24 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/hohlflute",
+		"particle": "pipeorgans:block/particle/hohlflute_particle"
+	},
+	"elements": [
+		{
+			"name": "hohlflote_small",
+			"from": [5, 4, 5],
+			"to": [11, 16, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 14, 7]},
+			"faces": {
+				"north": {"uv": [6.625, 2.25, 7.375, 3.75], "texture": "#0"},
+				"east": {"uv": [6.625, 4.25, 7.375, 5.75], "texture": "#0"},
+				"south": {"uv": [6.625, 4.25, 7.375, 5.75], "texture": "#0"},
+				"west": {"uv": [6.625, 4.25, 7.375, 5.75], "texture": "#0"},
+				"up": {"uv": [6.625, 8.625, 7.375, 9.375], "texture": "#0"},
+				"down": {"uv": [0.625, 10.625, 1.375, 11.375], "texture": "#0"}
+			}
+		}
+	]
+}

@@ -1,0 +1,13 @@
+{
+  "type": "create:splashing",
+  "ingredients": [
+    {
+      "item": "pipeorgans:vox_celeste"
+    }
+  ],
+  "results": [
+    {
+      "item": "pipeorgans:viola"
+    }
+  ]
+}

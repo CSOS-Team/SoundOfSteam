@@ -33,7 +33,7 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
     public LerpedFloat animation;
     public int pitch;
 
-    protected float steamJetOffset;
+    protected static final float steamJetOffset = 0.125f;
 
     protected BlockEntry<? extends GenericPipeBlock> baseBlock;
 
@@ -41,7 +41,6 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         super(type, pos, state);
         source = new WeakReference<>(null);
         animation = LerpedFloat.angular();
-        steamJetOffset = 0.125f;
     }
 
     @Override
@@ -143,9 +142,14 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
     }
     public void createHorizontalReedSteamJet() {
-        double yPos = ((double) pitch/ baseBlock.get().EPB) +1 + steamJetOffset;
-        Vec3 v = new Vec3(0, yPos, 0).add(Vec3.atBottomCenterOf(worldPosition));
-        Vec3 m = new Vec3(0, 1, 0);
+        Direction facing = getBlockState().getOptionalValue(GenericPipeBlock.FACING)
+                .orElse(Direction.SOUTH);
+        float angle = 180 + AngleHelper.horizontalAngle(facing);
+        Vec3 m = VecHelper.rotate(new Vec3(0, 0, 1), angle, Direction.Axis.Y);
+        double yPos = ((double) pitch/ baseBlock.get().EPB) + 0.625f;
+        Vec3 v = m.scale(yPos)
+                .add(Vec3.atCenterOf(worldPosition));
+
         level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
     }
 

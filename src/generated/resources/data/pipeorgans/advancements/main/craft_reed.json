@@ -1,0 +1,38 @@
+{
+  "parent": "pipeorgans:main/craft_pipe_base",
+  "criteria": {
+    "craft_reed": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pipeorgans:brass_reed"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "pipeorgans.advancement.reed.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pipeorgans:brass_reed"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "pipeorgans.advancement.reed"
+    }
+  },
+  "requirements": [
+    [
+      "craft_reed"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -50,6 +50,8 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty TREM = BooleanProperty.create("trem");
     public static final EnumProperty<EPipeSizes.PipeSize> SIZE = EnumProperty.create("size", EPipeSizes.PipeSize.class);
+    public static final EnumProperty<EPipeMaterial.PipeMaterial> MATERIAL = EnumProperty.create("material", EPipeMaterial.PipeMaterial.class);
+
 
     protected BlockEntry<? extends GenericPipeBlock> baseBlock;
     protected BlockEntry<? extends GenericExtensionBlock<? extends EExtensionShapes.ExtensionShape>> extensionBlock;

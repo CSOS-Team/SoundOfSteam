@@ -93,7 +93,8 @@ public class RollPuncherBlockEntity extends SmartBlockEntity implements MenuProv
         uploadingProgress = 0;
         uploadingMidi = midi;
         sendUpdate = true;
-        inventory.setStackInSlot(0, ItemStack.EMPTY);
+        ItemStack itemStack = inventory.getStackInSlot(0);
+        itemStack.shrink(1);
     }
 
     public void finishUpload() {
