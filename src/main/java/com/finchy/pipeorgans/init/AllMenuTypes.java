@@ -25,9 +25,6 @@ public class AllMenuTypes {
     public static final MenuEntry<RollPuncherMenu> ROLL_PUNCHER_MENU =
             register("roll_puncher", RollPuncherMenu::new, () -> RollPuncherScreen::new);
 
-//    public static final MenuEntry<NoteLinkMenu> NOTE_LINK_MENU =
-//            register("note_link", NoteLinkMenu::new, () -> NoteLinkScreen::new);
-
     private static <C extends AbstractContainerMenu, S extends Screen & MenuAccess<C>> MenuEntry<C> register(
             String name, MenuBuilder.ForgeMenuFactory<C> factory, NonNullSupplier<MenuBuilder.ScreenFactory<C, S>> screenFactory) {
         return PipeOrgans.registrate().menu(name, factory, screenFactory).register();
