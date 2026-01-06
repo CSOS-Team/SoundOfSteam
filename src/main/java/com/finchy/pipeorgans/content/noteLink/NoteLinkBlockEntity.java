@@ -322,6 +322,7 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAs
 
         if (getLevel() instanceof ServerLevel serverLevel) {
             serverLevel.setBlock(getBlockPos(), getBlockState().setValue(NoteLinkBlock.RECEIVER, !previousNoteLink.isTransmitterBlock()), Block.UPDATE_ALL);
+            removeBehaviour(NoteLinkBehaviour.TYPE);
             attachBehaviourLate(link = new NoteLinkBehaviour(this,
                     this::getTransmittedSignal,
                     this::setReceivedSignal,
@@ -332,6 +333,8 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAs
             sendData();
             notifyUpdate();
         }
+
+        updateSelfAndAttached(getBlockState());
 
         return MutationResult.SUCCESS_REPLACE;
     }
