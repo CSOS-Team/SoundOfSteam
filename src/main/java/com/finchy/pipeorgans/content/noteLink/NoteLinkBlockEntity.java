@@ -36,7 +36,6 @@ import java.util.Set;
 public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAssistedPlacement, NoteLinkBehaviourSubscriber {
 
     public static final ValueBoxTransform KEY_SLOT_TRANSFORM = new ValueBoxTransform() {
-        // TODO: adjust to actual model, this is just a placeholder from the RedstoneLink
         @Override
         public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
             Direction facing = state.getValue(NoteLinkBlock.FACING);
