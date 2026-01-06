@@ -27,6 +27,8 @@ public class TremulantBlock extends Block implements IWrenchable {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty TREM = BooleanProperty.create("trem");
+    public static final BooleanProperty WINDY = BooleanProperty.create("windy");
+
 
 
     public TremulantBlock(Properties pProperties) {
@@ -35,13 +37,14 @@ public class TremulantBlock extends Block implements IWrenchable {
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
                 .setValue(TREM, false)
+                .setValue(WINDY, false)
         );
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(FACING, POWERED, TREM);
+        builder.add(FACING, POWERED, TREM, WINDY);
     }
 
     public boolean isMasterWindy(Level level, Direction facing, BlockPos pos) {
@@ -113,14 +116,50 @@ public class TremulantBlock extends Block implements IWrenchable {
 
     }
 
+    public void updateSlaves(BlockState state, Level level, BlockPos pos, boolean powered) {
+
+        Direction facing = state.getValue(FACING);
+        BlockPos currentPos = pos;
+        for (int i = 0; i <= 12; i++) {
+            currentPos = currentPos.relative(facing);
+            BlockState currentBlock = level.getBlockState(currentPos);
+
+            if (currentBlock.getBlock() instanceof WindchestBlock
+                    && currentBlock.getValue(FACING) == facing.getOpposite()) {
+
+                level.setBlock(currentPos, currentBlock.setValue(POWERED, powered), 2);
+                continue;
+            }
+            return;
+        }
+    }
+
     @Override
     public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean pMovedByPiston) {
 
         Direction facing = pState.getValue(FACING);
-        if (pPos.relative(facing).equals(pNeighborPos) ) {
+        if (pPos.relative(facing).equals(pNeighborPos)) {
             pLevel.setBlock(pPos, pState
-                    .setValue(POWERED, isMasterPowered(pLevel, facing, pPos)), 3);
+                    .setValue(POWERED, isMasterPowered(pLevel, facing, pPos))
+                    .setValue(WINDY, isMasterWindy(pLevel, facing, pPos)), 3);
+            pLevel.updateNeighborsAt(pPos, this);
         }
+    }
+
+    @Override
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
+        if (pLevel.isClientSide) // only on serverside
+            return;
+        updateSlaves(pState, pLevel, pPos, pLevel.hasNeighborSignal(pPos));
+    }
+
+    @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
+        if (pLevel.isClientSide) // only on serverside
+            return;
+
+        updateSlaves(pState, pLevel, pPos, false);
+        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
     }
 
 

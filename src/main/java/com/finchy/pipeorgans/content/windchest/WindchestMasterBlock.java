@@ -103,7 +103,9 @@ public class WindchestMasterBlock extends Block implements IWrenchable {
             pLevel.setBlock(pPos, pState.setValue(POWERED, powered), 2);
             updateSlaves(pState, pLevel, pPos, powered);
         }
-        if (pNeighborBlock instanceof EncasedFanBlock) { updateMasterWindy(pLevel, pPos); }
+        if (pNeighborBlock instanceof EncasedFanBlock) { updateMasterWindy(pLevel, pPos);
+            pLevel.updateNeighborsAt(pPos, this);}
+        pLevel.updateNeighborsAt(pPos, this);
     }
 
     @Override

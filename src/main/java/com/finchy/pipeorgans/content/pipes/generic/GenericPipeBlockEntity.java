@@ -107,8 +107,10 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         BlockPos attachedPos = getBlockPos().relative(GenericPipeBlock.getAttachedDirection(state));
         BlockState attachedState = level.getBlockState(attachedPos);
         boolean isActive = false;
+        boolean isTrem = false;
         if (attachedState.getBlock() instanceof WindchestBlock windchest) {
             isActive = windchest.isMasterActive(level, attachedState.getValue(GenericPipeBlock.FACING), attachedPos);
+            isTrem = windchest.isMasterTrem(level, attachedState.getValue(GenericPipeBlock.FACING), attachedPos);
         }
 
         boolean powered = ((tank != null && tank.boiler.isActive() && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0)) || isActive) && isPowered();
