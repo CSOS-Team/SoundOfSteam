@@ -1,11 +1,11 @@
 {
-  "parent": "pipeorgans:main/craft_pipe_base",
+  "parent": "pipeorgans:vox_celeste",
   "criteria": {
-    "place_nasard_pipe": {
+    "0": {
       "conditions": {
         "location": [
           {
-            "block": "pipeorgans:nasard",
+            "block": "pipeorgans:gamba",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -16,21 +16,22 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "pipeorgans.advancement.nasard.desc"
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.gamba.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "pipeorgans:nasard"
+      "item": "pipeorgans:gamba"
     },
     "show_toast": true,
     "title": {
-      "translate": "pipeorgans.advancement.nasard"
+      "translate": "advancement.pipeorgans.gamba"
     }
   },
   "requirements": [
     [
-      "place_nasard_pipe"
+      "0"
     ]
   ],
   "sends_telemetry_event": true

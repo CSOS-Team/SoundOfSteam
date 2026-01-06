@@ -1,11 +1,11 @@
 {
-  "parent": "pipeorgans:main/craft_pipe_base",
+  "parent": "pipeorgans:pipe_base",
   "criteria": {
-    "place_viola_pipe": {
+    "0": {
       "conditions": {
         "location": [
           {
-            "block": "pipeorgans:viola",
+            "block": "pipeorgans:nasard",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -16,21 +16,22 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "pipeorgans.advancement.viola.desc"
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.nasard.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "pipeorgans:viola"
+      "item": "pipeorgans:nasard"
     },
     "show_toast": true,
     "title": {
-      "translate": "pipeorgans.advancement.viola"
+      "translate": "advancement.pipeorgans.nasard"
     }
   },
   "requirements": [
     [
-      "place_viola_pipe"
+      "0"
     ]
   ],
   "sends_telemetry_event": true

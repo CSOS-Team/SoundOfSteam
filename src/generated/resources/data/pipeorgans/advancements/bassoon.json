@@ -1,11 +1,11 @@
 {
-  "parent": "pipeorgans:main/craft_reed",
+  "parent": "pipeorgans:vox_humana",
   "criteria": {
-    "place_trompette_pipe": {
+    "0": {
       "conditions": {
         "location": [
           {
-            "block": "pipeorgans:trompette",
+            "block": "pipeorgans:bassoon",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -16,21 +16,22 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "pipeorgans.advancement.trompette.desc"
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.bassoon.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "pipeorgans:trompette"
+      "item": "pipeorgans:bassoon"
     },
     "show_toast": true,
     "title": {
-      "translate": "pipeorgans.advancement.trompette"
+      "translate": "advancement.pipeorgans.bassoon"
     }
   },
   "requirements": [
     [
-      "place_trompette_pipe"
+      "0"
     ]
   ],
   "sends_telemetry_event": true

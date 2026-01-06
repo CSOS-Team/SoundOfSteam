@@ -1,11 +1,11 @@
 {
-  "parent": "pipeorgans:main/craft_pipe_base",
+  "parent": "pipeorgans:bassoon",
   "criteria": {
-    "place_gedeckt_pipe": {
+    "0": {
       "conditions": {
         "location": [
           {
-            "block": "pipeorgans:gedeckt",
+            "block": "pipeorgans:posaune",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -16,21 +16,22 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "pipeorgans.advancement.gedeckt.desc"
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.posaune.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "pipeorgans:gedeckt"
+      "item": "pipeorgans:posaune"
     },
     "show_toast": true,
     "title": {
-      "translate": "pipeorgans.advancement.gedeckt"
+      "translate": "advancement.pipeorgans.posaune"
     }
   },
   "requirements": [
     [
-      "place_gedeckt_pipe"
+      "0"
     ]
   ],
   "sends_telemetry_event": true
