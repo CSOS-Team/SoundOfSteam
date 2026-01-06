@@ -2,7 +2,10 @@ package com.finchy.pipeorgans.ponder.ponderWrappers;
 
 import com.finchy.pipeorgans.content.noteLink.NoteLinkBlock;
 import com.finchy.pipeorgans.content.noteLink.NoteLinkBlockEntity;
+import com.finchy.pipeorgans.ponder.PonderTimings;
 import com.finchy.pipeorgans.ponder.util.smartText.SmartText;
+import com.finchy.pipeorgans.ponder.util.timing.overrides.FixedTimeOverride;
+import com.finchy.pipeorgans.ponder.util.timing.overrides.TimingOverride;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import net.createmod.catnip.outliner.Outline;
 import net.createmod.catnip.outliner.Outliner;
@@ -31,6 +34,10 @@ public class PonderNoteLink implements Selection {
 
     public Direction getFacing() {
         return scene.getScene().getWorld().getBlockState(pos).getValue(NoteLinkBlock.FACING);
+    }
+
+    public BlockPos getPos() {
+        return pos;
     }
 
     public Vec3 visualCenter() {
@@ -75,6 +82,10 @@ public class PonderNoteLink implements Selection {
 
     public SmartText textOnPitchSlot(String text, boolean keyed, boolean nearTarget, PonderPalette color) {
         return SmartText.coloredPointing(text, pitchSlotPosition(), color, keyed, nearTarget);
+    }
+
+    public SmartText demonstratePitch(String pitch) {
+        return textOnPitchSlot(pitch, false, true, PonderPalette.GREEN).withTimings(new FixedTimeOverride(PonderTimings.INTERACTION_DISPLAY_TIME), null);
     }
 
     @Override
