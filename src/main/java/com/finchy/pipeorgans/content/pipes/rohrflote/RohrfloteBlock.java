@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class RohrfloteBlock extends DoublePipeBlock {
     public RohrfloteBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.ROHRFLOTE;
         extensionBlock = AllBlocks.ROHRFLOTE_EXTENSION;
         blockEntityType = AllBlockEntities.ROHRFLOTE_BLOCK_ENTITY;

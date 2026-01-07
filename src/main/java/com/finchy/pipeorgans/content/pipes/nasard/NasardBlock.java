@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class NasardBlock extends DoublePipeBlock {
     public NasardBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.NASARD;
         extensionBlock = AllBlocks.NASARD_EXTENSION;
         blockEntityType = AllBlockEntities.NASARD_BLOCK_ENTITY;

@@ -16,7 +16,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class PiccoloBlock extends QuadruplePipeBlock {
     public PiccoloBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.PICCOLO;
         extensionBlock = AllBlocks.PICCOLO_EXTENSION;
         blockEntityType = AllBlockEntities.PICCOLO_BLOCK_ENTITY;

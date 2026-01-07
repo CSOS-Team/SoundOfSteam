@@ -14,10 +14,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class QuadruplePipeBlock extends GenericPipeBlock {
 
-    public QuadruplePipeBlock(Properties pProperties) {
-        super(pProperties, 4);
+    protected QuadruplePipeBlock(Properties properties, boolean supportsTrem) {
+        super(properties, supportsTrem, 4);
     }
-
     @Override
     public void incrementSize(Level pLevel, BlockPos pos, boolean playSound) {
         BlockState base = pLevel.getBlockState(pos);

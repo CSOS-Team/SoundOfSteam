@@ -18,8 +18,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class HorizontalPipeBlock extends GenericPipeBlock {
 
-    public HorizontalPipeBlock(Properties properties) {
-        super(properties, 2);
+    protected HorizontalPipeBlock(Properties properties, boolean supportsTrem) {
+        super(properties, supportsTrem, 4);
     }
 
     @Override

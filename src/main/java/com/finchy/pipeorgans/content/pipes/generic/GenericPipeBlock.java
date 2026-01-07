@@ -37,6 +37,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.sounds.SoundEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,6 +45,8 @@ import java.util.Objects;
 
 @SuppressWarnings({"NullableProblems", "deprecation"})
 public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntity>, IWrenchable {
+
+    protected final EPipeMaterial.PipeMaterial material;
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
@@ -56,14 +59,19 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
 
     public final int EPB;
 
-    public GenericPipeBlock(Properties pProperties, boolean supportsTrem, int EPB) {
+    public GenericPipeBlock(Properties pProperties, boolean supportsTrem, EPipeMaterial.PipeMaterial material, int EPB) {
         super(pProperties);
+        this.material = material;
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
                 .setValue(SIZE, EPipeSizes.PipeSize.MEDIUM));
         this.EPB = EPB;
+    }
+
+    public SoundEvent getGrowSound() {
+        return material.getGrowSound();
     }
 
     // define blockstate params

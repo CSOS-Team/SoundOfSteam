@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class GambaBlock extends DoublePipeBlock {
     public GambaBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.GAMBA;
         extensionBlock = AllBlocks.GAMBA_EXTENSION;
         blockEntityType = AllBlockEntities.GAMBA_BLOCK_ENTITY;

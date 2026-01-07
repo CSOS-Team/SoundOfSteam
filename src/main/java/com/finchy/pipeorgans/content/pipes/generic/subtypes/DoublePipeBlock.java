@@ -15,8 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class DoublePipeBlock extends GenericPipeBlock {
 
-    public DoublePipeBlock(Properties pProperties) {
-        super(pProperties, 2);
+    protected DoublePipeBlock(Properties pProperties, boolean supportsTrem) {
+        super(pProperties, supportsTrem, 2);
     }
 
     @Override

@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class TierceBlock extends QuadruplePipeBlock {
     public TierceBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.TIERCE;
         extensionBlock = AllBlocks.TIERCE_EXTENSION;
         blockEntityType = AllBlockEntities.TIERCE_BLOCK_ENTITY;

@@ -13,8 +13,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class SinglePipeBlock extends GenericPipeBlock {
 
-    public SinglePipeBlock(Properties pProperties) {
-        super(pProperties, 1);
+    protected SinglePipeBlock(Properties pProperties, boolean supportsTrem) {
+        super(pProperties, supportsTrem, 1);
     }
 
     @Override

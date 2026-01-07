@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ViolaBlock extends DoublePipeBlock {
     public ViolaBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, false);
         baseBlock = AllBlocks.VIOLA;
         extensionBlock = AllBlocks.VIOLA_EXTENSION;
         blockEntityType = AllBlockEntities.VIOLA_BLOCK_ENTITY;
