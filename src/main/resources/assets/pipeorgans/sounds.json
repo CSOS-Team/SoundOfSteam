@@ -10,7 +10,6 @@
   },
 
   "grow_wooden_pipe": {
-    "subtitle": "sounds.pipeorgans.grow_wooden_pipe",
     "sounds": [
       {
         "type": "file",
@@ -22,7 +21,6 @@
 
 
   "grow_metal_pipe": {
-    "subtitle": "sounds.pipeorgans.grow_metal_pipe",
     "sounds": [
       {
         "type": "file",
@@ -33,7 +31,6 @@
   },
 
   "grow_haunted_pipe": {
-    "subtitle": "sounds.pipeorgans.grow_haunted_pipe",
     "sounds": [
       {
         "type": "file",
