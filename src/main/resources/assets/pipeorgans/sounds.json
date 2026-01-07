@@ -40,6 +40,17 @@
     ]
   },
 
+  "crash_cymbal": {
+    "subtitle": "sounds.pipeorgans.crash_cymbal",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:traps/crash_cymbal"
+      }
+    ]
+  },
+
 
   "gedeckt_superhigh": {
     "subtitle": "sounds.pipeorgans.gedeckt_superhigh",

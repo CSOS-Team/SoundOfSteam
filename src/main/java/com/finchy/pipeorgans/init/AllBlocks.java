@@ -49,6 +49,7 @@ import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteBlock;
 import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlock;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaExtensionBlock;
+import com.finchy.pipeorgans.content.traps.crashCymbal.CrashCymbalBlock;
 import com.finchy.pipeorgans.content.traps.zimblestern.ZimblesternBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
@@ -151,12 +152,24 @@ public class AllBlocks {
             .transform(axeOnly())
             .register();
 
-    public static final BlockEntry<ZimblesternBlock> ZIMBLESTERN = REGISTRATE.block("zimblestern", ZimblesternBlock::new)
+    public static final BlockEntry<CrashCymbalBlock> CRASH_CYMBAL = REGISTRATE.block("crash_cymbal", CrashCymbalBlock::new)
             .initialProperties(() -> Blocks.OAK_PLANKS)
             .properties(p -> p
                     .requiresCorrectToolForDrops()
                     .noOcclusion())
             .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .item()
+            .transform(customItemModel())
+            .transform(axeOnly())
+            .register();
+
+    public static final BlockEntry<ZimblesternBlock> ZIMBLESTERN = REGISTRATE.block("zimblestern", ZimblesternBlock::new)
+            .initialProperties(() -> Blocks.OAK_PLANKS)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models()
+                    .getExistingFile(ctx.getId()), 180))
             .item()
             .transform(customItemModel())
             .transform(axeOnly())
