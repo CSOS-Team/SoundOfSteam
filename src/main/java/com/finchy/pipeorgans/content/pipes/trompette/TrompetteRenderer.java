@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.trompette;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -25,7 +25,7 @@ public class TrompetteRenderer extends SafeBlockEntityRenderer<TrompetteBlockEnt
             return;
 
         Direction direction = blockState.getValue(TrompetteBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(TrompetteBlock.SIZE);
+        PipeSize size = blockState.getValue(TrompetteBlock.SIZE);
 
         PartialModel mouth = switch (size) {
             case TINY -> AllPartialModels.TROMPETTE_MOUTH_TINY;

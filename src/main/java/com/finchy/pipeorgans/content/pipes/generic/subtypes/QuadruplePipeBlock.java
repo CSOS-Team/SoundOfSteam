@@ -1,13 +1,12 @@
 package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
-import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeMaterial;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.ExtensionShapes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
@@ -15,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class QuadruplePipeBlock extends GenericPipeBlock {
 
-    public QuadruplePipeBlock(Properties properties, EPipeMaterial.PipeMaterial material) {
+    public QuadruplePipeBlock(Properties properties, PipeMaterial material) {
         super(properties, material, 4);
     }
 
@@ -25,7 +24,7 @@ public abstract class QuadruplePipeBlock extends GenericPipeBlock {
         if (!base.hasProperty(SIZE))
             return;
 
-        EPipeSizes.PipeSize size = base.getValue(SIZE);
+        PipeSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pos.above();
         Direction facing = base.getValue(FACING);
@@ -39,8 +38,8 @@ public abstract class QuadruplePipeBlock extends GenericPipeBlock {
 
             if (blockState.getBlock() instanceof QuadrupleExtensionBlock) { // if block above is extension
 
-                if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) != EExtensionShapes.QuadrupleShape.QUAD
-                        && blockState.getValue(QuadrupleExtensionBlock.SHAPE) != EExtensionShapes.QuadrupleShape.QUAD_CONNECTED) { // if extension above is single, double, or triple
+                if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) != ExtensionShapes.Quadruple.QUAD
+                        && blockState.getValue(QuadrupleExtensionBlock.SHAPE) != ExtensionShapes.Quadruple.QUAD_CONNECTED) { // if extension above is single, double, or triple
 
                     BlockState toSet = blockState.cycle(QuadrupleExtensionBlock.SHAPE); // cycle to the next shape
                     if (extensionBlock.get().isDirectional())      // only set direction if the extension is directional

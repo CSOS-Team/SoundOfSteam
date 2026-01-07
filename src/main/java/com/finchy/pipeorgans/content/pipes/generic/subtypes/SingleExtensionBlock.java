@@ -1,8 +1,8 @@
 package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
-import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.ExtensionShapes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -15,9 +15,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
-public abstract class SingleExtensionBlock extends GenericExtensionBlock<EExtensionShapes.SingleShape> {
+public abstract class SingleExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Single> {
 
-    public static final EnumProperty<EExtensionShapes.SingleShape> SHAPE = EnumProperty.create("shape", EExtensionShapes.SingleShape.class);
+    public static final EnumProperty<ExtensionShapes.Single> SHAPE = EnumProperty.create("shape", ExtensionShapes.Single.class);
 
     public SingleExtensionBlock(Properties pProperties) {
         super(pProperties, SHAPE);
@@ -26,8 +26,8 @@ public abstract class SingleExtensionBlock extends GenericExtensionBlock<EExtens
     @Override
     protected void registerDefaultStateWithSize() {
         BlockState blockState = defaultBlockState()
-                .setValue(SHAPE, EExtensionShapes.SingleShape.SINGLE)
-                .setValue(SIZE, EPipeSizes.PipeSize.MEDIUM);
+                .setValue(SHAPE, ExtensionShapes.Single.SINGLE)
+                .setValue(SIZE, PipeSize.MEDIUM);
         if (isDirectional())
             blockState.setValue(FACING, Direction.NORTH);
         registerDefaultState(blockState);
@@ -44,7 +44,7 @@ public abstract class SingleExtensionBlock extends GenericExtensionBlock<EExtens
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState below = pLevel.getBlockState(pPos.below());
-        return (below.is(this) && below.getValue(SHAPE) == EExtensionShapes.SingleShape.SINGLE_CONNECTED)
+        return (below.is(this) && below.getValue(SHAPE) == ExtensionShapes.Single.SINGLE_CONNECTED)
                 || below.getBlock() == baseBlock.get();
     }
 
@@ -54,13 +54,13 @@ public abstract class SingleExtensionBlock extends GenericExtensionBlock<EExtens
             return pState;
 
         if (pDirection == Direction.UP) {
-            boolean connected = pState.getValue(SHAPE) == EExtensionShapes.SingleShape.SINGLE_CONNECTED;
+            boolean connected = pState.getValue(SHAPE) == ExtensionShapes.Single.SINGLE_CONNECTED;
             boolean shouldConnect = pLevel.getBlockState(pPos.above())
                     .is(this);
             if (!connected && shouldConnect)
-                return pState.setValue(SHAPE, EExtensionShapes.SingleShape.SINGLE_CONNECTED);
+                return pState.setValue(SHAPE, ExtensionShapes.Single.SINGLE_CONNECTED);
             if (connected && !shouldConnect)
-                return pState.setValue(SHAPE, EExtensionShapes.SingleShape.SINGLE);
+                return pState.setValue(SHAPE, ExtensionShapes.Single.SINGLE);
             return pState;
         }
 

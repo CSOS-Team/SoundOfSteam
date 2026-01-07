@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.englishHorn;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -25,7 +25,7 @@ public class EnglishHornRenderer extends SafeBlockEntityRenderer<EnglishHornBloc
             return;
 
         Direction direction = blockState.getValue(EnglishHornBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(EnglishHornBlock.SIZE);
+        PipeSize size = blockState.getValue(EnglishHornBlock.SIZE);
 
         PartialModel mouth = switch (size) {
             case TINY -> AllPartialModels.ENGLISH_HORN_MOUTH_TINY;

@@ -1,13 +1,11 @@
 package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
-import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.ExtensionShapes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockEntity;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.RegistryObject;
 
 public abstract class QuadruplePipeBlockEntity extends GenericPipeBlockEntity {
 
@@ -23,15 +21,15 @@ public abstract class QuadruplePipeBlockEntity extends GenericPipeBlockEntity {
             BlockState blockState = level.getBlockState(currentPos);
             if (!(blockState.getBlock() instanceof QuadrupleExtensionBlock))
                 break;
-            if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) == EExtensionShapes.QuadrupleShape.SINGLE) {
+            if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) == ExtensionShapes.Quadruple.SINGLE) {
                 newPitch++;
                 break;
             }
-            if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) == EExtensionShapes.QuadrupleShape.DOUBLE) {
+            if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) == ExtensionShapes.Quadruple.DOUBLE) {
                 newPitch+=2;
                 break;
             }
-            if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) == EExtensionShapes.QuadrupleShape.TRIPLE) {
+            if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) == ExtensionShapes.Quadruple.TRIPLE) {
                 newPitch+=3;
                 break;
             }

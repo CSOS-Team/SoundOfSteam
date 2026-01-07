@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.openWood;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.SinglePipeBlockEntity;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
@@ -24,7 +24,7 @@ public class OpenWoodBlockEntity extends SinglePipeBlockEntity {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(EPipeSizes.PipeSize size, boolean powered) {
+    protected void tickAudio(PipeSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();

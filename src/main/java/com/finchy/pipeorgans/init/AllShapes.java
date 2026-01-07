@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.init;
 
-import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.ExtensionShapes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import net.createmod.catnip.math.VoxelShaper;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
@@ -9,7 +9,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class AllShapes {
 
-    public static VoxelShape genericPipeShape(EPipeSizes.PipeSize size, boolean wall, Direction facing) {
+    public static VoxelShape genericPipeShape(PipeSize size, boolean wall, Direction facing) {
         VoxelShape base = wall? BASE.get(facing.getOpposite()) : BASE.get(Direction.UP);
         return shape(switch (size) {
                     case TINY -> GENERIC_TINY_BASE;
@@ -21,7 +21,7 @@ public abstract class AllShapes {
         ).add(base).build();
     }
 
-    public static VoxelShape slimPipeShape(EPipeSizes.PipeSize size, boolean wall, Direction facing) {
+    public static VoxelShape slimPipeShape(PipeSize size, boolean wall, Direction facing) {
         VoxelShape base = wall? BASE.get(facing.getOpposite()) : BASE.get(Direction.UP);
         return shape(switch (size) {
                     case TINY -> SLIM_TINY_BASE;
@@ -33,7 +33,7 @@ public abstract class AllShapes {
         ).add(base).build();
     }
 
-    public static VoxelShape stringPipeShape(EPipeSizes.PipeSize size, boolean wall, Direction facing) {
+    public static VoxelShape stringPipeShape(PipeSize size, boolean wall, Direction facing) {
         VoxelShape base = wall? BASE.get(facing.getOpposite()) : BASE.get(Direction.UP);
         return shape(switch (size) {
                     case TINY -> STRING_TINY_BASE.get(facing);
@@ -45,7 +45,7 @@ public abstract class AllShapes {
         ).add(base).build();
     }
 
-    public static VoxelShape horizontalPipeShape(EPipeSizes.PipeSize size, boolean wall, Direction facing) {
+    public static VoxelShape horizontalPipeShape(PipeSize size, boolean wall, Direction facing) {
         VoxelShape base = wall? BASE.get(facing.getOpposite()) : BASE.get(Direction.UP);
         return shape(switch (size) {
                     case TINY -> HORIZONTAL_TINY_BASE.get(facing);
@@ -58,7 +58,7 @@ public abstract class AllShapes {
     }
 
     // generic single extension
-    public static VoxelShape genericExtensionShape(EExtensionShapes.SingleShape shape, EPipeSizes.PipeSize size) {
+    public static VoxelShape genericExtensionShape(ExtensionShapes.Single shape, PipeSize size) {
         return switch (size) {
             case TINY -> GENERIC_EXTENSION_TINY_QUAD;
             case SMALL -> GENERIC_EXTENSION_SMALL_QUAD;
@@ -69,7 +69,7 @@ public abstract class AllShapes {
     }
 
     // generic double extension
-    public static VoxelShape genericExtensionShape(EExtensionShapes.DoubleShape shape, EPipeSizes.PipeSize size) {
+    public static VoxelShape genericExtensionShape(ExtensionShapes.Double shape, PipeSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> GENERIC_EXTENSION_TINY_DOUBLE;
@@ -89,7 +89,7 @@ public abstract class AllShapes {
     }
 
     // generic quadruple extension
-    public static VoxelShape genericExtensionShape(EExtensionShapes.QuadrupleShape shape, EPipeSizes.PipeSize size) {
+    public static VoxelShape genericExtensionShape(ExtensionShapes.Quadruple shape, PipeSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> GENERIC_EXTENSION_TINY_SINGLE;
@@ -123,7 +123,7 @@ public abstract class AllShapes {
     }
 
     // slim single extension
-    public static VoxelShape slimExtensionShape(EExtensionShapes.SingleShape shape, EPipeSizes.PipeSize size) {
+    public static VoxelShape slimExtensionShape(ExtensionShapes.Single shape, PipeSize size) {
         return switch (size) {
             case TINY -> SLIM_EXTENSION_TINY_QUAD;
             case SMALL -> SLIM_EXTENSION_SMALL_QUAD;
@@ -134,7 +134,7 @@ public abstract class AllShapes {
     }
 
     // slim double extension
-    public static VoxelShape slimExtensionShape(EExtensionShapes.DoubleShape shape, EPipeSizes.PipeSize size) {
+    public static VoxelShape slimExtensionShape(ExtensionShapes.Double shape, PipeSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> SLIM_EXTENSION_TINY_DOUBLE;
@@ -154,7 +154,7 @@ public abstract class AllShapes {
     }
 
     // slim quadruple extension
-    public static VoxelShape slimExtensionShape(EExtensionShapes.QuadrupleShape shape, EPipeSizes.PipeSize size) {
+    public static VoxelShape slimExtensionShape(ExtensionShapes.Quadruple shape, PipeSize size) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> SLIM_EXTENSION_TINY_SINGLE;
@@ -188,7 +188,7 @@ public abstract class AllShapes {
     }
 
     // slim double extension horizontal
-    public static VoxelShape horizontalExtensionShape(EExtensionShapes.HorizontalShape shape, EPipeSizes.PipeSize size, Direction facing) {
+    public static VoxelShape horizontalExtensionShape(ExtensionShapes.Horizontal shape, PipeSize size, Direction facing) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> HORIZONTAL_EXTENSION_TINY_DOUBLE.get(facing);
@@ -208,7 +208,7 @@ public abstract class AllShapes {
     }
 
     // string single extension
-    public static VoxelShape stringExtensionShape(EExtensionShapes.SingleShape shape, EPipeSizes.PipeSize size, Direction facing) {
+    public static VoxelShape stringExtensionShape(ExtensionShapes.Single shape, PipeSize size, Direction facing) {
         return switch (size) {
             case TINY -> STRING_EXTENSION_TINY_QUAD.get(facing);
             case SMALL -> STRING_EXTENSION_SMALL_QUAD.get(facing);
@@ -219,7 +219,7 @@ public abstract class AllShapes {
     }
 
     // string double extension
-    public static VoxelShape stringExtensionShape(EExtensionShapes.DoubleShape shape, EPipeSizes.PipeSize size, Direction facing) {
+    public static VoxelShape stringExtensionShape(ExtensionShapes.Double shape, PipeSize size, Direction facing) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> STRING_EXTENSION_TINY_DOUBLE.get(facing);
@@ -239,7 +239,7 @@ public abstract class AllShapes {
     }
 
     // string quadruple extension
-    public static VoxelShape stringExtensionShape(EExtensionShapes.QuadrupleShape shape, EPipeSizes.PipeSize size, Direction facing) {
+    public static VoxelShape stringExtensionShape(ExtensionShapes.Quadruple shape, PipeSize size, Direction facing) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> STRING_EXTENSION_TINY_SINGLE.get(facing);

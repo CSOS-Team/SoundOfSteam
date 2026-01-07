@@ -1,8 +1,8 @@
 package com.finchy.pipeorgans.data;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.HorizontalPipeBlock;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.google.gson.*;
@@ -57,7 +57,7 @@ public class PipeModelGenerator implements DataProvider {
         String pipeName = blockEntry.getId().getPath();
         String horizontalBasePrefix = horizontal ? "horizontal_" : "";
         try {
-            for (EPipeSizes.PipeSize size : EPipeSizes.PipeSize.values()) {
+            for (PipeSize size : PipeSize.values()) {
                 // load pipe json model
                 JsonObject pipeJson = loadModel(pipeName+"/"+pipeName+"_"+size.getSerializedName()+".json"); // e.g. diapason/diapason_medium.json
 

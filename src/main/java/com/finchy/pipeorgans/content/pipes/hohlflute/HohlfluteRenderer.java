@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.hohlflute;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -27,7 +27,7 @@ public class HohlfluteRenderer extends SafeBlockEntityRenderer<HohlfluteBlockEnt
             return;
 
         Direction direction = blockState.getValue(HohlfluteBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(HohlfluteBlock.SIZE);
+        PipeSize size = blockState.getValue(HohlfluteBlock.SIZE);
 
         PartialModel mouth = switch (size) {
             case TINY -> AllPartialModels.HOHLFLUTE_MOUTH_TINY;

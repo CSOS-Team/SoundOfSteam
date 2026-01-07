@@ -92,9 +92,9 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
                 .orElse(false);
     }
 
-    protected EPipeSizes.PipeSize getOctave() {
+    protected PipeSize getOctave() {
         return getBlockState().getOptionalValue(GenericPipeBlock.SIZE)
-                .orElse(EPipeSizes.PipeSize.MEDIUM);
+                .orElse(PipeSize.MEDIUM);
     }
 
     @Override
@@ -119,9 +119,9 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
     }
 
     @OnlyIn(Dist.CLIENT)
-    protected abstract void tickAudio(EPipeSizes.PipeSize size, boolean powered);
+    protected abstract void tickAudio(PipeSize size, boolean powered);
 
-    public void createSteamJet(EPipeSizes.PipeSize size) {
+    public void createSteamJet(PipeSize size) {
         Direction facing = getBlockState().getOptionalValue(GenericPipeBlock.FACING)
                 .orElse(Direction.SOUTH);
         float angle = 180 + AngleHelper.horizontalAngle(facing);

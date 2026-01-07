@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.tierce;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -27,7 +27,7 @@ public class TierceRenderer extends SafeBlockEntityRenderer<TierceBlockEntity> {
             return;
 
         Direction direction = blockState.getValue(TierceBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(TierceBlock.SIZE);
+        PipeSize size = blockState.getValue(TierceBlock.SIZE);
 
         PartialModel mouth = switch (size) {
             case TINY -> AllPartialModels.TIERCE_MOUTH_TINY;

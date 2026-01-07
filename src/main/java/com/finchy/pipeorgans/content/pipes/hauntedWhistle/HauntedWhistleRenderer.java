@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.hauntedWhistle;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -27,7 +27,7 @@ public class HauntedWhistleRenderer extends SafeBlockEntityRenderer<HauntedWhist
             return;
 
         Direction direction = blockState.getValue(HauntedWhistleBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(HauntedWhistleBlock.SIZE);
+        PipeSize size = blockState.getValue(HauntedWhistleBlock.SIZE);
 
         PartialModel mouth = switch (size) {
             case TINY -> AllPartialModels.HAUNTED_WHISTLE_MOUTH_TINY;

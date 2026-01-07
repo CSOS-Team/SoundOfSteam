@@ -1,13 +1,11 @@
 package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
-import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.ExtensionShapes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockEntity;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.RegistryObject;
 
 public abstract class DoublePipeBlockEntity extends GenericPipeBlockEntity {
 
@@ -23,7 +21,7 @@ public abstract class DoublePipeBlockEntity extends GenericPipeBlockEntity {
             BlockState blockState = level.getBlockState(currentPos);
             if (!(blockState.getBlock() instanceof DoubleExtensionBlock))
                 break;
-            if (blockState.getValue(DoubleExtensionBlock.SHAPE) == EExtensionShapes.DoubleShape.SINGLE) {
+            if (blockState.getValue(DoubleExtensionBlock.SHAPE) == ExtensionShapes.Double.SINGLE) {
                 newPitch++;
                 break;
             }

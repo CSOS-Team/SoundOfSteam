@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
-import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
+import com.finchy.pipeorgans.content.pipes.generic.ExtensionShapes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockEntity;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
@@ -34,7 +34,7 @@ public abstract class HorizontalPipeBlockEntity extends GenericPipeBlockEntity {
                 break;
 
             if (blockState.getValue(HorizontalExtensionBlock.SHAPE)
-                    == EExtensionShapes.HorizontalShape.SINGLE) {
+                    == ExtensionShapes.Horizontal.SINGLE) {
                 newPitch++;
                 break;
             }

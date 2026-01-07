@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.gamba;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -27,7 +27,7 @@ public class GambaRenderer extends SafeBlockEntityRenderer<GambaBlockEntity> {
             return;
 
         Direction direction = blockState.getValue(GambaBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(GambaBlock.SIZE);
+        PipeSize size = blockState.getValue(GambaBlock.SIZE);
 
         PartialModel mouth = switch (size) {
             case TINY -> AllPartialModels.GAMBA_MOUTH_TINY;

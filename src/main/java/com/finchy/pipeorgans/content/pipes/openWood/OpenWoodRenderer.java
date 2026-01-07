@@ -1,16 +1,13 @@
 package com.finchy.pipeorgans.content.pipes.openWood;
 
-import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllPartialModels;
-
-import dev.engine_room.flywheel.lib.model.baked.PartialModel;
-import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import net.createmod.catnip.render.CachedBuffers;
-import net.createmod.catnip.math.AngleHelper;
-import net.createmod.catnip.animation.AnimationTickHolder;
-
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -30,7 +27,7 @@ public class OpenWoodRenderer extends SafeBlockEntityRenderer<OpenWoodBlockEntit
             return;
 
         Direction direction = blockState.getValue(OpenWoodBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(OpenWoodBlock.SIZE);
+        PipeSize size = blockState.getValue(OpenWoodBlock.SIZE);
 
         PartialModel mouth = switch (size) {
             case TINY -> AllPartialModels.OPEN_WOOD_MOUTH_TINY;

@@ -2,15 +2,15 @@ package com.finchy.pipeorgans.content.pipes.generic;
 
 import net.minecraft.util.StringRepresentable;
 
-public class EExtensionShapes {
+public class ExtensionShapes {
 
     public interface ExtensionShape {}
 
-    public enum QuadrupleShape implements ExtensionShape, StringRepresentable {
+    public enum Quadruple implements ExtensionShape, StringRepresentable {
         SINGLE("single"), DOUBLE("double"), TRIPLE("triple"), QUAD("quad"), QUAD_CONNECTED("quad_connected");
 
         private final String name;
-        QuadrupleShape(String name) {
+        Quadruple(String name) {
             this.name = name;
         }
 
@@ -20,11 +20,11 @@ public class EExtensionShapes {
         }
     }
 
-    public enum DoubleShape implements ExtensionShape, StringRepresentable {
+    public enum Double implements ExtensionShape, StringRepresentable {
         SINGLE("single"), DOUBLE("double"), DOUBLE_CONNECTED("double_connected");
 
         private final String name;
-        DoubleShape(String name) {
+        Double(String name) {
             this.name = name;
         }
 
@@ -34,11 +34,11 @@ public class EExtensionShapes {
         }
     }
 
-    public enum SingleShape implements ExtensionShape, StringRepresentable {
+    public enum Single implements ExtensionShape, StringRepresentable {
         SINGLE("single"), SINGLE_CONNECTED("single_connected");
 
         private final String name;
-        SingleShape(String name) {
+        Single(String name) {
             this.name = name;
         }
 
@@ -48,11 +48,11 @@ public class EExtensionShapes {
         }
     }
 
-    public enum HorizontalShape implements ExtensionShape, StringRepresentable {
+    public enum Horizontal implements ExtensionShape, StringRepresentable {
         SINGLE("single"), DOUBLE("double"), DOUBLE_CONNECTED("double_connected");
 
         private final String name;
-        HorizontalShape(String name) {
+        Horizontal(String name) {
             this.name = name;
         }
 

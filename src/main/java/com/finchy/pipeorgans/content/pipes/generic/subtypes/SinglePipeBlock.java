@@ -1,12 +1,11 @@
 package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeMaterial;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
@@ -14,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class SinglePipeBlock extends GenericPipeBlock {
 
-    public SinglePipeBlock(Properties properties, EPipeMaterial.PipeMaterial material) {
+    public SinglePipeBlock(Properties properties, PipeMaterial material) {
         super(properties, material, 1);
     }
 
@@ -24,7 +23,7 @@ public abstract class SinglePipeBlock extends GenericPipeBlock {
         if (!base.hasProperty(SIZE))
             return;
 
-        EPipeSizes.PipeSize size = base.getValue(SIZE);
+        PipeSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pos.above();
         Direction facing = base.getValue(FACING);

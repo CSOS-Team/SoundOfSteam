@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.diapason;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -27,7 +27,7 @@ public class DiapasonRenderer extends SafeBlockEntityRenderer<DiapasonBlockEntit
             return;
 
         Direction direction = blockState.getValue(DiapasonBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(DiapasonBlock.SIZE);
+        PipeSize size = blockState.getValue(DiapasonBlock.SIZE);
 
         PartialModel mouth = switch (size) {
             case TINY -> AllPartialModels.DIAPASON_MOUTH_TINY;

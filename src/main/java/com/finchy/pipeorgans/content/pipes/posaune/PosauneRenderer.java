@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.posaune;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -25,7 +25,7 @@ public class PosauneRenderer extends SafeBlockEntityRenderer<PosauneBlockEntity>
             return;
 
         Direction direction = blockState.getValue(PosauneBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(PosauneBlock.SIZE);
+        PipeSize size = blockState.getValue(PosauneBlock.SIZE);
 
         PartialModel mouth = switch (size) {
             case TINY -> AllPartialModels.POSAUNE_MOUTH_TINY;
