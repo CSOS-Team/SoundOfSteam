@@ -148,6 +148,8 @@ public class AllSoundEvents {
 
      HAUNTED_CHIFF = registerSoundEvent("haunted_chiff"),
 
+    CRASH_CYMBAL = registerSoundEvent("crash_cymbal"),
+
     PLACE_WOODEN_PIPE = registerSoundEvent("place_wooden_pipe"),
     PLACE_METAL_PIPE = registerSoundEvent("place_metal_pipe");
 
