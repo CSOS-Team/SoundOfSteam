@@ -9,25 +9,36 @@
     ]
   },
 
-  "place_wooden_pipe": {
-    "subtitle": "sounds.pipeorgans.place_wooden_pipe",
+  "grow_wooden_pipe": {
+    "subtitle": "sounds.pipeorgans.grow_wooden_pipe",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:placing/place_wooden_pipe"
+        "name": "pipeorgans:placing/grow_wooden_pipe"
       }
     ]
   },
 
 
-  "place_metal_pipe": {
-    "subtitle": "sounds.pipeorgans.place_metal_pipe",
+  "grow_metal_pipe": {
+    "subtitle": "sounds.pipeorgans.grow_metal_pipe",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:placing/place_metal_pipe"
+        "name": "pipeorgans:placing/grow_metal_pipe"
+      }
+    ]
+  },
+
+  "grow_haunted_pipe": {
+    "subtitle": "sounds.pipeorgans.grow_haunted_pipe",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:placing/grow_haunted_pipe"
       }
     ]
   },

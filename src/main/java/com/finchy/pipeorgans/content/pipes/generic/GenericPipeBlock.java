@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -45,12 +46,11 @@ import java.util.Objects;
 @SuppressWarnings({"NullableProblems", "deprecation"})
 public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntity>, IWrenchable {
 
+    protected final EPipeMaterial.PipeMaterial material;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final EnumProperty<EPipeSizes.PipeSize> SIZE = EnumProperty.create("size", EPipeSizes.PipeSize.class);
-    public static final EnumProperty<EPipeMaterial.PipeMaterial> MATERIAL = EnumProperty.create("material", EPipeMaterial.PipeMaterial.class);
-
 
     protected BlockEntry<? extends GenericPipeBlock> baseBlock;
     protected BlockEntry<? extends GenericExtensionBlock<? extends EExtensionShapes.ExtensionShape>> extensionBlock;
@@ -58,14 +58,19 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
 
     public final int EPB;
 
-    public GenericPipeBlock(Properties pProperties, int EPB) {
+    public GenericPipeBlock(Properties pProperties, EPipeMaterial.PipeMaterial material, int EPB) {
         super(pProperties);
+        this.material = material;
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
                 .setValue(SIZE, EPipeSizes.PipeSize.MEDIUM));
         this.EPB = EPB;
+    }
+
+    public SoundEvent getGrowSound() {
+        return material.getGrowSound();
     }
 
     // define blockstate params

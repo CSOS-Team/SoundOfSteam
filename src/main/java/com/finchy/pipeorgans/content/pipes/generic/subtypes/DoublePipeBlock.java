@@ -1,9 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
-import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
-import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
@@ -15,8 +12,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class DoublePipeBlock extends GenericPipeBlock {
 
-    public DoublePipeBlock(Properties pProperties) {
-        super(pProperties, 2);
+    public DoublePipeBlock(Properties pProperties, EPipeMaterial.PipeMaterial material) {
+        super(pProperties, material, 2);
     }
 
     @Override
@@ -31,7 +28,7 @@ public abstract class DoublePipeBlock extends GenericPipeBlock {
         Direction facing = base.getValue(FACING);
 
         float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
-        SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.get();
+        SoundEvent growSound = this.getGrowSound();
         SoundEvent hitSound = soundtype.getHitSound();
 
         for (int i = 1; i <= 12; i+=2) {

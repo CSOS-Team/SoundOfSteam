@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.gamba;
 
+import com.finchy.pipeorgans.content.pipes.generic.EPipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -12,7 +13,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class GambaBlock extends DoublePipeBlock {
     public GambaBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, EPipeMaterial.PipeMaterial.METAL);
         baseBlock = AllBlocks.GAMBA;
         extensionBlock = AllBlocks.GAMBA_EXTENSION;
         blockEntityType = AllBlockEntities.GAMBA_BLOCK_ENTITY;
