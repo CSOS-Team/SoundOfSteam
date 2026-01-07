@@ -172,7 +172,7 @@ public class AllBlocks {
     public static final BlockEntry<HauntedWhistleBlock> HAUNTED_WHISTLE = registerPipeBlock(
             "haunted_whistle",
             HauntedWhistleBlock::new,
-            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            () -> Blocks.COPPER_BLOCK,
             StopSize.EIGHT,
             BlockTags.MINEABLE_WITH_PICKAXE,
             null);
@@ -181,7 +181,7 @@ public class AllBlocks {
     public static final BlockEntry<HauntedWhistleExtensionBlock> HAUNTED_WHISTLE_EXTENSION = registerExtensionBlock(
             "haunted_whistle_extension",
             HauntedWhistleExtensionBlock::new,
-            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            () -> Blocks.COPPER_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE,
             null);
 
