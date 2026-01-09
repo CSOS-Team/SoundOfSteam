@@ -14,7 +14,7 @@ body:
 
   - type: input
     attributes:
-      label: Game Log & Crash Log (if applicable)
+      label: Game Log & Crash Report (if applicable)
       description: >
         We need the game/crash log for additional information about the bug.
         This file can be found in the \"logs\" or \"crash-reports\" folder of your Minecraft folder as \"latest.log\" or \"crash-*.txt"\.
