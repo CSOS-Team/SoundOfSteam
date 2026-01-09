@@ -17,7 +17,7 @@ body:
       label: Game Log & Crash Log (if applicable)
       description: >
         We need the game/crash log for additional information about the bug.
-        This file can be found in the \"logs\" or \"crash-reports"\ folder of your Minecraft folder as \"latest.log\" or \"crash-*.txt"\.
+        This file can be found in the \"logs\" or \"crash-reports\" folder of your Minecraft folder as \"latest.log\" or \"crash-*.txt"\.
         Please upload the file to https://mclo.gs/ and put the link here.
         Do **not** paste the *contents* of the file here, because that will make this issue very hard to read.
     validations:
