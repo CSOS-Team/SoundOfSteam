@@ -1,8 +1,8 @@
 package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
-import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.ExtensionShapes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,9 +18,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
-public abstract class DoubleExtensionBlock extends GenericExtensionBlock<EExtensionShapes.DoubleShape> {
+public abstract class DoubleExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
 
-    public static final EnumProperty<EExtensionShapes.DoubleShape> SHAPE = EnumProperty.create("shape", EExtensionShapes.DoubleShape.class);
+    public static final EnumProperty<ExtensionShapes.Double> SHAPE = EnumProperty.create("shape", ExtensionShapes.Double.class);
 
     public DoubleExtensionBlock(Properties pProperties) {
         super(pProperties, SHAPE);
@@ -29,8 +29,8 @@ public abstract class DoubleExtensionBlock extends GenericExtensionBlock<EExtens
     @Override
     protected void registerDefaultStateWithSize() {
         BlockState blockState = defaultBlockState()
-                .setValue(SHAPE, EExtensionShapes.DoubleShape.SINGLE)
-                .setValue(SIZE, EPipeSizes.PipeSize.MEDIUM);
+                .setValue(SHAPE, ExtensionShapes.Double.SINGLE)
+                .setValue(SIZE, PipeSize.MEDIUM);
         if (isDirectional())
             blockState.setValue(FACING, Direction.NORTH);
         registerDefaultState(blockState);
@@ -47,7 +47,7 @@ public abstract class DoubleExtensionBlock extends GenericExtensionBlock<EExtens
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState below = pLevel.getBlockState(pPos.below());
-        return (below.is(this) && below.getValue(SHAPE) == EExtensionShapes.DoubleShape.DOUBLE_CONNECTED)
+        return (below.is(this) && below.getValue(SHAPE) == ExtensionShapes.Double.DOUBLE_CONNECTED)
                 || below.getBlock() == baseBlock.get();
     }
 
@@ -57,13 +57,13 @@ public abstract class DoubleExtensionBlock extends GenericExtensionBlock<EExtens
             return pState;
 
         if (pDirection == Direction.UP) {
-            boolean connected = pState.getValue(SHAPE) == EExtensionShapes.DoubleShape.DOUBLE_CONNECTED;
+            boolean connected = pState.getValue(SHAPE) == ExtensionShapes.Double.DOUBLE_CONNECTED;
             boolean shouldConnect = pLevel.getBlockState(pPos.above())
                     .is(this);
             if (!connected && shouldConnect)
-                return pState.setValue(SHAPE, EExtensionShapes.DoubleShape.DOUBLE_CONNECTED);
+                return pState.setValue(SHAPE, ExtensionShapes.Double.DOUBLE_CONNECTED);
             if (connected && !shouldConnect)
-                return pState.setValue(SHAPE, EExtensionShapes.DoubleShape.DOUBLE);
+                return pState.setValue(SHAPE, ExtensionShapes.Double.DOUBLE);
             return pState;
         }
 
@@ -80,10 +80,10 @@ public abstract class DoubleExtensionBlock extends GenericExtensionBlock<EExtens
             return InteractionResult.SUCCESS;
 
         if (context.getClickLocation().y < context.getClickedPos()
-                .getY() + .5f || state.getValue(SHAPE) == EExtensionShapes.DoubleShape.SINGLE)
+                .getY() + .5f || state.getValue(SHAPE) == ExtensionShapes.Double.SINGLE)
             return callSuperOnSneakWrenched(state, context);
 
-        world.setBlock(pos, state.setValue(SHAPE, EExtensionShapes.DoubleShape.SINGLE), 3);
+        world.setBlock(pos, state.setValue(SHAPE, ExtensionShapes.Double.SINGLE), 3);
         IWrenchable.playRemoveSound(world, pos);
         return InteractionResult.SUCCESS;
     }

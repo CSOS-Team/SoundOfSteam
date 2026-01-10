@@ -1,8 +1,8 @@
 package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
-import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.ExtensionShapes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,9 +18,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
-public abstract class QuadrupleExtensionBlock extends GenericExtensionBlock<EExtensionShapes.QuadrupleShape> {
+public abstract class QuadrupleExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Quadruple> {
 
-    public static final EnumProperty<EExtensionShapes.QuadrupleShape> SHAPE = EnumProperty.create("shape", EExtensionShapes.QuadrupleShape.class);
+    public static final EnumProperty<ExtensionShapes.Quadruple> SHAPE = EnumProperty.create("shape", ExtensionShapes.Quadruple.class);
 
     public QuadrupleExtensionBlock(Properties pProperties) {
         super(pProperties, SHAPE);
@@ -29,8 +29,8 @@ public abstract class QuadrupleExtensionBlock extends GenericExtensionBlock<EExt
     @Override
     protected void registerDefaultStateWithSize() {
         BlockState blockState = defaultBlockState()
-                .setValue(SHAPE, EExtensionShapes.QuadrupleShape.SINGLE)
-                .setValue(SIZE, EPipeSizes.PipeSize.MEDIUM);
+                .setValue(SHAPE, ExtensionShapes.Quadruple.SINGLE)
+                .setValue(SIZE, PipeSize.MEDIUM);
         if (isDirectional())
             blockState.setValue(FACING, Direction.NORTH);
         registerDefaultState(blockState);
@@ -47,7 +47,7 @@ public abstract class QuadrupleExtensionBlock extends GenericExtensionBlock<EExt
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState below = pLevel.getBlockState(pPos.below());
-        return (below.is(this) && below.getValue(SHAPE) == EExtensionShapes.QuadrupleShape.QUAD_CONNECTED)
+        return (below.is(this) && below.getValue(SHAPE) == ExtensionShapes.Quadruple.QUAD_CONNECTED)
                 || below.getBlock() == baseBlock.get();
     }
 
@@ -57,13 +57,13 @@ public abstract class QuadrupleExtensionBlock extends GenericExtensionBlock<EExt
             return pState;
 
         if (pDirection == Direction.UP) {
-            boolean connected = pState.getValue(SHAPE) == EExtensionShapes.QuadrupleShape.QUAD_CONNECTED;
+            boolean connected = pState.getValue(SHAPE) == ExtensionShapes.Quadruple.QUAD_CONNECTED;
             boolean shouldConnect = pLevel.getBlockState(pPos.above())
                     .is(this);
             if (!connected && shouldConnect)
-                return pState.setValue(SHAPE, EExtensionShapes.QuadrupleShape.QUAD_CONNECTED);
+                return pState.setValue(SHAPE, ExtensionShapes.Quadruple.QUAD_CONNECTED);
             if (connected && !shouldConnect)
-                return pState.setValue(SHAPE, EExtensionShapes.QuadrupleShape.QUAD);
+                return pState.setValue(SHAPE, ExtensionShapes.Quadruple.QUAD);
             return pState;
         }
 
@@ -80,26 +80,26 @@ public abstract class QuadrupleExtensionBlock extends GenericExtensionBlock<EExt
             return InteractionResult.SUCCESS;
 
         if (context.getClickLocation().y < context.getClickedPos()
-                .getY() + .25f || state.getValue(SHAPE) == EExtensionShapes.QuadrupleShape.SINGLE)
+                .getY() + .25f || state.getValue(SHAPE) == ExtensionShapes.Quadruple.SINGLE)
             return callSuperOnSneakWrenched(state, context);
 
         if (context.getClickLocation().y < context.getClickedPos()
                 .getY() + .5) {
-            world.setBlock(pos, state.setValue(SHAPE, EExtensionShapes.QuadrupleShape.SINGLE), 3);
+            world.setBlock(pos, state.setValue(SHAPE, ExtensionShapes.Quadruple.SINGLE), 3);
             IWrenchable.playRemoveSound(world, pos);
             return InteractionResult.SUCCESS;
         }
 
         if (context.getClickLocation().y < context.getClickedPos()
                 .getY() + .75f) {
-            world.setBlock(pos, state.setValue(SHAPE, EExtensionShapes.QuadrupleShape.DOUBLE), 3);
+            world.setBlock(pos, state.setValue(SHAPE, ExtensionShapes.Quadruple.DOUBLE), 3);
             IWrenchable.playRemoveSound(world, pos);
             return InteractionResult.SUCCESS;
         }
 
         if (context.getClickLocation().y < context.getClickedPos()
                 .getY() + 1f) {
-            world.setBlock(pos, state.setValue(SHAPE, EExtensionShapes.QuadrupleShape.TRIPLE), 3);
+            world.setBlock(pos, state.setValue(SHAPE, ExtensionShapes.Quadruple.TRIPLE), 3);
             IWrenchable.playRemoveSound(world, pos);
             return InteractionResult.SUCCESS;
         }

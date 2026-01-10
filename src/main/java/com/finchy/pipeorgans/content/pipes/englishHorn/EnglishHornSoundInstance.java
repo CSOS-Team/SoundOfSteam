@@ -1,14 +1,14 @@
 package com.finchy.pipeorgans.content.pipes.englishHorn;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericSoundInstance;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import net.minecraft.core.BlockPos;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class EnglishHornSoundInstance extends GenericSoundInstance {
 
-    public EnglishHornSoundInstance(EPipeSizes.PipeSize size, BlockPos worldPosition) {
+    public EnglishHornSoundInstance(PipeSize size, BlockPos worldPosition) {
         super(size, worldPosition,
                 (switch (size) {
                     case TINY -> ENGLISH_HORN_SUPERHIGH;

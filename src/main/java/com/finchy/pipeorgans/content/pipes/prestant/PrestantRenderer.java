@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.prestant;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -27,7 +27,7 @@ public class PrestantRenderer extends SafeBlockEntityRenderer<PrestantBlockEntit
             return;
 
         Direction direction = blockState.getValue(PrestantBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(PrestantBlock.SIZE);
+        PipeSize size = blockState.getValue(PrestantBlock.SIZE);
 
         PartialModel mouth = switch (size) {
             case TINY -> AllPartialModels.PRESTANT_MOUTH_TINY;

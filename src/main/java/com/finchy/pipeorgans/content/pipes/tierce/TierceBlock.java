@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.tierce;
 
-import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadruplePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class TierceBlock extends QuadruplePipeBlock {
     public TierceBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, PipeMaterial.METAL);
         baseBlock = AllBlocks.TIERCE;
         extensionBlock = AllBlocks.TIERCE_EXTENSION;
         blockEntityType = AllBlockEntities.TIERCE_BLOCK_ENTITY;

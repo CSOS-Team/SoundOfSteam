@@ -1,9 +1,8 @@
 package com.finchy.pipeorgans.content.pipes.voxHumana;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadruplePipeBlockEntity;
-import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
@@ -30,7 +29,7 @@ public class VoxHumanaBlockEntity extends QuadruplePipeBlockEntity {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(EPipeSizes.PipeSize size, boolean powered) {
+    protected void tickAudio(PipeSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
@@ -64,7 +63,7 @@ public class VoxHumanaBlockEntity extends QuadruplePipeBlockEntity {
     }
 
     @Override
-    public void createSteamJet(EPipeSizes.PipeSize size) {
+    public void createSteamJet(PipeSize size) {
         Direction facing = getBlockState().getOptionalValue(GenericPipeBlock.FACING)
                 .orElse(Direction.SOUTH);
         float angle = 180+ AngleHelper.horizontalAngle(facing);
@@ -72,7 +71,7 @@ public class VoxHumanaBlockEntity extends QuadruplePipeBlockEntity {
         float yOffset = pitch==0?0.125f:0;
         double yPos = ((double) pitch/4)+1 + yOffset;
 
-        if (size == EPipeSizes.PipeSize.TINY) { size = EPipeSizes.PipeSize.SMALL; }
+        if (size == PipeSize.TINY) { size = PipeSize.SMALL; }
         double zOffset = (2 / 16f*size.ordinal()) + (pitch==0?0:0.0625);
 
         Vec3 v = VecHelper.rotate(

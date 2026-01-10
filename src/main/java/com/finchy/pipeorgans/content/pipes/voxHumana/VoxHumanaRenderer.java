@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.voxHumana;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -25,7 +25,7 @@ public class VoxHumanaRenderer extends SafeBlockEntityRenderer<VoxHumanaBlockEnt
             return;
 
         Direction direction = blockState.getValue(VoxHumanaBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(VoxHumanaBlock.SIZE);
+        PipeSize size = blockState.getValue(VoxHumanaBlock.SIZE);
 
         PartialModel mouth = switch (size) {
             case TINY -> AllPartialModels.VOX_HUMANA_MOUTH_TINY;

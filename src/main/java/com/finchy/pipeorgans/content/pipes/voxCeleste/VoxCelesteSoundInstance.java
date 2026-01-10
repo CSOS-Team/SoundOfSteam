@@ -1,14 +1,14 @@
 package com.finchy.pipeorgans.content.pipes.voxCeleste;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericSoundInstance;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import net.minecraft.core.BlockPos;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class VoxCelesteSoundInstance extends GenericSoundInstance {
 
-    public VoxCelesteSoundInstance(EPipeSizes.PipeSize size, BlockPos worldPosition) {
+    public VoxCelesteSoundInstance(PipeSize size, BlockPos worldPosition) {
         super(size, worldPosition,
                 (switch (size) {
                     case TINY -> VOX_CELESTE_SUPERHIGH;

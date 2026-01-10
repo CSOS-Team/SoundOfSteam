@@ -1,14 +1,14 @@
 package com.finchy.pipeorgans.content.pipes.posaune;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericSoundInstance;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import net.minecraft.core.BlockPos;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class PosauneSoundInstance extends GenericSoundInstance {
 
-    public PosauneSoundInstance(EPipeSizes.PipeSize size, BlockPos worldPosition) {
+    public PosauneSoundInstance(PipeSize size, BlockPos worldPosition) {
         super(size, worldPosition,
                 (switch (size) {
                     case TINY -> POSAUNE_SUPERHIGH;

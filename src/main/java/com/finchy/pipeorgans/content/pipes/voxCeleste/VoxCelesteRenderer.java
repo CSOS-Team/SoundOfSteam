@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.voxCeleste;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -26,7 +26,7 @@ public class VoxCelesteRenderer extends SafeBlockEntityRenderer<VoxCelesteBlockE
             return;
 
         Direction direction = blockState.getValue(VoxCelesteBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(VoxCelesteBlock.SIZE);
+        PipeSize size = blockState.getValue(VoxCelesteBlock.SIZE);
 
         PartialModel mouth = switch (size) {
             case TINY -> AllPartialModels.VOX_CELESTE_MOUTH_TINY;

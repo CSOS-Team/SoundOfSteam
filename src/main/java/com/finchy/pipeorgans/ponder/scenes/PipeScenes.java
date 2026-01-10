@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.ponder.scenes;
 
-import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.ExtensionShapes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.ponder.ponderWrappers.PonderPipe;
 import com.finchy.pipeorgans.ponder.PonderTimings;
@@ -34,10 +34,10 @@ public class PipeScenes {
         Selection boilerLever = util.select().position(boilerLeverPos);
         Selection campfire = util.select().position(1, 1, 3);
         BlockPos boilerPipePos = util.grid().at(1, 2, 2);
-        PonderPipe<EExtensionShapes.DoubleShape> boilerPipe = new PonderPipe<>(
+        PonderPipe<ExtensionShapes.Double> boilerPipe = new PonderPipe<>(
                 scene, util,
                 boilerPipePos,
-                0, EPipeSizes.PipeSize.MEDIUM,
+                0, PipeSize.MEDIUM,
                 AllBlocks.DIAPASON.get(), AllBlocks.DIAPASON_EXTENSION.get(),
                 PonderPipe.Transition.NONE
         );
@@ -52,10 +52,10 @@ public class PipeScenes {
         BlockPos fanPos = util.grid().at(5, 1, 2);
         Selection fan = util.select().position(fanPos);
         BlockPos windchestPipePos = util.grid().at(3, 2, 2);
-        PonderPipe<EExtensionShapes.DoubleShape> windchestPipe = new PonderPipe<>(
+        PonderPipe<ExtensionShapes.Double> windchestPipe = new PonderPipe<>(
                 scene, util,
                 windchestPipePos,
-                0, EPipeSizes.PipeSize.MEDIUM,
+                0, PipeSize.MEDIUM,
                 AllBlocks.DIAPASON.get(), AllBlocks.DIAPASON_EXTENSION.get(),
                 PonderPipe.Transition.NONE
         );

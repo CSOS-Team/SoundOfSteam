@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.gedeckt;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -27,7 +27,7 @@ public class GedecktRenderer extends SafeBlockEntityRenderer<GedecktBlockEntity>
             return;
 
         Direction direction = blockState.getValue(GedecktBlock.FACING);
-        EPipeSizes.PipeSize size = blockState.getValue(GedecktBlock.SIZE);
+        PipeSize size = blockState.getValue(GedecktBlock.SIZE);
 
         PartialModel mouth = switch (size) {
             case TINY -> AllPartialModels.GEDECKT_MOUTH_TINY;

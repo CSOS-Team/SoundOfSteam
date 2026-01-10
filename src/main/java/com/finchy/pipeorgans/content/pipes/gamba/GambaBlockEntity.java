@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.gamba;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlockEntity;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
@@ -24,7 +24,7 @@ public class GambaBlockEntity extends DoublePipeBlockEntity {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(EPipeSizes.PipeSize size, boolean powered) {
+    protected void tickAudio(PipeSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();

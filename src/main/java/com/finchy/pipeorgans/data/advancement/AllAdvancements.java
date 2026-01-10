@@ -120,16 +120,16 @@ public class AllAdvancements implements DataProvider {
             .after(PIPE_BASE)
             .whenBlockPlaced(AllBlocks.VIOLA)),
 
-    VOX_CELESTE = create("vox_celeste", b -> b.icon(AllBlocks.VOX_CELESTE)
+    VOIX_CELESTE = create("voix_celeste", b -> b.icon(AllBlocks.VOX_CELESTE)
             .title("Pleasantly Out of Tune")
-            .description("Place a Vox Celeste pipe")
+            .description("Place a Voix Celeste pipe")
             .after(VIOLA)
             .whenBlockPlaced(AllBlocks.VOX_CELESTE)),
 
     GAMBA = create("gamba", b -> b.icon(AllBlocks.GAMBA)
             .title("Shrill Strings")
             .description("Place a Gamba pipe")
-            .after(VOX_CELESTE)
+            .after(VOIX_CELESTE)
             .whenBlockPlaced(AllBlocks.GAMBA)),
 
     // reed branch

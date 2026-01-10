@@ -1,14 +1,14 @@
 package com.finchy.pipeorgans.content.pipes.subbass;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericSoundInstance;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import net.minecraft.core.BlockPos;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class SubbassSoundInstance extends GenericSoundInstance {
 
-    public SubbassSoundInstance(EPipeSizes.PipeSize size, BlockPos worldPosition) {
+    public SubbassSoundInstance(PipeSize size, BlockPos worldPosition) {
         super(size, worldPosition,
                 (switch (size) {
                     case TINY -> SUBBASS_SUPERHIGH;

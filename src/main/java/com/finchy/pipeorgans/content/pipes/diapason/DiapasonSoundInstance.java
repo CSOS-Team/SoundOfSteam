@@ -1,14 +1,14 @@
 package com.finchy.pipeorgans.content.pipes.diapason;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericSoundInstance;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import net.minecraft.core.BlockPos;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class DiapasonSoundInstance extends GenericSoundInstance {
 
-    public DiapasonSoundInstance(EPipeSizes.PipeSize size, BlockPos worldPosition) {
+    public DiapasonSoundInstance(PipeSize size, BlockPos worldPosition) {
         super(size, worldPosition,
                 (switch (size) {
                     case TINY -> DIAPASON_SUPERHIGH;

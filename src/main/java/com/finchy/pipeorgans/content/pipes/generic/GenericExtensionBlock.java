@@ -20,10 +20,10 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-public abstract class GenericExtensionBlock<P extends Enum<P> & EExtensionShapes.ExtensionShape & StringRepresentable> extends Block implements IWrenchable {
+public abstract class GenericExtensionBlock<P extends Enum<P> & ExtensionShapes.ExtensionShape & StringRepresentable> extends Block implements IWrenchable {
 
     public final EnumProperty<P> SHAPE;
-    public static final EnumProperty<EPipeSizes.PipeSize> SIZE = GenericPipeBlock.SIZE;
+    public static final EnumProperty<PipeSize> SIZE = GenericPipeBlock.SIZE;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     protected BlockEntry<? extends GenericPipeBlock> baseBlock;

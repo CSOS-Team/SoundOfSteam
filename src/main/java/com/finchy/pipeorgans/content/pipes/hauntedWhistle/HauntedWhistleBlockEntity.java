@@ -2,8 +2,8 @@ package com.finchy.pipeorgans.content.pipes.hauntedWhistle;
 
 import com.finchy.pipeorgans.content.particles.hauntedJet.HauntedJetParticleData;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlockEntity;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllSoundEvents;
 import net.createmod.catnip.math.AngleHelper;
@@ -30,7 +30,7 @@ public class HauntedWhistleBlockEntity extends DoublePipeBlockEntity {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void tickAudio(EPipeSizes.PipeSize size, boolean powered) {
+    protected void tickAudio(PipeSize size, boolean powered) {
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
@@ -63,7 +63,7 @@ public class HauntedWhistleBlockEntity extends DoublePipeBlockEntity {
         createSteamJet(size);
     }
 
-    public void createSteamJet(EPipeSizes.PipeSize size) {
+    public void createSteamJet(PipeSize size) {
         Direction facing = getBlockState().getOptionalValue(GenericPipeBlock.FACING)
                 .orElse(Direction.SOUTH);
         float angle = 180 + AngleHelper.horizontalAngle(facing);

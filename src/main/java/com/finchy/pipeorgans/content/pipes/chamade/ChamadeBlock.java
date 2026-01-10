@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.chamade;
 
-import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.HorizontalPipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ChamadeBlock extends HorizontalPipeBlock {
     public ChamadeBlock(Properties pProperties) {
-        super(pProperties);
+        super(pProperties, PipeMaterial.METAL);
         baseBlock = AllBlocks.CHAMADE;
         extensionBlock = AllBlocks.CHAMADE_EXTENSION;
         blockEntityType = AllBlockEntities.CHAMADE_BLOCK_ENTITY;
