@@ -81,8 +81,7 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
         G_SHARP("G#"),
         A("A"),
         A_SHARP("A#"),
-        B("B")
-        ;
+        B("B");
         private final String noteName;
 
         PitchClass(String noteName) {
@@ -115,6 +114,10 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
 
         public boolean isGreaterThanOrEqualTo(PitchClass other) {
             return this.ordinal() >= other.ordinal();
+        }
+
+        public int getIndexOffset() {
+            return (this.ordinal() + values().length - PipePitch.LOWEST.getMidiPitchNumber()) % values().length;
         }
 
         public static PitchClass fromName(String name) {

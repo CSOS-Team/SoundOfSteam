@@ -12,6 +12,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class PipePitchScrollValueBehaviour extends ScrollValueBehaviour {
@@ -41,6 +42,16 @@ public class PipePitchScrollValueBehaviour extends ScrollValueBehaviour {
     public void setValueSettings(Player player, ValueSettings valueSetting, boolean ctrlDown) {
         PipePitch pitch = fromValueSettings(valueSetting);
         setValue(pitch.getPitchIndex());
+        playFeedbackSound(this);
+    }
+
+    @Override
+    public ValueSettings getValueSettings() {
+        PipePitch pitch = getPipePitchValue();
+        return new ValueSettings(
+                Optional.ofNullable(pitch.getOctaveGroup()).map(PipePitch.OctaveGroup::ordinal).orElse(0),
+                pitch.pitchClass().getIndexOffset()
+        );
     }
 
     protected MutableComponent formatValueSetting(ValueSettings setting) {
@@ -53,9 +64,8 @@ public class PipePitchScrollValueBehaviour extends ScrollValueBehaviour {
 
     protected static PipePitch fromValueSettings(ValueSettings setting) {
         int octaveGroupIndex = setting.row();
-        int offset = setting.value() % 13;
-        PipeOrgans.LOGGER.debug("Creating PipePitch from settings: octaveGroupIndex={}, offset={} (row={}, value={})", octaveGroupIndex, offset, setting.row(), setting.value());
-        return PipePitch.fromOctaveGroupAndOffset(octaveGroupIndex + offset / 12, offset % 12);
+        int wrappingOffset = setting.value();
+        return PipePitch.fromOctaveGroupAndOffset(octaveGroupIndex + wrappingOffset / PipePitch.PitchClass.values().length, wrappingOffset % PipePitch.PitchClass.values().length);
     }
 
     public PipePitchScrollValueBehaviour withPipePitchCallback(Consumer<PipePitch> callback) {
