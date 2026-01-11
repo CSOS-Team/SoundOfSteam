@@ -38,7 +38,7 @@
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:traps/crash_cymbal"
+        "name": "pipeorgans:traps/cymbals/cym_crash"
       }
     ]
   },
