@@ -98,6 +98,15 @@ public class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.IExtensio
 
 
 
+    // used for blockstate gen
+    public String getShapeSerialisedName(BlockState state) {
+        if (!(state.getBlock() instanceof GenericExtensionBlock<?>))
+            return null;
+        return state.getValue(SHAPE).getSerializedName();
+    }
+
+
+
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState below = pLevel.getBlockState(pPos.below());

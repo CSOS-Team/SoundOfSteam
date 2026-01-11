@@ -27,37 +27,37 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
-public class Bassoon {
+public class Posaune {
 
-    public static class BassoonBlock extends VerticalPipeBlock {
-        public BassoonBlock(Properties pProperties) {
+    public static class PosauneBlock extends VerticalPipeBlock {
+        public PosauneBlock(Properties pProperties) {
             super(pProperties,
                     ExtensionMode.SINGLE, PipeMaterial.WOOD,
-                    AllBlocks.BASSOON_EXTENSION,
-                    AllBlockEntities.BASSOON_BLOCK_ENTITY,
+                    AllBlocks.POSAUNE_EXTENSION,
+                    AllBlockEntities.POSAUNE_BLOCK_ENTITY,
                     AllShapes::slimPipeShape);
 
         }
     }
 
-    public static class BassoonExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Single> {
-        public BassoonExtensionBlock(Properties pProperties) {
+    public static class PosauneExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Single> {
+        public PosauneExtensionBlock(Properties pProperties) {
             super(pProperties,
                     ExtensionShapes.Single.class,
-                    AllBlocks.BASSOON,
+                    AllBlocks.POSAUNE,
                     AllShapes::slimExtensionShape,
-                    false);
+                    true);
         }
     }
 
-    public static class BassoonBlockEntity extends GenericPipeBlockEntity {
-        public BassoonBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+    public static class PosauneBlockEntity extends GenericPipeBlockEntity {
+        public PosauneBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
             super(type, pos, blockState,
-                    AllBlocks.BASSOON, AllBlocks.BASSOON_EXTENSION);
+                    AllBlocks.POSAUNE, AllBlocks.POSAUNE_EXTENSION);
         }
 
         @OnlyIn(Dist.CLIENT)
-        protected BassoonSoundInstance soundInstance;
+        protected PosauneSoundInstance soundInstance;
 
         @Override
         @OnlyIn(Dist.CLIENT)
@@ -78,7 +78,7 @@ public class Bassoon {
             if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
                 Minecraft.getInstance()
                         .getSoundManager()
-                        .play(soundInstance = new BassoonSoundInstance(size, worldPosition));
+                        .play(soundInstance = new PosauneSoundInstance(size, worldPosition));
 
                 AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
 
@@ -95,26 +95,26 @@ public class Bassoon {
         }
     }
 
-    public static class BassoonRenderer extends SafeBlockEntityRenderer<BassoonBlockEntity> {
+    public static class PosauneRenderer extends SafeBlockEntityRenderer<PosauneBlockEntity> {
 
-        public BassoonRenderer(BlockEntityRendererProvider.Context context) {}
+        public PosauneRenderer(BlockEntityRendererProvider.Context context) {}
 
         @Override
-        protected void renderSafe(BassoonBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
+        protected void renderSafe(PosauneBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
 
             BlockState blockState = be.getBlockState();
-            if (!(blockState.getBlock() instanceof BassoonBlock))
+            if (!(blockState.getBlock() instanceof PosauneBlock))
                 return;
 
-            Direction direction = blockState.getValue(BassoonBlock.FACING);
-            PipeSize size = blockState.getValue(BassoonBlock.SIZE);
+            Direction direction = blockState.getValue(PosauneBlock.FACING);
+            PipeSize size = blockState.getValue(PosauneBlock.SIZE);
 
             PartialModel mouth = switch (size) {
-                case TINY -> AllPartialModels.BASSOON_MOUTH_TINY;
-                case SMALL -> AllPartialModels.BASSOON_MOUTH_SMALL;
-                case MEDIUM -> AllPartialModels.BASSOON_MOUTH_MEDIUM;
-                case LARGE -> AllPartialModels.BASSOON_MOUTH_LARGE;
-                case HUGE -> AllPartialModels.BASSOON_MOUTH_HUGE;
+                case TINY -> AllPartialModels.POSAUNE_MOUTH_TINY;
+                case SMALL -> AllPartialModels.POSAUNE_MOUTH_SMALL;
+                case MEDIUM -> AllPartialModels.POSAUNE_MOUTH_MEDIUM;
+                case LARGE -> AllPartialModels.POSAUNE_MOUTH_LARGE;
+                case HUGE -> AllPartialModels.POSAUNE_MOUTH_HUGE;
             };
 
             float chaseTarget = be.animation.getChaseTarget();
@@ -130,16 +130,16 @@ public class Bassoon {
         }
     }
 
-    public static class BassoonSoundInstance extends GenericSoundInstance {
+    public static class PosauneSoundInstance extends GenericSoundInstance {
 
-        public BassoonSoundInstance(PipeSize size, BlockPos worldPosition) {
+        public PosauneSoundInstance(PipeSize size, BlockPos worldPosition) {
             super(size, worldPosition,
                     (switch (size) {
-                        case TINY -> BASSOON_SUPERHIGH;
-                        case SMALL -> BASSOON_HIGH;
-                        case MEDIUM -> BASSOON_MEDIUM;
-                        case LARGE -> BASSOON_LOW;
-                        case HUGE -> BASSOON_DEEP;
+                        case TINY -> POSAUNE_SUPERHIGH;
+                        case SMALL -> POSAUNE_HIGH;
+                        case MEDIUM -> POSAUNE_MEDIUM;
+                        case LARGE -> POSAUNE_LOW;
+                        case HUGE -> POSAUNE_DEEP;
                     }).get()
             );
         }

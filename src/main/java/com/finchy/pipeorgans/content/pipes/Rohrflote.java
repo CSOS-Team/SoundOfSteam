@@ -10,6 +10,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.createmod.catnip.animation.AnimationTickHolder;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.Minecraft;
@@ -27,37 +28,37 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
-public class Bassoon {
+public class Rohrflote {
 
-    public static class BassoonBlock extends VerticalPipeBlock {
-        public BassoonBlock(Properties pProperties) {
+    public static class RohrfloteBlock extends VerticalPipeBlock {
+        public RohrfloteBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.SINGLE, PipeMaterial.WOOD,
-                    AllBlocks.BASSOON_EXTENSION,
-                    AllBlockEntities.BASSOON_BLOCK_ENTITY,
-                    AllShapes::slimPipeShape);
+                    ExtensionMode.DOUBLE, PipeMaterial.METAL,
+                    AllBlocks.ROHRFLOTE_EXTENSION,
+                    AllBlockEntities.ROHRFLOTE_BLOCK_ENTITY,
+                    AllShapes::genericPipeShape);
 
         }
     }
 
-    public static class BassoonExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Single> {
-        public BassoonExtensionBlock(Properties pProperties) {
+    public static class RohrfloteExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+        public RohrfloteExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Single.class,
-                    AllBlocks.BASSOON,
-                    AllShapes::slimExtensionShape,
+                    ExtensionShapes.Double.class,
+                    AllBlocks.ROHRFLOTE,
+                    AllShapes::genericExtensionShape,
                     false);
         }
     }
 
-    public static class BassoonBlockEntity extends GenericPipeBlockEntity {
-        public BassoonBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+    public static class RohrfloteBlockEntity extends GenericPipeBlockEntity {
+        public RohrfloteBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
             super(type, pos, blockState,
-                    AllBlocks.BASSOON, AllBlocks.BASSOON_EXTENSION);
+                    AllBlocks.ROHRFLOTE, AllBlocks.ROHRFLOTE_EXTENSION);
         }
 
         @OnlyIn(Dist.CLIENT)
-        protected BassoonSoundInstance soundInstance;
+        protected RohrfloteSoundInstance soundInstance;
 
         @Override
         @OnlyIn(Dist.CLIENT)
@@ -78,7 +79,7 @@ public class Bassoon {
             if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
                 Minecraft.getInstance()
                         .getSoundManager()
-                        .play(soundInstance = new BassoonSoundInstance(size, worldPosition));
+                        .play(soundInstance = new RohrfloteSoundInstance(size, worldPosition));
 
                 AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
 
@@ -91,55 +92,59 @@ public class Bassoon {
             if (!particle)
                 return;
 
-            createReedSteamJet();
+            createSteamJet(size);
         }
     }
 
-    public static class BassoonRenderer extends SafeBlockEntityRenderer<BassoonBlockEntity> {
+    public static class RohrfloteRenderer extends SafeBlockEntityRenderer<RohrfloteBlockEntity> {
 
-        public BassoonRenderer(BlockEntityRendererProvider.Context context) {}
+        public RohrfloteRenderer(BlockEntityRendererProvider.Context context) {}
 
         @Override
-        protected void renderSafe(BassoonBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
+        protected void renderSafe(RohrfloteBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
 
             BlockState blockState = be.getBlockState();
-            if (!(blockState.getBlock() instanceof BassoonBlock))
+            if (!(blockState.getBlock() instanceof RohrfloteBlock))
                 return;
 
-            Direction direction = blockState.getValue(BassoonBlock.FACING);
-            PipeSize size = blockState.getValue(BassoonBlock.SIZE);
+            Direction direction = blockState.getValue(GenericPipeBlock.FACING);
+            PipeSize size = blockState.getValue(GenericPipeBlock.SIZE);
 
             PartialModel mouth = switch (size) {
-                case TINY -> AllPartialModels.BASSOON_MOUTH_TINY;
-                case SMALL -> AllPartialModels.BASSOON_MOUTH_SMALL;
-                case MEDIUM -> AllPartialModels.BASSOON_MOUTH_MEDIUM;
-                case LARGE -> AllPartialModels.BASSOON_MOUTH_LARGE;
-                case HUGE -> AllPartialModels.BASSOON_MOUTH_HUGE;
+                case TINY -> AllPartialModels.ROHRFLOTE_MOUTH_TINY;
+                case SMALL -> AllPartialModels.ROHRFLOTE_MOUTH_SMALL;
+                case MEDIUM -> AllPartialModels.ROHRFLOTE_MOUTH_MEDIUM;
+                case LARGE -> AllPartialModels.ROHRFLOTE_MOUTH_LARGE;
+                case HUGE -> AllPartialModels.ROHRFLOTE_MOUTH_HUGE;
             };
 
-            float chaseTarget = be.animation.getChaseTarget();
+            float offset = be.animation.getValue(partialTicks);
+            if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
+                float wiggleProgress = (AnimationTickHolder.getTicks(be.getLevel()) + partialTicks) /8f;
+                offset -= (float) (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 8f);
+            }
 
             CachedBuffers.partial(mouth, blockState)
                     .center()
                     .rotateYDegrees(AngleHelper.horizontalAngle(direction))
                     .uncenter()
-                    .scale(chaseTarget)
+                    .translate(0, -offset / 16f, 0)
                     .light(light)
                     .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
 
         }
     }
 
-    public static class BassoonSoundInstance extends GenericSoundInstance {
+    public static class RohrfloteSoundInstance extends GenericSoundInstance {
 
-        public BassoonSoundInstance(PipeSize size, BlockPos worldPosition) {
+        public RohrfloteSoundInstance(PipeSize size, BlockPos worldPosition) {
             super(size, worldPosition,
                     (switch (size) {
-                        case TINY -> BASSOON_SUPERHIGH;
-                        case SMALL -> BASSOON_HIGH;
-                        case MEDIUM -> BASSOON_MEDIUM;
-                        case LARGE -> BASSOON_LOW;
-                        case HUGE -> BASSOON_DEEP;
+                        case TINY -> ROHRFLOTE_SUPERHIGH;
+                        case SMALL -> ROHRFLOTE_HIGH;
+                        case MEDIUM -> ROHRFLOTE_MEDIUM;
+                        case LARGE -> ROHRFLOTE_LOW;
+                        case HUGE -> ROHRFLOTE_DEEP;
                     }).get()
             );
         }

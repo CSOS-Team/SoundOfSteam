@@ -1,12 +1,8 @@
 package com.finchy.pipeorgans.data;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadrupleExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes.SingleExtensionBlock;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
@@ -53,17 +49,7 @@ public class BlockStateGen {
         @Override
         public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov, BlockState state) {
             String size = state.getValue(GenericExtensionBlock.SIZE).getSerializedName();
-            String shape;
-            if (state.hasProperty(SingleExtensionBlock.SHAPE))
-                shape = state.getValue(SingleExtensionBlock.SHAPE).getSerializedName();
-            else if (state.hasProperty(DoubleExtensionBlock.SHAPE))
-                shape = state.getValue(DoubleExtensionBlock.SHAPE).getSerializedName();
-            else if (state.hasProperty(QuadrupleExtensionBlock.SHAPE))
-                shape = state.getValue(QuadrupleExtensionBlock.SHAPE).getSerializedName();
-            else {
-                PipeOrgans.LOGGER.error("Pipe extension {} has no valid shape property", ctx.getName());
-                shape = "";
-            }
+            String shape = ((GenericExtensionBlock<?>) state.getBlock()).getShapeSerialisedName(state);
             return AssetLookup.partialExtensionModel(ctx, prov, size, shape);
         }
     }

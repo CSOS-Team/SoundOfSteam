@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes2.HorizontalPipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -27,37 +27,37 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
-public class Bassoon {
+public class Chamade {
 
-    public static class BassoonBlock extends VerticalPipeBlock {
-        public BassoonBlock(Properties pProperties) {
+    public static class ChamadeBlock extends HorizontalPipeBlock {
+        public ChamadeBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.SINGLE, PipeMaterial.WOOD,
-                    AllBlocks.BASSOON_EXTENSION,
-                    AllBlockEntities.BASSOON_BLOCK_ENTITY,
-                    AllShapes::slimPipeShape);
+                    ExtensionMode.DOUBLE, PipeMaterial.METAL,
+                    AllBlocks.CHAMADE_EXTENSION,
+                    AllBlockEntities.CHAMADE_BLOCK_ENTITY,
+                    AllShapes::horizontalPipeShape);
 
         }
     }
 
-    public static class BassoonExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Single> {
-        public BassoonExtensionBlock(Properties pProperties) {
+    public static class ChamadeExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+        public ChamadeExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Single.class,
-                    AllBlocks.BASSOON,
-                    AllShapes::slimExtensionShape,
+                    ExtensionShapes.Double.class,
+                    AllBlocks.CHAMADE,
+                    AllShapes::horizontalExtensionShape,
                     false);
         }
     }
 
-    public static class BassoonBlockEntity extends GenericPipeBlockEntity {
-        public BassoonBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+    public static class ChamadeBlockEntity extends GenericPipeBlockEntity {
+        public ChamadeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
             super(type, pos, blockState,
-                    AllBlocks.BASSOON, AllBlocks.BASSOON_EXTENSION);
+                    AllBlocks.CHAMADE, AllBlocks.CHAMADE_EXTENSION);
         }
 
         @OnlyIn(Dist.CLIENT)
-        protected BassoonSoundInstance soundInstance;
+        protected ChamadeSoundInstance soundInstance;
 
         @Override
         @OnlyIn(Dist.CLIENT)
@@ -78,7 +78,7 @@ public class Bassoon {
             if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
                 Minecraft.getInstance()
                         .getSoundManager()
-                        .play(soundInstance = new BassoonSoundInstance(size, worldPosition));
+                        .play(soundInstance = new ChamadeSoundInstance(size, worldPosition));
 
                 AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
 
@@ -91,30 +91,30 @@ public class Bassoon {
             if (!particle)
                 return;
 
-            createReedSteamJet();
+            createHorizontalReedSteamJet();
         }
     }
 
-    public static class BassoonRenderer extends SafeBlockEntityRenderer<BassoonBlockEntity> {
+    public static class ChamadeRenderer extends SafeBlockEntityRenderer<ChamadeBlockEntity> {
 
-        public BassoonRenderer(BlockEntityRendererProvider.Context context) {}
+        public ChamadeRenderer(BlockEntityRendererProvider.Context context) {}
 
         @Override
-        protected void renderSafe(BassoonBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
+        protected void renderSafe(ChamadeBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
 
             BlockState blockState = be.getBlockState();
-            if (!(blockState.getBlock() instanceof BassoonBlock))
+            if (!(blockState.getBlock() instanceof ChamadeBlock))
                 return;
 
-            Direction direction = blockState.getValue(BassoonBlock.FACING);
-            PipeSize size = blockState.getValue(BassoonBlock.SIZE);
+            Direction direction = blockState.getValue(ChamadeBlock.FACING);
+            PipeSize size = blockState.getValue(ChamadeBlock.SIZE);
 
             PartialModel mouth = switch (size) {
-                case TINY -> AllPartialModels.BASSOON_MOUTH_TINY;
-                case SMALL -> AllPartialModels.BASSOON_MOUTH_SMALL;
-                case MEDIUM -> AllPartialModels.BASSOON_MOUTH_MEDIUM;
-                case LARGE -> AllPartialModels.BASSOON_MOUTH_LARGE;
-                case HUGE -> AllPartialModels.BASSOON_MOUTH_HUGE;
+                case TINY -> AllPartialModels.CHAMADE_MOUTH_TINY;
+                case SMALL -> AllPartialModels.CHAMADE_MOUTH_SMALL;
+                case MEDIUM -> AllPartialModels.CHAMADE_MOUTH_MEDIUM;
+                case LARGE -> AllPartialModels.CHAMADE_MOUTH_LARGE;
+                case HUGE -> AllPartialModels.CHAMADE_MOUTH_HUGE;
             };
 
             float chaseTarget = be.animation.getChaseTarget();
@@ -130,16 +130,16 @@ public class Bassoon {
         }
     }
 
-    public static class BassoonSoundInstance extends GenericSoundInstance {
+    public static class ChamadeSoundInstance extends GenericSoundInstance {
 
-        public BassoonSoundInstance(PipeSize size, BlockPos worldPosition) {
+        public ChamadeSoundInstance(PipeSize size, BlockPos worldPosition) {
             super(size, worldPosition,
                     (switch (size) {
-                        case TINY -> BASSOON_SUPERHIGH;
-                        case SMALL -> BASSOON_HIGH;
-                        case MEDIUM -> BASSOON_MEDIUM;
-                        case LARGE -> BASSOON_LOW;
-                        case HUGE -> BASSOON_DEEP;
+                        case TINY -> CHAMADE_SUPERHIGH;
+                        case SMALL -> CHAMADE_HIGH;
+                        case MEDIUM -> CHAMADE_MEDIUM;
+                        case LARGE -> CHAMADE_LOW;
+                        case HUGE -> CHAMADE_DEEP;
                     }).get()
             );
         }

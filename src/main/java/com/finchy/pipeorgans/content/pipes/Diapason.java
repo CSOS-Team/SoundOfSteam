@@ -49,7 +49,7 @@ public class Diapason {
                     ExtensionShapes.Double.class,
                     AllBlocks.DIAPASON,
                     AllShapes::genericExtensionShape,
-                    true);
+                    false);
         }
     }
 

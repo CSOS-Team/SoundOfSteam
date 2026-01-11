@@ -10,6 +10,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.createmod.catnip.animation.AnimationTickHolder;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.Minecraft;
@@ -27,37 +28,37 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
-public class Bassoon {
+public class OpenWood {
 
-    public static class BassoonBlock extends VerticalPipeBlock {
-        public BassoonBlock(Properties pProperties) {
+    public static class OpenWoodBlock extends VerticalPipeBlock {
+        public OpenWoodBlock(Properties pProperties) {
             super(pProperties,
                     ExtensionMode.SINGLE, PipeMaterial.WOOD,
-                    AllBlocks.BASSOON_EXTENSION,
-                    AllBlockEntities.BASSOON_BLOCK_ENTITY,
+                    AllBlocks.OPEN_WOOD_EXTENSION,
+                    AllBlockEntities.OPEN_WOOD_BLOCK_ENTITY,
                     AllShapes::slimPipeShape);
 
         }
     }
 
-    public static class BassoonExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Single> {
-        public BassoonExtensionBlock(Properties pProperties) {
+    public static class OpenWoodExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Single> {
+        public OpenWoodExtensionBlock(Properties pProperties) {
             super(pProperties,
                     ExtensionShapes.Single.class,
-                    AllBlocks.BASSOON,
+                    AllBlocks.OPEN_WOOD,
                     AllShapes::slimExtensionShape,
-                    false);
+                    true);
         }
     }
 
-    public static class BassoonBlockEntity extends GenericPipeBlockEntity {
-        public BassoonBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+    public static class OpenWoodBlockEntity extends GenericPipeBlockEntity {
+        public OpenWoodBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
             super(type, pos, blockState,
-                    AllBlocks.BASSOON, AllBlocks.BASSOON_EXTENSION);
+                    AllBlocks.OPEN_WOOD, AllBlocks.OPEN_WOOD_EXTENSION);
         }
 
         @OnlyIn(Dist.CLIENT)
-        protected BassoonSoundInstance soundInstance;
+        protected OpenWoodSoundInstance soundInstance;
 
         @Override
         @OnlyIn(Dist.CLIENT)
@@ -78,7 +79,7 @@ public class Bassoon {
             if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
                 Minecraft.getInstance()
                         .getSoundManager()
-                        .play(soundInstance = new BassoonSoundInstance(size, worldPosition));
+                        .play(soundInstance = new OpenWoodSoundInstance(size, worldPosition));
 
                 AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
 
@@ -91,55 +92,59 @@ public class Bassoon {
             if (!particle)
                 return;
 
-            createReedSteamJet();
+            createSteamJet(size);
         }
     }
 
-    public static class BassoonRenderer extends SafeBlockEntityRenderer<BassoonBlockEntity> {
+    public static class OpenWoodRenderer extends SafeBlockEntityRenderer<OpenWoodBlockEntity> {
 
-        public BassoonRenderer(BlockEntityRendererProvider.Context context) {}
+        public OpenWoodRenderer(BlockEntityRendererProvider.Context context) {}
 
         @Override
-        protected void renderSafe(BassoonBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
+        protected void renderSafe(OpenWoodBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
 
             BlockState blockState = be.getBlockState();
-            if (!(blockState.getBlock() instanceof BassoonBlock))
+            if (!(blockState.getBlock() instanceof OpenWoodBlock))
                 return;
 
-            Direction direction = blockState.getValue(BassoonBlock.FACING);
-            PipeSize size = blockState.getValue(BassoonBlock.SIZE);
+            Direction direction = blockState.getValue(GenericPipeBlock.FACING);
+            PipeSize size = blockState.getValue(GenericPipeBlock.SIZE);
 
             PartialModel mouth = switch (size) {
-                case TINY -> AllPartialModels.BASSOON_MOUTH_TINY;
-                case SMALL -> AllPartialModels.BASSOON_MOUTH_SMALL;
-                case MEDIUM -> AllPartialModels.BASSOON_MOUTH_MEDIUM;
-                case LARGE -> AllPartialModels.BASSOON_MOUTH_LARGE;
-                case HUGE -> AllPartialModels.BASSOON_MOUTH_HUGE;
+                case TINY -> AllPartialModels.OPEN_WOOD_MOUTH_TINY;
+                case SMALL -> AllPartialModels.OPEN_WOOD_MOUTH_SMALL;
+                case MEDIUM -> AllPartialModels.OPEN_WOOD_MOUTH_MEDIUM;
+                case LARGE -> AllPartialModels.OPEN_WOOD_MOUTH_LARGE;
+                case HUGE -> AllPartialModels.OPEN_WOOD_MOUTH_HUGE;
             };
 
-            float chaseTarget = be.animation.getChaseTarget();
+            float offset = be.animation.getValue(partialTicks);
+            if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
+                float wiggleProgress = (AnimationTickHolder.getTicks(be.getLevel()) + partialTicks) /8f;
+                offset -= (float) (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 8f);
+            }
 
             CachedBuffers.partial(mouth, blockState)
                     .center()
                     .rotateYDegrees(AngleHelper.horizontalAngle(direction))
                     .uncenter()
-                    .scale(chaseTarget)
+                    .translate(0, -offset*2 / 16f, 0)
                     .light(light)
                     .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
 
         }
     }
 
-    public static class BassoonSoundInstance extends GenericSoundInstance {
+    public static class OpenWoodSoundInstance extends GenericSoundInstance {
 
-        public BassoonSoundInstance(PipeSize size, BlockPos worldPosition) {
+        public OpenWoodSoundInstance(PipeSize size, BlockPos worldPosition) {
             super(size, worldPosition,
                     (switch (size) {
-                        case TINY -> BASSOON_SUPERHIGH;
-                        case SMALL -> BASSOON_HIGH;
-                        case MEDIUM -> BASSOON_MEDIUM;
-                        case LARGE -> BASSOON_LOW;
-                        case HUGE -> BASSOON_DEEP;
+                        case TINY -> OPEN_WOOD_SUPERHIGH;
+                        case SMALL -> OPEN_WOOD_HIGH;
+                        case MEDIUM -> OPEN_WOOD_MEDIUM;
+                        case LARGE -> OPEN_WOOD_LOW;
+                        case HUGE -> OPEN_WOOD_DEEP;
                     }).get()
             );
         }

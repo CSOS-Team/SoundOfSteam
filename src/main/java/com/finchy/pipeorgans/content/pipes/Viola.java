@@ -10,6 +10,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import net.createmod.catnip.animation.AnimationTickHolder;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.Minecraft;
@@ -27,37 +28,37 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
-public class Bassoon {
+public class Viola {
 
-    public static class BassoonBlock extends VerticalPipeBlock {
-        public BassoonBlock(Properties pProperties) {
+    public static class ViolaBlock extends VerticalPipeBlock {
+        public ViolaBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.SINGLE, PipeMaterial.WOOD,
-                    AllBlocks.BASSOON_EXTENSION,
-                    AllBlockEntities.BASSOON_BLOCK_ENTITY,
-                    AllShapes::slimPipeShape);
+                    ExtensionMode.DOUBLE, PipeMaterial.METAL,
+                    AllBlocks.VIOLA_EXTENSION,
+                    AllBlockEntities.VIOLA_BLOCK_ENTITY,
+                    AllShapes::stringPipeShape);
 
         }
     }
 
-    public static class BassoonExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Single> {
-        public BassoonExtensionBlock(Properties pProperties) {
+    public static class ViolaExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+        public ViolaExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Single.class,
-                    AllBlocks.BASSOON,
-                    AllShapes::slimExtensionShape,
-                    false);
+                    ExtensionShapes.Double.class,
+                    AllBlocks.VIOLA,
+                    AllShapes::stringExtensionShape,
+                    true);
         }
     }
 
-    public static class BassoonBlockEntity extends GenericPipeBlockEntity {
-        public BassoonBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+    public static class ViolaBlockEntity extends GenericPipeBlockEntity {
+        public ViolaBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
             super(type, pos, blockState,
-                    AllBlocks.BASSOON, AllBlocks.BASSOON_EXTENSION);
+                    AllBlocks.VIOLA, AllBlocks.VIOLA_EXTENSION);
         }
 
         @OnlyIn(Dist.CLIENT)
-        protected BassoonSoundInstance soundInstance;
+        protected ViolaSoundInstance soundInstance;
 
         @Override
         @OnlyIn(Dist.CLIENT)
@@ -78,7 +79,7 @@ public class Bassoon {
             if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
                 Minecraft.getInstance()
                         .getSoundManager()
-                        .play(soundInstance = new BassoonSoundInstance(size, worldPosition));
+                        .play(soundInstance = new ViolaSoundInstance(size, worldPosition));
 
                 AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
 
@@ -91,55 +92,59 @@ public class Bassoon {
             if (!particle)
                 return;
 
-            createReedSteamJet();
+            createSteamJet(size);
         }
     }
 
-    public static class BassoonRenderer extends SafeBlockEntityRenderer<BassoonBlockEntity> {
+    public static class ViolaRenderer extends SafeBlockEntityRenderer<ViolaBlockEntity> {
 
-        public BassoonRenderer(BlockEntityRendererProvider.Context context) {}
+        public ViolaRenderer(BlockEntityRendererProvider.Context context) {}
 
         @Override
-        protected void renderSafe(BassoonBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
+        protected void renderSafe(ViolaBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
 
             BlockState blockState = be.getBlockState();
-            if (!(blockState.getBlock() instanceof BassoonBlock))
+            if (!(blockState.getBlock() instanceof ViolaBlock))
                 return;
 
-            Direction direction = blockState.getValue(BassoonBlock.FACING);
-            PipeSize size = blockState.getValue(BassoonBlock.SIZE);
+            Direction direction = blockState.getValue(GenericPipeBlock.FACING);
+            PipeSize size = blockState.getValue(GenericPipeBlock.SIZE);
 
             PartialModel mouth = switch (size) {
-                case TINY -> AllPartialModels.BASSOON_MOUTH_TINY;
-                case SMALL -> AllPartialModels.BASSOON_MOUTH_SMALL;
-                case MEDIUM -> AllPartialModels.BASSOON_MOUTH_MEDIUM;
-                case LARGE -> AllPartialModels.BASSOON_MOUTH_LARGE;
-                case HUGE -> AllPartialModels.BASSOON_MOUTH_HUGE;
+                case TINY -> AllPartialModels.VIOLA_MOUTH_TINY;
+                case SMALL -> AllPartialModels.VIOLA_MOUTH_SMALL;
+                case MEDIUM -> AllPartialModels.VIOLA_MOUTH_MEDIUM;
+                case LARGE -> AllPartialModels.VIOLA_MOUTH_LARGE;
+                case HUGE -> AllPartialModels.VIOLA_MOUTH_HUGE;
             };
 
-            float chaseTarget = be.animation.getChaseTarget();
+            float offset = be.animation.getValue(partialTicks);
+            if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
+                float wiggleProgress = (AnimationTickHolder.getTicks(be.getLevel()) + partialTicks) /8f;
+                offset -= (float) (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 8f);
+            }
 
             CachedBuffers.partial(mouth, blockState)
                     .center()
                     .rotateYDegrees(AngleHelper.horizontalAngle(direction))
                     .uncenter()
-                    .scale(chaseTarget)
+                    .translate(0, -offset / 16f, 0)
                     .light(light)
                     .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
 
         }
     }
 
-    public static class BassoonSoundInstance extends GenericSoundInstance {
+    public static class ViolaSoundInstance extends GenericSoundInstance {
 
-        public BassoonSoundInstance(PipeSize size, BlockPos worldPosition) {
+        public ViolaSoundInstance(PipeSize size, BlockPos worldPosition) {
             super(size, worldPosition,
                     (switch (size) {
-                        case TINY -> BASSOON_SUPERHIGH;
-                        case SMALL -> BASSOON_HIGH;
-                        case MEDIUM -> BASSOON_MEDIUM;
-                        case LARGE -> BASSOON_LOW;
-                        case HUGE -> BASSOON_DEEP;
+                        case TINY -> VIOLA_SUPERHIGH;
+                        case SMALL -> VIOLA_HIGH;
+                        case MEDIUM -> VIOLA_MEDIUM;
+                        case LARGE -> VIOLA_LOW;
+                        case HUGE -> VIOLA_DEEP;
                     }).get()
             );
         }
