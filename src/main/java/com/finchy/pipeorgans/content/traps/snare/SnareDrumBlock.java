@@ -1,6 +1,5 @@
-package com.finchy.pipeorgans.content.traps.crashCymbal;
+package com.finchy.pipeorgans.content.traps.snare;
 
-import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlockEntity;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
@@ -14,7 +13,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -25,14 +23,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class CrashCymbalBlock extends HorizontalDirectionalBlock
-        implements IBE<CrashCymbalBlockEntity>, IWrenchable {
+public class SnareDrumBlock extends HorizontalDirectionalBlock
+        implements IBE<SnareDrumBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
-    public CrashCymbalBlock(Properties pProperties) {
+    public SnareDrumBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
@@ -130,12 +128,12 @@ public class CrashCymbalBlock extends HorizontalDirectionalBlock
     }
 
     @Override
-    public Class<CrashCymbalBlockEntity> getBlockEntityClass() {
-        return CrashCymbalBlockEntity.class;
+    public Class<SnareDrumBlockEntity> getBlockEntityClass() {
+        return SnareDrumBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends CrashCymbalBlockEntity> getBlockEntityType() {
+    public BlockEntityType<? extends SnareDrumBlockEntity> getBlockEntityType() {
         return AllBlockEntities.CRASH_CYMBAL_BLOCK_ENTITY.get();
     }
 }
