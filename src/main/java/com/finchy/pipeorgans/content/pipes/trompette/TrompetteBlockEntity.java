@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class TrompetteBlockEntity extends DoublePipeBlockEntity {
     public TrompetteBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.TROMPETTE;
+        pipeBlock = AllBlocks.TROMPETTE;
     }
 
     @OnlyIn(Dist.CLIENT)

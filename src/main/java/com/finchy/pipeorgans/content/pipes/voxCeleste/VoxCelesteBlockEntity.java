@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class VoxCelesteBlockEntity extends DoublePipeBlockEntity {
     public VoxCelesteBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.VOX_CELESTE;
+        pipeBlock = AllBlocks.VOX_CELESTE;
     }
 
     @OnlyIn(Dist.CLIENT)

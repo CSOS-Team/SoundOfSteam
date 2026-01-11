@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class EnglishHornBlockEntity extends DoublePipeBlockEntity {
     public EnglishHornBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.ENGLISH_HORN;
+        pipeBlock = AllBlocks.ENGLISH_HORN;
     }
 
     @OnlyIn(Dist.CLIENT)

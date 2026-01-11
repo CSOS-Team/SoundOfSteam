@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class NasardExtensionBlock extends DoubleExtensionBlock {
     public NasardExtensionBlock(Properties pProperties) {
         super(pProperties);
-        this.baseBlock = AllBlocks.NASARD;
+        this.pipeBlock = AllBlocks.NASARD;
     }
 
     @Override

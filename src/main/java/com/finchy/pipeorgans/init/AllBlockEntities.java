@@ -7,12 +7,11 @@ import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarRenderer;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarVisual;
+import com.finchy.pipeorgans.content.pipes.Diapason;
 import com.finchy.pipeorgans.content.pipes.bassoon.BassoonBlockEntity;
 import com.finchy.pipeorgans.content.pipes.bassoon.BassoonRenderer;
 import com.finchy.pipeorgans.content.pipes.chamade.ChamadeBlockEntity;
 import com.finchy.pipeorgans.content.pipes.chamade.ChamadeRenderer;
-import com.finchy.pipeorgans.content.pipes.diapason.DiapasonBlockEntity;
-import com.finchy.pipeorgans.content.pipes.diapason.DiapasonRenderer;
 import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornBlockEntity;
 import com.finchy.pipeorgans.content.pipes.englishHorn.EnglishHornRenderer;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaBlockEntity;
@@ -84,11 +83,11 @@ public class AllBlockEntities {
 
 
 
-    public static final BlockEntityEntry<DiapasonBlockEntity> DIAPASON_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Diapason.DiapasonBlockEntity> DIAPASON_BLOCK_ENTITY = registerPipeBlockEntity(
             "diapason_block_entity",
-            DiapasonBlockEntity::new,
+            Diapason.DiapasonBlockEntity::new,
             AllBlocks.DIAPASON,
-            () -> DiapasonRenderer::new);
+            () -> Diapason.DiapasonRenderer::new);
 
     public static final BlockEntityEntry<HauntedWhistleBlockEntity> HAUNTED_WHISTLE_BLOCK_ENTITY = registerPipeBlockEntity(
             "haunted_whistle_block_entity",

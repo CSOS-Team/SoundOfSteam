@@ -21,7 +21,7 @@ import java.util.List;
 public class NasardBlockEntity extends DoublePipeBlockEntity {
     public NasardBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.NASARD;
+        pipeBlock = AllBlocks.NASARD;
     }
 
     @OnlyIn(Dist.CLIENT)

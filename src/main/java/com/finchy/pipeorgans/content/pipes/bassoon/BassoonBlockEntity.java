@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class BassoonBlockEntity extends SinglePipeBlockEntity {
     public BassoonBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.BASSOON;
+        pipeBlock = AllBlocks.BASSOON;
     }
 
     @OnlyIn(Dist.CLIENT)

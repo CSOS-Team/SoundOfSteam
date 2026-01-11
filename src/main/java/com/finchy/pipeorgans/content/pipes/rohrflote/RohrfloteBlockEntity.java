@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class RohrfloteBlockEntity extends DoublePipeBlockEntity {
     public RohrfloteBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.ROHRFLOTE;
+        pipeBlock = AllBlocks.ROHRFLOTE;
     }
 
     @OnlyIn(Dist.CLIENT)

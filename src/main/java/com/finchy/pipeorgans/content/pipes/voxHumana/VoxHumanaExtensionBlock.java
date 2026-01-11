@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class VoxHumanaExtensionBlock extends QuadrupleExtensionBlock {
     public VoxHumanaExtensionBlock(Properties pProperties) {
         super(pProperties);
-        this.baseBlock = AllBlocks.VOX_HUMANA;
+        this.pipeBlock = AllBlocks.VOX_HUMANA;
     }
 
     @Override

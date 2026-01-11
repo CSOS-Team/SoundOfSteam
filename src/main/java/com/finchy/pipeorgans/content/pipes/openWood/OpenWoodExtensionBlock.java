@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class OpenWoodExtensionBlock extends SingleExtensionBlock {
     public OpenWoodExtensionBlock(Properties pProperties) {
         super(pProperties);
-        this.baseBlock = AllBlocks.OPEN_WOOD;
+        this.pipeBlock = AllBlocks.OPEN_WOOD;
     }
 
     @Override

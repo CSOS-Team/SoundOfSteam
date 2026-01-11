@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class HauntedWhistleExtensionBlock extends DoubleExtensionBlock {
     public HauntedWhistleExtensionBlock(Properties pProperties) {
         super(pProperties);
-        this.baseBlock = AllBlocks.HAUNTED_WHISTLE;
+        this.pipeBlock = AllBlocks.HAUNTED_WHISTLE;
     }
 
     @Override

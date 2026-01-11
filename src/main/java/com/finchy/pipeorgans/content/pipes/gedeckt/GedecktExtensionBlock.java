@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class GedecktExtensionBlock extends DoubleExtensionBlock {
     public GedecktExtensionBlock(Properties pProperties) {
         super(pProperties);
-        this.baseBlock = AllBlocks.GEDECKT;
+        this.pipeBlock = AllBlocks.GEDECKT;
     }
 
     @Override

@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class TrompetteExtensionBlock extends DoubleExtensionBlock {
     public TrompetteExtensionBlock(Properties pProperties) {
         super(pProperties);
-        this.baseBlock = AllBlocks.TROMPETTE;
+        this.pipeBlock = AllBlocks.TROMPETTE;
     }
 
     @Override

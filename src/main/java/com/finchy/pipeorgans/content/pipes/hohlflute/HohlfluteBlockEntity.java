@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class HohlfluteBlockEntity extends DoublePipeBlockEntity {
     public HohlfluteBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.HOHLFLUTE;
+        pipeBlock = AllBlocks.HOHLFLUTE;
     }
 
     @OnlyIn(Dist.CLIENT)

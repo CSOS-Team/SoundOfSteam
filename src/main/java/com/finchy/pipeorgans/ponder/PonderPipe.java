@@ -12,7 +12,7 @@ import net.minecraft.util.StringRepresentable;
 
 import java.util.Optional;
 
-public class PonderPipe<TS extends Enum<TS> & ExtensionShapes.ExtensionShape & StringRepresentable> {
+public class PonderPipe<TS extends Enum<TS> & ExtensionShapes.IExtensionShape & StringRepresentable> {
     public record Transition(Optional<Integer> duration, int bufferTime, int demonstratePitchDuration) {
 
         public Transition(int duration, int bufferTime, int demonstratePitchDuration) {

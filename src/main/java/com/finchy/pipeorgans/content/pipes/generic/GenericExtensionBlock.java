@@ -3,6 +3,7 @@ package com.finchy.pipeorgans.content.pipes.generic;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -12,36 +13,64 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.apache.commons.lang3.function.TriFunction;
 
-public abstract class GenericExtensionBlock<P extends Enum<P> & ExtensionShapes.ExtensionShape & StringRepresentable> extends Block implements IWrenchable {
+public class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.IExtensionShape<T> & StringRepresentable> extends Block implements IWrenchable {
 
-    public final EnumProperty<P> SHAPE;
+    public final EnumProperty<T> SHAPE;
     public static final EnumProperty<PipeSize> SIZE = GenericPipeBlock.SIZE;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    protected BlockEntry<? extends GenericPipeBlock> baseBlock;
+    protected final BlockEntry<? extends GenericPipeBlock> pipeBlock;
+    public final boolean isDirectional;
+    protected final TriFunction<T, PipeSize, Direction, VoxelShape> voxelShapeGetter;
 
-    public GenericExtensionBlock(Properties pProperties, EnumProperty<P> shapeProperty) {
+    public GenericExtensionBlock(Properties pProperties,
+                                 Class<T> extensionShapeClass, BlockEntry<? extends GenericPipeBlock> pipeBlock,
+                                 TriFunction<T, PipeSize, Direction, VoxelShape> voxelShapeGetter,
+                                 boolean isDirectional) {
         super(pProperties);
-        this.SHAPE = shapeProperty;
-        registerDefaultStateWithSize();
+
+        this.SHAPE = EnumProperty.create("shape", extensionShapeClass);
+        BlockState defaultState = defaultBlockState()
+                .setValue(SHAPE, extensionShapeClass.getEnumConstants()[0])
+                .setValue(SIZE, PipeSize.MEDIUM);
+        if (isDirectional)
+            defaultState.setValue(FACING, Direction.NORTH);
+        registerDefaultState(defaultState);
+
+        this.pipeBlock = pipeBlock;
+        this.isDirectional = isDirectional;
+        this.voxelShapeGetter = voxelShapeGetter;
     }
 
-    protected abstract void registerDefaultStateWithSize();
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(SHAPE, SIZE);
+        if (isDirectional)
+            pBuilder.add(FACING);
+        super.createBlockStateDefinition(pBuilder);
+    }
 
     public BlockPos findRoot(LevelAccessor pLevel, BlockPos pPos, BlockState state) {
-        BlockPos currentPos = pPos.below();
+        Direction towardRoot = pipeBlock.get().getPipeDirectionFromExtension(state);
+        BlockPos currentPos = pPos.relative(towardRoot);
         while (true) {
             BlockState blockState = pLevel.getBlockState(currentPos);
-            if (blockState.getBlock() instanceof GenericExtensionBlock) {
-                currentPos = currentPos.below();
+            if (blockState.getBlock().equals(pipeBlock.get())) {
+                currentPos = currentPos.relative(towardRoot);
                 continue;
             }
             return currentPos;
@@ -53,26 +82,62 @@ public abstract class GenericExtensionBlock<P extends Enum<P> & ExtensionShapes.
                 new BlockHitResult(context.getClickLocation(), context.getClickedFace(), target, context.isInside()));
     }
 
-    public boolean isDirectional() {
-        return false;
-    }
-
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack heldItem = pPlayer.getItemInHand(pHand);
-        if (heldItem.getItem() != this.baseBlock.get().asItem()) {
+        if (!(heldItem.getItem() instanceof GenericPipeBlockItem)) {
             return InteractionResult.PASS;
         }
-        BlockPos root = findRoot(pLevel, pPos, pState);
-        BlockState blockState = pLevel.getBlockState(root);
-        if (blockState.getBlock() instanceof GenericPipeBlock pipe)
-            return pipe.use(blockState, pLevel, root, pPlayer, pHand,
-                    new BlockHitResult(pHit.getLocation(), pHit.getDirection(), root, pHit.isInside()));
+        BlockPos rootPos = findRoot(pLevel, pPos, pState);
+        BlockState pipeState = pLevel.getBlockState(rootPos);
+        if (pipeState.getBlock() instanceof GenericPipeBlock pipe)
+            return pipe.use(pipeState, pLevel, rootPos, pPlayer, pHand,
+                    new BlockHitResult(pHit.getLocation(), pHit.getDirection(), rootPos, pHit.isInside()));
         return InteractionResult.PASS;
     }
 
+
+
     @Override
-    public abstract InteractionResult onSneakWrenched(BlockState state, UseOnContext context);
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        BlockState below = pLevel.getBlockState(pPos.below());
+        return (below.is(this) && below.getValue(SHAPE).isConnected())
+                || below.getBlock().equals(pipeBlock.get());
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return voxelShapeGetter.apply(pState.getValue(SHAPE), pState.getValue(SIZE), pState.getValue(FACING));
+    }
+
+    @Override
+    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
+        Direction pipeOutDirection = pipeBlock.get().getPipeDirectionFromExtension(pState).getOpposite(); // extension "facing" property faces toward the pipe
+        if (pDirection.getAxis() != pipeOutDirection.getAxis()) // only respond to changes along the length of the pipe
+            return pState;
+
+        if (pDirection == pipeOutDirection) { // check for updates further along the pipe
+            T shape = pState.getValue(SHAPE); // current extensionShape
+
+            boolean connected = shape.isConnected();
+            boolean shouldConnect = pLevel.getBlockState(pPos.relative(pipeOutDirection))
+                    .is(this);
+            if (!connected && shouldConnect)
+                return pState.setValue(SHAPE, shape.getConnected()); // set shape to the connected variant
+            if (connected && !shouldConnect)
+                return pState.setValue(SHAPE, shape.longestNonConnected()); // set shape to the not-quite-connected variant
+            return pState;
+        }
+
+        return !pState.canSurvive(pLevel, pPos) ? Blocks.AIR.defaultBlockState()
+                : pState.setValue(SIZE, pLevel.getBlockState(pPos.below())
+                .getValue(SIZE));
+    }
+
+    @Override
+    public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
+        return InteractionResult.PASS; // todo: implement sneak wrenching
+    }
 
     @Override
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {
@@ -102,6 +167,6 @@ public abstract class GenericExtensionBlock<P extends Enum<P> & ExtensionShapes.
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-        return new ItemStack(this.baseBlock.get());
+        return new ItemStack(pipeBlock);
     }
 }

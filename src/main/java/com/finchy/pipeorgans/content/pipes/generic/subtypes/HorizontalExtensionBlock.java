@@ -68,7 +68,7 @@ public abstract class HorizontalExtensionBlock extends GenericExtensionBlock<Ext
         BlockState support = level.getBlockState(pos.relative(towardBase));
 
         return (support.is(this) && support.getValue(SHAPE) == ExtensionShapes.Horizontal.DOUBLE_CONNECTED)
-                || support.getBlock() == baseBlock.get();
+                || support.getBlock() == pipeBlock.get();
     }
 
     @Override

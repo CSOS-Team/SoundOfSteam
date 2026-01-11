@@ -37,7 +37,7 @@ public abstract class DoubleExtensionBlock extends GenericExtensionBlock<Extensi
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) { // need to call this once SHAPE has been initialised to avoid crash
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) { // need to call this once SHAPE has been initialized to avoid crash
         pBuilder.add(SHAPE, SIZE);
         if (isDirectional())
             pBuilder.add(FACING);
@@ -48,7 +48,7 @@ public abstract class DoubleExtensionBlock extends GenericExtensionBlock<Extensi
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState below = pLevel.getBlockState(pPos.below());
         return (below.is(this) && below.getValue(SHAPE) == ExtensionShapes.Double.DOUBLE_CONNECTED)
-                || below.getBlock() == baseBlock.get();
+                || below.getBlock() == pipeBlock.get();
     }
 
     @Override

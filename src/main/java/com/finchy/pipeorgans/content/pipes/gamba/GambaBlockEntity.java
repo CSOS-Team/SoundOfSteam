@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class GambaBlockEntity extends DoublePipeBlockEntity {
     public GambaBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.GAMBA;
+        pipeBlock = AllBlocks.GAMBA;
     }
 
     @OnlyIn(Dist.CLIENT)

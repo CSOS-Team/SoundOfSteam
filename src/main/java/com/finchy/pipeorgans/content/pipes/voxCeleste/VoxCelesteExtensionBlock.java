@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class VoxCelesteExtensionBlock extends DoubleExtensionBlock {
     public VoxCelesteExtensionBlock(Properties pProperties) {
         super(pProperties);
-        this.baseBlock = AllBlocks.VOX_CELESTE;
+        this.pipeBlock = AllBlocks.VOX_CELESTE;
     }
 
     @Override

@@ -21,7 +21,7 @@ import java.util.List;
 public class TierceBlockEntity extends QuadruplePipeBlockEntity {
     public TierceBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.TIERCE;
+        pipeBlock = AllBlocks.TIERCE;
     }
 
     @OnlyIn(Dist.CLIENT)

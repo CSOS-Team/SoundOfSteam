@@ -21,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class VoxHumanaBlockEntity extends QuadruplePipeBlockEntity {
     public VoxHumanaBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.VOX_HUMANA;
+        pipeBlock = AllBlocks.VOX_HUMANA;
     }
 
     @OnlyIn(Dist.CLIENT)

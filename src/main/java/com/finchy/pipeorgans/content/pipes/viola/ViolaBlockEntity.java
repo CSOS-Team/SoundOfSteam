@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class ViolaBlockEntity extends DoublePipeBlockEntity {
     public ViolaBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.VIOLA;
+        pipeBlock = AllBlocks.VIOLA;
     }
 
     @OnlyIn(Dist.CLIENT)

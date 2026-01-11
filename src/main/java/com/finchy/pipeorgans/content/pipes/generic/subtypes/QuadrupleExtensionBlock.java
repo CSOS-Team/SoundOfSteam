@@ -48,7 +48,7 @@ public abstract class QuadrupleExtensionBlock extends GenericExtensionBlock<Exte
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState below = pLevel.getBlockState(pPos.below());
         return (below.is(this) && below.getValue(SHAPE) == ExtensionShapes.Quadruple.QUAD_CONNECTED)
-                || below.getBlock() == baseBlock.get();
+                || below.getBlock() == pipeBlock.get();
     }
 
     @Override

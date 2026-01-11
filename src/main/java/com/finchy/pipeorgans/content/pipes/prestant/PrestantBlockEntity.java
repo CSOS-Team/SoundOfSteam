@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class PrestantBlockEntity extends DoublePipeBlockEntity {
     public PrestantBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.PRESTANT;
+        pipeBlock = AllBlocks.PRESTANT;
     }
 
     @OnlyIn(Dist.CLIENT)

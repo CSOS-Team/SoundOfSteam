@@ -45,7 +45,7 @@ public abstract class SingleExtensionBlock extends GenericExtensionBlock<Extensi
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState below = pLevel.getBlockState(pPos.below());
         return (below.is(this) && below.getValue(SHAPE) == ExtensionShapes.Single.SINGLE_CONNECTED)
-                || below.getBlock() == baseBlock.get();
+                || below.getBlock() == pipeBlock.get();
     }
 
     @Override

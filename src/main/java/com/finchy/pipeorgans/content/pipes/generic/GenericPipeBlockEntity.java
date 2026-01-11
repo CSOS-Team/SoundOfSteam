@@ -33,14 +33,19 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
     public LerpedFloat animation;
     public int pitch;
 
-    protected static final float steamJetOffset = 0.125f;
+    protected static final float STEAM_JET_OFFSET = 0.125f;
 
-    protected BlockEntry<? extends GenericPipeBlock> baseBlock;
+    protected final BlockEntry<? extends GenericPipeBlock> pipeBlock; // MUST register block entities after blocks
+    protected final BlockEntry<? extends GenericExtensionBlock<?>> extensionBlock;
 
-    public GenericPipeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public GenericPipeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state,
+                                  BlockEntry<? extends GenericPipeBlock> pipeBlock,
+                                  BlockEntry<? extends GenericExtensionBlock<?>> extensionBlock) {
         super(type, pos, state);
         source = new WeakReference<>(null);
         animation = LerpedFloat.angular();
+        this.pipeBlock = pipeBlock;
+        this.extensionBlock = extensionBlock;
     }
 
     @Override
@@ -104,7 +109,7 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         FluidTankBlockEntity tank = getTank();
 
         BlockState state = getBlockState();
-        BlockPos attachedPos = getBlockPos().relative(GenericPipeBlock.getAttachedDirection(state));
+        BlockPos attachedPos = getBlockPos().relative(pipeBlock.get().getAttachedDirection(state));
         BlockState attachedState = level.getBlockState(attachedPos);
         boolean isActive = false;
         if (attachedState.getBlock() instanceof WindchestBlock windchest) {
@@ -136,7 +141,7 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
     }
 
     public void createReedSteamJet() {
-        double yPos = ((double) pitch/ baseBlock.get().EPB) +1 + steamJetOffset;
+        double yPos = pipeBlock.get().exactLengthForPitch(pitch) + 1 + STEAM_JET_OFFSET;
         Vec3 v = new Vec3(0, yPos, 0).add(Vec3.atBottomCenterOf(worldPosition));
         Vec3 m = new Vec3(0, 1, 0);
         level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
@@ -146,21 +151,45 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
                 .orElse(Direction.SOUTH);
         float angle = 180 + AngleHelper.horizontalAngle(facing);
         Vec3 m = VecHelper.rotate(new Vec3(0, 0, 1), angle, Direction.Axis.Y);
-        double yPos = ((double) pitch/ baseBlock.get().EPB) + 0.625f;
+        double yPos = pipeBlock.get().exactLengthForPitch(pitch) + 0.625f;
         Vec3 v = m.scale(yPos)
                 .add(Vec3.atCenterOf(worldPosition));
 
         level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
     }
 
-    public abstract void updatePitch();
+    public void updatePitch() {
+        Direction pipeOutFacing = pipeBlock.get().getExtensionDirection(getBlockState());
+        BlockPos currentPos = worldPosition.relative(pipeOutFacing);
+        int newPitch;
+        for (newPitch = 0; newPitch <= 12; newPitch += pipeBlock.get().extensionsPerBlock()) {
+            BlockState blockState = level.getBlockState(currentPos);
+            if (!(blockState.getBlock().equals(extensionBlock.get())))
+                break;
+            ExtensionShapes.IExtensionShape<?> shape = blockState.getValue(extensionBlock.get().SHAPE);
+            if (!shape.isFullBlockLong()) {
+                newPitch += shape.extensionNumber();
+                break;
+            }
+            currentPos = currentPos.relative(pipeOutFacing);
+        }
+        if (pitch == newPitch)
+            return;
+        pitch = newPitch;
+
+        notifyUpdate();
+
+        FluidTankBlockEntity tank = getTank();
+        if (tank != null && tank.boiler != null)
+            tank.boiler.checkPipeOrganAdvancement(tank);
+    }
 
     public FluidTankBlockEntity getTank() {
         FluidTankBlockEntity tank = source.get();
         if (tank == null || tank.isRemoved()) {
             if (tank != null)
                 source = new WeakReference<>(null);
-            Direction facing = GenericPipeBlock.getAttachedDirection(getBlockState());
+            Direction facing = pipeBlock.get().getAttachedDirection(getBlockState());
             BlockEntity be = level.getBlockEntity(worldPosition.relative(facing));
             if (be instanceof FluidTankBlockEntity tankBe)
                 source = new WeakReference<>(tank = tankBe);

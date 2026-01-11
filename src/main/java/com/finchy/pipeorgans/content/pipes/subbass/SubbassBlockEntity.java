@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class SubbassBlockEntity extends SinglePipeBlockEntity {
     public SubbassBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.SUBBASS;
+        pipeBlock = AllBlocks.SUBBASS;
     }
 
     @OnlyIn(Dist.CLIENT)

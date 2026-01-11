@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class GedecktBlockEntity extends DoublePipeBlockEntity {
     public GedecktBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.GEDECKT;
+        pipeBlock = AllBlocks.GEDECKT;
     }
 
     @OnlyIn(Dist.CLIENT)

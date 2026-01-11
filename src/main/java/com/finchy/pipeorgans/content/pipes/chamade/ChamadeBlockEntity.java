@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class ChamadeBlockEntity extends HorizontalPipeBlockEntity {
     public ChamadeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.CHAMADE;
+        pipeBlock = AllBlocks.CHAMADE;
     }
 
     @OnlyIn(Dist.CLIENT)

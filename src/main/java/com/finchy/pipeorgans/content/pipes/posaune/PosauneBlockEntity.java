@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class PosauneBlockEntity extends SinglePipeBlockEntity {
     public PosauneBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.POSAUNE;
+        pipeBlock = AllBlocks.POSAUNE;
     }
 
     @OnlyIn(Dist.CLIENT)

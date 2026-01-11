@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class PiccoloBlockEntity extends QuadruplePipeBlockEntity {
     public PiccoloBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.PICCOLO;
+        pipeBlock = AllBlocks.PICCOLO;
     }
 
     @OnlyIn(Dist.CLIENT)

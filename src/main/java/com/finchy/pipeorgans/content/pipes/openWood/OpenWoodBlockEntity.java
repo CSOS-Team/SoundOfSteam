@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class OpenWoodBlockEntity extends SinglePipeBlockEntity {
     public OpenWoodBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.OPEN_WOOD;
+        pipeBlock = AllBlocks.OPEN_WOOD;
     }
 
     @OnlyIn(Dist.CLIENT)

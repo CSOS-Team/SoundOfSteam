@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class PosauneExtensionBlock extends SingleExtensionBlock {
     public PosauneExtensionBlock(Properties pProperties) {
         super(pProperties);
-        this.baseBlock = AllBlocks.POSAUNE;
+        this.pipeBlock = AllBlocks.POSAUNE;
     }
 
     @Override

@@ -12,7 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class BassoonExtensionBlock extends SingleExtensionBlock {
     public BassoonExtensionBlock(Properties pProperties) {
         super(pProperties);
-        this.baseBlock = AllBlocks.BASSOON;
+        this.pipeBlock = AllBlocks.BASSOON;
     }
 
     @Override

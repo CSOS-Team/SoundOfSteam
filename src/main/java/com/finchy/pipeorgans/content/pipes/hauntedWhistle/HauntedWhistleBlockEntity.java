@@ -22,7 +22,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class HauntedWhistleBlockEntity extends DoublePipeBlockEntity {
     public HauntedWhistleBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-        baseBlock = AllBlocks.HAUNTED_WHISTLE;
+        pipeBlock = AllBlocks.HAUNTED_WHISTLE;
     }
 
     @OnlyIn(Dist.CLIENT)

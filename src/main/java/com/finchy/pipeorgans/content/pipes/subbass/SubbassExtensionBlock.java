@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.pipes.subbass;
 
-import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadrupleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.SingleExtensionBlock;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllShapes;
@@ -8,13 +7,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class SubbassExtensionBlock extends SingleExtensionBlock {
     public SubbassExtensionBlock(Properties pProperties) {
         super(pProperties);
-        this.baseBlock = AllBlocks.SUBBASS;
+        this.pipeBlock = AllBlocks.SUBBASS;
     }
 
     @Override
