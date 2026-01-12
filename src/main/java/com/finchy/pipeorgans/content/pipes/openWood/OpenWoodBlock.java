@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.openWood;
 
+import com.finchy.pipeorgans.content.pipes.generic.EPipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.SinglePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -13,7 +14,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class OpenWoodBlock extends SinglePipeBlock {
 
     public OpenWoodBlock(Properties pProperties) {
-        super(pProperties, false);
+        super(pProperties, false, EPipeMaterial.PipeMaterial.WOOD);
         baseBlock = AllBlocks.OPEN_WOOD;
         extensionBlock = AllBlocks.OPEN_WOOD_EXTENSION;
         blockEntityType = AllBlockEntities.OPEN_WOOD_BLOCK_ENTITY;

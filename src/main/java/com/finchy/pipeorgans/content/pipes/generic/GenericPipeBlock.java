@@ -51,6 +51,7 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final BooleanProperty TREM = BooleanProperty.create("trem");
     public static final EnumProperty<EPipeSizes.PipeSize> SIZE = EnumProperty.create("size", EPipeSizes.PipeSize.class);
 
     protected BlockEntry<? extends GenericPipeBlock> baseBlock;
@@ -66,7 +67,8 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
-                .setValue(SIZE, EPipeSizes.PipeSize.MEDIUM));
+                .setValue(SIZE, EPipeSizes.PipeSize.MEDIUM)
+                .setValue(TREM, false));
         this.EPB = EPB;
     }
 
@@ -78,7 +80,7 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(FACING, WALL, POWERED, SIZE);
+        builder.add(FACING, WALL, POWERED, SIZE, TREM);
     }
     @Override
     public Class<GenericPipeBlockEntity> getBlockEntityClass() {
@@ -174,6 +176,7 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
         Direction facing = state.getValue(FACING);
         boolean wall = state.getValue(WALL);
         boolean powered = state.getValue(POWERED);
+        boolean trem = state.getValue(TREM);
         level.destroyBlock(pos, false);
 
         GenericPipeBlock pipe = (GenericPipeBlock) ((GenericPipeBlockItem) heldItem.getItem()).getBlock();
@@ -182,6 +185,7 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
                 .setValue(SIZE, size)
                 .setValue(FACING, facing)
                 .setValue(WALL, wall)
+                .setValue(TREM, trem)
                 .setValue(POWERED, powered), 3);
 
         GenericPipeBlock newPipe = (GenericPipeBlock) level.getBlockState(pos).getBlock();
@@ -226,25 +230,55 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
             wall = false; // not on wall
         }
 
-        BlockState state = Objects.requireNonNull(super.getStateForPlacement(context))
+        BlockState baseState = Objects.requireNonNull(super.getStateForPlacement(context))
                 .setValue(FACING, face.getOpposite()) // set facing to the opposite of Direction face
                 // (this results in orientation being the same as player's, so
                 // model is rotated in blockstate json)
-                .setValue(POWERED, level.hasNeighborSignal(clickedPos)) // true if power source adjacent, else false
+                .setValue(POWERED, level.hasNeighborSignal(clickedPos))
                 .setValue(WALL, wall);
-        if (!canSurvive(state, level, clickedPos)) // if placed on fluid tank or windchest
+
+
+        BlockPos attachedPos = clickedPos.relative(getAttachedDirection(baseState));
+        BlockState attachedState = level.getBlockState(attachedPos);
+
+        if (attachedState.hasProperty(WindchestBlock.TREM)) {
+            baseState = baseState.setValue(TREM, attachedState.getValue(WindchestBlock.TREM));
+        } else {
+            baseState = baseState.setValue(TREM, false);
+        }
+
+        if (!canSurvive(baseState, level, clickedPos))
             return null;
-        return state;
+
+        return baseState;
     }
 
     // if neighbour updates
     @Override
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean isMoving) {
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos,
+                                Block pNeighborBlock, BlockPos pNeighborPos, boolean isMoving) {
         if (pLevel.isClientSide) // only on serverside
             return;
+
+        // redstone update
         boolean previouslyPowered = pState.getValue(POWERED);
-        if (previouslyPowered != pLevel.hasNeighborSignal(pPos))
-            pLevel.setBlock(pPos, pState.cycle(POWERED), 2); // if redstone signal has changed, toggle powered
+        if (previouslyPowered != pLevel.hasNeighborSignal(pPos)) {
+            pLevel.setBlock(pPos, pState.setValue(POWERED, !previouslyPowered), 2);
+            return;
+        }
+
+        // windchest tremulant update
+        BlockPos attachedPos = pPos.relative(getAttachedDirection(pState));
+        if (!pNeighborPos.equals(attachedPos))
+            return;
+
+        BlockState attachedState = pLevel.getBlockState(attachedPos);
+        if (!attachedState.hasProperty(WindchestBlock.TREM))
+            return;
+
+        boolean trem = attachedState.getValue(WindchestBlock.TREM);
+        if (pState.getValue(TREM) != trem)
+            pLevel.setBlock(pPos, pState.setValue(TREM, trem), 2);
     }
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,

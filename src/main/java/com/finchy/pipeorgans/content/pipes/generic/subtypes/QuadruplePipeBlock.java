@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
 import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
+import com.finchy.pipeorgans.content.pipes.generic.EPipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import net.minecraft.core.BlockPos;
@@ -14,8 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class QuadruplePipeBlock extends GenericPipeBlock {
 
-    protected QuadruplePipeBlock(Properties properties, boolean supportsTrem) {
-        super(properties, supportsTrem, 4);
+    protected QuadruplePipeBlock(Properties pProperties, boolean supportsTrem, EPipeMaterial.PipeMaterial material) {
+        super(pProperties, supportsTrem, material,4);
     }
     @Override
     public void incrementSize(Level pLevel, BlockPos pos, boolean playSound) {
@@ -29,7 +30,7 @@ public abstract class QuadruplePipeBlock extends GenericPipeBlock {
         Direction facing = base.getValue(FACING);
 
         float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
-        SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.get();
+        SoundEvent growSound = this.getGrowSound();
         SoundEvent hitSound = soundtype.getHitSound();
 
         for (int i = 1; i <= 12; i+=4) {

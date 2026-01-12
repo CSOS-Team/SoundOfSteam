@@ -1,21 +1,27 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
-import net.minecraft.util.StringRepresentable;
-import org.jetbrains.annotations.NotNull;
+import com.finchy.pipeorgans.init.AllSoundEvents;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+
+import java.util.function.Supplier;
 
 public class EPipeMaterial {
 
-    public enum PipeMaterial implements StringRepresentable {
-        WOOD("wood"), METAL("metal");
+    public enum PipeMaterial {
+        BASIC(() -> SoundEvents.NOTE_BLOCK_XYLOPHONE.get()),
+        WOOD(() -> AllSoundEvents.GROW_WOODEN_PIPE.get()),
+        METAL(() -> AllSoundEvents.GROW_METAL_PIPE.get()),
+        HAUNTED(() -> AllSoundEvents.GROW_HAUNTED_PIPE.get());
 
-        private final String name;
-        PipeMaterial(String name) {
-            this.name = name;
+        private final Supplier<SoundEvent> growSound;
+
+        PipeMaterial(Supplier<SoundEvent> growSound) {
+            this.growSound = growSound;
         }
 
-        @Override
-        public @NotNull String getSerializedName() {
-            return name;
+        public SoundEvent getGrowSound() {
+            return growSound.get();
         }
     }
 }
