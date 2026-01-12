@@ -1,8 +1,6 @@
 package com.finchy.pipeorgans.content.noteLink;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.infrastructure.clipboardAssistedPlacement.ClipboardAssistedPlacement;
-import com.finchy.pipeorgans.infrastructure.clipboardAssistedPlacement.ClipboardAssistedPlacementBehaviour;
 import com.finchy.pipeorgans.infrastructure.itemValueBox.ItemValueBoxBehaviour;
 import com.finchy.pipeorgans.infrastructure.pipePitchScrollValue.PipePitchScrollValueBehaviour;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -18,22 +16,18 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
-public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAssistedPlacement, NoteLinkBehaviourSubscriber {
+public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBehaviourSubscriber {
 
     protected static final float SLOT_OUTWARD_OFFSET = 2.5f;
 
@@ -239,7 +233,6 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAs
                 List.of()
         );
 
-        behaviours.add(new ClipboardAssistedPlacementBehaviour(this));
         behaviours.add(keySlot = new ItemValueBoxBehaviour(this, List.of(keySlotGroup)));
         behaviours.add(pitchSlot = new PipePitchScrollValueBehaviour(this, PITCH_SLOT_TRANSFORM, Component.translatable("block.pipeorgans.note_link.pitch_slot.label"))
                 .withPipePitchCallback(this::setPitch)
@@ -300,42 +293,5 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements ClipboardAs
         pitch = link.getPitch();
         pitchSlot.setValueSilent(pitch);
         PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.onNoteLinkBehaviorLoaded: synced key and pitch from NoteLinkBehaviour at {}, now key={}, pitch={}", worldPosition, key, pitch.getNormalizedName());
-    }
-
-    @Override
-    public MutationResult applyPlacementMutation(SmartBlockEntity previousBE) {
-        if (!(previousBE instanceof NoteLinkBlockEntity previousNoteLink))
-            return MutationResult.FAILURE_KEEP;
-
-        PipePitch next = Objects.requireNonNull(previousNoteLink.getPitch()).next();
-        if (next == null)
-            return MutationResult.FAILURE_REMOVE;
-
-
-        setPitch(next);
-        pitchSlot.setValueSilent(next);
-        setKey(Objects.requireNonNull(previousNoteLink.getKey()));
-
-        setChanged();
-        sendData();
-        notifyUpdate();
-
-        if (getLevel() instanceof ServerLevel serverLevel) {
-            serverLevel.setBlock(getBlockPos(), getBlockState().setValue(NoteLinkBlock.RECEIVER, !previousNoteLink.isTransmitterBlock()), Block.UPDATE_ALL);
-            removeBehaviour(NoteLinkBehaviour.TYPE);
-            attachBehaviourLate(link = new NoteLinkBehaviour(this,
-                    this::getTransmittedSignal,
-                    this::setReceivedSignal,
-                    previousNoteLink.isTransmitterBlock() ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE,
-                    key, pitch
-            ).withOnLoadedCallback(this::onNoteLinkBehaviorLoaded));
-            setChanged();
-            sendData();
-            notifyUpdate();
-        }
-
-        updateSelfAndAttached(getBlockState());
-
-        return MutationResult.SUCCESS_REPLACE;
     }
 }
