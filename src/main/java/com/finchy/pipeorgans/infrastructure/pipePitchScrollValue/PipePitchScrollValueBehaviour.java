@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.infrastructure.pipePitchScrollValue;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.content.noteLink.NoteLinkBlockEntity;
 import com.finchy.pipeorgans.util.PipePitch;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
@@ -42,6 +43,7 @@ public class PipePitchScrollValueBehaviour extends ScrollValueBehaviour {
     public void setValueSettings(Player player, ValueSettings valueSetting, boolean ctrlDown) {
         PipePitch pitch = fromValueSettings(valueSetting);
         setValue(pitch.getPitchIndex());
+        if (blockEntity instanceof NoteLinkBlockEntity) ((NoteLinkBlockEntity) blockEntity).updateHeldClipboard(player);
         playFeedbackSound(this);
     }
 
