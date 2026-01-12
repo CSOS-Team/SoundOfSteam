@@ -149,7 +149,8 @@ public class AllSoundEvents {
      HAUNTED_CHIFF = registerSoundEvent("haunted_chiff"),
 
     CRASH_CYMBAL = registerSoundEvent("crash_cymbal"),
-    SNARE_DRUM = registerSoundEvent("snare_drum"),
+    SNARE_TAP = registerSoundEvent("snare_tap"),
+    SNARE_ROLL = registerSoundEvent("snare_roll"),
 
 
     GROW_WOODEN_PIPE = registerSoundEvent("grow_wooden_pipe"),

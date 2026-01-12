@@ -1,5 +1,7 @@
 package com.finchy.pipeorgans.content.traps.snare;
 
+import com.finchy.pipeorgans.content.pipes.generic.PercussionMode;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
@@ -19,6 +21,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -29,6 +32,8 @@ public class SnareDrumBlock extends HorizontalDirectionalBlock
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WALL = BooleanProperty.create("wall");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final EnumProperty<PercussionMode> MODE = EnumProperty.create("mode", PercussionMode.class);
+
 
     public SnareDrumBlock(Properties pProperties) {
         super(pProperties);
@@ -36,12 +41,13 @@ public class SnareDrumBlock extends HorizontalDirectionalBlock
                 .setValue(FACING, Direction.NORTH)
                 .setValue(WALL, false)
                 .setValue(POWERED, false)
+                .setValue(MODE, PercussionMode.TAP)
         );
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, WALL, POWERED);
+        builder.add(FACING, WALL, POWERED, MODE);
     }
 
     // direction this block is attached to
@@ -117,7 +123,7 @@ public class SnareDrumBlock extends HorizontalDirectionalBlock
     //when wrenched
     @Override
     public BlockState getRotatedBlockState(BlockState originalState, Direction targetedFace) {
-        return originalState;
+        return originalState.cycle(MODE);
     }
 
     @Override

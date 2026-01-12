@@ -54,13 +54,24 @@
     ]
   },
 
-  "snare_drum": {
-    "subtitle": "sounds.pipeorgans.snare_drum",
+  "snare_tap": {
+    "subtitle": "sounds.pipeorgans.snare_tap",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
         "name": "pipeorgans:traps/snare_drum/sd_tap"
+      }
+    ]
+  },
+
+  "snare_roll": {
+    "subtitle": "sounds.pipeorgans.snare_roll",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:traps/snare_drum/sd_roll"
       }
     ]
   },
