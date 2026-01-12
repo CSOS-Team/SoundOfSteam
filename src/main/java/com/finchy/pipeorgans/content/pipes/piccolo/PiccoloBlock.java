@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.content.pipes.piccolo;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeMaterial;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockEntity;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadruplePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
@@ -17,11 +17,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class PiccoloBlock extends QuadruplePipeBlock {
     public PiccoloBlock(Properties pProperties) {
-        super(pProperties, false, EPipeMaterial.PipeMaterial.METAL);
+        super(pProperties, false, PipeMaterial.METAL);
         baseBlock = AllBlocks.PICCOLO;
         extensionBlock = AllBlocks.PICCOLO_EXTENSION;
         blockEntityType = AllBlockEntities.PICCOLO_BLOCK_ENTITY;
-        registerDefaultState(defaultBlockState().setValue(SIZE, EPipeSizes.PipeSize.SMALL));
+        registerDefaultState(defaultBlockState().setValue(SIZE, PipeSize.SMALL));
     }
 
     @Override

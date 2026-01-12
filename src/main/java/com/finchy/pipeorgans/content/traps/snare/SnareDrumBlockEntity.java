@@ -75,7 +75,7 @@ public class SnareDrumBlockEntity extends SmartBlockEntity {
         level.playSound(
                 null,
                 worldPosition,
-                AllSoundEvents.CRASH_CYMBAL.get(),
+                AllSoundEvents.SNARE_DRUM.get(),
                 SoundSource.BLOCKS,
                 1.0f,
                 1.0f

@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.voxHumana;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.content.pipes.generic.GenericSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -13,7 +13,7 @@ public class VoxHumanaSoundInstance extends GenericSoundInstance {
     private boolean trem;
     private float tremPhase;
 
-    public VoxHumanaSoundInstance(EPipeSizes.PipeSize size, BlockPos worldPosition, boolean trem) {
+    public VoxHumanaSoundInstance(PipeSize size, BlockPos worldPosition, boolean trem) {
         super(size, worldPosition, getSound(size, trem));
         this.trem = trem;
 
@@ -22,7 +22,7 @@ public class VoxHumanaSoundInstance extends GenericSoundInstance {
         this.trem = trem;
     }
 
-    private static SoundEvent getSound(EPipeSizes.PipeSize size, boolean trem) {
+    private static SoundEvent getSound(PipeSize size, boolean trem) {
         if (trem) {
             return switch (size) {
                 case TINY -> VOX_HUMANA_SUPERHIGH_TREM.get();

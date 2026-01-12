@@ -50,6 +50,7 @@ import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlock;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaExtensionBlock;
 import com.finchy.pipeorgans.content.traps.crashCymbal.CrashCymbalBlock;
+import com.finchy.pipeorgans.content.traps.snare.SnareDrumBlock;
 import com.finchy.pipeorgans.content.traps.zimblestern.ZimblesternBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
@@ -153,6 +154,17 @@ public class AllBlocks {
             .register();
 
     public static final BlockEntry<CrashCymbalBlock> CRASH_CYMBAL = REGISTRATE.block("crash_cymbal", CrashCymbalBlock::new)
+            .initialProperties(() -> Blocks.OAK_PLANKS)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .item()
+            .transform(customItemModel())
+            .transform(axeOnly())
+            .register();
+
+    public static final BlockEntry<SnareDrumBlock> SNARE_DRUM = REGISTRATE.block("snare_drum", SnareDrumBlock::new)
             .initialProperties(() -> Blocks.OAK_PLANKS)
             .properties(p -> p
                     .requiresCorrectToolForDrops()

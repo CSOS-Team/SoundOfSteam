@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.diapason;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeMaterial;
+import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class DiapasonBlock extends DoublePipeBlock {
     public DiapasonBlock(Properties pProperties) {
-        super(pProperties, false, EPipeMaterial.PipeMaterial.METAL);
+        super(pProperties, false, PipeMaterial.METAL);
         baseBlock = AllBlocks.DIAPASON;
         extensionBlock = AllBlocks.DIAPASON_EXTENSION;
         blockEntityType = AllBlockEntities.DIAPASON_BLOCK_ENTITY;

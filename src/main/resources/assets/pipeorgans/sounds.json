@@ -54,13 +54,13 @@
     ]
   },
 
-  "crash_cymbal": {
-    "subtitle": "sounds.pipeorgans.crash_cymbal",
+  "snare_drum": {
+    "subtitle": "sounds.pipeorgans.snare_drum",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:traps/cymbals/cym_crash"
+        "name": "pipeorgans:traps/snare_drum/sd_tap"
       }
     ]
   },

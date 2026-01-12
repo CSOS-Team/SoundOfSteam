@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.subbass;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeMaterial;
+import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockEntity;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.SinglePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
@@ -17,7 +17,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class SubbassBlock extends SinglePipeBlock {
 
     public SubbassBlock(Properties pProperties) {
-        super(pProperties, false, EPipeMaterial.PipeMaterial.WOOD);
+        super(pProperties, false, PipeMaterial.WOOD);
         baseBlock = AllBlocks.SUBBASS;
         extensionBlock = AllBlocks.SUBBASS_EXTENSION;
         blockEntityType = AllBlockEntities.SUBBASS_BLOCK_ENTITY;

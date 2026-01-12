@@ -1,8 +1,8 @@
 package com.finchy.pipeorgans.content.pipes.generic.subtypes;
 
-import com.finchy.pipeorgans.content.pipes.generic.EExtensionShapes;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeMaterial;
-import com.finchy.pipeorgans.content.pipes.generic.EPipeSizes;
+import com.finchy.pipeorgans.content.pipes.generic.ExtensionShapes;
+import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,8 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class QuadruplePipeBlock extends GenericPipeBlock {
 
-    protected QuadruplePipeBlock(Properties pProperties, boolean supportsTrem, EPipeMaterial.PipeMaterial material) {
-        super(pProperties, supportsTrem, material,4);
+    protected QuadruplePipeBlock(Properties pProperties, boolean supportsTrem, PipeMaterial material) {
+        super(pProperties, supportsTrem, material, 4);
     }
     @Override
     public void incrementSize(Level pLevel, BlockPos pos, boolean playSound) {
@@ -24,13 +24,13 @@ public abstract class QuadruplePipeBlock extends GenericPipeBlock {
         if (!base.hasProperty(SIZE))
             return;
 
-        EPipeSizes.PipeSize size = base.getValue(SIZE);
+        PipeSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pos.above();
         Direction facing = base.getValue(FACING);
 
         float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
-        SoundEvent growSound = this.getGrowSound();
+        SoundEvent growSound = SoundEvents.NOTE_BLOCK_XYLOPHONE.get();
         SoundEvent hitSound = soundtype.getHitSound();
 
         for (int i = 1; i <= 12; i+=4) {
@@ -38,8 +38,8 @@ public abstract class QuadruplePipeBlock extends GenericPipeBlock {
 
             if (blockState.getBlock() instanceof QuadrupleExtensionBlock) { // if block above is extension
 
-                if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) != EExtensionShapes.QuadrupleShape.QUAD
-                        && blockState.getValue(QuadrupleExtensionBlock.SHAPE) != EExtensionShapes.QuadrupleShape.QUAD_CONNECTED) { // if extension above is single, double, or triple
+                if (blockState.getValue(QuadrupleExtensionBlock.SHAPE) != ExtensionShapes.Quadruple.QUAD
+                        && blockState.getValue(QuadrupleExtensionBlock.SHAPE) != ExtensionShapes.Quadruple.QUAD_CONNECTED) { // if extension above is single, double, or triple
 
                     BlockState toSet = blockState.cycle(QuadrupleExtensionBlock.SHAPE); // cycle to the next shape
                     if (extensionBlock.get().isDirectional())      // only set direction if the extension is directional

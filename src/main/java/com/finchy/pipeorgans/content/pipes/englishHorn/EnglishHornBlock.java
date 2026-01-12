@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.englishHorn;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeMaterial;
+import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class EnglishHornBlock extends DoublePipeBlock {
     public EnglishHornBlock(Properties pProperties) {
-        super(pProperties, false, EPipeMaterial.PipeMaterial.METAL);
+        super(pProperties, false, PipeMaterial.METAL);
         baseBlock = AllBlocks.ENGLISH_HORN;
         extensionBlock = AllBlocks.ENGLISH_HORN_EXTENSION;
         blockEntityType = AllBlockEntities.ENGLISH_HORN_BLOCK_ENTITY;

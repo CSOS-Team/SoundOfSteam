@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.prestant;
 
-import com.finchy.pipeorgans.content.pipes.generic.EPipeMaterial;
+import com.finchy.pipeorgans.content.pipes.generic.PipeMaterial;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class PrestantBlock extends DoublePipeBlock {
     public PrestantBlock(Properties pProperties) {
-        super(pProperties, false, EPipeMaterial.PipeMaterial.METAL);
+        super(pProperties, false, PipeMaterial.METAL);
         baseBlock = AllBlocks.PRESTANT;
         extensionBlock = AllBlocks.PRESTANT_EXTENSION;
         blockEntityType = AllBlockEntities.PRESTANT_BLOCK_ENTITY;

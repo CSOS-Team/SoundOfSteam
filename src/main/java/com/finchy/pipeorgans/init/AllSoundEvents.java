@@ -149,10 +149,13 @@ public class AllSoundEvents {
      HAUNTED_CHIFF = registerSoundEvent("haunted_chiff"),
 
     CRASH_CYMBAL = registerSoundEvent("crash_cymbal"),
+    SNARE_DRUM = registerSoundEvent("snare_drum"),
+
 
     GROW_WOODEN_PIPE = registerSoundEvent("grow_wooden_pipe"),
     GROW_METAL_PIPE = registerSoundEvent("grow_metal_pipe"),
     GROW_HAUNTED_PIPE = registerSoundEvent("grow_haunted_pipe");
+
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(PipeOrgans.MOD_ID, name)));

@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class DoublePipeBlock extends GenericPipeBlock {
 
-    protected DoublePipeBlock(Properties pProperties, boolean supportsTrem, EPipeMaterial.PipeMaterial material) {
+    protected DoublePipeBlock(Properties pProperties, boolean supportsTrem, PipeMaterial material) {
         super(pProperties, supportsTrem, material, 2);
     }
 
@@ -22,7 +22,7 @@ public abstract class DoublePipeBlock extends GenericPipeBlock {
         if (!base.hasProperty(SIZE))
             return;
 
-        EPipeSizes.PipeSize size = base.getValue(SIZE);
+        PipeSize size = base.getValue(SIZE);
         SoundType soundtype = base.getSoundType();
         BlockPos currentPos = pos.above();
         Direction facing = base.getValue(FACING);
@@ -35,7 +35,7 @@ public abstract class DoublePipeBlock extends GenericPipeBlock {
             BlockState blockState = pLevel.getBlockState(currentPos);
 
             if (blockState.getBlock() instanceof DoubleExtensionBlock) {
-                if (blockState.getValue(DoubleExtensionBlock.SHAPE) == EExtensionShapes.DoubleShape.SINGLE) {
+                if (blockState.getValue(DoubleExtensionBlock.SHAPE) == ExtensionShapes.Double.SINGLE) {
 
                     BlockState toSet = blockState.cycle(DoubleExtensionBlock.SHAPE); // cycle to the next shape
                     if (extensionBlock.get().isDirectional())      // only set direction if the extension is directional
@@ -43,7 +43,7 @@ public abstract class DoublePipeBlock extends GenericPipeBlock {
                     pLevel.setBlock(currentPos, toSet, 3);
 
                     if (playSound) {
-                        if (blockState.getValue(DoubleExtensionBlock.SHAPE) == EExtensionShapes.DoubleShape.SINGLE)
+                        if (blockState.getValue(DoubleExtensionBlock.SHAPE) == ExtensionShapes.Double.SINGLE)
                             i++;
                         float pPitch = (float) Math.pow(2, -i / 12.0);
                         pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);

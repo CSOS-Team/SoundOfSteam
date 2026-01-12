@@ -134,6 +134,6 @@ public class SnareDrumBlock extends HorizontalDirectionalBlock
 
     @Override
     public BlockEntityType<? extends SnareDrumBlockEntity> getBlockEntityType() {
-        return AllBlockEntities.CRASH_CYMBAL_BLOCK_ENTITY.get();
+        return AllBlockEntities.SNARE_DRUM_BLOCK_ENTITY.get();
     }
 }
