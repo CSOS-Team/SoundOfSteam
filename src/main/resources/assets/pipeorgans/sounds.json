@@ -76,6 +76,49 @@
     ]
   },
 
+  "bass_tap": {
+    "subtitle": "sounds.pipeorgans.bass_tap",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:traps/bass_drum/bd_tap"
+      }
+    ]
+  },
+
+  "bass_roll": {
+    "subtitle": "sounds.pipeorgans.bass_roll",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:traps/bass_drum/bd_roll"
+      }
+    ]
+  },
+
+  "cymbal_tap": {
+    "subtitle": "sounds.pipeorgans.cymbal_tap",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:traps/cymbals/cym_tap"
+      }
+    ]
+  },
+
+  "cymbal_roll": {
+    "subtitle": "sounds.pipeorgans.cymbal_roll",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:traps/cymbals/cym_roll"
+      }
+    ]
+  },
 
   "gedeckt_superhigh": {
     "subtitle": "sounds.pipeorgans.gedeckt_superhigh",

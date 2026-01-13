@@ -55,6 +55,9 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.ROLL_PUNCHER.get());
                         output.accept(AllItems.MUSIC_ROLL.get());
                         output.accept(AllBlocks.CRASH_CYMBAL.get());
+                        output.accept(AllBlocks.SNARE_DRUM.get());
+                        output.accept(AllBlocks.BASS_DRUM.get());
+                        output.accept(AllBlocks.TAP_CYMBAL.get());
                     })
                     .build());
 

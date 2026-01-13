@@ -48,9 +48,12 @@ import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteBlockEntity;
 import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteRenderer;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlockEntity;
 import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaRenderer;
+import com.finchy.pipeorgans.content.traps.bassDrum.BassDrumBlockEntity;
 import com.finchy.pipeorgans.content.traps.crashCymbal.CrashCymbalBlockEntity;
 import com.finchy.pipeorgans.content.traps.snare.SnareDrumBlock;
 import com.finchy.pipeorgans.content.traps.snare.SnareDrumBlockEntity;
+import com.finchy.pipeorgans.content.traps.tapCymbal.TapCymbalBlock;
+import com.finchy.pipeorgans.content.traps.tapCymbal.TapCymbalBlockEntity;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockEntityBuilder;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
@@ -93,6 +96,16 @@ public class AllBlockEntities {
     public static final BlockEntityEntry<SnareDrumBlockEntity> SNARE_DRUM_BLOCK_ENTITY = REGISTRATE
             .blockEntity("snare_drum_block_entity", SnareDrumBlockEntity::new)
             .validBlock(AllBlocks.SNARE_DRUM)
+            .register();
+
+    public static final BlockEntityEntry<BassDrumBlockEntity> BASS_DRUM_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("bass_drum_block_entity", BassDrumBlockEntity::new)
+            .validBlock(AllBlocks.BASS_DRUM)
+            .register();
+
+    public static final BlockEntityEntry<TapCymbalBlockEntity> TAP_CYMBAL_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("tap_cymbal_block_entity", TapCymbalBlockEntity::new)
+            .validBlock(AllBlocks.TAP_CYMBAL)
             .register();
 
 
