@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.content.noteLink;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.infrastructure.clipboardAssistedPlacement.CAPDirection;
 import com.finchy.pipeorgans.infrastructure.itemValueBox.ItemValueBoxBehaviour;
 import com.finchy.pipeorgans.infrastructure.pipePitchScrollValue.PipePitchScrollValueBehaviour;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -13,6 +14,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.math.VecHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -102,6 +104,7 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
 
     public NoteLinkBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
+        transmitter = isTransmitterBlock();
     }
 
     @Override
@@ -251,9 +254,12 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
 
 
 
-    public void applyClipboardSettings(CompoundTag clipboardTag) {
+    public void applyClipboardSettings(CompoundTag clipboardTag, boolean copyMode) {
 
-        PipePitch next = PipePitch.fromNormalizedName(clipboardTag.getString("Pitch")).next(); // get the pitch above what's written on the clipboard
+        boolean shouldBeReceiver = clipboardTag.getBoolean("Receiver");
+
+        PipePitch next = PipePitch.fromNormalizedName(clipboardTag.getString("Pitch")); // get the pitch above what's written on the clipboard
+//        PipePitch next = direction.map(pitch.next(), pitch.prev()); // get the pitch above/below what's written on the clipboard
 
         setPitch(next); // set the new pitch
         pitchSlot.setValueSilent(next); // set the new pitch on the scroll box
@@ -271,16 +277,24 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
         notifyUpdate();
 
         updateSelfAndAttached(getBlockState());
+        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.applyClipboardSettings: about to apply mode change: copyMode={}, shouldBeReceiver={}, currentMode={}", copyMode, shouldBeReceiver, transmitter ? "TRANSMITTER" : "RECEIVER");
+        if (copyMode && (shouldBeReceiver == transmitter)) {
+            PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.applyClipboardSettings: changing mode to {}", shouldBeReceiver ? "RECEIVER" : "TRANSMITTER");
+            BlockState currentState = getBlockState();
+            level.setBlockAndUpdate(worldPosition, currentState.setValue(NoteLinkBlock.RECEIVER, shouldBeReceiver));
+        }
 
         level.scheduleTick(getBlockPos(), getBlockState().getBlock(), 1);
     }
 
-    public void updateHeldClipboard(Player player) {
+    public void updateHeldClipboard(Player player, boolean forceInvertMode) {
         ItemStack mainhand = player.getMainHandItem(); // get item in mainhand
         boolean mainhandIsClipboard = mainhand.is(com.simibubi.create.AllBlocks.CLIPBOARD.asItem());
         ItemStack offhand = player.getOffhandItem(); // get item in offhand
         boolean offhandIsClipboard = offhand.is(com.simibubi.create.AllBlocks.CLIPBOARD.asItem());
         if (!mainhandIsClipboard && !offhandIsClipboard) return; // if the player isn't holding any clipboards, return
+
+        boolean receiver = getBlockState().getValue(NoteLinkBlock.RECEIVER);
 
         ItemStack clipboardStack;
         if (mainhandIsClipboard) // if there's a clipboard in the mainhand, prioritise that
@@ -295,6 +309,7 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
             CompoundTag clipboardTag = clipboardStack.getTagElement("CopiedValues").getCompound("MusicalFrequency");
             clipboardTag.putString("Pitch", pitch.getNormalizedName()); // put the new pitch in clipboard NBT
             clipboardTag.put("Key", key.serializeNBT()); // put the new key in clipboard NBT
+            clipboardTag.putBoolean("Receiver", receiver); // put the new mode in clipboard NBT
 
         } else { // if the clipboard hasn't been used for note links previously
             ClipboardOverrides.switchTo(ClipboardOverrides.ClipboardType.WRITTEN, offhand); // make the clipboard visually look like it's been written in
@@ -303,12 +318,15 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
             CompoundTag noteLinkTag = new CompoundTag(); // make a new tag to put in "MusicalFrequency"
             noteLinkTag.putString("Pitch", pitch.getNormalizedName()); // default to F#-1
             noteLinkTag.put("Key", key.serializeNBT()); // default to no key item
+            noteLinkTag.putBoolean("Receiver", receiver);
 
             copiedTag.put("MusicalFrequency", noteLinkTag);
             clipboardStack.getOrCreateTag().put("CopiedValues", copiedTag); // apply the tags to the clipboard
         }
+    }
 
-
+    public void updateHeldClipboard(Player player){
+        updateHeldClipboard(player, false);
     }
 
     // Block destroyed or picked up by a contraption. Usually detaches kinetics

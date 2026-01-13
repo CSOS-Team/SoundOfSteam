@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
@@ -60,15 +61,17 @@ public class NoteLinkBlock extends WrenchableDirectionalBlock implements IBE<Not
     @Override
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {
         if (toggleMode(state, context.getLevel(), context.getClickedPos()) == InteractionResult.SUCCESS) {
-             context.getLevel()
-                     .scheduleTick(context.getClickedPos(), this, 1);
+            if (context.getPlayer() != null)
+                withBlockEntityDo(context.getLevel(), context.getClickedPos(), be -> be.updateHeldClipboard(context.getPlayer()));
+            context.getLevel().scheduleTick(context.getClickedPos(), this, 1);
             return InteractionResult.SUCCESS;
         }
         return super.onWrenched(state, context);
     }
 
-    public InteractionResult onEmptyHandShiftUse(BlockState state, Level level, BlockPos pos) {
+    public InteractionResult onEmptyHandShiftUse(BlockState state, Level level, BlockPos pos, Player player) {
         if (toggleMode(state, level, pos) == InteractionResult.SUCCESS) {
+            withBlockEntityDo(level, pos, be -> be.updateHeldClipboard(player));
             level.scheduleTick(pos, this, 1);
             return InteractionResult.SUCCESS;
         }
