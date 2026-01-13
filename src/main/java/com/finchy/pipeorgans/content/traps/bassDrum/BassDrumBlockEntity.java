@@ -118,8 +118,32 @@ public class BassDrumBlockEntity extends SmartBlockEntity {
                 .getSoundManager()
                 .stop(rollSound);
 
+        // Play fade-out sound when roll stops
+        Minecraft.getInstance().getSoundManager().play(
+                new net.minecraft.client.resources.sounds.SimpleSoundInstance(
+                        AllSoundEvents.BASS_FADE.get(),
+                        SoundSource.BLOCKS,
+                        1.0f,
+                        1.0f,
+                        level.random,
+                        worldPosition
+                )
+        );
+
         rollSound = null;
     }
+
+
+    private void playBassFade() {
+        Minecraft.getInstance().getSoundManager().play(
+                net.minecraft.client.resources.sounds.SimpleSoundInstance.forLocalAmbience(
+                        AllSoundEvents.BASS_FADE.get(),
+                        1.0f,
+                        1.0f
+                )
+        );
+    }
+
 
 
     @Override

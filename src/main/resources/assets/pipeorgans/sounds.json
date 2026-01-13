@@ -98,6 +98,16 @@
     ]
   },
 
+  "bass_fade": {
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:traps/bass_drum/bd_roll_fade"
+      }
+    ]
+  },
+
   "cymbal_tap": {
     "subtitle": "sounds.pipeorgans.cymbal_tap",
     "sounds": [

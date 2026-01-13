@@ -155,6 +155,7 @@ public class AllSoundEvents {
     SNARE_ROLL = registerSoundEvent("snare_roll"),
     BASS_TAP = registerSoundEvent("bass_tap"),
     BASS_ROLL = registerSoundEvent("bass_roll"),
+    BASS_FADE = registerSoundEvent("bass_fade"),
 
 
     GROW_WOODEN_PIPE = registerSoundEvent("grow_wooden_pipe"),
