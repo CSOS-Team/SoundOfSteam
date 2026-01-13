@@ -254,7 +254,7 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
     public void applyClipboardSettings(CompoundTag clipboardTag) {
 
         PipePitch next = PipePitch.fromNormalizedName(clipboardTag.getString("Pitch")).next(); // get the pitch above what's written on the clipboard
-        if (next == null) next = PipePitch.HIGHEST; // if it's the maximum pitch, just stay at the maximum
+
         setPitch(next); // set the new pitch
         pitchSlot.setValueSilent(next); // set the new pitch on the scroll box
         setKey(Objects.requireNonNull(ItemStack.of(clipboardTag.getCompound("Key")))); // set the new key

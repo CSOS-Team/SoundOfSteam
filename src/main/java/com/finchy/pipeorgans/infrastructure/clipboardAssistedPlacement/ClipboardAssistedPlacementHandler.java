@@ -1,22 +1,16 @@
 package com.finchy.pipeorgans.infrastructure.clipboardAssistedPlacement;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.content.noteLink.NoteLinkBehaviour;
-import com.finchy.pipeorgans.content.noteLink.NoteLinkBlock;
 import com.finchy.pipeorgans.content.noteLink.NoteLinkBlockEntity;
-import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.util.PipePitch;
 import com.simibubi.create.content.equipment.clipboard.ClipboardOverrides;
-import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -36,6 +30,7 @@ public class ClipboardAssistedPlacementHandler {
         if (!(be instanceof NoteLinkBlockEntity noteLinkBE)) return; // ensure a note link was just placed
 
         if (!(entity instanceof Player player)) return; // return if a zombie somehow placed a note link
+        boolean playerIsShifting = player.isShiftKeyDown();
 
         ItemStack offhand = player.getOffhandItem(); // get item in offhand
         if (!offhand.is(com.simibubi.create.AllBlocks.CLIPBOARD.asItem())) return; // return if player isn't holding a clipboard in offhand
@@ -48,8 +43,14 @@ public class ClipboardAssistedPlacementHandler {
 
             noteLinkBE.applyClipboardSettings(clipboardTag); // change the new note link's settings depending on what's written on the clipboard
 
-            PipePitch next = PipePitch.fromNormalizedName(clipboardTag.getString("Pitch")).next(); // get the pitch above what's written on the clipboard
-            if (next == null) next = PipePitch.HIGHEST; // if it's the maximum pitch, just stay at the maximum
+            PipePitch next;
+            if (playerIsShifting) { // if the player is sneaking, use the pitch below
+                next = PipePitch.fromNormalizedName(clipboardTag.getString("Pitch")).prev(); // get the pitch below what's written on the clipboard
+
+            } else { // if the player isn't sneaking, use the pitch above
+                next = PipePitch.fromNormalizedName(clipboardTag.getString("Pitch")).next(); // get the pitch above what's written on the clipboard
+            }
+
             clipboardTag.putString("Pitch", next.getNormalizedName()); // put the new pitch onto the clipboard
 
         } else { // if the clipboard hasn't been used for note links previously
