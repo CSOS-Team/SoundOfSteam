@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -29,10 +30,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class EnglishHorn {
 
-    public static class EnglishHornBlock extends VerticalPipeBlock {
+    public static class EnglishHornBlock extends DoublePipeBlock {
         public EnglishHornBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.DOUBLE, PipeMaterial.METAL,
+                    PipeDirection.VERTICAL, PipeMaterial.METAL,
                     AllBlocks.ENGLISH_HORN_EXTENSION,
                     AllBlockEntities.ENGLISH_HORN_BLOCK_ENTITY,
                     AllShapes::slimPipeShape);
@@ -40,13 +41,11 @@ public class EnglishHorn {
         }
     }
 
-    public static class EnglishHornExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+    public static class EnglishHornExtensionBlock extends DoubleExtensionBlock {
         public EnglishHornExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Double.class,
                     AllBlocks.ENGLISH_HORN,
-                    AllShapes::slimExtensionShape,
-                    false);
+                    AllShapes::slimExtensionShape);
         }
     }
 

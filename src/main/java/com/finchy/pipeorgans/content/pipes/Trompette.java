@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -29,10 +30,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Trompette {
 
-    public static class TrompetteBlock extends VerticalPipeBlock {
+    public static class TrompetteBlock extends DoublePipeBlock {
         public TrompetteBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.DOUBLE, PipeMaterial.METAL,
+                    PipeDirection.VERTICAL, PipeMaterial.METAL,
                     AllBlocks.TROMPETTE_EXTENSION,
                     AllBlockEntities.TROMPETTE_BLOCK_ENTITY,
                     AllShapes::slimPipeShape);
@@ -40,13 +41,11 @@ public class Trompette {
         }
     }
 
-    public static class TrompetteExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+    public static class TrompetteExtensionBlock extends DoubleExtensionBlock {
         public TrompetteExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Double.class,
                     AllBlocks.TROMPETTE,
-                    AllShapes::slimExtensionShape,
-                    false);
+                    AllShapes::slimExtensionShape);
         }
     }
 

@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -30,10 +31,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Rohrflote {
 
-    public static class RohrfloteBlock extends VerticalPipeBlock {
+    public static class RohrfloteBlock extends DoublePipeBlock {
         public RohrfloteBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.DOUBLE, PipeMaterial.METAL,
+                    PipeDirection.VERTICAL, PipeMaterial.METAL,
                     AllBlocks.ROHRFLOTE_EXTENSION,
                     AllBlockEntities.ROHRFLOTE_BLOCK_ENTITY,
                     AllShapes::genericPipeShape);
@@ -41,13 +42,11 @@ public class Rohrflote {
         }
     }
 
-    public static class RohrfloteExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+    public static class RohrfloteExtensionBlock extends DoubleExtensionBlock {
         public RohrfloteExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Double.class,
                     AllBlocks.ROHRFLOTE,
-                    AllShapes::genericExtensionShape,
-                    false);
+                    AllShapes::genericExtensionShape);
         }
     }
 

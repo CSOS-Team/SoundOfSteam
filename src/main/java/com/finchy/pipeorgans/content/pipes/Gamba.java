@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -30,10 +31,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Gamba {
 
-    public static class GambaBlock extends VerticalPipeBlock {
+    public static class GambaBlock extends DoublePipeBlock {
         public GambaBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.DOUBLE, PipeMaterial.METAL,
+                    PipeDirection.VERTICAL, PipeMaterial.METAL,
                     AllBlocks.GAMBA_EXTENSION,
                     AllBlockEntities.GAMBA_BLOCK_ENTITY,
                     AllShapes::genericPipeShape);
@@ -41,13 +42,11 @@ public class Gamba {
         }
     }
 
-    public static class GambaExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+    public static class GambaExtensionBlock extends DoubleExtensionBlock {
         public GambaExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Double.class,
                     AllBlocks.GAMBA,
-                    AllShapes::genericExtensionShape,
-                    false);
+                    AllShapes::genericExtensionShape);
         }
     }
 

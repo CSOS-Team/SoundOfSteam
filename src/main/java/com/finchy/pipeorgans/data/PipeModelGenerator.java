@@ -43,7 +43,7 @@ public class PipeModelGenerator implements DataProvider {
     public CompletableFuture<?> run(CachedOutput pOutput) {
         List<CompletableFuture<?>> futures = new ArrayList<>();
         for (BlockEntry<? extends GenericPipeBlock> pipeEntry : AllBlocks.PIPE_BLOCKS) {
-            generateForPipe(pOutput, pipeEntry, futures, (pipeEntry.get() instanceof com.finchy.pipeorgans.content.pipes.generic.subtypes2.HorizontalPipeBlock));
+            generateForPipe(pOutput, pipeEntry, futures, (pipeEntry.get().isHorizontal()));
         }
 
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));

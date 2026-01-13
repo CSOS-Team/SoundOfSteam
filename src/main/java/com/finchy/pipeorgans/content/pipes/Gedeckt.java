@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -30,10 +31,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Gedeckt {
 
-    public static class GedecktBlock extends VerticalPipeBlock {
+    public static class GedecktBlock extends DoublePipeBlock {
         public GedecktBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.DOUBLE, PipeMaterial.WOOD,
+                    PipeDirection.VERTICAL, PipeMaterial.WOOD,
                     AllBlocks.GEDECKT_EXTENSION,
                     AllBlockEntities.GEDECKT_BLOCK_ENTITY,
                     AllShapes::genericPipeShape);
@@ -41,13 +42,11 @@ public class Gedeckt {
         }
     }
 
-    public static class GedecktExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+    public static class GedecktExtensionBlock extends DoubleExtensionBlock {
         public GedecktExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Double.class,
                     AllBlocks.GEDECKT,
-                    AllShapes::genericExtensionShape,
-                    false);
+                    AllShapes::genericExtensionShape);
         }
     }
 

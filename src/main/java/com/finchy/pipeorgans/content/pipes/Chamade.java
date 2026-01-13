@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.HorizontalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -29,10 +30,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Chamade {
 
-    public static class ChamadeBlock extends HorizontalPipeBlock {
+    public static class ChamadeBlock extends DoublePipeBlock {
         public ChamadeBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.DOUBLE, PipeMaterial.METAL,
+                    PipeDirection.HORIZONTAL, PipeMaterial.METAL,
                     AllBlocks.CHAMADE_EXTENSION,
                     AllBlockEntities.CHAMADE_BLOCK_ENTITY,
                     AllShapes::horizontalPipeShape);
@@ -40,13 +41,16 @@ public class Chamade {
         }
     }
 
-    public static class ChamadeExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+    public static class ChamadeExtensionBlock extends DoubleExtensionBlock {
         public ChamadeExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Double.class,
                     AllBlocks.CHAMADE,
-                    AllShapes::horizontalExtensionShape,
-                    false);
+                    AllShapes::horizontalExtensionShape);
+        }
+
+        @Override
+        public boolean isDirectional() {
+            return true;
         }
     }
 

@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -30,10 +31,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Hohlflute {
 
-    public static class HohlfluteBlock extends VerticalPipeBlock {
+    public static class HohlfluteBlock extends DoublePipeBlock {
         public HohlfluteBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.DOUBLE, PipeMaterial.WOOD,
+                    PipeDirection.VERTICAL, PipeMaterial.WOOD,
                     AllBlocks.HOHLFLUTE_EXTENSION,
                     AllBlockEntities.HOHLFLUTE_BLOCK_ENTITY,
                     AllShapes::slimPipeShape);
@@ -41,13 +42,11 @@ public class Hohlflute {
         }
     }
 
-    public static class HohlfluteExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+    public static class HohlfluteExtensionBlock extends DoubleExtensionBlock {
         public HohlfluteExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Double.class,
                     AllBlocks.HOHLFLUTE,
-                    AllShapes::slimExtensionShape,
-                    false);
+                    AllShapes::slimExtensionShape);
         }
     }
 

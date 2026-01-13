@@ -1,7 +1,9 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.SingleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.SinglePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -29,10 +31,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Bassoon {
 
-    public static class BassoonBlock extends VerticalPipeBlock {
+    public static class BassoonBlock extends SinglePipeBlock {
         public BassoonBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.SINGLE, PipeMaterial.WOOD,
+                    PipeDirection.VERTICAL, PipeMaterial.WOOD,
                     AllBlocks.BASSOON_EXTENSION,
                     AllBlockEntities.BASSOON_BLOCK_ENTITY,
                     AllShapes::slimPipeShape);
@@ -40,13 +42,11 @@ public class Bassoon {
         }
     }
 
-    public static class BassoonExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Single> {
+    public static class BassoonExtensionBlock extends SingleExtensionBlock {
         public BassoonExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Single.class,
                     AllBlocks.BASSOON,
-                    AllShapes::slimExtensionShape,
-                    false);
+                    AllShapes::slimExtensionShape);
         }
     }
 

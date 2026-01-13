@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -30,10 +31,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Nasard {
 
-    public static class NasardBlock extends VerticalPipeBlock {
+    public static class NasardBlock extends DoublePipeBlock {
         public NasardBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.DOUBLE, PipeMaterial.METAL,
+                    PipeDirection.VERTICAL, PipeMaterial.METAL,
                     AllBlocks.NASARD_EXTENSION,
                     AllBlockEntities.NASARD_BLOCK_ENTITY,
                     AllShapes::slimPipeShape);
@@ -41,13 +42,11 @@ public class Nasard {
         }
     }
 
-    public static class NasardExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+    public static class NasardExtensionBlock extends DoubleExtensionBlock {
         public NasardExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Double.class,
                     AllBlocks.NASARD,
-                    AllShapes::slimExtensionShape,
-                    false);
+                    AllShapes::slimExtensionShape);
         }
     }
 

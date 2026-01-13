@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.SingleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.SinglePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -29,10 +30,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Posaune {
 
-    public static class PosauneBlock extends VerticalPipeBlock {
+    public static class PosauneBlock extends SinglePipeBlock {
         public PosauneBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.SINGLE, PipeMaterial.WOOD,
+                    PipeDirection.VERTICAL, PipeMaterial.WOOD,
                     AllBlocks.POSAUNE_EXTENSION,
                     AllBlockEntities.POSAUNE_BLOCK_ENTITY,
                     AllShapes::slimPipeShape);
@@ -40,13 +41,16 @@ public class Posaune {
         }
     }
 
-    public static class PosauneExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Single> {
+    public static class PosauneExtensionBlock extends SingleExtensionBlock {
         public PosauneExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Single.class,
                     AllBlocks.POSAUNE,
-                    AllShapes::slimExtensionShape,
-                    true);
+                    AllShapes::slimExtensionShape);
+        }
+
+        @Override
+        public boolean isDirectional() {
+            return true;
         }
     }
 

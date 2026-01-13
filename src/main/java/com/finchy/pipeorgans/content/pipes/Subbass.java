@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.SingleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.SinglePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -30,10 +31,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Subbass {
 
-    public static class SubbassBlock extends VerticalPipeBlock {
+    public static class SubbassBlock extends SinglePipeBlock {
         public SubbassBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.SINGLE, PipeMaterial.WOOD,
+                    PipeDirection.VERTICAL, PipeMaterial.WOOD,
                     AllBlocks.SUBBASS_EXTENSION,
                     AllBlockEntities.SUBBASS_BLOCK_ENTITY,
                     AllShapes::genericPipeShape);
@@ -41,13 +42,11 @@ public class Subbass {
         }
     }
 
-    public static class SubbassExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Single> {
+    public static class SubbassExtensionBlock extends SingleExtensionBlock {
         public SubbassExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Single.class,
                     AllBlocks.SUBBASS,
-                    AllShapes::genericExtensionShape,
-                    false);
+                    AllShapes::genericExtensionShape);
         }
     }
 

@@ -51,13 +51,13 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
     protected final BlockEntry<? extends GenericExtensionBlock<?>> extensionBlock;
     protected final BlockEntityEntry<? extends GenericPipeBlockEntity> blockEntityType;
 
-    protected final ExtensionMode extensionMode;
+    protected final PipeDirection pipeDirection;
     protected final SoundEvent growSound;
 
     protected final TriFunction<PipeSize, Boolean, Direction, VoxelShape> voxelShapeGetter;
     // WHY IS A TRIFUNCTION A THING???
 
-    public GenericPipeBlock(Properties pProperties, ExtensionMode extensionShape,
+    public GenericPipeBlock(Properties pProperties, PipeDirection pipeDirection,
                             PipeMaterial pipeMaterial,
                             BlockEntry<? extends GenericExtensionBlock<?>> extensionBlock,
                             BlockEntityEntry<? extends GenericPipeBlockEntity> blockEntityType,
@@ -72,15 +72,24 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
         this.extensionBlock = extensionBlock;
         this.blockEntityType = blockEntityType;
 
-        this.extensionMode = extensionShape;
+        this.pipeDirection = pipeDirection;
         this.growSound = pipeMaterial.getGrowSound();
 
         this.voxelShapeGetter = voxelShapeGetter;
     }
 
+    public boolean isHorizontal() {
+        return pipeDirection.equals(PipeDirection.HORIZONTAL);
+    }
+
     @Override
-    public int extensionsPerBlock() {
-        return extensionMode.getExtensionsPerBlock();
+    public Direction getExtensionDirection(BlockState pipeState) {
+        return pipeDirection.getExtensionDirection(pipeState);
+    }
+
+    @Override
+    public Direction getPipeDirectionFromExtension(BlockState extensionState) {
+        return pipeDirection.getPipeDirectionFromExtension(extensionState);
     }
 
     @Override
@@ -119,7 +128,7 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
                 if (!shape.isFullBlockLong()) { // if another extension can be added without placing a new block
 
                     BlockState toSet = blockState.cycle(getExtensionBlock().SHAPE); // cycle to the next shape
-                    if (getExtensionBlock().isDirectional)         // only set direction if the extension is directional
+                    if (getExtensionBlock().isDirectional())         // only set direction if the extension is directional
                         toSet = toSet.setValue(FACING, facing);    // (would cause a crash otherwise)
                     pLevel.setBlock(currentPos, toSet, 3);
 
@@ -139,7 +148,7 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
             }
 
             BlockState toSet = getExtensionBlock().defaultBlockState().setValue(SIZE, size);
-            if (getExtensionBlock().isDirectional)      // only set direction if the extension is directional
+            if (getExtensionBlock().isDirectional())      // only set direction if the extension is directional
                 toSet = toSet.setValue(FACING, facing);    // (would cause a crash otherwise)
             pLevel.setBlock(currentPos, toSet, 3);
 
@@ -210,7 +219,7 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return voxelShapeGetter.apply(pState.getValue(SIZE), pState.getValue(WALL), pState.getValue(FACING));
+        return voxelShapeGetter.apply(pState.getValue(SIZE), pState.getValue(WALL), pState.hasProperty(FACING) ? pState.getValue(FACING) : Direction.SOUTH);
     }
 
     // on right-click

@@ -1,16 +1,19 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadrupleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadruplePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllSoundEvents;
+import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.math.VecHelper;
 import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -29,10 +32,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class VoxHumana {
 
-    public static class VoxHumanaBlock extends VerticalPipeBlock {
+    public static class VoxHumanaBlock extends QuadruplePipeBlock {
         public VoxHumanaBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.QUADRUPLE, PipeMaterial.METAL,
+                    PipeDirection.VERTICAL, PipeMaterial.METAL,
                     AllBlocks.VOX_HUMANA_EXTENSION,
                     AllBlockEntities.VOX_HUMANA_BLOCK_ENTITY,
                     AllShapes::slimPipeShape);
@@ -40,13 +43,11 @@ public class VoxHumana {
         }
     }
 
-    public static class VoxHumanaExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Quadruple> {
+    public static class VoxHumanaExtensionBlock extends QuadrupleExtensionBlock {
         public VoxHumanaExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Quadruple.class,
                     AllBlocks.VOX_HUMANA,
-                    AllShapes::slimExtensionShape,
-                    false);
+                    AllShapes::slimExtensionShape);
         }
     }
 
@@ -91,7 +92,26 @@ public class VoxHumana {
             if (!particle)
                 return;
 
-            createReedSteamJet();
+            createSteamJet(size);
+        }
+
+        @Override
+        public void createSteamJet(PipeSize size) {
+            Direction facing = getBlockState().getOptionalValue(GenericPipeBlock.FACING)
+                    .orElse(Direction.SOUTH);
+            float angle = 180+ AngleHelper.horizontalAngle(facing);
+
+            float yOffset = pitch==0?0.125f:0;
+            double yPos = ((double) pitch/4)+1 + yOffset;
+
+            if (size == PipeSize.TINY) { size = PipeSize.SMALL; }
+            double zOffset = (2 / 16f*size.ordinal()) + (pitch==0?0:0.0625);
+
+            Vec3 v = VecHelper.rotate(
+                    new Vec3(0, yPos, zOffset), angle, Direction.Axis.Y).add(Vec3.atBottomCenterOf(worldPosition));
+
+            Vec3 m = VecHelper.rotate(new Vec3(0, 1, 1), angle, Direction.Axis.Y);
+            level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
         }
     }
 

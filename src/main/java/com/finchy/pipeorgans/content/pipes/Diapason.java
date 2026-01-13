@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -32,10 +33,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.DIAPASON_LOW;
 
 public class Diapason {
 
-    public static class DiapasonBlock extends VerticalPipeBlock {
+    public static class DiapasonBlock extends DoublePipeBlock {
         public DiapasonBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.DOUBLE, PipeMaterial.METAL,
+                    PipeDirection.VERTICAL, PipeMaterial.METAL,
                     AllBlocks.DIAPASON_EXTENSION,
                     AllBlockEntities.DIAPASON_BLOCK_ENTITY,
                     AllShapes::genericPipeShape);
@@ -43,13 +44,11 @@ public class Diapason {
         }
     }
 
-    public static class DiapasonExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+    public static class DiapasonExtensionBlock extends DoubleExtensionBlock {
         public DiapasonExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Double.class,
                     AllBlocks.DIAPASON,
-                    AllShapes::genericExtensionShape,
-                    false);
+                    AllShapes::genericExtensionShape);
         }
     }
 

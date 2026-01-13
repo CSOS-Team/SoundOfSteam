@@ -60,7 +60,7 @@ public interface PipeBehaviour {
         if (pitch > 0) { // if there are actually any extensions to place
             for (BlockPos pos : extensionPositions(baseState, basePos, pitch)) {
                 BlockState state = level.getBlockState(pos);
-                if (state.canBeReplaced() || state.getBlock().equals(getExtensionBlock()))
+                if (state.canBeReplaced() || state.getBlock() instanceof GenericExtensionBlock<?>)
                     continue;
                 return false; // something in the way
             }

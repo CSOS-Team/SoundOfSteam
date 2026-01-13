@@ -95,7 +95,7 @@ public class ExtensionShapes {
 
         @Override
         public Double longestNonConnected() {
-            return SINGLE;
+            return DOUBLE;
         }
 
         @Override

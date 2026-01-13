@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.SingleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.SinglePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -30,10 +31,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class OpenWood {
 
-    public static class OpenWoodBlock extends VerticalPipeBlock {
+    public static class OpenWoodBlock extends SinglePipeBlock {
         public OpenWoodBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.SINGLE, PipeMaterial.WOOD,
+                    PipeDirection.VERTICAL, PipeMaterial.WOOD,
                     AllBlocks.OPEN_WOOD_EXTENSION,
                     AllBlockEntities.OPEN_WOOD_BLOCK_ENTITY,
                     AllShapes::slimPipeShape);
@@ -41,13 +42,16 @@ public class OpenWood {
         }
     }
 
-    public static class OpenWoodExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Single> {
+    public static class OpenWoodExtensionBlock extends SingleExtensionBlock {
         public OpenWoodExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Single.class,
                     AllBlocks.OPEN_WOOD,
-                    AllShapes::slimExtensionShape,
-                    true);
+                    AllShapes::slimExtensionShape);
+        }
+
+        @Override
+        public boolean isDirectional() {
+            return true;
         }
     }
 

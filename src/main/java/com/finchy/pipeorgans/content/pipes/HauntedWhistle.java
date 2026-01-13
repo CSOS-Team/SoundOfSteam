@@ -2,7 +2,8 @@ package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.particles.hauntedJet.HauntedJetParticleData;
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.*;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -29,10 +30,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class HauntedWhistle {
 
-    public static class HauntedWhistleBlock extends VerticalPipeBlock {
+    public static class HauntedWhistleBlock extends DoublePipeBlock {
         public HauntedWhistleBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.DOUBLE, PipeMaterial.HAUNTED,
+                    PipeDirection.VERTICAL, PipeMaterial.HAUNTED,
                     AllBlocks.HAUNTED_WHISTLE_EXTENSION,
                     AllBlockEntities.HAUNTED_WHISTLE_BLOCK_ENTITY,
                     AllShapes::genericPipeShape);
@@ -40,13 +41,11 @@ public class HauntedWhistle {
         }
     }
 
-    public static class HauntedWhistleExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+    public static class HauntedWhistleExtensionBlock extends DoubleExtensionBlock {
         public HauntedWhistleExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Double.class,
                     AllBlocks.HAUNTED_WHISTLE,
-                    AllShapes::genericExtensionShape,
-                    false);
+                    AllShapes::genericExtensionShape);
         }
     }
 

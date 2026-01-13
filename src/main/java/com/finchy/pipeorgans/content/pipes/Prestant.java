@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -30,10 +31,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Prestant {
 
-    public static class PrestantBlock extends VerticalPipeBlock {
+    public static class PrestantBlock extends DoublePipeBlock {
         public PrestantBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.DOUBLE, PipeMaterial.WOOD,
+                    PipeDirection.VERTICAL, PipeMaterial.WOOD,
                     AllBlocks.PRESTANT_EXTENSION,
                     AllBlockEntities.PRESTANT_BLOCK_ENTITY,
                     AllShapes::genericPipeShape);
@@ -41,13 +42,11 @@ public class Prestant {
         }
     }
 
-    public static class PrestantExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+    public static class PrestantExtensionBlock extends DoubleExtensionBlock {
         public PrestantExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Double.class,
                     AllBlocks.PRESTANT,
-                    AllShapes::genericExtensionShape,
-                    false);
+                    AllShapes::genericExtensionShape);
         }
     }
 

@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.content.pipes;
 
 import com.finchy.pipeorgans.content.pipes.generic.*;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes2.VerticalPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -30,10 +31,10 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Viola {
 
-    public static class ViolaBlock extends VerticalPipeBlock {
+    public static class ViolaBlock extends DoublePipeBlock {
         public ViolaBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionMode.DOUBLE, PipeMaterial.METAL,
+                    PipeDirection.VERTICAL, PipeMaterial.METAL,
                     AllBlocks.VIOLA_EXTENSION,
                     AllBlockEntities.VIOLA_BLOCK_ENTITY,
                     AllShapes::stringPipeShape);
@@ -41,13 +42,16 @@ public class Viola {
         }
     }
 
-    public static class ViolaExtensionBlock extends GenericExtensionBlock<ExtensionShapes.Double> {
+    public static class ViolaExtensionBlock extends DoubleExtensionBlock {
         public ViolaExtensionBlock(Properties pProperties) {
             super(pProperties,
-                    ExtensionShapes.Double.class,
                     AllBlocks.VIOLA,
-                    AllShapes::stringExtensionShape,
-                    true);
+                    AllShapes::stringExtensionShape);
+        }
+
+        @Override
+        public boolean isDirectional() {
+            return true;
         }
     }
 

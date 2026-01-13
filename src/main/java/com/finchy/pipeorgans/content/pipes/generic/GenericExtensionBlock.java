@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.core.BlockPos;
@@ -27,41 +28,30 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.apache.commons.lang3.function.TriFunction;
 
-public class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.IExtensionShape<T> & StringRepresentable> extends Block implements IWrenchable {
+public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.IExtensionShape<T> & StringRepresentable> extends Block implements IWrenchable {
 
     public final EnumProperty<T> SHAPE;
     public static final EnumProperty<PipeSize> SIZE = GenericPipeBlock.SIZE;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     protected final BlockEntry<? extends GenericPipeBlock> pipeBlock;
-    public final boolean isDirectional;
     protected final TriFunction<T, PipeSize, Direction, VoxelShape> voxelShapeGetter;
 
     public GenericExtensionBlock(Properties pProperties,
-                                 Class<T> extensionShapeClass, BlockEntry<? extends GenericPipeBlock> pipeBlock,
-                                 TriFunction<T, PipeSize, Direction, VoxelShape> voxelShapeGetter,
-                                 boolean isDirectional) {
+                                 EnumProperty<T> shapeProperty, BlockEntry<? extends GenericPipeBlock> pipeBlock,
+                                 TriFunction<T, PipeSize, Direction, VoxelShape> voxelShapeGetter) {
         super(pProperties);
 
-        this.SHAPE = EnumProperty.create("shape", extensionShapeClass);
-        BlockState defaultState = defaultBlockState()
-                .setValue(SHAPE, extensionShapeClass.getEnumConstants()[0])
-                .setValue(SIZE, PipeSize.MEDIUM);
-        if (isDirectional)
-            defaultState.setValue(FACING, Direction.NORTH);
-        registerDefaultState(defaultState);
+        this.SHAPE = shapeProperty;
 
         this.pipeBlock = pipeBlock;
-        this.isDirectional = isDirectional;
         this.voxelShapeGetter = voxelShapeGetter;
     }
 
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(SHAPE, SIZE);
-        if (isDirectional)
-            pBuilder.add(FACING);
-        super.createBlockStateDefinition(pBuilder);
+    protected abstract void registerDefaultStateWithShape();
+
+    public boolean isDirectional() {
+        return false;
     }
 
     public BlockPos findRoot(LevelAccessor pLevel, BlockPos pPos, BlockState state) {
@@ -69,7 +59,7 @@ public class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.IExtensio
         BlockPos currentPos = pPos.relative(towardRoot);
         while (true) {
             BlockState blockState = pLevel.getBlockState(currentPos);
-            if (blockState.getBlock().equals(pipeBlock.get())) {
+            if (blockState.getBlock().equals(this)) {
                 currentPos = currentPos.relative(towardRoot);
                 continue;
             }
@@ -90,9 +80,10 @@ public class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.IExtensio
         }
         BlockPos rootPos = findRoot(pLevel, pPos, pState);
         BlockState pipeState = pLevel.getBlockState(rootPos);
-        if (pipeState.getBlock() instanceof GenericPipeBlock pipe)
+        if (pipeState.getBlock() instanceof GenericPipeBlock pipe) {
             return pipe.use(pipeState, pLevel, rootPos, pPlayer, pHand,
                     new BlockHitResult(pHit.getLocation(), pHit.getDirection(), rootPos, pHit.isInside()));
+        }
         return InteractionResult.PASS;
     }
 
@@ -109,14 +100,14 @@ public class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.IExtensio
 
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        BlockState below = pLevel.getBlockState(pPos.below());
+        BlockState below = pLevel.getBlockState(pPos.relative(pipeBlock.get().getPipeDirectionFromExtension(pState)));
         return (below.is(this) && below.getValue(SHAPE).isConnected())
                 || below.getBlock().equals(pipeBlock.get());
     }
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return voxelShapeGetter.apply(pState.getValue(SHAPE), pState.getValue(SIZE), pState.getValue(FACING));
+        return voxelShapeGetter.apply(pState.getValue(SHAPE), pState.getValue(SIZE), pState.hasProperty(FACING) ? pState.getValue(FACING) : Direction.SOUTH);
     }
 
     @Override
@@ -139,7 +130,7 @@ public class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.IExtensio
         }
 
         return !pState.canSurvive(pLevel, pPos) ? Blocks.AIR.defaultBlockState()
-                : pState.setValue(SIZE, pLevel.getBlockState(pPos.below())
+                : pState.setValue(SIZE, pLevel.getBlockState(pPos.relative(pipeOutDirection.getOpposite()))
                 .getValue(SIZE));
     }
 

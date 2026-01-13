@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
 import com.finchy.pipeorgans.ClientConfig;
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
@@ -164,11 +165,14 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         int newPitch;
         for (newPitch = 0; newPitch <= 12; newPitch += pipeBlock.get().extensionsPerBlock()) {
             BlockState blockState = level.getBlockState(currentPos);
-            if (!(blockState.getBlock().equals(extensionBlock.get())))
+            if (!(blockState.getBlock().equals(extensionBlock.get()))) {
+                PipeOrgans.LOGGER.debug("FOUND EMPTY SPACE");
                 break;
+            }
             ExtensionShapes.IExtensionShape<?> shape = blockState.getValue(extensionBlock.get().SHAPE);
             if (!shape.isFullBlockLong()) {
                 newPitch += shape.extensionNumber();
+                PipeOrgans.LOGGER.debug("FOUND PARTIAL EXTENSION");
                 break;
             }
             currentPos = currentPos.relative(pipeOutFacing);
