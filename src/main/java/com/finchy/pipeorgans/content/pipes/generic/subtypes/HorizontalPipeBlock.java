@@ -31,7 +31,7 @@ public abstract class HorizontalPipeBlock extends GenericPipeBlock {
 
         float volume = (soundType.getVolume() + 1.0F) / 2.0F;
         SoundEvent growSound = this.getGrowSound();
-        SoundEvent hitSound = soundType.getHitSound();
+        SoundEvent hitSound = soundType.getPlaceSound();
 
         for (int i = 1; i <= 12; i += 2) {
             BlockState stateAtPos = level.getBlockState(currentPos);
