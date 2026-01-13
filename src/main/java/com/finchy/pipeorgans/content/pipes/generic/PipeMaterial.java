@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 public enum PipeMaterial {
     BASIC(SoundEvents.NOTE_BLOCK_XYLOPHONE),
     WOOD(AllSoundEvents.GROW_WOODEN_PIPE),
-    METAL(SoundEvents.NOTE_BLOCK_IRON_XYLOPHONE),
+    METAL(AllSoundEvents.GROW_METAL_PIPE),
     HAUNTED(AllSoundEvents.GROW_HAUNTED_PIPE);
 
     private final Supplier<SoundEvent> growSound;

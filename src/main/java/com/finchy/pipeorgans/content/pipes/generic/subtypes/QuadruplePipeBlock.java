@@ -31,7 +31,7 @@ public abstract class QuadruplePipeBlock extends GenericPipeBlock {
 
         float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
         SoundEvent growSound = this.getGrowSound();
-        SoundEvent hitSound = soundtype.getHitSound();
+        SoundEvent hitSound = soundtype.getPlaceSound();
 
         for (int i = 1; i <= 12; i+=4) {
             BlockState blockState = pLevel.getBlockState(currentPos);
