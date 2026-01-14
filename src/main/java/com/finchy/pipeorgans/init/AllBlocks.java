@@ -27,30 +27,11 @@ import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlock;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteBlock;
 import com.finchy.pipeorgans.content.pipes.hohlflute.HohlfluteExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.*;
 import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem.StopSize;
-import com.finchy.pipeorgans.content.pipes.nasard.NasardBlock;
-import com.finchy.pipeorgans.content.pipes.nasard.NasardExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloBlock;
-import com.finchy.pipeorgans.content.pipes.piccolo.PiccoloExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.posaune.PosauneBlock;
-import com.finchy.pipeorgans.content.pipes.posaune.PosauneExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.rohrflote.RohrfloteBlock;
-import com.finchy.pipeorgans.content.pipes.rohrflote.RohrfloteExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.subbass.SubbassBlock;
-import com.finchy.pipeorgans.content.pipes.subbass.SubbassExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.tierce.TierceBlock;
-import com.finchy.pipeorgans.content.pipes.tierce.TierceExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.trompette.TrompetteBlock;
-import com.finchy.pipeorgans.content.pipes.trompette.TrompetteExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.viola.ViolaBlock;
-import com.finchy.pipeorgans.content.pipes.viola.ViolaExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteBlock;
-import com.finchy.pipeorgans.content.pipes.voxCeleste.VoxCelesteExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaBlock;
-import com.finchy.pipeorgans.content.pipes.voxHumana.VoxHumanaExtensionBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.finchy.pipeorgans.data.AssetLookup;
@@ -157,323 +138,287 @@ public class AllBlocks {
 
     public static List<BlockEntry<? extends GenericPipeBlock>> PIPE_BLOCKS = new ArrayList<>();
 
-    public static final BlockEntry<DiapasonBlock> DIAPASON = registerPipeBlock(
+    public static final BlockEntry<Diapason.DiapasonBlock> DIAPASON = registerPipeBlock(
             "diapason",
-            DiapasonBlock::new,
+            Diapason.DiapasonBlock::new,
             com.simibubi.create.AllBlocks.ZINC_BLOCK,
             StopSize.EIGHT,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
 
-    public static final BlockEntry<DiapasonExtensionBlock> DIAPASON_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Diapason.DiapasonExtensionBlock> DIAPASON_EXTENSION = registerExtensionBlock(
             "diapason_extension",
-            DiapasonExtensionBlock::new,
+            Diapason.DiapasonExtensionBlock::new,
             com.simibubi.create.AllBlocks.ZINC_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
-    public static final BlockEntry<HauntedWhistleBlock> HAUNTED_WHISTLE = registerPipeBlock(
+    public static final BlockEntry<HauntedWhistle.HauntedWhistleBlock> HAUNTED_WHISTLE = registerPipeBlock(
             "haunted_whistle",
-            HauntedWhistleBlock::new,
+            HauntedWhistle.HauntedWhistleBlock::new,
             () -> Blocks.COPPER_BLOCK,
             StopSize.EIGHT,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
 
-    public static final BlockEntry<HauntedWhistleExtensionBlock> HAUNTED_WHISTLE_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<HauntedWhistle.HauntedWhistleExtensionBlock> HAUNTED_WHISTLE_EXTENSION = registerExtensionBlock(
             "haunted_whistle_extension",
-            HauntedWhistleExtensionBlock::new,
+            HauntedWhistle.HauntedWhistleExtensionBlock::new,
             () -> Blocks.COPPER_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
-    public static final BlockEntry<PrestantBlock> PRESTANT = registerPipeBlock(
+    public static final BlockEntry<Prestant.PrestantBlock> PRESTANT = registerPipeBlock(
             "prestant",
-            PrestantBlock::new,
+            Prestant.PrestantBlock::new,
             com.simibubi.create.AllBlocks.ZINC_BLOCK,
             StopSize.FOUR,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
 
-    public static final BlockEntry<PrestantExtensionBlock> PRESTANT_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Prestant.PrestantExtensionBlock> PRESTANT_EXTENSION = registerExtensionBlock(
             "prestant_extension",
-            PrestantExtensionBlock::new,
+            Prestant.PrestantExtensionBlock::new,
             com.simibubi.create.AllBlocks.ZINC_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE,
             null);
 
-    public static final BlockEntry<GambaBlock> GAMBA = registerPipeBlock(
+    public static final BlockEntry<Gamba.GambaBlock> GAMBA = registerPipeBlock(
             "gamba",
-            GambaBlock::new,
+            Gamba.GambaBlock::new,
             () -> Blocks.IRON_BLOCK,
             StopSize.FOUR,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
 
-    public static final BlockEntry<GambaExtensionBlock> GAMBA_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Gamba.GambaExtensionBlock> GAMBA_EXTENSION = registerExtensionBlock(
             "gamba_extension",
-            GambaExtensionBlock::new,
+            Gamba.GambaExtensionBlock::new,
             () -> Blocks.IRON_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
-    public static final BlockEntry<GedecktBlock> GEDECKT = registerPipeBlock(
+    public static final BlockEntry<Gedeckt.GedecktBlock> GEDECKT = registerPipeBlock(
             "gedeckt",
-            GedecktBlock::new,
+            Gedeckt.GedecktBlock::new,
             () -> Blocks.SPRUCE_PLANKS,
             StopSize.EIGHT,
-            BlockTags.MINEABLE_WITH_AXE,
-            null);
+            BlockTags.MINEABLE_WITH_AXE);
 
 
-    public static final BlockEntry<GedecktExtensionBlock> GEDECKT_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Gedeckt.GedecktExtensionBlock> GEDECKT_EXTENSION = registerExtensionBlock(
             "gedeckt_extension",
-            GedecktExtensionBlock::new,
+            Gedeckt.GedecktExtensionBlock::new,
             () -> Blocks.SPRUCE_PLANKS,
-            BlockTags.MINEABLE_WITH_AXE,
-            null);
+            BlockTags.MINEABLE_WITH_AXE);
 
-    public static final BlockEntry<HohlfluteBlock> HOHLFLUTE = registerPipeBlock(
+    public static final BlockEntry<Hohlflute.HohlfluteBlock> HOHLFLUTE = registerPipeBlock(
             "hohlflute",
-            HohlfluteBlock::new,
+            Hohlflute.HohlfluteBlock::new,
             () -> Blocks.BIRCH_PLANKS,
             StopSize.FOUR,
-            BlockTags.MINEABLE_WITH_AXE,
-            null);
+            BlockTags.MINEABLE_WITH_AXE);
 
 
-    public static final BlockEntry<HohlfluteExtensionBlock> HOHLFLUTE_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Hohlflute.HohlfluteExtensionBlock> HOHLFLUTE_EXTENSION = registerExtensionBlock(
             "hohlflute_extension",
-            HohlfluteExtensionBlock::new,
+            Hohlflute.HohlfluteExtensionBlock::new,
             () -> Blocks.BIRCH_PLANKS,
-            BlockTags.MINEABLE_WITH_AXE,
-            null);
+            BlockTags.MINEABLE_WITH_AXE);
 
-    public static final BlockEntry<RohrfloteBlock> ROHRFLOTE = registerPipeBlock(
+    public static final BlockEntry<Rohrflote.RohrfloteBlock> ROHRFLOTE = registerPipeBlock(
             "rohrflote",
-            RohrfloteBlock::new,
+            Rohrflote.RohrfloteBlock::new,
             () -> Blocks.IRON_BLOCK,
             StopSize.EIGHT,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
 
-    public static final BlockEntry<RohrfloteExtensionBlock> ROHRFLOTE_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Rohrflote.RohrfloteExtensionBlock> ROHRFLOTE_EXTENSION = registerExtensionBlock(
             "rohrflote_extension",
-            RohrfloteExtensionBlock::new,
+            Rohrflote.RohrfloteExtensionBlock::new,
             () -> Blocks.IRON_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
-    public static final BlockEntry<NasardBlock> NASARD = registerPipeBlock(
+    public static final BlockEntry<Nasard.NasardBlock> NASARD = registerPipeBlock(
             "nasard",
-            NasardBlock::new,
+            Nasard.NasardBlock::new,
             () -> Blocks.COPPER_BLOCK,
             StopSize.TWOANDTWOTHIRDS,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
 
-    public static final BlockEntry<NasardExtensionBlock> NASARD_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Nasard.NasardExtensionBlock> NASARD_EXTENSION = registerExtensionBlock(
             "nasard_extension",
-            NasardExtensionBlock::new,
+            Nasard.NasardExtensionBlock::new,
             () -> Blocks.COPPER_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE,
             null);
 
-    public static final BlockEntry<TierceBlock> TIERCE = registerPipeBlock(
+    public static final BlockEntry<Tierce.TierceBlock> TIERCE = registerPipeBlock(
             "tierce",
-            TierceBlock::new,
+            Tierce.TierceBlock::new,
             () -> Blocks.COPPER_BLOCK,
             StopSize.ONEANDTHREEFIFTHS,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
 
-    public static final BlockEntry<TierceExtensionBlock> TIERCE_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Tierce.TierceExtensionBlock> TIERCE_EXTENSION = registerExtensionBlock(
             "tierce_extension",
-            TierceExtensionBlock::new,
+            Tierce.TierceExtensionBlock::new,
             () -> Blocks.COPPER_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
-    public static final BlockEntry<PiccoloBlock> PICCOLO = registerPipeBlock(
+    public static final BlockEntry<Piccolo.PiccoloBlock> PICCOLO = registerPipeBlock(
             "piccolo",
-            PiccoloBlock::new,
+            Piccolo.PiccoloBlock::new,
             () -> Blocks.IRON_BLOCK,
             StopSize.TWO,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
 
-    public static final BlockEntry<PiccoloExtensionBlock> PICCOLO_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Piccolo.PiccoloExtensionBlock> PICCOLO_EXTENSION = registerExtensionBlock(
             "piccolo_extension",
-            PiccoloExtensionBlock::new,
+            Piccolo.PiccoloExtensionBlock::new,
             () -> Blocks.IRON_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
-    public static final BlockEntry<PosauneBlock> POSAUNE = registerPipeBlock(
+    public static final BlockEntry<Posaune.PosauneBlock> POSAUNE = registerPipeBlock(
             "posaune",
-            PosauneBlock::new,
+            Posaune.PosauneBlock::new,
             () -> Blocks.DARK_OAK_PLANKS,
             StopSize.THIRTYTWO,
-            BlockTags.MINEABLE_WITH_AXE,
-            null);
+            BlockTags.MINEABLE_WITH_AXE);
 
 
-    public static final BlockEntry<PosauneExtensionBlock> POSAUNE_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Posaune.PosauneExtensionBlock> POSAUNE_EXTENSION = registerExtensionBlock(
             "posaune_extension",
-            PosauneExtensionBlock::new,
+            Posaune.PosauneExtensionBlock::new,
             () -> Blocks.DARK_OAK_PLANKS,
-            BlockTags.MINEABLE_WITH_AXE,
-            null);
+            BlockTags.MINEABLE_WITH_AXE);
 
-    public static final BlockEntry<BassoonBlock> BASSOON = registerPipeBlock(
+    public static final BlockEntry<Bassoon.BassoonBlock> BASSOON = registerPipeBlock(
             "bassoon",
-            BassoonBlock::new,
+            Bassoon.BassoonBlock::new,
             () -> Blocks.IRON_BLOCK,
             StopSize.SIXTEEN,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
 
-    public static final BlockEntry<BassoonExtensionBlock> BASSOON_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Bassoon.BassoonExtensionBlock> BASSOON_EXTENSION = registerExtensionBlock(
             "bassoon_extension",
-            BassoonExtensionBlock::new,
+            Bassoon.BassoonExtensionBlock::new,
             () -> Blocks.IRON_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
-    public static final BlockEntry<SubbassBlock> SUBBASS = registerPipeBlock(
+    public static final BlockEntry<Subbass.SubbassBlock> SUBBASS = registerPipeBlock(
             "subbass",
-            SubbassBlock::new,
+            Subbass.SubbassBlock::new,
             () -> Blocks.DARK_OAK_PLANKS,
             StopSize.SIXTEEN,
-            BlockTags.MINEABLE_WITH_AXE,
-            null);
+            BlockTags.MINEABLE_WITH_AXE);
 
 
-    public static final BlockEntry<SubbassExtensionBlock> SUBBASS_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Subbass.SubbassExtensionBlock> SUBBASS_EXTENSION = registerExtensionBlock(
             "subbass_extension",
-            SubbassExtensionBlock::new,
+            Subbass.SubbassExtensionBlock::new,
             () -> Blocks.DARK_OAK_PLANKS,
-            BlockTags.MINEABLE_WITH_AXE,
-            null);
+            BlockTags.MINEABLE_WITH_AXE);
 
-    public static final BlockEntry<OpenWoodBlock> OPEN_WOOD = registerPipeBlock(
+    public static final BlockEntry<OpenWood.OpenWoodBlock> OPEN_WOOD = registerPipeBlock(
             "open_wood",
-            OpenWoodBlock::new,
+            OpenWood.OpenWoodBlock::new,
             () -> Blocks.MANGROVE_PLANKS,
             StopSize.SIXTEEN,
-            BlockTags.MINEABLE_WITH_AXE,
-            null);
+            BlockTags.MINEABLE_WITH_AXE);
 
 
-    public static final BlockEntry<OpenWoodExtensionBlock> OPEN_WOOD_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<OpenWood.OpenWoodExtensionBlock> OPEN_WOOD_EXTENSION = registerExtensionBlock(
             "open_wood_extension",
-            OpenWoodExtensionBlock::new,
+            OpenWood.OpenWoodExtensionBlock::new,
             () -> Blocks.MANGROVE_PLANKS,
-            BlockTags.MINEABLE_WITH_AXE,
-            null);
+            BlockTags.MINEABLE_WITH_AXE);
 
-    public static final BlockEntry<TrompetteBlock> TROMPETTE = registerPipeBlock(
+    public static final BlockEntry<Trompette.TrompetteBlock> TROMPETTE = registerPipeBlock(
             "trompette",
-            TrompetteBlock::new,
+            Trompette.TrompetteBlock::new,
             com.simibubi.create.AllBlocks.BRASS_BLOCK,
             StopSize.EIGHT,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
 
-    public static final BlockEntry<TrompetteExtensionBlock> TROMPETTE_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Trompette.TrompetteExtensionBlock> TROMPETTE_EXTENSION = registerExtensionBlock(
             "trompette_extension",
-            TrompetteExtensionBlock::new,
+            Trompette.TrompetteExtensionBlock::new,
             com.simibubi.create.AllBlocks.BRASS_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
-    public static final BlockEntry<ChamadeBlock> CHAMADE = registerPipeBlock(
+    public static final BlockEntry<Chamade.ChamadeBlock> CHAMADE = registerPipeBlock(
             "chamade",
-            ChamadeBlock::new,
+            Chamade.ChamadeBlock::new,
             com.simibubi.create.AllBlocks.BRASS_BLOCK,
             StopSize.EIGHT,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
 
-    public static final BlockEntry<ChamadeExtensionBlock> CHAMADE_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Chamade.ChamadeExtensionBlock> CHAMADE_EXTENSION = registerExtensionBlock(
             "chamade_extension",
-            ChamadeExtensionBlock::new,
+            Chamade.ChamadeExtensionBlock::new,
             com.simibubi.create.AllBlocks.BRASS_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
-    public static final BlockEntry<EnglishHornBlock> ENGLISH_HORN = registerPipeBlock(
+    public static final BlockEntry<EnglishHorn.EnglishHornBlock> ENGLISH_HORN = registerPipeBlock(
             "english_horn",
-            EnglishHornBlock::new,
+            EnglishHorn.EnglishHornBlock::new,
             com.simibubi.create.AllBlocks.BRASS_BLOCK,
             StopSize.EIGHT,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
 
-    public static final BlockEntry<EnglishHornExtensionBlock> ENGLISH_HORN_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<EnglishHorn.EnglishHornExtensionBlock> ENGLISH_HORN_EXTENSION = registerExtensionBlock(
             "english_horn_extension",
-            EnglishHornExtensionBlock::new,
+            EnglishHorn.EnglishHornExtensionBlock::new,
             com.simibubi.create.AllBlocks.BRASS_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
-    public static final BlockEntry<ViolaBlock> VIOLA = registerPipeBlock(
+    public static final BlockEntry<Viola.ViolaBlock> VIOLA = registerPipeBlock(
             "viola",
-            ViolaBlock::new,
+            Viola.ViolaBlock::new,
             com.simibubi.create.AllBlocks.INDUSTRIAL_IRON_BLOCK,
             StopSize.EIGHT,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
 
-    public static final BlockEntry<ViolaExtensionBlock> VIOLA_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<Viola.ViolaExtensionBlock> VIOLA_EXTENSION = registerExtensionBlock(
             "viola_extension",
-            ViolaExtensionBlock::new,
+            Viola.ViolaExtensionBlock::new,
             com.simibubi.create.AllBlocks.INDUSTRIAL_IRON_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
-    public static final BlockEntry<VoxCelesteBlock> VOX_CELESTE = registerPipeBlock(
+    public static final BlockEntry<VoxCeleste.VoxCelesteBlock> VOX_CELESTE = registerPipeBlock(
             "vox_celeste",
-            VoxCelesteBlock::new,
+            VoxCeleste.VoxCelesteBlock::new,
             com.simibubi.create.AllBlocks.WEATHERED_IRON_BLOCK,
             StopSize.EIGHT,
             BlockTags.MINEABLE_WITH_PICKAXE,
             "Voix Celeste");
 
-    public static final BlockEntry<VoxCelesteExtensionBlock> VOX_CELESTE_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<VoxCeleste.VoxCelesteExtensionBlock> VOX_CELESTE_EXTENSION = registerExtensionBlock(
             "vox_celeste_extension",
-            VoxCelesteExtensionBlock::new,
+            VoxCeleste.VoxCelesteExtensionBlock::new,
             com.simibubi.create.AllBlocks.WEATHERED_IRON_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE,
             "Voix Celeste Extension");
 
-    public static final BlockEntry<VoxHumanaBlock> VOX_HUMANA = registerPipeBlock(
+    public static final BlockEntry<VoxHumana.VoxHumanaBlock> VOX_HUMANA = registerPipeBlock(
             "vox_humana",
-            VoxHumanaBlock::new,
+            VoxHumana.VoxHumanaBlock::new,
             () -> Blocks.COPPER_BLOCK,
             StopSize.EIGHT,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
-    public static final BlockEntry<VoxHumanaExtensionBlock> VOX_HUMANA_EXTENSION = registerExtensionBlock(
+    public static final BlockEntry<VoxHumana.VoxHumanaExtensionBlock> VOX_HUMANA_EXTENSION = registerExtensionBlock(
             "vox_humana_extension",
-            VoxHumanaExtensionBlock::new,
+            VoxHumana.VoxHumanaExtensionBlock::new,
             () -> Blocks.COPPER_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
     @SuppressWarnings("removal")
     public static final BlockEntry<NoteLinkBlock> NOTE_LINK = REGISTRATE.block("note_link", NoteLinkBlock::new)
@@ -489,19 +434,27 @@ public class AllBlocks {
 
 
 //register block
+    //register pipe block
+    private static <T extends GenericPipeBlock> BlockEntry<T> registerPipeBlock( // overload for blocks without lang overrides
+            String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
+            NonNullSupplier<? extends Block> initialPropertiesCopier,
+            StopSize stopsize, TagKey<Block> toolTag) {
+        return registerPipeBlock(name, factory, initialPropertiesCopier, stopsize, toolTag, null);
+    }
+
     private static <T extends GenericPipeBlock> BlockEntry<T> registerPipeBlock(
             String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
             NonNullSupplier<? extends Block> initialPropertiesCopier,
             StopSize stopsize, TagKey<Block> toolTag,
-            @Nullable String nameOveride) {
+            @Nullable String nameOverride) {
 
         var builder = REGISTRATE.block(name, factory)
                 .initialProperties(initialPropertiesCopier)
                 .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
                 .blockstate(new PipeGenerator()::generate);
 
-        if (nameOveride != null) {
-            builder.lang(nameOveride);
+        if (nameOverride != null) {
+            builder.lang(nameOverride);
         }
 
         BlockEntry<T> entry = builder
@@ -513,7 +466,15 @@ public class AllBlocks {
         PIPE_BLOCKS.add(entry);
         return entry;
     }
-//register Extension
+
+    // register extension block
+    private static <T extends GenericExtensionBlock<?>> BlockEntry<T> registerExtensionBlock( // overload for blocks without lang overrides
+            String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
+            NonNullSupplier<? extends Block> initialPropertiesCopier,
+            TagKey<Block> toolTag) {
+        return registerExtensionBlock(name, factory, initialPropertiesCopier, toolTag, null);
+    }
+
     private static <T extends GenericExtensionBlock<?>> BlockEntry<T> registerExtensionBlock(
             String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
             NonNullSupplier<? extends Block> initialPropertiesCopier,

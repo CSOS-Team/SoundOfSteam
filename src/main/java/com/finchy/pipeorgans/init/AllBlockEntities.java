@@ -20,6 +20,7 @@ import com.finchy.pipeorgans.content.pipes.gamba.GambaBlockEntity;
 import com.finchy.pipeorgans.content.pipes.gamba.GambaRenderer;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktBlockEntity;
 import com.finchy.pipeorgans.content.pipes.gedeckt.GedecktRenderer;
+import com.finchy.pipeorgans.content.pipes.*;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockEntity;
 import com.finchy.pipeorgans.content.pipes.hauntedWhistle.HauntedWhistleBlockEntity;
 import com.finchy.pipeorgans.content.pipes.hauntedWhistle.HauntedWhistleRenderer;
@@ -86,125 +87,125 @@ public class AllBlockEntities {
 
 
 
-    public static final BlockEntityEntry<DiapasonBlockEntity> DIAPASON_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Diapason.DiapasonBlockEntity> DIAPASON_BLOCK_ENTITY = registerPipeBlockEntity(
             "diapason_block_entity",
-            DiapasonBlockEntity::new,
+            Diapason.DiapasonBlockEntity::new,
             AllBlocks.DIAPASON,
-            () -> DiapasonRenderer::new);
+            () -> Diapason.DiapasonRenderer::new);
 
-    public static final BlockEntityEntry<HauntedWhistleBlockEntity> HAUNTED_WHISTLE_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<HauntedWhistle.HauntedWhistleBlockEntity> HAUNTED_WHISTLE_BLOCK_ENTITY = registerPipeBlockEntity(
             "haunted_whistle_block_entity",
-            HauntedWhistleBlockEntity::new,
+            HauntedWhistle.HauntedWhistleBlockEntity::new,
             AllBlocks.HAUNTED_WHISTLE,
-            () -> HauntedWhistleRenderer::new);
+            () -> HauntedWhistle.HauntedWhistleRenderer::new);
 
-    public static final BlockEntityEntry<PrestantBlockEntity> PRESTANT_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Prestant.PrestantBlockEntity> PRESTANT_BLOCK_ENTITY = registerPipeBlockEntity(
             "prestant_block_entity",
-            PrestantBlockEntity::new,
+            Prestant.PrestantBlockEntity::new,
             AllBlocks.PRESTANT,
-            () -> PrestantRenderer::new);
+            () -> Prestant.PrestantRenderer::new);
 
-    public static final BlockEntityEntry<GambaBlockEntity> GAMBA_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Gamba.GambaBlockEntity> GAMBA_BLOCK_ENTITY = registerPipeBlockEntity(
             "gamba_block_entity",
-            GambaBlockEntity::new,
+            Gamba.GambaBlockEntity::new,
             AllBlocks.GAMBA,
-            () -> GambaRenderer::new);
+            () -> Gamba.GambaRenderer::new);
 
-    public static final BlockEntityEntry<GedecktBlockEntity> GEDECKT_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Gedeckt.GedecktBlockEntity> GEDECKT_BLOCK_ENTITY = registerPipeBlockEntity(
             "gedeckt_block_entity",
-            GedecktBlockEntity::new,
+            Gedeckt.GedecktBlockEntity::new,
             AllBlocks.GEDECKT,
-            () -> GedecktRenderer::new);
+            () -> Gedeckt.GedecktRenderer::new);
 
-    public static final BlockEntityEntry<HohlfluteBlockEntity> HOHLFLUTE_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Hohlflute.HohlfluteBlockEntity> HOHLFLUTE_BLOCK_ENTITY = registerPipeBlockEntity(
             "hohlflute_block_entity",
-            HohlfluteBlockEntity::new,
+            Hohlflute.HohlfluteBlockEntity::new,
             AllBlocks.HOHLFLUTE,
-            () -> HohlfluteRenderer::new);
+            () -> Hohlflute.HohlfluteRenderer::new);
 
-    public static final BlockEntityEntry<RohrfloteBlockEntity> ROHRFLOTE_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Rohrflote.RohrfloteBlockEntity> ROHRFLOTE_BLOCK_ENTITY = registerPipeBlockEntity(
             "rohrflote_block_entity",
-            RohrfloteBlockEntity::new,
+            Rohrflote.RohrfloteBlockEntity::new,
             AllBlocks.ROHRFLOTE,
-            () -> RohrfloteRenderer::new);
+            () -> Rohrflote.RohrfloteRenderer::new);
 
-    public static final BlockEntityEntry<NasardBlockEntity> NASARD_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Nasard.NasardBlockEntity> NASARD_BLOCK_ENTITY = registerPipeBlockEntity(
             "nasard_block_entity",
-            NasardBlockEntity::new,
+            Nasard.NasardBlockEntity::new,
             AllBlocks.NASARD,
-            () -> NasardRenderer::new);
+            () -> Nasard.NasardRenderer::new);
 
-    public static final BlockEntityEntry<TierceBlockEntity> TIERCE_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Tierce.TierceBlockEntity> TIERCE_BLOCK_ENTITY = registerPipeBlockEntity(
             "tierce_block_entity",
-            TierceBlockEntity::new,
+            Tierce.TierceBlockEntity::new,
             AllBlocks.TIERCE,
-            () -> TierceRenderer::new);
+            () -> Tierce.TierceRenderer::new);
 
-    public static final BlockEntityEntry<PiccoloBlockEntity> PICCOLO_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Piccolo.PiccoloBlockEntity> PICCOLO_BLOCK_ENTITY = registerPipeBlockEntity(
             "piccolo_block_entity",
-            PiccoloBlockEntity::new,
+            Piccolo.PiccoloBlockEntity::new,
             AllBlocks.PICCOLO,
-            () -> PiccoloRenderer::new);
+            () -> Piccolo.PiccoloRenderer::new);
 
-    public static final BlockEntityEntry<PosauneBlockEntity> POSAUNE_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Posaune.PosauneBlockEntity> POSAUNE_BLOCK_ENTITY = registerPipeBlockEntity(
             "posaune_block_entity",
-            PosauneBlockEntity::new,
+            Posaune.PosauneBlockEntity::new,
             AllBlocks.POSAUNE,
-            () -> PosauneRenderer::new);
+            () -> Posaune.PosauneRenderer::new);
 
-    public static final BlockEntityEntry<BassoonBlockEntity> BASSOON_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Bassoon.BassoonBlockEntity> BASSOON_BLOCK_ENTITY = registerPipeBlockEntity(
             "bassoon_block_entity",
-            BassoonBlockEntity::new,
+            Bassoon.BassoonBlockEntity::new,
             AllBlocks.BASSOON,
-            () -> BassoonRenderer::new);
+            () -> Bassoon.BassoonRenderer::new);
 
-    public static final BlockEntityEntry<SubbassBlockEntity> SUBBASS_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Subbass.SubbassBlockEntity> SUBBASS_BLOCK_ENTITY = registerPipeBlockEntity(
             "subbass_block_entity",
-            SubbassBlockEntity::new,
+            Subbass.SubbassBlockEntity::new,
             AllBlocks.SUBBASS,
-            () -> SubbassRenderer::new);
+            () -> Subbass.SubbassRenderer::new);
 
-    public static final BlockEntityEntry<OpenWoodBlockEntity> OPEN_WOOD_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<OpenWood.OpenWoodBlockEntity> OPEN_WOOD_BLOCK_ENTITY = registerPipeBlockEntity(
             "open_wood_block_entity",
-            OpenWoodBlockEntity::new,
+            OpenWood.OpenWoodBlockEntity::new,
             AllBlocks.OPEN_WOOD,
-            () -> OpenWoodRenderer::new);
+            () -> OpenWood.OpenWoodRenderer::new);
 
-    public static final BlockEntityEntry<TrompetteBlockEntity> TROMPETTE_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Trompette.TrompetteBlockEntity> TROMPETTE_BLOCK_ENTITY = registerPipeBlockEntity(
             "trompette_block_entity",
-            TrompetteBlockEntity::new,
+            Trompette.TrompetteBlockEntity::new,
             AllBlocks.TROMPETTE,
-            () -> TrompetteRenderer::new);
+            () -> Trompette.TrompetteRenderer::new);
 
-    public static final BlockEntityEntry<ChamadeBlockEntity> CHAMADE_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Chamade.ChamadeBlockEntity> CHAMADE_BLOCK_ENTITY = registerPipeBlockEntity(
             "chamade_block_entity",
-            ChamadeBlockEntity::new,
+            Chamade.ChamadeBlockEntity::new,
             AllBlocks.CHAMADE,
-            () -> ChamadeRenderer::new);
+            () -> Chamade.ChamadeRenderer::new);
 
-    public static final BlockEntityEntry<EnglishHornBlockEntity> ENGLISH_HORN_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<EnglishHorn.EnglishHornBlockEntity> ENGLISH_HORN_BLOCK_ENTITY = registerPipeBlockEntity(
             "english_horn_block_entity",
-            EnglishHornBlockEntity::new,
+            EnglishHorn.EnglishHornBlockEntity::new,
             AllBlocks.ENGLISH_HORN,
-            () -> EnglishHornRenderer::new);
+            () -> EnglishHorn.EnglishHornRenderer::new);
 
-    public static final BlockEntityEntry<ViolaBlockEntity> VIOLA_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<Viola.ViolaBlockEntity> VIOLA_BLOCK_ENTITY = registerPipeBlockEntity(
             "viola_block_entity",
-            ViolaBlockEntity::new,
+            Viola.ViolaBlockEntity::new,
             AllBlocks.VIOLA,
-            () -> ViolaRenderer::new);
+            () -> Viola.ViolaRenderer::new);
 
-    public static final BlockEntityEntry<VoxCelesteBlockEntity> VOX_CELESTE_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<VoxCeleste.VoxCelesteBlockEntity> VOX_CELESTE_BLOCK_ENTITY = registerPipeBlockEntity(
             "vox_celeste_block_entity",
-            VoxCelesteBlockEntity::new,
+            VoxCeleste.VoxCelesteBlockEntity::new,
             AllBlocks.VOX_CELESTE,
-            () -> VoxCelesteRenderer::new);
+            () -> VoxCeleste.VoxCelesteRenderer::new);
 
-    public static final BlockEntityEntry<VoxHumanaBlockEntity> VOX_HUMANA_BLOCK_ENTITY = registerPipeBlockEntity(
+    public static final BlockEntityEntry<VoxHumana.VoxHumanaBlockEntity> VOX_HUMANA_BLOCK_ENTITY = registerPipeBlockEntity(
             "vox_humana_block_entity",
-            VoxHumanaBlockEntity::new,
+            VoxHumana.VoxHumanaBlockEntity::new,
             AllBlocks.VOX_HUMANA,
-            () -> VoxHumanaRenderer::new);
+            () -> VoxHumana.VoxHumanaRenderer::new);
 
     public static final BlockEntityEntry<NoteLinkBlockEntity> NOTE_LINK_BLOCK_ENTITY = REGISTRATE
             .blockEntity("note_link", NoteLinkBlockEntity::new)
