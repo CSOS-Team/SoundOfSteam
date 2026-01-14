@@ -13,7 +13,7 @@ public class BassRollSoundInstance extends AbstractTickableSoundInstance {
     private final Level level;
 
     public BassRollSoundInstance(Level level, BlockPos pos) {
-        super(AllSoundEvents.BASS_ROLL.get(), SoundSource.BLOCKS, SoundInstance.createUnseededRandom());
+        super(AllSoundEvents.BASS_ROLL.get(), SoundSource.RECORDS, SoundInstance.createUnseededRandom());
         this.level = level;
         this.pos = pos;
 

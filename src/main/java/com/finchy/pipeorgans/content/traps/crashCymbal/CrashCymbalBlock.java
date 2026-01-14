@@ -91,7 +91,7 @@ public class CrashCymbalBlock extends HorizontalDirectionalBlock
         }
 
         BlockState state = Objects.requireNonNull(super.getStateForPlacement(context))
-                .setValue(FACING, face.getOpposite())
+                .setValue(FACING, face)
                 .setValue(WALL, wall)
                 .setValue(POWERED, level.hasNeighborSignal(pos));
 

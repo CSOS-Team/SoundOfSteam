@@ -10,8 +10,13 @@ import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem.StopSize;
+import com.finchy.pipeorgans.content.traps.bassDrum.BassDrumBlock;
+import com.finchy.pipeorgans.content.traps.crashCymbal.CrashCymbalBlock;
+import com.finchy.pipeorgans.content.traps.snare.SnareDrumBlock;
+import com.finchy.pipeorgans.content.traps.tapCymbal.TapCymbalBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
+import com.finchy.pipeorgans.content.windchest.tremulant.TremulantBlock;
 import com.finchy.pipeorgans.data.AssetLookup;
 import com.finchy.pipeorgans.data.BlockStateGen.*;
 import com.simibubi.create.api.stress.BlockStressValues;
@@ -108,6 +113,61 @@ public class AllBlocks {
             .onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "block.pipeorgans.roll_puncher"))
             .item()
             .build()
+            .register();
+
+    public static final BlockEntry<TremulantBlock> TREMULANT = REGISTRATE.block("tremulant", TremulantBlock::new)
+            .initialProperties(() -> Blocks.OAK_PLANKS)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .item()
+            .transform(customItemModel())
+            .transform(axeOnly())
+            .register();
+
+    public static final BlockEntry<BassDrumBlock> BASS_DRUM = REGISTRATE.block("bass_drum", BassDrumBlock::new)
+            .initialProperties(() -> Blocks.OAK_PLANKS)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .item()
+            .transform(customItemModel())
+            .transform(axeOnly())
+            .register();
+
+    public static final BlockEntry<CrashCymbalBlock> CRASH_CYMBAL = REGISTRATE.block("crash_cymbal", CrashCymbalBlock::new)
+            .initialProperties(() -> Blocks.OAK_PLANKS)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .item()
+            .transform(customItemModel())
+            .transform(axeOnly())
+            .register();
+
+    public static final BlockEntry<SnareDrumBlock> SNARE_DRUM = REGISTRATE.block("snare_drum", SnareDrumBlock::new)
+            .initialProperties(() -> Blocks.OAK_PLANKS)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .item()
+            .transform(customItemModel())
+            .transform(axeOnly())
+            .register();
+
+    public static final BlockEntry<TapCymbalBlock> TAP_CYMBAL = REGISTRATE.block("tap_cymbal", TapCymbalBlock::new)
+            .initialProperties(() -> Blocks.OAK_PLANKS)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .item()
+            .transform(customItemModel())
+            .transform(axeOnly())
             .register();
 
 

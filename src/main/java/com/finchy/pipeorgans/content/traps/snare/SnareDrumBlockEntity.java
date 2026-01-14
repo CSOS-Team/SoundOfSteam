@@ -82,7 +82,7 @@ public class SnareDrumBlockEntity extends SmartBlockEntity {
                     null,
                     worldPosition,
                     AllSoundEvents.SNARE_TAP.get(),
-                    SoundSource.BLOCKS,
+                    SoundSource.RECORDS,
                     1.0f,
                     1.0f
             );

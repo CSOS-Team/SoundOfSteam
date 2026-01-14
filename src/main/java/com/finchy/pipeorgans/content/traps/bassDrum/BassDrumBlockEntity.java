@@ -82,7 +82,7 @@ public class BassDrumBlockEntity extends SmartBlockEntity {
                     null,
                     worldPosition,
                     AllSoundEvents.BASS_TAP.get(),
-                    SoundSource.BLOCKS,
+                    SoundSource.RECORDS,
                     1.0f,
                     1.0f
             );

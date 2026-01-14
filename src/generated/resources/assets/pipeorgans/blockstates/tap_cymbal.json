@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "facing=east,mode=roll,powered=false,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal",
+      "y": 90
+    },
+    "facing=east,mode=roll,powered=false,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal",
+      "y": 90
+    },
+    "facing=east,mode=roll,powered=true,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered",
+      "y": 90
+    },
+    "facing=east,mode=roll,powered=true,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered",
+      "y": 90
+    },
+    "facing=east,mode=tap,powered=false,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal",
+      "y": 90
+    },
+    "facing=east,mode=tap,powered=false,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal",
+      "y": 90
+    },
+    "facing=east,mode=tap,powered=true,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered",
+      "y": 90
+    },
+    "facing=east,mode=tap,powered=true,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered",
+      "y": 90
+    },
+    "facing=north,mode=roll,powered=false,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal"
+    },
+    "facing=north,mode=roll,powered=false,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal"
+    },
+    "facing=north,mode=roll,powered=true,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered"
+    },
+    "facing=north,mode=roll,powered=true,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered"
+    },
+    "facing=north,mode=tap,powered=false,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal"
+    },
+    "facing=north,mode=tap,powered=false,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal"
+    },
+    "facing=north,mode=tap,powered=true,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered"
+    },
+    "facing=north,mode=tap,powered=true,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered"
+    },
+    "facing=south,mode=roll,powered=false,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal",
+      "y": 180
+    },
+    "facing=south,mode=roll,powered=false,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal",
+      "y": 180
+    },
+    "facing=south,mode=roll,powered=true,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered",
+      "y": 180
+    },
+    "facing=south,mode=roll,powered=true,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered",
+      "y": 180
+    },
+    "facing=south,mode=tap,powered=false,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal",
+      "y": 180
+    },
+    "facing=south,mode=tap,powered=false,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal",
+      "y": 180
+    },
+    "facing=south,mode=tap,powered=true,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered",
+      "y": 180
+    },
+    "facing=south,mode=tap,powered=true,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered",
+      "y": 180
+    },
+    "facing=west,mode=roll,powered=false,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal",
+      "y": 270
+    },
+    "facing=west,mode=roll,powered=false,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal",
+      "y": 270
+    },
+    "facing=west,mode=roll,powered=true,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered",
+      "y": 270
+    },
+    "facing=west,mode=roll,powered=true,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered",
+      "y": 270
+    },
+    "facing=west,mode=tap,powered=false,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal",
+      "y": 270
+    },
+    "facing=west,mode=tap,powered=false,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal",
+      "y": 270
+    },
+    "facing=west,mode=tap,powered=true,wall=false": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered",
+      "y": 270
+    },
+    "facing=west,mode=tap,powered=true,wall=true": {
+      "model": "pipeorgans:block/tap_cymbal/tap_cymbal_powered",
+      "y": 270
+    }
+  }
+}

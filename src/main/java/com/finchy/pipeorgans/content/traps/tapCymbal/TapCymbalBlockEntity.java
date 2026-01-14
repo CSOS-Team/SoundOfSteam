@@ -19,7 +19,7 @@ public class TapCymbalBlockEntity extends SmartBlockEntity {
     private boolean wasPowered = false;
 
     @Nullable
-    private TapCymbalSoundInstance rollSound;
+    private CymbalRollSoundInstance rollSound;
 
     public TapCymbalBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -75,18 +75,15 @@ public class TapCymbalBlockEntity extends SmartBlockEntity {
         boolean powered = isEffectivelyPowered();
         PercussionMode mode = getMode();
 
+        @Nullable CymbalTapSoundInstance tapSound;
+
+
 
         //Tap
-        if (!level.isClientSide && powered && !wasPowered && mode == PercussionMode.TAP) {
-            level.playSound(
-                    null,
-                    worldPosition,
-                    AllSoundEvents.CYMBAL_TAP.get(),
-                    SoundSource.BLOCKS,
-                    1.0f,
-                    1.0f
-            );
+        if (level.isClientSide && powered && !wasPowered && mode == PercussionMode.TAP) {
+            playTap();
         }
+
 
         //Roll
         if (level.isClientSide) {
@@ -100,13 +97,23 @@ public class TapCymbalBlockEntity extends SmartBlockEntity {
         wasPowered = powered;
     }
 
+    private void playTap() {
+        CymbalTapSoundInstance tap =
+                new CymbalTapSoundInstance(level, worldPosition);
+
+        Minecraft.getInstance()
+                .getSoundManager()
+                .play(tap);
+    }
+
+
     //Roll Control
 
     private void startRoll() {
         if (rollSound != null)
             return;
 
-        rollSound = new TapCymbalSoundInstance(level, worldPosition);
+        rollSound = new CymbalRollSoundInstance(level, worldPosition);
         Minecraft.getInstance().getSoundManager().play(rollSound);
     }
 

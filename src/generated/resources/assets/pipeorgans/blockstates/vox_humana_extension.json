@@ -1,379 +1,79 @@
 {
   "variants": {
-    "facing=east,shape=double,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_double",
-      "y": 270
-    },
-    "facing=east,shape=double,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_double",
-      "y": 270
-    },
-    "facing=east,shape=double,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_double",
-      "y": 270
-    },
-    "facing=east,shape=double,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_double",
-      "y": 270
-    },
-    "facing=east,shape=double,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_double",
-      "y": 270
-    },
-    "facing=east,shape=quad,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_quad",
-      "y": 270
-    },
-    "facing=east,shape=quad,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_quad",
-      "y": 270
-    },
-    "facing=east,shape=quad,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_quad",
-      "y": 270
-    },
-    "facing=east,shape=quad,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_quad",
-      "y": 270
-    },
-    "facing=east,shape=quad,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_quad",
-      "y": 270
-    },
-    "facing=east,shape=quad_connected,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_quad_connected",
-      "y": 270
-    },
-    "facing=east,shape=quad_connected,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_quad_connected",
-      "y": 270
-    },
-    "facing=east,shape=quad_connected,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_quad_connected",
-      "y": 270
-    },
-    "facing=east,shape=quad_connected,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_quad_connected",
-      "y": 270
-    },
-    "facing=east,shape=quad_connected,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_quad_connected",
-      "y": 270
-    },
-    "facing=east,shape=single,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_single",
-      "y": 270
-    },
-    "facing=east,shape=single,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_single",
-      "y": 270
-    },
-    "facing=east,shape=single,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_single",
-      "y": 270
-    },
-    "facing=east,shape=single,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_single",
-      "y": 270
-    },
-    "facing=east,shape=single,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_single",
-      "y": 270
-    },
-    "facing=east,shape=triple,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_triple",
-      "y": 270
-    },
-    "facing=east,shape=triple,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_triple",
-      "y": 270
-    },
-    "facing=east,shape=triple,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_triple",
-      "y": 270
-    },
-    "facing=east,shape=triple,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_triple",
-      "y": 270
-    },
-    "facing=east,shape=triple,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_triple",
-      "y": 270
-    },
-    "facing=north,shape=double,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_double",
-      "y": 180
-    },
-    "facing=north,shape=double,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_double",
-      "y": 180
-    },
-    "facing=north,shape=double,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_double",
-      "y": 180
-    },
-    "facing=north,shape=double,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_double",
-      "y": 180
-    },
-    "facing=north,shape=double,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_double",
-      "y": 180
-    },
-    "facing=north,shape=quad,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_quad",
-      "y": 180
-    },
-    "facing=north,shape=quad,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_quad",
-      "y": 180
-    },
-    "facing=north,shape=quad,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_quad",
-      "y": 180
-    },
-    "facing=north,shape=quad,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_quad",
-      "y": 180
-    },
-    "facing=north,shape=quad,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_quad",
-      "y": 180
-    },
-    "facing=north,shape=quad_connected,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_quad_connected",
-      "y": 180
-    },
-    "facing=north,shape=quad_connected,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_quad_connected",
-      "y": 180
-    },
-    "facing=north,shape=quad_connected,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_quad_connected",
-      "y": 180
-    },
-    "facing=north,shape=quad_connected,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_quad_connected",
-      "y": 180
-    },
-    "facing=north,shape=quad_connected,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_quad_connected",
-      "y": 180
-    },
-    "facing=north,shape=single,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_single",
-      "y": 180
-    },
-    "facing=north,shape=single,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_single",
-      "y": 180
-    },
-    "facing=north,shape=single,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_single",
-      "y": 180
-    },
-    "facing=north,shape=single,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_single",
-      "y": 180
-    },
-    "facing=north,shape=single,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_single",
-      "y": 180
-    },
-    "facing=north,shape=triple,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_triple",
-      "y": 180
-    },
-    "facing=north,shape=triple,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_triple",
-      "y": 180
-    },
-    "facing=north,shape=triple,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_triple",
-      "y": 180
-    },
-    "facing=north,shape=triple,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_triple",
-      "y": 180
-    },
-    "facing=north,shape=triple,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_triple",
-      "y": 180
-    },
-    "facing=south,shape=double,size=huge": {
+    "shape=double,size=huge": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_double"
     },
-    "facing=south,shape=double,size=large": {
+    "shape=double,size=large": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_double"
     },
-    "facing=south,shape=double,size=medium": {
+    "shape=double,size=medium": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_double"
     },
-    "facing=south,shape=double,size=small": {
+    "shape=double,size=small": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_double"
     },
-    "facing=south,shape=double,size=tiny": {
+    "shape=double,size=tiny": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_double"
     },
-    "facing=south,shape=quad,size=huge": {
+    "shape=quad,size=huge": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_quad"
     },
-    "facing=south,shape=quad,size=large": {
+    "shape=quad,size=large": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_quad"
     },
-    "facing=south,shape=quad,size=medium": {
+    "shape=quad,size=medium": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_quad"
     },
-    "facing=south,shape=quad,size=small": {
+    "shape=quad,size=small": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_quad"
     },
-    "facing=south,shape=quad,size=tiny": {
+    "shape=quad,size=tiny": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_quad"
     },
-    "facing=south,shape=quad_connected,size=huge": {
+    "shape=quad_connected,size=huge": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_quad_connected"
     },
-    "facing=south,shape=quad_connected,size=large": {
+    "shape=quad_connected,size=large": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_quad_connected"
     },
-    "facing=south,shape=quad_connected,size=medium": {
+    "shape=quad_connected,size=medium": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_quad_connected"
     },
-    "facing=south,shape=quad_connected,size=small": {
+    "shape=quad_connected,size=small": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_quad_connected"
     },
-    "facing=south,shape=quad_connected,size=tiny": {
+    "shape=quad_connected,size=tiny": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_quad_connected"
     },
-    "facing=south,shape=single,size=huge": {
+    "shape=single,size=huge": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_single"
     },
-    "facing=south,shape=single,size=large": {
+    "shape=single,size=large": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_single"
     },
-    "facing=south,shape=single,size=medium": {
+    "shape=single,size=medium": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_single"
     },
-    "facing=south,shape=single,size=small": {
+    "shape=single,size=small": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_single"
     },
-    "facing=south,shape=single,size=tiny": {
+    "shape=single,size=tiny": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_single"
     },
-    "facing=south,shape=triple,size=huge": {
+    "shape=triple,size=huge": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_triple"
     },
-    "facing=south,shape=triple,size=large": {
+    "shape=triple,size=large": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_triple"
     },
-    "facing=south,shape=triple,size=medium": {
+    "shape=triple,size=medium": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_triple"
     },
-    "facing=south,shape=triple,size=small": {
+    "shape=triple,size=small": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_triple"
     },
-    "facing=south,shape=triple,size=tiny": {
+    "shape=triple,size=tiny": {
       "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_triple"
-    },
-    "facing=west,shape=double,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_double",
-      "y": 90
-    },
-    "facing=west,shape=double,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_double",
-      "y": 90
-    },
-    "facing=west,shape=double,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_double",
-      "y": 90
-    },
-    "facing=west,shape=double,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_double",
-      "y": 90
-    },
-    "facing=west,shape=double,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_double",
-      "y": 90
-    },
-    "facing=west,shape=quad,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_quad",
-      "y": 90
-    },
-    "facing=west,shape=quad,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_quad",
-      "y": 90
-    },
-    "facing=west,shape=quad,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_quad",
-      "y": 90
-    },
-    "facing=west,shape=quad,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_quad",
-      "y": 90
-    },
-    "facing=west,shape=quad,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_quad",
-      "y": 90
-    },
-    "facing=west,shape=quad_connected,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_quad_connected",
-      "y": 90
-    },
-    "facing=west,shape=quad_connected,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_quad_connected",
-      "y": 90
-    },
-    "facing=west,shape=quad_connected,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_quad_connected",
-      "y": 90
-    },
-    "facing=west,shape=quad_connected,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_quad_connected",
-      "y": 90
-    },
-    "facing=west,shape=quad_connected,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_quad_connected",
-      "y": 90
-    },
-    "facing=west,shape=single,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_single",
-      "y": 90
-    },
-    "facing=west,shape=single,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_single",
-      "y": 90
-    },
-    "facing=west,shape=single,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_single",
-      "y": 90
-    },
-    "facing=west,shape=single,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_single",
-      "y": 90
-    },
-    "facing=west,shape=single,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_single",
-      "y": 90
-    },
-    "facing=west,shape=triple,size=huge": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_huge_triple",
-      "y": 90
-    },
-    "facing=west,shape=triple,size=large": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_large_triple",
-      "y": 90
-    },
-    "facing=west,shape=triple,size=medium": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_medium_triple",
-      "y": 90
-    },
-    "facing=west,shape=triple,size=small": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_small_triple",
-      "y": 90
-    },
-    "facing=west,shape=triple,size=tiny": {
-      "model": "pipeorgans:block/vox_humana/extension/vox_humana_tiny_triple",
-      "y": 90
     }
   }
 }
