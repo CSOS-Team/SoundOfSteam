@@ -58,7 +58,7 @@ public abstract class AllShapes {
     }
 
     // generic single extension
-    public static VoxelShape genericExtensionShape(ExtensionShapes.Single shape, PipeSize size) {
+    public static VoxelShape genericExtensionShape(ExtensionShapes.Single shape, PipeSize size, Direction facing) {
         return switch (size) {
             case TINY -> GENERIC_EXTENSION_TINY_QUAD;
             case SMALL -> GENERIC_EXTENSION_SMALL_QUAD;
@@ -69,7 +69,7 @@ public abstract class AllShapes {
     }
 
     // generic double extension
-    public static VoxelShape genericExtensionShape(ExtensionShapes.Double shape, PipeSize size) {
+    public static VoxelShape genericExtensionShape(ExtensionShapes.Double shape, PipeSize size, Direction facing) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> GENERIC_EXTENSION_TINY_DOUBLE;
@@ -89,7 +89,7 @@ public abstract class AllShapes {
     }
 
     // generic quadruple extension
-    public static VoxelShape genericExtensionShape(ExtensionShapes.Quadruple shape, PipeSize size) {
+    public static VoxelShape genericExtensionShape(ExtensionShapes.Quadruple shape, PipeSize size, Direction facing) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> GENERIC_EXTENSION_TINY_SINGLE;
@@ -123,7 +123,7 @@ public abstract class AllShapes {
     }
 
     // slim single extension
-    public static VoxelShape slimExtensionShape(ExtensionShapes.Single shape, PipeSize size) {
+    public static VoxelShape slimExtensionShape(ExtensionShapes.Single shape, PipeSize size, Direction facing) {
         return switch (size) {
             case TINY -> SLIM_EXTENSION_TINY_QUAD;
             case SMALL -> SLIM_EXTENSION_SMALL_QUAD;
@@ -134,7 +134,7 @@ public abstract class AllShapes {
     }
 
     // slim double extension
-    public static VoxelShape slimExtensionShape(ExtensionShapes.Double shape, PipeSize size) {
+    public static VoxelShape slimExtensionShape(ExtensionShapes.Double shape, PipeSize size, Direction facing) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> SLIM_EXTENSION_TINY_DOUBLE;
@@ -154,7 +154,7 @@ public abstract class AllShapes {
     }
 
     // slim quadruple extension
-    public static VoxelShape slimExtensionShape(ExtensionShapes.Quadruple shape, PipeSize size) {
+    public static VoxelShape slimExtensionShape(ExtensionShapes.Quadruple shape, PipeSize size, Direction facing) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> SLIM_EXTENSION_TINY_SINGLE;
@@ -187,8 +187,19 @@ public abstract class AllShapes {
         };
     }
 
-    // slim double extension horizontal
-    public static VoxelShape horizontalExtensionShape(ExtensionShapes.Horizontal shape, PipeSize size, Direction facing) {
+    // slim single horizontal extension
+    public static VoxelShape horizontalExtensionShape(ExtensionShapes.Single shape, PipeSize size, Direction facing) {
+        return switch (size) {
+            case TINY -> HORIZONTAL_EXTENSION_TINY_QUAD.get(facing);
+            case SMALL -> HORIZONTAL_EXTENSION_SMALL_QUAD.get(facing);
+            case MEDIUM -> HORIZONTAL_EXTENSION_MEDIUM_QUAD.get(facing);
+            case LARGE -> HORIZONTAL_EXTENSION_LARGE_QUAD.get(facing);
+            case HUGE -> HORIZONTAL_EXTENSION_HUGE_QUAD.get(facing);
+        };
+    }
+
+    // slim double horizontal extension
+    public static VoxelShape horizontalExtensionShape(ExtensionShapes.Double shape, PipeSize size, Direction facing) {
         return switch (shape) {
             case SINGLE -> switch (size) {
                 case TINY -> HORIZONTAL_EXTENSION_TINY_DOUBLE.get(facing);
@@ -206,6 +217,42 @@ public abstract class AllShapes {
             };
         };
     }
+    // haha nvm we haven't made all the voxelshapes for this one yet
+    /*
+    // slim quadruple horizontal extension
+    public static VoxelShape horizontalExtensionShape(ExtensionShapes.Quadruple shape, PipeSize size, Direction facing) {
+        return switch (shape) {
+            case SINGLE -> switch (size) {
+                case TINY -> HORIZONTAL_EXTENSION_TINY_SINGLE.get(facing);
+                case SMALL -> HORIZONTAL_EXTENSION_SMALL_SINGLE.get(facing);
+                case MEDIUM -> HORIZONTAL_EXTENSION_MEDIUM_SINGLE.get(facing);
+                case LARGE -> HORIZONTAL_EXTENSION_LARGE_SINGLE.get(facing);
+                case HUGE -> HORIZONTAL_EXTENSION_HUGE_SINGLE.get(facing);
+            };
+            case DOUBLE -> switch (size) {
+                case TINY -> HORIZONTAL_EXTENSION_TINY_DOUBLE.get(facing);
+                case SMALL -> HORIZONTAL_EXTENSION_SMALL_DOUBLE.get(facing);
+                case MEDIUM -> HORIZONTAL_EXTENSION_MEDIUM_DOUBLE.get(facing);
+                case LARGE -> HORIZONTAL_EXTENSION_LARGE_DOUBLE.get(facing);
+                case HUGE -> HORIZONTAL_EXTENSION_HUGE_DOUBLE.get(facing);
+            };
+            case TRIPLE -> switch (size) {
+                case TINY -> HORIZONTAL_EXTENSION_TINY_TRIPLE.get(facing);
+                case SMALL -> HORIZONTAL_EXTENSION_SMALL_TRIPLE.get(facing);
+                case MEDIUM -> HORIZONTAL_EXTENSION_MEDIUM_TRIPLE.get(facing);
+                case LARGE -> HORIZONTAL_EXTENSION_LARGE_TRIPLE.get(facing);
+                case HUGE -> HORIZONTAL_EXTENSION_HUGE_TRIPLE.get(facing);
+            };
+            case QUAD, QUAD_CONNECTED -> switch (size) {
+                case TINY -> HORIZONTAL_EXTENSION_TINY_QUAD.get(facing);
+                case SMALL -> HORIZONTAL_EXTENSION_SMALL_QUAD.get(facing);
+                case MEDIUM -> HORIZONTAL_EXTENSION_MEDIUM_QUAD.get(facing);
+                case LARGE -> HORIZONTAL_EXTENSION_LARGE_QUAD.get(facing);
+                case HUGE -> HORIZONTAL_EXTENSION_HUGE_QUAD.get(facing);
+            };
+        };
+    }
+    */
 
     // string single extension
     public static VoxelShape stringExtensionShape(ExtensionShapes.Single shape, PipeSize size, Direction facing) {
