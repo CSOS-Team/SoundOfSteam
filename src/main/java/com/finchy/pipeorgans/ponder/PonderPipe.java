@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.ponder;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.*;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
@@ -101,16 +102,6 @@ public class PonderPipe<TS extends Enum<TS> & ExtensionShapes.IExtensionShape<TS
         scene.idle(PonderTimings.BUILD_STEP);
     }
 
-    public void changePipeSize(PipeSize newSize, boolean particles, Transition transition) {
-        this.currentSize = newSize;
-        scene.world().modifyBlock(pos, bs -> bs.setValue(GenericPipeBlock.SIZE, newSize), particles);
-        tryBothTransitionParts(transition);
-    }
-
-    public void changePipeSize(PipeSize newSize, boolean particles) {
-        changePipeSize(newSize, particles, defaultTransition);
-    }
-
     public void cyclePipeSize(Transition transition, boolean reverse) {
         PipeSize newSize = PipeSize.values()[(currentSize.ordinal() + (reverse ? -1 : 1) + PipeSize.values().length) % PipeSize.values().length];
         this.currentSize = newSize;
@@ -141,23 +132,29 @@ public class PonderPipe<TS extends Enum<TS> & ExtensionShapes.IExtensionShape<TS
         Direction pipeToExtensions = block.getExtensionDirection(pipeState);
 
         BlockPos extensionPos = pos.relative(pipeToExtensions, getExtensionBlockHeight());
-        BlockState extensionState = scene.getScene().getWorld().getBlockState(extensionPos);
-        ExtensionShapes.IExtensionShape<?> extensionShape = extensionState.getValue(extensionBlock.SHAPE);
 
-        if (!extensionShape.isFullBlockLong()) { // if another extension can be added without placing a new block
-            scene.world().modifyBlock(extensionPos, bs -> {
-                bs.cycle(extensionBlock.SHAPE);  // cycle to the next shape
-                if (extensionBlock.isDirectional()) // only set direction if the extension is directional
-                    bs.setValue(GenericExtensionBlock.FACING, pipeFacing); // (would cause a crash otherwise)
-                return bs;
-            }, false);
+        if (currentHeight % block.extensionsPerBlock() == 0) { // if a new block must be placed
+            if (currentHeight > 0) // if there are any other extensions
+                scene.world().modifyBlock(extensionPos, bs -> {
+                    return bs.setValue(extensionBlock.SHAPE,
+                            bs.getValue(extensionBlock.SHAPE).getConnected() // set the old extension's shape to connected
+                    );
+                }, false);
 
-        } else { // if a new block must be placed
-            BlockState toPlace = extensionBlock.defaultBlockState().setValue(GenericExtensionBlock.SIZE, pipeState.getValue(GenericPipeBlock.SIZE)); // shortest extension shape, match the width of the pipe
+            BlockState toPlace = extensionBlock.defaultBlockState().setValue(GenericExtensionBlock.SIZE, currentSize);
             if (extensionBlock.isDirectional())
                 toPlace = toPlace.setValue(GenericExtensionBlock.FACING, pipeFacing);
-            scene.world().setBlock(extensionPos.relative(pipeToExtensions),
-                    toPlace, false);
+            scene.world().setBlock(extensionPos.relative(pipeToExtensions), toPlace, false);
+
+
+        } else { // if another extension can be added without placing a new block
+            PipeOrgans.LOGGER.debug("EXTENDING EXISTING");
+            scene.world().modifyBlock(extensionPos, bs -> {
+                BlockState toPlace = bs.cycle(extensionBlock.SHAPE);  // cycle to the next shape
+                if (extensionBlock.isDirectional()) // only set direction if the extension is directional
+                    toPlace = toPlace.setValue(GenericExtensionBlock.FACING, pipeFacing); // (would cause a crash otherwise)
+                return toPlace;
+            }, false);
 
         }
 

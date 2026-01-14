@@ -166,13 +166,11 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         for (newPitch = 0; newPitch <= 12; newPitch += pipeBlock.get().extensionsPerBlock()) {
             BlockState blockState = level.getBlockState(currentPos);
             if (!(blockState.getBlock().equals(extensionBlock.get()))) {
-                PipeOrgans.LOGGER.debug("FOUND EMPTY SPACE");
                 break;
             }
             ExtensionShapes.IExtensionShape<?> shape = blockState.getValue(extensionBlock.get().SHAPE);
             if (!shape.isFullBlockLong()) {
                 newPitch += shape.extensionNumber();
-                PipeOrgans.LOGGER.debug("FOUND PARTIAL EXTENSION");
                 break;
             }
             currentPos = currentPos.relative(pipeOutFacing);
