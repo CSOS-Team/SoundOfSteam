@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.content.base;
 
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
-import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
@@ -56,7 +55,7 @@ public class BaseBlockEntity extends SmartBlockEntity {
         if (tank == null || tank.isRemoved()) {
             if (tank != null)
                 source = new WeakReference<>(null);
-            Direction facing = GenericPipeBlock.getAttachedDirection(getBlockState());
+            Direction facing = BaseBlock.getAttachedDirection(getBlockState());
             BlockEntity be = level.getBlockEntity(worldPosition.relative(facing));
             if (be instanceof FluidTankBlockEntity tankBe)
                 source = new WeakReference<>(tank = tankBe);
