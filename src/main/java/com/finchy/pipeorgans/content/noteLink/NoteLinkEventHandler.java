@@ -26,7 +26,7 @@ public class NoteLinkEventHandler {
 
         if (player.isShiftKeyDown()) {
             if (held.isEmpty()) {
-                if (noteLinkBlock.onEmptyHandShiftUse(bs, level, pos) == InteractionResult.SUCCESS) {
+                if (noteLinkBlock.onEmptyHandShiftUse(bs, level, pos, player) == InteractionResult.SUCCESS) {
                     event.setCancellationResult(InteractionResult.SUCCESS);
                     event.setCanceled(true);
                 }

@@ -292,9 +292,17 @@ public record PipePitch(PitchClass pitchClass, Octave octave) {
     public PipePitch next() {
         int midiNumber = getMidiPitchNumber();
         if (midiNumber >= HIGHEST.getMidiPitchNumber()) {
-            return null;
+            return HIGHEST; // cap at the highest pitch
         }
         return fromMidiPitchNumber(midiNumber + 1);
+    }
+
+    public PipePitch prev() {
+        int midiNumber = getMidiPitchNumber();
+        if (midiNumber <= LOWEST.getMidiPitchNumber()) {
+            return LOWEST; // cap at the lowest pitch
+        }
+        return fromMidiPitchNumber(midiNumber - 1);
     }
 
     public static final PipePitch LOWEST = new PipePitch(PitchClass.F_SHARP, Octave.OCTAVE_n1);
