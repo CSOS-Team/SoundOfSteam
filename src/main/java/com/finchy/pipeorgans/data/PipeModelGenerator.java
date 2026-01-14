@@ -3,9 +3,11 @@ package com.finchy.pipeorgans.data;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
-import com.finchy.pipeorgans.content.pipes.generic.subtypes.HorizontalPipeBlock;
 import com.finchy.pipeorgans.init.AllBlocks;
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.createmod.catnip.data.Iterate;
 import net.minecraft.data.CachedOutput;
@@ -15,7 +17,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -24,9 +29,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class PipeModelGenerator implements DataProvider {
-
-    // todo: fix z-fighting issues with reed pipes (lower base models)
-    // todo: fix z-fighting issue on chamade (???)
 
     private final PackOutput output;
     private final ExistingFileHelper helper;
@@ -41,7 +43,7 @@ public class PipeModelGenerator implements DataProvider {
     public CompletableFuture<?> run(CachedOutput pOutput) {
         List<CompletableFuture<?>> futures = new ArrayList<>();
         for (BlockEntry<? extends GenericPipeBlock> pipeEntry : AllBlocks.PIPE_BLOCKS) {
-            generateForPipe(pOutput, pipeEntry, futures, (pipeEntry.get() instanceof HorizontalPipeBlock));
+            generateForPipe(pOutput, pipeEntry, futures, (pipeEntry.get().isHorizontal()));
         }
 
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
