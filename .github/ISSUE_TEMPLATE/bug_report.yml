@@ -1,0 +1,38 @@
+name: Bug Report
+description: "Report some other kind of issue."
+labels: [ "bug" ]
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: >
+        Please describe the issue in as much detail as possible.
+        Explain what happened, and what you expected to have happened instead.
+        Include images, screenshots, or videos if applicable.
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Game Log & Crash Report (if applicable)
+      description: >
+        We may need the game/crash log for additional information.
+        This file can be found in the \"logs\" or \"crash-reports\" folder of your Minecraft folder as \"latest.log\" or \"crash-*.txt"\.
+        Please upload the file to https://mclo.gs/ and put the link here.
+        **DO NOT** paste the file or its raw here, as that makes it harder to examine, and reduces the chance that we will be able to help you.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Debug Information
+      description: >
+        Please run the \"/create debuginfo\" command in-game.
+        This will copy useful information to your clipboard that will greatly help with debugging.
+        Please paste this information here.
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "Thank you for taking the time to make a report and help improve Create: Sound of Steam!"
