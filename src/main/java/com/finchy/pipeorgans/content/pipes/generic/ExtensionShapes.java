@@ -14,12 +14,20 @@ public class ExtensionShapes {
 
         boolean isFullBlockLong(); // true if no more extensions can be fit into the block
 
+        boolean isSingle(); // true if removing any extensions would destroy the block
+
         int extensionNumber(); // the number of extensions represented by this shape
 
         T getConnected(); // return the "connected" shape
 
-        T longestNonConnected(); // return the second-last shape (before "connected")
+        T getLongestNonConnected(); // return the second-last shape (before "connected")
 
+        // used in sneak wrenching
+        // returns the extension shape to set based on how far "up" the pipe the player clicked
+        // higher clickPosition indicates further out from the pipe, between 0 and 1
+        // e.g. for Double, if they clicked in the upper half, return the extension shape for the lower half (Double.SINGLE)
+        // if they clicked such that the entire thing should be removed, return null
+        T getExtensionShapeForClickPosition(double clickPosition);
     }
 
     public enum Single implements IExtensionShape<Single>, StringRepresentable {
@@ -43,6 +51,11 @@ public class ExtensionShapes {
         }
 
         @Override
+        public boolean isSingle() {
+            return true;
+        }
+
+        @Override
         public int extensionNumber() {
             return extensionNumber;
         }
@@ -53,8 +66,14 @@ public class ExtensionShapes {
         }
 
         @Override
-        public Single longestNonConnected() {
+        public Single getLongestNonConnected() {
             return SINGLE;
+        }
+
+        // never gonna get called anyway, as the function returns before this point if isSingle() returns true (which it does)
+        @Override
+        public Single getExtensionShapeForClickPosition(double clickPosition) {
+            return null;
         }
 
         @Override
@@ -84,6 +103,11 @@ public class ExtensionShapes {
         }
 
         @Override
+        public boolean isSingle() {
+            return this.equals(SINGLE);
+        }
+
+        @Override
         public int extensionNumber() {
             return extensionNumber;
         }
@@ -94,8 +118,15 @@ public class ExtensionShapes {
         }
 
         @Override
-        public Double longestNonConnected() {
+        public Double getLongestNonConnected() {
             return DOUBLE;
+        }
+
+        @Override
+        public Double getExtensionShapeForClickPosition(double clickPosition) {
+            if (clickPosition > 0.5) // clicked in the upper half
+                return Double.SINGLE;
+            return null;
         }
 
         @Override
@@ -125,6 +156,11 @@ public class ExtensionShapes {
         }
 
         @Override
+        public boolean isSingle() {
+            return this.equals(SINGLE);
+        }
+
+        @Override
         public int extensionNumber() {
             return extensionNumber;
         }
@@ -135,8 +171,21 @@ public class ExtensionShapes {
         }
 
         @Override
-        public Quadruple longestNonConnected() {
+        public Quadruple getLongestNonConnected() {
             return QUAD;
+        }
+
+        @Override
+        public Quadruple getExtensionShapeForClickPosition(double clickPosition) {
+            // 1st quarter is closest to pipe, 4th quarter is furthest from pipe
+            if (clickPosition > 0.75) // clicked in the 4th quarter
+                return Quadruple.TRIPLE;
+            else if (clickPosition > 0.5) // clicked in the 3rd or 4th quarters (but not 4th quarter at this point)
+                return Quadruple.DOUBLE;
+            else if (clickPosition > 0.25) // clicked in 2nd, 3rd, or 4th quarters (but not 3rd or 4th at this point)
+                return Quadruple.SINGLE;
+            else // clicked in the 1st quarter
+                return null;
         }
 
         @Override

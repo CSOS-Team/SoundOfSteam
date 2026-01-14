@@ -1,10 +1,10 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -18,7 +18,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -125,7 +124,7 @@ public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.
             if (!connected && shouldConnect)
                 return pState.setValue(SHAPE, shape.getConnected()); // set shape to the connected variant
             if (connected && !shouldConnect)
-                return pState.setValue(SHAPE, shape.longestNonConnected()); // set shape to the not-quite-connected variant
+                return pState.setValue(SHAPE, shape.getLongestNonConnected()); // set shape to the not-quite-connected variant
             return pState;
         }
 
@@ -136,7 +135,25 @@ public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.
 
     @Override
     public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
-        return InteractionResult.PASS; // todo: implement sneak wrenching
+        Level level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        if (!(level instanceof ServerLevel))
+            return InteractionResult.SUCCESS;
+
+        if (state.getValue(SHAPE).isSingle())
+            return IWrenchable.super.onSneakWrenched(state, context); // any shift click will remove the block, so defer to regular shift-wrench logic
+
+        Direction pipeOutFacing = pipeBlock.get().getPipeDirectionFromExtension(state).getOpposite();
+        double clickedPosition = pipeBlock.get().getExtensionClickPosition(pos, context.getClickLocation(), pipeOutFacing);
+
+        T wrenchedShape = state.getValue(SHAPE).getExtensionShapeForClickPosition(clickedPosition);
+        if (wrenchedShape == null) // if the player clicked such that the extension should be removed
+            return IWrenchable.super.onSneakWrenched(state, context);
+
+        level.setBlock(pos, state.setValue(SHAPE, wrenchedShape), 3);
+        IWrenchable.playRemoveSound(level, pos);
+
+        return InteractionResult.SUCCESS;
     }
 
     @Override
@@ -147,10 +164,6 @@ public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.
         if (blockState.getBlock() instanceof GenericPipeBlock pipe)
             return pipe.onWrenched(blockState, relocateContext(context, findRoot));
         return IWrenchable.super.onWrenched(state, context);
-    }
-
-    protected InteractionResult callSuperOnSneakWrenched(BlockState state, UseOnContext context) {
-        return IWrenchable.super.onSneakWrenched(state, context);
     }
 
     @Override

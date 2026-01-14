@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,10 @@ public interface PipeBehaviour {
     Direction getExtensionDirection(BlockState pipeState); // the direction toward the extensions from the pipe (NOT the blockstate's facing property)
     Direction getPipeDirectionFromExtension(BlockState extensionState); // the direction toward the pipe from an extension
     // ^ note that the extensions are always placed with the same "facing" direction as the pipe, and the pipes always face the opposite direction to how they look
+
+    double getExtensionClickPosition(BlockPos extensionPos, Vec3 clickLocation, Direction facing); // return the position clicked along the length of an extension
+    // ^ used in extension onSneakWrenched()
+
     Direction getAttachedDirection(BlockState pipeState); // the direction toward the block the pipe is attached to from the pipe
     int extensionsPerBlock();
 

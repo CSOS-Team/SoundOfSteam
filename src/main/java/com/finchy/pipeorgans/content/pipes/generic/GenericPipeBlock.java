@@ -34,6 +34,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.apache.commons.lang3.function.TriFunction;
@@ -90,6 +91,11 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
     @Override
     public Direction getPipeDirectionFromExtension(BlockState extensionState) {
         return pipeDirection.getPipeDirectionFromExtension(extensionState);
+    }
+
+    @Override
+    public double getExtensionClickPosition(BlockPos extensionPos, Vec3 clickLocation, Direction facing) {
+        return pipeDirection.getExtensionClickPosition(extensionPos, clickLocation, facing);
     }
 
     @Override
