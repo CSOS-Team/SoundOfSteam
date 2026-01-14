@@ -29,6 +29,7 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBehaviourSubscriber {
@@ -364,35 +365,6 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
 
     public int getReceivedSignal() {
         return receivedSignal;
-    }
-
-    @Override
-    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
-        ItemValueBoxBehaviour.ItemValueBoxGroup keySlotGroup = new ItemValueBoxBehaviour.ItemValueBoxGroup(
-                Set.of(KEY_SLOT_TRANSFORM),
-                (held, player) -> {
-                    setKey(held);
-                    return InteractionResult.SUCCESS;
-                },
-                this::getKey,
-                Component.translatable("block.pipeorgans.note_link.key_slot.label"),
-                List.of()
-        );
-
-        behaviours.add(keySlot = new ItemValueBoxBehaviour(this, List.of(keySlotGroup)));
-        behaviours.add(pitchSlot = new PipePitchScrollValueBehaviour(this, PITCH_SLOT_TRANSFORM, Component.translatable("block.pipeorgans.note_link.pitch_slot.label"))
-                .withPipePitchCallback(this::setPitch)
-        );
-    }
-    @Override
-    public void addBehavioursDeferred(List<BlockEntityBehaviour> behaviours) {
-        behaviours.add(link = new NoteLinkBehaviour(this,
-                this::getTransmittedSignal,
-                this::setReceivedSignal,
-                transmitter ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE,
-                key, pitch)
-                .withOnLoadedCallback(this::onNoteLinkBehaviorLoaded)
-        );
     }
 
     public void reset() {
