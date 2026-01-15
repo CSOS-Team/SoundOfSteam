@@ -36,8 +36,8 @@ public class PipeScenes {
         BlockPos boilerPipePos = util.grid().at(1, 2, 2);
         PonderPipe<ExtensionShapes.Double> boilerPipe = new PonderPipe<>(
                 scene, util,
-                boilerPipePos,
-                0, PipeSize.MEDIUM,
+                boilerPipePos, PipeSize.MEDIUM, Direction.NORTH, true, false,
+                0,
                 AllBlocks.DIAPASON.get(), AllBlocks.DIAPASON_EXTENSION.get(),
                 PonderPipe.Transition.NONE
         );
@@ -54,8 +54,8 @@ public class PipeScenes {
         BlockPos windchestPipePos = util.grid().at(3, 2, 2);
         PonderPipe<ExtensionShapes.Double> windchestPipe = new PonderPipe<>(
                 scene, util,
-                windchestPipePos,
-                0, PipeSize.MEDIUM,
+                boilerPipePos, PipeSize.MEDIUM, Direction.NORTH, false, false,
+                0,
                 AllBlocks.DIAPASON.get(), AllBlocks.DIAPASON_EXTENSION.get(),
                 PonderPipe.Transition.NONE
         );
