@@ -98,6 +98,13 @@ public class OpenWood {
 
             createSteamJet(size);
         }
+        //Goggles
+        public boolean hasGoggles() {
+            return goggles;
+        }
+        public void setGoggles(boolean goggles) {
+            this.goggles = goggles;
+        }
     }
 
     public static class OpenWoodRenderer extends SafeBlockEntityRenderer<OpenWoodBlockEntity> {
@@ -121,6 +128,13 @@ public class OpenWood {
                 case LARGE -> AllPartialModels.OPEN_WOOD_MOUTH_LARGE;
                 case HUGE -> AllPartialModels.OPEN_WOOD_MOUTH_HUGE;
             };
+            PartialModel goggles = switch (size) {
+                case TINY -> AllPartialModels.GOGGLES_TINY;
+                case SMALL -> AllPartialModels.GOGGLES_SMALL;
+                case MEDIUM -> AllPartialModels.GOGGLES_MEDIUM;
+                case LARGE -> AllPartialModels.GOGGLES_LARGE;
+                case HUGE -> AllPartialModels.GOGGLES_HUGE;
+            };
 
             float offset = be.animation.getValue(partialTicks);
             if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
@@ -135,6 +149,15 @@ public class OpenWood {
                     .translate(0, -offset*2 / 16f, 0)
                     .light(light)
                     .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+            if (be.hasGoggles()) {
+                CachedBuffers.partial(goggles, blockState)
+                        .center()
+                        .rotateYDegrees(AngleHelper.horizontalAngle(direction))
+                        .uncenter()
+                        .translate(0, 0, 0)
+                        .light(light)
+                        .renderInto(ms, bufferSource.getBuffer(RenderType.cutout()));
+            }
 
         }
     }

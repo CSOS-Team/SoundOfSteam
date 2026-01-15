@@ -97,6 +97,13 @@ public class Chamade {
 
             createHorizontalReedSteamJet();
         }
+        //Goggles
+        public boolean hasGoggles() {
+            return goggles;
+        }
+        public void setGoggles(boolean goggles) {
+            this.goggles = goggles;
+        }
     }
 
     public static class ChamadeRenderer extends SafeBlockEntityRenderer<ChamadeBlockEntity> {
@@ -121,6 +128,15 @@ public class Chamade {
                 case HUGE -> AllPartialModels.CHAMADE_MOUTH_HUGE;
             };
 
+            //TODO Update chamade goggles when new assets are done
+            PartialModel goggles = switch (size) {
+                case TINY -> AllPartialModels.STRING_GOGGLES_TINY;
+                case SMALL -> AllPartialModels.STRING_GOGGLES_SMALL;
+                case MEDIUM -> AllPartialModels.STRING_GOGGLES_MEDIUM;
+                case LARGE -> AllPartialModels.STRING_GOGGLES_LARGE;
+                case HUGE -> AllPartialModels.STRING_GOGGLES_HUGE;
+            };
+
             float chaseTarget = be.animation.getChaseTarget();
 
             CachedBuffers.partial(mouth, blockState)
@@ -130,6 +146,15 @@ public class Chamade {
                     .scale(chaseTarget)
                     .light(light)
                     .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+            if (be.hasGoggles()) {
+                CachedBuffers.partial(goggles, blockState)
+                        .center()
+                        .rotateYDegrees(AngleHelper.horizontalAngle(direction))
+                        .uncenter()
+                        .translate(0, 0, 0)
+                        .light(light)
+                        .renderInto(ms, bufferSource.getBuffer(RenderType.cutout()));
+            }
 
         }
     }

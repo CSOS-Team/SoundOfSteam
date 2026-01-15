@@ -92,6 +92,13 @@ public class EnglishHorn {
 
             createReedSteamJet();
         }
+        //Goggles
+        public boolean hasGoggles() {
+            return goggles;
+        }
+        public void setGoggles(boolean goggles) {
+            this.goggles = goggles;
+        }
     }
 
     public static class EnglishHornRenderer extends SafeBlockEntityRenderer<EnglishHornBlockEntity> {
@@ -115,6 +122,13 @@ public class EnglishHorn {
                 case LARGE -> AllPartialModels.ENGLISH_HORN_MOUTH_LARGE;
                 case HUGE -> AllPartialModels.ENGLISH_HORN_MOUTH_HUGE;
             };
+            PartialModel goggles = switch (size) {
+                case TINY -> AllPartialModels.GOGGLES_TINY;
+                case SMALL -> AllPartialModels.GOGGLES_SMALL;
+                case MEDIUM -> AllPartialModels.GOGGLES_MEDIUM;
+                case LARGE -> AllPartialModels.GOGGLES_LARGE;
+                case HUGE -> AllPartialModels.GOGGLES_HUGE;
+            };
 
             float chaseTarget = be.animation.getChaseTarget();
 
@@ -125,6 +139,15 @@ public class EnglishHorn {
                     .scale(chaseTarget)
                     .light(light)
                     .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+            if (be.hasGoggles()) {
+                CachedBuffers.partial(goggles, blockState)
+                        .center()
+                        .rotateYDegrees(AngleHelper.horizontalAngle(direction))
+                        .uncenter()
+                        .translate(0, -1f / 16f, 0)
+                        .light(light)
+                        .renderInto(ms, bufferSource.getBuffer(RenderType.cutout()));
+            }
 
         }
     }

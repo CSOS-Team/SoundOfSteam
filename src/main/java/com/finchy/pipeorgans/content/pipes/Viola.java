@@ -98,6 +98,13 @@ public class Viola {
 
             createSteamJet(size);
         }
+        //Goggles
+        public boolean hasGoggles() {
+            return goggles;
+        }
+        public void setGoggles(boolean goggles) {
+            this.goggles = goggles;
+        }
     }
 
     public static class ViolaRenderer extends SafeBlockEntityRenderer<ViolaBlockEntity> {
@@ -121,6 +128,13 @@ public class Viola {
                 case LARGE -> AllPartialModels.VIOLA_MOUTH_LARGE;
                 case HUGE -> AllPartialModels.VIOLA_MOUTH_HUGE;
             };
+            PartialModel goggles = switch (size) {
+                case TINY -> AllPartialModels.STRING_GOGGLES_TINY;
+                case SMALL -> AllPartialModels.STRING_GOGGLES_SMALL;
+                case MEDIUM -> AllPartialModels.STRING_GOGGLES_MEDIUM;
+                case LARGE -> AllPartialModels.STRING_GOGGLES_LARGE;
+                case HUGE -> AllPartialModels.STRING_GOGGLES_HUGE;
+            };
 
             float offset = be.animation.getValue(partialTicks);
             if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
@@ -135,6 +149,15 @@ public class Viola {
                     .translate(0, -offset / 16f, 0)
                     .light(light)
                     .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+            if (be.hasGoggles()) {
+                CachedBuffers.partial(goggles, blockState)
+                        .center()
+                        .rotateYDegrees(AngleHelper.horizontalAngle(direction))
+                        .uncenter()
+                        .translate(0, 0, 0)
+                        .light(light)
+                        .renderInto(ms, bufferSource.getBuffer(RenderType.cutout()));
+            }
 
         }
     }

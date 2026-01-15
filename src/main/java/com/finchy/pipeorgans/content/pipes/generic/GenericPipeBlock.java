@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.content.pipes.generic;
 
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.simibubi.create.AllSoundEvents;
+import com.simibubi.create.content.equipment.goggles.GogglesItem;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.block.IBE;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -234,10 +236,29 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
         //if (pLevel.isClientSide()) { return InteractionResult.PASS; }
 
         ItemStack heldItem = pPlayer.getItemInHand(pHand); // extending pipe
+        //goooggly eyes
+        if (heldItem.getItem() instanceof GogglesItem) {
+            BlockEntity be = pLevel.getBlockEntity(pPos);
+            if (be instanceof GenericPipeBlockEntity pipeBE) {
+                if (!pLevel.isClientSide) {
+                    pipeBE.setGoggles(!pipeBE.hasGoggles());
+                    pipeBE.setChanged();
+                    pipeBE.sendData();
+                    /*
+                    //Make the pipes eat your goggles
+                    if (!pPlayer.isCreative())
+                        heldItem.shrink(1);
+                    */
+                }
+                return InteractionResult.sidedSuccess(pLevel.isClientSide);
+            }
+        }
+        //longer-ing
         if (heldItem.getItem() == this.asItem()) {
             incrementSize(pLevel, pPos, true);
             return InteractionResult.SUCCESS;
         }
+        //swapping
         if (heldItem.getItem() instanceof GenericPipeBlockItem) { // swapping pipes
             if (substitutePipe(pState, pLevel, pPos, heldItem, pPlayer) == InteractionResult.SUCCESS) {
                 if (!pPlayer.isCreative()) {
