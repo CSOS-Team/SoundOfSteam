@@ -119,12 +119,13 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
         behaviours.add(pitchSlot = new PipePitchScrollValueBehaviour(this, PITCH_SLOT_TRANSFORM, Component.translatable("block.pipeorgans.note_link.pitch_slot.label"))
                 .withPipePitchCallback(this::setPitch)
         );
+        createNoteLink();
+        behaviours.add(link);
     }
     @Override
     public void addBehavioursDeferred(List<BlockEntityBehaviour> behaviours) {
         PipeOrgans.LOGGER.debug("ADDING BEHAVIOUR (DEFERRED-STYLE)");
-        createNoteLink();
-        behaviours.add(link);
+
     }
 
     protected void createNoteLink() {

@@ -256,9 +256,8 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
             return false;
         if (simulate) return true;
 
-
-        keyFrequency = RedstoneLinkNetworkHandler.Frequency.of(ItemStack.of(tag.getCompound("Key")));
-        pitch = PipePitch.fromNormalizedName(tag.getString("Pitch"));
+        setPitch(PipePitch.fromNormalizedName(tag.getString("Pitch")));
+        setKeyFrequency(ItemStack.of(tag.getCompound("Key")));
         return true;
     }
 
