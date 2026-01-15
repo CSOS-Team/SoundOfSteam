@@ -49,6 +49,11 @@ public class VoxHumana {
                     AllBlocks.VOX_HUMANA,
                     AllShapes::slimExtensionShape);
         }
+
+        @Override
+        public boolean isDirectional() {
+            return true;
+        }
     }
 
     public static class VoxHumanaBlockEntity extends GenericPipeBlockEntity {
