@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.ponder.ponderWrappers;
 
 import com.finchy.pipeorgans.content.noteLink.NoteLinkBlock;
 import com.finchy.pipeorgans.content.noteLink.NoteLinkBlockEntity;
+import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.ponder.PonderTimings;
 import com.finchy.pipeorgans.ponder.util.smartText.SmartText;
 import com.finchy.pipeorgans.ponder.util.timing.overrides.FixedTimeOverride;
@@ -15,6 +16,7 @@ import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.createmod.ponder.api.scene.Selection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -25,15 +27,20 @@ public class PonderNoteLink implements Selection {
     protected CreateSceneBuilder scene;
     protected SceneBuildingUtil util;
     protected BlockPos pos;
+    protected BlockState state;
 
-    public PonderNoteLink(CreateSceneBuilder scene, SceneBuildingUtil util, BlockPos pos) {
+    public PonderNoteLink(CreateSceneBuilder scene, SceneBuildingUtil util, BlockPos pos, Direction facing, boolean powered, boolean receiver) {
         this.scene = scene;
         this.util = util;
         this.pos = pos;
+        this.state = AllBlocks.NOTE_LINK.getDefaultState()
+                .setValue(NoteLinkBlock.FACING, facing)
+                .setValue(NoteLinkBlock.POWERED, powered)
+                .setValue(NoteLinkBlock.RECEIVER, receiver);
     }
 
     public Direction getFacing() {
-        return scene.getScene().getWorld().getBlockState(pos).getValue(NoteLinkBlock.FACING);
+        return state.getValue(NoteLinkBlock.FACING);
     }
 
     public BlockPos getPos() {
@@ -48,13 +55,11 @@ public class PonderNoteLink implements Selection {
     }
 
     public Vec3 keySlotPosition() {
-        PonderLevel level = scene.getScene().getWorld();
-        return pos.getCenter().subtract(.5f, .5f, .5f).add(NoteLinkBlockEntity.KEY_SLOT_TRANSFORM.getLocalOffset(level, pos, level.getBlockState(pos)));
+        return pos.getCenter().subtract(.5f, .5f, .5f).add(NoteLinkBlockEntity.KEY_SLOT_TRANSFORM.getLocalOffset(null, pos, state));
     }
 
     public Vec3 pitchSlotPosition() {
-        PonderLevel level = scene.getScene().getWorld();
-        return pos.getCenter().subtract(.5f, .5f, .5f).add(NoteLinkBlockEntity.PITCH_SLOT_TRANSFORM.getLocalOffset(level, pos, level.getBlockState(pos)));
+        return pos.getCenter().subtract(.5f, .5f, .5f).add(NoteLinkBlockEntity.PITCH_SLOT_TRANSFORM.getLocalOffset(null, pos, state));
     }
 
     public void showKeySlot(PonderPalette color, int duration) {
