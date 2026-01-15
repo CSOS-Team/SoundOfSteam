@@ -3,6 +3,8 @@ package com.finchy.pipeorgans.content.pipes;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadrupleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadruplePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -31,7 +33,7 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Tierce {
 
-    public static class TierceBlock extends DoublePipeBlock {
+    public static class TierceBlock extends QuadruplePipeBlock {
         public TierceBlock(Properties pProperties) {
             super(pProperties,
                     PipeDirection.VERTICAL, PipeMaterial.METAL,
@@ -42,7 +44,7 @@ public class Tierce {
         }
     }
 
-    public static class TierceExtensionBlock extends DoubleExtensionBlock {
+    public static class TierceExtensionBlock extends QuadrupleExtensionBlock {
         public TierceExtensionBlock(Properties pProperties) {
             super(pProperties,
                     AllBlocks.TIERCE,
