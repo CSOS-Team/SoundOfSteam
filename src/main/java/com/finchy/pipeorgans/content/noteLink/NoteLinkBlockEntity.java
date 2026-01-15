@@ -1,20 +1,17 @@
 package com.finchy.pipeorgans.content.noteLink;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.infrastructure.clipboardAssistedPlacement.CAPDirection;
 import com.finchy.pipeorgans.infrastructure.itemValueBox.ItemValueBoxBehaviour;
 import com.finchy.pipeorgans.infrastructure.pipePitchScrollValue.PipePitchScrollValueBehaviour;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.util.PipePitch;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.content.equipment.clipboard.ClipboardOverrides;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.math.VecHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -95,9 +92,6 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
     private int transmittedSignal;
     private boolean transmitter;
 
-    private ItemStack key = ItemStack.EMPTY;
-    private PipePitch pitch = PipePitch.DEFAULT;
-
     private NoteLinkBehaviour link;
     private ItemValueBoxBehaviour keySlot;
     private PipePitchScrollValueBehaviour pitchSlot;
@@ -128,74 +122,15 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
     }
     @Override
     public void addBehavioursDeferred(List<BlockEntityBehaviour> behaviours) {
-        behaviours.add(link = new NoteLinkBehaviour(this,
-                this::getTransmittedSignal,
-                this::setReceivedSignal,
-                transmitter ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE,
-                key, pitch)
-                .withOnLoadedCallback(this::onNoteLinkBehaviorLoaded)
-        );
+        PipeOrgans.LOGGER.debug("ADDING BEHAVIOUR (DEFERRED-STYLE)");
+        createNoteLink();
+        behaviours.add(link);
     }
 
-    @Override
-	public void write(CompoundTag compound, boolean clientPacket) {
-        super.write(compound, clientPacket);
-		compound.putBoolean("Transmitter", transmitter);
-		compound.putInt("Receive", receivedSignal);
-		compound.putBoolean("ReceivedChanged", receivedSignalChanged);
-		compound.putInt("Transmit", transmittedSignal);
-        PipeOrgans.LOGGER.debug("Stored NoteLink ({}): '{}'", getBlockPos(), compound.getAsString());
-	}
-
-	@Override
-	protected void read(CompoundTag compound, boolean clientPacket) {
-		transmitter = compound.getBoolean("Transmitter");
-		super.read(compound, clientPacket);
-
-		receivedSignal = compound.getInt("Receive");
-		receivedSignalChanged = compound.getBoolean("ReceivedChanged");
-		if (level == null || level.isClientSide || !link.hasNewPos())
-			transmittedSignal = compound.getInt("Transmit");
-
-        PipeOrgans.LOGGER.debug("Loaded NoteLink ({}): '{}'", getBlockPos(), compound.getAsString());
-	}
-
-    @Nullable
-    public ItemStack getKey() {
-        if (key == null && link != null) {
-            key = link.getKey();
-        }
-        return key;
-    }
-
-    public void setKey(ItemStack key) {
-        key.setCount(1);
-        this.key = key;
-        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.setKey: key set to {}", key);
-        if (link != null)
-            link.changeKeyFrequency(key);
-    }
-
-    @Nullable
-    public PipePitch getPitch() {
-        if (pitch == null && link != null) {
-            pitch = link.getPitch();
-        }
-        return pitch;
-    }
-
-    public void setPitch(PipePitch pitch) {
-        this.pitch = pitch;
-        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.setPitch: pitch set to {}", pitch);
-        if (link != null)
-            link.changePitch(pitch);
-    }
-
-    public void onNoteLinkBehaviorLoaded() {
-        key = link.getKey();
-        pitch = link.getPitch();
-        pitchSlot.setValueSilent(pitch);
-        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.onNoteLinkBehaviorLoaded: synced key and pitch from NoteLinkBehaviour at {}, now key={}, pitch={}", worldPosition, key, pitch.getNormalizedName());
+    protected void createNoteLink() {
+        link = transmitter ? NoteLinkBehaviour.transmitter(this, this::getTransmittedSignal)
+                : NoteLinkBehaviour.receiver(this, this::setReceivedSignal)
+                .withOnLoadedCallback(this::onNoteLinkBehaviorLoaded);
     }
 
     public int getTransmittedSignal() {
@@ -215,118 +150,90 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
     }
 
     @Override
+	public void write(CompoundTag compound, boolean clientPacket) {
+        super.write(compound, clientPacket);
+		compound.putBoolean("Transmitter", transmitter);
+		compound.putInt("Receive", receivedSignal);
+		compound.putBoolean("ReceivedChanged", receivedSignalChanged);
+		compound.putInt("Transmit", transmittedSignal);
+        PipeOrgans.LOGGER.debug("Stored NoteLink ({}): '{}'", getBlockPos(), compound.getAsString());
+	}
+
+	@Override
+	protected void read(CompoundTag compound, boolean clientPacket) {
+        super.read(compound, clientPacket);
+		transmitter = compound.getBoolean("Transmitter");
+
+		receivedSignal = compound.getInt("Receive");
+		receivedSignalChanged = compound.getBoolean("ReceivedChanged");
+		if (level == null || level.isClientSide || !link.hasNewPos())
+			transmittedSignal = compound.getInt("Transmit");
+
+        PipeOrgans.LOGGER.debug("Loaded NoteLink ({}): '{}'", getBlockPos(), compound.getAsString());
+	}
+
+    @Nullable
+    public ItemStack getKey() {
+        if (link != null)
+            return link.getKey();
+        return ItemStack.EMPTY;
+    }
+
+    public void setKey(ItemStack key) {
+        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.setKey: key set to {}", key);
+        if (link != null)
+            link.setKeyFrequency(key);
+    }
+
+    @Nullable
+    public PipePitch getPitch() {
+        if (link != null) {
+            return link.getPitch();
+        }
+        return PipePitch.DEFAULT;
+    }
+
+    public void setPitch(PipePitch pitch) {
+        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.setPitch: pitch set to {}", pitch);
+        if (link != null)
+            link.setPitch(pitch);
+    }
+
+    public void onNoteLinkBehaviorLoaded() {
+        pitchSlot.setValueSilent(link.getPitch());
+        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.onNoteLinkBehaviorLoaded: synced key and pitch from NoteLinkBehaviour at {}, now key={}, pitch={}", worldPosition, link.getKey(), link.getPitch().getNormalizedName());
+    }
+
+    @Override
     public void tick() {
         super.tick();
 
         if (isTransmitterBlock() != transmitter) {
             transmitter = isTransmitterBlock();
-            if (link != null) {
-                NoteLinkBehaviour prev = link;
-                removeBehaviour(NoteLinkBehaviour.TYPE);
-                link = prev.withCycledMode();
-            } else {
-                link = new NoteLinkBehaviour(this,
-                        this::getTransmittedSignal,
-                        this::setReceivedSignal,
-                        transmitter ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE,
-                        key, pitch
-                ).withOnLoadedCallback(this::onNoteLinkBehaviorLoaded);
-                PipeOrgans.LOGGER.warn("NoteLinkBlockEntity.tick: NoteLinkBehaviour link was null when updating mode, recreated at {} (shouldn't happen)", worldPosition);
-            }
+            NoteLinkBehaviour prev = link;
+            removeBehaviour(NoteLinkBehaviour.TYPE);
+            createNoteLink();
+            link.copyDataFrom(prev);
             attachBehaviourLate(link);
         }
 
-        if (transmitter) return;
-        if (level == null || level.isClientSide) return;
+        if (transmitter)
+            return;
+        if (level == null || level.isClientSide)
+            return;
 
-        BlockState bs = getBlockState();
-        if (!AllBlocks.NOTE_LINK.has(bs)) return;
+        BlockState blockState = getBlockState();
+        if (!AllBlocks.NOTE_LINK.has(blockState))
+            return;
 
-        if ((receivedSignal > 0) != bs.getValue(NoteLinkBlock.POWERED)) {
+        if ((receivedSignal > 0) != blockState.getValue(NoteLinkBlock.POWERED)) {
             receivedSignalChanged = true;
-            level.setBlockAndUpdate(worldPosition, bs.cycle(NoteLinkBlock.POWERED));
+            level.setBlockAndUpdate(worldPosition, blockState.cycle(NoteLinkBlock.POWERED));
         }
 
         if (receivedSignalChanged) {
-            updateSelfAndAttached(bs);
+            updateSelfAndAttached(blockState);
         }
-    }
-
-
-
-    public void applyClipboardSettings(CompoundTag clipboardTag, boolean copyMode) {
-
-        boolean shouldBeReceiver = clipboardTag.getBoolean("Receiver");
-
-        PipePitch next = PipePitch.fromNormalizedName(clipboardTag.getString("Pitch")); // get the pitch above what's written on the clipboard
-//        PipePitch next = direction.map(pitch.next(), pitch.prev()); // get the pitch above/below what's written on the clipboard
-
-        setPitch(next); // set the new pitch
-        pitchSlot.setValueSilent(next); // set the new pitch on the scroll box
-        setKey(Objects.requireNonNull(ItemStack.of(clipboardTag.getCompound("Key")))); // set the new key
-
-        notifyUpdate();
-
-        removeBehaviour(NoteLinkBehaviour.TYPE);
-        attachBehaviourLate(link = new NoteLinkBehaviour(this,
-                this::getTransmittedSignal,
-                this::setReceivedSignal,
-                transmitter ? NoteLinkBehaviour.Mode.TRANSMIT : NoteLinkBehaviour.Mode.RECEIVE,
-                key, pitch
-        ).withOnLoadedCallback(this::onNoteLinkBehaviorLoaded));
-        notifyUpdate();
-
-        updateSelfAndAttached(getBlockState());
-        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.applyClipboardSettings: about to apply mode change: copyMode={}, shouldBeReceiver={}, currentMode={}", copyMode, shouldBeReceiver, transmitter ? "TRANSMITTER" : "RECEIVER");
-        if (copyMode && (shouldBeReceiver == transmitter)) {
-            PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.applyClipboardSettings: changing mode to {}", shouldBeReceiver ? "RECEIVER" : "TRANSMITTER");
-            BlockState currentState = getBlockState();
-            level.setBlockAndUpdate(worldPosition, currentState.setValue(NoteLinkBlock.RECEIVER, shouldBeReceiver));
-        }
-
-        level.scheduleTick(getBlockPos(), getBlockState().getBlock(), 1);
-    }
-
-    public void updateHeldClipboard(Player player, boolean forceInvertMode) {
-        ItemStack mainhand = player.getMainHandItem(); // get item in mainhand
-        boolean mainhandIsClipboard = mainhand.is(com.simibubi.create.AllBlocks.CLIPBOARD.asItem());
-        ItemStack offhand = player.getOffhandItem(); // get item in offhand
-        boolean offhandIsClipboard = offhand.is(com.simibubi.create.AllBlocks.CLIPBOARD.asItem());
-        if (!mainhandIsClipboard && !offhandIsClipboard) return; // if the player isn't holding any clipboards, return
-
-        boolean receiver = getBlockState().getValue(NoteLinkBlock.RECEIVER);
-
-        ItemStack clipboardStack;
-        if (mainhandIsClipboard) // if there's a clipboard in the mainhand, prioritise that
-            clipboardStack = mainhand;
-        else // otherwise use the clipboard in the offhand
-            clipboardStack = offhand;
-
-        if (clipboardStack.hasTag() &&
-                clipboardStack.getTag().contains("CopiedValues") &&
-                clipboardStack.getTagElement("CopiedValues").contains("MusicalFrequency")) { // if the clipboard has anything specifically about note links in its NBT
-
-            CompoundTag clipboardTag = clipboardStack.getTagElement("CopiedValues").getCompound("MusicalFrequency");
-            clipboardTag.putString("Pitch", pitch.getNormalizedName()); // put the new pitch in clipboard NBT
-            clipboardTag.put("Key", key.serializeNBT()); // put the new key in clipboard NBT
-            clipboardTag.putBoolean("Receiver", receiver); // put the new mode in clipboard NBT
-
-        } else { // if the clipboard hasn't been used for note links previously
-            ClipboardOverrides.switchTo(ClipboardOverrides.ClipboardType.WRITTEN, offhand); // make the clipboard visually look like it's been written in
-
-            CompoundTag copiedTag = new CompoundTag(); // make a new tag to put in "CopiedValues"
-            CompoundTag noteLinkTag = new CompoundTag(); // make a new tag to put in "MusicalFrequency"
-            noteLinkTag.putString("Pitch", pitch.getNormalizedName()); // default to F#-1
-            noteLinkTag.put("Key", key.serializeNBT()); // default to no key item
-            noteLinkTag.putBoolean("Receiver", receiver);
-
-            copiedTag.put("MusicalFrequency", noteLinkTag);
-            clipboardStack.getOrCreateTag().put("CopiedValues", copiedTag); // apply the tags to the clipboard
-        }
-    }
-
-    public void updateHeldClipboard(Player player){
-        updateHeldClipboard(player, false);
     }
 
     // Block destroyed or picked up by a contraption. Usually detaches kinetics
@@ -367,11 +274,47 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
         return receivedSignal;
     }
 
+
+
+    public void applyClipboardSettings(CompoundTag clipboardTag, boolean copyMode) {
+
+        boolean shouldBeReceiver = clipboardTag.getBoolean("Receiver");
+
+        PipePitch next = PipePitch.fromNormalizedName(clipboardTag.getString("Pitch")); // get the pitch above what's written on the clipboard
+//        PipePitch next = direction.map(pitch.next(), pitch.prev()); // get the pitch above/below what's written on the clipboard
+
+        setPitch(next); // set the new pitch
+        pitchSlot.setValueSilent(next); // set the new pitch on the scroll box
+        setKey(Objects.requireNonNull(ItemStack.of(clipboardTag.getCompound("Key")))); // set the new key
+
+        NoteLinkBehaviour prev = link;
+        removeBehaviour(NoteLinkBehaviour.TYPE);
+        createNoteLink();
+        link.copyDataFrom(prev);
+        attachBehaviourLate(link);
+        notifyUpdate();
+
+        updateSelfAndAttached(getBlockState());
+        PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.applyClipboardSettings: about to apply mode change: copyMode={}, shouldBeReceiver={}, currentMode={}", copyMode, shouldBeReceiver, transmitter ? "TRANSMITTER" : "RECEIVER");
+        if (copyMode && (shouldBeReceiver == transmitter)) {
+            PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.applyClipboardSettings: changing mode to {}", shouldBeReceiver ? "RECEIVER" : "TRANSMITTER");
+            BlockState currentState = getBlockState();
+            level.setBlockAndUpdate(worldPosition, currentState.setValue(NoteLinkBlock.RECEIVER, shouldBeReceiver));
+        }
+
+        level.scheduleTick(getBlockPos(), getBlockState().getBlock(), 1);
+    }
+
+    public void updateHeldClipboard(Player player){
+        if (link != null)
+            link.updateHeldClipboard(player);
+    }
+
     public void reset() {
         transmittedSignal = 0;
         receivedSignal = 0;
         receivedSignalChanged = false;
-        link.changeKeyFrequency(ItemStack.EMPTY);
-        link.changePitch(PipePitch.DEFAULT);
+        link.setKeyFrequency(ItemStack.EMPTY);
+        link.setPitch(PipePitch.DEFAULT);
     }
 }

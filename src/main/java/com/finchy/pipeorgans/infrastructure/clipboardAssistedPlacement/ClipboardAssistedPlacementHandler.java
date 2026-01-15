@@ -120,7 +120,6 @@ public class ClipboardAssistedPlacementHandler {
 
             return true;
         } else { // if the clipboard hasn't been used for note links previously
-            ClipboardOverrides.switchTo(ClipboardOverrides.ClipboardType.WRITTEN, clipboardItemStack); // make the clipboard visually look like it's been written in
 
             CompoundTag copiedTag = new CompoundTag(); // make a new tag to put in "CopiedValues"
             CompoundTag noteLinkTag = new CompoundTag(); // make a new tag to put in "MusicalFrequency"
