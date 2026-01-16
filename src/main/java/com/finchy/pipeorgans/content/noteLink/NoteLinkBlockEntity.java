@@ -129,8 +129,8 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
     }
 
     protected void createNoteLink() {
-        link = transmitter ? NoteLinkBehaviour.transmitter(this, this::getTransmittedSignal)
-                : NoteLinkBehaviour.receiver(this, this::setReceivedSignal)
+        link = (transmitter ? NoteLinkBehaviour.transmitter(this, this::getTransmittedSignal)
+                : NoteLinkBehaviour.receiver(this, this::setReceivedSignal))
                 .withOnLoadedCallback(this::onNoteLinkBehaviorLoaded);
     }
 
