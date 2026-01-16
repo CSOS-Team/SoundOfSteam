@@ -93,13 +93,6 @@ public class Bassoon {
 
             createReedSteamJet();
         }
-//Goggles
-        public boolean hasGoggles() {
-            return goggles;
-        }
-        public void setGoggles(boolean goggles) {
-            this.goggles = goggles;
-        }
     }
 
     public static class BassoonRenderer extends SafeBlockEntityRenderer<BassoonBlockEntity> {
@@ -145,7 +138,7 @@ public class Bassoon {
                         .center()
                         .rotateYDegrees(AngleHelper.horizontalAngle(direction))
                         .uncenter()
-                        .translate(0, -1f / 16f, 0)
+                        .translate(0, -2f / 16f, 0)
                         .light(light)
                         .renderInto(ms, bufferSource.getBuffer(RenderType.cutout()));
             }
