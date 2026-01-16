@@ -1,10 +1,13 @@
 package com.finchy.pipeorgans.content.base;
 
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.content.windchest.WindchestBlock;
+import com.finchy.pipeorgans.init.AllSoundEvents;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -12,6 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -34,20 +38,50 @@ public class BaseBlockEntity extends SmartBlockEntity {
 
     @Override
     public void tick() {
-        super.tick();
+        if (!level.isClientSide) return;
         FluidTankBlockEntity tank = getTank();
-        if (isPowered() && level.getGameTime() % 8 == 0
-                && (tank != null && tank.boiler.isActive() && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0)
-                || isVirtual())) {
-            createSteamJet();
+        BlockState state = getBlockState();
+        BlockPos attachedPos = getBlockPos().relative(BaseBlock.getAttachedDirection(state));
+        BlockState attachedState = level.getBlockState(attachedPos);
+        boolean isActive = false;
+        if (attachedState.getBlock() instanceof WindchestBlock windchest) {
+            isActive = windchest.isMasterActive(level, attachedState.getValue(GenericPipeBlock.FACING), attachedPos);
         }
-
+        boolean powered = ((tank != null && tank.boiler.isActive() && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0)) || isActive) && isPowered();
+        if (powered) {
+            createSteamJet();
+            playSteamSound();
+        }
+        else {
+            stopSteamSound();
+        }
     }
+
+    @Nullable
+    private BaseSoundInstance steamSound;
 
     public void createSteamJet() {
         Vec3 v = new Vec3(0, 0.8125, 0).add(Vec3.atBottomCenterOf(worldPosition));
         Vec3 m = new Vec3(0, 1, 0);
         level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
+    }
+
+    private void playSteamSound() {
+        if (steamSound == null || steamSound.isStopped()) {
+            steamSound = new BaseSoundInstance(
+                    worldPosition, AllSoundEvents.STEAM_HISS.get()
+            );
+            Minecraft.getInstance().getSoundManager().play(steamSound);
+        }
+
+        steamSound.keepAlive();
+    }
+
+    private void stopSteamSound() {
+        if (steamSound != null) {
+            steamSound.fadeOut();
+            steamSound = null;
+        }
     }
 
     public FluidTankBlockEntity getTank() {
