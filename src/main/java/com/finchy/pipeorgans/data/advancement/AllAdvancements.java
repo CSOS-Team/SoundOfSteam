@@ -1,5 +1,7 @@
 package com.finchy.pipeorgans.data.advancement;
 
+import com.finchy.pipeorgans.advancement.PipeGogglesTrigger;
+import com.finchy.pipeorgans.advancement.SteamBaseTrigger;
 import com.finchy.pipeorgans.data.advancement.PipeOrgansAdvancement.Builder;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllItems;
@@ -45,6 +47,8 @@ public class AllAdvancements implements DataProvider {
             .description("Craft a Pipe Base")
             .after(ROOT)
             .whenIconCollected()),
+
+
 
     // principal branch
 
@@ -174,7 +178,7 @@ public class AllAdvancements implements DataProvider {
             .title("Rumbling Reeds")
             .description("Place a Posaune pipe")
             .after(BASSOON)
-            .whenBlockPlaced(AllBlocks.POSAUNE));
+            .whenBlockPlaced(AllBlocks.POSAUNE)),
 
     //Hidden Advancements
     //Don't ruin the fun and peek
@@ -188,14 +192,27 @@ public class AllAdvancements implements DataProvider {
 
 
 
+    PIPE_GOGGLES = create("pipe_goggles", b -> b.icon(com.simibubi.create.AllItems.GOGGLES)
+            .title("Pipes for Nerds")
+            .description("Put goggles on a pipe")
+            .trigger(PipeGogglesTrigger.instance())
+            .after(ROOT)
+            .secretTask()
+    ),
+    STEAM_BASE = create("steam_base", b -> b.icon(AllBlocks.BASE)
+            .title("Steam. Just Steam")
+            .description("Let steam escape through a Pipe Base")
+            .trigger(SteamBaseTrigger.instance())
+            .after(ROOT)
+            .secretTask()
+            );
 
 
 
 
-    // THERE'S NOTHING YET!!! MWAHAHAHAHAHAHAHA
-    // also, why'd you peek :(
+    //Why'd you peek :(
 
-    // except you Finchy, you're allowed to peek <3
+    //except you Finchy, you're allowed to peek <3
 
     private static PipeOrgansAdvancement create(String id, UnaryOperator<Builder> b) {
         return new PipeOrgansAdvancement(id, b);

@@ -34,7 +34,7 @@ public class Prestant {
     public static class PrestantBlock extends DoublePipeBlock {
         public PrestantBlock(Properties pProperties) {
             super(pProperties,
-                    PipeDirection.VERTICAL, PipeMaterial.WOOD,
+                    PipeDirection.VERTICAL, PipeMaterial.METAL,
                     AllBlocks.PRESTANT_EXTENSION,
                     AllBlockEntities.PRESTANT_BLOCK_ENTITY,
                     AllShapes::genericPipeShape);

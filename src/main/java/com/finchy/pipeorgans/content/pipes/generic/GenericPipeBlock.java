@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
+import com.finchy.pipeorgans.init.AllTriggers;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.equipment.goggles.GogglesItem;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
@@ -241,13 +242,16 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
         if (heldItem.getItem() instanceof GogglesItem) {
             BlockEntity be = pLevel.getBlockEntity(pPos);
             if (be instanceof GenericPipeBlockEntity pipeBE) {
-                if (!pLevel.isClientSide) {
+                if (!pLevel.isClientSide && pPlayer instanceof ServerPlayer sp) {
                     pipeBE.setGoggles(!pipeBE.hasGoggles());
                     pipeBE.setChanged();
                     pipeBE.sendData();
                     SoundEvent goggleSound;
                     goggleSound = SoundEvents.ARMOR_EQUIP_GENERIC;
-                    pLevel.playSound(null, pPos, goggleSound, SoundSource.BLOCKS, 0.5f, 1f);                /*
+                    pLevel.playSound(null, pPos, goggleSound, SoundSource.BLOCKS, 0.5f, 1f);
+
+                    AllTriggers.PIPE_GOGGLES.trigger(sp);
+                    /*
                     //In case you want the pipes to eat your goggles
                     if (!pPlayer.isCreative())
                         heldItem.shrink(1);

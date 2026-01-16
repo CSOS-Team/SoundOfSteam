@@ -1,0 +1,31 @@
+{
+  "parent": "pipeorgans:root",
+  "criteria": {
+    "0": {
+      "conditions": {},
+      "trigger": "pipeorgans:steam_base"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.steam_base.desc"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "pipeorgans:base"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pipeorgans.steam_base"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

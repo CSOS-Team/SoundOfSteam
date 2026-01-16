@@ -3,6 +3,7 @@ package com.finchy.pipeorgans.content.base;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.init.AllSoundEvents;
+import com.finchy.pipeorgans.init.AllTriggers;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
@@ -10,9 +11,12 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -22,6 +26,8 @@ import java.util.List;
 public class BaseBlockEntity extends SmartBlockEntity {
 
     public WeakReference<FluidTankBlockEntity> source;
+    private boolean wasPoweredLastTick = false;
+    private boolean advancementTriggered = false;
 
     public BaseBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
@@ -38,24 +44,59 @@ public class BaseBlockEntity extends SmartBlockEntity {
 
     @Override
     public void tick() {
-        if (!level.isClientSide) return;
+        if (level == null)
+            return;
+
         FluidTankBlockEntity tank = getTank();
         BlockState state = getBlockState();
-        BlockPos attachedPos = getBlockPos().relative(BaseBlock.getAttachedDirection(state));
+        BlockPos attachedPos = worldPosition.relative(BaseBlock.getAttachedDirection(state));
         BlockState attachedState = level.getBlockState(attachedPos);
         boolean isActive = false;
         if (attachedState.getBlock() instanceof WindchestBlock windchest) {
-            isActive = windchest.isMasterActive(level, attachedState.getValue(GenericPipeBlock.FACING), attachedPos);
+            isActive = windchest.isMasterActive(
+                    level,
+                    attachedState.getValue(GenericPipeBlock.FACING),
+                    attachedPos
+            );
         }
-        boolean powered = ((tank != null && tank.boiler.isActive() && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0)) || isActive) && isPowered();
+
+        boolean powered =
+                ((tank != null && tank.boiler.isActive()
+                        && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0))
+                        || isActive)
+                        && isPowered();
+
+        // Advancement logic
+        if (!level.isClientSide) {
+            if (powered && !wasPoweredLastTick) {
+                triggerSteamAdvancement();
+            }
+            wasPoweredLastTick = powered;
+            return; // skip client-only particle/sound logic
+        }
+
+        // Particles and Sound
         if (powered) {
             createSteamJet();
             playSteamSound();
-        }
-        else {
+        } else {
             stopSteamSound();
         }
+
+        wasPoweredLastTick = powered;
     }
+
+    private void triggerSteamAdvancement() {
+        if (!(level instanceof ServerLevel serverLevel))
+            return;
+
+        for (ServerPlayer player : serverLevel.getEntitiesOfClass(ServerPlayer.class,
+                new AABB(worldPosition).inflate(16))) {
+            AllTriggers.STEAM_BASE.trigger(player);
+        }
+    }
+
+
 
     @Nullable
     private BaseSoundInstance steamSound;
