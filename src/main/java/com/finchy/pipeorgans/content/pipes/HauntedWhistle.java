@@ -107,13 +107,6 @@ public class HauntedWhistle {
                     .scale(.75f));
             level.addParticle(new HauntedJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
         }
-        //Goggles
-        public boolean hasGoggles() {
-            return goggles;
-        }
-        public void setGoggles(boolean goggles) {
-            this.goggles = goggles;
-        }
     }
 
     public static class HauntedWhistleRenderer extends SafeBlockEntityRenderer<HauntedWhistleBlockEntity> {

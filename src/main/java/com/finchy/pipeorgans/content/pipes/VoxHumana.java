@@ -118,13 +118,6 @@ public class VoxHumana {
             Vec3 m = VecHelper.rotate(new Vec3(0, 1, 1), angle, Direction.Axis.Y);
             level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
         }
-        //Goggles
-        public boolean hasGoggles() {
-            return goggles;
-        }
-        public void setGoggles(boolean goggles) {
-            this.goggles = goggles;
-        }
     }
 
     public static class VoxHumanaRenderer extends SafeBlockEntityRenderer<VoxHumanaBlockEntity> {

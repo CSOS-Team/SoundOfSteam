@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
 import com.finchy.pipeorgans.ClientConfig;
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;

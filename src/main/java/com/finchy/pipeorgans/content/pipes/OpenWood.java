@@ -98,13 +98,6 @@ public class OpenWood {
 
             createSteamJet(size);
         }
-        //Goggles
-        public boolean hasGoggles() {
-            return goggles;
-        }
-        public void setGoggles(boolean goggles) {
-            this.goggles = goggles;
-        }
     }
 
     public static class OpenWoodRenderer extends SafeBlockEntityRenderer<OpenWoodBlockEntity> {
@@ -154,7 +147,6 @@ public class OpenWood {
                         .center()
                         .rotateYDegrees(AngleHelper.horizontalAngle(direction))
                         .uncenter()
-                        .translate(0, 0, 0)
                         .light(light)
                         .renderInto(ms, bufferSource.getBuffer(RenderType.cutout()));
             }

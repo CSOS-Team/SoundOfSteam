@@ -95,13 +95,6 @@ public class Diapason {
 
             createSteamJet(size);
         }
-
-        public boolean hasGoggles() {
-            return goggles;
-        }
-        public void setGoggles(boolean goggles) {
-            this.goggles = goggles;
-        }
     }
 
     public static class DiapasonRenderer extends SafeBlockEntityRenderer<DiapasonBlockEntity> {
@@ -153,7 +146,6 @@ public class Diapason {
                         .center()
                         .rotateYDegrees(AngleHelper.horizontalAngle(direction))
                         .uncenter()
-                        .translate(0, 0, 0)
                         .light(light)
                         .renderInto(ms, bufferSource.getBuffer(RenderType.cutout()));
             }

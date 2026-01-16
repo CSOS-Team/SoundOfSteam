@@ -93,13 +93,6 @@ public class Rohrflote {
 
             createSteamJet(size);
         }
-        //Goggles
-        public boolean hasGoggles() {
-            return goggles;
-        }
-        public void setGoggles(boolean goggles) {
-            this.goggles = goggles;
-        }
     }
 
     public static class RohrfloteRenderer extends SafeBlockEntityRenderer<RohrfloteBlockEntity> {
@@ -149,7 +142,6 @@ public class Rohrflote {
                         .center()
                         .rotateYDegrees(AngleHelper.horizontalAngle(direction))
                         .uncenter()
-                        .translate(0, 0, 0)
                         .light(light)
                         .renderInto(ms, bufferSource.getBuffer(RenderType.cutout()));
             }

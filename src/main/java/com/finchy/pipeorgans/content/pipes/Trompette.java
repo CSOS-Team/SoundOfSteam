@@ -92,13 +92,6 @@ public class Trompette {
 
             createReedSteamJet();
         }
-        //Goggles
-        public boolean hasGoggles() {
-            return goggles;
-        }
-        public void setGoggles(boolean goggles) {
-            this.goggles = goggles;
-        }
     }
 
     public static class TrompetteRenderer extends SafeBlockEntityRenderer<TrompetteBlockEntity> {
