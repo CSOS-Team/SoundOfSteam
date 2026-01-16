@@ -26,7 +26,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ import static com.simibubi.create.api.behaviour.display.DisplaySource.displaySou
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.*;
 
-//TODO Roll puncher
+@SuppressWarnings("SameParameterValue")
 public class AllBlocks {
     private static final CreateRegistrate REGISTRATE = PipeOrgans.registrate();
 
@@ -50,10 +50,10 @@ public class AllBlocks {
             .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
             .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
             .transform(pickaxeOnly())
-            .lang("Pipe Base") // override default name generated from id "base"
             .blockstate(new BaseGenerator()::generate)
             .item()
             .transform(customItemModel())
+            .lang("Pipe Base")
             .register();
 
     public static final BlockEntry<KeyboardRelayBlock> KEYBOARD_RELAY = REGISTRATE.block("keyboard_relay", KeyboardRelayBlock::new)
@@ -92,8 +92,8 @@ public class AllBlocks {
             .properties(p -> p
                     .requiresCorrectToolForDrops()
                     .noOcclusion())
-            .lang("Windchest Controller")
             .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forPowered(c, p)))
+            .lang("Windchest Controller")
             .item()
             .transform(customItemModel())
             .transform(axeOrPickaxe())
@@ -102,10 +102,10 @@ public class AllBlocks {
     public static final BlockEntry<RollPuncherBlock> ROLL_PUNCHER = REGISTRATE.block("roll_puncher", RollPuncherBlock::new)
             .initialProperties(() -> Blocks.LECTERN)
             .transform(axeOrPickaxe())
-            .lang("Roll Authoring Table")
             .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models()
                     .getExistingFile(ctx.getId()), 180))
             .onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "block.pipeorgans.roll_puncher"))
+            .lang("Roll Authoring Table")
             .item()
             .build()
             .register();
@@ -154,8 +154,7 @@ public class AllBlocks {
             "prestant_extension",
             Prestant.PrestantExtensionBlock::new,
             com.simibubi.create.AllBlocks.ZINC_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
     public static final BlockEntry<Gamba.GambaBlock> GAMBA = registerPipeBlock(
             "gamba",
@@ -225,8 +224,7 @@ public class AllBlocks {
             "nasard_extension",
             Nasard.NasardExtensionBlock::new,
             () -> Blocks.COPPER_BLOCK,
-            BlockTags.MINEABLE_WITH_PICKAXE,
-            null);
+            BlockTags.MINEABLE_WITH_PICKAXE);
 
     public static final BlockEntry<Tierce.TierceBlock> TIERCE = registerPipeBlock(
             "tierce",
@@ -401,28 +399,34 @@ public class AllBlocks {
             String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
             NonNullSupplier<? extends Block> initialPropertiesCopier,
             StopSize stopsize, TagKey<Block> toolTag) {
-        return registerPipeBlock(name, factory, initialPropertiesCopier, stopsize, toolTag, null);
-    }
 
-    private static <T extends GenericPipeBlock> BlockEntry<T> registerPipeBlock(
-            String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
-            NonNullSupplier<? extends Block> initialPropertiesCopier,
-            StopSize stopsize, TagKey<Block> toolTag,
-            @Nullable String nameOverride) {
-
-        var builder = REGISTRATE.block(name, factory)
+        BlockEntry<T> entry = REGISTRATE.block(name, factory)
                 .initialProperties(initialPropertiesCopier)
                 .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
-                .blockstate(new PipeGenerator()::generate);
-
-        if (nameOverride != null) {
-            builder.lang(nameOverride);
-        }
-
-        BlockEntry<T> entry = builder
+                .blockstate(new PipeGenerator()::generate)
                 .item((b, p) -> new GenericPipeBlockItem(b, p, stopsize))
                 .transform(customItemModel())
                 .tag(toolTag)
+                .register();
+
+        PIPE_BLOCKS.add(entry);
+        return entry;
+    }
+
+    private static <T extends GenericPipeBlock> BlockEntry<T> registerPipeBlock( // overload for blocks with lang overrides
+            String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
+            NonNullSupplier<? extends Block> initialPropertiesCopier,
+            StopSize stopsize, TagKey<Block> toolTag,
+            @NotNull String nameOverride) {
+
+        BlockEntry<T> entry = REGISTRATE.block(name, factory)
+                .initialProperties(initialPropertiesCopier)
+                .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
+                .blockstate(new PipeGenerator()::generate)
+                .item((b, p) -> new GenericPipeBlockItem(b, p, stopsize))
+                .transform(customItemModel())
+                .tag(toolTag)
+                .lang(nameOverride)
                 .register();
 
         PIPE_BLOCKS.add(entry);
@@ -434,25 +438,26 @@ public class AllBlocks {
             String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
             NonNullSupplier<? extends Block> initialPropertiesCopier,
             TagKey<Block> toolTag) {
-        return registerExtensionBlock(name, factory, initialPropertiesCopier, toolTag, null);
+
+        return REGISTRATE.block(name, factory)
+                .initialProperties(initialPropertiesCopier)
+                .blockstate(new PipeExtensionGenerator()::generate)
+                .tag(toolTag)
+                .register();
     }
 
-    private static <T extends GenericExtensionBlock<?>> BlockEntry<T> registerExtensionBlock(
+    private static <T extends GenericExtensionBlock<?>> BlockEntry<T> registerExtensionBlock( // overload for blocks with lang overrides
             String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
             NonNullSupplier<? extends Block> initialPropertiesCopier,
             TagKey<Block> toolTag,
-            @Nullable String lang) {
+            @NotNull String nameOverride) {
 
-        var builder = REGISTRATE.block(name, factory)
+        return REGISTRATE.block(name, factory)
                 .initialProperties(initialPropertiesCopier)
                 .blockstate(new PipeExtensionGenerator()::generate)
-                .tag(toolTag);
-
-        if (lang != null) {
-            builder.lang(lang);
-        }
-
-        return builder.register();
+                .tag(toolTag)
+                .lang(nameOverride)
+                .register();
     }
 
 

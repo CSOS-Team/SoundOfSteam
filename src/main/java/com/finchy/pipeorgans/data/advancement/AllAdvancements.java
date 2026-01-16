@@ -120,7 +120,7 @@ public class AllAdvancements implements DataProvider {
             .after(PIPE_BASE)
             .whenBlockPlaced(AllBlocks.VIOLA)),
 
-    VOIX_CELESTE = create("voix_celeste", b -> b.icon(AllBlocks.VOX_CELESTE)
+    VOX_CELESTE = create("vox_celeste", b -> b.icon(AllBlocks.VOX_CELESTE)
             .title("Pleasantly Out of Tune")
             .description("Place a Voix Celeste pipe")
             .after(VIOLA)
@@ -129,7 +129,7 @@ public class AllAdvancements implements DataProvider {
     GAMBA = create("gamba", b -> b.icon(AllBlocks.GAMBA)
             .title("Shrill Strings")
             .description("Place a Gamba pipe")
-            .after(VOIX_CELESTE)
+            .after(VOX_CELESTE)
             .whenBlockPlaced(AllBlocks.GAMBA)),
 
     // reed branch
@@ -193,9 +193,9 @@ public class AllAdvancements implements DataProvider {
 
 
     // THERE'S NOTHING YET!!! MWAHAHAHAHAHAHAHA
-    //also, why'd you peek :(
+    // also, why'd you peek :(
 
-    //except you Finchy, you're allowed to peek <3
+    // except you Finchy, you're allowed to peek <3
 
     private static PipeOrgansAdvancement create(String id, UnaryOperator<Builder> b) {
         return new PipeOrgansAdvancement(id, b);
