@@ -34,7 +34,7 @@ public class Prestant {
     public static class PrestantBlock extends DoublePipeBlock {
         public PrestantBlock(Properties pProperties) {
             super(pProperties,
-                    PipeDirection.VERTICAL, PipeMaterial.WOOD,
+                    PipeDirection.VERTICAL, PipeMaterial.METAL,
                     AllBlocks.PRESTANT_EXTENSION,
                     AllBlockEntities.PRESTANT_BLOCK_ENTITY,
                     AllShapes::genericPipeShape);
@@ -116,6 +116,13 @@ public class Prestant {
                 case LARGE -> AllPartialModels.PRESTANT_MOUTH_LARGE;
                 case HUGE -> AllPartialModels.PRESTANT_MOUTH_HUGE;
             };
+            PartialModel goggles = switch (size) {
+                case TINY -> AllPartialModels.GOGGLES_TINY;
+                case SMALL -> AllPartialModels.GOGGLES_SMALL;
+                case MEDIUM -> AllPartialModels.GOGGLES_MEDIUM;
+                case LARGE -> AllPartialModels.GOGGLES_LARGE;
+                case HUGE -> AllPartialModels.GOGGLES_HUGE;
+            };
 
             float offset = be.animation.getValue(partialTicks);
             if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
@@ -130,6 +137,14 @@ public class Prestant {
                     .translate(0, -offset / 16f, 0)
                     .light(light)
                     .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+            if (be.hasGoggles()) {
+                CachedBuffers.partial(goggles, blockState)
+                        .center()
+                        .rotateYDegrees(AngleHelper.horizontalAngle(direction))
+                        .uncenter()
+                        .light(light)
+                        .renderInto(ms, bufferSource.getBuffer(RenderType.cutout()));
+            }
 
         }
     }

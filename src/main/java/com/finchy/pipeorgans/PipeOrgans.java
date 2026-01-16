@@ -79,7 +79,7 @@ public class PipeOrgans {
         AllPackets.registerPackets();
 
         modEventBus.addListener(EventPriority.LOWEST, PipeOrgansDatagen::gatherData);
-
+        modEventBus.addListener(PipeOrgans::init);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> PipeOrgansClient.onCtorClient(modEventBus, MinecraftForge.EVENT_BUS));
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -92,6 +92,7 @@ public class PipeOrgans {
 
     public static void init(FMLCommonSetupEvent event) {
         event.enqueueWork(AllAdvancements::register);
+        event.enqueueWork(AllTriggers::register);
     }
 
     @SubscribeEvent

@@ -1,0 +1,31 @@
+{
+  "parent": "pipeorgans:root",
+  "criteria": {
+    "0": {
+      "conditions": {},
+      "trigger": "pipeorgans:pipe_goggles"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.pipe_goggles.desc"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "create:goggles"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pipeorgans.pipe_goggles"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

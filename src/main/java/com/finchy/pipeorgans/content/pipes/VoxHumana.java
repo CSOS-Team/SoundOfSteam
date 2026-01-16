@@ -49,6 +49,11 @@ public class VoxHumana {
                     AllBlocks.VOX_HUMANA,
                     AllShapes::slimExtensionShape);
         }
+
+        @Override
+        public boolean isDirectional() {
+            return true;
+        }
     }
 
     public static class VoxHumanaBlockEntity extends GenericPipeBlockEntity {
@@ -136,6 +141,13 @@ public class VoxHumana {
                 case LARGE -> AllPartialModels.VOX_HUMANA_MOUTH_LARGE;
                 case HUGE -> AllPartialModels.VOX_HUMANA_MOUTH_HUGE;
             };
+            PartialModel goggles = switch (size) {
+                case TINY -> AllPartialModels.GOGGLES_TINY;
+                case SMALL -> AllPartialModels.GOGGLES_SMALL;
+                case MEDIUM -> AllPartialModels.GOGGLES_MEDIUM;
+                case LARGE -> AllPartialModels.GOGGLES_LARGE;
+                case HUGE -> AllPartialModels.GOGGLES_HUGE;
+            };
 
             float chaseTarget = be.animation.getChaseTarget();
 
@@ -146,6 +158,15 @@ public class VoxHumana {
                     .scale(chaseTarget)
                     .light(light)
                     .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+            if (be.hasGoggles()) {
+                CachedBuffers.partial(goggles, blockState)
+                        .center()
+                        .rotateYDegrees(AngleHelper.horizontalAngle(direction))
+                        .uncenter()
+                        .translate(0, -1f / 16f, 0)
+                        .light(light)
+                        .renderInto(ms, bufferSource.getBuffer(RenderType.cutout()));
+            }
 
         }
     }

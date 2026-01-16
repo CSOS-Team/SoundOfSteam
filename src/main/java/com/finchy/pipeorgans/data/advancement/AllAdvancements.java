@@ -1,5 +1,7 @@
 package com.finchy.pipeorgans.data.advancement;
 
+import com.finchy.pipeorgans.advancement.PipeGogglesTrigger;
+import com.finchy.pipeorgans.advancement.SteamBaseTrigger;
 import com.finchy.pipeorgans.data.advancement.PipeOrgansAdvancement.Builder;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllItems;
@@ -45,6 +47,8 @@ public class AllAdvancements implements DataProvider {
             .description("Craft a Pipe Base")
             .after(ROOT)
             .whenIconCollected()),
+
+
 
     // principal branch
 
@@ -120,7 +124,7 @@ public class AllAdvancements implements DataProvider {
             .after(PIPE_BASE)
             .whenBlockPlaced(AllBlocks.VIOLA)),
 
-    VOIX_CELESTE = create("voix_celeste", b -> b.icon(AllBlocks.VOX_CELESTE)
+    VOX_CELESTE = create("vox_celeste", b -> b.icon(AllBlocks.VOX_CELESTE)
             .title("Pleasantly Out of Tune")
             .description("Place a Voix Celeste pipe")
             .after(VIOLA)
@@ -129,7 +133,7 @@ public class AllAdvancements implements DataProvider {
     GAMBA = create("gamba", b -> b.icon(AllBlocks.GAMBA)
             .title("Shrill Strings")
             .description("Place a Gamba pipe")
-            .after(VOIX_CELESTE)
+            .after(VOX_CELESTE)
             .whenBlockPlaced(AllBlocks.GAMBA)),
 
     // reed branch
@@ -174,7 +178,7 @@ public class AllAdvancements implements DataProvider {
             .title("Rumbling Reeds")
             .description("Place a Posaune pipe")
             .after(BASSOON)
-            .whenBlockPlaced(AllBlocks.POSAUNE));
+            .whenBlockPlaced(AllBlocks.POSAUNE)),
 
     //Hidden Advancements
     //Don't ruin the fun and peek
@@ -188,12 +192,25 @@ public class AllAdvancements implements DataProvider {
 
 
 
+    PIPE_GOGGLES = create("pipe_goggles", b -> b.icon(com.simibubi.create.AllItems.GOGGLES)
+            .title("Pipes for Nerds")
+            .description("Put goggles on a pipe")
+            .trigger(PipeGogglesTrigger.instance())
+            .after(ROOT)
+            .secretTask()
+    ),
+    STEAM_BASE = create("steam_base", b -> b.icon(AllBlocks.BASE)
+            .title("Steam. Just Steam")
+            .description("Let steam escape through a Pipe Base")
+            .trigger(SteamBaseTrigger.instance())
+            .after(ROOT)
+            .secretTask()
+            );
 
 
 
 
-    // THERE'S NOTHING YET!!! MWAHAHAHAHAHAHAHA
-    //also, why'd you peek :(
+    //Why'd you peek :(
 
     //except you Finchy, you're allowed to peek <3
 

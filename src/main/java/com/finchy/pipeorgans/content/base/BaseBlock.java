@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.base;
 
+import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
@@ -62,7 +63,9 @@ public class BaseBlock extends Block implements IBE<BaseBlockEntity>, IWrenchabl
     // check if placed on fluid tank
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        return FluidTankBlock.isTank(pLevel.getBlockState(pPos.relative(getAttachedDirection(pState))));
+        BlockState attachedState = pLevel.getBlockState(pPos.relative(getAttachedDirection(pState)));
+        return (FluidTankBlock.isTank(attachedState)
+                || attachedState.getBlock() instanceof WindchestBlock);
     }
 
     // set blockstates when placing block

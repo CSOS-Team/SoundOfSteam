@@ -3,6 +3,8 @@ package com.finchy.pipeorgans.content.pipes;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadrupleExtensionBlock;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadruplePipeBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
@@ -31,7 +33,7 @@ import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Tierce {
 
-    public static class TierceBlock extends DoublePipeBlock {
+    public static class TierceBlock extends QuadruplePipeBlock {
         public TierceBlock(Properties pProperties) {
             super(pProperties,
                     PipeDirection.VERTICAL, PipeMaterial.METAL,
@@ -42,7 +44,7 @@ public class Tierce {
         }
     }
 
-    public static class TierceExtensionBlock extends DoubleExtensionBlock {
+    public static class TierceExtensionBlock extends QuadrupleExtensionBlock {
         public TierceExtensionBlock(Properties pProperties) {
             super(pProperties,
                     AllBlocks.TIERCE,
@@ -116,6 +118,13 @@ public class Tierce {
                 case LARGE -> AllPartialModels.TIERCE_MOUTH_LARGE;
                 case HUGE -> AllPartialModels.TIERCE_MOUTH_HUGE;
             };
+            PartialModel goggles = switch (size) {
+                case TINY -> AllPartialModels.GOGGLES_TINY;
+                case SMALL -> AllPartialModels.GOGGLES_SMALL;
+                case MEDIUM -> AllPartialModels.GOGGLES_MEDIUM;
+                case LARGE -> AllPartialModels.GOGGLES_LARGE;
+                case HUGE -> AllPartialModels.GOGGLES_HUGE;
+            };
 
             float offset = be.animation.getValue(partialTicks);
             if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
@@ -130,6 +139,14 @@ public class Tierce {
                     .translate(0, offset / 16f, 0)
                     .light(light)
                     .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+            if (be.hasGoggles()) {
+                CachedBuffers.partial(goggles, blockState)
+                        .center()
+                        .rotateYDegrees(AngleHelper.horizontalAngle(direction))
+                        .uncenter()
+                        .light(light)
+                        .renderInto(ms, bufferSource.getBuffer(RenderType.cutout()));
+            }
 
         }
     }
