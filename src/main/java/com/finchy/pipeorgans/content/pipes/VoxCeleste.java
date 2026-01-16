@@ -121,6 +121,13 @@ public class VoxCeleste {
                 case LARGE -> AllPartialModels.VOX_CELESTE_MOUTH_LARGE;
                 case HUGE -> AllPartialModels.VOX_CELESTE_MOUTH_HUGE;
             };
+            PartialModel goggles = switch (size) {
+                case TINY -> AllPartialModels.STRING_GOGGLES_TINY;
+                case SMALL -> AllPartialModels.STRING_GOGGLES_SMALL;
+                case MEDIUM -> AllPartialModels.STRING_GOGGLES_MEDIUM;
+                case LARGE -> AllPartialModels.STRING_GOGGLES_LARGE;
+                case HUGE -> AllPartialModels.STRING_GOGGLES_HUGE;
+            };
 
             float offset = be.animation.getValue(partialTicks);
             if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
@@ -135,6 +142,14 @@ public class VoxCeleste {
                     .translate(0, -offset / 16f, 0)
                     .light(light)
                     .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+            if (be.hasGoggles()) {
+                CachedBuffers.partial(goggles, blockState)
+                        .center()
+                        .rotateYDegrees(AngleHelper.horizontalAngle(direction))
+                        .uncenter()
+                        .light(light)
+                        .renderInto(ms, bufferSource.getBuffer(RenderType.cutout()));
+            }
 
         }
     }

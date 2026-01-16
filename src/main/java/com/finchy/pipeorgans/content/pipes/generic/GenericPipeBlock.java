@@ -1,7 +1,9 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
+import com.finchy.pipeorgans.init.AllTriggers;
 import com.simibubi.create.AllSoundEvents;
+import com.simibubi.create.content.equipment.goggles.GogglesItem;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.block.IBE;
@@ -14,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -26,6 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -234,10 +238,34 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
         //if (pLevel.isClientSide()) { return InteractionResult.PASS; }
 
         ItemStack heldItem = pPlayer.getItemInHand(pHand); // extending pipe
+        //goooggly eyes
+        if (heldItem.getItem() instanceof GogglesItem) {
+            BlockEntity be = pLevel.getBlockEntity(pPos);
+            if (be instanceof GenericPipeBlockEntity pipeBE) {
+                if (!pLevel.isClientSide && pPlayer instanceof ServerPlayer sp) {
+                    pipeBE.setGoggles(!pipeBE.hasGoggles());
+                    pipeBE.setChanged();
+                    pipeBE.sendData();
+                    SoundEvent goggleSound;
+                    goggleSound = SoundEvents.ARMOR_EQUIP_GENERIC;
+                    pLevel.playSound(null, pPos, goggleSound, SoundSource.BLOCKS, 0.5f, 1f);
+
+                    AllTriggers.PIPE_GOGGLES.trigger(sp);
+                    /*
+                    //In case you want the pipes to eat your goggles
+                    if (!pPlayer.isCreative())
+                        heldItem.shrink(1);
+                    */
+                }
+                return InteractionResult.sidedSuccess(pLevel.isClientSide);
+            }
+        }
+        //longer-ing (extending pipe)
         if (heldItem.getItem() == this.asItem()) {
             incrementSize(pLevel, pPos, true);
             return InteractionResult.SUCCESS;
         }
+        //swapping
         if (heldItem.getItem() instanceof GenericPipeBlockItem) { // swapping pipes
             if (substitutePipe(pState, pLevel, pPos, heldItem, pPlayer) == InteractionResult.SUCCESS) {
                 if (!pPlayer.isCreative()) {

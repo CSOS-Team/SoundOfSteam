@@ -17,7 +17,7 @@
     "announce_to_chat": false,
     "description": {
       "color": "#DBA213",
-      "translate": "advancement.pipeorgans.voix_celeste.desc"
+      "translate": "advancement.pipeorgans.vox_celeste.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -26,7 +26,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.pipeorgans.voix_celeste"
+      "translate": "advancement.pipeorgans.vox_celeste"
     }
   },
   "requirements": [

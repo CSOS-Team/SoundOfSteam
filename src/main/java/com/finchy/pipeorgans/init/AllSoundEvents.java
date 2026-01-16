@@ -141,6 +141,7 @@ public class AllSoundEvents {
      VOX_CELESTE_DEEP = registerSoundEvent("vox_celeste_deep"),
 
      HAUNTED_CHIFF = registerSoundEvent("haunted_chiff"),
+     STEAM_HISS = registerSoundEvent("steam_hiss"),
 
     GROW_WOODEN_PIPE = registerSoundEvent("grow_wooden_pipe"),
     GROW_METAL_PIPE = registerSoundEvent("grow_metal_pipe"),

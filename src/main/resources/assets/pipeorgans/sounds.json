@@ -8,6 +8,16 @@
       }
     ]
   },
+  "steam_hiss": {
+    "subtitle": "sounds.pipeorgans.steam_hiss",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 32,
+        "name": "pipeorgans:steam_hiss"
+      }
+    ]
+  },
 
   "grow_wooden_pipe": {
     "sounds": [
