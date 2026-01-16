@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -244,8 +245,10 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
                     pipeBE.setGoggles(!pipeBE.hasGoggles());
                     pipeBE.setChanged();
                     pipeBE.sendData();
-                    /*
-                    //Make the pipes eat your goggles
+                    SoundEvent goggleSound;
+                    goggleSound = SoundEvents.ARMOR_EQUIP_GENERIC;
+                    pLevel.playSound(null, pPos, goggleSound, SoundSource.BLOCKS, 0.5f, 1f);                /*
+                    //In case you want the pipes to eat your goggles
                     if (!pPlayer.isCreative())
                         heldItem.shrink(1);
                     */
@@ -253,7 +256,7 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
                 return InteractionResult.sidedSuccess(pLevel.isClientSide);
             }
         }
-        //longer-ing
+        //longer-ing (extending pipe)
         if (heldItem.getItem() == this.asItem()) {
             incrementSize(pLevel, pPos, true);
             return InteractionResult.SUCCESS;
