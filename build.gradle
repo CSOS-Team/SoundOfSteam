@@ -152,6 +152,23 @@ mixin {
     config "pipeorgans.mixins.json"
 }
 
+tasks.register('prepareAssets') {
+    doLast {
+        exec {
+            workingDir project.file(".")
+            commandLine "python3", "tools/musical_link_variant_generator.py"
+        }
+    }
+}
+
+tasks.register('preBuild') {
+    dependsOn tasks.named("prepareAssets")
+}
+
+tasks.named("build").configure {
+    dependsOn tasks.named("preBuild")
+}
+
 // This block of code expands all declared replace properties in the specified resource targets.
 // A missing property will result in an error. Properties are expanded using ${} Groovy notation.
 // When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
@@ -169,6 +186,8 @@ tasks.named('processResources', ProcessResources).configure {
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
         expand replaceProperties + [project: project]
     }
+
+    dependsOn tasks.named("prepareAssets")
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

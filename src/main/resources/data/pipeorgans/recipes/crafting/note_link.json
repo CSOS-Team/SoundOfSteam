@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "T": {
+      "item": "create:transmitter"
+    },
+    "Z": {
+      "tag": "forge:ingots/zinc"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "T",
+    "Z",
+    "W"
+  ],
+  "result": {
+    "item": "pipeorgans:note_link",
+    "count": 2
+  }
+}

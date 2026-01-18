@@ -1,7 +1,9 @@
-package com.finchy.pipeorgans.ponder;
+package com.finchy.pipeorgans.ponder.ponderWrappers;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.pipes.generic.*;
+import com.finchy.pipeorgans.content.pipes.generic.subtypes.*;
+import com.finchy.pipeorgans.ponder.PonderTimings;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import net.createmod.ponder.api.PonderPalette;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;

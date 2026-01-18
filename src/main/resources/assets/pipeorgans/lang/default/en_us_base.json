@@ -10,6 +10,10 @@
   "gui.pipeorgans.tracker_bar": "Tracker Bar",
   "sounds.pipeorgans.tracker_bar_change_roll": "Paper roll rustles",
 
+  "block.pipeorgans.note_link.key_slot.label": "Key Frequency",
+  "block.pipeorgans.note_link.pitch_slot.label": "Pitch Frequency",
+  "pipeorgans.octave_group.label": "%1$s to %2$s",
+
   "gui.pipeorgans.roll_puncher.title": "Roll Authoring Table",
   "gui.pipeorgans.roll_puncher.uploading": "Uploading...",
   "gui.pipeorgans.roll_puncher.finished": "Upload Finished!",

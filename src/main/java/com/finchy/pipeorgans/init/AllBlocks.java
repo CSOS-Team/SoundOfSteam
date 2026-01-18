@@ -5,6 +5,8 @@ import com.finchy.pipeorgans.content.base.BaseBlock;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlock;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
+import com.finchy.pipeorgans.content.noteLink.NoteLinkBlock;
+import com.finchy.pipeorgans.content.noteLink.NoteLinkGenerator;
 import com.finchy.pipeorgans.content.pipes.*;
 import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
@@ -20,12 +22,15 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -394,6 +399,20 @@ public class AllBlocks {
             () -> Blocks.COPPER_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 
+    @SuppressWarnings("removal")
+    public static final BlockEntry<NoteLinkBlock> NOTE_LINK = REGISTRATE.block("note_link", NoteLinkBlock::new)
+            .initialProperties(() -> Blocks.SPRUCE_PLANKS)
+            .properties(p -> p.mapColor(MapColor.TERRACOTTA_BROWN).forceSolidOn())
+            .transform(axeOrPickaxe())
+            .tag(com.simibubi.create.AllTags.AllBlockTags.BRITTLE.tag, com.simibubi.create.AllTags.AllBlockTags.SAFE_NBT.tag)
+            .blockstate(new NoteLinkGenerator()::generate)
+            .addLayer(() -> RenderType::cutoutMipped)   // Marked as deprecated but Create also uses it with the same version of Registrate, so... idc
+            .item()
+            .transform(customItemModel("_", "transmitter"))
+            .register();
+
+
+//register block
     //register pipe block
     private static <T extends GenericPipeBlock> BlockEntry<T> registerPipeBlock( // overload for blocks without lang overrides
             String name, NonNullFunction<BlockBehaviour.Properties, T> factory,

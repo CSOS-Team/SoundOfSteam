@@ -3,7 +3,7 @@ package com.finchy.pipeorgans.ponder.scenes;
 import com.finchy.pipeorgans.content.pipes.generic.ExtensionShapes;
 import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllBlocks;
-import com.finchy.pipeorgans.ponder.PonderPipe;
+import com.finchy.pipeorgans.ponder.ponderWrappers.PonderPipe;
 import com.finchy.pipeorgans.ponder.PonderTimings;
 import com.finchy.pipeorgans.ponder.PonderUtil;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;

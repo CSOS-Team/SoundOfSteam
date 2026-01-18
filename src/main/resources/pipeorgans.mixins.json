@@ -9,6 +9,7 @@
   "mixins": [
     "BoilerDataEvaluateMixin",
     "FanUpdateWindchestMixin",
+    "RedstoneLinkNetworkHandlerMixin",
     "WhistleBlockMixin",
     "WhistleBlockEntityMixin"
   ],
