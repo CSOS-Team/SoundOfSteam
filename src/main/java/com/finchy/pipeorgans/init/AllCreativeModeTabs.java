@@ -48,6 +48,7 @@ public class AllCreativeModeTabs {
                         output.accept(AllItems.COPPER_BOOT.get());
                         output.accept(AllItems.IRON_BOOT.get());
                         output.accept(AllItems.DARK_OAK_BOOT.get());
+                        output.accept(AllItems.BRASSBOUND_BOOT.get());
                         output.accept(AllItems.BRASS_REED.get());
                         output.accept(AllItems.TUNING_WIRE.get());
                         output.accept(AllBlocks.KEYBOARD_RELAY.get());
