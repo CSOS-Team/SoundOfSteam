@@ -153,12 +153,6 @@ mixin {
 }
 
 tasks.register('prepareAssets') {
-    doLast {
-        exec {
-            workingDir project.file(".")
-            commandLine "python3", "tools/musical_link_variant_generator.py"
-        }
-    }
 }
 
 tasks.register('preBuild') {
