@@ -61,30 +61,6 @@ public class Nasard {
                     AllBlocks.NASARD, AllBlocks.NASARD_EXTENSION);
         }
 
-        @Override
-        public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-            ClientConfig.syncFromFile();
-            String[] pitches = CreateLang.translateDirect("generic.notes")
-                    .getString()
-                    .split(";");
-
-            int displayPitch = ClientConfig.displayMutationSoundingPitch ? pitch + 5 : pitch;
-            int octave = 5 - getOctave().ordinal() + (pitch <= 1 ? 1 : 0) + 2;
-
-            boolean useBrackets = ClientConfig.showOctaveBrackets;
-
-            String octaveText = useBrackets
-                    ? "(" + octave + ")"
-                    : String.valueOf(octave);
-
-
-            CreateLang.translate("generic.pitch", pitches[displayPitch % pitches.length])
-                    .add(Component.literal(octaveText))
-                    .forGoggles(tooltip);
-
-            return true;
-        }
-
         @OnlyIn(Dist.CLIENT)
         protected NasardSoundInstance soundInstance;
 

@@ -96,21 +96,20 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
                 .getString()
                 .split(";");
 
-        int stopSize = Integer.parseInt(((GenericPipeBlockItem) getBlockState()
-                .getBlock().asItem()).stopSize);
+        StopSize stopSize = ((GenericPipeBlockItem) getBlockState()
+                .getBlock().asItem()).stopSize;
 
-        double octave = 5 - getOctave().ordinal()
-                + (pitch <= 6 ? 1 : 0)
-                - (Math.log(stopSize / 8.0) / Math.log(2));
+        int mutatedPitch = stopSize.getMutatedPitch(pitch);
+        int mutatedOctave = stopSize.getMutatedOctave(pitch, getOctave());
 
         boolean useBrackets = ClientConfig.showOctaveBrackets;
 
-        String octaveText = (useBrackets || (int) octave == -1)
-                ? "(" + (int) Math.round(octave) + ")"
-                : String.valueOf((int) Math.round(octave));
+        String octaveText = (useBrackets || mutatedOctave == -1)
+                ? "(" + mutatedOctave + ")"
+                : String.valueOf(mutatedOctave);
 
 
-        CreateLang.translate("generic.pitch", pitches[pitch % pitches.length])
+        CreateLang.translate("generic.pitch", pitches[mutatedPitch % pitches.length])
                 .add(Component.literal(octaveText))
                 .forGoggles(tooltip);
 
