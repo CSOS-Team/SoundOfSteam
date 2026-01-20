@@ -25,6 +25,8 @@ public enum AllPackets {
     TRACKER_BAR_GUI(TrackerBarGUIPacket.class, TrackerBarGUIPacket::new, PLAY_TO_SERVER),
     NOTE_LINK_UPDATE_FROM_CLIPBOARD(NoteLinkUpdateFromClipboardPacket.class, NoteLinkUpdateFromClipboardPacket::new, PLAY_TO_SERVER),
 
+
+    KEYBOARD_RELAY_ACTIVE(KeyboardRelayActivePacket.class, KeyboardRelayActivePacket::new, PLAY_TO_CLIENT),
     CLIPBOARD_ASSISTED_PLACEMENT(ClipboardAssistedPlacementPacket.class, ClipboardAssistedPlacementPacket::new, PLAY_TO_CLIENT),
     REDSTONE_LINK_NETWORK_DEBUG_INFO(RedstoneLinkNetworkDebugInfoPacket.class, RedstoneLinkNetworkDebugInfoPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 

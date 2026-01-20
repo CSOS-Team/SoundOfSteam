@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans;
 
+import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayClientHandler;
 import com.finchy.pipeorgans.data.PipeOrgansDatagen;
 import com.finchy.pipeorgans.data.advancement.AllAdvancements;
 import com.finchy.pipeorgans.init.*;
@@ -19,6 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -106,6 +108,17 @@ public class PipeOrgans {
             AllPartialModels.init();
         }
     }
+
+    @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
+    public class ClientEvents {
+
+        @SubscribeEvent
+        public static void onClientTick(TickEvent.ClientTickEvent event) {
+            if (event.phase == TickEvent.Phase.END)
+                KeyboardRelayClientHandler.tick();
+        }
+    }
+
 
     public static ResourceLocation asResource(String path) {
         return new ResourceLocation(MOD_ID, path);

@@ -1,6 +1,8 @@
 package com.finchy.pipeorgans.content.midi.keyboardRelay;
 
 import com.finchy.pipeorgans.content.midi.MidiSourceBehaviour;
+import com.finchy.pipeorgans.network.AllPackets;
+import com.finchy.pipeorgans.network.packet.KeyboardRelayActivePacket;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -8,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
@@ -18,6 +21,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import javax.sound.midi.MidiMessage;
@@ -92,16 +96,27 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
         user = player.getUUID();
         player.getPersistentData().putIntArray("UsingKBRelayPos", new int[]{worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()});
 
-        level.setBlock(worldPosition, getBlockState().setValue(KeyboardRelayBlock.TRANSMITTING, false), 3); //  turn power off
+        level.setBlock(worldPosition, getBlockState().setValue(KeyboardRelayBlock.ACTIVE, true), 3);
+
+        AllPackets.getChannel().send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new KeyboardRelayActivePacket(worldPosition, true)
+        );
+
         notifyUpdate();
     }
 
+
     private void stopUsing(Player player) {
         user = null;
-        if (player != null) {
+
+        if (player != null)
             player.getPersistentData().remove("UsingKBRelayPos");
-        }
-        level.setBlock(worldPosition, getBlockState().setValue(KeyboardRelayBlock.TRANSMITTING, false), 3); //  turn power off
+
+        level.setBlock(worldPosition, getBlockState().setValue(KeyboardRelayBlock.ACTIVE, false), 3);
+
+        if (player instanceof ServerPlayer sp)
+            AllPackets.getChannel().send(PacketDistributor.PLAYER.with(() -> sp), new KeyboardRelayActivePacket(worldPosition, false)
+            );
+
         deactivatedThisTick = true;
         midiSourceBehaviour.link.stopAllNotes();
         notifyUpdate();

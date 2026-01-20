@@ -33,12 +33,14 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty TRANSMITTING = BooleanProperty.create("transmitting");
+    public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
     public KeyboardRelayBlock(Properties pProperties) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(TRANSMITTING, false)
+                .setValue(ACTIVE, false)
         );
     }
 
@@ -51,7 +53,7 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(FACING, TRANSMITTING);
+        builder.add(FACING, TRANSMITTING, ACTIVE);
     }
 
     @Override
