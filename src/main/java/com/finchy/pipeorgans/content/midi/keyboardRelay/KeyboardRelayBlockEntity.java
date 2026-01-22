@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.content.midi.keyboardRelay;
 
 import com.finchy.pipeorgans.content.midi.MidiSourceBehaviour;
+import com.finchy.pipeorgans.init.AllSoundEvents;
 import com.finchy.pipeorgans.network.AllPackets;
 import com.finchy.pipeorgans.network.packet.KeyboardRelayActivePacket;
 import com.finchy.pipeorgans.util.MidiUtils;
@@ -11,6 +12,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
@@ -100,7 +104,7 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
 
         AllPackets.getChannel().send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new KeyboardRelayActivePacket(worldPosition, true)
         );
-
+        playOpenSound(level, getBlockPos());
         notifyUpdate();
     }
 
@@ -119,6 +123,7 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
 
         deactivatedThisTick = true;
         midiSourceBehaviour.link.stopAllNotes();
+        playCloseSound(level, getBlockPos());
         notifyUpdate();
     }
 
@@ -173,6 +178,18 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
             return false;
         }
         return player.distanceToSqr(Vec3.atCenterOf(pos)) < Math.pow(player.getAttributeValue(ForgeMod.BLOCK_REACH.get()), 2);
+    }
+
+    private void playOpenSound (Level pLevel, BlockPos pPos){
+        SoundEvent openSound;
+        openSound = AllSoundEvents.KBR_OPEN.get();
+        pLevel.playSound(null, pPos, openSound, SoundSource.BLOCKS, 0.5f, 1f);
+    }
+
+    private void playCloseSound (Level pLevel, BlockPos pPos){
+        SoundEvent openSound;
+        openSound = AllSoundEvents.KBR_CLOSE.get();
+        pLevel.playSound(null, pPos, openSound, SoundSource.BLOCKS, 0.5f, 1f);
     }
 
 }

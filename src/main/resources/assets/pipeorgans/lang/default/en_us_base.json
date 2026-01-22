@@ -41,6 +41,9 @@
 
   "pipeorgans.blocks.pipes.replace_pipe_deny": "Not enough space!",
 
+  "sounds.pipeorgans.kbr_open": "Keylid Opens",
+  "sounds.pipeorgans.kbr_close": "Keylid Closes",
+
   "sounds.pipeorgans.steam_hiss": "Steam Hisses",
 
   "sounds.pipeorgans.gedeckt_superhigh": "Gedeckt squeals",
