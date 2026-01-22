@@ -8,6 +8,36 @@
       }
     ]
   },
+  "kbr_open": {
+    "subtitle": "sounds.pipeorgans.kbr_open",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 16,
+        "name": "pipeorgans:keyboard_relay/kbr_open"
+      }
+    ]
+  },
+  "kbr_close": {
+    "subtitle": "sounds.pipeorgans.kbr_close",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 16,
+        "name": "pipeorgans:keyboard_relay/kbr_close"
+      }
+    ]
+  },
+  "steam_hiss": {
+    "subtitle": "sounds.pipeorgans.steam_hiss",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 32,
+        "name": "pipeorgans:steam_hiss"
+      }
+    ]
+  },
 
   "grow_wooden_pipe": {
     "subtitle": "sounds.pipeorgans.grow_wooden_pipe",

@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.pipes;
 
+import com.finchy.pipeorgans.ClientConfig;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
@@ -10,6 +11,7 @@ import com.finchy.pipeorgans.init.AllShapes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
+import com.simibubi.create.foundation.utility.CreateLang;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.animation.AnimationTickHolder;
 import net.createmod.catnip.math.AngleHelper;
@@ -20,12 +22,15 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.List;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
@@ -116,6 +121,13 @@ public class Nasard {
                 case LARGE -> AllPartialModels.NASARD_MOUTH_LARGE;
                 case HUGE -> AllPartialModels.NASARD_MOUTH_HUGE;
             };
+            PartialModel goggles = switch (size) {
+                case TINY -> AllPartialModels.GOGGLES_TINY;
+                case SMALL -> AllPartialModels.GOGGLES_SMALL;
+                case MEDIUM -> AllPartialModels.GOGGLES_MEDIUM;
+                case LARGE -> AllPartialModels.GOGGLES_LARGE;
+                case HUGE -> AllPartialModels.GOGGLES_HUGE;
+            };
 
             float offset = be.animation.getValue(partialTicks);
             if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
@@ -130,6 +142,14 @@ public class Nasard {
                     .translate(0, offset / 16f, 0)
                     .light(light)
                     .renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+            if (be.hasGoggles()) {
+                CachedBuffers.partial(goggles, blockState)
+                        .center()
+                        .rotateYDegrees(AngleHelper.horizontalAngle(direction))
+                        .uncenter()
+                        .light(light)
+                        .renderInto(ms, bufferSource.getBuffer(RenderType.cutout()));
+            }
 
         }
     }

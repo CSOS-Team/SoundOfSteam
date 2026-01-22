@@ -1,8 +1,9 @@
-package com.finchy.pipeorgans.ponder;
+package com.finchy.pipeorgans.ponder.ponderWrappers;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.*;
+import com.finchy.pipeorgans.ponder.PonderTimings;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import net.createmod.ponder.api.PonderPalette;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;
@@ -43,29 +44,40 @@ public class PonderPipe<TS extends Enum<TS> & ExtensionShapes.IExtensionShape<TS
     protected CreateSceneBuilder scene;
     protected SceneBuildingUtil util;
     protected BlockPos pos;
-    protected PipeSize currentSize;
+    protected BlockState state; // not used in rendering, just for tracking changes to the pipe
     protected int currentHeight;
-    protected int maxHeight;
-    protected GenericPipeBlock block;
+    protected GenericPipeBlock pipeBlock;
     protected GenericExtensionBlock<TS> extensionBlock;
     protected Transition defaultTransition;
 
-    public PonderPipe(CreateSceneBuilder scene, SceneBuildingUtil util, BlockPos pos, int initialHeight, PipeSize initialSize, GenericPipeBlock block, GenericExtensionBlock<TS> extensionBlock, Transition defaultTransition, int maxHeight) {
+    protected static final int DEFAULT_DURATION = PonderTimings.BUILD_STEP;
+
+    public PonderPipe(CreateSceneBuilder scene, SceneBuildingUtil util,
+                      BlockPos pos, BlockState state,
+                      int initialHeight,
+                      GenericPipeBlock block, GenericExtensionBlock<TS> extensionBlock,
+                      Transition defaultTransition) {
         this.scene = scene;
         this.util = util;
         this.pos = pos;
+        this.state = state;
         this.currentHeight = initialHeight;
-        this.maxHeight = Math.min(maxHeight, 12);
-        this.currentSize = initialSize;
-        this.block = block;
+        this.pipeBlock = block;
         this.extensionBlock = extensionBlock;
         this.defaultTransition = defaultTransition;
     }
 
-    protected static final int DEFAULT_DURATION = PonderTimings.BUILD_STEP;
-
-    public PonderPipe(CreateSceneBuilder scene, SceneBuildingUtil util, BlockPos pos, int initialHeight, PipeSize initialSize, GenericPipeBlock block, GenericExtensionBlock<TS> extensionBlock, Transition defaultTransition) {
-        this(scene, util, pos, initialHeight, initialSize, block, extensionBlock, defaultTransition, getMaxHeight(block));
+    public PonderPipe(CreateSceneBuilder scene, SceneBuildingUtil util,
+                      BlockPos pos,
+                      PipeSize initialSize, Direction facing, boolean wall, boolean powered,
+                      int initialHeight,
+                      GenericPipeBlock block, GenericExtensionBlock<TS> extensionBlock,
+                      Transition defaultTransition) {
+        this(scene, util,
+                pos, block.defaultBlockState().setValue(GenericPipeBlock.SIZE, initialSize)
+                        .setValue(GenericPipeBlock.FACING, facing)
+                        .setValue(GenericPipeBlock.WALL, wall)
+                        .setValue(GenericPipeBlock.POWERED, powered), initialHeight, block, extensionBlock, defaultTransition);
     }
 
     protected int getMainDuration(Transition t) {
@@ -94,7 +106,7 @@ public class PonderPipe<TS extends Enum<TS> & ExtensionShapes.IExtensionShape<TS
     }
 
     public Selection getMaximumPipeSelection() {
-        return util.select().fromTo(pos, pos.above(maxHeight));
+        return util.select().fromTo(pos, pos.above(getMaxHeight(pipeBlock)));
     }
 
     public void showPipe(Direction dir) {
@@ -103,9 +115,11 @@ public class PonderPipe<TS extends Enum<TS> & ExtensionShapes.IExtensionShape<TS
     }
 
     public void cyclePipeSize(Transition transition, boolean reverse) {
-        PipeSize newSize = PipeSize.values()[(currentSize.ordinal() + (reverse ? -1 : 1) + PipeSize.values().length) % PipeSize.values().length];
-        this.currentSize = newSize;
+        PipeSize newSize = PipeSize.values()[(getSize().ordinal() + (reverse ? -1 : 1) + PipeSize.values().length) % PipeSize.values().length];
+        setSize(newSize);
+
         scene.world().modifyBlock(pos, bs -> bs.setValue(GenericPipeBlock.SIZE, newSize), false);
+
         tryBothTransitionParts(transition);
         for (int i=1; i<=getExtensionBlockHeight(); i++) {
             scene.world().cycleBlockProperty(pos.above(i), GenericPipeBlock.SIZE);
@@ -127,23 +141,19 @@ public class PonderPipe<TS extends Enum<TS> & ExtensionShapes.IExtensionShape<TS
     public void incrementPipeHeight(Transition transition) {
         if (currentHeight >= 12)
             return;
-        BlockState pipeState = scene.getScene().getWorld().getBlockState(pos);
-        Direction pipeFacing = pipeState.getValue(GenericPipeBlock.FACING);
-        Direction pipeToExtensions = block.getExtensionDirection(pipeState);
+        Direction pipeToExtensions = pipeBlock.getExtensionDirection(state);
 
         BlockPos extensionPos = pos.relative(pipeToExtensions, getExtensionBlockHeight());
 
-        if (currentHeight % block.extensionsPerBlock() == 0) { // if a new block must be placed
+        if (currentHeight % pipeBlock.extensionsPerBlock() == 0) { // if a new block must be placed
             if (currentHeight > 0) // if there are any other extensions
-                scene.world().modifyBlock(extensionPos, bs -> {
-                    return bs.setValue(extensionBlock.SHAPE,
-                            bs.getValue(extensionBlock.SHAPE).getConnected() // set the old extension's shape to connected
-                    );
-                }, false);
+                scene.world().modifyBlock(extensionPos, bs -> bs.setValue(extensionBlock.SHAPE,
+                        bs.getValue(extensionBlock.SHAPE).getConnected() // set the old extension's shape to connected
+                ), false);
 
-            BlockState toPlace = extensionBlock.defaultBlockState().setValue(GenericExtensionBlock.SIZE, currentSize);
+            BlockState toPlace = extensionBlock.defaultBlockState().setValue(GenericExtensionBlock.SIZE, getSize());
             if (extensionBlock.isDirectional())
-                toPlace = toPlace.setValue(GenericExtensionBlock.FACING, pipeFacing);
+                toPlace = toPlace.setValue(GenericExtensionBlock.FACING, getFacing());
             scene.world().setBlock(extensionPos.relative(pipeToExtensions), toPlace, false);
 
 
@@ -152,13 +162,13 @@ public class PonderPipe<TS extends Enum<TS> & ExtensionShapes.IExtensionShape<TS
             scene.world().modifyBlock(extensionPos, bs -> {
                 BlockState toPlace = bs.cycle(extensionBlock.SHAPE);  // cycle to the next shape
                 if (extensionBlock.isDirectional()) // only set direction if the extension is directional
-                    toPlace = toPlace.setValue(GenericExtensionBlock.FACING, pipeFacing); // (would cause a crash otherwise)
+                    toPlace = toPlace.setValue(GenericExtensionBlock.FACING, getFacing()); // (would cause a crash otherwise)
                 return toPlace;
             }, false);
 
         }
 
-        scene.world().modifyBlockEntity(pos, block.getBlockEntityClass(), GenericPipeBlockEntity::updatePitch); // update the block entity
+        scene.world().modifyBlockEntity(pos, pipeBlock.getBlockEntityClass(), GenericPipeBlockEntity::updatePitch); // update the block entity
         currentHeight++;
         tryBothTransitionParts(transition);
     }
@@ -168,7 +178,7 @@ public class PonderPipe<TS extends Enum<TS> & ExtensionShapes.IExtensionShape<TS
     }
 
     protected static int getMaxHeight(GenericPipeBlock block) {
-        return 12 / block.extensionsPerBlock();
+        return Math.min(12 / block.extensionsPerBlock(), 12);
     }
 
     protected static <T extends Enum<T>> T getPreviousEnumValue(T[] values, T current) {
@@ -184,12 +194,44 @@ public class PonderPipe<TS extends Enum<TS> & ExtensionShapes.IExtensionShape<TS
     }
 
     public double getExtensionRealHeight() {
-        return ((float)currentHeight/block.extensionsPerBlock());
+        return ((float)currentHeight/ pipeBlock.extensionsPerBlock());
+    }
+
+    public PipeSize getSize() {
+        return state.getValue(GenericPipeBlock.SIZE);
+    }
+
+    public void setSize(PipeSize size) {
+        state.setValue(GenericPipeBlock.SIZE, size);
+    }
+
+    public Direction getFacing() {
+        return state.getValue(GenericPipeBlock.FACING);
+    }
+
+    public void setFacing(Direction facing) {
+        state.setValue(GenericPipeBlock.FACING, facing);
+    }
+
+    public boolean getPowered() {
+        return state.getValue(GenericPipeBlock.POWERED);
+    }
+
+    public void setPowered(boolean powered) {
+        state.setValue(GenericPipeBlock.POWERED, powered);
+    }
+
+    public boolean getWall() {
+        return state.getValue(GenericPipeBlock.WALL);
+    }
+
+    public void setWall(boolean wall) {
+        state.setValue(GenericPipeBlock.WALL, wall);
     }
 
     protected final static String[] NOTE_NAMES = {"F#", "F", "E", "D#", "D", "C#", "C", "B", "A#", "A", "G#", "G", "F#"};
     public String getNote() {
-        int octave = 6 - currentSize.ordinal() - currentHeight / 7;
+        int octave = 6 - getSize().ordinal() - currentHeight / 7;
         return NOTE_NAMES[currentHeight] + octave;
     }
 

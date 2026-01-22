@@ -19,8 +19,11 @@ public class AllSoundEvents {
     public static final RegistryObject<SoundEvent>
 
     TRACKER_BAR_CHANGE_ROLL = registerSoundEvent("tracker_bar_change_roll"),
-    
-     GEDECKT_SUPERHIGH = registerSoundEvent("gedeckt_superhigh"),
+    KBR_OPEN = registerSoundEvent("kbr_open"),
+    KBR_CLOSE = registerSoundEvent("kbr_close"),
+
+
+    GEDECKT_SUPERHIGH = registerSoundEvent("gedeckt_superhigh"),
      GEDECKT_HIGH = registerSoundEvent("gedeckt_high"),
      GEDECKT_MEDIUM = registerSoundEvent("gedeckt_medium"),
      GEDECKT_LOW = registerSoundEvent("gedeckt_low"),
@@ -147,6 +150,7 @@ public class AllSoundEvents {
      VOX_CELESTE_DEEP = registerSoundEvent("vox_celeste_deep"),
 
      HAUNTED_CHIFF = registerSoundEvent("haunted_chiff"),
+     STEAM_HISS = registerSoundEvent("steam_hiss"),
 
     CRASH_CYMBAL = registerSoundEvent("crash_cymbal"),
     CYMBAL_TAP = registerSoundEvent("cymbal_tap"),

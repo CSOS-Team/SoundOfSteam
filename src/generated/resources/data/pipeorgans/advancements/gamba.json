@@ -1,5 +1,5 @@
 {
-  "parent": "pipeorgans:voix_celeste",
+  "parent": "pipeorgans:vox_celeste",
   "criteria": {
     "0": {
       "conditions": {

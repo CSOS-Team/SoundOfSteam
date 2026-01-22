@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
 import com.finchy.pipeorgans.ClientConfig;
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
@@ -10,6 +9,7 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.CreateLang;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import dev.engine_room.flywheel.lib.visualization.VisualizationHelper;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.math.VecHelper;
@@ -33,6 +33,15 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
     public WeakReference<FluidTankBlockEntity> source;
     public LerpedFloat animation;
     public int pitch;
+    protected boolean goggles;
+
+    public boolean hasGoggles() {
+        return goggles;
+    }
+
+    public void setGoggles(boolean goggles) {
+        this.goggles = goggles;
+    }
 
     protected static final float STEAM_JET_OFFSET = 0.125f;
 
@@ -47,6 +56,7 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         animation = LerpedFloat.angular();
         this.pipeBlock = pipeBlock;
         this.extensionBlock = extensionBlock;
+        goggles = false;
     }
 
     @Override
@@ -55,13 +65,28 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
     @Override
     protected void write(CompoundTag tag, boolean clientPacket) {
         tag.putInt("Pitch", pitch);
+        tag.putBoolean("Goggles", goggles);
         super.write(tag, clientPacket);
     }
 
     @Override
     protected void read(CompoundTag tag, boolean clientPacket) {
-        pitch = tag.getInt("Pitch");
         super.read(tag, clientPacket);
+        pitch = tag.getInt("Pitch");
+
+        //The Funny Goggles
+        boolean hadGoggles = goggles;
+        goggles = tag.getBoolean("Goggles");
+
+        if (!clientPacket)
+            return;
+
+        if (hadGoggles != goggles) {
+            DistExecutor.unsafeRunWhenOn(
+                    Dist.CLIENT,
+                    () -> () -> VisualizationHelper.queueUpdate(this)
+            );
+        }
     }
 
     @Override
@@ -71,21 +96,20 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
                 .getString()
                 .split(";");
 
-        int stopSize = Integer.parseInt(((GenericPipeBlockItem) getBlockState()
-                .getBlock().asItem()).stopSize);
+        StopSize stopSize = ((GenericPipeBlockItem) getBlockState()
+                .getBlock().asItem()).stopSize;
 
-        double octave = 5 - getOctave().ordinal()
-                + (pitch <= 6 ? 1 : 0)
-                - (Math.log(stopSize / 8.0) / Math.log(2));
+        int mutatedPitch = stopSize.getMutatedPitch(pitch);
+        int mutatedOctave = stopSize.getMutatedOctave(pitch, getOctave());
 
         boolean useBrackets = ClientConfig.showOctaveBrackets;
 
-        String octaveText = (useBrackets || (int) octave == -1)
-                ? "(" + (int) Math.round(octave) + ")"
-                : String.valueOf((int) Math.round(octave));
+        String octaveText = (useBrackets || mutatedOctave == -1)
+                ? "(" + mutatedOctave + ")"
+                : String.valueOf(mutatedOctave);
 
 
-        CreateLang.translate("generic.pitch", pitches[pitch % pitches.length])
+        CreateLang.translate("generic.pitch", pitches[mutatedPitch % pitches.length])
                 .add(Component.literal(octaveText))
                 .forGoggles(tooltip);
 
@@ -200,5 +224,4 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
             return null;
         return tank.getControllerBE();
     }
-
 }

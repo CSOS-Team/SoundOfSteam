@@ -3,7 +3,7 @@ package com.finchy.pipeorgans.ponder.scenes;
 import com.finchy.pipeorgans.content.pipes.generic.ExtensionShapes;
 import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.finchy.pipeorgans.init.AllBlocks;
-import com.finchy.pipeorgans.ponder.PonderPipe;
+import com.finchy.pipeorgans.ponder.ponderWrappers.PonderPipe;
 import com.finchy.pipeorgans.ponder.PonderTimings;
 import com.finchy.pipeorgans.ponder.PonderUtil;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
@@ -36,8 +36,8 @@ public class PipeScenes {
         BlockPos boilerPipePos = util.grid().at(1, 2, 2);
         PonderPipe<ExtensionShapes.Double> boilerPipe = new PonderPipe<>(
                 scene, util,
-                boilerPipePos,
-                0, PipeSize.MEDIUM,
+                boilerPipePos, PipeSize.MEDIUM, Direction.NORTH, true, false,
+                0,
                 AllBlocks.DIAPASON.get(), AllBlocks.DIAPASON_EXTENSION.get(),
                 PonderPipe.Transition.NONE
         );
@@ -54,8 +54,8 @@ public class PipeScenes {
         BlockPos windchestPipePos = util.grid().at(3, 2, 2);
         PonderPipe<ExtensionShapes.Double> windchestPipe = new PonderPipe<>(
                 scene, util,
-                windchestPipePos,
-                0, PipeSize.MEDIUM,
+                boilerPipePos, PipeSize.MEDIUM, Direction.NORTH, false, false,
+                0,
                 AllBlocks.DIAPASON.get(), AllBlocks.DIAPASON_EXTENSION.get(),
                 PonderPipe.Transition.NONE
         );

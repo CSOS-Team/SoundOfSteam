@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.ponder;
 
 import com.finchy.pipeorgans.init.AllBlocks;
+import com.finchy.pipeorgans.ponder.scenes.NoteLinkScenes;
 import com.finchy.pipeorgans.ponder.scenes.PipeScenes;
 import com.finchy.pipeorgans.ponder.scenes.TrackerBarScenes;
 import com.finchy.pipeorgans.ponder.scenes.WindchestScenes;
@@ -24,5 +25,8 @@ public class AllPipeOrgansPonderScenes {
         HELPER.forComponents(AllBlocks.PIPE_BLOCKS)
                 .addStoryBoard("pipe_adjusting", PipeScenes::pipeAdjusting)
                 .addStoryBoard("pipe_swapping", PipeScenes::pipeSwapping);
+
+        HELPER.forComponents(AllBlocks.NOTE_LINK)
+                .addStoryBoard("note_link_basics", NoteLinkScenes::noteLinkBasics);
     }
 }

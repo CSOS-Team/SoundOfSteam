@@ -7,12 +7,14 @@ import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarRenderer;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarVisual;
+import com.finchy.pipeorgans.content.noteLink.NoteLinkBlockEntity;
 import com.finchy.pipeorgans.content.pipes.*;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockEntity;
 import com.finchy.pipeorgans.content.traps.bassDrum.BassDrumBlockEntity;
 import com.finchy.pipeorgans.content.traps.crashCymbal.CrashCymbalBlockEntity;
 import com.finchy.pipeorgans.content.traps.snare.SnareDrumBlockEntity;
 import com.finchy.pipeorgans.content.traps.tapCymbal.TapCymbalBlockEntity;
+import com.finchy.pipeorgans.infrastructure.rendering.VerySmartBlockEntityRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockEntityBuilder;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
@@ -190,6 +192,12 @@ public class AllBlockEntities {
             VoxHumana.VoxHumanaBlockEntity::new,
             AllBlocks.VOX_HUMANA,
             () -> VoxHumana.VoxHumanaRenderer::new);
+
+    public static final BlockEntityEntry<NoteLinkBlockEntity> NOTE_LINK_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("note_link", NoteLinkBlockEntity::new)
+            .validBlocks(AllBlocks.NOTE_LINK)
+            .renderer(() -> VerySmartBlockEntityRenderer::new)
+            .register();
 
     private static <T extends GenericPipeBlockEntity> BlockEntityEntry<T> registerPipeBlockEntity(
             String name, BlockEntityBuilder.BlockEntityFactory<T> factory, NonNullSupplier<? extends Block> block,

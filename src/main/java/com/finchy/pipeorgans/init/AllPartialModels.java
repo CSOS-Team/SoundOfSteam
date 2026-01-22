@@ -130,7 +130,23 @@ public class AllPartialModels {
     VOX_CELESTE_MOUTH_SMALL = block("vox_celeste/vox_celeste_small_mouth"),
     VOX_CELESTE_MOUTH_MEDIUM = block("vox_celeste/vox_celeste_medium_mouth"),
     VOX_CELESTE_MOUTH_LARGE = block("vox_celeste/vox_celeste_large_mouth"),
-    VOX_CELESTE_MOUTH_HUGE = block("vox_celeste/vox_celeste_huge_mouth")
+    VOX_CELESTE_MOUTH_HUGE = block("vox_celeste/vox_celeste_huge_mouth"),
+
+    GOGGLES_TINY = block("goggles/goggles_tiny"),
+    GOGGLES_SMALL = block("goggles/goggles_small"),
+    GOGGLES_MEDIUM = block("goggles/goggles_medium"),
+    GOGGLES_LARGE = block("goggles/goggles_large"),
+    GOGGLES_HUGE = block("goggles/goggles_huge"),
+    STRING_GOGGLES_TINY = block("goggles/string/string_goggles_tiny"),
+    STRING_GOGGLES_SMALL = block("goggles/string/string_goggles_small"),
+    STRING_GOGGLES_MEDIUM = block("goggles/string/string_goggles_medium"),
+    STRING_GOGGLES_LARGE = block("goggles/string/string_goggles_large"),
+    STRING_GOGGLES_HUGE = block("goggles/string/string_goggles_huge"),
+    WHISTLE_GOGGLES_TINY = block("goggles/whistle/whistle_goggles_tiny"),
+    WHISTLE_GOGGLES_SMALL = block("goggles/whistle/whistle_goggles_small"),
+    WHISTLE_GOGGLES_MEDIUM = block("goggles/whistle/whistle_goggles_medium"),
+    WHISTLE_GOGGLES_LARGE = block("goggles/whistle/whistle_goggles_large"),
+    WHISTLE_GOGGLES_HUGE = block("goggles/whistle/whistle_goggles_huge")
     ;
 
 

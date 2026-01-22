@@ -1,0 +1,276 @@
+{
+    "format_version": "1.9.0",
+    "credit": "Made with Blockbench",
+    "parent": "block/block",
+    "textures": {
+        "redstone_antenna": "pipeorgans:block/note_antenna",
+        "particle": "pipeorgans:block/note_link_body",
+        "body": "pipeorgans:block/note_link_body"
+    },
+    "elements": [
+        {
+            "name": "Body",
+            "from": [
+                3,
+                -1,
+                1
+            ],
+            "to": [
+                13,
+                3,
+                15
+            ],
+            "faces": {
+                "north": {
+                    "uv": [
+                        7.5,
+                        13,
+                        12.5,
+                        15
+                    ],
+                    "texture": "#body"
+                },
+                "east": {
+                    "uv": [
+                        12.5,
+                        6,
+                        14.5,
+                        13
+                    ],
+                    "rotation": 90,
+                    "texture": "#body"
+                },
+                "south": {
+                    "uv": [
+                        7.5,
+                        13,
+                        12.5,
+                        15
+                    ],
+                    "texture": "#body"
+                },
+                "west": {
+                    "uv": [
+                        12.5,
+                        6,
+                        14.5,
+                        13
+                    ],
+                    "rotation": 90,
+                    "texture": "#body"
+                },
+                "up": {
+                    "uv": [
+                        7.5,
+                        6,
+                        12.5,
+                        13
+                    ],
+                    "texture": "#body"
+                },
+                "down": {
+                    "uv": [
+                        0,
+                        0,
+                        5,
+                        7
+                    ],
+                    "texture": "#body"
+                }
+            }
+        },
+        {
+            "name": "AntennaX",
+            "from": [
+                3,
+                3,
+                -5
+            ],
+            "to": [
+                6,
+                4,
+                5
+            ],
+            "faces": {
+                "south": {
+                    "uv": [
+                        0,
+                        9,
+                        3,
+                        10
+                    ],
+                    "texture": "#redstone_antenna"
+                },
+                "up": {
+                    "uv": [
+                        0,
+                        0,
+                        3,
+                        10
+                    ],
+                    "texture": "#redstone_antenna"
+                },
+                "down": {
+                    "uv": [
+                        0,
+                        0,
+                        3,
+                        10
+                    ],
+                    "rotation": 180,
+                    "texture": "#redstone_antenna"
+                }
+            }
+        },
+        {
+            "name": "AntennaZ",
+            "from": [
+                4,
+                2,
+                -5
+            ],
+            "to": [
+                5,
+                5,
+                5
+            ],
+            "faces": {
+                "east": {
+                    "uv": [
+                        0,
+                        0,
+                        3,
+                        10
+                    ],
+                    "rotation": 90,
+                    "texture": "#redstone_antenna"
+                },
+                "west": {
+                    "uv": [
+                        0,
+                        0,
+                        3,
+                        10
+                    ],
+                    "rotation": 270,
+                    "texture": "#redstone_antenna"
+                }
+            }
+        },
+        {
+            "name": "AntennaTop",
+            "from": [
+                4,
+                3,
+                -4
+            ],
+            "to": [
+                5,
+                4,
+                -3
+            ],
+            "faces": {
+                "north": {
+                    "uv": [
+                        1,
+                        1,
+                        2,
+                        2
+                    ],
+                    "texture": "#redstone_antenna"
+                }
+            }
+        }
+    ],
+    "display": {
+        "thirdperson_righthand": {
+            "rotation": [
+                75,
+                45,
+                0
+            ],
+            "translation": [
+                0,
+                2.5,
+                0
+            ],
+            "scale": [
+                0.375,
+                0.375,
+                0.375
+            ]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [
+                75,
+                45,
+                0
+            ],
+            "translation": [
+                0,
+                2.5,
+                0
+            ],
+            "scale": [
+                0.375,
+                0.375,
+                0.375
+            ]
+        },
+        "firstperson_righthand": {
+            "rotation": [
+                0,
+                45,
+                0
+            ],
+            "scale": [
+                0.4,
+                0.4,
+                0.4
+            ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [
+                0,
+                -135,
+                0
+            ],
+            "scale": [
+                0.4,
+                0.4,
+                0.4
+            ]
+        },
+        "ground": {
+            "translation": [
+                0,
+                3,
+                0
+            ],
+            "scale": [
+                0.25,
+                0.25,
+                0.25
+            ]
+        },
+        "gui": {
+            "rotation": [
+                30,
+                -135,
+                0
+            ],
+            "scale": [
+                0.625,
+                0.625,
+                0.625
+            ]
+        },
+        "fixed": {
+            "scale": [
+                0.5,
+                0.5,
+                0.5
+            ]
+        }
+    }
+}
