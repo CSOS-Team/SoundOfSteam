@@ -109,6 +109,8 @@ public class PipeOrgans {
         }
     }
 
+    //Keyboard relay movement stuff... doesn't seem to work :-(
+    /*
     @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
     public class ClientEvents {
 
@@ -118,6 +120,8 @@ public class PipeOrgans {
                 KeyboardRelayClientHandler.tick();
         }
     }
+
+     */
 
 
     public static ResourceLocation asResource(String path) {
