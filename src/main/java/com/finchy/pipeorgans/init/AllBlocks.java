@@ -11,7 +11,7 @@ import com.finchy.pipeorgans.content.pipes.*;
 import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem;
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem.StopSize;
+import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem.*;
 import com.finchy.pipeorgans.content.traps.bassDrum.BassDrumBlock;
 import com.finchy.pipeorgans.content.traps.crashCymbal.CrashCymbalBlock;
 import com.finchy.pipeorgans.content.traps.snare.SnareDrumBlock;
