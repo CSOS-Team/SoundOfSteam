@@ -57,6 +57,7 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
                 user = null;
                 if (player != null) {
                     player.getPersistentData().remove("UsingKBRelayPos");
+                    midiSourceBehaviour.link.stopAllNotes();
                 }
             }
         }
