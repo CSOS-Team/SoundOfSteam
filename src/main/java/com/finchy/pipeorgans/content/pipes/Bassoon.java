@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.pipes;
 
+import com.finchy.pipeorgans.ClientConfig;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.SingleExtensionBlock;
@@ -80,10 +81,11 @@ public class Bassoon {
                         .getSoundManager()
                         .play(soundInstance = new BassoonSoundInstance(size, worldPosition));
 
-                AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
+                playChiffSound(0.1f);
 
                 particle = true;
             }
+
 
             soundInstance.keepAlive();
             soundInstance.setPitch(f);
