@@ -227,7 +227,7 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
                 0, 1
         );
 
-        float configVolume = (float) ClientConfig.whistleChiffVolume;
+        float configVolume = ClientConfig.WHISTLE_CHIFF_VOLUME.get().floatValue();
 
         AllSoundEvents.WHISTLE_CHIFF.playAt(
                 level,
