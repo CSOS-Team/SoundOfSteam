@@ -116,6 +116,7 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
             player.getPersistentData().remove("UsingKBRelayPos");
 
         level.setBlock(worldPosition, getBlockState().setValue(KeyboardRelayBlock.ACTIVE, false), 3);
+        level.setBlock(worldPosition, getBlockState().setValue(KeyboardRelayBlock.TRANSMITTING, false), 3);
 
         if (player instanceof ServerPlayer sp)
             AllPackets.getChannel().send(PacketDistributor.PLAYER.with(() -> sp), new KeyboardRelayActivePacket(worldPosition, false)

@@ -64,7 +64,22 @@ public class AllBlocks {
             .initialProperties(() -> Blocks.COPPER_BLOCK)
             .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
             .transform(pickaxeOnly())
-            .blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.forBooleanProperty(KeyboardRelayBlock.TRANSMITTING, "transmitting", c, p)))
+            .blockstate((c, p) -> p.horizontalBlock(
+                    c.get(),
+                    state -> {
+                        boolean transmitting = state.getValue(KeyboardRelayBlock.TRANSMITTING);
+                        boolean active = state.getValue(KeyboardRelayBlock.ACTIVE);
+
+                        if (transmitting && active)
+                            return p.models().getExistingFile(p.modLoc("block/keyboard_relay/keyboard_relay_transmitting"));
+
+                        if (!active)
+                            return p.models().getExistingFile(p.modLoc("block/keyboard_relay/keyboard_relay_inactive"));
+
+                        return p.models().getExistingFile(p.modLoc("block/keyboard_relay/keyboard_relay"));
+                    },
+                    180
+            ))
             .item()
             .transform(customItemModel())
             .register();
