@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans;
 
-import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayClientHandler;
 import com.finchy.pipeorgans.data.PipeOrgansDatagen;
 import com.finchy.pipeorgans.data.advancement.AllAdvancements;
 import com.finchy.pipeorgans.init.*;
@@ -109,19 +108,6 @@ public class PipeOrgans {
         }
     }
 
-    //Keyboard relay movement stuff... doesn't seem to work :-(
-    /*
-    @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
-    public class ClientEvents {
-
-        @SubscribeEvent
-        public static void onClientTick(TickEvent.ClientTickEvent event) {
-            if (event.phase == TickEvent.Phase.END)
-                KeyboardRelayClientHandler.tick();
-        }
-    }
-
-     */
 
 
     public static ResourceLocation asResource(String path) {
