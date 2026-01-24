@@ -21,6 +21,11 @@ public class ClientConfig {
             .comment("If true, octave values in goggle tooltips are shown in parentheses.")
             .define("showOctaveBrackets", false);
 
+    public static final ForgeConfigSpec.DoubleValue WHISTLE_CHIFF_VOLUME = BUILDER
+            .comment("Volume multiplier for whistle chiff sounds")
+            .defineInRange("whistleChiffVolume", 1.0, 0.0, 2.0);
+
+
     public static final ForgeConfigSpec.BooleanValue CAP_ENABLED = BUILDER
             .comment("Enable the clipboard-assisted placement mechanic.")
             .define("clipboardAssistedPlacement.enabled", true);
@@ -37,6 +42,7 @@ public class ClientConfig {
 
     public static boolean displayMutationSoundingPitch;
     public static boolean showOctaveBrackets;
+    public static double whistleChiffVolume;
     public static boolean capEnabled;
     public static CAPDirection capDefaultDirection;
     public static boolean capCopyMode;
@@ -45,6 +51,7 @@ public class ClientConfig {
     public static void syncFromFile() {
         displayMutationSoundingPitch = DISPLAY_MUTATION_SOUNDING_PITCH.get();
         showOctaveBrackets = SHOW_OCTAVE_BRACKETS.get();
+        whistleChiffVolume = WHISTLE_CHIFF_VOLUME.get();
         capEnabled = CAP_ENABLED.get();
         capDefaultDirection = CAP_DEFAULT_DIRECTION.get();
         capCopyMode = CAP_COPY_MODE.get();

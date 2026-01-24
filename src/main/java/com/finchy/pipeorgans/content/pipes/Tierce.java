@@ -89,7 +89,7 @@ public class Tierce {
                         .getSoundManager()
                         .play(soundInstance = new TierceSoundInstance(size, worldPosition));
 
-                AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
+                playChiffSound(0.1f);
 
                 particle = true;
             }

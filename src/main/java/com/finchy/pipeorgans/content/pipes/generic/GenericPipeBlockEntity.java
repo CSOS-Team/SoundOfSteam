@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.content.pipes.generic;
 
 import com.finchy.pipeorgans.ClientConfig;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
+import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
@@ -13,6 +14,7 @@ import dev.engine_room.flywheel.lib.visualization.VisualizationHelper;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.math.VecHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -24,6 +26,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraft.util.Mth;
+
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -209,6 +213,31 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         if (tank != null && tank.boiler != null)
             tank.boiler.checkPipeOrganAdvancement(tank);
     }
+
+    @OnlyIn(Dist.CLIENT)
+    protected void playChiffSound(float baseVolume) {
+        if (level == null)
+            return;
+
+        float pitchFactor = (float) Math.pow(2, -pitch / 12.0);
+
+        Vec3 eyePosition = Minecraft.getInstance().cameraEntity.getEyePosition();
+        float distanceVolume = (float) Mth.clamp(
+                (64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64,
+                0, 1
+        );
+
+        float configVolume = ClientConfig.WHISTLE_CHIFF_VOLUME.get().floatValue();
+
+        AllSoundEvents.WHISTLE_CHIFF.playAt(
+                level,
+                worldPosition,
+                distanceVolume * baseVolume * configVolume,
+                pitchFactor,
+                false
+        );
+    }
+
 
     public FluidTankBlockEntity getTank() {
         FluidTankBlockEntity tank = source.get();

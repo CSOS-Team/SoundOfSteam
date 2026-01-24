@@ -80,7 +80,7 @@ public class Rohrflote {
                         .getSoundManager()
                         .play(soundInstance = new RohrfloteSoundInstance(size, worldPosition));
 
-                AllSoundEvents.WHISTLE_CHIFF.playAt(level, worldPosition, maxVolume * .1f, f, false);
+                playChiffSound(0.1f);
 
                 particle = true;
             }
