@@ -77,15 +77,8 @@ public class SnareDrumBlockEntity extends SmartBlockEntity {
 
 
         //Tap
-        if (!level.isClientSide && powered && !wasPowered && mode == PercussionMode.TAP) {
-            level.playSound(
-                    null,
-                    worldPosition,
-                    AllSoundEvents.SNARE_TAP.get(),
-                    SoundSource.RECORDS,
-                    1.0f,
-                    1.0f
-            );
+        if (level.isClientSide && powered && !wasPowered && mode == PercussionMode.TAP) {
+            playTap();
         }
 
         //Roll
@@ -100,6 +93,19 @@ public class SnareDrumBlockEntity extends SmartBlockEntity {
         wasPowered = powered;
     }
 
+
+    private void playTap() {
+        level.playLocalSound(
+                worldPosition.getX() + 0.5,
+                worldPosition.getY() + 0.5,
+                worldPosition.getZ() + 0.5,
+                AllSoundEvents.SNARE_TAP.get(),
+                SoundSource.RECORDS,
+                1.0f, // volume
+                1.0f, // pitch
+                false // distance delay
+        );
+    }
     //Roll Control
 
     private void startRoll() {

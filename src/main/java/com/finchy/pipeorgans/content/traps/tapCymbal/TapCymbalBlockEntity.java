@@ -98,13 +98,18 @@ public class TapCymbalBlockEntity extends SmartBlockEntity {
     }
 
     private void playTap() {
-        CymbalTapSoundInstance tap =
-                new CymbalTapSoundInstance(level, worldPosition);
-
-        Minecraft.getInstance()
-                .getSoundManager()
-                .play(tap);
+        level.playLocalSound(
+                worldPosition.getX() + 0.5,
+                worldPosition.getY() + 0.5,
+                worldPosition.getZ() + 0.5,
+                AllSoundEvents.CYMBAL_TAP.get(),
+                SoundSource.RECORDS,
+                1.0f, // volume
+                1.0f, // pitch
+                false // distance delay
+        );
     }
+
 
 
     //Roll Control

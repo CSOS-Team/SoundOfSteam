@@ -20,7 +20,8 @@ public class CrashCymbalBlockEntity extends SmartBlockEntity {
     }
 
     @Override
-    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+    }
 
     @Override
     public void onLoad() {
@@ -59,7 +60,7 @@ public class CrashCymbalBlockEntity extends SmartBlockEntity {
 
     @Override
     public void tick() {
-        if (level == null || level.isClientSide)
+        if (level == null || !level.isClientSide)
             return;
 
         boolean powered = isEffectivelyPowered();
@@ -71,14 +72,17 @@ public class CrashCymbalBlockEntity extends SmartBlockEntity {
         wasPowered = powered;
     }
 
+
     private void playCrashSound() {
-        level.playSound(
-                null,
-                worldPosition,
+        level.playLocalSound(
+                worldPosition.getX() + 0.5,
+                worldPosition.getY() + 0.5,
+                worldPosition.getZ() + 0.5,
                 AllSoundEvents.CRASH_CYMBAL.get(),
                 SoundSource.RECORDS,
-                1.0f,
-                1.0f
+                1.0f, // volume
+                1.0f, // pitch
+                false // distance delay
         );
     }
 }
