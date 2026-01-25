@@ -72,7 +72,8 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
-                .setValue(SIZE, PipeSize.MEDIUM));
+                .setValue(SIZE, PipeSize.MEDIUM))
+        ;
 
         this.extensionBlock = extensionBlock;
         this.blockEntityType = blockEntityType;

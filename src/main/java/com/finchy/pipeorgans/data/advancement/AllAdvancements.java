@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.data.advancement;
 
 import com.finchy.pipeorgans.advancement.PipeGogglesTrigger;
 import com.finchy.pipeorgans.advancement.SteamBaseTrigger;
+import com.finchy.pipeorgans.advancement.WaterPipeTrigger;
 import com.finchy.pipeorgans.data.advancement.PipeOrgansAdvancement.Builder;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllItems;
@@ -12,6 +13,8 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -199,6 +202,13 @@ public class AllAdvancements implements DataProvider {
             .after(ROOT)
             .secretTask()
     ),
+    WATER_PIPE = create("water_pipe", b -> b.icon(Items.WATER_BUCKET)
+                    .title("The Sound of... Birds?")
+                    .description("Waterlog a Piccolo pipe")
+                    .trigger(WaterPipeTrigger.instance())
+                    .after(PICCOLO)
+                    .secretTask()
+            ),
     STEAM_BASE = create("steam_base", b -> b.icon(AllBlocks.BASE)
             .title("Steam. Just Steam")
             .description("Let steam escape through a Pipe Base")

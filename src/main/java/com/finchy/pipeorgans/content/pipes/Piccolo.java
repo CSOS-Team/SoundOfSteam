@@ -3,12 +3,12 @@ package com.finchy.pipeorgans.content.pipes;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadrupleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadruplePipeBlock;
-import com.finchy.pipeorgans.init.AllBlockEntities;
-import com.finchy.pipeorgans.init.AllBlocks;
-import com.finchy.pipeorgans.init.AllPartialModels;
-import com.finchy.pipeorgans.init.AllShapes;
+import com.finchy.pipeorgans.data.advancement.AllAdvancements;
+import com.finchy.pipeorgans.data.advancement.PipeOrgansAdvancement;
+import com.finchy.pipeorgans.init.*;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllSoundEvents;
+import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.animation.AnimationTickHolder;
@@ -20,18 +20,30 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
 public class Piccolo {
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public static class PiccoloBlock extends QuadruplePipeBlock {
+    public static class PiccoloBlock extends QuadruplePipeBlock implements ProperWaterloggedBlock {
         public PiccoloBlock(Properties pProperties) {
             super(pProperties,
                     PipeDirection.VERTICAL, PipeMaterial.WOOD,
@@ -39,6 +51,30 @@ public class Piccolo {
                     AllBlockEntities.PICCOLO_BLOCK_ENTITY,
                     AllShapes::genericPipeShape);
 
+            registerDefaultState(defaultBlockState()
+                    .setValue(WATERLOGGED, false));
+        }
+        @Override
+        protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+            super.createBlockStateDefinition(builder);
+            builder.add(WATERLOGGED);
+        }
+
+        @Override
+        public FluidState getFluidState(BlockState pState) {
+            return fluidState(pState);
+        }
+
+        @Override
+        public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+            BlockState placementState = super.getStateForPlacement(context);
+            return withWater(placementState, context);
+        }
+
+        @Override
+        public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+            updateWater(pLevel, pState, pCurrentPos);
+            return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
         }
     }
 
@@ -51,6 +87,7 @@ public class Piccolo {
     }
 
     public static class PiccoloBlockEntity extends GenericPipeBlockEntity {
+
         public PiccoloBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
             super(type, pos, blockState,
                     AllBlocks.PICCOLO, AllBlocks.PICCOLO_EXTENSION);
@@ -59,21 +96,49 @@ public class Piccolo {
         @OnlyIn(Dist.CLIENT)
         protected PiccoloSoundInstance soundInstance;
 
+        @OnlyIn(Dist.CLIENT)
+        protected PiccoloSoundInstance.PiccoloWaterSoundInstance waterSound;
+
         @Override
         @OnlyIn(Dist.CLIENT)
         protected void tickAudio(PipeSize size, boolean powered) {
+            BlockState state = getBlockState();
+
             if (!powered) {
                 if (soundInstance != null) {
                     soundInstance.fadeOut();
                     soundInstance = null;
                 }
+                if (waterSound != null) {
+                    waterSound.fadeOut();
+                    waterSound = null;
+                }
                 return;
+            }
+
+            if (state.getValue(Piccolo.WATERLOGGED)) {
+
+                if (soundInstance != null) {
+                    soundInstance.fadeOut();
+                    soundInstance = null;
+                }
+
+                tickWaterlogged(size);
+                return;
+            }
+            if (waterSound != null) {
+                waterSound.fadeOut();
+                waterSound = null;
             }
 
             float f = (float) Math.pow(2, -pitch / 12.0);
             boolean particle = level.getGameTime() % 8 == 0;
+
             Vec3 eyePosition = Minecraft.getInstance().cameraEntity.getEyePosition();
-            float maxVolume = (float) Mth.clamp((64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64, 0, 1);
+            float maxVolume = (float) Mth.clamp(
+                    (64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64,
+                    0, 1
+            );
 
             if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
                 Minecraft.getInstance()
@@ -81,7 +146,6 @@ public class Piccolo {
                         .play(soundInstance = new PiccoloSoundInstance(size, worldPosition));
 
                 playChiffSound(0.1f);
-
                 particle = true;
             }
 
@@ -92,6 +156,55 @@ public class Piccolo {
                 return;
 
             createSteamJet(size);
+        }
+        @OnlyIn(Dist.CLIENT)
+        private void tickWaterlogged(PipeSize size) {
+            if (waterSound == null || waterSound.isStopped()) {
+                Minecraft.getInstance()
+                        .getSoundManager()
+                        .play(waterSound =
+                                new PiccoloSoundInstance.PiccoloWaterSoundInstance(worldPosition));
+            }
+
+            triggerWaterAdvancement();
+            waterSound.keepAlive();
+
+            if (level.getGameTime() % 2 == 0) { // medium-fast stream
+                Direction facing = getBlockState().getValue(GenericPipeBlock.FACING);
+
+                Vec3 dir = Vec3.atLowerCornerOf(facing.getNormal());
+
+                double offset = 0.45 - (3.0 / 16.0); // move 3 pixels toward center
+
+                double x = worldPosition.getX() + 0.5 + -dir.x * offset;
+                double y = worldPosition.getY() + 0.5;
+                double z = worldPosition.getZ() + 0.5 + -dir.z * offset;
+
+
+                double speed = 0.05;
+                double vx = -dir.x * speed;
+                double vy = 0.03; // rise to surface
+                double vz = -dir.z * speed;
+
+                for (int i = 0; i < 2; i++) {
+                    level.addParticle(
+                            net.minecraft.core.particles.ParticleTypes.BUBBLE, x, y, z,
+                            vx + (level.random.nextGaussian() * 0.005),
+                            vy + (level.random.nextGaussian() * 0.005),
+                            vz + (level.random.nextGaussian() * 0.005)
+                    );
+                }
+            }
+
+        }
+        private void triggerWaterAdvancement() {
+            if (!(level instanceof ServerLevel serverLevel))
+                return;
+
+            for (ServerPlayer player : serverLevel.getEntitiesOfClass(ServerPlayer.class,
+                    new AABB(worldPosition).inflate(16))) {
+                AllTriggers.STEAM_BASE.trigger(player);
+            }
         }
     }
 
@@ -161,6 +274,21 @@ public class Piccolo {
                         case HUGE -> PICCOLO_DEEP;
                     }).get()
             );
+        }
+        @OnlyIn(Dist.CLIENT)
+        public static class PiccoloWaterSoundInstance extends GenericSoundInstance {
+
+            public PiccoloWaterSoundInstance(BlockPos pos) {
+                super(
+                        PipeSize.TINY, // size is irrelevant here
+                        pos,
+                        PICCOLO_WATER.get()
+                );
+
+                looping = true;
+                volume = 0.35f;
+                pitch = 1.0f;
+            }
         }
     }
 }
