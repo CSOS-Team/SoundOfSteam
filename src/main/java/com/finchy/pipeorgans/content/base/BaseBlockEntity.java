@@ -4,6 +4,7 @@ import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.init.AllSoundEvents;
 import com.finchy.pipeorgans.init.AllTriggers;
+import com.finchy.pipeorgans.util.RangedPowerAdvancement;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
@@ -69,7 +70,9 @@ public class BaseBlockEntity extends SmartBlockEntity {
         // Advancement logic
         if (!level.isClientSide) {
             if (powered && !wasPoweredLastTick) {
-                triggerSteamAdvancement();
+                RangedPowerAdvancement.trigger(level, worldPosition, 16,
+                        AllTriggers.STEAM_BASE::trigger
+                );
             }
             wasPoweredLastTick = powered;
             return; // skip client-only particle/sound logic
@@ -85,18 +88,6 @@ public class BaseBlockEntity extends SmartBlockEntity {
 
         wasPoweredLastTick = powered;
     }
-
-    private void triggerSteamAdvancement() {
-        if (!(level instanceof ServerLevel serverLevel))
-            return;
-
-        for (ServerPlayer player : serverLevel.getEntitiesOfClass(ServerPlayer.class,
-                new AABB(worldPosition).inflate(16))) {
-            AllTriggers.STEAM_BASE.trigger(player);
-        }
-    }
-
-
 
     @Nullable
     private BaseSoundInstance steamSound;

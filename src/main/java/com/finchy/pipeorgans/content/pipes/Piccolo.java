@@ -3,13 +3,9 @@ package com.finchy.pipeorgans.content.pipes;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadrupleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadruplePipeBlock;
-import com.finchy.pipeorgans.content.windchest.WindchestBlock;
-import com.finchy.pipeorgans.data.advancement.AllAdvancements;
-import com.finchy.pipeorgans.data.advancement.PipeOrgansAdvancement;
 import com.finchy.pipeorgans.init.*;
+import com.finchy.pipeorgans.util.RangedPowerAdvancement;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllSoundEvents;
-import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
@@ -34,7 +30,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -56,6 +51,7 @@ public class Piccolo {
             registerDefaultState(defaultBlockState()
                     .setValue(WATERLOGGED, false));
         }
+
         @Override
         protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
             super.createBlockStateDefinition(builder);
@@ -90,6 +86,7 @@ public class Piccolo {
             registerDefaultState(defaultBlockState()
                     .setValue(WATERLOGGED, false));
         }
+
         @Override
         protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
             super.createBlockStateDefinition(builder);
@@ -114,7 +111,6 @@ public class Piccolo {
             super(type, pos, blockState,
                     AllBlocks.PICCOLO, AllBlocks.PICCOLO_EXTENSION);
         }
-        private boolean wasPoweredLastTick = false;
 
         @OnlyIn(Dist.CLIENT)
         protected PiccoloSoundInstance soundInstance;
@@ -180,6 +176,7 @@ public class Piccolo {
 
             createSteamJet(size);
         }
+
         @OnlyIn(Dist.CLIENT)
         private void tickWaterlogged(PipeSize size) {
             if (waterSound == null || waterSound.isStopped()) {
@@ -218,6 +215,9 @@ public class Piccolo {
             }
 
         }
+
+        private final PipePowerState powerState = new PipePowerState();
+
         @Override
         public void tick() {
             super.tick();
@@ -225,53 +225,22 @@ public class Piccolo {
             if (level == null)
                 return;
 
-            if (!level.isClientSide) { FluidTankBlockEntity tank = getTank();
-
-                BlockState state = getBlockState();
-                BlockPos attachedPos = getBlockPos()
-                        .relative(pipeBlock.get().getAttachedDirection(state));
-                BlockState attachedState = level.getBlockState(attachedPos);
-
-                boolean isActive = false;
-                if (attachedState.getBlock() instanceof WindchestBlock windchest) {
-                    isActive = windchest.isMasterActive(
-                            level,
-                            attachedState.getValue(GenericPipeBlock.FACING),
-                            attachedPos
+            if (!level.isClientSide) {
+                if (powerState.tickAndCheckRisingEdge(level, this)
+                        && getBlockState().getValue(Piccolo.WATERLOGGED)) {
+                    RangedPowerAdvancement.trigger(level, worldPosition, 16,
+                            AllTriggers.WATER_PIPE::trigger
                     );
                 }
-
-                boolean powered =
-                        ((tank != null
-                                && tank.boiler.isActive()
-                                && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0))
-                                || isActive)
-                                && isPowered();
-
-                if (powered
-                        && !wasPoweredLastTick
-                        && state.getValue(Piccolo.WATERLOGGED)) {
-                    triggerWaterAdvancement();
-                }
-
-                wasPoweredLastTick = powered;
-            }
-        }
-
-        private void triggerWaterAdvancement() {
-            if (!(level instanceof ServerLevel serverLevel))
                 return;
-
-            for (ServerPlayer player : serverLevel.getEntitiesOfClass(ServerPlayer.class,
-                    new AABB(worldPosition).inflate(16))) {
-                AllTriggers.WATER_PIPE.trigger(player);
             }
         }
     }
 
     public static class PiccoloRenderer extends SafeBlockEntityRenderer<PiccoloBlockEntity> {
 
-        public PiccoloRenderer(BlockEntityRendererProvider.Context context) {}
+        public PiccoloRenderer(BlockEntityRendererProvider.Context context) {
+        }
 
         @Override
         protected void renderSafe(PiccoloBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
@@ -300,7 +269,7 @@ public class Piccolo {
 
             float offset = be.animation.getValue(partialTicks);
             if (be.animation.getChaseTarget() > 0 && be.animation.getValue() > 0.5f) {
-                float wiggleProgress = (AnimationTickHolder.getTicks(be.getLevel()) + partialTicks) /8f;
+                float wiggleProgress = (AnimationTickHolder.getTicks(be.getLevel()) + partialTicks) / 8f;
                 offset -= (float) (Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f);
             }
 
@@ -336,6 +305,7 @@ public class Piccolo {
                     }).get()
             );
         }
+
         @OnlyIn(Dist.CLIENT)
         public static class PiccoloWaterSoundInstance extends GenericSoundInstance {
 
