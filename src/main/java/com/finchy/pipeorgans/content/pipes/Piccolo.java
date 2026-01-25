@@ -48,7 +48,7 @@ public class Piccolo {
     public static class PiccoloBlock extends QuadruplePipeBlock implements ProperWaterloggedBlock {
         public PiccoloBlock(Properties pProperties) {
             super(pProperties,
-                    PipeDirection.VERTICAL, PipeMaterial.WOOD,
+                    PipeDirection.VERTICAL, PipeMaterial.METAL,
                     AllBlocks.PICCOLO_EXTENSION,
                     AllBlockEntities.PICCOLO_BLOCK_ENTITY,
                     AllShapes::genericPipeShape);
@@ -80,11 +80,31 @@ public class Piccolo {
         }
     }
 
-    public static class PiccoloExtensionBlock extends QuadrupleExtensionBlock {
+    public static class PiccoloExtensionBlock extends QuadrupleExtensionBlock implements ProperWaterloggedBlock {
+        public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
         public PiccoloExtensionBlock(Properties pProperties) {
             super(pProperties,
                     AllBlocks.PICCOLO,
                     AllShapes::genericExtensionShape);
+            registerDefaultState(defaultBlockState()
+                    .setValue(WATERLOGGED, false));
+        }
+        @Override
+        protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+            super.createBlockStateDefinition(builder);
+            builder.add(WATERLOGGED);
+        }
+
+        @Override
+        public FluidState getFluidState(BlockState pState) {
+            return fluidState(pState);
+        }
+
+        @Override
+        public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+            BlockState placementState = super.getStateForPlacement(context);
+            return withWater(placementState, context);
         }
     }
 
