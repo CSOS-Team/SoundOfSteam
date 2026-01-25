@@ -3,11 +3,13 @@ package com.finchy.pipeorgans.content.pipes;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadrupleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadruplePipeBlock;
+import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.data.advancement.AllAdvancements;
 import com.finchy.pipeorgans.data.advancement.PipeOrgansAdvancement;
 import com.finchy.pipeorgans.init.*;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllSoundEvents;
+import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
@@ -92,6 +94,7 @@ public class Piccolo {
             super(type, pos, blockState,
                     AllBlocks.PICCOLO, AllBlocks.PICCOLO_EXTENSION);
         }
+        private boolean wasPoweredLastTick = false;
 
         @OnlyIn(Dist.CLIENT)
         protected PiccoloSoundInstance soundInstance;
@@ -165,8 +168,6 @@ public class Piccolo {
                         .play(waterSound =
                                 new PiccoloSoundInstance.PiccoloWaterSoundInstance(worldPosition));
             }
-
-            triggerWaterAdvancement();
             waterSound.keepAlive();
 
             if (level.getGameTime() % 2 == 0) { // medium-fast stream
@@ -197,13 +198,53 @@ public class Piccolo {
             }
 
         }
+        @Override
+        public void tick() {
+            super.tick();
+
+            if (level == null)
+                return;
+
+            if (!level.isClientSide) { FluidTankBlockEntity tank = getTank();
+
+                BlockState state = getBlockState();
+                BlockPos attachedPos = getBlockPos()
+                        .relative(pipeBlock.get().getAttachedDirection(state));
+                BlockState attachedState = level.getBlockState(attachedPos);
+
+                boolean isActive = false;
+                if (attachedState.getBlock() instanceof WindchestBlock windchest) {
+                    isActive = windchest.isMasterActive(
+                            level,
+                            attachedState.getValue(GenericPipeBlock.FACING),
+                            attachedPos
+                    );
+                }
+
+                boolean powered =
+                        ((tank != null
+                                && tank.boiler.isActive()
+                                && (tank.boiler.passiveHeat || tank.boiler.activeHeat > 0))
+                                || isActive)
+                                && isPowered();
+
+                if (powered
+                        && !wasPoweredLastTick
+                        && state.getValue(Piccolo.WATERLOGGED)) {
+                    triggerWaterAdvancement();
+                }
+
+                wasPoweredLastTick = powered;
+            }
+        }
+
         private void triggerWaterAdvancement() {
             if (!(level instanceof ServerLevel serverLevel))
                 return;
 
             for (ServerPlayer player : serverLevel.getEntitiesOfClass(ServerPlayer.class,
                     new AABB(worldPosition).inflate(16))) {
-                AllTriggers.STEAM_BASE.trigger(player);
+                AllTriggers.WATER_PIPE.trigger(player);
             }
         }
     }
