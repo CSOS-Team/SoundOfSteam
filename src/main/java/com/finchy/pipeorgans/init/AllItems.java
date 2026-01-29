@@ -22,8 +22,20 @@ public class AllItems {
             COPPER_BOOT = REGISTRATE.item("copper_boot", Item::new).register(),
             BRASSBOUND_BOOT = REGISTRATE.item("brassbound_boot", Item::new).register(),
             IRON_BOOT = REGISTRATE.item("iron_boot", Item::new).register(),
-            BRASS_REED = REGISTRATE.item("brass_reed", Item::new).register(),
-            TUNING_WIRE = REGISTRATE.item("tuning_wire", Item::new).register();
+            BRASS_REED = REGISTRATE.item("brass_reed", Item::new).register();
+
+    public static final ItemEntry<Item>
+            TUNING_WIRE = REGISTRATE.item("tuning_wire", Item::new)
+            .model((ctx, prov) -> prov.generated(ctx::getEntry)
+                    .override()
+                    .predicate(PipeOrgans.asResource("variant"), 1)
+                    .model(prov.getExistingFile(
+                            prov.modLoc("item/worm")
+                    ))
+                    .end()
+            )
+            .register();
+
 
     public static final ItemEntry<MusicRollItem> MUSIC_ROLL = REGISTRATE.item("music_roll", MusicRollItem::new)
             .properties(p -> p.stacksTo(1))

@@ -1,5 +1,13 @@
 {
   "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "pipeorgans:item/worm",
+      "predicate": {
+        "pipeorgans:variant": 1.0
+      }
+    }
+  ],
   "textures": {
     "layer0": "pipeorgans:item/tuning_wire"
   }
