@@ -1,62 +1,122 @@
 {
   "variants": {
-    "facing=east,powered=false,trem=false": {
+    "facing=east,powered=false,trem=false,windy=false": {
       "model": "pipeorgans:block/tremulant/tremulant",
       "y": 90
     },
-    "facing=east,powered=false,trem=true": {
+    "facing=east,powered=false,trem=false,windy=true": {
       "model": "pipeorgans:block/tremulant/tremulant",
       "y": 90
     },
-    "facing=east,powered=true,trem=false": {
+    "facing=east,powered=false,trem=true,windy=false": {
+      "model": "pipeorgans:block/tremulant/tremulant",
+      "y": 90
+    },
+    "facing=east,powered=false,trem=true,windy=true": {
+      "model": "pipeorgans:block/tremulant/tremulant",
+      "y": 90
+    },
+    "facing=east,powered=true,trem=false,windy=false": {
       "model": "pipeorgans:block/tremulant/tremulant_powered",
       "y": 90
     },
-    "facing=east,powered=true,trem=true": {
+    "facing=east,powered=true,trem=false,windy=true": {
       "model": "pipeorgans:block/tremulant/tremulant_powered",
       "y": 90
     },
-    "facing=north,powered=false,trem=false": {
+    "facing=east,powered=true,trem=true,windy=false": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered",
+      "y": 90
+    },
+    "facing=east,powered=true,trem=true,windy=true": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered",
+      "y": 90
+    },
+    "facing=north,powered=false,trem=false,windy=false": {
       "model": "pipeorgans:block/tremulant/tremulant"
     },
-    "facing=north,powered=false,trem=true": {
+    "facing=north,powered=false,trem=false,windy=true": {
       "model": "pipeorgans:block/tremulant/tremulant"
     },
-    "facing=north,powered=true,trem=false": {
+    "facing=north,powered=false,trem=true,windy=false": {
+      "model": "pipeorgans:block/tremulant/tremulant"
+    },
+    "facing=north,powered=false,trem=true,windy=true": {
+      "model": "pipeorgans:block/tremulant/tremulant"
+    },
+    "facing=north,powered=true,trem=false,windy=false": {
       "model": "pipeorgans:block/tremulant/tremulant_powered"
     },
-    "facing=north,powered=true,trem=true": {
+    "facing=north,powered=true,trem=false,windy=true": {
       "model": "pipeorgans:block/tremulant/tremulant_powered"
     },
-    "facing=south,powered=false,trem=false": {
+    "facing=north,powered=true,trem=true,windy=false": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered"
+    },
+    "facing=north,powered=true,trem=true,windy=true": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered"
+    },
+    "facing=south,powered=false,trem=false,windy=false": {
       "model": "pipeorgans:block/tremulant/tremulant",
       "y": 180
     },
-    "facing=south,powered=false,trem=true": {
+    "facing=south,powered=false,trem=false,windy=true": {
       "model": "pipeorgans:block/tremulant/tremulant",
       "y": 180
     },
-    "facing=south,powered=true,trem=false": {
+    "facing=south,powered=false,trem=true,windy=false": {
+      "model": "pipeorgans:block/tremulant/tremulant",
+      "y": 180
+    },
+    "facing=south,powered=false,trem=true,windy=true": {
+      "model": "pipeorgans:block/tremulant/tremulant",
+      "y": 180
+    },
+    "facing=south,powered=true,trem=false,windy=false": {
       "model": "pipeorgans:block/tremulant/tremulant_powered",
       "y": 180
     },
-    "facing=south,powered=true,trem=true": {
+    "facing=south,powered=true,trem=false,windy=true": {
       "model": "pipeorgans:block/tremulant/tremulant_powered",
       "y": 180
     },
-    "facing=west,powered=false,trem=false": {
+    "facing=south,powered=true,trem=true,windy=false": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered",
+      "y": 180
+    },
+    "facing=south,powered=true,trem=true,windy=true": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered",
+      "y": 180
+    },
+    "facing=west,powered=false,trem=false,windy=false": {
       "model": "pipeorgans:block/tremulant/tremulant",
       "y": 270
     },
-    "facing=west,powered=false,trem=true": {
+    "facing=west,powered=false,trem=false,windy=true": {
       "model": "pipeorgans:block/tremulant/tremulant",
       "y": 270
     },
-    "facing=west,powered=true,trem=false": {
+    "facing=west,powered=false,trem=true,windy=false": {
+      "model": "pipeorgans:block/tremulant/tremulant",
+      "y": 270
+    },
+    "facing=west,powered=false,trem=true,windy=true": {
+      "model": "pipeorgans:block/tremulant/tremulant",
+      "y": 270
+    },
+    "facing=west,powered=true,trem=false,windy=false": {
       "model": "pipeorgans:block/tremulant/tremulant_powered",
       "y": 270
     },
-    "facing=west,powered=true,trem=true": {
+    "facing=west,powered=true,trem=false,windy=true": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered",
+      "y": 270
+    },
+    "facing=west,powered=true,trem=true,windy=false": {
+      "model": "pipeorgans:block/tremulant/tremulant_powered",
+      "y": 270
+    },
+    "facing=west,powered=true,trem=true,windy=true": {
       "model": "pipeorgans:block/tremulant/tremulant_powered",
       "y": 270
     }

@@ -77,6 +77,9 @@ public class WindchestBlock extends Block implements IWrenchable {
             if (currentBlock.getBlock() instanceof WindchestMasterBlock && currentBlock.getValue(FACING) == facing.getOpposite()) {
                 return currentPos;
             }
+            if (currentBlock.getBlock() instanceof TremulantBlock && currentBlock.getValue(FACING) == facing) {
+                return currentPos;
+            }
             if ( !(currentBlock.getBlock() instanceof WindchestBlock
                     && (currentBlock.getValue(FACING) == facing)) ) {
                 break;
