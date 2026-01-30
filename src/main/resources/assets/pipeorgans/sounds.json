@@ -617,6 +617,16 @@
       }
     ]
   },
+  "piccolo_water": {
+    "subtitle": "sounds.pipeorgans.piccolo_water",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:piccolo/p_water"
+      }
+    ]
+  },
 
   "subbass_superhigh": {
     "subtitle": "sounds.pipeorgans.subbass_superhigh",

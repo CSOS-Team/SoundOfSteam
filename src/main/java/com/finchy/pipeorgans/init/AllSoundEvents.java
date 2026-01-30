@@ -70,6 +70,7 @@ public class AllSoundEvents {
      PICCOLO_MEDIUM = registerSoundEvent("piccolo_medium"),
      PICCOLO_LOW = registerSoundEvent("piccolo_low"),
      PICCOLO_DEEP = registerSoundEvent("piccolo_deep"),
+     PICCOLO_WATER = registerSoundEvent("piccolo_water"),
 
      SUBBASS_SUPERHIGH = registerSoundEvent("subbass_superhigh"),
      SUBBASS_HIGH = registerSoundEvent("subbass_high"),
