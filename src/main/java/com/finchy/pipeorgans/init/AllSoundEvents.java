@@ -102,6 +102,12 @@ public class AllSoundEvents {
      ENGLISH_HORN_LOW = registerSoundEvent("english_horn_low"),
      ENGLISH_HORN_DEEP = registerSoundEvent("english_horn_deep"),
 
+    CLARINET_SUPERHIGH = registerSoundEvent("clarinet_superhigh"),
+    CLARINET_HIGH = registerSoundEvent("clarinet_high"),
+    CLARINET_MEDIUM = registerSoundEvent("clarinet_medium"),
+    CLARINET_LOW = registerSoundEvent("clarinet_low"),
+    CLARINET_DEEP = registerSoundEvent("clarinet_deep"),
+
      NASARD_SUPERHIGH = registerSoundEvent("nasard_superhigh"),
      NASARD_HIGH = registerSoundEvent("nasard_high"),
      NASARD_MEDIUM = registerSoundEvent("nasard_medium"),

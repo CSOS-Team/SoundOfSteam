@@ -8,15 +8,11 @@ import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
 import com.finchy.pipeorgans.content.noteLink.NoteLinkBlock;
 import com.finchy.pipeorgans.content.noteLink.NoteLinkGenerator;
 import com.finchy.pipeorgans.content.pipes.*;
-import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem;
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockItem.*;
+import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.traps.bassDrum.BassDrumBlock;
 import com.finchy.pipeorgans.content.traps.crashCymbal.CrashCymbalBlock;
 import com.finchy.pipeorgans.content.traps.snare.SnareDrumBlock;
 import com.finchy.pipeorgans.content.traps.tapCymbal.TapCymbalBlock;
-import com.finchy.pipeorgans.content.pipes.generic.StopSize;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.finchy.pipeorgans.content.windchest.tremulant.TremulantBlock;
@@ -429,6 +425,20 @@ public class AllBlocks {
     public static final BlockEntry<EnglishHorn.EnglishHornExtensionBlock> ENGLISH_HORN_EXTENSION = registerExtensionBlock(
             "english_horn_extension",
             EnglishHorn.EnglishHornExtensionBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<Clarinet.ClarinetBlock> CLARINET = registerPipeBlock(
+            "clarinet",
+            Clarinet.ClarinetBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+
+    public static final BlockEntry<Clarinet.ClarinetExtensionBlock> CLARINET_EXTENSION = registerExtensionBlock(
+            "clarinet_extension",
+            Clarinet.ClarinetExtensionBlock::new,
             com.simibubi.create.AllBlocks.BRASS_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 

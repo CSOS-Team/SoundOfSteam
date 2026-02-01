@@ -9,6 +9,7 @@ import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarRenderer;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarVisual;
 import com.finchy.pipeorgans.content.noteLink.NoteLinkBlockEntity;
 import com.finchy.pipeorgans.content.pipes.*;
+import com.finchy.pipeorgans.content.pipes.Clarinet;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockEntity;
 import com.finchy.pipeorgans.content.traps.bassDrum.BassDrumBlockEntity;
 import com.finchy.pipeorgans.content.traps.crashCymbal.CrashCymbalBlockEntity;
@@ -174,6 +175,12 @@ public class AllBlockEntities {
             EnglishHorn.EnglishHornBlockEntity::new,
             AllBlocks.ENGLISH_HORN,
             () -> EnglishHorn.EnglishHornRenderer::new);
+
+    public static final BlockEntityEntry<Clarinet.ClarinetBlockEntity> CLARINET_BLOCK_ENTITY = registerPipeBlockEntity(
+            "clarinet_block_entity",
+            Clarinet.ClarinetBlockEntity::new,
+            AllBlocks.CLARINET,
+            () -> Clarinet.ClarinetRenderer::new);
 
     public static final BlockEntityEntry<Viola.ViolaBlockEntity> VIOLA_BLOCK_ENTITY = registerPipeBlockEntity(
             "viola_block_entity",

@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.windchest.tremulant;
 
+import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
@@ -72,6 +73,21 @@ public class TremulantBlock extends Block implements IWrenchable {
         return false;
     }
 
+    private static void updateTrem(Level pLevel, BlockPos pPos, BlockState pState) {
+        Direction facing = pState.getValue(FACING);
+        BlockPos chestPos = pPos.relative(facing.getOpposite());
+        BlockState chestState = pLevel.getBlockState(chestPos);
+
+        if (chestState.getBlock() instanceof WindchestBlock && chestState.hasProperty(TREM)) {
+
+            boolean trem = pState.getValue(TREM);
+
+            if (chestState.getValue(TREM) !=trem) {
+                pLevel.setBlock(chestPos, chestState.setValue(TREM, trem), 3);
+            }
+        }
+    }
+
     // Called when block placed
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
@@ -79,13 +95,17 @@ public class TremulantBlock extends Block implements IWrenchable {
         Direction facing = pContext.getHorizontalDirection();
         Direction direction = pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing;
         Level level = pContext.getLevel();
-        BlockPos clickedPos = pContext.getClickedPos();
+        BlockPos clickedPos = pContext.getClickedPos();;
 
-        return Objects.requireNonNull(super.getStateForPlacement(pContext))
+        BlockState state = Objects.requireNonNull(super.getStateForPlacement(pContext))
                 .setValue(FACING, direction)
                 .setValue(TREM, level.hasNeighborSignal(clickedPos))
                 .setValue(POWERED, TisMasterPowered(level, clickedPos, facing))
                 .setValue(WINDY, TisMasterWindy(level, clickedPos, facing));
+
+        updateTrem(level, clickedPos, state);
+        return state;
+
     }
 
     //Called when wrenched
@@ -98,15 +118,35 @@ public class TremulantBlock extends Block implements IWrenchable {
     //Whenever neighbour block is updated
 //TODO Fix update when fan broken
     @Override
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean pMovedByPiston) {
+    public void neighborChanged(BlockState state, Level level, BlockPos pos,
+                                Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
 
-        Direction facing = pState.getValue(FACING);
-        if (pPos.relative(facing).equals(pNeighborPos) ) {
-            pLevel.setBlock(pPos, pState
-                    .setValue(POWERED, TisMasterPowered(pLevel,pPos, facing))
-                    .setValue(WINDY, TisMasterWindy(pLevel, pPos, facing)), 3);
+        Direction facing = state.getValue(FACING);
+
+        boolean trem = level.hasNeighborSignal(pos);
+
+        BlockState newState = state
+                .setValue(TREM, trem)
+                .setValue(POWERED, TisMasterPowered(level, pos, facing))
+                .setValue(WINDY, TisMasterWindy(level, pos, facing));
+
+        if (!newState.equals(state)) {
+            level.setBlock(pos, newState, 3);
+            updateTrem(level, pos, newState);
         }
     }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos,
+                         BlockState newState, boolean isMoving) {
+
+        if (!state.is(newState.getBlock())) {
+            updateTrem(level, pos, state.setValue(TREM, false));
+        }
+
+        super.onRemove(state, level, pos, newState, isMoving);
+    }
+
 
     //Create Rotation Logic
     @Override

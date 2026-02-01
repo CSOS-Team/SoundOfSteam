@@ -846,6 +846,60 @@
       }
     ]
   },
+  "clarinet_superhigh": {
+    "subtitle": "sounds.pipeorgans.clarinet_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:clarinet/cl_superhigh"
+      }
+    ]
+  },
+
+  "clarinet_high": {
+    "subtitle": "sounds.pipeorgans.clarinet_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:clarinet/cl_high"
+      }
+    ]
+  },
+
+  "clarinet_medium": {
+    "subtitle": "sounds.pipeorgans.clarinet_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:clarinet/cl_medium"
+      }
+    ]
+  },
+
+  "clarinet_low": {
+    "subtitle": "sounds.pipeorgans.clarinet_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:clarinet/cl_low"
+      }
+    ]
+  },
+
+  "clarinet_deep": {
+    "subtitle": "sounds.pipeorgans.clarinet_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:clarinet/cl_deep"
+      }
+    ]
+  },
 
   "chamade_superhigh": {
     "subtitle": "sounds.pipeorgans.chamade_superhigh",
