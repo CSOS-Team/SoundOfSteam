@@ -108,11 +108,11 @@ public class Clarinet {
             PipeSize size = blockState.getValue(ClarinetBlock.SIZE);
 
             PartialModel mouth = switch (size) {
-                case TINY -> AllPartialModels.ENGLISH_HORN_MOUTH_TINY;
-                case SMALL -> AllPartialModels.ENGLISH_HORN_MOUTH_SMALL;
-                case MEDIUM -> AllPartialModels.ENGLISH_HORN_MOUTH_MEDIUM;
-                case LARGE -> AllPartialModels.ENGLISH_HORN_MOUTH_LARGE;
-                case HUGE -> AllPartialModels.ENGLISH_HORN_MOUTH_HUGE;
+                case TINY -> AllPartialModels.CLARINET_MOUTH_TINY;
+                case SMALL -> AllPartialModels.CLARINET_MOUTH_SMALL;
+                case MEDIUM -> AllPartialModels.CLARINET_MOUTH_MEDIUM;
+                case LARGE -> AllPartialModels.CLARINET_MOUTH_LARGE;
+                case HUGE -> AllPartialModels.CLARINET_MOUTH_HUGE;
             };
             PartialModel goggles = switch (size) {
                 case TINY -> AllPartialModels.GOGGLES_TINY;
