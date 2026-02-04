@@ -1,0 +1,33 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/clarinet",
+		"particle": "pipeorgans:block/particle/clarinet_particle"
+	},
+	"elements": [
+		{
+			"name": "Pipe Medium",
+			"from": [3, 0, 3],
+			"to": [13, 8, 13],
+			"faces": {
+				"north": {"uv": [8.75, 9.5, 10, 10.5], "texture": "#0"},
+				"east": {"uv": [8.75, 9.5, 10, 10.5], "texture": "#0"},
+				"south": {"uv": [8.75, 9.5, 10, 10.5], "texture": "#0"},
+				"west": {"uv": [8.75, 9.5, 10, 10.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Pipe Medium",
+			"from": [3, 8, 3],
+			"to": [13, 16, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 8, 0]},
+			"faces": {
+				"north": {"uv": [8.75, 9.5, 10, 10.5], "texture": "#0"},
+				"east": {"uv": [8.75, 9.5, 10, 10.5], "texture": "#0"},
+				"south": {"uv": [8.75, 9.5, 10, 10.5], "texture": "#0"},
+				"west": {"uv": [8.75, 9.5, 10, 10.5], "texture": "#0"}
+			}
+		}
+	]
+}

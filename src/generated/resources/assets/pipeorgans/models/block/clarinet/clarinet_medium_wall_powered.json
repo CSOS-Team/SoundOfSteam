@@ -1,0 +1,6 @@
+{
+  "parent": "pipeorgans:block/clarinet/clarinet_medium_wall",
+  "textures": {
+    "1": "create:block/copper_redstone_plate_powered"
+  }
+}

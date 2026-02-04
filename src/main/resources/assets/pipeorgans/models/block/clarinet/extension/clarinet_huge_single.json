@@ -1,0 +1,67 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/clarinet",
+		"particle": "pipeorgans:block/particle/clarinet_particle"
+	},
+	"elements": [
+		{
+			"name": "Pipe Medium",
+			"from": [3, 0, 3],
+			"to": [13, 2, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -7, 0]},
+			"faces": {
+				"north": {"uv": [8.75, 9.25, 10, 9.5], "texture": "#0"},
+				"east": {"uv": [8.75, 9.25, 10, 9.5], "texture": "#0"},
+				"south": {"uv": [8.75, 9.25, 10, 9.5], "texture": "#0"},
+				"west": {"uv": [8.75, 9.25, 10, 9.5], "texture": "#0"},
+				"up": {"uv": [8.75, 11.5, 10, 12.75], "texture": "#0"}
+			}
+		},
+		{
+			"from": [4, 2, 4],
+			"to": [12, 5, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 2, 7]},
+			"faces": {
+				"north": {"uv": [8.875, 8.875, 9.875, 9.25], "texture": "#0"},
+				"east": {"uv": [8.875, 8.875, 9.875, 9.25], "texture": "#0"},
+				"south": {"uv": [8.875, 8.875, 9.875, 9.25], "texture": "#0"},
+				"west": {"uv": [8.875, 8.875, 9.875, 9.25], "texture": "#0"}
+			}
+		},
+		{
+			"from": [3, 5, 3],
+			"to": [13, 8, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 5, 7]},
+			"faces": {
+				"north": {"uv": [8.75, 8.5, 10, 8.875], "texture": "#0"},
+				"east": {"uv": [8.75, 8.5, 10, 8.875], "texture": "#0"},
+				"south": {"uv": [8.75, 8.5, 10, 8.875], "texture": "#0"},
+				"west": {"uv": [8.75, 8.5, 10, 8.875], "texture": "#0"},
+				"up": {"uv": [8.75, 11.625, 10, 12.75], "texture": "#0"},
+				"down": {"uv": [8.75, 11.625, 10, 12.75], "texture": "#0"}
+			}
+		},
+		{
+			"from": [4, 8, 4],
+			"to": [12, 9, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 8, 7]},
+			"faces": {
+				"north": {"uv": [8.875, 8.375, 9.875, 8.5], "texture": "#0"},
+				"east": {"uv": [8.875, 8.375, 9.875, 8.5], "texture": "#0"},
+				"south": {"uv": [8.875, 8.375, 9.875, 8.5], "texture": "#0"},
+				"west": {"uv": [8.875, 8.375, 9.875, 8.5], "texture": "#0"},
+				"up": {"uv": [8.875, 11.625, 9.875, 12.625], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "group",
+			"origin": [0, -7, 0],
+			"color": 0,
+			"children": [0, 1, 2, 3]
+		}
+	]
+}

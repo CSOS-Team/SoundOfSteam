@@ -1,0 +1,59 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/clarinet",
+		"particle": "pipeorgans:block/particle/clarinet_particle"
+	},
+	"elements": [
+		{
+			"name": "Pipe Medium",
+			"from": [5, 0, 5],
+			"to": [11, 2, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -7, 0]},
+			"faces": {
+				"north": {"uv": [4.875, 9.25, 5.625, 9.5], "texture": "#0"},
+				"east": {"uv": [4.875, 9.25, 5.625, 9.5], "texture": "#0"},
+				"south": {"uv": [4.875, 9.25, 5.625, 9.5], "texture": "#0"},
+				"west": {"uv": [4.875, 9.25, 5.625, 9.5], "texture": "#0"},
+				"up": {"uv": [4.875, 11.75, 5.625, 12.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [6, 2, 6],
+			"to": [10, 5, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 2, 7]},
+			"faces": {
+				"north": {"uv": [5, 8.875, 5.5, 9.25], "texture": "#0"},
+				"east": {"uv": [5, 8.875, 5.5, 9.25], "texture": "#0"},
+				"south": {"uv": [5, 8.875, 5.5, 9.25], "texture": "#0"},
+				"west": {"uv": [5, 8.875, 5.5, 9.25], "texture": "#0"}
+			}
+		},
+		{
+			"from": [5, 5, 5],
+			"to": [11, 8, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 5, 7]},
+			"faces": {
+				"north": {"uv": [4.875, 8.5, 5.625, 8.875], "texture": "#0"},
+				"east": {"uv": [4.875, 8.5, 5.625, 8.875], "texture": "#0"},
+				"south": {"uv": [4.875, 8.5, 5.625, 8.875], "texture": "#0"},
+				"west": {"uv": [4.875, 8.5, 5.625, 8.875], "texture": "#0"},
+				"up": {"uv": [4.875, 11.75, 5.625, 12.5], "texture": "#0"},
+				"down": {"uv": [4.875, 11.75, 5.625, 12.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [6, 8, 6],
+			"to": [10, 9, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 8, 7]},
+			"faces": {
+				"north": {"uv": [5, 8.375, 5.5, 8.5], "texture": "#0"},
+				"east": {"uv": [5, 8.375, 5.5, 8.5], "texture": "#0"},
+				"south": {"uv": [5, 8.375, 5.5, 8.5], "texture": "#0"},
+				"west": {"uv": [5, 8.375, 5.5, 8.5], "texture": "#0"},
+				"up": {"uv": [5, 11.875, 5.5, 12.375], "texture": "#0"}
+			}
+		}
+	]
+}

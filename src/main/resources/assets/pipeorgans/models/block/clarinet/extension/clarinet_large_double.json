@@ -1,0 +1,70 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/clarinet",
+		"particle": "pipeorgans:block/particle/clarinet_particle"
+	},
+	"elements": [
+		{
+			"name": "Pipe Medium",
+			"from": [4, 8, 4],
+			"to": [12, 10, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 1, 0]},
+			"faces": {
+				"north": {"uv": [6.75, 9.25, 7.75, 9.5], "texture": "#0"},
+				"east": {"uv": [6.75, 9.25, 7.75, 9.5], "texture": "#0"},
+				"south": {"uv": [6.75, 9.25, 7.75, 9.5], "texture": "#0"},
+				"west": {"uv": [6.75, 9.25, 7.75, 9.5], "texture": "#0"},
+				"up": {"uv": [6.75, 11.625, 7.75, 12.625], "texture": "#0"}
+			}
+		},
+		{
+			"from": [5, 10, 5],
+			"to": [11, 13, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 10, 7]},
+			"faces": {
+				"north": {"uv": [6.875, 8.875, 7.625, 9.25], "texture": "#0"},
+				"east": {"uv": [6.875, 8.875, 7.625, 9.25], "texture": "#0"},
+				"south": {"uv": [6.875, 8.875, 7.625, 9.25], "texture": "#0"},
+				"west": {"uv": [6.875, 8.875, 7.625, 9.25], "texture": "#0"}
+			}
+		},
+		{
+			"from": [4, 13, 4],
+			"to": [12, 16, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 13, 7]},
+			"faces": {
+				"north": {"uv": [6.75, 8.5, 7.75, 8.875], "texture": "#0"},
+				"east": {"uv": [6.75, 8.5, 7.75, 8.875], "texture": "#0"},
+				"south": {"uv": [6.75, 8.5, 7.75, 8.875], "texture": "#0"},
+				"west": {"uv": [6.75, 8.5, 7.75, 8.875], "texture": "#0"},
+				"up": {"uv": [6.75, 11.625, 7.75, 12.625], "texture": "#0"},
+				"down": {"uv": [6.75, 11.625, 7.75, 12.625], "texture": "#0"}
+			}
+		},
+		{
+			"from": [5, 16, 5],
+			"to": [11, 17, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 16, 7]},
+			"faces": {
+				"north": {"uv": [6.875, 8.375, 7.625, 8.5], "texture": "#0"},
+				"east": {"uv": [6.875, 8.375, 7.625, 8.5], "texture": "#0"},
+				"south": {"uv": [6.875, 8.375, 7.625, 8.5], "texture": "#0"},
+				"west": {"uv": [6.875, 8.375, 7.625, 8.5], "texture": "#0"},
+				"up": {"uv": [6.875, 11.75, 7.625, 12.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Pipe Medium",
+			"from": [4, 0, 4],
+			"to": [12, 8, 12],
+			"faces": {
+				"north": {"uv": [6.75, 9.5, 7.75, 10.5], "texture": "#0"},
+				"east": {"uv": [6.75, 9.5, 7.75, 10.5], "texture": "#0"},
+				"south": {"uv": [6.75, 9.5, 7.75, 10.5], "texture": "#0"},
+				"west": {"uv": [6.75, 9.5, 7.75, 10.5], "texture": "#0"}
+			}
+		}
+	]
+}
