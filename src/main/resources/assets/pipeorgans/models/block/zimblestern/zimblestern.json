@@ -182,72 +182,8 @@
 				"up": {"uv": [0, 0, 1.5, 1.5], "texture": "#0"},
 				"down": {"uv": [0, 0.5, 1.5, 2], "texture": "#0"}
 			}
-		},
-		{
-			"name": "BRO HELP TF IS THIS-",
-			"from": [7, 2, 7],
-			"to": [9, 4, 15],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 3, 8]},
-			"faces": {
-				"north": {"uv": [9, 1, 10, 2], "texture": "#0"},
-				"east": {"uv": [9, 1, 13, 2], "texture": "#0"},
-				"south": {"uv": [9, 1, 10, 2], "texture": "#0"},
-				"west": {"uv": [9, 1, 13, 2], "texture": "#0"},
-				"up": {"uv": [9, 1, 13, 2], "rotation": 90, "texture": "#0"},
-				"down": {"uv": [9, 1, 13, 2], "rotation": 270, "texture": "#0"}
-			}
-		},
-		{
-			"name": "axis",
-			"from": [6, 1, 6],
-			"to": [10, 5, 10],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 1, 8]},
-			"faces": {
-				"north": {"uv": [4.5, 0, 6.5, 2.5], "texture": "#0"},
-				"east": {"uv": [4.5, 0, 6.5, 2], "texture": "#0"},
-				"south": {"uv": [4.5, 0, 6.5, 2], "texture": "#0"},
-				"west": {"uv": [4.5, 0, 6.5, 2], "texture": "#0"},
-				"up": {"uv": [2.5, 0, 4.5, 2], "rotation": 90, "texture": "#0"},
-				"down": {"uv": [2.5, 0, 4.5, 2], "rotation": 270, "texture": "#0"}
-			}
 		}
 	],
-	"display": {
-		"thirdperson_righthand": {
-			"rotation": [75, 45, 0],
-			"translation": [0, 2.5, 2],
-			"scale": [0.375, 0.375, 0.375]
-		},
-		"thirdperson_lefthand": {
-			"rotation": [75, 45, 0],
-			"translation": [0, 2.5, 2],
-			"scale": [0.375, 0.375, 0.375]
-		},
-		"firstperson_righthand": {
-			"rotation": [0, 45, 0],
-			"translation": [0, 2.75, 0],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"firstperson_lefthand": {
-			"rotation": [0, -135, 0],
-			"translation": [0, 2.75, 0],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"ground": {
-			"translation": [0, 3, 0],
-			"scale": [0.25, 0.25, 0.25]
-		},
-		"gui": {
-			"rotation": [30, -135, 0],
-			"scale": [0.625, 0.625, 0.625]
-		},
-		"head": {
-			"translation": [0, 14.25, 0]
-		},
-		"fixed": {
-			"scale": [0.5, 0.5, 0.5]
-		}
-	},
 	"groups": [
 		{
 			"name": "base",
@@ -284,12 +220,6 @@
 					"children": [11, 12]
 				}
 			]
-		},
-		{
-			"name": "Axis",
-			"origin": [8, 8, 8],
-			"color": 0,
-			"children": [13, 14]
 		}
 	]
 }

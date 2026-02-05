@@ -21,6 +21,7 @@ public class AllSoundEvents {
     TRACKER_BAR_CHANGE_ROLL = registerSoundEvent("tracker_bar_change_roll"),
     KBR_OPEN = registerSoundEvent("kbr_open"),
     KBR_CLOSE = registerSoundEvent("kbr_close"),
+    ZIMBLE_TWINKLE = registerSoundEvent("zimblestern_twinkle"),
 
 
     GEDECKT_SUPERHIGH = registerSoundEvent("gedeckt_superhigh"),

@@ -15,6 +15,9 @@ import com.finchy.pipeorgans.content.traps.bassDrum.BassDrumBlockEntity;
 import com.finchy.pipeorgans.content.traps.crashCymbal.CrashCymbalBlockEntity;
 import com.finchy.pipeorgans.content.traps.snare.SnareDrumBlockEntity;
 import com.finchy.pipeorgans.content.traps.tapCymbal.TapCymbalBlockEntity;
+import com.finchy.pipeorgans.content.traps.zimblestern.ZimblesternBlock;
+import com.finchy.pipeorgans.content.traps.zimblestern.ZimblesternBlockEntity;
+import com.finchy.pipeorgans.content.traps.zimblestern.ZimblesternRenderer;
 import com.finchy.pipeorgans.infrastructure.rendering.VerySmartBlockEntityRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockEntityBuilder;
@@ -70,6 +73,12 @@ public class AllBlockEntities {
     public static final BlockEntityEntry<TapCymbalBlockEntity> TAP_CYMBAL_BLOCK_ENTITY = REGISTRATE
             .blockEntity("tap_cymbal_block_entity", TapCymbalBlockEntity::new)
             .validBlock(AllBlocks.TAP_CYMBAL)
+            .register();
+
+    public static final BlockEntityEntry<ZimblesternBlockEntity> ZIMBLESTERN_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("zimblestern_block_entity", ZimblesternBlockEntity::new)
+            .validBlock(AllBlocks.ZIMBLESTERN)
+            .renderer(() -> ZimblesternRenderer::new)
             .register();
 
 

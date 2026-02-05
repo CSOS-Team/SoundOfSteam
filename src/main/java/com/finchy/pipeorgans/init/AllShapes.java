@@ -487,7 +487,10 @@ public abstract class AllShapes {
 
         ROLL_PUNCHER_COLLISION_BOX = shape(4, 0, 4, 12, 12, 12)
                 .add(0, 11, 10, 16, 13, 14)
-                .forHorizontal(Direction.NORTH);
+                .forHorizontal(Direction.NORTH),
+
+        ZIMBLESTERN = shape(1, 0, 1, 15, 8, 15)
+                .forAxis();
 
 
 

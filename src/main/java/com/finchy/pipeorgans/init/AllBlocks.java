@@ -13,6 +13,7 @@ import com.finchy.pipeorgans.content.traps.bassDrum.BassDrumBlock;
 import com.finchy.pipeorgans.content.traps.crashCymbal.CrashCymbalBlock;
 import com.finchy.pipeorgans.content.traps.snare.SnareDrumBlock;
 import com.finchy.pipeorgans.content.traps.tapCymbal.TapCymbalBlock;
+import com.finchy.pipeorgans.content.traps.zimblestern.ZimblesternBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.finchy.pipeorgans.content.windchest.tremulant.TremulantBlock;
@@ -129,6 +130,18 @@ public class AllBlocks {
             .lang("Roll Authoring Table")
             .item()
             .build()
+            .register();
+
+    public static final BlockEntry<ZimblesternBlock> ZIMBLESTERN = REGISTRATE.block("zimblestern", ZimblesternBlock::new)
+            .initialProperties(() -> Blocks.OAK_PLANKS)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.partialStandardModel(c, p)))
+            .item()
+            .transform(customItemModel())
+            .transform(axeOrPickaxe())
+            .onRegister(block -> BlockStressValues.IMPACTS.register(block, () -> 1.0))
             .register();
 
     public static final BlockEntry<TremulantBlock> TREMULANT = REGISTRATE.block("tremulant", TremulantBlock::new)

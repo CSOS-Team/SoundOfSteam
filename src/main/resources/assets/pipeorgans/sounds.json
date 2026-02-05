@@ -38,6 +38,16 @@
       }
     ]
   },
+  "zimblestern_twinkle": {
+    "subtitle": "sounds.pipeorgans.zimblestern_twinkle",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:zimblestern"
+      }
+    ]
+  },
 
   "grow_wooden_pipe": {
     "subtitle": "sounds.pipeorgans.grow_wooden_pipe",

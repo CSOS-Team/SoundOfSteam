@@ -108,6 +108,7 @@
   "block.pipeorgans.vox_humana_extension": "Vox Humana Extension",
   "block.pipeorgans.windchest": "Windchest",
   "block.pipeorgans.windchest_master": "Windchest Controller",
+  "block.pipeorgans.zimblestern": "Zimblestern",
   "gui.pipeorgans.keyboard_relay": "Keyboard Relay",
   "gui.pipeorgans.midi_config": "MIDI Input Device Config",
   "gui.pipeorgans.roll_puncher.availableMidis": "Available MIDI Files",
