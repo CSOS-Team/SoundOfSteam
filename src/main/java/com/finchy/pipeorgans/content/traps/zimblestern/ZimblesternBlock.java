@@ -13,6 +13,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.core.Direction.Axis;
+
 
 
 public class ZimblesternBlock extends KineticBlock implements IBE<ZimblesternBlockEntity>, IWrenchable {
@@ -32,8 +34,8 @@ public class ZimblesternBlock extends KineticBlock implements IBE<ZimblesternBlo
     }
 
     @Override
-    public Direction.Axis getRotationAxis(BlockState state) {
-        return Direction.Axis.Y;
+    public Axis getRotationAxis(BlockState state) {
+        return Axis.Y;
     }
 
     @Override

@@ -11,6 +11,7 @@ public class ZimblesternRenderer extends KineticBlockEntityRenderer<ZimblesternB
 
     public ZimblesternRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
+        System.out.println("ZimblesternRenderer loaded");
     }
 
     //TODO Isn't rendering... No idea what I'm doing - Deano
