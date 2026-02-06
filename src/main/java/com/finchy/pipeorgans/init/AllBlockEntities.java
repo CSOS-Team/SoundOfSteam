@@ -19,6 +19,7 @@ import com.finchy.pipeorgans.content.traps.zimblestern.ZimblesternBlock;
 import com.finchy.pipeorgans.content.traps.zimblestern.ZimblesternBlockEntity;
 import com.finchy.pipeorgans.content.traps.zimblestern.ZimblesternRenderer;
 import com.finchy.pipeorgans.infrastructure.rendering.VerySmartBlockEntityRenderer;
+import com.simibubi.create.content.kinetics.base.OrientedRotatingVisual;
 import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockEntityBuilder;
@@ -80,7 +81,6 @@ public class AllBlockEntities {
             .blockEntity("zimblestern_block_entity", ZimblesternBlockEntity::new)
             .visual(() -> SingleAxisRotatingVisual.of(AllPartialModels.ZIMBLE_SPINNYTHING), false)
             .validBlock(AllBlocks.ZIMBLESTERN)
-            .renderer(() -> ZimblesternRenderer::new)
             .register();
 
 

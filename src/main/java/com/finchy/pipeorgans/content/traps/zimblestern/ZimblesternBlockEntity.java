@@ -1,16 +1,17 @@
 package com.finchy.pipeorgans.content.traps.zimblestern;
 
 
+import com.finchy.pipeorgans.init.AllSoundEvents;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
-import com.simibubi.create.foundation.sound.SoundScapes;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.joml.Math;
+
+import javax.annotation.Nullable;
 
 public class ZimblesternBlockEntity extends KineticBlockEntity implements IHaveGoggleInformation {
 
@@ -25,11 +26,38 @@ public class ZimblesternBlockEntity extends KineticBlockEntity implements IHaveG
         super.tickAudio();
 
         if (getSpeed() == 0)
-            return;
+            stopTwinkleSound();
+        else {
 
-        //TODO Switch over to custom zimble sound, for now it's milling lol
+            playTwinkleSound();
+        }
+
+    }
+
+        /*
         float pitch = Mth.clamp((Math.abs(getSpeed()) / 256f) + .45f, .85f, 1f);
         SoundScapes.play(SoundScapes.AmbienceGroup.MILLING, worldPosition, pitch);
+
+         */
+
+    @Nullable
+    private ZimblesternSoundInstance twinkleSound;
+    private void playTwinkleSound() {
+        if (twinkleSound == null || twinkleSound.isStopped()) {
+            twinkleSound = new ZimblesternSoundInstance(
+                    worldPosition, AllSoundEvents.ZIMBLE_TWINKLE.get()
+            );
+            Minecraft.getInstance().getSoundManager().play(twinkleSound);
+        }
+
+        twinkleSound.keepAlive();
+    }
+
+    private void stopTwinkleSound() {
+        if (twinkleSound != null) {
+            twinkleSound.fadeOut();
+            twinkleSound = null;
+        }
     }
 
 }
