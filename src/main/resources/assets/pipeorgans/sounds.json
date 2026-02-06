@@ -38,13 +38,25 @@
       }
     ]
   },
-  "zimblestern_twinkle": {
+  "zimblestern_place": {
+    "subtitle": "sounds.pipeorgans.zimblestern_place",
+    "sounds": [
+      "pipeorgans:zimblestern/place"
+    ]
+  },
+  "zimblestern_step": {
+    "sounds": [
+      "pipeorgans:zimblestern/step"
+    ]
+  },
+
+"zimblestern_twinkle": {
     "subtitle": "sounds.pipeorgans.zimblestern_twinkle",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:zimblestern_twinkle"
+        "name": "pipeorgans:zimblestern/twinkle"
       }
     ]
   },

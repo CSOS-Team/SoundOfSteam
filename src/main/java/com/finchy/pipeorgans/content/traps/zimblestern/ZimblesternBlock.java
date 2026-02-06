@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.content.traps.zimblestern;
 
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
+import com.finchy.pipeorgans.init.AllSoundTypes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.base.KineticBlock;
 import com.simibubi.create.foundation.block.IBE;
@@ -20,7 +21,8 @@ import net.minecraft.core.Direction.Axis;
 public class ZimblesternBlock extends KineticBlock implements IBE<ZimblesternBlockEntity>, IWrenchable {
 
     public ZimblesternBlock(Properties properties) {
-        super(properties);
+        super(properties
+                .sound(AllSoundTypes.ZIMBLESTERN));
     }
 
     @Override

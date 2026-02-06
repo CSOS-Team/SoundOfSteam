@@ -489,7 +489,7 @@ public abstract class AllShapes {
                 .add(0, 11, 10, 16, 13, 14)
                 .forHorizontal(Direction.NORTH),
 
-        ZIMBLESTERN = shape(1, 0, 1, 15, 8, 15)
+        ZIMBLESTERN = shape(0, 0, 0, 16, 9, 16)
                 .forAxis();
 
 
