@@ -57,7 +57,7 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
             return;
         }
 
-        //Per play sound distance (client side)
+        //Per player sound distance (client side)
         double maxDistance = ClientConfig.PIPE_ATTENUATION_DISTANCE.get();
         double distSqr = Minecraft.getInstance().player.distanceToSqr(x, y, z);
         double dist = Math.sqrt(distSqr);

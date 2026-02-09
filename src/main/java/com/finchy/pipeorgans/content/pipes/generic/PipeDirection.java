@@ -20,7 +20,7 @@ public enum PipeDirection {
         @Override
         public double getExtensionClickPosition(BlockPos extensionPos, Vec3 clickLocation, Direction facing) {
             return switch (facing) {
-                case DOWN, UP -> -1.0; // if this happens, something has gone very wrong
+                case DOWN, UP -> -1.0; // if this happens, something has gone very very wrong
                 case NORTH -> extensionPos.getZ() - clickLocation.z;
                 case SOUTH -> clickLocation.z - extensionPos.getZ();
                 case WEST -> extensionPos.getX() - clickLocation.x;

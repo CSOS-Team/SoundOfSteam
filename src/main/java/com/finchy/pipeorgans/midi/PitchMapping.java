@@ -8,6 +8,7 @@ import net.minecraft.world.item.Items;
 import java.util.HashMap;
 import java.util.Map;
 
+//MIDI pitches -> Minecraft items
 public class PitchMapping {
 
     private static final Map<Integer, Item> pitchMap = new HashMap<>();

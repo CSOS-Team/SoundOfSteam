@@ -6,11 +6,14 @@ import net.minecraft.sounds.SoundEvents;
 
 import java.util.function.Supplier;
 
+/**
+ * Define the different sounds that can be played when you lengthen a pipe
+ */
 public enum PipeMaterial {
-    BASIC(SoundEvents.NOTE_BLOCK_XYLOPHONE),
-    WOOD(AllSoundEvents.GROW_WOODEN_PIPE),
-    METAL(AllSoundEvents.GROW_METAL_PIPE),
-    HAUNTED(AllSoundEvents.GROW_HAUNTED_PIPE);
+    BASIC(SoundEvents.NOTE_BLOCK_XYLOPHONE), //The generic sound that Create's Steam Whistles use
+    WOOD(AllSoundEvents.GROW_WOODEN_PIPE), //Is wood
+    METAL(AllSoundEvents.GROW_METAL_PIPE), //Is metal
+    HAUNTED(AllSoundEvents.GROW_HAUNTED_PIPE); //Is spooky
 
     private final Supplier<SoundEvent> growSound;
 

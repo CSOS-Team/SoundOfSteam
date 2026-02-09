@@ -132,6 +132,7 @@ public class AllPartialModels {
     VOX_CELESTE_MOUTH_LARGE = block("vox_celeste/vox_celeste_large_mouth"),
     VOX_CELESTE_MOUTH_HUGE = block("vox_celeste/vox_celeste_huge_mouth"),
 
+    //Goggles easter egg
     GOGGLES_TINY = block("goggles/goggles_tiny"),
     GOGGLES_SMALL = block("goggles/goggles_small"),
     GOGGLES_MEDIUM = block("goggles/goggles_medium"),

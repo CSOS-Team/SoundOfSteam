@@ -2,6 +2,9 @@ package com.finchy.pipeorgans.content.pipes.generic;
 
 import net.minecraft.util.StringRepresentable;
 
+/**
+ * Defines different sizes of stops
+ */
 public enum StopSize implements StringRepresentable {
     ONEANDTHREEFIFTHS("135", 28),
     TWO("2", 24),

@@ -129,8 +129,7 @@ public class AllBlocks {
             .build()
             .register();
 
-
-
+    //Pipes go here
     public static List<BlockEntry<? extends GenericPipeBlock>> PIPE_BLOCKS = new ArrayList<>();
 
     public static final BlockEntry<Diapason.DiapasonBlock> DIAPASON = registerPipeBlock(
@@ -391,7 +390,7 @@ public class AllBlocks {
             com.simibubi.create.AllBlocks.WEATHERED_IRON_BLOCK,
             StopSize.EIGHT,
             BlockTags.MINEABLE_WITH_PICKAXE,
-            "Voix Celeste");
+            "Voix Celeste"); //I didn't misspell it... I SWEAR
 
     public static final BlockEntry<VoxCeleste.VoxCelesteExtensionBlock> VOX_CELESTE_EXTENSION = registerExtensionBlock(
             "vox_celeste_extension",

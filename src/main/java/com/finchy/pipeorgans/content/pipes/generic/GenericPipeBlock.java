@@ -62,6 +62,8 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
     protected final TriFunction<PipeSize, Boolean, Direction, VoxelShape> voxelShapeGetter;
     // WHY IS A TRIFUNCTION A THING???
 
+    //cuz tuv(r)
+
     public GenericPipeBlock(Properties pProperties, PipeDirection pipeDirection,
                             PipeMaterial pipeMaterial,
                             BlockEntry<? extends GenericExtensionBlock<?>> extensionBlock,

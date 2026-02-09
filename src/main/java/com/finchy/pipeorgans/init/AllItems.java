@@ -35,12 +35,13 @@ public class AllItems {
                     .end()
             )
             .register();
-
+            //Trust me... that was essential ^
 
     public static final ItemEntry<MusicRollItem> MUSIC_ROLL = REGISTRATE.item("music_roll", MusicRollItem::new)
             .properties(p -> p.stacksTo(1))
             .register();
 
+    //Items for reed pipes part way through sequenced assembly
     public static final ItemEntry<SequencedAssemblyItem>
             INCOMPLETE_TROMPETTE = sequencedPipeIngredient("incomplete_trompette"),
             INCOMPLETE_VOX_HUMANA = sequencedPipeIngredient("incomplete_vox_humana"),

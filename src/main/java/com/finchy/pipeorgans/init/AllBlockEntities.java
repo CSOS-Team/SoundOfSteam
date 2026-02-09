@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.Block;
 
+//All dem Block Entities
 public class AllBlockEntities {
     private static final CreateRegistrate REGISTRATE = PipeOrgans.registrate();
 
