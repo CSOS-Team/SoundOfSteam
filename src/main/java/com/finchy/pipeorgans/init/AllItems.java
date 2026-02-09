@@ -5,7 +5,9 @@ import com.finchy.pipeorgans.content.midi.MusicRollItem;
 import com.finchy.pipeorgans.data.AssetLookup;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.item.ItemDescription;
 import com.tterrag.registrate.util.entry.ItemEntry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 
 public class AllItems {
@@ -17,12 +19,29 @@ public class AllItems {
     }
 
     public static final ItemEntry<Item>
-            BRASS_BOOT = REGISTRATE.item("brass_boot", Item::new).register(),
-            DARK_OAK_BOOT = REGISTRATE.item("dark_oak_boot", Item::new).register(),
-            COPPER_BOOT = REGISTRATE.item("copper_boot", Item::new).register(),
-            BRASSBOUND_BOOT = REGISTRATE.item("brassbound_boot", Item::new).register(),
-            IRON_BOOT = REGISTRATE.item("iron_boot", Item::new).register(),
-            BRASS_REED = REGISTRATE.item("brass_reed", Item::new).register();
+            BRASS_BOOT = REGISTRATE
+            .item("brass_boot", Item::new)
+            .onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "item.pipeorgans.brass_boot"))
+            .register(),
+            DARK_OAK_BOOT = REGISTRATE
+                    .item("dark_oak_boot", Item::new)
+                    .onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "item.pipeorgans.dark_oak_boot"))
+                    .register(),
+            COPPER_BOOT = REGISTRATE
+                    .item("copper_boot", Item::new)
+                    .onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "item.pipeorgans.copper_boot"))
+                    .register(),
+            BRASSBOUND_BOOT = REGISTRATE
+                    .item("brassbound_boot", Item::new)
+                    .onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "item.pipeorgans.brassbound_boot"))
+                    .register(),
+            IRON_BOOT = REGISTRATE
+                    .item("iron_boot", Item::new)
+                    .onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "item.pipeorgans.iron_boot"))
+                    .register(),
+            BRASS_REED = REGISTRATE
+                    .item("brass_reed", Item::new)
+                    .register();
 
     public static final ItemEntry<Item>
             TUNING_WIRE = REGISTRATE.item("tuning_wire", Item::new)
@@ -54,7 +73,7 @@ public class AllItems {
                 .model(AssetLookup.existingItemModel())
                 .register();
     }
-
+//Anonym3000 doesn't like my comments
     public static void register() {
 
     }
