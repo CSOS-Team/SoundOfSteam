@@ -6,6 +6,7 @@ import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
 import net.createmod.catnip.data.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -42,16 +43,17 @@ public class WindchestMasterBlock extends Block implements IWrenchable {
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Level level = pContext.getLevel();
-        BlockPos clickedPos = pContext.getClickedPos();
-        //Direction face = pContext.getClickedFace();
+        BlockPos pos = pContext.getClickedPos();
         Direction facing = pContext.getHorizontalDirection();
 
-        //if (face.getAxis() == Direction.Axis.Y) { face = pContext.getHorizontalDirection().getOpposite(); }
+        Player player = pContext.getPlayer();
+        boolean sneaking = player != null && player.isShiftKeyDown();
 
         return super.getStateForPlacement(pContext)
-                .setValue(FACING, pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing)
-                .setValue(POWERED, level.hasNeighborSignal(clickedPos));
+                .setValue(FACING, sneaking ? facing.getOpposite() : facing)
+                .setValue(POWERED, level.hasNeighborSignal(pos));
     }
+
 
     public void updateSlaves(BlockState state, Level level, BlockPos pos, boolean powered) {
 
