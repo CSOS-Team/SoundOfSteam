@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 /**
  * Mixin 2 of 2 that allows the base create Steam Whistle to function on CSOS windchests
  */
+//TODO Very important. Currently crashing the build
 
 @Mixin(value = WhistleBlock.class, remap = false)
 public abstract class WhistleBlockMixin {

@@ -10,8 +10,10 @@ import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,8 +21,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
@@ -37,7 +41,6 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     protected LazyOptional<IItemHandler> itemCapability;
 
     private boolean buttonsEnabled = false;
-
     public TrackerBarInventory inventory;
     protected final ContainerData data;
 
@@ -154,14 +157,35 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
         return TrackerBarMenu.create(pContainerId, pPlayerInventory, this, data);
     }
 
+    private int ticksSinceLastEvent;
+
     @Override
     public void tick() {
+        ++this.ticksSinceLastEvent;
         super.tick();
         if (midiSequencerBehaviour.isPlaying() && speed != 0) {
             midiSequencerBehaviour.tickSequencer();
             rollerAngle += MAX_ROLLER_VELOCITY;
+
+            //Vital logic
+            if (this.shouldMakePrettyNoteParticles()) {
+                this.ticksSinceLastEvent = 0;
+                this.spawnPrettyNoteParticles(level, worldPosition);
+            }
         }
     }
+    private boolean shouldMakePrettyNoteParticles() {
+        return this.ticksSinceLastEvent >= 20;
+    }
+    private void spawnPrettyNoteParticles(Level pLevel, BlockPos pPos) {
+        if (pLevel instanceof ServerLevel serverlevel) {
+            Vec3 vec3 = Vec3.atBottomCenterOf(pPos).add(0.0D, (double)1.2F, 0.0D);
+            float f = (float)pLevel.getRandom().nextInt(4) / 24.0F;
+            serverlevel.sendParticles(ParticleTypes.NOTE, vec3.x(), vec3.y(), vec3.z(), 0, (double)f, 0.0D, 0.0D, 1.0D);
+        }
+
+    }
+    //End of Vital Logic
 
     public void setButtonsEnabled(boolean enabled) {
         buttonsEnabled = enabled;
