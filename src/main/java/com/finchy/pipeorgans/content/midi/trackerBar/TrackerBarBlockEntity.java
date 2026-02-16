@@ -62,6 +62,7 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
         @Override
         protected void onContentsChanged(int slot) {
             super.onContentsChanged(slot);
+            be.onRollChanged();
             be.setChanged();
         }
     }
