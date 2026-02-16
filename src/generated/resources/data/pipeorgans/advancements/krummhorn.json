@@ -1,11 +1,11 @@
 {
-  "parent": "pipeorgans:krummhorn",
+  "parent": "pipeorgans:english_horn",
   "criteria": {
     "0": {
       "conditions": {
         "location": [
           {
-            "block": "pipeorgans:vox_humana",
+            "block": "pipeorgans:krummhorn",
             "condition": "minecraft:block_state_property"
           }
         ]
@@ -17,16 +17,16 @@
     "announce_to_chat": false,
     "description": {
       "color": "#DBA213",
-      "translate": "advancement.pipeorgans.vox_humana.desc"
+      "translate": "advancement.pipeorgans.krummhorn.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "pipeorgans:vox_humana"
+      "item": "pipeorgans:krummhorn"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.pipeorgans.vox_humana"
+      "translate": "advancement.pipeorgans.krummhorn"
     }
   },
   "requirements": [

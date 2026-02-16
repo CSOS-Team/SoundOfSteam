@@ -356,6 +356,20 @@ public class AllBlocks {
             com.simibubi.create.AllBlocks.BRASS_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 
+    public static final BlockEntry<Krummhorn.KrummhornBlock> KRUMMHORN = registerPipeBlock(
+            "krummhorn",
+            Krummhorn.KrummhornBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+
+    public static final BlockEntry<Krummhorn.KrummhornExtensionBlock> KRUMMHORN_EXTENSION = registerExtensionBlock(
+            "krummhorn_extension",
+            Krummhorn.KrummhornExtensionBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
     public static final BlockEntry<EnglishHorn.EnglishHornBlock> ENGLISH_HORN = registerPipeBlock(
             "english_horn",
             EnglishHorn.EnglishHornBlock::new,

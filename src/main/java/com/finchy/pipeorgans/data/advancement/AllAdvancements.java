@@ -165,10 +165,16 @@ public class AllAdvancements implements DataProvider {
             .after(CHAMADE)
             .whenBlockPlaced(AllBlocks.ENGLISH_HORN)),
 
+    KRUMMHORN = create("krummhorn", b -> b.icon(AllBlocks.KRUMMHORN)
+            .title("Making a Rackett")
+            .description("Place a Krummhorn pipe")
+            .after(ENGLISH_HORN)
+            .whenBlockPlaced(AllBlocks.KRUMMHORN)),
+
     VOX_HUMANA = create("vox_humana", b -> b.icon(AllBlocks.VOX_HUMANA)
             .title("A Choir of Goats")
             .description("Place a Vox Humana pipe")
-            .after(ENGLISH_HORN)
+            .after(KRUMMHORN)
             .whenBlockPlaced(AllBlocks.VOX_HUMANA)),
 
     BASSOON = create("bassoon", b -> b.icon(AllBlocks.BASSOON)

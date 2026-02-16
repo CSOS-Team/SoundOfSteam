@@ -703,6 +703,61 @@
     ]
   },
 
+  "krummhorn_superhigh": {
+    "subtitle": "sounds.pipeorgans.krummhorn_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:krummhorn/kh_superhigh"
+      }
+    ]
+  },
+
+  "krummhorn_high": {
+    "subtitle": "sounds.pipeorgans.krummhorn_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:krummhorn/kh_high"
+      }
+    ]
+  },
+
+  "krummhorn_medium": {
+    "subtitle": "sounds.pipeorgans.krummhorn_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:krummhorn/kh_medium"
+      }
+    ]
+  },
+
+  "krummhorn_low": {
+    "subtitle": "sounds.pipeorgans.krummhorn_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:krummhorn/kh_low"
+      }
+    ]
+  },
+
+  "krummhorn_deep": {
+    "subtitle": "sounds.pipeorgans.krummhorn_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:krummhorn/kh_deep"
+      }
+    ]
+  },
+
   "english_horn_superhigh": {
     "subtitle": "sounds.pipeorgans.english_horn_superhigh",
     "sounds": [

@@ -106,6 +106,12 @@ public class AllSoundEvents {
      CHAMADE_LOW = registerSoundEvent("chamade_low"),
      CHAMADE_DEEP = registerSoundEvent("chamade_deep"),
 
+    KRUMMHORN_SUPERHIGH = registerSoundEvent("krummhorn_superhigh"),
+    KRUMMHORN_HIGH = registerSoundEvent("krummhorn_high"),
+    KRUMMHORN_MEDIUM = registerSoundEvent("krummhorn_medium"),
+    KRUMMHORN_LOW = registerSoundEvent("krummhorn_low"),
+    KRUMMHORN_DEEP = registerSoundEvent("krummhorn_deep"),
+
      ENGLISH_HORN_SUPERHIGH = registerSoundEvent("english_horn_superhigh"),
      ENGLISH_HORN_HIGH = registerSoundEvent("english_horn_high"),
      ENGLISH_HORN_MEDIUM = registerSoundEvent("english_horn_medium"),

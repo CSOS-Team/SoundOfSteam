@@ -25,6 +25,7 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.TROMPETTE.get());
                         output.accept(AllBlocks.CHAMADE.get());
                         output.accept(AllBlocks.ENGLISH_HORN.get());
+                        output.accept(AllBlocks.KRUMMHORN.get());
                         output.accept(AllBlocks.GEDECKT.get());
                         output.accept(AllBlocks.ROHRFLOTE.get());
                         output.accept(AllBlocks.HOHLFLUTE.get());

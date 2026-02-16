@@ -144,6 +144,12 @@ public class AllBlockEntities {
             AllBlocks.CHAMADE,
             () -> Chamade.ChamadeRenderer::new);
 
+    public static final BlockEntityEntry<Krummhorn.KrummhornBlockEntity> KRUMMHORN_BLOCK_ENTITY = registerPipeBlockEntity(
+            "krumhorn_block_entity",
+            Krummhorn.KrummhornBlockEntity::new,
+            AllBlocks.KRUMMHORN,
+            () -> Krummhorn.KrummhornRenderer::new);
+
     public static final BlockEntityEntry<EnglishHorn.EnglishHornBlockEntity> ENGLISH_HORN_BLOCK_ENTITY = registerPipeBlockEntity(
             "english_horn_block_entity",
             EnglishHorn.EnglishHornBlockEntity::new,
