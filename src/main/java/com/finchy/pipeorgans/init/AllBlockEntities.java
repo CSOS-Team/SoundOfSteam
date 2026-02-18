@@ -126,6 +126,12 @@ public class AllBlockEntities {
             AllBlocks.SUBBASS,
             () -> Subbass.SubbassRenderer::new);
 
+    public static final BlockEntityEntry<Untersatz.UntersatzBlockEntity> UNTERSATZ_BLOCK_ENTITY = registerPipeBlockEntity(
+            "untersatz_block_entity",
+            Untersatz.UntersatzBlockEntity::new,
+            AllBlocks.UNTERSATZ,
+            () -> Untersatz.UntersatzRenderer::new);
+
     public static final BlockEntityEntry<OpenWood.OpenWoodBlockEntity> OPEN_WOOD_BLOCK_ENTITY = registerPipeBlockEntity(
             "open_wood_block_entity",
             OpenWood.OpenWoodBlockEntity::new,

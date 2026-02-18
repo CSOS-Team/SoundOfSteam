@@ -314,6 +314,20 @@ public class AllBlocks {
             () -> Blocks.DARK_OAK_PLANKS,
             BlockTags.MINEABLE_WITH_AXE);
 
+    public static final BlockEntry<Untersatz.UntersatzBlock> UNTERSATZ = registerPipeBlock(
+            "untersatz",
+            Untersatz.UntersatzBlock::new,
+            () -> Blocks.DARK_OAK_PLANKS,
+            StopSize.THIRTYTWO,
+            BlockTags.MINEABLE_WITH_AXE);
+
+
+    public static final BlockEntry<Untersatz.UntersatzExtensionBlock> UNTERSATZ_EXTENSION = registerExtensionBlock(
+            "untersatz_extension",
+            Untersatz.UntersatzExtensionBlock::new,
+            () -> Blocks.DARK_OAK_PLANKS,
+            BlockTags.MINEABLE_WITH_AXE);
+
     public static final BlockEntry<OpenWood.OpenWoodBlock> OPEN_WOOD = registerPipeBlock(
             "open_wood",
             OpenWood.OpenWoodBlock::new,

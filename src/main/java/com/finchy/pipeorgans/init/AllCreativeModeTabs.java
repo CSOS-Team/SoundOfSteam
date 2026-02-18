@@ -35,6 +35,7 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.SUBBASS.get());
                         output.accept(AllBlocks.OPEN_WOOD.get());
                         output.accept(AllBlocks.BASSOON.get());
+                        output.accept(AllBlocks.UNTERSATZ.get());
                         output.accept(AllBlocks.POSAUNE.get());
                         output.accept(AllBlocks.VOX_HUMANA.get());
                         output.accept(AllBlocks.VIOLA.get());

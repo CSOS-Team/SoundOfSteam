@@ -88,6 +88,12 @@ public class AllSoundEvents {
      SUBBASS_LOW = registerSoundEvent("subbass_low"),
      SUBBASS_DEEP = registerSoundEvent("subbass_deep"),
 
+     UNTERSATZ_SUPERHIGH = registerSoundEvent("untersatz_superhigh"),
+     UNTERSATZ_HIGH = registerSoundEvent("untersatz_high"),
+     UNTERSATZ_MEDIUM = registerSoundEvent("untersatz_medium"),
+     UNTERSATZ_LOW = registerSoundEvent("untersatz_low"),
+     UNTERSATZ_DEEP = registerSoundEvent("untersatz_deep"),
+
      OPEN_WOOD_SUPERHIGH = registerSoundEvent("open_wood_superhigh"),
      OPEN_WOOD_HIGH = registerSoundEvent("open_wood_high"),
      OPEN_WOOD_MEDIUM = registerSoundEvent("open_wood_medium"),

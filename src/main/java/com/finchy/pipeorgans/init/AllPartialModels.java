@@ -66,6 +66,12 @@ public class AllPartialModels {
     SUBBASS_MOUTH_LARGE = block("subbass/subbass_large_mouth"),
     SUBBASS_MOUTH_HUGE = block("subbass/subbass_huge_mouth"),
 
+    UNTERSATZ_MOUTH_TINY = block("untersatz/untersatz_tiny_mouth"),
+    UNTERSATZ_MOUTH_SMALL = block("untersatz/untersatz_small_mouth"),
+    UNTERSATZ_MOUTH_MEDIUM = block("untersatz/untersatz_medium_mouth"),
+    UNTERSATZ_MOUTH_LARGE = block("untersatz/untersatz_large_mouth"),
+    UNTERSATZ_MOUTH_HUGE = block("untersatz/untersatz_huge_mouth"),
+
     OPEN_WOOD_MOUTH_TINY = block("open_wood/open_wood_tiny_mouth"),
     OPEN_WOOD_MOUTH_SMALL = block("open_wood/open_wood_small_mouth"),
     OPEN_WOOD_MOUTH_MEDIUM = block("open_wood/open_wood_medium_mouth"),

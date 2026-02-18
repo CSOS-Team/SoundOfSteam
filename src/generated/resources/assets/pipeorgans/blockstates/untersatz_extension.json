@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "shape=single,size=huge": {
+      "model": "pipeorgans:block/untersatz/extension/untersatz_huge_single"
+    },
+    "shape=single,size=large": {
+      "model": "pipeorgans:block/untersatz/extension/untersatz_large_single"
+    },
+    "shape=single,size=medium": {
+      "model": "pipeorgans:block/untersatz/extension/untersatz_medium_single"
+    },
+    "shape=single,size=small": {
+      "model": "pipeorgans:block/untersatz/extension/untersatz_small_single"
+    },
+    "shape=single,size=tiny": {
+      "model": "pipeorgans:block/untersatz/extension/untersatz_tiny_single"
+    },
+    "shape=single_connected,size=huge": {
+      "model": "pipeorgans:block/untersatz/extension/untersatz_huge_single_connected"
+    },
+    "shape=single_connected,size=large": {
+      "model": "pipeorgans:block/untersatz/extension/untersatz_large_single_connected"
+    },
+    "shape=single_connected,size=medium": {
+      "model": "pipeorgans:block/untersatz/extension/untersatz_medium_single_connected"
+    },
+    "shape=single_connected,size=small": {
+      "model": "pipeorgans:block/untersatz/extension/untersatz_small_single_connected"
+    },
+    "shape=single_connected,size=tiny": {
+      "model": "pipeorgans:block/untersatz/extension/untersatz_tiny_single_connected"
+    }
+  }
+}
