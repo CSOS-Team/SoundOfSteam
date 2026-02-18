@@ -291,10 +291,15 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
 
     @Override
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        if (!pState.canSurvive(pLevel, pPos)) {
+            pLevel.destroyBlock(pPos, true);
+            return;
+        }
         withBlockEntityDo(pLevel, pPos, GenericPipeBlockEntity::updatePitch);
     }
 
     // check if placed on fluid tank or windchest
+    //isn't perfect on contraptions. Potentially switch to AttachableBlock behaviour? Need to do more research
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState attachedState = pLevel.getBlockState(pPos.relative(getAttachedDirection(pState)));
@@ -342,10 +347,12 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
                                   BlockPos pCurrentPos, BlockPos pFacingPos) {
-        return getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)
-                ? Blocks.AIR.defaultBlockState()
-                : pState;
-    }
+        if (getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)) {
+            pLevel.scheduleTick(pCurrentPos, this, 1);
+        }
+        return pState;
+        }
+
 
     // on block placed
     @Override

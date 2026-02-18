@@ -5,6 +5,7 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -128,9 +129,23 @@ public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.
             return pState;
         }
 
-        return !pState.canSurvive(pLevel, pPos) ? Blocks.AIR.defaultBlockState()
-                : pState.setValue(SIZE, pLevel.getBlockState(pPos.relative(pipeOutDirection.getOpposite()))
-                .getValue(SIZE));
+        if (!pState.canSurvive(pLevel, pPos)) {
+            pLevel.scheduleTick(pPos, this, 1);
+            return pState;
+        }
+
+        return pState.setValue(
+                SIZE,
+                pLevel.getBlockState(pPos.relative(pipeOutDirection.getOpposite()))
+                        .getValue(SIZE)
+        );
+    }
+
+    @java.lang.Override
+    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        if (!pState.canSurvive(pLevel, pPos)) {
+            pLevel.destroyBlock(pPos, false);
+        }
     }
 
     @Override
