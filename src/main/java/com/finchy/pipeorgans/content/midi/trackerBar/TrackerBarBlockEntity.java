@@ -8,6 +8,7 @@ import com.finchy.pipeorgans.util.MidiLoadException;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.infrastructure.config.AllConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -164,7 +165,9 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     public void tick() {
         ++this.ticksSinceLastEvent;
         super.tick();
-        if (midiSequencerBehaviour.isPlaying() && speed != 0) {
+        if (midiSequencerBehaviour.isPlaying() && speed >= AllConfigs.server().kinetics.mediumSpeed.get().floatValue())
+            // set min speed to the medium min speed in the Create Config. Default greater than or equal to 30 rpm
+        {
             midiSequencerBehaviour.tickSequencer();
             rollerAngle += MAX_ROLLER_VELOCITY;
 
@@ -197,7 +200,7 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     }
 
     public float getScrollSpeed() {
-        return (midiSequencerBehaviour.isPlaying() && speed != 0) ? SCROLL_SPEED : 0;
+        return (midiSequencerBehaviour.isPlaying() &&  speed >= AllConfigs.server().kinetics.mediumSpeed.get().floatValue()) ? SCROLL_SPEED : 0;
     }
 
     public void onRollChanged() {

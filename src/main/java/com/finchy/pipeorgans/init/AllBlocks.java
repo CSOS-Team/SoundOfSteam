@@ -247,7 +247,7 @@ public class AllBlocks {
     public static final BlockEntry<Tierce.TierceBlock> TIERCE = registerPipeBlock(
             "tierce",
             Tierce.TierceBlock::new,
-            () -> Blocks.COPPER_BLOCK,
+            () -> Blocks.GOLD_BLOCK,
             StopSize.ONEANDTHREEFIFTHS,
             BlockTags.MINEABLE_WITH_PICKAXE);
 
@@ -255,7 +255,7 @@ public class AllBlocks {
     public static final BlockEntry<Tierce.TierceExtensionBlock> TIERCE_EXTENSION = registerExtensionBlock(
             "tierce_extension",
             Tierce.TierceExtensionBlock::new,
-            () -> Blocks.COPPER_BLOCK,
+            () -> Blocks.GOLD_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 
     public static final BlockEntry<Piccolo.PiccoloBlock> PICCOLO = registerPipeBlock(
