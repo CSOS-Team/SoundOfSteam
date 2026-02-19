@@ -92,7 +92,7 @@ public class AllBlocks {
             .transform(displaySource(AllDisplaySources.TRACKER_BAR_FILENAME))
             .transform(displaySource(AllDisplaySources.TRACKER_BAR_BPM))
             .transform(pickaxeOnly())
-            .onRegister(block -> BlockStressValues.IMPACTS.register(block, () -> 4.0)) // todo: add stress config for this. also probably a minimum speed for the tracker bar
+            .onRegister(block -> BlockStressValues.IMPACTS.register(block, () -> 4.0)) // todo: add stress config for this
             .register();
 
     public static final BlockEntry<WindchestBlock> WINDCHEST = REGISTRATE.block("windchest", WindchestBlock::new)

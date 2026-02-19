@@ -130,4 +130,10 @@ public class TrackerBarBlock extends HorizontalKineticBlock implements IBE<Track
     public boolean hasShaftTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
         return getRotationAxis(state) == face.getAxis();
     }
+
+    //Makes minimum speed 30 rpm
+    @Override
+    public SpeedLevel getMinimumRequiredSpeedLevel() {
+        return SpeedLevel.MEDIUM;
+    }
 }
