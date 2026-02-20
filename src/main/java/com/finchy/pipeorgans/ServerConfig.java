@@ -29,6 +29,12 @@ public class ServerConfig {
             .comment("Enable clipboard-assisted placement mechanic on the server. Players can still have it disabled on the client side.")
             .worldRestart()
             .define("clipboardAssistedPlacementEnabled", true);
+/*
+    private static final ForgeConfigSpec.IntValue TRACKER_BAR_IMPACT = BUILDER
+            .comment("Stress impact multiplier for the Tracker Bar")
+            .defineInRange("kinetics.trackerBar.trackerBarImpact", 4, 0, 4096);
+
+ */
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
 
@@ -37,6 +43,8 @@ public class ServerConfig {
     public static long maxMidiPacketSize;
     public static int midiIdleTimeout;
     public static boolean clipboardAssistedPlacementEnabled;
+    //public static int trackerBarImpact;
+
 
     @SubscribeEvent
     public static void onLoad(ModConfigEvent.Loading event) {
@@ -46,6 +54,7 @@ public class ServerConfig {
             maxMidiPacketSize = MAX_MIDI_PACKET_SIZE.get();
             midiIdleTimeout = MIDI_IDLE_TIMEOUT.get();
             clipboardAssistedPlacementEnabled = CLIPBOARD_ASSISTED_PLACEMENT_ENABLED.get();
+           // trackerBarImpact = TRACKER_BAR_IMPACT.get();
         }
     }
     @SubscribeEvent
@@ -56,6 +65,7 @@ public class ServerConfig {
             maxMidiPacketSize = MAX_MIDI_PACKET_SIZE.get();
             midiIdleTimeout = MIDI_IDLE_TIMEOUT.get();
             clipboardAssistedPlacementEnabled = CLIPBOARD_ASSISTED_PLACEMENT_ENABLED.get();
+          //  trackerBarImpact = TRACKER_BAR_IMPACT.get();
         }
     }
 }
