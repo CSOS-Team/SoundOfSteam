@@ -95,7 +95,7 @@ public class AllBlocks {
             .transform(displaySource(AllDisplaySources.TRACKER_BAR_FILENAME))
             .transform(displaySource(AllDisplaySources.TRACKER_BAR_BPM))
             .transform(pickaxeOnly())
-            .onRegister(block -> BlockStressValues.IMPACTS.register(block, () -> 4.0)) // todo: add stress config for this. also probably a minimum speed for the tracker bar
+            .onRegister(block -> BlockStressValues.IMPACTS.register(block, () -> 4.0)) // todo: add stress config for this
             .register();
 
     public static final BlockEntry<WindchestBlock> WINDCHEST = REGISTRATE.block("windchest", WindchestBlock::new)
@@ -132,6 +132,7 @@ public class AllBlocks {
             .build()
             .register();
 
+    //Pipes go here
     public static final BlockEntry<ZimblesternBlock> ZIMBLESTERN = REGISTRATE.block("zimblestern", ZimblesternBlock::new)
             .initialProperties(() -> Blocks.OAK_PLANKS)
             .properties(p -> p
@@ -318,7 +319,7 @@ public class AllBlocks {
     public static final BlockEntry<Tierce.TierceBlock> TIERCE = registerPipeBlock(
             "tierce",
             Tierce.TierceBlock::new,
-            () -> Blocks.COPPER_BLOCK,
+            () -> Blocks.GOLD_BLOCK,
             StopSize.ONEANDTHREEFIFTHS,
             BlockTags.MINEABLE_WITH_PICKAXE);
 
@@ -326,7 +327,7 @@ public class AllBlocks {
     public static final BlockEntry<Tierce.TierceExtensionBlock> TIERCE_EXTENSION = registerExtensionBlock(
             "tierce_extension",
             Tierce.TierceExtensionBlock::new,
-            () -> Blocks.COPPER_BLOCK,
+            () -> Blocks.GOLD_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 
     public static final BlockEntry<Piccolo.PiccoloBlock> PICCOLO = registerPipeBlock(
@@ -385,6 +386,20 @@ public class AllBlocks {
             () -> Blocks.DARK_OAK_PLANKS,
             BlockTags.MINEABLE_WITH_AXE);
 
+    public static final BlockEntry<Untersatz.UntersatzBlock> UNTERSATZ = registerPipeBlock(
+            "untersatz",
+            Untersatz.UntersatzBlock::new,
+            () -> Blocks.DARK_OAK_PLANKS,
+            StopSize.THIRTYTWO,
+            BlockTags.MINEABLE_WITH_AXE);
+
+
+    public static final BlockEntry<Untersatz.UntersatzExtensionBlock> UNTERSATZ_EXTENSION = registerExtensionBlock(
+            "untersatz_extension",
+            Untersatz.UntersatzExtensionBlock::new,
+            () -> Blocks.DARK_OAK_PLANKS,
+            BlockTags.MINEABLE_WITH_AXE);
+
     public static final BlockEntry<OpenWood.OpenWoodBlock> OPEN_WOOD = registerPipeBlock(
             "open_wood",
             OpenWood.OpenWoodBlock::new,
@@ -424,6 +439,20 @@ public class AllBlocks {
     public static final BlockEntry<Chamade.ChamadeExtensionBlock> CHAMADE_EXTENSION = registerExtensionBlock(
             "chamade_extension",
             Chamade.ChamadeExtensionBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<Krummhorn.KrummhornBlock> KRUMMHORN = registerPipeBlock(
+            "krummhorn",
+            Krummhorn.KrummhornBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+
+    public static final BlockEntry<Krummhorn.KrummhornExtensionBlock> KRUMMHORN_EXTENSION = registerExtensionBlock(
+            "krummhorn_extension",
+            Krummhorn.KrummhornExtensionBlock::new,
             com.simibubi.create.AllBlocks.BRASS_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 
@@ -475,7 +504,7 @@ public class AllBlocks {
             com.simibubi.create.AllBlocks.WEATHERED_IRON_BLOCK,
             StopSize.EIGHT,
             BlockTags.MINEABLE_WITH_PICKAXE,
-            "Voix Celeste");
+            "Voix Celeste"); //I didn't misspell it... I SWEAR
 
     public static final BlockEntry<VoxCeleste.VoxCelesteExtensionBlock> VOX_CELESTE_EXTENSION = registerExtensionBlock(
             "vox_celeste_extension",

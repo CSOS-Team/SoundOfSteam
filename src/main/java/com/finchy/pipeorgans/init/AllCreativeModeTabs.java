@@ -25,6 +25,7 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.TROMPETTE.get());
                         output.accept(AllBlocks.CHAMADE.get());
                         output.accept(AllBlocks.ENGLISH_HORN.get());
+                        output.accept(AllBlocks.KRUMMHORN.get());
                         output.accept(AllBlocks.CLARINET.get());
                         output.accept(AllBlocks.GEDECKT.get());
                         output.accept(AllBlocks.ROHRFLOTE.get());
@@ -35,6 +36,7 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.SUBBASS.get());
                         output.accept(AllBlocks.OPEN_WOOD.get());
                         output.accept(AllBlocks.BASSOON.get());
+                        output.accept(AllBlocks.UNTERSATZ.get());
                         output.accept(AllBlocks.POSAUNE.get());
                         output.accept(AllBlocks.VOX_HUMANA.get());
                         output.accept(AllBlocks.VIOLA.get());

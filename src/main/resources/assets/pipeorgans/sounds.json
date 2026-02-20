@@ -705,6 +705,61 @@
     ]
   },
 
+  "untersatz_superhigh": {
+    "subtitle": "sounds.pipeorgans.untersatz_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:untersatz/u_superhigh"
+      }
+    ]
+  },
+
+  "untersatz_high": {
+    "subtitle": "sounds.pipeorgans.untersatz_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:untersatz/u_high"
+      }
+    ]
+  },
+
+  "untersatz_medium": {
+    "subtitle": "sounds.pipeorgans.untersatz_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:untersatz/u_medium"
+      }
+    ]
+  },
+
+  "untersatz_low": {
+    "subtitle": "sounds.pipeorgans.untersatz_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:untersatz/u_low"
+      }
+    ]
+  },
+
+  "untersatz_deep": {
+    "subtitle": "sounds.pipeorgans.untersatz_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:untersatz/u_deep"
+      }
+    ]
+  },
+
   "open_wood_superhigh": {
     "subtitle": "sounds.pipeorgans.open_wood_superhigh",
     "sounds": [
@@ -810,6 +865,61 @@
         "type": "file",
         "attenuation_distance": 64,
         "name": "pipeorgans:trompette/t_deep"
+      }
+    ]
+  },
+
+  "krummhorn_superhigh": {
+    "subtitle": "sounds.pipeorgans.krummhorn_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:krummhorn/kh_superhigh"
+      }
+    ]
+  },
+
+  "krummhorn_high": {
+    "subtitle": "sounds.pipeorgans.krummhorn_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:krummhorn/kh_high"
+      }
+    ]
+  },
+
+  "krummhorn_medium": {
+    "subtitle": "sounds.pipeorgans.krummhorn_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:krummhorn/kh_medium"
+      }
+    ]
+  },
+
+  "krummhorn_low": {
+    "subtitle": "sounds.pipeorgans.krummhorn_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:krummhorn/kh_low"
+      }
+    ]
+  },
+
+  "krummhorn_deep": {
+    "subtitle": "sounds.pipeorgans.krummhorn_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:krummhorn/kh_deep"
       }
     ]
   },

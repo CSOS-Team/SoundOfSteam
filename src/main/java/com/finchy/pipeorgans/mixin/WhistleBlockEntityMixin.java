@@ -8,6 +8,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+/**
+ * Mixin 1 of 2 that allows the base create Steam Whistle to function on CSOS windchests
+ */
 
 @Mixin(value = WhistleBlockEntity.class, remap = false)
 public class WhistleBlockEntityMixin {

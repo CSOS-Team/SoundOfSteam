@@ -17,10 +17,10 @@ public class RangedPowerAdvancement {
      example: When you play a pipe base
 
     Parameters:
-    level: World level (must be ServerLevel)
-    pos: Center position
-    radius: The max distance from the block you want the advancement to trigger
-    trigger: Which advancement trigger do you want to call?
+    @param level World level (must be ServerLevel)
+    @param pos  Center position
+    @param radius  The max distance from the block you want the advancement to trigger
+    @param trigger  Which advancement trigger do you want to call?
      **/
 
     public static void trigger(

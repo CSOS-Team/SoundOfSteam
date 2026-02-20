@@ -31,6 +31,12 @@
 
   "item.pipeorgans.music_roll.invalid": "[!] Invalid Item - Use the Roll Authoring Table instead",
 
+  "item.pipeorgans.brass_boot.tooltip.summary": "Used in sequenced assembly to craft the _Trompette_",
+  "item.pipeorgans.brassbound_boot.tooltip.summary": "Used in sequenced assembly to craft the _Bassoon_",
+  "item.pipeorgans.copper_boot.tooltip.summary": "Used in sequenced assembly to craft the _Vox Humana_",
+  "item.pipeorgans.dark_oak_boot.tooltip.summary": "Used in sequenced assembly to craft the _Posaune_",
+  "item.pipeorgans.iron_boot.tooltip.summary": "Used in sequenced assembly to craft the _English Horn_",
+
   "pipeorgans.stopsize.135": "§71-3/5'",
   "pipeorgans.stopsize.2": "§72'",
   "pipeorgans.stopsize.223": "§72-2/3'",
@@ -115,6 +121,12 @@
   "sounds.pipeorgans.subbass_low": "Subbass rumbles",
   "sounds.pipeorgans.subbass_deep": "Subbass shakes the earth",
 
+  "sounds.pipeorgans.untersatz_superhigh": "Untersatz squeals",
+  "sounds.pipeorgans.untersatz_high": "Untersatz speaks",
+  "sounds.pipeorgans.untersatz_medium": "Untersatz grumbles",
+  "sounds.pipeorgans.untersatz_low": "Untersatz rumbles",
+  "sounds.pipeorgans.untersatz_deep": "Untersatz shakes the earth",
+
   "sounds.pipeorgans.open_wood_superhigh": "Open Wood squeals",
   "sounds.pipeorgans.open_wood_high": "Open Wood speaks",
   "sounds.pipeorgans.open_wood_medium": "Open Wood grumbles",
@@ -138,6 +150,12 @@
   "sounds.pipeorgans.english_horn_medium": "English Horn speaks",
   "sounds.pipeorgans.english_horn_low": "English Horn grumbles",
   "sounds.pipeorgans.english_horn_deep": "English Horn rumbles",
+
+  "sounds.pipeorgans.krummhorn_superhigh": "Krummhorn squeals",
+  "sounds.pipeorgans.krummhorn_high": "Krummhorn squeaks",
+  "sounds.pipeorgans.krummhorn_medium": "Krummhorn speaks",
+  "sounds.pipeorgans.krummhorn_low": "Krummhornn grumbles",
+  "sounds.pipeorgans.krummhorn_deep": "Krummhorn rumbles",
 
   "sounds.pipeorgans.nasard_superhigh": "Nasard squeals",
   "sounds.pipeorgans.nasard_high": "Nasard squeaks",

@@ -8,6 +8,8 @@ import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -110,9 +112,17 @@ public class BaseBlock extends Block implements IBE<BaseBlockEntity>, IWrenchabl
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
                                   BlockPos pCurrentPos, BlockPos pFacingPos) {
-        return getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)
-                ? Blocks.AIR.defaultBlockState()
-                : pState;
+        if (getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)) {
+            pLevel.scheduleTick(pCurrentPos, this, 1);
+        }
+        return pState;
+    }
+
+    @Override
+    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        if (!pState.canSurvive(pLevel, pPos)) {
+            pLevel.destroyBlock(pPos, true);
+        }
     }
 
     // on block placed

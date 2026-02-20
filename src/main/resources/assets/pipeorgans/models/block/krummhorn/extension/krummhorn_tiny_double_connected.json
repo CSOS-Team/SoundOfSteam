@@ -1,0 +1,32 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/krummhorn",
+		"particle": "pipeorgans:block/particle/krummhorn_particle"
+	},
+	"elements": [
+		{
+			"from": [7, 8, 7],
+			"to": [9, 16, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 8, 7]},
+			"faces": {
+				"north": {"uv": [0.875, 8, 1.125, 9], "texture": "#0"},
+				"east": {"uv": [0.875, 8, 1.125, 9], "texture": "#0"},
+				"south": {"uv": [0.875, 8, 1.125, 9], "texture": "#0"},
+				"west": {"uv": [0.875, 8, 1.125, 9], "texture": "#0"}
+			}
+		},
+		{
+			"from": [7, 0, 7],
+			"to": [9, 8, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [0.875, 9, 1.125, 10], "texture": "#0"},
+				"east": {"uv": [0.875, 9, 1.125, 10], "texture": "#0"},
+				"south": {"uv": [0.875, 9, 1.125, 10], "texture": "#0"},
+				"west": {"uv": [0.875, 9, 1.125, 10], "texture": "#0"}
+			}
+		}
+	]
+}

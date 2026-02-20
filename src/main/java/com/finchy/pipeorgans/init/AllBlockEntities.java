@@ -27,6 +27,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.Block;
 
+//All dem Block Entities
 public class AllBlockEntities {
     private static final CreateRegistrate REGISTRATE = PipeOrgans.registrate();
 
@@ -160,6 +161,12 @@ public class AllBlockEntities {
             AllBlocks.SUBBASS,
             () -> Subbass.SubbassRenderer::new);
 
+    public static final BlockEntityEntry<Untersatz.UntersatzBlockEntity> UNTERSATZ_BLOCK_ENTITY = registerPipeBlockEntity(
+            "untersatz_block_entity",
+            Untersatz.UntersatzBlockEntity::new,
+            AllBlocks.UNTERSATZ,
+            () -> Untersatz.UntersatzRenderer::new);
+
     public static final BlockEntityEntry<OpenWood.OpenWoodBlockEntity> OPEN_WOOD_BLOCK_ENTITY = registerPipeBlockEntity(
             "open_wood_block_entity",
             OpenWood.OpenWoodBlockEntity::new,
@@ -177,6 +184,12 @@ public class AllBlockEntities {
             Chamade.ChamadeBlockEntity::new,
             AllBlocks.CHAMADE,
             () -> Chamade.ChamadeRenderer::new);
+
+    public static final BlockEntityEntry<Krummhorn.KrummhornBlockEntity> KRUMMHORN_BLOCK_ENTITY = registerPipeBlockEntity(
+            "krumhorn_block_entity",
+            Krummhorn.KrummhornBlockEntity::new,
+            AllBlocks.KRUMMHORN,
+            () -> Krummhorn.KrummhornRenderer::new);
 
     public static final BlockEntityEntry<EnglishHorn.EnglishHornBlockEntity> ENGLISH_HORN_BLOCK_ENTITY = registerPipeBlockEntity(
             "english_horn_block_entity",

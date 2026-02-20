@@ -1,5 +1,7 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
+import com.finchy.pipeorgans.compat.ModCompat;
+import com.finchy.pipeorgans.compat.create_connected.CreateConnectedCompat;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.init.AllTriggers;
 import com.simibubi.create.AllSoundEvents;
@@ -61,6 +63,8 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
 
     protected final TriFunction<PipeSize, Boolean, Direction, VoxelShape> voxelShapeGetter;
     // WHY IS A TRIFUNCTION A THING???
+
+    //cuz tuv(r)
 
     public GenericPipeBlock(Properties pProperties, PipeDirection pipeDirection,
                             PipeMaterial pipeMaterial,
@@ -287,13 +291,22 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
 
     @Override
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        if (!pState.canSurvive(pLevel, pPos)) {
+            pLevel.destroyBlock(pPos, true);
+            return;
+        }
         withBlockEntityDo(pLevel, pPos, GenericPipeBlockEntity::updatePitch);
     }
 
     // check if placed on fluid tank or windchest
+    //isn't perfect on contraptions. Potentially switch to AttachableBlock behaviour? Need to do more research
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState attachedState = pLevel.getBlockState(pPos.relative(getAttachedDirection(pState)));
+
+        //Compat for Create Connected's Fluid Vessel (Sideway fluid tanks)
+        if (ModCompat.CREATE_CONNECTED && CreateConnectedCompat.isFluidVessel(attachedState))
+            return true;
         return (FluidTankBlock.isTank(attachedState)
                 || attachedState.getBlock() instanceof WindchestBlock);
     }
@@ -334,10 +347,12 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
                                   BlockPos pCurrentPos, BlockPos pFacingPos) {
-        return getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)
-                ? Blocks.AIR.defaultBlockState()
-                : pState;
-    }
+        if (getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)) {
+            pLevel.scheduleTick(pCurrentPos, this, 1);
+        }
+        return pState;
+        }
+
 
     // on block placed
     @Override

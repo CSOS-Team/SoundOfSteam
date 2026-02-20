@@ -32,3 +32,10 @@ config="pipeorgans.mixins.json"
     versionRange="[6.0.8,6.1.0)"
     ordering="AFTER"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="create_connected"
+mandatory=false
+versionRange="[1.1.13-mc1.20.1,)"
+ordering="AFTER"
+side="BOTH"

@@ -10,6 +10,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+/**
+ * Allows blocks with the VALID_WHISTLES tag (CSOS pipes) to function on the create fluid tank
+ * Makes them turn it into a boiler
+ */
 @Mixin(value = BoilerData.class, remap = false)
 public class BoilerDataEvaluateMixin {
 

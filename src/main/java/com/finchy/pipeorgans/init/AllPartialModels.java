@@ -68,6 +68,12 @@ public class AllPartialModels {
     SUBBASS_MOUTH_LARGE = block("subbass/subbass_large_mouth"),
     SUBBASS_MOUTH_HUGE = block("subbass/subbass_huge_mouth"),
 
+    UNTERSATZ_MOUTH_TINY = block("untersatz/untersatz_tiny_mouth"),
+    UNTERSATZ_MOUTH_SMALL = block("untersatz/untersatz_small_mouth"),
+    UNTERSATZ_MOUTH_MEDIUM = block("untersatz/untersatz_medium_mouth"),
+    UNTERSATZ_MOUTH_LARGE = block("untersatz/untersatz_large_mouth"),
+    UNTERSATZ_MOUTH_HUGE = block("untersatz/untersatz_huge_mouth"),
+
     OPEN_WOOD_MOUTH_TINY = block("open_wood/open_wood_tiny_mouth"),
     OPEN_WOOD_MOUTH_SMALL = block("open_wood/open_wood_small_mouth"),
     OPEN_WOOD_MOUTH_MEDIUM = block("open_wood/open_wood_medium_mouth"),
@@ -79,6 +85,12 @@ public class AllPartialModels {
     TROMPETTE_MOUTH_MEDIUM = block("trompette/trompette_medium_mouth"),
     TROMPETTE_MOUTH_LARGE = block("trompette/trompette_large_mouth"),
     TROMPETTE_MOUTH_HUGE = block("trompette/trompette_huge_mouth"),
+
+    KRUMMHORN_MOUTH_TINY = block("krummhorn/krummhorn_tiny_mouth"),
+    KRUMMHORN_MOUTH_SMALL = block("krummhorn/krummhorn_small_mouth"),
+    KRUMMHORN_MOUTH_MEDIUM = block("krummhorn/krummhorn_medium_mouth"),
+    KRUMMHORN_MOUTH_LARGE = block("krummhorn/krummhorn_large_mouth"),
+    KRUMMHORN_MOUTH_HUGE = block("krummhorn/krummhorn_huge_mouth"),
 
     CHAMADE_MOUTH_TINY = block("chamade/chamade_tiny_mouth"),
     CHAMADE_MOUTH_SMALL = block("chamade/chamade_small_mouth"),
@@ -140,6 +152,7 @@ public class AllPartialModels {
     VOX_CELESTE_MOUTH_LARGE = block("vox_celeste/vox_celeste_large_mouth"),
     VOX_CELESTE_MOUTH_HUGE = block("vox_celeste/vox_celeste_huge_mouth"),
 
+    //Goggles easter egg
     GOGGLES_TINY = block("goggles/goggles_tiny"),
     GOGGLES_SMALL = block("goggles/goggles_small"),
     GOGGLES_MEDIUM = block("goggles/goggles_medium"),

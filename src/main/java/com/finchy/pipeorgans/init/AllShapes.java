@@ -9,6 +9,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class AllShapes {
 
+    //The generic shape
     public static VoxelShape genericPipeShape(PipeSize size, boolean wall, Direction facing) {
         VoxelShape base = wall? BASE.get(facing.getOpposite()) : BASE.get(Direction.UP);
         return shape(switch (size) {
@@ -20,7 +21,7 @@ public abstract class AllShapes {
                 }
         ).add(base).build();
     }
-
+    //Used for Reed Pipes (e.g. Trompette)
     public static VoxelShape slimPipeShape(PipeSize size, boolean wall, Direction facing) {
         VoxelShape base = wall? BASE.get(facing.getOpposite()) : BASE.get(Direction.UP);
         return shape(switch (size) {
@@ -32,7 +33,7 @@ public abstract class AllShapes {
                 }
         ).add(base).build();
     }
-
+    //Used for string pipes (e.g. Viola)
     public static VoxelShape stringPipeShape(PipeSize size, boolean wall, Direction facing) {
         VoxelShape base = wall? BASE.get(facing.getOpposite()) : BASE.get(Direction.UP);
         return shape(switch (size) {
@@ -44,7 +45,7 @@ public abstract class AllShapes {
                 }
         ).add(base).build();
     }
-
+    //Special shapes for horizontal pipes (e.g. Chamade)
     public static VoxelShape horizontalPipeShape(PipeSize size, boolean wall, Direction facing) {
         VoxelShape base = wall? BASE.get(facing.getOpposite()) : BASE.get(Direction.UP);
         return shape(switch (size) {
@@ -470,15 +471,18 @@ public abstract class AllShapes {
                 .add(5, 9, 5, 11, 11, 11)
                 .forHorizontal(Direction.NORTH),
 
+        //Keyboard Relay
         KBR = shape(0, 0, 4, 16, 2, 16)
                 .add(0, 2, 6, 16, 16, 16)
                 .forHorizontal(Direction.NORTH),
 
+        //Tracker Bar
         TRACKER_BAR = shape(0, 0, 0, 16, 3, 2)
                 .add(0, 0, 2, 16, 16, 16)
                 .add(0, 14, 0, 16, 16, 2)
                 .forHorizontal(Direction.NORTH),
 
+        //Roll Puncher
         ROLL_PUNCHER_HITBOX = shape(4, 0, 4, 12, 13, 12)
                 .add(0, 10, 2, 16, 13, 6)
                 .add(0, 11.5, 6, 16, 14.5, 10)

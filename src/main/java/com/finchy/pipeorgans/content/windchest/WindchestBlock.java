@@ -5,6 +5,7 @@ import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -106,15 +107,19 @@ public class WindchestBlock extends Block implements IWrenchable {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Level level = pContext.getLevel();
-        BlockPos clickedPos = pContext.getClickedPos();
+        BlockPos pos = pContext.getClickedPos();
+
         Direction facing = pContext.getHorizontalDirection();
-        Direction direction = pContext.getPlayer().isShiftKeyDown() ? facing.getOpposite() : facing;
+        Player player = pContext.getPlayer();
+
+        boolean sneaking = player != null && player.isShiftKeyDown();
+        Direction direction = sneaking ? facing.getOpposite() : facing;
 
         return Objects.requireNonNull(super.getStateForPlacement(pContext))
                 .setValue(FACING, direction)
-                .setValue(POWERED, isMasterPowered(level, direction, clickedPos));
-
+                .setValue(POWERED, isMasterPowered(level, direction, pos));
     }
+
 
     @Override
     public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean pMovedByPiston) {

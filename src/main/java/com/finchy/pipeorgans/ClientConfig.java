@@ -21,11 +21,22 @@ public class ClientConfig {
             .comment("If true, octave values in goggle tooltips are shown in parentheses.")
             .define("showOctaveBrackets", false);
 
+
+    //Sound Config
     public static final ForgeConfigSpec.DoubleValue WHISTLE_CHIFF_VOLUME = BUILDER
             .comment("Volume multiplier for whistle chiff sounds")
-            .defineInRange("whistleChiffVolume", 1.0, 0.0, 2.0);
+            .defineInRange("sounds.whistleChiffVolume", 1.0, 0.0, 2.0);
+
+    public static final ForgeConfigSpec.DoubleValue PIPE_ATTENUATION_DISTANCE = BUILDER
+            .comment("How far away you can hear pipes")
+            .defineInRange("sounds.pipeAttenuationDistance", 64.0, 1.0, 256.0);
+
+    public static final ForgeConfigSpec.DoubleValue PIPE_FADE_SPEED = BUILDER
+            .comment("How fast pipe sounds fade out per tick (higher = faster)")
+            .defineInRange("sounds.pipeFadeSpeed", 0.25d, 0.01d, 0.5d);
 
 
+    //Clipboard Assisted Placement Config (CAP)
     public static final ForgeConfigSpec.BooleanValue CAP_ENABLED = BUILDER
             .comment("Enable the clipboard-assisted placement mechanic.")
             .define("clipboardAssistedPlacement.enabled", true);
@@ -43,6 +54,8 @@ public class ClientConfig {
     public static boolean displayMutationSoundingPitch;
     public static boolean showOctaveBrackets;
     public static double whistleChiffVolume;
+    public static double pipeAttenuationDistance;
+    public static double pipeFadeSpeed;
     public static boolean capEnabled;
     public static CAPDirection capDefaultDirection;
     public static boolean capCopyMode;
@@ -52,6 +65,8 @@ public class ClientConfig {
         displayMutationSoundingPitch = DISPLAY_MUTATION_SOUNDING_PITCH.get();
         showOctaveBrackets = SHOW_OCTAVE_BRACKETS.get();
         whistleChiffVolume = WHISTLE_CHIFF_VOLUME.get();
+        pipeAttenuationDistance = PIPE_ATTENUATION_DISTANCE.get();
+        pipeFadeSpeed = PIPE_FADE_SPEED.get();
         capEnabled = CAP_ENABLED.get();
         capDefaultDirection = CAP_DEFAULT_DIRECTION.get();
         capCopyMode = CAP_COPY_MODE.get();

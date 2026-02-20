@@ -5,11 +5,13 @@ import net.minecraft.util.StringRepresentable;
 public class ExtensionShapes {
 
     public interface IExtensionShape<T extends Enum<T> & IExtensionShape<T>> {
-        // having the interface and enum as T lets the methods return the enum from which they are being called
-        // e.g., returning a specific extension value (see getConnected() and getFullBlock())
+        /*
+        Having the interface and enum as T lets the methods return the enum from which they are being called
 
-        // java pros if you read this, please don't execute me for stating simple stuff, i just have no idea what i'm doing :(((
+        e.g., returning a specific extension value (see getConnected() and getFullBlock())
 
+        Java pros if you read this, please don't execute me for stating simple stuff, I just have no idea what I'm doing :(((
+        */
         boolean isConnected(); // whether the blockstate indicates that there are more extensions after this one
 
         boolean isFullBlockLong(); // true if no more extensions can be fit into the block
@@ -22,11 +24,13 @@ public class ExtensionShapes {
 
         T getLongestNonConnected(); // return the second-last shape (before "connected")
 
-        // used in sneak wrenching
-        // returns the extension shape to set based on how far "up" the pipe the player clicked
-        // higher clickPosition indicates further out from the pipe, between 0 and 1
-        // e.g. for Double, if they clicked in the upper half, return the extension shape for the lower half (Double.SINGLE)
-        // if they clicked such that the entire thing should be removed, return null
+        /*
+        used in sneak wrenching
+        returns the extension shape to set based on how far "up" the pipe the player clicked
+        higher clickPosition indicates further out from the pipe, between 0 and 1
+        e.g. for Double, if they clicked in the upper half, return the extension shape for the lower half (Double.SINGLE)
+        if they clicked such that the entire thing should be removed, return null
+         */
         T getExtensionShapeForClickPosition(double clickPosition);
     }
 

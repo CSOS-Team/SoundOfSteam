@@ -6,6 +6,9 @@ import com.finchy.pipeorgans.advancement.SteamBaseTrigger;
 import com.finchy.pipeorgans.advancement.WaterPipeTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 
+/**
+ * Define all the custom advancement triggers here
+ */
 public class AllTriggers {
 
     public static final PipeGogglesTrigger PIPE_GOGGLES =
