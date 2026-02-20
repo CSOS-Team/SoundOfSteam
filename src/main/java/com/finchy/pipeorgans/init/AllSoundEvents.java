@@ -112,11 +112,11 @@ public class AllSoundEvents {
      CHAMADE_LOW = registerSoundEvent("chamade_low"),
      CHAMADE_DEEP = registerSoundEvent("chamade_deep"),
 
-    KRUMMHORN_SUPERHIGH = registerSoundEvent("krummhorn_superhigh"),
-    KRUMMHORN_HIGH = registerSoundEvent("krummhorn_high"),
-    KRUMMHORN_MEDIUM = registerSoundEvent("krummhorn_medium"),
-    KRUMMHORN_LOW = registerSoundEvent("krummhorn_low"),
-    KRUMMHORN_DEEP = registerSoundEvent("krummhorn_deep"),
+     KRUMMHORN_SUPERHIGH = registerSoundEvent("krummhorn_superhigh"),
+     KRUMMHORN_HIGH = registerSoundEvent("krummhorn_high"),
+     KRUMMHORN_MEDIUM = registerSoundEvent("krummhorn_medium"),
+     KRUMMHORN_LOW = registerSoundEvent("krummhorn_low"),
+     KRUMMHORN_DEEP = registerSoundEvent("krummhorn_deep"),
 
      ENGLISH_HORN_SUPERHIGH = registerSoundEvent("english_horn_superhigh"),
      ENGLISH_HORN_HIGH = registerSoundEvent("english_horn_high"),
@@ -124,11 +124,11 @@ public class AllSoundEvents {
      ENGLISH_HORN_LOW = registerSoundEvent("english_horn_low"),
      ENGLISH_HORN_DEEP = registerSoundEvent("english_horn_deep"),
 
-    CLARINET_SUPERHIGH = registerSoundEvent("clarinet_superhigh"),
-    CLARINET_HIGH = registerSoundEvent("clarinet_high"),
-    CLARINET_MEDIUM = registerSoundEvent("clarinet_medium"),
-    CLARINET_LOW = registerSoundEvent("clarinet_low"),
-    CLARINET_DEEP = registerSoundEvent("clarinet_deep"),
+     CLARINET_SUPERHIGH = registerSoundEvent("clarinet_superhigh"),
+     CLARINET_HIGH = registerSoundEvent("clarinet_high"),
+     CLARINET_MEDIUM = registerSoundEvent("clarinet_medium"),
+     CLARINET_LOW = registerSoundEvent("clarinet_low"),
+     CLARINET_DEEP = registerSoundEvent("clarinet_deep"),
 
      NASARD_SUPERHIGH = registerSoundEvent("nasard_superhigh"),
      NASARD_HIGH = registerSoundEvent("nasard_high"),
@@ -160,11 +160,11 @@ public class AllSoundEvents {
      VOX_HUMANA_LOW = registerSoundEvent("vox_humana_low"),
      VOX_HUMANA_DEEP = registerSoundEvent("vox_humana_deep"),
 
-    VOX_HUMANA_SUPERHIGH_TREM = registerSoundEvent("vox_humana_superhigh_trem"),
-    VOX_HUMANA_HIGH_TREM = registerSoundEvent("vox_humana_high_trem"),
-    VOX_HUMANA_MEDIUM_TREM = registerSoundEvent("vox_humana_medium_trem"),
-    VOX_HUMANA_LOW_TREM = registerSoundEvent("vox_humana_low_trem"),
-    VOX_HUMANA_DEEP_TREM = registerSoundEvent("vox_humana_deep_trem"),
+     VOX_HUMANA_SUPERHIGH_TREM = registerSoundEvent("vox_humana_superhigh_trem"),
+     VOX_HUMANA_HIGH_TREM = registerSoundEvent("vox_humana_high_trem"),
+     VOX_HUMANA_MEDIUM_TREM = registerSoundEvent("vox_humana_medium_trem"),
+     VOX_HUMANA_LOW_TREM = registerSoundEvent("vox_humana_low_trem"),
+     VOX_HUMANA_DEEP_TREM = registerSoundEvent("vox_humana_deep_trem"),
 
      VIOLA_SUPERHIGH = registerSoundEvent("viola_superhigh"),
      VIOLA_HIGH = registerSoundEvent("viola_high"),
@@ -178,9 +178,7 @@ public class AllSoundEvents {
      VOX_CELESTE_LOW = registerSoundEvent("vox_celeste_low"),
      VOX_CELESTE_DEEP = registerSoundEvent("vox_celeste_deep"),
 
-     HAUNTED_CHIFF = registerSoundEvent("haunted_chiff"),
-     STEAM_HISS = registerSoundEvent("steam_hiss"),
-
+    //Percussion sounds
     ZIMBLE_TWINKLE = registerSoundEvent("zimblestern_twinkle"),
     ZIMBLESTERN_PLACE = registerSoundEvent("zimblestern_place"),
     ZIMBLESTERN_STEP = registerSoundEvent("zimblestern_step"),
@@ -192,12 +190,7 @@ public class AllSoundEvents {
     SNARE_ROLL = registerSoundEvent("snare_roll"),
     BASS_TAP = registerSoundEvent("bass_tap"),
     BASS_ROLL = registerSoundEvent("bass_roll"),
-    BASS_FADE = registerSoundEvent("bass_fade"),
-
-
-    GROW_WOODEN_PIPE = registerSoundEvent("grow_wooden_pipe"),
-    GROW_METAL_PIPE = registerSoundEvent("grow_metal_pipe"),
-    GROW_HAUNTED_PIPE = registerSoundEvent("grow_haunted_pipe");
+    BASS_FADE = registerSoundEvent("bass_fade");
 
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
