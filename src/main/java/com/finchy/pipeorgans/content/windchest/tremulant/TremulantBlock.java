@@ -26,8 +26,8 @@ import java.lang.Override;
 public class TremulantBlock extends Block implements IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final BooleanProperty TREM = BooleanProperty.create("trem");
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED; //powered is just to show if the windchests are active
+    public static final BooleanProperty TREM = BooleanProperty.create("trem"); //whether the windchests should be wobbly
     public static final BooleanProperty WINDY = WindchestMasterBlock.WINDY;
 
     public TremulantBlock(Properties pProperties) {
@@ -54,7 +54,9 @@ public class TremulantBlock extends Block implements IWrenchable {
 
         if (frontState.getBlock() instanceof WindchestMasterBlock
                 && frontState.hasProperty(BlockStateProperties.POWERED)
-                && frontState.getValue(BlockStateProperties.POWERED)) {
+                && frontState.getValue(BlockStateProperties.POWERED)
+                && frontState.hasProperty(BlockStateProperties.HORIZONTAL_FACING)
+                && frontState.getValue(BlockStateProperties.HORIZONTAL_FACING) == pFacing.getOpposite()) {
             return true;
         }
         return false;
@@ -73,18 +75,20 @@ public class TremulantBlock extends Block implements IWrenchable {
         return false;
     }
 
-    private static void updateTrem(Level pLevel, BlockPos pPos, BlockState pState) {
+    public void updateTrem(Level pLevel, BlockPos pPos, BlockState pState) {
         Direction facing = pState.getValue(FACING);
-        BlockPos chestPos = pPos.relative(facing.getOpposite());
-        BlockState chestState = pLevel.getBlockState(chestPos);
+        BlockPos currentPos = pPos;
 
-        if (chestState.getBlock() instanceof WindchestBlock && chestState.hasProperty(TREM)) {
+        boolean trem = pState.getValue(TREM);
+        for (int i = 0; i <= 12; i++) {
+            currentPos = currentPos.relative(facing.getOpposite());
+            BlockState chestState = pLevel.getBlockState(currentPos);
+            if (chestState.getBlock() instanceof WindchestBlock && chestState.hasProperty(TREM)) {
 
-            boolean trem = pState.getValue(TREM);
-
-            if (chestState.getValue(TREM) !=trem) {
-                pLevel.setBlock(chestPos, chestState.setValue(TREM, trem), 3);
+                    pLevel.setBlock(currentPos, chestState.setValue(TREM, trem), 2);
+                    continue;
             }
+            return;
         }
     }
 

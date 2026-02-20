@@ -59,6 +59,13 @@ public class WindchestBlock extends Block implements IWrenchable {
         }
         return false;
     }
+    public boolean isTremActive(Level level, Direction facing, BlockPos pos) {
+        BlockPos masterPos = getMasterPos(level, facing, pos);
+        if (masterPos != pos) {
+            return level.getBlockState(masterPos).getValue(TREM);
+        }
+        return false;
+    }
 
     public boolean isMasterActive(Level level, Direction facing, BlockPos pos) {
         BlockPos masterPos = getMasterPos(level, facing, pos);
@@ -117,7 +124,8 @@ public class WindchestBlock extends Block implements IWrenchable {
 
         return Objects.requireNonNull(super.getStateForPlacement(pContext))
                 .setValue(FACING, direction)
-                .setValue(POWERED, isMasterPowered(level, direction, pos));
+                .setValue(POWERED, isMasterPowered(level, direction, pos))
+                .setValue(TREM, isTremActive(level, direction, pos));
     }
 
 
@@ -127,7 +135,8 @@ public class WindchestBlock extends Block implements IWrenchable {
         Direction facing = pState.getValue(FACING);
         if (pPos.relative(facing).equals(pNeighborPos) ) {
             pLevel.setBlock(pPos, pState
-                    .setValue(POWERED, isMasterPowered(pLevel, facing, pPos)), 3);
+                    .setValue(POWERED, isMasterPowered(pLevel, facing, pPos))
+                    .setValue(TREM, isTremActive(pLevel, facing, pPos)), 3);
         }
     }
 
