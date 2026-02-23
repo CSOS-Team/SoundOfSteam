@@ -61,8 +61,10 @@ public class WindchestBlock extends Block implements IWrenchable {
     }
     public boolean isTremActive(Level level, Direction facing, BlockPos pos) {
         BlockPos masterPos = getMasterPos(level, facing, pos);
-        if (masterPos != pos) {
-            return level.getBlockState(masterPos).getValue(TREM);
+        BlockState state = level.getBlockState(masterPos);
+
+        if (state.getBlock() instanceof TremulantBlock && state.hasProperty(TREM)) { //crashy crashy no more!
+            return state.getValue(TREM);
         }
         return false;
     }

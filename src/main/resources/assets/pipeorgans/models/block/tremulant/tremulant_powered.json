@@ -2,19 +2,20 @@
 	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "pipeorgans:block/tremulant/tremulant_powered"
+		"0": "pipeorgans:block/tremulant/tremulant",
+		"particle": "pipeorgans:block/tremulant/tremulant"
 	},
 	"elements": [
 		{
 			"from": [0, 0, 0],
-			"to": [16, 16, 16],
+			"to": [16, 11, 16],
 			"faces": {
-				"north": {"uv": [0, 0, 8, 8], "texture": "#1"},
-				"east": {"uv": [8, 0, 16, 8], "rotation": 90, "texture": "#1"},
-				"south": {"uv": [8, 8, 16, 16], "texture": "#1"},
-				"west": {"uv": [8, 0, 16, 8], "rotation": 270, "texture": "#1"},
-				"up": {"uv": [8, 0, 16, 8], "texture": "#1"},
-				"down": {"uv": [8, 0, 16, 8], "rotation": 180, "texture": "#1"}
+				"north": {"uv": [8, 13.25, 4, 16], "texture": "#0"},
+				"east": {"uv": [8, 9.25, 4, 12], "texture": "#0"},
+				"south": {"uv": [4, 13.25, 8, 16], "texture": "#0"},
+				"west": {"uv": [4, 9.25, 8, 12], "texture": "#0"},
+				"up": {"uv": [12, 12, 16, 16], "texture": "#0"},
+				"down": {"uv": [12, 12, 16, 16], "texture": "#0"}
 			}
 		}
 	],

@@ -12,6 +12,7 @@ public class AllPartialModels {
     TRACKER_BAR_PAPER = block("tracker_bar/paper"),
 
     ZIMBLE_SPINNYTHING = block("zimblestern/spinny_thing"),
+    TREM_TOP = block("tremulant/trem_top"),
 
     GEDECKT_MOUTH_TINY = block("gedeckt/gedeckt_tiny_mouth"),
     GEDECKT_MOUTH_SMALL = block("gedeckt/gedeckt_small_mouth"),

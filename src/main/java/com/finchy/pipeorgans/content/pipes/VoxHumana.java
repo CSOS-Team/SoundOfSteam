@@ -3,12 +3,12 @@ package com.finchy.pipeorgans.content.pipes;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadrupleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadruplePipeBlock;
+import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
@@ -60,6 +60,19 @@ public class VoxHumana {
         public VoxHumanaBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
             super(type, pos, blockState,
                     AllBlocks.VOX_HUMANA, AllBlocks.VOX_HUMANA_EXTENSION);
+        }
+        @java.lang.Override
+        public void tick() {
+            super.tick();
+            if (!level.isClientSide) return;
+            BlockState state = getBlockState();
+            BlockPos attachedPos = getBlockPos().relative(pipeBlock.get().getAttachedDirection(state));
+            BlockState attachedState = level.getBlockState(attachedPos);
+            boolean isTremActive = false;
+
+            if (attachedState.getBlock() instanceof WindchestBlock windchest) {
+                isTremActive = windchest.isTremActive(level,attachedState.getValue(GenericPipeBlock.FACING), attachedPos);
+            }
         }
 
         @OnlyIn(Dist.CLIENT)

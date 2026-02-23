@@ -18,6 +18,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -130,7 +132,9 @@ public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.
         }
 
         if (!pState.canSurvive(pLevel, pPos)) {
-            pLevel.scheduleTick(pPos, this, 1);
+            if (pLevel instanceof ServerLevel serverLevel) {
+                serverLevel.destroyBlock(pPos, false);
+            }
             return pState;
         }
 
@@ -139,13 +143,6 @@ public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.
                 pLevel.getBlockState(pPos.relative(pipeOutDirection.getOpposite()))
                         .getValue(SIZE)
         );
-    }
-
-    @java.lang.Override
-    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        if (!pState.canSurvive(pLevel, pPos)) {
-            pLevel.destroyBlock(pPos, false);
-        }
     }
 
     @Override
@@ -196,5 +193,18 @@ public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
         return new ItemStack(pipeBlock);
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        if (state.hasProperty(FACING)) {
+            return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+        }
+        return state;
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return rotate(state, mirror.getRotation(state.getValue(FACING)));
     }
 }
