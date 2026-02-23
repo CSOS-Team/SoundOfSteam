@@ -1,6 +1,7 @@
 name: Bug Report
 description: "Report some other kind of issue."
-labels: [ "bug" ]
+labels: [ "Type: Bug" ]
+type: "Bug"
 body:
   - type: textarea
     attributes:
@@ -16,8 +17,8 @@ body:
     attributes:
       label: Game Log & Crash Report (if applicable)
       description: >
-        We may need the game/crash log for additional information.
-        This file can be found in the \"logs\" or \"crash-reports\" folder of your Minecraft folder as \"latest.log\" or \"crash-*.txt"\.
+        We may need the game log for additional information.
+        This file can be found in the \"logs\" folder of your Minecraft folder as \"latest.log\".
         Please upload the file to https://mclo.gs/ and put the link here.
         **DO NOT** paste the file or its raw here, as that makes it harder to examine, and reduces the chance that we will be able to help you.
     validations:
@@ -30,6 +31,7 @@ body:
         Please run the \"/create debuginfo\" command in-game.
         This will copy useful information to your clipboard that will greatly help with debugging.
         Please paste this information here.
+        **This is required and needed for debugging, so please don't leave this empty or add something else!**
     validations:
       required: true
 

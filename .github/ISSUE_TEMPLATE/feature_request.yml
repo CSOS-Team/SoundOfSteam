@@ -1,12 +1,19 @@
 name: Feature request
 description: "Suggest an idea for the mod"
-labels: [ "enhancement" ]
+labels: [ "Type: Enhancement" ]
+type: "Feature"
 body:
+  - - type: textarea
+  - attributes:
+  - label: What feature do you want to be added?
+  - description: >
+      Please describe what you want to be added.
+
   - type: textarea
     attributes:
       label: Is your feature request related to a problem? Please describe.
       description: >
-        A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]. Leave empty if not.
+        A clear and concise description of what the problem is. e.g. \"I'm always frustrated when [...].\" Leave empty if not.
     validations:
       required: false
 
@@ -24,7 +31,7 @@ body:
       description: >
         A clear and concise description of any alternative solutions or features you've considered.
     validations:
-      required: true
+      required: false
 
   - type: textarea
     attributes:
