@@ -1,5 +1,5 @@
 name: Bug Report
-description: "Report some other kind of issue."
+description: "Report a crash."
 labels: [ "Type: Crash" ]
 type: "Bug"
 body:

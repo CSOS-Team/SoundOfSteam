@@ -1,5 +1,5 @@
 name: Feature request
-description: "Suggest an idea for the mod"
+description: "Suggest an idea/change for the documentation"
 labels: [ "Type: Enhancement" ]
 type: "Feature"
 body:

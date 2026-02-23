@@ -1,5 +1,5 @@
 name: Bug Report
-description: "Report some other kind of issue."
+description: "Report some other kind of incompatibility with another mod."
 labels: [ "Type: Compatibility" ]
 type: "Bug"
 body:
