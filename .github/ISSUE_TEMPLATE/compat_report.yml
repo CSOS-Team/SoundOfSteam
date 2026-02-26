@@ -1,4 +1,4 @@
-name: Bug Report
+name: Compatibility Report
 description: "Report some other kind of incompatibility with another mod."
 labels: [ "Type: Compatibility" ]
 body:
