@@ -1,13 +1,14 @@
 name: Feature request
 description: "Suggest an idea for the mod"
 labels: [ "Type: Enhancement" ]
-type: "Feature"
 body:
-  - - type: textarea
-  - attributes:
-  - label: What feature do you want to be added?
-  - description: >
-      Please describe what you want to be added.
+  - type: textarea
+    attributes:
+      label: What feature do you want to be added?
+      description: >
+        Please describe what you want to be added.
+    validations:
+      required: true
 
   - type: textarea
     attributes:
