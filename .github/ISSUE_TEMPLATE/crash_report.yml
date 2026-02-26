@@ -1,24 +1,23 @@
 name: Bug Report
-description: "Report some other kind of issue."
-labels: [ "Type: Bug" ]
+description: "Report a crash."
+labels: [ "Type: Crash" ]
 type: "Bug"
 body:
   - type: textarea
     attributes:
       label: Description
       description: >
-        Please describe the issue in as much detail as possible.
-        Explain what happened, and what you expected to have happened instead.
+        Please describe the crash in as much detail as possible.
         Include images, screenshots, or videos if applicable.
     validations:
       required: true
 
   - type: input
     attributes:
-      label: Game Log (if applicable)
+      label: Crash Report
       description: >
-        We may need the game log for additional information.
-        This file can be found in the \"logs\" folder of your Minecraft folder as \"latest.log\".
+        We may need the crash report for additional information.
+        This file can be found in the \"crash-reports\" folder of your Minecraft folder as \"crash-*.txt"\.
         Please upload the file to https://mclo.gs/ and put the link here.
         **DO NOT** paste the file or its raw here, as that makes it harder to examine, and reduces the chance that we will be able to help you.
     validations:
@@ -28,10 +27,11 @@ body:
     attributes:
       label: Debug Information
       description: >
-        Please run the \"/create debuginfo\" command in-game.
+        If possible please run the \"/create debuginfo\" command in-game.
         This will copy useful information to your clipboard that will greatly help with debugging.
         Please paste this information here.
-        **This is required and needed for debugging, so please don't leave this empty or add something else!**
+        
+        If that is not possible, please shortly describe which version you are using, which addons and on what operating system you are etc.
     validations:
       required: true
 

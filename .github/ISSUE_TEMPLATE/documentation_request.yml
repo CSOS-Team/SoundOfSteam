@@ -1,21 +1,16 @@
 name: Feature request
-description: "Suggest an idea for the mod"
-labels: [ "Type: Enhancement" ]
+description: "Suggest an idea/change for the documentation"
+labels: [ "Type: Documentation" ]
 type: "Feature"
 body:
-  - - type: textarea
-  - attributes:
-  - label: What feature do you want to be added?
-  - description: >
-      Please describe what you want to be added.
-
   - type: textarea
     attributes:
-      label: Is your feature request related to a problem? Please describe.
-      description: >
-        A clear and concise description of what the problem is. e.g. \"I'm always frustrated when [...].\" Leave empty if not.
+    label: Which page would you like to have added to/changed?
+    description: >
+      Please describe what you want to be added/changed.
     validations:
-      required: false
+        required: true
+
 
   - type: textarea
     attributes:

@@ -1,6 +1,6 @@
 name: Bug Report
-description: "Report some other kind of issue."
-labels: [ "Type: Bug" ]
+description: "Report some other kind of incompatibility with another mod."
+labels: [ "Type: Compatibility" ]
 type: "Bug"
 body:
   - type: textarea
@@ -22,7 +22,7 @@ body:
         Please upload the file to https://mclo.gs/ and put the link here.
         **DO NOT** paste the file or its raw here, as that makes it harder to examine, and reduces the chance that we will be able to help you.
     validations:
-      required: true
+      required: false
 
   - type: textarea
     attributes:
