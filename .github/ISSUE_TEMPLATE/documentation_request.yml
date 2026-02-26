@@ -1,11 +1,11 @@
 name: Feature request
 description: "Suggest an idea/change for the documentation"
-labels: [ "Type: Enhancement" ]
+labels: [ "Type: Documentation" ]
 type: "Feature"
 body:
   - type: textarea
     attributes:
-    label: What site do you want to be added/changed?
+    label: Which page would you like to have added to/changed?
     description: >
       Please describe what you want to be added/changed.
     validations:
