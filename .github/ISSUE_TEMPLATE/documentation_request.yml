@@ -1,7 +1,6 @@
 name: Feature request
 description: "Suggest an idea/change for the documentation"
 labels: [ "Type: Enhancement" ]
-type: "Feature"
 body:
   - type: textarea
     attributes:

@@ -1,7 +1,6 @@
 name: Bug Report
 description: "Report a crash."
 labels: [ "Type: Crash" ]
-type: "Bug"
 body:
   - type: textarea
     attributes:
