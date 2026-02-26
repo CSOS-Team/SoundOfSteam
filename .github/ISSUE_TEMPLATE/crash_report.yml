@@ -1,4 +1,4 @@
-name: Bug Report
+name: Crash Report
 description: "Report a crash."
 labels: [ "Type: Crash" ]
 body:
