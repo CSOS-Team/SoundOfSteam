@@ -48,6 +48,7 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.NOTE_LINK.get());
                         output.accept(AllItems.BRASS_BOOT.get());
                         output.accept(AllItems.COPPER_BOOT.get());
+                        output.accept(AllItems.REINFORCED_COPPER_BOOT.get());
                         output.accept(AllItems.IRON_BOOT.get());
                         output.accept(AllItems.DARK_OAK_BOOT.get());
                         output.accept(AllItems.BRASSBOUND_BOOT.get());
