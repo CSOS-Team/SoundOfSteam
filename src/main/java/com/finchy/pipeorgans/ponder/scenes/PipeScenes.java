@@ -54,7 +54,7 @@ public class PipeScenes {
         BlockPos windchestPipePos = util.grid().at(3, 2, 2);
         PonderPipe<ExtensionShapes.Double> windchestPipe = new PonderPipe<>(
                 scene, util,
-                boilerPipePos, PipeSize.MEDIUM, Direction.NORTH, false, false,
+                windchestPipePos, PipeSize.MEDIUM, Direction.NORTH, false, false,
                 0,
                 AllBlocks.DIAPASON.get(), AllBlocks.DIAPASON_EXTENSION.get(),
                 PonderPipe.Transition.NONE
@@ -129,6 +129,10 @@ public class PipeScenes {
 
         scene.world().toggleRedstonePower(boilerLever); // toggle boiler lever power
         scene.world().toggleRedstonePower(boilerPipe.getMaximumPipeSelection()); // toggle boiler pipe power
+
+        scene.world().toggleRedstonePower(controllerLever); // toggle controller lever power
+        scene.world().toggleRedstonePower(windchestLever); // toggle windchest lever power
+        scene.world().toggleRedstonePower(windchestPipe.getMaximumPipeSelection()); // toggle windchest pipe power
 
         scene.idle(PonderTimings.BUILD_STEP);
         scene.world().hideSection(fan, Direction.EAST); // hide fan

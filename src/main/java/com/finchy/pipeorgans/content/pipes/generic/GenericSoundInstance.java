@@ -52,6 +52,9 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
 
     @Override
     public void tick() {
+        
+        // TODO: make the pipes stop playing when unpowered in ponders (or just don't make them make sound in ponders)
+        
         if (Minecraft.getInstance().player == null) {
             stop();
             return;

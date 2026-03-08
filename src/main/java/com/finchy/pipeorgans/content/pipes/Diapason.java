@@ -78,17 +78,26 @@ public class Diapason {
             float maxVolume = (float) Mth.clamp((64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64, 0, 1);
 
             if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
-                Minecraft.getInstance()
-                        .getSoundManager()
-                        .play(soundInstance = new DiapasonSoundInstance(size, worldPosition));
+                
+                if (!isVirtual()) {
+                    // kind of a cheat, but if the pipe is in a ponder, just don't make any sound
+                    // this is only applied to the diapason since it's the only pipe that activates in ponders;
+                    // if other pipes are activated in future ponders, then we'll probably just do this to every pipe
+                    
+                    Minecraft.getInstance()
+                            .getSoundManager()
+                            .play(soundInstance = new DiapasonSoundInstance(size, worldPosition));
 
-                playChiffSound(0.1f);
+                    playChiffSound(0.1f);
+                }
 
                 particle = true;
             }
-
-            soundInstance.keepAlive();
-            soundInstance.setPitch(f);
+            
+            if (soundInstance != null) {
+                soundInstance.keepAlive();
+                soundInstance.setPitch(f);
+            }
 
             if (!particle)
                 return;
