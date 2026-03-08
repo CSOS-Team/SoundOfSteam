@@ -5,7 +5,6 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -17,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,6 +46,8 @@ public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.
 
         this.pipeBlock = pipeBlock;
         this.voxelShapeGetter = voxelShapeGetter;
+        
+        registerDefaultStateWithShape();
     }
 
     protected abstract void registerDefaultStateWithShape();
@@ -197,14 +197,15 @@ public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.
 
     @Override
     public BlockState rotate(BlockState state, Rotation rotation) {
-        if (state.hasProperty(FACING)) {
+        if (state.hasProperty(FACING))
             return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
-        }
         return state;
     }
 
     @Override
     public BlockState mirror(BlockState state, Mirror mirror) {
-        return rotate(state, mirror.getRotation(state.getValue(FACING)));
+        if (state.hasProperty(FACING))
+            return mirror == Mirror.NONE ? state : state.rotate(mirror.getRotation(state.getValue(FACING)));
+        return state;
     }
 }
