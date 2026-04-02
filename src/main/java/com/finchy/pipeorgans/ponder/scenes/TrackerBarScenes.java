@@ -18,32 +18,41 @@ public class TrackerBarScenes {
         CreateSceneBuilder scene = new CreateSceneBuilder(builder);
 
         scene.title("tracker_bar", "Playing music rolls");
-        scene.configureBasePlate(0, 0, 5);
+        scene.configureBasePlate(1, 1, 7);
 
         scene.showBasePlate();
         scene.idle(PonderTimings.BUILD_STEP);
 
-        BlockPos trackerBar = util.grid().at(2, 1, 1);
+        BlockPos trackerBar = util.grid().at(4, 1, 4);
 
         // Large cogwheel
-        scene.world().showSection(util.select().position(5, 0, 0), Direction.DOWN);
+        scene.world().showSection(util.select().position(8, 0, 4), Direction.DOWN);
         scene.idle(PonderTimings.BUILD_STEP);
 
-        for (int i = 5; i > 1; i--) {
-            scene.world().showSection(util.select().position(i, 1, 1), Direction.DOWN);
+        for (int i = 8; i > 3; i--) { // reveal shafts and tracker bar
+            scene.world().showSection(util.select().position(i, 1, 3), Direction.DOWN);
             scene.idle(PonderTimings.BUILD_STEP);
         }
 
-        for (int xPos = 0; xPos < 6; xPos++) {
-            PonderUtil.revealBlocks(scene, util, util.select().fromTo(xPos, 1, 3, xPos, 6, 4), 2);
+        for (int xPos = 7; xPos >= 5; xPos--) { // reveal diapasons
+            PonderUtil.revealBlocks(scene, util, util.select().fromTo(xPos, 1, 5, xPos, 6, 6), 2);
+        }
+        
+        scene.idle(6);
+
+        for (int xPos = 3; xPos >= 1; xPos--) { // reveal trompettes
+            PonderUtil.revealBlocks(scene, util, util.select().fromTo(xPos, 1, 5, xPos, 6, 6), 2);
         }
 
         scene.addKeyframe();
 
         scene.overlay().showText(PonderTimings.READING_TIME)
-                .text("The tracker bar is used to play MIDI files through music rolls, which you can create with the Roll Authoring Table")
+                .text("The Tracker Bar is used to play MIDI files from music rolls")
                 .placeNearTarget()
                 .pointAt(trackerBar.getCenter());
+        
+        //When playing a note, it will activate any note links that match the note and assigned frequency
+        //Use the GUI to assign frequency items to each instrument in the MIDI file
 
         scene.idle(PonderTimings.READING_WINDOW);
 

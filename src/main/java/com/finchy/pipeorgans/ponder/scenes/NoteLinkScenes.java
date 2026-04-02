@@ -115,7 +115,7 @@ public class NoteLinkScenes {
 
         // Introduction
         revealer.revealSections(revealer.constructSectionsFromSelections(Direction.SOUTH, null, receiverLeft, receiverMiddle, receiverRight));
-        textDisplay.showAndIdle(receiverRight.textOnCenter("Note links are a kind of Redstone Link that lets you transmit and receive musical notes", true, true));
+        textDisplay.showAndIdle(receiverRight.textOnCenter("Note links are a kind of Redstone Link that let you transmit and receive musical notes", true, true));
         textDisplay.showAndIdle(receiverRight.textOnCenter("Like Redstone Links, Note Links can transmit redstone signals wirelessly within 256 blocks", false, true));
 
         // Mode switching

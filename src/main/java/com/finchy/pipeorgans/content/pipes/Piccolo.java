@@ -160,11 +160,16 @@ public class Piccolo {
             );
 
             if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
-                Minecraft.getInstance()
-                        .getSoundManager()
-                        .play(soundInstance = new PiccoloSoundInstance(size, worldPosition));
 
-                playChiffSound(0.1f);
+                if (!isVirtual()) {
+
+                    Minecraft.getInstance()
+                            .getSoundManager()
+                            .play(soundInstance = new PiccoloSoundInstance(size, worldPosition));
+
+                    playChiffSound(0.1f);
+                }
+
                 particle = true;
             }
 

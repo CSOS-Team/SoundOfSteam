@@ -81,11 +81,15 @@ public class Tierce {
             float maxVolume = (float) Mth.clamp((64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64, 0, 1);
 
             if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
-                Minecraft.getInstance()
-                        .getSoundManager()
-                        .play(soundInstance = new TierceSoundInstance(size, worldPosition));
 
-                playChiffSound(0.1f);
+                if (!isVirtual()) {
+
+                    Minecraft.getInstance()
+                            .getSoundManager()
+                            .play(soundInstance = new TierceSoundInstance(size, worldPosition));
+
+                    playChiffSound(0.1f);
+                }
 
                 particle = true;
             }

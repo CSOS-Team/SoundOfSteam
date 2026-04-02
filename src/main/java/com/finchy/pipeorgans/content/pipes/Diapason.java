@@ -80,9 +80,6 @@ public class Diapason {
             if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
                 
                 if (!isVirtual()) {
-                    // kind of a cheat, but if the pipe is in a ponder, just don't make any sound
-                    // this is only applied to the diapason since it's the only pipe that activates in ponders;
-                    // if other pipes are activated in future ponders, then we'll probably just do this to every pipe
                     
                     Minecraft.getInstance()
                             .getSoundManager()
