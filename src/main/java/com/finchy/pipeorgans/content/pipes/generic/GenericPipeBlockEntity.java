@@ -173,9 +173,8 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
 
             if (!isVirtual()) {
                 handleSoundInstance(size);
+                particle = true;
             }
-
-            particle = true;
         }
 
         if (soundInstance != null) {

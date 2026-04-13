@@ -157,11 +157,9 @@ public class Piccolo {
             if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
 
                 if (!isVirtual()) {
-
                     handleSoundInstance(size);
+                    particle = true;
                 }
-
-                particle = true;
             }
 
             if (soundInstance != null) {

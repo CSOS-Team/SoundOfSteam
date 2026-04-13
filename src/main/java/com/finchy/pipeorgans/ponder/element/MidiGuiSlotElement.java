@@ -9,6 +9,7 @@ import net.createmod.catnip.math.Pointing;
 import net.createmod.ponder.foundation.PonderScene;
 import net.createmod.ponder.foundation.element.AnimatedOverlayElementBase;
 import net.createmod.ponder.foundation.ui.PonderUI;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -19,13 +20,15 @@ public class MidiGuiSlotElement extends AnimatedOverlayElementBase {
     private final Vec3 sceneSpace;
     private final Pointing direction;
     private final ItemStack item;
+    private final int channel;
 
     private static final MidiGuiSlotSprite SPRITE = new MidiGuiSlotSprite();
 
-    public MidiGuiSlotElement(Vec3 sceneSpace, Pointing direction, ItemStack item) {
+    public MidiGuiSlotElement(Vec3 sceneSpace, Pointing direction, ItemStack item, int channel) {
         this.sceneSpace = sceneSpace;
         this.direction = direction;
         this.item = item;
+        this.channel = channel;
     }
 
     @Override
@@ -53,6 +56,8 @@ public class MidiGuiSlotElement extends AnimatedOverlayElementBase {
         poseStack.pushPose();
         SPRITE.render(graphics, 1, 1);
         poseStack.popPose();
+
+        graphics.drawString(Minecraft.getInstance().font, String.valueOf(channel), 7, 6, 16777215);
 
         if (!item.isEmpty()) {
             GuiGameElement.of(item)

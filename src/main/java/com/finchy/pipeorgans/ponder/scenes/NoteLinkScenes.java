@@ -241,7 +241,7 @@ public class NoteLinkScenes {
         textDisplay.showAndIdle(SmartText.plainPointing("They can also interface with the Tracker Bar...", trackerBarPos.getCenter().add(0, 0, 1), true, true));
         textDisplay.showAndIdle(SmartText.plainPointing("...and the Keyboard Relay", keyboardRelayPos.getCenter().add(0, 0, 1), false, true));
         scene.idle(10);
-        PonderUtil.showMidiGuiSlot(scene, util.vector().blockSurface(new BlockPos(4, 1, 1), Direction.UP), Pointing.DOWN, AllBlocks.DIAPASON.asStack(), 70);
+        PonderUtil.showMidiGuiSlot(scene, util.vector().blockSurface(new BlockPos(4, 1, 1), Direction.UP), Pointing.DOWN, AllBlocks.DIAPASON.asStack(), 1, 70);
         scene.idle(10);
         textDisplay.showAndIdle(SmartText.plainPointing("Simply set the MIDI channel in the block's GUI, and it will automatically activate the correct Note Links", new BlockPos(3, 1, 1).getCenter(), false, true));
 

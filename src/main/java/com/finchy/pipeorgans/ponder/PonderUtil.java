@@ -57,8 +57,8 @@ public final class PonderUtil {
         showWrenchInteraction(scene, pos, dir, shift, control, PonderTimings.INTERACTION_DISPLAY_TIME);
     }
 
-    public static void showMidiGuiSlot(CreateSceneBuilder scene, Vec3 pos, Pointing dir, ItemStack item, int duration) {
-        MidiGuiSlotElement midiGuiSlotElement = new MidiGuiSlotElement(pos, dir, item);
+    public static void showMidiGuiSlot(CreateSceneBuilder scene, Vec3 pos, Pointing dir, ItemStack item, int channel, int duration) {
+        MidiGuiSlotElement midiGuiSlotElement = new MidiGuiSlotElement(pos, dir, item, channel);
         scene.addInstruction(new ShowMidiGuiSlotInstruction(midiGuiSlotElement, duration));
     }
 
@@ -90,7 +90,7 @@ public final class PonderUtil {
         TextElementBuilder textBuilder = scene.overlay().showText(duration - 10)
                 .text(text)
                 .colored(PonderPalette.BLUE)
-                .pointAt(pos.add(-.5f, 0, .5f));
+                .pointAt(pos);
 
         if (attachKeyFrame)
             textBuilder.attachKeyFrame();

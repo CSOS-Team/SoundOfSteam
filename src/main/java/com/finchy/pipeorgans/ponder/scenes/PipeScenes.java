@@ -228,17 +228,17 @@ public class PipeScenes {
         boilerPipe.cyclePipeSize(); // medium
         scene.idle(40);
 
-        scene.overlay().showText(80)
+        scene.overlay().showText(70)
                 .attachKeyFrame()
                 .colored(PonderPalette.BLUE)
                 .text("Engineer's Goggles can help to find out the current pitch and octave of a Pipe")
-                .pointAt(util.vector().blockSurface(util.grid().at(2, 2, 2), Direction.DOWN))
+                .pointAt(util.vector().blockSurface(util.grid().at(2, 2, 2), Direction.WEST))
                 .placeNearTarget();
         scene.idle(70);
 
-        PonderUtil.displayGoggleHint(scene, util.grid().at(2, 2, 2).getCenter(),
+        PonderUtil.displayGoggleHint(scene, util.vector().blockSurface(util.grid().at(2, 2, 2), Direction.SOUTH), 
                 "C#4", 60,
-                true, true);
+                false, true);
 
         scene.markAsFinished();
     }
