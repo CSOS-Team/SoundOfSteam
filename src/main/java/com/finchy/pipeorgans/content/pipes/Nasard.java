@@ -1,6 +1,5 @@
 package com.finchy.pipeorgans.content.pipes;
 
-import com.finchy.pipeorgans.ClientConfig;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
@@ -9,9 +8,7 @@ import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllPartialModels;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import com.simibubi.create.foundation.utility.CreateLang;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.animation.AnimationTickHolder;
 import net.createmod.catnip.math.AngleHelper;
@@ -22,15 +19,9 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.util.List;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
@@ -61,46 +52,13 @@ public class Nasard {
                     AllBlocks.NASARD, AllBlocks.NASARD_EXTENSION);
         }
 
-        @OnlyIn(Dist.CLIENT)
-        protected NasardSoundInstance soundInstance;
-
         @Override
-        @OnlyIn(Dist.CLIENT)
-        protected void tickAudio(PipeSize size, boolean powered) {
-            if (!powered) {
-                if (soundInstance != null) {
-                    soundInstance.fadeOut();
-                    soundInstance = null;
-                }
-                return;
-            }
+        protected void handleSoundInstance(PipeSize size) {
+            Minecraft.getInstance()
+                    .getSoundManager()
+                    .play(soundInstance = new NasardSoundInstance(size, worldPosition));
 
-            float f = (float) Math.pow(2, -pitch / 12.0);
-            boolean particle = level.getGameTime() % 8 == 0;
-            Vec3 eyePosition = Minecraft.getInstance().cameraEntity.getEyePosition();
-            float maxVolume = (float) Mth.clamp((64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64, 0, 1);
-
-            if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
-
-                if (!isVirtual()) {
-
-                    Minecraft.getInstance()
-                            .getSoundManager()
-                            .play(soundInstance = new NasardSoundInstance(size, worldPosition));
-
-                    playChiffSound(0.1f);
-                }
-
-                particle = true;
-            }
-
-            soundInstance.keepAlive();
-            soundInstance.setPitch(f);
-
-            if (!particle)
-                return;
-
-            createSteamJet(size);
+            playChiffSound(0.1f);
         }
     }
 

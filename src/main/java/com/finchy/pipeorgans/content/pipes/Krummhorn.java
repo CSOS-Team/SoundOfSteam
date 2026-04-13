@@ -18,12 +18,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
@@ -54,45 +50,17 @@ public class Krummhorn {
                     AllBlocks.KRUMMHORN, AllBlocks.KRUMMHORN_EXTENSION);
         }
 
-        @OnlyIn(Dist.CLIENT)
-        protected KrumhornSoundInstance soundInstance;
+        @Override
+        protected void handleSoundInstance(PipeSize size) {
+            Minecraft.getInstance()
+                    .getSoundManager()
+                    .play(soundInstance = new KrummhornSoundInstance(size, worldPosition));
+
+            playChiffSound(0.1f);
+        }
 
         @Override
-        @OnlyIn(Dist.CLIENT)
-        protected void tickAudio(PipeSize size, boolean powered) {
-            if (!powered) {
-                if (soundInstance != null) {
-                    soundInstance.fadeOut();
-                    soundInstance = null;
-                }
-                return;
-            }
-
-            float f = (float) Math.pow(2, -pitch / 12.0);
-            boolean particle = level.getGameTime() % 8 == 0;
-            Vec3 eyePosition = Minecraft.getInstance().cameraEntity.getEyePosition();
-            float maxVolume = (float) Mth.clamp((64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64, 0, 1);
-
-            if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
-
-                if (!isVirtual()) {
-
-                    Minecraft.getInstance()
-                            .getSoundManager()
-                            .play(soundInstance = new KrumhornSoundInstance(size, worldPosition));
-
-                    playChiffSound(0.1f);
-                }
-
-                particle = true;
-            }
-
-            soundInstance.keepAlive();
-            soundInstance.setPitch(f);
-
-            if (!particle)
-                return;
-
+        public void createSteamJet(PipeSize size) {
             createReedSteamJet();
         }
     }
@@ -148,9 +116,9 @@ public class Krummhorn {
         }
     }
 
-    public static class KrumhornSoundInstance extends GenericSoundInstance {
+    public static class KrummhornSoundInstance extends GenericSoundInstance {
 
-        public KrumhornSoundInstance(PipeSize size, BlockPos worldPosition) {
+        public KrummhornSoundInstance(PipeSize size, BlockPos worldPosition) {
             super(size, worldPosition,
                     (switch (size) {
                         case TINY -> KRUMMHORN_SUPERHIGH;

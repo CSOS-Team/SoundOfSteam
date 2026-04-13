@@ -19,6 +19,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,8 +27,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraft.util.Mth;
-
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -153,7 +152,44 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
     }
 
     @OnlyIn(Dist.CLIENT)
-    protected abstract void tickAudio(PipeSize size, boolean powered);
+    protected GenericSoundInstance soundInstance;
+
+    @OnlyIn(Dist.CLIENT)
+    protected void tickAudio(PipeSize size, boolean powered) {
+        if (!powered) {
+            if (soundInstance != null) {
+                soundInstance.fadeOut();
+                soundInstance = null;
+            }
+            return;
+        }
+
+        float f = (float) Math.pow(2, -pitch / 12.0);
+        boolean particle = level.getGameTime() % 8 == 0;
+        Vec3 eyePosition = Minecraft.getInstance().cameraEntity.getEyePosition();
+        float maxVolume = (float) Mth.clamp((64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64, 0, 1);
+
+        if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
+
+            if (!isVirtual()) {
+                handleSoundInstance(size);
+            }
+
+            particle = true;
+        }
+
+        if (soundInstance != null) {
+            soundInstance.keepAlive();
+            soundInstance.setPitch(f);
+        }
+
+        if (!particle)
+            return;
+
+        createSteamJet(size);
+    }
+    
+    protected abstract void handleSoundInstance(PipeSize size);
 
     public void createSteamJet(PipeSize size) {
         Direction facing = getBlockState().getOptionalValue(GenericPipeBlock.FACING)

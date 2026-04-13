@@ -1,10 +1,14 @@
 package com.finchy.pipeorgans.content.pipes;
 
+import com.finchy.pipeorgans.ClientConfig;
 import com.finchy.pipeorgans.content.particles.hauntedJet.HauntedJetParticleData;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoubleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.DoublePipeBlock;
-import com.finchy.pipeorgans.init.*;
+import com.finchy.pipeorgans.init.AllBlockEntities;
+import com.finchy.pipeorgans.init.AllBlocks;
+import com.finchy.pipeorgans.init.AllPartialModels;
+import com.finchy.pipeorgans.init.AllShapes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
@@ -23,8 +27,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
@@ -55,48 +57,40 @@ public class HauntedWhistle {
                     AllBlocks.HAUNTED_WHISTLE, AllBlocks.HAUNTED_WHISTLE_EXTENSION);
         }
 
-        @OnlyIn(Dist.CLIENT)
-        protected HauntedWhistleSoundInstance soundInstance;
+        @Override
+        protected void handleSoundInstance(PipeSize size) {
+            Minecraft.getInstance()
+                    .getSoundManager()
+                    .play(soundInstance = new HauntedWhistleSoundInstance(size, worldPosition));
+
+            playChiffSound(0.1f);
+        }
 
         @Override
-        @OnlyIn(Dist.CLIENT)
-        protected void tickAudio(PipeSize size, boolean powered) {
-            if (!powered) {
-                if (soundInstance != null) {
-                    soundInstance.fadeOut();
-                    soundInstance = null;
-                }
+        protected void playChiffSound(float baseVolume) {
+            if (level == null)
                 return;
-            }
 
-            float f = (float) Math.pow(2, -pitch / 12.0);
-            boolean particle = level.getGameTime() % 8 == 0;
+            float pitchFactor = (float) Math.pow(2, -pitch / 12.0);
+
             Vec3 eyePosition = Minecraft.getInstance().cameraEntity.getEyePosition();
-            float maxVolume = (float) Mth.clamp((64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64, 0, 1);
+            float distanceVolume = (float) Mth.clamp(
+                    (64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64,
+                    0, 1
+            );
 
-            if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
+            float configVolume = ClientConfig.WHISTLE_CHIFF_VOLUME.get().floatValue();
 
-                if (!isVirtual()) {
-
-                    Minecraft.getInstance()
-                            .getSoundManager()
-                            .play(soundInstance = new HauntedWhistleSoundInstance(size, worldPosition));
-                    
-                    level.playLocalSound(worldPosition, AllSoundEvents.HAUNTED_CHIFF.get(), SoundSource.RECORDS, maxVolume * .6f, f, false);
-                }
-
-                particle = true;
-            }
-
-            soundInstance.keepAlive();
-            soundInstance.setPitch(f);
-
-            if (!particle)
-                return;
-
-            createSteamJet(size);
+            level.playLocalSound(
+                    worldPosition,
+                    HAUNTED_CHIFF.get(),
+                    SoundSource.RECORDS, 
+                    distanceVolume * baseVolume * configVolume,
+                    pitchFactor,
+                    false
+            );
         }
-        
+
         @Override
         public void createSteamJet(PipeSize size) {
             Direction facing = getBlockState().getOptionalValue(GenericPipeBlock.FACING)

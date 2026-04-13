@@ -18,8 +18,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
@@ -113,9 +111,6 @@ public class Piccolo {
         }
 
         @OnlyIn(Dist.CLIENT)
-        protected PiccoloSoundInstance soundInstance;
-
-        @OnlyIn(Dist.CLIENT)
         protected PiccoloSoundInstance.PiccoloWaterSoundInstance waterSound;
 
         @Override
@@ -163,23 +158,30 @@ public class Piccolo {
 
                 if (!isVirtual()) {
 
-                    Minecraft.getInstance()
-                            .getSoundManager()
-                            .play(soundInstance = new PiccoloSoundInstance(size, worldPosition));
-
-                    playChiffSound(0.1f);
+                    handleSoundInstance(size);
                 }
 
                 particle = true;
             }
 
-            soundInstance.keepAlive();
-            soundInstance.setPitch(f);
+            if (soundInstance != null) {
+                soundInstance.keepAlive();
+                soundInstance.setPitch(f);
+            }
 
             if (!particle)
                 return;
 
             createSteamJet(size);
+        }
+
+        @Override
+        protected void handleSoundInstance(PipeSize size) {
+            Minecraft.getInstance()
+                    .getSoundManager()
+                    .play(soundInstance = new PiccoloSoundInstance(size, worldPosition));
+
+            playChiffSound(0.1f);
         }
 
         @OnlyIn(Dist.CLIENT)
