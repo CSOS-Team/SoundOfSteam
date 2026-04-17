@@ -35,7 +35,6 @@ import org.slf4j.Logger;
 
 @Mod.EventBusSubscriber
 public class ClipboardAssistedPlacementHandler {
-    protected static final Logger logger = PipeOrgans.LOGGER;
 
     @SubscribeEvent
     public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {

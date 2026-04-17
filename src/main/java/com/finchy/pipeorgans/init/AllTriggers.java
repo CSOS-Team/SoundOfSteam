@@ -19,7 +19,6 @@ public class AllTriggers {
             new WaterPipeTrigger();
 
     public static void register() {
-        PipeOrgans.LOGGER.info("Registering PipeGogglesTrigger");
         CriteriaTriggers.register(PIPE_GOGGLES);
         CriteriaTriggers.register(STEAM_BASE);
         CriteriaTriggers.register(WATER_PIPE);

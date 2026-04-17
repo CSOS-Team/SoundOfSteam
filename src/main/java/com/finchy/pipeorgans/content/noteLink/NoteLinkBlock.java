@@ -83,7 +83,7 @@ public class NoteLinkBlock extends WrenchableDirectionalBlock implements IBE<Not
             return InteractionResult.SUCCESS;
         }
 
-        PipeOrgans.LOGGER.debug("Toggling Musical Link Block mode at {}", pos);
+        //PipeOrgans.LOGGER.debug("Toggling Musical Link Block mode at {}", pos);
         return onBlockEntityUse(level, pos, be -> {
             boolean wasReceiver = state.getValue(RECEIVER);
             level.setBlock(pos, state.setValue(RECEIVER, !wasReceiver), Block.UPDATE_ALL);

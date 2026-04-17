@@ -102,7 +102,7 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
 
     @Override
     public void initialize() {
-        PipeOrgans.LOGGER.debug("NoteLinkBehaviour initializing at {}", blockEntity.getBlockPos());
+        //PipeOrgans.LOGGER.debug("NoteLinkBehaviour initializing at {}", blockEntity.getBlockPos());
         if (onLoadedCallback == null)
             if (blockEntity instanceof NoteLinkBehaviourSubscriber nlbs)
                 onLoadedCallback = nlbs::onNoteLinkBehaviorLoaded;
@@ -162,7 +162,7 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
             PipeOrgans.LOGGER.warn("NoteLinkBehaviour read from NBT with null onLoadedCallback");
         else
             onLoadedCallback.run();
-        PipeOrgans.LOGGER.debug("NoteLinkBehaviour read from NBT: keyFrequency={}, pitch={}, newPos={}", keyFrequency.getStack(), pitch.getNormalizedName(), newPosition);
+        //PipeOrgans.LOGGER.debug("NoteLinkBehaviour read from NBT: keyFrequency={}, pitch={}, newPos={}", keyFrequency.getStack(), pitch.getNormalizedName(), newPosition);
     }
 
 
@@ -280,23 +280,23 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
             disconnectFromNetwork();
 
         this.keyFrequency = RedstoneLinkNetworkHandler.Frequency.of(stack);
-        PipeOrgans.LOGGER.debug("NoteLinkBehaviour changed key frequency to {}", keyFrequency.getStack());
+        //PipeOrgans.LOGGER.debug("NoteLinkBehaviour changed key frequency to {}", keyFrequency.getStack());
 
         if (!changed)
             return;
 
         connectToNetwork();
-        PipeOrgans.LOGGER.debug("NoteLinkBehaviour updated network connection after key frequency change");
+        //PipeOrgans.LOGGER.debug("NoteLinkBehaviour updated network connection after key frequency change");
     }
 
     public void setPitch(PipePitch pitch) {
         disconnectFromNetwork();
 
         this.pitch = pitch;
-        PipeOrgans.LOGGER.debug("NoteLinkBehaviour changed pitch to {}", pitch.getNormalizedName());
+        //PipeOrgans.LOGGER.debug("NoteLinkBehaviour changed pitch to {}", pitch.getNormalizedName());
 
         connectToNetwork();
-        PipeOrgans.LOGGER.debug("NoteLinkBehaviour updated network connection after pitch change");
+        //PipeOrgans.LOGGER.debug("NoteLinkBehaviour updated network connection after pitch change");
     }
 
     public boolean hasNewPos() {
