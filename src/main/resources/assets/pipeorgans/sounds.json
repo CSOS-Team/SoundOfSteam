@@ -528,6 +528,7 @@
       }
     ]
   },
+
   "piccolo_water": {
     "subtitle": "sounds.pipeorgans.piccolo_water",
     "sounds": [
@@ -535,6 +536,61 @@
         "type": "file",
         "attenuation_distance": 64,
         "name": "pipeorgans:piccolo/p_water"
+      }
+    ]
+  },
+
+  "oktav_superhigh": {
+    "subtitle": "sounds.pipeorgans.oktav_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:oktav/ok_superhigh"
+      }
+    ]
+  },
+
+  "oktav_high": {
+    "subtitle": "sounds.pipeorgans.oktav_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:oktav/ok_high"
+      }
+    ]
+  },
+
+  "oktav_medium": {
+    "subtitle": "sounds.pipeorgans.oktav_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:oktav/ok_medium"
+      }
+    ]
+  },
+
+  "oktav_low": {
+    "subtitle": "sounds.pipeorgans.oktav_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:oktav/ok_low"
+      }
+    ]
+  },
+
+  "oktav_deep": {
+    "subtitle": "sounds.pipeorgans.oktav_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:oktav/ok_deep"
       }
     ]
   },

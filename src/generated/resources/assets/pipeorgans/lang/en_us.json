@@ -76,6 +76,8 @@
   "block.pipeorgans.note_link": "Note Link",
   "block.pipeorgans.note_link.key_slot.label": "Key Frequency",
   "block.pipeorgans.note_link.pitch_slot.label": "Pitch Frequency",
+  "block.pipeorgans.oktav": "Oktav",
+  "block.pipeorgans.oktav_extension": "Oktav Extension",
   "block.pipeorgans.open_wood": "Open Wood",
   "block.pipeorgans.open_wood_extension": "Open Wood Extension",
   "block.pipeorgans.piccolo": "Piccolo",

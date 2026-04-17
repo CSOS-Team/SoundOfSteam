@@ -272,6 +272,20 @@ public class AllBlocks {
             () -> Blocks.IRON_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 
+    public static final BlockEntry<Oktav.OktavBlock> OKTAV = registerPipeBlock(
+            "oktav",
+            Oktav.OktavBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            StopSize.TWO,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+
+    public static final BlockEntry<Oktav.OktavExtensionBlock> OKTAV_EXTENSION = registerExtensionBlock(
+            "oktav_extension",
+            Oktav.OktavExtensionBlock::new,
+            () -> Blocks.IRON_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
     public static final BlockEntry<Posaune.PosauneBlock> POSAUNE = registerPipeBlock(
             "posaune",
             Posaune.PosauneBlock::new,

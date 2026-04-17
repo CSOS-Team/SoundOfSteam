@@ -19,9 +19,9 @@ public class AllCreativeModeTabs {
                     .title(Component.translatable("pipeorgans.creativetab.pipes"))
                     .displayItems((itemDisplayParameters, output) -> {
 
-                        output.accept(AllBlocks.PICCOLO.get());
                         output.accept(AllBlocks.DIAPASON.get());
                         output.accept(AllBlocks.PRESTANT.get());
+                        output.accept(AllBlocks.OKTAV.get());
                         output.accept(AllBlocks.TROMPETTE.get());
                         output.accept(AllBlocks.CHAMADE.get());
                         output.accept(AllBlocks.ENGLISH_HORN.get());
@@ -29,6 +29,7 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.GEDECKT.get());
                         output.accept(AllBlocks.ROHRFLOTE.get());
                         output.accept(AllBlocks.HOHLFLUTE.get());
+                        output.accept(AllBlocks.PICCOLO.get());
                         output.accept(AllBlocks.GAMBA.get());
                         output.accept(AllBlocks.NASARD.get());
                         output.accept(AllBlocks.TIERCE.get());

@@ -108,6 +108,12 @@ public class AllBlockEntities {
             AllBlocks.PICCOLO,
             () -> Piccolo.PiccoloRenderer::new);
 
+    public static final BlockEntityEntry<Oktav.OktavBlockEntity> OKTAV_BLOCK_ENTITY = registerPipeBlockEntity(
+            "oktav_block_entity",
+            Oktav.OktavBlockEntity::new,
+            AllBlocks.OKTAV,
+            () -> Oktav.OktavRenderer::new);
+
     public static final BlockEntityEntry<Posaune.PosauneBlockEntity> POSAUNE_BLOCK_ENTITY = registerPipeBlockEntity(
             "posaune_block_entity",
             Posaune.PosauneBlockEntity::new,

@@ -82,6 +82,12 @@ public class AllSoundEvents {
      PICCOLO_DEEP = registerSoundEvent("piccolo_deep"),
      PICCOLO_WATER = registerSoundEvent("piccolo_water"),
 
+    OKTAV_SUPERHIGH = registerSoundEvent("oktav_superhigh"),
+    OKTAV_HIGH = registerSoundEvent("oktav_high"),
+    OKTAV_MEDIUM = registerSoundEvent("oktav_medium"),
+    OKTAV_LOW = registerSoundEvent("oktav_low"),
+    OKTAV_DEEP = registerSoundEvent("oktav_deep"),
+
      SUBBASS_SUPERHIGH = registerSoundEvent("subbass_superhigh"),
      SUBBASS_HIGH = registerSoundEvent("subbass_high"),
      SUBBASS_MEDIUM = registerSoundEvent("subbass_medium"),
