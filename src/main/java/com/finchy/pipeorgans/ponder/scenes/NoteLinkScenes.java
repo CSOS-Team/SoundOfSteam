@@ -12,14 +12,20 @@ import com.finchy.pipeorgans.ponder.util.smartText.SmartText;
 import com.finchy.pipeorgans.ponder.util.smartText.SmartTextDisplay;
 import com.finchy.pipeorgans.ponder.util.timing.TimingMap;
 import com.finchy.pipeorgans.ponder.util.timing.overrides.AdditiveTimeOverride;
+import com.simibubi.create.AllItems;
+import com.simibubi.create.content.redstone.link.RedstoneLinkBlockEntity;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import net.createmod.catnip.math.Pointing;
 import net.createmod.ponder.api.PonderPalette;
+import net.createmod.ponder.api.element.ElementLink;
+import net.createmod.ponder.api.element.WorldSectionElement;
 import net.createmod.ponder.api.scene.SceneBuilder;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.createmod.ponder.api.scene.Selection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
@@ -115,7 +121,7 @@ public class NoteLinkScenes {
 
         // Introduction
         revealer.revealSections(revealer.constructSectionsFromSelections(Direction.SOUTH, null, receiverLeft, receiverMiddle, receiverRight));
-        textDisplay.showAndIdle(receiverRight.textOnCenter("Note links are a kind of Redstone Link that let you transmit and receive musical notes", true, true));
+        textDisplay.showAndIdle(receiverRight.textOnCenter("Note Links are a kind of Redstone Link that let you transmit and receive musical notes", true, true));
         textDisplay.showAndIdle(receiverRight.textOnCenter("Like Redstone Links, Note Links can transmit redstone signals wirelessly within 256 blocks", false, true));
 
         // Mode switching
@@ -246,5 +252,188 @@ public class NoteLinkScenes {
         textDisplay.showAndIdle(SmartText.plainPointing("Simply set the MIDI channel in the block's GUI, and it will automatically activate the correct Note Links", new BlockPos(3, 1, 1).getCenter(), false, true));
 
         textDisplay.showAndIdle(SmartText.coloredFloating("Note Links are backwards-compatible with Redstone Links via the Legacy Frequency Map. You can find a chart for it online", PonderPalette.RED, true));
+    }
+    
+    public static void noteLinkCAP(SceneBuilder builder, SceneBuildingUtil util) {
+        CreateSceneBuilder scene = new CreateSceneBuilder(builder);
+
+        scene.title("note_link_cap", "Setting up Note Links with the Clipboard");
+        scene.configureBasePlate(0, 0, 5);
+
+        scene.showBasePlate();
+        scene.idle(PonderTimings.BUILD_STEP);
+        
+        Selection wholeWindchest = util.select().fromTo(
+                4, 1, 3, // neuron activation
+                0, 1, 3
+        );
+        
+        Selection pipes = util.select().fromTo(
+                3, 2, 3,
+                0, 4, 3
+        );
+        
+        BlockPos leftLinkPos = util.grid().at(3, 1, 1);
+        BlockPos rightLinkPos = util.grid().at(1, 1, 1);
+
+        Vec3 leftLinkVec = util.vector().blockSurface(leftLinkPos, Direction.DOWN).add(0, 3/16f, 0);
+        Vec3 leftKeySlot = leftLinkVec.add(0, .025, -.15);
+        Vec3 leftPitchSlot = leftLinkVec.add(0, .025, .15);
+
+        Vec3 rightLinkVec = util.vector().blockSurface(rightLinkPos, Direction.DOWN).add(0, 3/16f, 0);
+        Vec3 rightKeySlot = rightLinkVec.add(0, .025, -.15);
+        Vec3 rightPitchSlot = rightLinkVec.add(0, .025, .15);
+        
+        Selection frontLinks = util.select().fromTo(leftLinkPos, rightLinkPos);
+        
+        PonderNoteLink leftLink = new PonderNoteLink(scene, util, leftLinkPos, Direction.UP, false, false);
+        PonderNoteLink rightLink = new PonderNoteLink(scene, util, rightLinkPos, Direction.UP, false, true);
+        
+        BlockPos link1Pos = util.grid().at(3, 1, 2);
+        PonderNoteLink link1 = new PonderNoteLink(scene, util, link1Pos, Direction.NORTH, false, true);
+
+        BlockPos link2Pos = util.grid().at(2, 1, 2);
+        PonderNoteLink link2 = new PonderNoteLink(scene, util, link2Pos, Direction.NORTH, false, true);
+
+        BlockPos link3Pos = util.grid().at(1, 1, 2);
+        PonderNoteLink link3 = new PonderNoteLink(scene, util, link3Pos, Direction.NORTH, false, true);
+
+        BlockPos link4Pos = util.grid().at(0, 1, 2);
+        PonderNoteLink link4 = new PonderNoteLink(scene, util, link4Pos, Direction.NORTH, false, true);
+
+        ElementLink<WorldSectionElement> frontLinksElement = scene.world().showIndependentSection(frontLinks, Direction.DOWN);
+        scene.world().moveSection(frontLinksElement, util.vector().of(0, 0, 1), 0);
+        scene.idle(20);
+        
+        scene.addKeyframe();
+
+        scene.overlay().showText(PonderTimings.READING_TIME)
+                .text("Like Redstone Links, you can use a Clipboard to copy settings between Note Links")
+                .placeNearTarget()
+                .pointAt(util.grid().at(2, 1, 2).getCenter());
+        scene.idle(PonderTimings.READING_WINDOW);
+        
+        scene.overlay().showControls(leftLink.keySlotPosition().add(0, 0, 1), Pointing.DOWN, 30).withItem(AllItems.ZINC_INGOT.asStack());
+        scene.overlay().showText(30)
+                .text("C4")
+                .colored(PonderPalette.BLUE)
+                .pointAt(leftLink.pitchSlotPosition().add(0, 0, 1))
+                .placeNearTarget();
+        scene.overlay().showFilterSlotInput(leftKeySlot.add(0, 0, 1), Direction.UP, 30);
+        scene.overlay().showFilterSlotInput(leftPitchSlot.add(0, 0, 1), Direction.UP, 30);
+        scene.idle(50);
+        
+        scene.overlay().showControls(leftLink.visualCenter().add(0, 0, 1), Pointing.DOWN, 15).rightClick().withItem(com.simibubi.create.AllBlocks.CLIPBOARD.asStack());
+        scene.idle(25);
+
+        scene.overlay().showControls(rightLink.visualCenter().add(0, 0, 1), Pointing.DOWN, 15).leftClick().withItem(com.simibubi.create.AllBlocks.CLIPBOARD.asStack());
+        scene.world().modifyBlockEntityNBT(util.select().position(rightLinkPos), NoteLinkBlockEntity.class,
+                nbt -> nbt.put("Key", AllItems.ZINC_INGOT.asStack().save(new CompoundTag())));
+        scene.idle(25);
+
+        scene.overlay().showControls(rightLink.keySlotPosition().add(0, 0, 1), Pointing.DOWN, 30).withItem(AllItems.ZINC_INGOT.asStack());
+        scene.overlay().showText(30)
+                .text("C4")
+                .colored(PonderPalette.BLUE)
+                .pointAt(rightLink.pitchSlotPosition().add(0, 0, 1))
+                .placeNearTarget();
+        scene.overlay().showFilterSlotInput(rightKeySlot.add(0, 0, 1), Direction.UP, 30);
+        scene.overlay().showFilterSlotInput(rightPitchSlot.add(0, 0, 1), Direction.UP, 30);
+        scene.idle(60);
+        
+        scene.world().hideIndependentSection(frontLinksElement, Direction.UP);
+        scene.idle(PonderTimings.BUILD_STEP);
+        scene.world().showSection(wholeWindchest, Direction.NORTH);
+        scene.idle(PonderTimings.BUILD_STEP);
+        scene.world().showSection(pipes, Direction.DOWN);
+        
+        scene.idle(20);
+        
+        
+        
+        scene.addKeyframe();
+        scene.overlay().showText(100)
+                .text("If you edit a Note Link's settings with a Clipboard in your offhand, it will automatically copy the settings")
+                .independent(40)
+                .placeNearTarget();
+        
+        scene.overlay().showControls(util.vector().blockSurface(link1Pos, Direction.EAST), Pointing.RIGHT, 100).withItem(com.simibubi.create.AllBlocks.CLIPBOARD.asStack());
+        scene.idle(40);
+        
+        scene.world().showSection(util.select().position(link1Pos), Direction.SOUTH);
+        scene.idle(20);
+
+        scene.overlay().showControls(link1.keySlotPosition(), Pointing.DOWN, 40).withItem(AllItems.ZINC_INGOT.asStack());
+        scene.overlay().showText(40)
+                .text("D4")
+                .colored(PonderPalette.BLUE)
+                .pointAt(link1.pitchSlotPosition())
+                .placeNearTarget();
+        link1.showKeySlot(PonderPalette.WHITE, 40);
+        link1.showPitchSlot(PonderPalette.WHITE, 40);
+        scene.idle(60);
+        
+        scene.addKeyframe();
+        scene.overlay().showText(100)
+                .text("The next Note Link you place while holding this Clipboard will be one semitone higher")
+                .independent(40)
+                .placeNearTarget();
+        
+        scene.overlay().showControls(util.vector().blockSurface(link2Pos, Direction.EAST), Pointing.RIGHT, 100).withItem(com.simibubi.create.AllBlocks.CLIPBOARD.asStack());
+        scene.idle(40);
+
+        scene.world().showSection(util.select().position(link2Pos), Direction.SOUTH);
+        scene.idle(20);
+
+        scene.overlay().showControls(link2.keySlotPosition(), Pointing.DOWN, 40).withItem(AllItems.ZINC_INGOT.asStack());
+        scene.overlay().showText(40)
+                .text("D#4")
+                .colored(PonderPalette.BLUE)
+                .pointAt(link2.pitchSlotPosition())
+                .placeNearTarget();
+        link2.showKeySlot(PonderPalette.WHITE, 40);
+        link2.showPitchSlot(PonderPalette.WHITE, 40);
+        scene.idle(60);
+        
+        
+        scene.overlay().showControls(util.vector().blockSurface(link3Pos, Direction.EAST), Pointing.RIGHT, 65).withItem(com.simibubi.create.AllBlocks.CLIPBOARD.asStack());
+        scene.idle(15);
+
+        scene.world().showSection(util.select().position(link3Pos), Direction.SOUTH);
+        scene.idle(20);
+
+        scene.overlay().showControls(link3.keySlotPosition(), Pointing.DOWN, 30).withItem(AllItems.ZINC_INGOT.asStack());
+        scene.overlay().showText(30)
+                .text("E4")
+                .colored(PonderPalette.BLUE)
+                .pointAt(link3.pitchSlotPosition())
+                .placeNearTarget();
+        link3.showKeySlot(PonderPalette.WHITE, 30);
+        link3.showPitchSlot(PonderPalette.WHITE, 30);
+        scene.idle(50);
+        
+        scene.addKeyframe();
+        scene.overlay().showText(100)
+                .text("Or, you can Sneak to make the next Note Link a semitone lower")
+                .independent(40)
+                .placeNearTarget();
+
+        scene.overlay().showControls(util.vector().blockSurface(link4Pos, Direction.EAST), Pointing.RIGHT, 100).withItem(com.simibubi.create.AllBlocks.CLIPBOARD.asStack());
+        scene.idle(40);
+
+        scene.world().showSection(util.select().position(link4Pos), Direction.SOUTH);
+        scene.idle(20);
+
+        scene.overlay().showControls(link4.keySlotPosition(), Pointing.DOWN, 40).withItem(AllItems.ZINC_INGOT.asStack());
+        scene.overlay().showText(40)
+                .text("D#4")
+                .colored(PonderPalette.BLUE)
+                .pointAt(link3.pitchSlotPosition())
+                .placeNearTarget();
+        link4.showKeySlot(PonderPalette.WHITE, 40);
+        link4.showPitchSlot(PonderPalette.WHITE, 40);
+        scene.idle(60);
+        
+        scene.markAsFinished();
     }
 }

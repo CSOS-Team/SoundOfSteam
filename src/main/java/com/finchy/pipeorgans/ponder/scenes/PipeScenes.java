@@ -252,8 +252,6 @@ public class PipeScenes {
         scene.showBasePlate();
         scene.idle(PonderTimings.BUILD_STEP);
 
-        PonderLevel level = scene.getScene().getWorld();
-
         Selection verticalBlocker = util.select().position(2, 6, 2);
         Selection horizontalBlocker = util.select().position(2, 2, 0);
         Selection boilerCampfire = util.select().fromTo(2, 1, 3, 2, 2, 3);
@@ -262,7 +260,7 @@ public class PipeScenes {
 
         Selection diapason = util.select().fromTo(2, 2, 2, 2, 4, 2);
         Selection subbass = util.select().fromTo(0, 2, 2, 0, 6, 2);
-        Selection voxHumana = util.select().fromTo(4, 2, 2, 4, 3, 2);
+        //Selection voxHumana = util.select().fromTo(4, 2, 2, 4, 3, 2);
         Selection chamade = util.select().fromTo(6, 2, 2, 6, 2, 0);
         Selection trompette = util.select().fromTo(8, 2, 2, 8, 4, 2);
 

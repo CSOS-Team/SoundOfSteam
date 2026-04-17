@@ -90,9 +90,9 @@ public class TrackerBarScenes {
                 .pointAt(util.vector().blockSurface(trackerBarPos, Direction.WEST));
         scene.idle(40);
         
-        ItemStack zincStack = new ItemStack(AllItems.ZINC_INGOT);
         
-        PonderUtil.showMidiGuiSlot(scene, trackerBarPos.getCenter().add(0, 0.5, 0), Pointing.DOWN, zincStack, 1,
+        
+        PonderUtil.showMidiGuiSlot(scene, trackerBarPos.getCenter().add(0, 0.5, 0), Pointing.DOWN, AllItems.ZINC_INGOT.asStack(), 1,
                 30
         );
         scene.idle(40);
@@ -101,7 +101,7 @@ public class TrackerBarScenes {
             Vec3 redstoneLinkVec = util.vector().topOf(i, 1, 5).subtract(0, 0.35, -0.3);
             scene.overlay().showFilterSlotInput(redstoneLinkVec, 30);
         }
-        scene.overlay().showControls(zincLinksVec.add(0, 0.15, 0), Pointing.DOWN, 30).withItem(zincStack);
+        scene.overlay().showControls(zincLinksVec.add(0, 0.15, 0), Pointing.DOWN, 30).withItem(AllItems.ZINC_INGOT.asStack());
         scene.idle(50);
         
         scene.overlay().showText(30) // similar to goggle tooltip, but without actually showing the goggles
@@ -134,10 +134,8 @@ public class TrackerBarScenes {
                 .placeNearTarget()
                 .pointAt(util.vector().blockSurface(trackerBarPos, Direction.WEST));
         scene.idle(40);
-
-        ItemStack brassStack = new ItemStack(AllItems.BRASS_INGOT);
-
-        PonderUtil.showMidiGuiSlot(scene, trackerBarPos.getCenter().add(0, 0.5, 0), Pointing.DOWN, brassStack, 2,
+        
+        PonderUtil.showMidiGuiSlot(scene, trackerBarPos.getCenter().add(0, 0.5, 0), Pointing.DOWN, AllItems.BRASS_INGOT.asStack(), 2,
                 30
         );
 
@@ -145,7 +143,7 @@ public class TrackerBarScenes {
             Vec3 redstoneLinkVec = util.vector().topOf(i, 1, 5).subtract(0, 0.35, -0.3);
             scene.overlay().showFilterSlotInput(redstoneLinkVec, 30);
         }
-        scene.overlay().showControls(brassLinksVec.add(0, 0.15, 0), Pointing.DOWN, 30).withItem(brassStack);
+        scene.overlay().showControls(brassLinksVec.add(0, 0.15, 0), Pointing.DOWN, 30).withItem(AllItems.BRASS_INGOT.asStack());
         scene.idle(50);
 
         scene.overlay().showText(30) // similar to goggle tooltip, but without actually showing the goggles

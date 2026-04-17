@@ -27,6 +27,7 @@ public class AllPipeOrgansPonderScenes {
                 .addStoryBoard("pipe_swapping", PipeScenes::pipeSwapping);
 
         HELPER.forComponents(AllBlocks.NOTE_LINK)
-                .addStoryBoard("note_link_basics", NoteLinkScenes::noteLinkBasics);
+                .addStoryBoard("note_link_basics", NoteLinkScenes::noteLinkBasics)
+                .addStoryBoard("note_link_cap", NoteLinkScenes::noteLinkCAP);
     }
 }
