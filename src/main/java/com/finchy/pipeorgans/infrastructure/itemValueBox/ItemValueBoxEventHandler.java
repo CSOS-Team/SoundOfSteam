@@ -4,6 +4,8 @@ import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.RaycastHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -38,6 +40,7 @@ public class ItemValueBoxEventHandler {
         if (result == InteractionResult.SUCCESS) {
             event.setCancellationResult(InteractionResult.SUCCESS);
             event.setCanceled(true);
+            level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, .25f, .1f);
         }
     }
 }
