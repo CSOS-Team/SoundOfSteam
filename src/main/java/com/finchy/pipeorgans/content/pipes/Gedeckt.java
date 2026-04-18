@@ -33,7 +33,7 @@ public class Gedeckt {
                     PipeDirection.VERTICAL, PipeMaterial.WOOD,
                     AllBlocks.GEDECKT_EXTENSION,
                     AllBlockEntities.GEDECKT_BLOCK_ENTITY,
-                    AllShapes::genericPipeShape);
+                    AllShapes::slimPipeShape);
 
         }
     }
@@ -42,7 +42,7 @@ public class Gedeckt {
         public GedecktExtensionBlock(Properties pProperties) {
             super(pProperties,
                     AllBlocks.GEDECKT,
-                    AllShapes::genericExtensionShape);
+                    AllShapes::slimExtensionShape);
         }
     }
 
