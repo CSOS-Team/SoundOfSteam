@@ -3,10 +3,46 @@ UNRELEASED: Create: Sound of Steam 0.9.0
 ------------------------------------------------------
 
 ### Features:
+- Pipes
+  - Open Wood 16'
+  - Chamade 8'
+  - Tierce 1 3/5'
+  - Bassoon 16'
+  - Untersatz 32'
+  - Krummhorn 8'
+  - Oktav 2'
+- Config Options
+    - Pipe Attenuation range
+    - Pipe fade out duration
+    - Have brackets displayed around the octave goggle tooltips
+    - CAP config
+- Note Links
+- Ponders
+- A couple easter eggs
 
 ### Changes:
 
+- Steam whistles and Pipe Base now work on Windchests
+- Added on/off visuals and sounds to the Keyboard Relay
+- Custom placement sounds for all pipes
+- Decreased the volume of the Gedeckt, Hohlfute and Piccolo
+- Added a minimum RPM to the Tracker Bar
+- The Tracker bar has particles when it's playing
+- Added crafting instructions to the boots
+
 ### Bugfixes:
+
+- A couple samples not looping well
+- Chinese traditional and simplified file naming error #83
+- Keyboard relay notes would get stuck when holding keys and breaking the block
+- Tuned more pipes
+- Pipes no longer vanish when a contraption is dissasembled
+- Hoppers/Funnels now update the inventory of the Tracker Bar
+- Game no longer crashes when placing blocks with Effortless Building #62
+
+### Known Issues:
+
+- The Keyboard relay is unreliable on servers
 
 
 ------------------------------------------------------
