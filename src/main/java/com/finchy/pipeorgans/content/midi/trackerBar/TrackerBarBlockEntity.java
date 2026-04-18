@@ -36,6 +36,8 @@ import org.jetbrains.annotations.Nullable;
 import javax.sound.midi.ShortMessage;
 import java.util.List;
 
+import static java.lang.Math.abs;
+
 @SuppressWarnings({"DataFlowIssue", "NullableProblems"})
 public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuProvider {
 
@@ -165,7 +167,7 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     public void tick() {
         ++this.ticksSinceLastEvent;
         super.tick();
-        if (midiSequencerBehaviour.isPlaying() && speed >= AllConfigs.server().kinetics.mediumSpeed.get().floatValue())
+        if (shouldPlay())
             // set min speed to the medium min speed in the Create Config. Default greater than or equal to 30 rpm
         {
             midiSequencerBehaviour.tickSequencer();
@@ -194,13 +196,17 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     public void setButtonsEnabled(boolean enabled) {
         buttonsEnabled = enabled;
     }
+    
+    public boolean shouldPlay() {
+        return midiSequencerBehaviour.isPlaying() && abs(speed) >= AllConfigs.server().kinetics.mediumSpeed.get().floatValue();
+    }
 
     public float getRollerAngle(float partialTicks) {
-        return midiSequencerBehaviour.isPlaying() ? (rollerAngle + MAX_ROLLER_VELOCITY*partialTicks)/360 : rollerAngle;
+        return shouldPlay() ? (rollerAngle + MAX_ROLLER_VELOCITY*partialTicks)/360 : rollerAngle;
     }
 
     public float getScrollSpeed() {
-        return (midiSequencerBehaviour.isPlaying() &&  speed >= AllConfigs.server().kinetics.mediumSpeed.get().floatValue()) ? SCROLL_SPEED : 0;
+        return shouldPlay() ? SCROLL_SPEED : 0;
     }
 
     public void onRollChanged() {
