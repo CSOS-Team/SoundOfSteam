@@ -8,9 +8,7 @@ UNRELEASED: Create: Sound of Steam 0.9.0
   - Chamade 8'
   - Tierce 1 3/5'
   - Bassoon 16'
-  - Untersatz 32'
   - Krummhorn 8'
-  - Oktav 2'
 - Config Options
     - Pipe Attenuation range
     - Pipe fade out duration
