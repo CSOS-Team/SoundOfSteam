@@ -108,11 +108,13 @@ public class AllBlockEntities {
             AllBlocks.PICCOLO,
             () -> Piccolo.PiccoloRenderer::new);
 
+    /*
     public static final BlockEntityEntry<Oktav.OktavBlockEntity> OKTAV_BLOCK_ENTITY = registerPipeBlockEntity(
             "oktav_block_entity",
             Oktav.OktavBlockEntity::new,
             AllBlocks.OKTAV,
             () -> Oktav.OktavRenderer::new);
+     */
 
     public static final BlockEntityEntry<Posaune.PosauneBlockEntity> POSAUNE_BLOCK_ENTITY = registerPipeBlockEntity(
             "posaune_block_entity",
@@ -131,12 +133,14 @@ public class AllBlockEntities {
             Subbass.SubbassBlockEntity::new,
             AllBlocks.SUBBASS,
             () -> Subbass.SubbassRenderer::new);
-
+    
+    /*
     public static final BlockEntityEntry<Untersatz.UntersatzBlockEntity> UNTERSATZ_BLOCK_ENTITY = registerPipeBlockEntity(
             "untersatz_block_entity",
             Untersatz.UntersatzBlockEntity::new,
             AllBlocks.UNTERSATZ,
             () -> Untersatz.UntersatzRenderer::new);
+     */
 
     public static final BlockEntityEntry<OpenWood.OpenWoodBlockEntity> OPEN_WOOD_BLOCK_ENTITY = registerPipeBlockEntity(
             "open_wood_block_entity",
