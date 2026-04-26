@@ -3,10 +3,9 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "create:block/copper_redstone_plate",
+		"0": "pipeorgans:block/tierce",
 		"2": "create:block/engine",
-		"3": "pipeorgans:block/tierce",
-		"particle": "pipeorgans:block/particle/tierce_particle"
+		"particle": "pipeorgans:block/tierce"
 	},
 	"elements": [
 		{
@@ -39,12 +38,21 @@
 			"to": [12, 16, 12],
 			"rotation": {"angle": 0, "axis": "y", "origin": [4, 4, 4]},
 			"faces": {
-				"north": {"uv": [4.5, 0, 5.5, 1.5], "texture": "#3"},
-				"east": {"uv": [4.5, 2, 5.5, 3.5], "texture": "#3"},
-				"south": {"uv": [4.5, 2, 5.5, 3.5], "texture": "#3"},
-				"west": {"uv": [4.5, 2, 5.5, 3.5], "texture": "#3"},
-				"up": {"uv": [4.5, 6.75, 5.5, 7.75], "texture": "#3"},
-				"down": {"uv": [0.5, 14.5, 1.5, 15.5], "texture": "#3"}
+				"north": {"uv": [4.5, 0, 5.5, 1.5], "texture": "#0"},
+				"east": {"uv": [4.5, 2, 5.5, 3.5], "texture": "#0"},
+				"south": {"uv": [4.5, 2, 5.5, 3.5], "texture": "#0"},
+				"west": {"uv": [4.5, 2, 5.5, 3.5], "texture": "#0"},
+				"up": {"uv": [4.5, 6.75, 5.5, 7.75], "texture": "#0"},
+				"down": {"uv": [0.5, 14.5, 1.5, 15.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [6, 6, 3.9],
+			"to": [10, 8, 3.9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 6, 3.9]},
+			"faces": {
+				"north": {"uv": [4.75, 1.625, 5.25, 1.875], "texture": "#0"},
+				"south": {"uv": [4.75, 1.625, 5.25, 1.875], "texture": "#0"}
 			}
 		}
 	],
@@ -86,16 +94,25 @@
 		{
 			"name": "Bases",
 			"origin": [0, 0, 0],
+			"scope": 0,
 			"color": 0,
 			"children": [
 				{
 					"name": "Base Floor",
 					"origin": [0, 0, 0],
+					"scope": 0,
 					"color": 0,
 					"children": [0, 1]
 				}
 			]
 		},
-		2
+		2,
+		{
+			"name": "tierce_medium_mouth",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [3]
+		}
 	]
 }
