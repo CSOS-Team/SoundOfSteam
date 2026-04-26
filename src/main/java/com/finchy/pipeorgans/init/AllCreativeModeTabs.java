@@ -21,7 +21,7 @@ public class AllCreativeModeTabs {
 
                         output.accept(AllBlocks.DIAPASON.get());
                         output.accept(AllBlocks.PRESTANT.get());
-                        output.accept(AllBlocks.OKTAV.get());
+                        //output.accept(AllBlocks.OKTAV.get());
                         output.accept(AllBlocks.TROMPETTE.get());
                         output.accept(AllBlocks.CHAMADE.get());
                         output.accept(AllBlocks.ENGLISH_HORN.get());
@@ -36,7 +36,7 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.SUBBASS.get());
                         output.accept(AllBlocks.OPEN_WOOD.get());
                         output.accept(AllBlocks.BASSOON.get());
-                        output.accept(AllBlocks.UNTERSATZ.get());
+                        //output.accept(AllBlocks.UNTERSATZ.get());
                         output.accept(AllBlocks.POSAUNE.get());
                         output.accept(AllBlocks.VOX_HUMANA.get());
                         output.accept(AllBlocks.VIOLA.get());
