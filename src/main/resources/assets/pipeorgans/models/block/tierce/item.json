@@ -5,7 +5,7 @@
 	"textures": {
 		"0": "pipeorgans:block/tierce",
 		"2": "create:block/engine",
-		"particle": "pipeorgans:block/tierce"
+		"particle": "create:block/copper_redstone_plate"
 	},
 	"elements": [
 		{
@@ -13,12 +13,12 @@
 			"from": [1, 0, 1],
 			"to": [15, 3, 15],
 			"faces": {
-				"north": {"uv": [1, 13, 15, 16], "texture": "#0"},
-				"east": {"uv": [1, 13, 15, 16], "texture": "#0"},
-				"south": {"uv": [1, 13, 15, 16], "texture": "#0"},
-				"west": {"uv": [1, 13, 15, 16], "texture": "#0"},
-				"up": {"uv": [1, 0, 15, 14], "texture": "#0"},
-				"down": {"uv": [0.5, 8.5, 7.5, 15.5], "texture": "#2"}
+				"north": {"uv": [1, 13, 15, 16], "texture": "#particle"},
+				"east": {"uv": [1, 13, 15, 16], "texture": "#particle"},
+				"south": {"uv": [1, 13, 15, 16], "texture": "#particle"},
+				"west": {"uv": [1, 13, 15, 16], "texture": "#particle"},
+				"up": {"uv": [1, 0, 15, 14], "texture": "#particle"},
+				"down": {"uv": [0.5, 8.5, 7.5, 15.5], "texture": "#particle"}
 			}
 		},
 		{
