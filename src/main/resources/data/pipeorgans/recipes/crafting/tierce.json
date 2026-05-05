@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "Z",
+    "Z",
+    "C"
+  ],
+  "key": {
+    "Z": {
+      "tag": "forge:ingots/gold"
+    },
+    "C": {
+      "item": "pipeorgans:base"
+    }
+  },
+  "result": {
+    "item": "pipeorgans:tierce"
+  }
+}

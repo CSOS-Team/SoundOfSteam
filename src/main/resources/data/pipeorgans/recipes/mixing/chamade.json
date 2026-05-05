@@ -1,0 +1,18 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "tag": "forge:plates/iron"
+    },
+    {
+      "item": "pipeorgans:trompette"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "item": "pipeorgans:chamade"
+    }
+  ]
+}
