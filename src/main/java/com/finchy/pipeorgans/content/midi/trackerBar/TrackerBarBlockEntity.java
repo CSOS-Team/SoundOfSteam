@@ -57,6 +57,9 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
         @Override
         protected void onContentsChanged(int slot) {
             super.onContentsChanged(slot);
+            if (be.level != null && !be.level.isClientSide && be.midiSequencerBehaviour != null) {
+                be.onRollChanged();
+            }
             be.setChanged();
         }
     }
@@ -128,12 +131,19 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
         super.write(tag, registries, clientPacket);
         tag.put("Inventory", inventory.serializeNBT(registries));
+        tag.putBoolean("ButtonsEnabled", buttonsEnabled);
     }
 
     @Override
     protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
         super.read(tag, registries, clientPacket);
         inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
+        if (tag.contains("ButtonsEnabled")) {
+            buttonsEnabled = tag.getBoolean("ButtonsEnabled");
+        }
+        if (level != null && !level.isClientSide && midiSequencerBehaviour != null) {
+            onRollChanged();
+        }
     }
 
     @Override
