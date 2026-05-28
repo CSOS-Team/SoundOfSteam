@@ -1,10 +1,7 @@
 package com.finchy.pipeorgans.ponder;
 
 import com.finchy.pipeorgans.init.AllBlocks;
-import com.finchy.pipeorgans.ponder.scenes.NoteLinkScenes;
-import com.finchy.pipeorgans.ponder.scenes.PipeScenes;
-import com.finchy.pipeorgans.ponder.scenes.TrackerBarScenes;
-import com.finchy.pipeorgans.ponder.scenes.WindchestScenes;
+import com.finchy.pipeorgans.ponder.scenes.*;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.createmod.ponder.api.registration.PonderSceneRegistrationHelper;
@@ -21,6 +18,9 @@ public class AllPipeOrgansPonderScenes {
 
         HELPER.forComponents(AllBlocks.WINDCHEST)
                 .addStoryBoard("windchests", WindchestScenes::windchests);
+
+        HELPER.forComponents(AllBlocks.KEYBOARD_RELAY)
+                        .addStoryBoard("keyboard_relay", KeyboardRelayScenes::keyboardRelaySetup);
 
         HELPER.forComponents(AllBlocks.PIPE_BLOCKS)
                 .addStoryBoard("pipe_adjusting", PipeScenes::pipeAdjusting)
