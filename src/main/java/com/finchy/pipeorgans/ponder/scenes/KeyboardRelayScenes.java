@@ -84,15 +84,10 @@ public class KeyboardRelayScenes {
                 .placeNearTarget()
                 .pointAt(util.vector().blockSurface(keyboardRelay, Direction.WEST));
 
-        scene.idle(PonderTimings.BUILD_STEP);
+        scene.idle(PonderTimings.CONTEXT_INFO_BUFFER);
 
-        //This is crappy code to try and make it display the semicolan symbol. Maybe we could make it check what the keybind is currently set to as well?
-        /* scene.overlay().showText(PonderTimings.READING_TIME-20-PonderTimings.BUILD_STEP)
-                .text(";")
-                .placeNearTarget()
-                .pointAt(util.vector().blockSurface(keyboardRelay, Direction.WEST)); //HOW MAKE IT GO TOP?
-
-         */
+        //show the semicolan icon
+        PonderUtil.showCustomPonderIcon(scene, relayTop, Pointing.DOWN, 16, 16, 37, 0, PonderTimings.READING_TIME-20-PonderTimings.CONTEXT_INFO_BUFFER);
 
 
         scene.idle(PonderTimings.READING_WINDOW-20);

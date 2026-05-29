@@ -1,7 +1,9 @@
 package com.finchy.pipeorgans.ponder;
 
 import com.finchy.pipeorgans.ponder.element.MidiGuiSlotElement;
+import com.finchy.pipeorgans.ponder.element.CustomPonderIconElement;
 import com.finchy.pipeorgans.ponder.instruction.ShowMidiGuiSlotInstruction;
+import com.finchy.pipeorgans.ponder.instruction.ShowCustomPonderIconInstructions;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import net.createmod.ponder.api.element.ElementLink;
@@ -60,6 +62,12 @@ public final class PonderUtil {
     public static void showMidiGuiSlot(CreateSceneBuilder scene, Vec3 pos, Pointing dir, ItemStack item, int channel, int duration) {
         MidiGuiSlotElement midiGuiSlotElement = new MidiGuiSlotElement(pos, dir, item, channel);
         scene.addInstruction(new ShowMidiGuiSlotInstruction(midiGuiSlotElement, duration));
+    }
+
+    public static void showCustomPonderIcon(CreateSceneBuilder scene, Vec3 pos, Pointing dir, int width, int height, int offsetX, int offsetY, int duration) {
+        CustomPonderIconElement customPonderIconElement = new CustomPonderIconElement(pos, dir, width, height, offsetX ,offsetY);
+        scene.addInstruction(new ShowCustomPonderIconInstructions(customPonderIconElement, duration));
+
     }
 
     public static void displayText(CreateSceneBuilder scene, Vec3 pos, String text, boolean attachKeyFrame, boolean placeNearTarget, int duration) {
