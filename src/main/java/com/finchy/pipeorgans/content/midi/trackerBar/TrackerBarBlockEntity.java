@@ -65,7 +65,9 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
         @Override
         protected void onContentsChanged(int slot) {
             super.onContentsChanged(slot);
-            be.onRollChanged();
+            if (be.level != null && !be.level.isClientSide && be.midiSequencerBehaviour != null) {
+                be.onRollChanged();
+            }
             be.setChanged();
         }
     }
@@ -143,12 +145,19 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
     protected void write(CompoundTag tag, boolean clientPacket) {
         super.write(tag, clientPacket);
         tag.put("Inventory", inventory.serializeNBT());
+        tag.putBoolean("ButtonsEnabled", buttonsEnabled);
     }
 
     @Override
     protected void read(CompoundTag tag, boolean clientPacket) {
         super.read(tag, clientPacket);
         inventory.deserializeNBT(tag.getCompound("Inventory"));
+        if (tag.contains("ButtonsEnabled")) {
+            buttonsEnabled = tag.getBoolean("ButtonsEnabled");
+        }
+        //if (level != null && !level.isClientSide && midiSequencerBehaviour != null) {
+        //    onRollChanged();
+        //}
     }
 
     @Override
@@ -165,7 +174,7 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
 
     @Override
     public void tick() {
-        ++this.ticksSinceLastEvent;
+        ++ticksSinceLastEvent;
         super.tick();
         if (shouldPlay())
             // set min speed to the medium min speed in the Create Config. Default greater than or equal to 30 rpm
@@ -174,20 +183,18 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
             rollerAngle += MAX_ROLLER_VELOCITY;
 
             //Vital logic
-            if (this.shouldMakePrettyNoteParticles()) {
-                this.ticksSinceLastEvent = 0;
-                this.spawnPrettyNoteParticles(level, worldPosition);
+            if (ticksSinceLastEvent >= 20) {
+                ticksSinceLastEvent = 0;
+                spawnPrettyNoteParticles(level, worldPosition);
             }
         }
     }
-    private boolean shouldMakePrettyNoteParticles() {
-        return this.ticksSinceLastEvent >= 20;
-    }
+    
     private void spawnPrettyNoteParticles(Level pLevel, BlockPos pPos) {
         if (pLevel instanceof ServerLevel serverlevel) {
-            Vec3 vec3 = Vec3.atBottomCenterOf(pPos).add(0.0D, (double)1.2F, 0.0D);
+            Vec3 vec3 = Vec3.atBottomCenterOf(pPos).add(0.0D, 1.2F, 0.0D);
             float f = (float)pLevel.getRandom().nextInt(4) / 24.0F;
-            serverlevel.sendParticles(ParticleTypes.NOTE, vec3.x(), vec3.y(), vec3.z(), 0, (double)f, 0.0D, 0.0D, 1.0D);
+            serverlevel.sendParticles(ParticleTypes.NOTE, vec3.x(), vec3.y(), vec3.z(), 0, f, 0.0D, 0.0D, 1.0D);
         }
 
     }
