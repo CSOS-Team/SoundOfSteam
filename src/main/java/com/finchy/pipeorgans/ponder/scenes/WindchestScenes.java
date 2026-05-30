@@ -7,7 +7,6 @@ import net.createmod.ponder.api.scene.SceneBuilder;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
 import net.minecraft.world.phys.Vec3;
 
 public class WindchestScenes {
@@ -138,47 +137,6 @@ public class WindchestScenes {
         scene.world().toggleRedstonePower(util.select().fromTo(windchest1, windchest3)); // deactivate the windchests
 
         scene.idle(PonderTimings.seconds(3)); // wait for 3 seconds
-
-        scene.markAsFinished();
-    }
-
-    public static void boilerPipePlaying(SceneBuilder builder, SceneBuildingUtil util) {
-        CreateSceneBuilder scene = new CreateSceneBuilder(builder);
-
-        scene.title("boiler_pipe_playback", "Playing pipes with a boiler");
-        scene.configureBasePlate(0, 0, 5);
-
-        scene.showBasePlate();
-        scene.idle(PonderTimings.BUILD_STEP);
-
-        BlockPos magma = util.grid().at(2, 1, 2);
-        BlockPos fluidTank = util.grid().at(2, 2, 2);
-        BlockPos diapason = util.grid().at(2, 3, 2);
-        BlockPos fluidTankLever = fluidTank.subtract(new Vec3i(0, 0, 1));
-
-        PonderUtil.revealBlock(scene, util, magma, PonderTimings.BUILD_STEP);
-        PonderUtil.revealBlock(scene, util, fluidTank, PonderTimings.BUILD_STEP);
-        PonderUtil.revealBlock(scene, util, diapason, PonderTimings.BUILD_STEP);
-        PonderUtil.revealBlock(scene, util, fluidTankLever,  Direction.SOUTH, PonderTimings.BUILD_STEP);
-
-        scene.overlay().showText(PonderTimings.READING_TIME)
-                .text("Pipes can be played by placing them on top of a boiler")
-                .placeNearTarget()
-                .attachKeyFrame()
-                .pointAt(diapason.getCenter());
-
-        scene.idle(PonderTimings.READING_WINDOW);
-
-        scene.overlay().showText(PonderTimings.READING_TIME)
-                .text("Then to activate the pipe a redstone signal must be passed through")
-                .placeNearTarget()
-                .attachKeyFrame()
-                .pointAt(fluidTank.getCenter());
-
-        scene.idle(PonderTimings.READING_BUFFER);
-        scene.world().toggleRedstonePower(util.select().fromTo(fluidTankLever, diapason));
-
-        scene.idle(PonderTimings.afterBuffer());
 
         scene.markAsFinished();
     }
