@@ -92,13 +92,12 @@ public class Chamade {
                 case HUGE -> AllPartialModels.CHAMADE_MOUTH_HUGE;
             };
 
-            //TODO Update chamade goggles when new assets are done
             PartialModel goggles = switch (size) {
-                case TINY -> AllPartialModels.STRING_GOGGLES_TINY;
-                case SMALL -> AllPartialModels.STRING_GOGGLES_SMALL;
-                case MEDIUM -> AllPartialModels.STRING_GOGGLES_MEDIUM;
-                case LARGE -> AllPartialModels.STRING_GOGGLES_LARGE;
-                case HUGE -> AllPartialModels.STRING_GOGGLES_HUGE;
+                case TINY -> AllPartialModels.HORIZONTAL_GOGGLES_TINY;
+                case SMALL -> AllPartialModels.HORIZONTAL_GOGGLES_SMALL;
+                case MEDIUM -> AllPartialModels.HORIZONTAL_GOGGLES_MEDIUM;
+                case LARGE -> AllPartialModels.HORIZONTAL_GOGGLES_LARGE;
+                case HUGE -> AllPartialModels.HORIZONTAL_GOGGLES_HUGE;
             };
 
             float chaseTarget = be.animation.getChaseTarget();
