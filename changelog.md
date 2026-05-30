@@ -3,7 +3,7 @@ UNRELEASED: Create: Sound of Steam 0.9.0
 ------------------------------------------------------
 
 ### Features:
-- Pipes
+- Pipes:
   - Open Wood 16'
   - Chamade 8'
   - Tierce 1 3/5'
@@ -12,18 +12,18 @@ UNRELEASED: Create: Sound of Steam 0.9.0
 - Config Options
     - Pipe Attenuation range
     - Pipe fade out duration
-    - Have brackets displayed around the octave goggle tooltips
+    - Display brackets around the octave goggle tooltips
     - CAP config
 - Note Links
 - Ponders
-- A couple easter eggs
+- A few easter eggs ;)
 
 ### Changes:
 
 - Steam whistles and Pipe Base now work on Windchests
 - Added on/off visuals and sounds to the Keyboard Relay
 - Custom placement sounds for all pipes
-- Decreased the volume of the Gedeckt, Hohlfute and Piccolo
+- Decreased the volume of the Gedeckt, Hohlflute and Piccolo
 - Added a minimum RPM to the Tracker Bar
 - The Tracker bar has particles when it's playing
 - Added crafting instructions to the boots
@@ -34,7 +34,7 @@ UNRELEASED: Create: Sound of Steam 0.9.0
 - Chinese traditional and simplified file naming error #83
 - Keyboard relay notes would get stuck when holding keys and breaking the block
 - Tuned more pipes
-- Pipes no longer vanish when a contraption is dissasembled
+- Pipes no longer vanish when a contraption is disassembled
 - Hoppers/Funnels now update the inventory of the Tracker Bar
 - Game no longer crashes when placing blocks with Effortless Building #62
 
@@ -149,13 +149,11 @@ Create: Sound of Steam 0.7.0
 
 Currently, MIDI can only be used for live playback. Playing .midi files is planned in future updates. To use MIDI compat:
 
-Select a valid MIDI device in the config menu (press ; )
-Right click a Keyboard Relay block with a Stop Master in your hand, then place the Stop Master
-Set the tuning frequency on top of the Stop Master (or don't)
-For any note you wish to activate, place a receiving redstone link with the tuning frequency first and the specific note frequency last.
-Right click the Keyboard Relay to start playing!
-(I will upload a tutorial on how to use it soon)
-
+- Select a valid MIDI device in the config menu (press `;` by default)
+- Right-click a Keyboard Relay block with a Stop Master in your hand, then place the Stop Master
+- Set the tuning frequency on top of the Stop Master (or don't)
+- For any note you wish to activate, place a receiving redstone link with the tuning frequency first and the specific note frequency last.
+- Right-click the Keyboard Relay to start playing!
 
 ------------------------------------------------------
 Create: Sound of Steam 0.6.1
@@ -177,9 +175,10 @@ Create: Sound of Steam 0.6
 
 ### Features
 
-- Posaune
-- Vox Humana
-- Brass, copper, and dark oak boots, which are used to craft reed pipes
+- Pipes:
+  - Posaune
+  - Vox Humana
+  - Brass, copper, and dark oak boots, which are used to craft reed pipes
 
 ### Changes
 
