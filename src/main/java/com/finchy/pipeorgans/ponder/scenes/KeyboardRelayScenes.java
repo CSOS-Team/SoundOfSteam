@@ -1,24 +1,18 @@
 package com.finchy.pipeorgans.ponder.scenes;
 
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
-import com.finchy.pipeorgans.content.noteLink.NoteLinkBlock;
-import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.ponder.PonderTimings;
 import com.finchy.pipeorgans.ponder.PonderUtil;
+import com.finchy.pipeorgans.util.Keybinding;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import net.createmod.catnip.math.Pointing;
-import net.createmod.ponder.Ponder;
 import net.createmod.ponder.api.scene.SceneBuilder;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.BarrierBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 
 public class KeyboardRelayScenes {
@@ -39,13 +33,9 @@ public class KeyboardRelayScenes {
         BlockPos diapason3 = util.grid().at(2, 2, 4); //E
         BlockPos diapason4 = util.grid().at(1, 2, 4); //D#
         BlockPos diapason5 = util.grid().at(0, 2, 4); //D
-
-        BlockPos windchest1 = util.grid().at(4, 1, 4); //F#
-        BlockPos windchest2 = util.grid().at(3, 1, 4); //F
-        BlockPos windchest3 = util.grid().at(2, 1, 4); //E
-        BlockPos windchest4 = util.grid().at(1, 1, 4); //D#
+        
         BlockPos windchest5 = util.grid().at(0, 1, 4); //D
-
+        
         BlockPos link1 = util.grid().at(4, 1, 3); //F#
         BlockPos link2 = util.grid().at(3, 1, 3); //F
         BlockPos link3 = util.grid().at(2, 1, 3); //E
@@ -78,15 +68,16 @@ public class KeyboardRelayScenes {
         scene.idle(PonderTimings.READING_WINDOW);
 
         //Oh! Thanks magical voice that explains stuff... but how do I set it up?
+        String midiConfigKeybind = Keybinding.MIDI_CONFIG_KEY.getKey().getDisplayName().getString();
         scene.addKeyframe();
         scene.overlay().showText(PonderTimings.READING_TIME-20)
-                .text("You can set it up by pressing the Semicolan")
+                .text("You can set it up by pressing the '%s' key", midiConfigKeybind)
                 .placeNearTarget()
                 .pointAt(util.vector().blockSurface(keyboardRelay, Direction.WEST));
 
         scene.idle(PonderTimings.CONTEXT_INFO_BUFFER);
 
-        //show the semicolan icon
+        //show the semicolon icon
         PonderUtil.showCustomPonderIcon(scene, relayTop, Pointing.DOWN, 16, 16, 37, 0, PonderTimings.READING_TIME-20-PonderTimings.CONTEXT_INFO_BUFFER);
 
 
@@ -106,7 +97,7 @@ public class KeyboardRelayScenes {
         //Filtering frequencies
         scene.addKeyframe();
         scene.overlay().showText(PonderTimings.READING_TIME)
-                .text("If your MIDI keyboard has multiple output channels, you can filter them by shift + clicking...")
+                .text("If your MIDI keyboard has multiple output channels, you can filter them by Sneaking and Right-Clicking...")
                 .placeNearTarget()
                 .pointAt(util.vector().blockSurface(keyboardRelay, Direction.WEST));
 
@@ -119,7 +110,7 @@ public class KeyboardRelayScenes {
         scene.idle(PonderTimings.READING_WINDOW/2);
 
         scene.overlay().showText(PonderTimings.READING_TIME)
-                .text("and setting the channel to a frequency using items ")
+                .text("...and setting the channel to a frequency using items")
                 .placeNearTarget()
                 .pointAt(util.vector().blockSurface(keyboardRelay, Direction.WEST));
 
@@ -132,7 +123,7 @@ public class KeyboardRelayScenes {
             Vec3 redstoneLinkVec = util.vector().topOf(i, 1, 3).subtract(0, 0.35, -0.3);
             scene.overlay().showFilterSlotInput(redstoneLinkVec, PonderTimings.READING_WINDOW/2);
         }
-        //This next line displays a zinc ingot overtop the links. Don't think it's needed, but.. keeping it just because
+        //This next line displays a zinc ingot overtop the links. Don't think it's needed, but... keeping it just because
         //scene.overlay().showControls(linksVec.add(0, 0.15, 0), Pointing.DOWN, PonderTimings.READING_WINDOW/2).withItem(AllItems.ZINC_INGOT.asStack());
         scene.idle(PonderTimings.READING_WINDOW/2);
         scene.idle(PonderTimings.READING_BUFFER);
@@ -141,7 +132,7 @@ public class KeyboardRelayScenes {
 
         scene.addKeyframe();
         scene.overlay().showText(PonderTimings.READING_TIME)
-                .text("Activate it by standing withing 5 blocks and right clicking it")
+                .text("Activate it by standing within 5 blocks and Right-Clicking it")
                 .placeNearTarget()
                 .pointAt(util.vector().blockSurface(keyboardRelay, Direction.WEST));
 
@@ -165,47 +156,48 @@ public class KeyboardRelayScenes {
         //Number one
         scene.world().toggleRedstonePower(util.select().fromTo(link1, diapason1));
         scene.effects().indicateRedstone(link1);
-        scene.world().modifyBlock(keyboardRelay,s -> s.cycle (KeyboardRelayBlock.TRANSMITTING), false);
+        scene.world().modifyBlock(keyboardRelay,s -> s.cycle(KeyboardRelayBlock.TRANSMITTING), false);
         scene.idle(10);
         scene.world().toggleRedstonePower(util.select().fromTo(link1, diapason1));
-        scene.world().modifyBlock(keyboardRelay,s -> s.cycle (KeyboardRelayBlock.TRANSMITTING), false);
+        scene.world().modifyBlock(keyboardRelay,s -> s.cycle(KeyboardRelayBlock.TRANSMITTING), false);
         scene.idle(5);
         //Number two
         scene.world().toggleRedstonePower(util.select().fromTo(link2, diapason2));
         scene.effects().indicateRedstone(link2);
-        scene.world().modifyBlock(keyboardRelay,s -> s.cycle (KeyboardRelayBlock.TRANSMITTING), false);
+        scene.world().modifyBlock(keyboardRelay,s -> s.cycle(KeyboardRelayBlock.TRANSMITTING), false);
         scene.idle(10);
         scene.world().toggleRedstonePower(util.select().fromTo(link2, diapason2));
-        scene.world().modifyBlock(keyboardRelay,s -> s.cycle (KeyboardRelayBlock.TRANSMITTING), false);
+        scene.world().modifyBlock(keyboardRelay,s -> s.cycle(KeyboardRelayBlock.TRANSMITTING), false);
         scene.idle(5);
         //Number three
         scene.world().toggleRedstonePower(util.select().fromTo(link3, diapason3));
         scene.effects().indicateRedstone(link3);
-        scene.world().modifyBlock(keyboardRelay,s -> s.cycle (KeyboardRelayBlock.TRANSMITTING), false);
+        scene.world().modifyBlock(keyboardRelay,s -> s.cycle(KeyboardRelayBlock.TRANSMITTING), false);
         scene.idle(10);
         scene.world().toggleRedstonePower(util.select().fromTo(link3, diapason3));
-        scene.world().modifyBlock(keyboardRelay,s -> s.cycle (KeyboardRelayBlock.TRANSMITTING), false);
+        scene.world().modifyBlock(keyboardRelay,s -> s.cycle(KeyboardRelayBlock.TRANSMITTING), false);
         scene.idle(5);
         //Number four
         scene.world().toggleRedstonePower(util.select().fromTo(link4, diapason4));
         scene.effects().indicateRedstone(link4);
-        scene.world().modifyBlock(keyboardRelay,s -> s.cycle (KeyboardRelayBlock.TRANSMITTING), false);
+        scene.world().modifyBlock(keyboardRelay,s -> s.cycle(KeyboardRelayBlock.TRANSMITTING), false);
         scene.idle(10);
         scene.world().toggleRedstonePower(util.select().fromTo(link4, diapason4));
-        scene.world().modifyBlock(keyboardRelay,s -> s.cycle (KeyboardRelayBlock.TRANSMITTING), false);
+        scene.world().modifyBlock(keyboardRelay,s -> s.cycle(KeyboardRelayBlock.TRANSMITTING), false);
         scene.idle(5);
         //Number five
         scene.world().toggleRedstonePower(util.select().fromTo(link5, diapason5));
         scene.effects().indicateRedstone(link5);
-        scene.world().modifyBlock(keyboardRelay,s -> s.cycle (KeyboardRelayBlock.TRANSMITTING), false);
+        scene.world().modifyBlock(keyboardRelay,s -> s.cycle(KeyboardRelayBlock.TRANSMITTING), false);
         scene.idle(10);
         scene.world().toggleRedstonePower(util.select().position(link5)); //broke into two lines so the windchest doesn't visibly toggle redstone
         scene.world().toggleRedstonePower(util.select().position(diapason5));
-        scene.world().modifyBlock(keyboardRelay,s -> s.cycle (KeyboardRelayBlock.TRANSMITTING), false);
+        scene.world().modifyBlock(windchest5, s -> s.setValue(BlockStateProperties.POWERED, true), false); // ensure the windchest stays powered
+        scene.world().modifyBlock(keyboardRelay,s -> s.cycle(KeyboardRelayBlock.TRANSMITTING), false);
         scene.idle(5);
 
         scene.overlay().showText(PonderTimings.READING_TIME)
-                .text("will trigger the corresponding redstone links!")
+                .text("...will trigger the corresponding redstone links!")
                 .placeNearTarget()
                 .pointAt(util.vector().blockSurface(keyboardRelay, Direction.WEST));
 
