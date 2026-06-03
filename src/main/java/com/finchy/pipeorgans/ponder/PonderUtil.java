@@ -1,7 +1,9 @@
 package com.finchy.pipeorgans.ponder;
 
+import com.finchy.pipeorgans.ponder.element.KeyboardElement;
 import com.finchy.pipeorgans.ponder.element.MidiGuiSlotElement;
 import com.finchy.pipeorgans.ponder.element.CustomPonderIconElement;
+import com.finchy.pipeorgans.ponder.instruction.KeyboardInstruction;
 import com.finchy.pipeorgans.ponder.instruction.ShowMidiGuiSlotInstruction;
 import com.finchy.pipeorgans.ponder.instruction.ShowCustomPonderIconInstructions;
 import com.simibubi.create.AllItems;
@@ -59,9 +61,24 @@ public final class PonderUtil {
         showWrenchInteraction(scene, pos, dir, shift, control, PonderTimings.INTERACTION_DISPLAY_TIME);
     }
 
-    public static void showMidiGuiSlot(CreateSceneBuilder scene, Vec3 pos, Pointing dir, ItemStack item, int channel, int duration) {
+    public static MidiGuiSlotElement showMidiGuiSlot(CreateSceneBuilder scene, Vec3 pos, Pointing dir, ItemStack item, int channel, int duration) {
         MidiGuiSlotElement midiGuiSlotElement = new MidiGuiSlotElement(pos, dir, item, channel);
         scene.addInstruction(new ShowMidiGuiSlotInstruction(midiGuiSlotElement, duration));
+        return midiGuiSlotElement;
+    }
+    
+    public static void setMidiGuiSlotItem(CreateSceneBuilder scene, MidiGuiSlotElement midiGuiSlotElement, ItemStack item) {
+        scene.addInstruction(s -> midiGuiSlotElement.item = item);
+    }
+    
+    public static KeyboardElement showKeyboard(CreateSceneBuilder scene, Vec3 pos, int duration) {
+        KeyboardElement keyboardElement = new KeyboardElement(pos);
+        scene.addInstruction(new KeyboardInstruction(keyboardElement, duration));
+        return keyboardElement;
+    }
+    
+    public static void setKeyboardKey(CreateSceneBuilder scene, KeyboardElement keyboard, int key) {
+        scene.addInstruction(s -> keyboard.key = key);
     }
 
     public static void showCustomPonderIcon(CreateSceneBuilder scene, Vec3 pos, Pointing dir, int width, int height, int offsetX, int offsetY, int duration) {

@@ -19,7 +19,7 @@ import net.minecraft.world.phys.Vec3;
 public class MidiGuiSlotElement extends AnimatedOverlayElementBase {
     private final Vec3 sceneSpace;
     private final Pointing direction;
-    private final ItemStack item;
+    public ItemStack item;
     private final int channel;
 
     private static final MidiGuiSlotSprite SPRITE = new MidiGuiSlotSprite();
