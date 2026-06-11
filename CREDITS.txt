@@ -7,6 +7,8 @@ Concept and initial assets for the Haunted Whistle by @kayla_the_bee on Discord
 
 Textures for Bassoon, Krummhorn and Tierce by @baba_is_fan on Discord
 
+Lead programming for the note links by @quatschvirus on Discord
+
 Special thanks to @crackheadakira on Discord for helping to add Ponders
 
 HUGE thank-you to SuperSaiyanChad for helping to create the 1.21 port!
