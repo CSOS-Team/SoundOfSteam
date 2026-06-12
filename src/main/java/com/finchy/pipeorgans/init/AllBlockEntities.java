@@ -46,8 +46,7 @@ public class AllBlockEntities {
             .validBlock(AllBlocks.ROLL_PUNCHER)
             .register();
 
-
-
+    
     public static final BlockEntityEntry<Diapason.DiapasonBlockEntity> DIAPASON_BLOCK_ENTITY = registerPipeBlockEntity(
             "diapason_block_entity",
             Diapason.DiapasonBlockEntity::new,

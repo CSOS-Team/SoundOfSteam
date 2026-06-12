@@ -12,15 +12,13 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -89,7 +87,7 @@ public class BaseBlockEntity extends SmartBlockEntity {
         wasPoweredLastTick = powered;
     }
 
-    @Nullable
+    @OnlyIn(Dist.CLIENT)
     private BaseSoundInstance steamSound;
 
     public void createSteamJet() {
@@ -98,6 +96,7 @@ public class BaseBlockEntity extends SmartBlockEntity {
         level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
     }
 
+    @OnlyIn(Dist.CLIENT)
     private void playSteamSound() {
         if (steamSound == null || steamSound.isStopped()) {
             steamSound = new BaseSoundInstance(
@@ -109,6 +108,7 @@ public class BaseBlockEntity extends SmartBlockEntity {
         steamSound.keepAlive();
     }
 
+    @OnlyIn(Dist.CLIENT)
     private void stopSteamSound() {
         if (steamSound != null) {
             steamSound.fadeOut();
