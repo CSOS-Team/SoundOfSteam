@@ -135,7 +135,7 @@ public class KeyboardRelayScenes {
         scene.world().modifyBlock(keyboardRelay,s -> s.cycle(KeyboardRelayBlock.ACTIVE), false);
         KeyboardElement keyboardElement = PonderUtil.showKeyboard(scene, util.vector().centerOf(4, -1, 0), 310);
 
-        scene.idle(PonderTimings.READING_WINDOW/2);
+        scene.idle(PonderTimings.READING_WINDOW);
 
         scene.overlay().showText(PonderTimings.READING_TIME)
                 .text("Now, all the notes you play on your MIDI keyboard...")

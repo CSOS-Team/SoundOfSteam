@@ -2,18 +2,24 @@ package com.finchy.pipeorgans.content.midi.keyboardRelay;
 
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
+import com.simibubi.create.AllItems;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.simibubi.create.content.equipment.wrench.WrenchItem;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -83,11 +89,20 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
         if (pHand.equals(InteractionHand.OFF_HAND)) {
             return InteractionResult.SUCCESS;
         }
+
+        //Make it so you can wrench to rotate it
+        if (pPlayer.hasItemInSlot(EquipmentSlot.MAINHAND)) {
+            ItemStack heldItem = pPlayer.getItemInHand(pHand);
+            if (heldItem.getItem() instanceof WrenchItem) {
+                return InteractionResult.FAIL;
+            }
+        }
         if (pPlayer.isShiftKeyDown()) {
             withBlockEntityDo(pLevel, pPos, be -> NetworkHooks.openScreen((ServerPlayer) pPlayer, be, be::sendToMenu));
             return InteractionResult.SUCCESS;
 
-        }  else if (KeyboardRelayBlockEntity.playerInRange(pPlayer, pLevel, pPos)) {
+        }
+        else if (KeyboardRelayBlockEntity.playerInRange(pPlayer, pLevel, pPos)) {
             if (!KeyboardRelayBlockEntity.playerIsUsing(pPlayer)) { // if player is not currently using a keyboard relay
                 withBlockEntityDo(pLevel, pPos, be -> be.tryStartUsing(pPlayer)); // start using relay
 
@@ -110,5 +125,15 @@ public class KeyboardRelayBlock extends Block implements IBE<KeyboardRelayBlockE
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+    }
+
+    @Override
+    public BlockState rotate(BlockState pState, Rotation pRotation) {
+        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState pState, Mirror pMirror) {
+        return pMirror == Mirror.NONE ? pState : pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
     }
 }
