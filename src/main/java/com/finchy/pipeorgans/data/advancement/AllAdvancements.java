@@ -103,7 +103,7 @@ public class AllAdvancements implements DataProvider {
             .title("All About that (Sub)bass")
             .description("Place a Subbass pipe")
             .after(HOHLFLUTE)
-            .whenBlockPlaced(AllBlocks.ROHRFLOTE)),
+            .whenBlockPlaced(AllBlocks.SUBBASS)),
 
     // mutation branch
 
