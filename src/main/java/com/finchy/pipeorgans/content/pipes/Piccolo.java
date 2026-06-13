@@ -173,6 +173,7 @@ public class Piccolo {
             createSteamJet(size);
         }
 
+        @OnlyIn(Dist.CLIENT)
         @Override
         protected void handleSoundInstance(PipeSize size) {
             Minecraft.getInstance()

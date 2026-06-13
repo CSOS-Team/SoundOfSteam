@@ -22,6 +22,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
@@ -57,6 +59,7 @@ public class OpenWood {
                     AllBlocks.OPEN_WOOD, AllBlocks.OPEN_WOOD_EXTENSION);
         }
 
+        @OnlyIn(Dist.CLIENT)
         @Override
         protected void handleSoundInstance(PipeSize size) {
             Minecraft.getInstance()

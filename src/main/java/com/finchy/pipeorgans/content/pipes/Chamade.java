@@ -20,6 +20,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
 
@@ -55,6 +57,7 @@ public class Chamade {
                     AllBlocks.CHAMADE, AllBlocks.CHAMADE_EXTENSION);
         }
 
+        @OnlyIn(Dist.CLIENT)
         @Override
         protected void handleSoundInstance(PipeSize size) {
             Minecraft.getInstance()

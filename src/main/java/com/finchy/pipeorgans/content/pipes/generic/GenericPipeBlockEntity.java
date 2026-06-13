@@ -167,7 +167,7 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         float f = (float) Math.pow(2, -pitch / 12.0);
         boolean particle = level.getGameTime() % 8 == 0;
         Vec3 eyePosition = Minecraft.getInstance().cameraEntity.getEyePosition();
-        float maxVolume = (float) Mth.clamp((64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64, 0, 1);
+        //float maxVolume = (float) Mth.clamp((64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64, 0, 1);
 
         if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
 
@@ -188,6 +188,7 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         createSteamJet(size);
     }
     
+    @OnlyIn(Dist.CLIENT)
     protected abstract void handleSoundInstance(PipeSize size);
 
     public void createSteamJet(PipeSize size) {
