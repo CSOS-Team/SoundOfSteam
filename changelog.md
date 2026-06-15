@@ -1,8 +1,25 @@
+
 ------------------------------------------------------
-UNRELEASED: Create: Sound of Steam 0.9.0
+Create: Sound of Steam 0.9.1
+------------------------------------------------------
+
+### Changes:
+
+- Made the keyboard relay rotatable with a wrench
+
+### Bugfixes:
+
+- Crash when starting dedicated server (#103)
+- Changed timings in keyboard relay ponder
+- Fixed keyboard relay not being mirrored and rotated correctly in schematics
+- Rohrflute no longer triggers subbass advancement
+
+------------------------------------------------------
+Create: Sound of Steam 0.9.0
 ------------------------------------------------------
 
 ### Features:
+
 - Pipes:
   - Open Wood 16'
   - Chamade 8'
@@ -31,12 +48,12 @@ UNRELEASED: Create: Sound of Steam 0.9.0
 ### Bugfixes:
 
 - A couple samples not looping well
-- Chinese traditional and simplified file naming error #83
+- Chinese traditional and simplified file naming error (#83)
 - Keyboard relay notes would get stuck when holding keys and breaking the block
 - Tuned more pipes
 - Pipes no longer vanish when a contraption is disassembled
 - Hoppers/Funnels now update the inventory of the Tracker Bar
-- Game no longer crashes when placing blocks with Effortless Building #62
+- Game no longer crashes when placing blocks with Effortless Building (#62)
 
 ### Known Issues:
 
