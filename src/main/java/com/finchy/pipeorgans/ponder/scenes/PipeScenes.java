@@ -305,7 +305,7 @@ public class PipeScenes {
         scene.idle(20);
         scene.overlay().showText(60)
                 .attachKeyFrame()
-                .text("To fix this, simply remove any blocks that are in the way.")
+                .text("To fix this, simply remove any blocks that are in the way")
                 .pointAt(util.vector().blockSurface(util.grid().at(2, 6, 2), Direction.WEST))
                 .placeNearTarget();
         scene.idle(20);
