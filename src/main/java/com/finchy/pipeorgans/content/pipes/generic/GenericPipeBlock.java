@@ -182,7 +182,6 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
         Direction facing = state.getValue(FACING);
         boolean wall = state.getValue(WALL);
         boolean powered = state.getValue(POWERED);
-        level.destroyBlock(pos, false);
 
         GenericPipeBlock pipe = (GenericPipeBlock) ((GenericPipeBlockItem) heldItem.getItem()).getBlock();
 
