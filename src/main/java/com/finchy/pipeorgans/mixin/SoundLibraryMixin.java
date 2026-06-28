@@ -6,6 +6,7 @@ import org.lwjgl.openal.ALC10;
 import org.lwjgl.openal.ALC11;
 import org.lwjgl.system.MemoryStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
@@ -15,6 +16,10 @@ import java.nio.IntBuffer;
 
 @Mixin(Library.class)
 public class SoundLibraryMixin {
+
+    @Unique
+    private static int pipeorgans$allocatedMaxSources = 255;
+
     private static int pipeorgans$maxSources() {
         try {
             return ClientConfig.MAX_SOUND_SOURCES.get();
@@ -23,23 +28,43 @@ public class SoundLibraryMixin {
         }
     }
 
-    // Ask OpenAL for more mono sources instead of accepting the ~256 default.
+    // Dynamically tests the hardware limit starting from the requested config limit downwards.
     @Redirect(method = "init(Ljava/lang/String;Z)V", at = @At(value = "INVOKE", target = "Lorg/lwjgl/openal/ALC10;alcCreateContext(JLjava/nio/IntBuffer;)J"))
-    private long pipeorgans$createContextWithMoreSources(long device, IntBuffer ignoredNull) {
-        int mono = pipeorgans$maxSources();
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            IntBuffer attrs = stack.mallocInt(5)
-                    .put(ALC11.ALC_MONO_SOURCES).put(mono)
-                    .put(ALC11.ALC_STEREO_SOURCES).put(16)
-                    .put(0);
-            attrs.flip();
-            return ALC10.alcCreateContext(device, attrs);
+    private long pipeorgans$createContextWithMaxSupportedSources(long device, IntBuffer ignoredNull) {
+        int requestedMono = pipeorgans$maxSources();
+        long context = 0;
+
+        // Loop downwards until the OS accepts the channel weight.
+        // Decrementing by blocks of 32 preserves optimal memory alignment for OpenAL Soft.
+        while (requestedMono >= 64) {
+            try (MemoryStack stack = MemoryStack.stackPush()) {
+                IntBuffer attrs = stack.mallocInt(5)
+                        .put(ALC11.ALC_MONO_SOURCES).put(requestedMono)
+                        .put(ALC11.ALC_STEREO_SOURCES).put(16)
+                        .put(0);
+                attrs.flip();
+
+                context = ALC10.alcCreateContext(device, attrs);
+
+                if (context != 0) {
+                    pipeorgans$allocatedMaxSources = requestedMono;
+                    break;
+                }
+            }
+            requestedMono -= 32;
         }
+
+        // Fallback
+        if (context == 0) {
+            context = ALC10.alcCreateContext(device, (IntBuffer) null);
+            pipeorgans$allocatedMaxSources = 255;
+        }
+
+        return context;
     }
 
-    // Lift the hard 255 cap on the static channel pool to the configured maximum.
     @ModifyConstant(method = "init(Ljava/lang/String;Z)V", constant = @Constant(intValue = 255))
-    private int pipeorgans$raiseStaticCap(int original) {
-        return pipeorgans$maxSources();
+    private int pipeorgans$raiseStaticCapToTrueAllocated(int original) {
+        return pipeorgans$allocatedMaxSources;
     }
 }
