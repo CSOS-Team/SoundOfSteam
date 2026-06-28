@@ -133,6 +133,12 @@ public class AllBlockEntities {
             AllBlocks.HAUTBOIS,
             () -> Hautbois.HautboisRenderer::new);
 
+    public static final BlockEntityEntry<Clairon.ClaironBlockEntity> CLAIRON_BLOCK_ENTITY = registerPipeBlockEntity(
+            "clairon_block_entity",
+            Clairon.ClaironBlockEntity::new,
+            AllBlocks.CLAIRON,
+            () -> Clairon.ClaironRenderer::new);
+
     public static final BlockEntityEntry<Subbass.SubbassBlockEntity> SUBBASS_BLOCK_ENTITY = registerPipeBlockEntity(
             "subbass_block_entity",
             Subbass.SubbassBlockEntity::new,

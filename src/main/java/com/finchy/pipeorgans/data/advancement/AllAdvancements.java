@@ -153,6 +153,12 @@ public class AllAdvancements implements DataProvider {
             .after(BRASS_REED)
             .whenBlockPlaced(AllBlocks.TROMPETTE)),
 
+    CLAIRON = create("clairon", b -> b.icon(AllBlocks.CLAIRON)
+            .title("HONK Jr.")
+            .description("Place a Clairon pipe")
+            .after(TROMPETTE)
+            .whenBlockPlaced(AllBlocks.CLAIRON)),
+
     CHAMADE = create("chamade", b -> b.icon(AllBlocks.CHAMADE)
             .title("Trompette Pipe, but it Sideways")
             .description("Place a Chamade pipe")

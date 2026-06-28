@@ -1258,6 +1258,60 @@
     ]
   },
 
+  "clairon_superhigh": {
+      "subtitle": "sounds.pipeorgans.clairon_superhigh",
+      "sounds": [
+        {
+          "type": "file",
+          "attenuation_distance": 64,
+          "name": "pipeorgans:clairon/cl_superhigh"
+        }
+      ]
+    },
+
+    "clairon_high": {
+      "subtitle": "sounds.pipeorgans.clairon_high",
+      "sounds": [
+        {
+          "type": "file",
+          "attenuation_distance": 64,
+          "name": "pipeorgans:clairon/cl_high"
+        }
+      ]
+    },
+
+    "clairon_medium": {
+      "subtitle": "sounds.pipeorgans.clairon_medium",
+      "sounds": [
+        {
+          "type": "file",
+          "attenuation_distance": 64,
+          "name": "pipeorgans:clairon/cl_medium"
+        }
+      ]
+    },
+
+    "clairon_low": {
+      "subtitle": "sounds.pipeorgans.clairon_low",
+      "sounds": [
+        {
+          "type": "file",
+          "attenuation_distance": 64,
+          "name": "pipeorgans:clairon/cl_low"
+        }
+      ]
+    },
+
+    "clairon_deep": {
+      "subtitle": "sounds.pipeorgans.clairon_deep",
+      "sounds": [
+        {
+          "type": "file",
+          "attenuation_distance": 64,
+          "name": "pipeorgans:clairon/cl_deep"
+        }
+      ]
+    },
 
   "vox_humana_superhigh": {
     "subtitle": "sounds.pipeorgans.vox_humana_superhigh",

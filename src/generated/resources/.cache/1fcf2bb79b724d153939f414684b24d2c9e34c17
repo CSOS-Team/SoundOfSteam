@@ -1,7 +1,8 @@
-// 1.20.1	2026-06-28T14:34:24.886477	Create: Sound of Steam's Advancements
+// 1.20.1	2026-06-28T16:19:04.0119	Create: Sound of Steam's Advancements
 3bc36bfbed7e42b66def87948512222fbe81e8d1 data/pipeorgans/advancements/bassoon.json
 c4a2999883d3a28be0c3c797ea75d7a37c70173b data/pipeorgans/advancements/brass_reed.json
 4c3df3ac380332d74b6fcd68e74b73e1fc5e3ce9 data/pipeorgans/advancements/chamade.json
+e5d1e6b0b181b46cf1dc1b4d2a392891db24d850 data/pipeorgans/advancements/clairon.json
 e771fa3fa43ffffd8efd544cec23f3a89ed114d3 data/pipeorgans/advancements/diapason.json
 58fdfc71fbfcbfd398785d9b49aeca9c578a1601 data/pipeorgans/advancements/english_horn.json
 7226c5f586377f10badc204d0cc240b9f91c8982 data/pipeorgans/advancements/gamba.json

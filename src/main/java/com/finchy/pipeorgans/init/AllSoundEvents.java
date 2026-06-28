@@ -160,6 +160,12 @@ public class AllSoundEvents {
      HAUTBOIS_LOW = registerSoundEvent("hautbois_low"),
      HAUTBOIS_DEEP = registerSoundEvent("hautbois_deep"),
 
+     CLAIRON_SUPERHIGH = registerSoundEvent("clairon_superhigh"),
+     CLAIRON_HIGH = registerSoundEvent("clairon_high"),
+     CLAIRON_MEDIUM = registerSoundEvent("clairon_medium"),
+     CLAIRON_LOW = registerSoundEvent("clairon_low"),
+     CLAIRON_DEEP = registerSoundEvent("clairon_deep"),
+
      VOX_HUMANA_SUPERHIGH = registerSoundEvent("vox_humana_superhigh"),
      VOX_HUMANA_HIGH = registerSoundEvent("vox_humana_high"),
      VOX_HUMANA_MEDIUM = registerSoundEvent("vox_humana_medium"),

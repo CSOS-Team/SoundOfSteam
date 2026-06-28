@@ -386,6 +386,19 @@ public class AllBlocks {
             com.simibubi.create.AllBlocks.BRASS_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 
+    public static final BlockEntry<Clairon.ClaironBlock> CLAIRON = registerPipeBlock(
+            "clairon",
+            Clairon.ClaironBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            StopSize.FOUR,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<Clairon.ClaironExtensionBlock> CLAIRON_EXTENSION = registerExtensionBlock(
+            "clairon_extension",
+            Clairon.ClaironExtensionBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
     public static final BlockEntry<Chamade.ChamadeBlock> CHAMADE = registerPipeBlock(
             "chamade",
             Chamade.ChamadeBlock::new,
