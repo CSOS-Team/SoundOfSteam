@@ -1202,6 +1202,63 @@
   },
 
 
+
+  "hautbois_superhigh": {
+    "subtitle": "sounds.pipeorgans.hautbois_superhigh",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:hautbois/hb_superhigh"
+      }
+    ]
+  },
+
+  "hautbois_high": {
+    "subtitle": "sounds.pipeorgans.hautbois_high",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:hautbois/hb_high"
+      }
+    ]
+  },
+
+  "hautbois_medium": {
+    "subtitle": "sounds.pipeorgans.hautbois_medium",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:hautbois/hb_medium"
+      }
+    ]
+  },
+
+  "hautbois_low": {
+    "subtitle": "sounds.pipeorgans.hautbois_low",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:hautbois/hb_low"
+      }
+    ]
+  },
+
+  "hautbois_deep": {
+    "subtitle": "sounds.pipeorgans.hautbois_deep",
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 64,
+        "name": "pipeorgans:hautbois/hb_deep"
+      }
+    ]
+  },
+
+
   "vox_humana_superhigh": {
     "subtitle": "sounds.pipeorgans.vox_humana_superhigh",
     "sounds": [

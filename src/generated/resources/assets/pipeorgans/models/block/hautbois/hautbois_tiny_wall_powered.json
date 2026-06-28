@@ -1,0 +1,6 @@
+{
+  "parent": "pipeorgans:block/hautbois/hautbois_tiny_wall",
+  "textures": {
+    "1": "create:block/copper_redstone_plate_powered"
+  }
+}

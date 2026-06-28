@@ -43,6 +43,10 @@ public class AllItems {
                     .item("iron_boot", Item::new)
                     .onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "item.pipeorgans.iron_boot"))
                     .register(),
+            GILDED_COPPER_BOOT = REGISTRATE
+                    .item("gilded_copper_boot", Item::new)
+                    .onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "item.pipeorgans.gilded_copper_boot"))
+                    .register(),
             BRASS_REED = REGISTRATE
                     .item("brass_reed", Item::new)
                     .register();
@@ -71,7 +75,8 @@ public class AllItems {
             INCOMPLETE_POSAUNE = sequencedPipeIngredient("incomplete_posaune"),
             INCOMPLETE_ENGLISH_HORN = sequencedPipeIngredient("incomplete_english_horn"),
             INCOMPLETE_KRUMMHORN = sequencedPipeIngredient("incomplete_krummhorn"),
-            INCOMPLETE_BASSOON = sequencedPipeIngredient("incomplete_bassoon");
+            INCOMPLETE_BASSOON = sequencedPipeIngredient("incomplete_bassoon"),
+            INCOMPLETE_HAUTBOIS = sequencedPipeIngredient("incomplete_hautbois");
 
     private static ItemEntry<SequencedAssemblyItem> sequencedPipeIngredient(String name) {
         return REGISTRATE.item(name, SequencedAssemblyItem::new)

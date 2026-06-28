@@ -183,10 +183,16 @@ public class AllAdvancements implements DataProvider {
             .after(VOX_HUMANA)
             .whenBlockPlaced(AllBlocks.BASSOON)),
 
+    HAUTBOIS = create("hautbois", b -> b.icon(AllBlocks.HAUTBOIS)
+            .title("A Tuning Nightmare")
+            .description("Place a Hautbois pipe")
+            .after(BASSOON)
+            .whenBlockPlaced(AllBlocks.HAUTBOIS)),
+
     POSAUNE = create("posaune", b -> b.icon(AllBlocks.POSAUNE)
             .title("Rumbling Reeds")
             .description("Place a Posaune pipe")
-            .after(BASSOON)
+            .after(HAUTBOIS)
             .whenBlockPlaced(AllBlocks.POSAUNE)),
 
     //Hidden Advancements

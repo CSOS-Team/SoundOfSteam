@@ -132,6 +132,13 @@ public class AllPartialModels {
     BASSOON_MOUTH_LARGE = block("bassoon/bassoon_large_mouth"),
     BASSOON_MOUTH_HUGE = block("bassoon/bassoon_huge_mouth"),
 
+    // NEEDS TO BE UPDATEDD WITH CORRECT MODELS
+    HAUTBOIS_MOUTH_TINY = block("trompette/trompette_tiny_mouth"),
+    HAUTBOIS_MOUTH_SMALL = block("trompette/trompette_small_mouth"),
+    HAUTBOIS_MOUTH_MEDIUM = block("trompette/trompette_medium_mouth"),
+    HAUTBOIS_MOUTH_LARGE = block("trompette/trompette_large_mouth"),
+    HAUTBOIS_MOUTH_HUGE = block("trompette/trompette_huge_mouth"),
+
     VOX_HUMANA_MOUTH_TINY = block("vox_humana/vox_humana_tiny_mouth"),
     VOX_HUMANA_MOUTH_SMALL = block("vox_humana/vox_humana_small_mouth"),
     VOX_HUMANA_MOUTH_MEDIUM = block("vox_humana/vox_humana_medium_mouth"),

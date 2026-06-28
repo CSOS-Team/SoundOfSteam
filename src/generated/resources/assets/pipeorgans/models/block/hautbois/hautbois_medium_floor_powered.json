@@ -1,0 +1,6 @@
+{
+  "parent": "pipeorgans:block/hautbois/hautbois_medium_floor",
+  "textures": {
+    "1": "create:block/copper_redstone_plate_powered"
+  }
+}
