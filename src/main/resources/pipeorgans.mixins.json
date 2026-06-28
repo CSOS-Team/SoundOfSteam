@@ -11,7 +11,8 @@
     "FanUpdateWindchestMixin",
     "RedstoneLinkNetworkHandlerMixin",
     "WhistleBlockMixin",
-    "WhistleBlockEntityMixin"
+    "WhistleBlockEntityMixin",
+    "SoundLibraryMixin"
   ],
   "mixinextras": {
     "minVersion": "0.5.0"
