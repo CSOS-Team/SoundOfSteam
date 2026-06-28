@@ -36,7 +36,7 @@ public class ClientConfig {
             .defineInRange("sounds.pipeFadeSpeed", 0.25d, 0.01d, 0.5d);
 
     public static final ForgeConfigSpec.IntValue MAX_SOUND_SOURCES = BUILDER
-            .comment("Max simultaneous sound channels. Raises Minecraft's 255 cap so large organs don't cut out.", "Requires a restart. Higher values use more RAM/CPU.")
+            .comment("Max simultaneous sound channels.", "Higher values use more RAM/CPU. Restart to apply.")
             .defineInRange("sounds.maxSoundSources", 512, 256, 2048);
 
     //Clipboard Assisted Placement Config (CAP)
