@@ -11,7 +11,9 @@
     "FanUpdateWindchestMixin",
     "RedstoneLinkNetworkHandlerMixin",
     "WhistleBlockMixin",
-    "WhistleBlockEntityMixin",
+    "WhistleBlockEntityMixin"
+  ],
+  "client": [
     "SoundLibraryMixin"
   ],
   "mixinextras": {
