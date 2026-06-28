@@ -9,8 +9,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.nio.IntBuffer;
 
@@ -28,22 +30,22 @@ public class SoundLibraryMixin {
         }
     }
 
-    // Dynamically tests the hardware limit starting from the requested config limit downwards.
     @Redirect(method = "init(Ljava/lang/String;Z)V", at = @At(value = "INVOKE", target = "Lorg/lwjgl/openal/ALC10;alcCreateContext(JLjava/nio/IntBuffer;)J"))
     private long pipeorgans$createContextWithMaxSupportedSources(long device, IntBuffer ignoredNull) {
         int requestedMono = pipeorgans$maxSources();
         long context = 0;
 
-        // Loop downwards until the OS accepts the channel weight.
-        // Decrementing by blocks of 32 preserves optimal memory alignment for OpenAL Soft.
+        // Steps down from config maximum in aligned blocks until OS accepts the stream weight
         while (requestedMono >= 64) {
             try (MemoryStack stack = MemoryStack.stackPush()) {
-                IntBuffer attrs = stack.mallocInt(5)
-                        .put(ALC11.ALC_MONO_SOURCES).put(requestedMono)
-                        .put(ALC11.ALC_STEREO_SOURCES).put(16)
-                        .put(0);
-                attrs.flip();
+                // Ensure exact 4-byte boundaries, stopping pitch & pan distortion
+                int[] attribArray = new int[] {
+                    ALC11.ALC_MONO_SOURCES, requestedMono,
+                    ALC11.ALC_STEREO_SOURCES, 16,
+                    0
+                };
 
+                IntBuffer attrs = stack.ints(attribArray);
                 context = ALC10.alcCreateContext(device, attrs);
 
                 if (context != 0) {
