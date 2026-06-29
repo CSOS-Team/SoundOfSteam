@@ -54,16 +54,11 @@ public class OrganConsoleBlockEntity extends SmartBlockEntity implements MenuPro
     public static final int RECEIVE_LOW_PITCH = 36;
     public static final int RECEIVE_HIGH_PITCH = 96;
 
-    // Ghost inventory layout
+    // Ghost inventory layout: one division filter per section (slot = section).
     public static final int FILTER_SLOTS = 16; // sized 16 so RedstoneMidiTransmitter#setFrequencyKeysOnLoad is happy
-    public static final int INPUT_SLOT_BASE = 8;
 
-    public static int outputSlot(int section) {
+    public static int divisionSlot(int section) {
         return section;
-    }
-
-    public static int inputSlot(int section) {
-        return INPUT_SLOT_BASE + section;
     }
 
     // Persistent configuration
@@ -77,14 +72,14 @@ public class OrganConsoleBlockEntity extends SmartBlockEntity implements MenuPro
     private final RedstoneMidiTransmitter link;
 
     // Runtime (server-side) state
-    private final int[][] receivedPower = new int[PEDAL_SECTION + 1][RECEIVE_HIGH_PITCH - RECEIVE_LOW_PITCH + 1];
     private final List<ConsoleNoteReceiver> receivers = new ArrayList<>();
-
-    private final Map<Integer, Set<Integer>> receivedEmitted = new HashMap<>();
 
     private final Map<UUID, Set<Long>> guiPlayerNotes = new HashMap<>();
 
     private final long[] receivedBits = new long[PEDAL_SECTION + 1];
+
+    // Arriving signals
+    private final int[][] divisionPower = new int[PEDAL_SECTION + 1][RECEIVE_HIGH_PITCH - RECEIVE_LOW_PITCH + 1];
 
     public boolean menuPedalboardMode = false;
     public int menuManualCount = 1;
@@ -109,10 +104,9 @@ public class OrganConsoleBlockEntity extends SmartBlockEntity implements MenuPro
                 setChanged();
                 if (level == null || level.isClientSide)
                     return;
-                if (slot <= PEDAL_SECTION) {                                  // output (emit) filter
-                    link.changeFrequencyKey(slot, getStackInSlot(slot));
-                } else if (slot >= INPUT_SLOT_BASE && slot <= INPUT_SLOT_BASE + PEDAL_SECTION) { // input (receive) filter
-                    rebuildReceivers();
+                if (slot <= PEDAL_SECTION) {
+                    link.changeFrequencyKey(slot, getStackInSlot(slot)); // division (output) frequency
+                    rebuildReceivers(); // refresh the division display receivers
                 }
             }
         };
@@ -253,11 +247,6 @@ public class OrganConsoleBlockEntity extends SmartBlockEntity implements MenuPro
             if (notes.isEmpty())
                 it.remove();
         }
-        // Drop any received notes re-emitted on this section
-        Set<Integer> emitted = receivedEmitted.remove(section);
-        if (emitted != null)
-            for (int pitch : emitted)
-                link.deactivateNote(section, pitch);
     }
 
     private void releaseSectionsAboveManualCount() {
@@ -276,32 +265,28 @@ public class OrganConsoleBlockEntity extends SmartBlockEntity implements MenuPro
         }
     }
 
-    // Receive feature
+    // A receiver per (section, pitch) on the section's division filter, so notes arriving on that division (coupled notes, other players) light the keys blue.
     private void rebuildReceivers() {
         if (level == null || level.isClientSide)
             return;
         removeReceivers();
-
-        // Clear any notes that were re-emitted from received signals
-        for (Map.Entry<Integer, Set<Integer>> entry : receivedEmitted.entrySet())
-            for (int pitch : entry.getValue())
-                link.deactivateNote(entry.getKey(), pitch);
-        receivedEmitted.clear();
-        for (int[] row : receivedPower)
+        for (int[] row : divisionPower)
             java.util.Arrays.fill(row, 0);
 
         for (int section = 0; section <= PEDAL_SECTION; section++) {
-            ItemStack inputStack = filterInventory.getStackInSlot(inputSlot(section));
-            if (inputStack.isEmpty())
+            if (!isSectionConfigured(section))
                 continue;
-            Frequency inputFreq = Frequency.of(inputStack);
+            ItemStack divisionStack = filterInventory.getStackInSlot(divisionSlot(section));
+            if (divisionStack.isEmpty())
+                continue;
+            Frequency divFreq = Frequency.of(divisionStack);
             int low = sectionLowPitch(section);
             int high = low + keyCount(section) - 1;
             for (int pitch = low; pitch <= high; pitch++) {
                 Frequency pitchFreq = Frequency.of(PitchMapping.getStack(pitch));
-                ConsoleNoteReceiver receiver = new ConsoleNoteReceiver(section, pitch, Couple.create(inputFreq, pitchFreq));
-                receivers.add(receiver);
-                Create.REDSTONE_LINK_NETWORK_HANDLER.addToNetwork(level, receiver);
+                ConsoleNoteReceiver display = new ConsoleNoteReceiver(section, pitch, Couple.create(divFreq, pitchFreq));
+                receivers.add(display);
+                Create.REDSTONE_LINK_NETWORK_HANDLER.addToNetwork(level, display);
             }
         }
     }
@@ -314,37 +299,7 @@ public class OrganConsoleBlockEntity extends SmartBlockEntity implements MenuPro
         receivers.clear();
     }
 
-    // Re-emit each section's received notes onto that section's own output filter
-    private void reconcileReceivedNotes() {
-        for (int section = 0; section <= PEDAL_SECTION; section++) {
-            Set<Integer> emitted = receivedEmitted.computeIfAbsent(section, s -> new HashSet<>());
-
-            ItemStack outStack = filterInventory.getStackInSlot(outputSlot(section));
-            ItemStack inStack = filterInventory.getStackInSlot(inputSlot(section));
-            // Don't echo onto an empty output filter, and never echo onto the same frequency listening on
-            boolean canEmit = isSectionConfigured(section)
-                    && !outStack.isEmpty()
-                    && !ItemStack.isSameItemSameTags(outStack, inStack);
-
-            int low = sectionLowPitch(section);
-            int high = low + keyCount(section) - 1;
-            int[] power = receivedPower[section];
-
-            for (int pitch = low; pitch <= high; pitch++) {
-                boolean shouldBeOn = canEmit && power[pitch - RECEIVE_LOW_PITCH] > 0;
-                boolean isOn = emitted.contains(pitch);
-                if (shouldBeOn && !isOn) {
-                    link.activateNote(section, pitch, 127);
-                    emitted.add(pitch);
-                } else if (!shouldBeOn && isOn) {
-                    link.deactivateNote(section, pitch);
-                    emitted.remove(pitch);
-                }
-            }
-        }
-    }
-
-    // Listen for a single (section, pitch) on that section input frequency
+    // Listen for a single (section, pitch) on that section's division; drives the blue display.
     private class ConsoleNoteReceiver implements IRedstoneLinkable {
         private final int section;
         private final int pitch;
@@ -363,7 +318,11 @@ public class OrganConsoleBlockEntity extends SmartBlockEntity implements MenuPro
 
         @Override
         public void setReceivedStrength(int power) {
-            receivedPower[section][pitch - RECEIVE_LOW_PITCH] = power;
+            int idx = pitch - RECEIVE_LOW_PITCH;
+            if (divisionPower[section][idx] == power)
+                return;
+            divisionPower[section][idx] = power;
+            refreshSectionDisplay(section); // push to clients immediately (instant visual)
         }
 
         @Override
@@ -395,26 +354,26 @@ public class OrganConsoleBlockEntity extends SmartBlockEntity implements MenuPro
             return;
 
         cleanupStaleGuiNotes();
-        reconcileReceivedNotes();
         syncReceivedBits();
     }
 
     // Recompute per-section received bitmask and pushes a client update when it changes
     private void syncReceivedBits() {
-        boolean changed = false;
-        for (int section = 0; section <= PEDAL_SECTION; section++) {
-            long bits = 0L;
-            int[] power = receivedPower[section];
-            for (int i = 0; i < power.length; i++)
-                if (power[i] > 0)
-                    bits |= 1L << i;
-            if (bits != receivedBits[section]) {
-                receivedBits[section] = bits;
-                changed = true;
-            }
-        }
-        if (changed)
+        for (int section = 0; section <= PEDAL_SECTION; section++)
+            refreshSectionDisplay(section);
+    }
+
+    /** Recomputes one section's display bitmask from its division signals; syncs to clients on change. */
+    private void refreshSectionDisplay(int section) {
+        long bits = 0L;
+        int[] power = divisionPower[section];
+        for (int i = 0; i < power.length; i++)
+            if (power[i] > 0)
+                bits |= 1L << i;
+        if (bits != receivedBits[section]) {
+            receivedBits[section] = bits;
             notifyUpdate();
+        }
     }
 
     // Release notes held by players that are no longer using console GUI

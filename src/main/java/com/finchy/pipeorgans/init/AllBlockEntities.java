@@ -3,6 +3,9 @@ package com.finchy.pipeorgans.init;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlockEntity;
 import com.finchy.pipeorgans.content.console.OrganConsoleBlockEntity;
+import com.finchy.pipeorgans.content.coupler.CouplerBlockEntity;
+import com.finchy.pipeorgans.content.piston.PistonBlockEntity;
+import com.finchy.pipeorgans.content.stop.StopBlockEntity;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
 import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
@@ -38,6 +41,21 @@ public class AllBlockEntities {
     public static final BlockEntityEntry<OrganConsoleBlockEntity> ORGAN_CONSOLE_BLOCK_ENTITY = REGISTRATE
             .blockEntity("organ_console_block_entity", OrganConsoleBlockEntity::new)
             .validBlock(AllBlocks.ORGAN_CONSOLE)
+            .register();
+
+    public static final BlockEntityEntry<StopBlockEntity> STOP_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("stop_manager_block_entity", StopBlockEntity::new)
+            .validBlock(AllBlocks.STOP)
+            .register();
+
+    public static final BlockEntityEntry<CouplerBlockEntity> COUPLER_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("coupler_block_entity", CouplerBlockEntity::new)
+            .validBlock(AllBlocks.COUPLER)
+            .register();
+
+    public static final BlockEntityEntry<PistonBlockEntity> PISTON_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("piston_block_entity", PistonBlockEntity::new)
+            .validBlock(AllBlocks.PISTON)
             .register();
 
     public static final BlockEntityEntry<TrackerBarBlockEntity> TRACKER_BAR_BLOCK_ENTITY = REGISTRATE

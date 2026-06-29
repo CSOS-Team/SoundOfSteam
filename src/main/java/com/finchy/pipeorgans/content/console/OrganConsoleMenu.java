@@ -83,18 +83,10 @@ public class OrganConsoleMenu extends MenuBase<OrganConsoleBlockEntity> {
         return keyboardRows(pedalboard, manualCount);
     }
 
-    public static final int GROUP_W = 2 * SLOT + GROUP_GAP;
+    public static final int FILTER_PITCH = SLOT + GROUP_GAP;
 
-    public static int groupBgX(int i) {
-        return FILTERS_X + i * GROUP_W;
-    }
-
-    public static int outputBgX(int i) {
-        return groupBgX(i);
-    }
-
-    public static int inputBgX(int i) {
-        return groupBgX(i) + SLOT;
+    public static int filterBgX(int i) {
+        return FILTERS_X + i * FILTER_PITCH;
     }
 
     public static int sectionForRow(boolean pedalboard, int row) {
@@ -126,7 +118,7 @@ public class OrganConsoleMenu extends MenuBase<OrganConsoleBlockEntity> {
     }
 
     public static int filtersWidth(boolean pedalboard, int manualCount) {
-        return emitFilterCount(pedalboard, manualCount) * GROUP_W - GROUP_GAP;
+        return emitFilterCount(pedalboard, manualCount) * FILTER_PITCH - GROUP_GAP;
     }
 
     public static int guiWidth(boolean pedalboard, int manualCount) {
@@ -172,14 +164,9 @@ public class OrganConsoleMenu extends MenuBase<OrganConsoleBlockEntity> {
         int groups = emitFilterCount(pedalboardMode, manualCount);
         for (int i = 0; i < groups; i++) {
             int section = sectionForRow(pedalboardMode, i);
-            // output filter
-            addSlot(new SlotItemHandler(ghostInventory, OrganConsoleBlockEntity.outputSlot(section),
-                    outputBgX(i) + 1, FILTER_ROW_Y + 1));
-            ghost.add(OrganConsoleBlockEntity.outputSlot(section));
-            // input filter
-            addSlot(new SlotItemHandler(ghostInventory, OrganConsoleBlockEntity.inputSlot(section),
-                    inputBgX(i) + 1, FILTER_ROW_Y + 1));
-            ghost.add(OrganConsoleBlockEntity.inputSlot(section));
+            addSlot(new SlotItemHandler(ghostInventory, OrganConsoleBlockEntity.divisionSlot(section),
+                    filterBgX(i) + 1, FILTER_ROW_Y + 1));
+            ghost.add(OrganConsoleBlockEntity.divisionSlot(section));
         }
 
         ghostSlotIndices = ghost.stream().mapToInt(Integer::intValue).toArray();

@@ -3,6 +3,9 @@ package com.finchy.pipeorgans.init;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlock;
 import com.finchy.pipeorgans.content.console.OrganConsoleBlock;
+import com.finchy.pipeorgans.content.coupler.CouplerBlock;
+import com.finchy.pipeorgans.content.piston.PistonBlock;
+import com.finchy.pipeorgans.content.stop.StopBlock;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlock;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
@@ -95,6 +98,39 @@ public class AllBlocks {
             .item()
             .build()
             .lang("Organ Console")
+            .register();
+
+    public static final BlockEntry<StopBlock> STOP = REGISTRATE.block("stop_manager", StopBlock::new)
+            .initialProperties(() -> Blocks.COPPER_BLOCK)
+            .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
+            .transform(pickaxeOnly())
+            .blockstate((c, p) -> p.simpleBlock(c.get(),
+                    p.models().cubeAll(c.getName(), new ResourceLocation("minecraft", "block/note_block"))))
+            .item()
+            .build()
+            .lang("Stop Manager")
+            .register();
+
+    public static final BlockEntry<CouplerBlock> COUPLER = REGISTRATE.block("coupler", CouplerBlock::new)
+            .initialProperties(() -> Blocks.COPPER_BLOCK)
+            .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
+            .transform(pickaxeOnly())
+            .blockstate((c, p) -> p.simpleBlock(c.get(),
+                    p.models().cubeAll(c.getName(), new ResourceLocation("minecraft", "block/note_block"))))
+            .item()
+            .build()
+            .lang("Couplers")
+            .register();
+
+    public static final BlockEntry<PistonBlock> PISTON = REGISTRATE.block("piston", PistonBlock::new)
+            .initialProperties(() -> Blocks.COPPER_BLOCK)
+            .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
+            .transform(pickaxeOnly())
+            .blockstate((c, p) -> p.simpleBlock(c.get(),
+                    p.models().cubeAll(c.getName(), new ResourceLocation("minecraft", "block/note_block"))))
+            .item()
+            .build()
+            .lang("Pistons")
             .register();
 
     public static final BlockEntry<TrackerBarBlock> TRACKER_BAR = REGISTRATE.block("tracker_bar", TrackerBarBlock::new)

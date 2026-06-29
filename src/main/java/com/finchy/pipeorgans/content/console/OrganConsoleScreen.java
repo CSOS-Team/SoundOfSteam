@@ -180,12 +180,10 @@ public class OrganConsoleScreen extends AbstractSimiContainerScreen<OrganConsole
         graphics.fill(leftPos - 1, topPos - 1, leftPos + imageWidth + 1, topPos + imageHeight + 1, COLOR_PANEL_BORDER);
         graphics.fill(leftPos, topPos, leftPos + imageWidth, topPos + imageHeight, COLOR_PANEL);
 
-        // Filter slot backgrounds: output + input per section group
+        // Division filter slot background per section
         int groups = OrganConsoleMenu.emitFilterCount(pedalboardMode, mc);
-        for (int i = 0; i < groups; i++) {
-            drawSlotBackground(graphics, OrganConsoleMenu.outputBgX(i) + 1, OrganConsoleMenu.FILTER_ROW_Y + 1);
-            drawSlotBackground(graphics, OrganConsoleMenu.inputBgX(i) + 1, OrganConsoleMenu.FILTER_ROW_Y + 1);
-        }
+        for (int i = 0; i < groups; i++)
+            drawSlotBackground(graphics, OrganConsoleMenu.filterBgX(i) + 1, OrganConsoleMenu.FILTER_ROW_Y + 1);
 
         // Keyboards
         for (int row = 0; row < rowCount(); row++) {
@@ -259,16 +257,9 @@ public class OrganConsoleScreen extends AbstractSimiContainerScreen<OrganConsole
         super.renderTooltip(graphics, x, y);
     }
 
-    private static Component filterRoleLabel(int handlerIndex) {
-        if (handlerIndex >= OrganConsoleBlockEntity.INPUT_SLOT_BASE) {
-            int section = handlerIndex - OrganConsoleBlockEntity.INPUT_SLOT_BASE;
-            return section == OrganConsoleBlockEntity.PEDAL_SECTION
-                    ? Component.translatable("gui.pipeorgans.organ_console.pedalboard_input")
-                    : Component.translatable("gui.pipeorgans.organ_console.manual_input", section + 1);
-        }
-        int section = handlerIndex;
+    private static Component filterRoleLabel(int section) {
         return section == OrganConsoleBlockEntity.PEDAL_SECTION
-                ? Component.translatable("gui.pipeorgans.organ_console.pedalboard_output")
-                : Component.translatable("gui.pipeorgans.organ_console.manual_output", section + 1);
+                ? Component.translatable("gui.pipeorgans.organ_console.pedalboard_division")
+                : Component.translatable("gui.pipeorgans.organ_console.manual_division", section + 1);
     }
 }
