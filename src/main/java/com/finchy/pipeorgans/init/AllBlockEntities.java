@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlockEntity;
+import com.finchy.pipeorgans.content.console.OrganConsoleBlockEntity;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
 import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlockEntity;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlockEntity;
@@ -34,6 +35,11 @@ public class AllBlockEntities {
             .validBlock(AllBlocks.KEYBOARD_RELAY)
             .register();
 
+    public static final BlockEntityEntry<OrganConsoleBlockEntity> ORGAN_CONSOLE_BLOCK_ENTITY = REGISTRATE
+            .blockEntity("organ_console_block_entity", OrganConsoleBlockEntity::new)
+            .validBlock(AllBlocks.ORGAN_CONSOLE)
+            .register();
+
     public static final BlockEntityEntry<TrackerBarBlockEntity> TRACKER_BAR_BLOCK_ENTITY = REGISTRATE
             .blockEntity("tracker_bar_block_entity", TrackerBarBlockEntity::new)
             .visual(() -> TrackerBarVisual::new)
@@ -46,7 +52,7 @@ public class AllBlockEntities {
             .validBlock(AllBlocks.ROLL_PUNCHER)
             .register();
 
-    
+
     public static final BlockEntityEntry<Diapason.DiapasonBlockEntity> DIAPASON_BLOCK_ENTITY = registerPipeBlockEntity(
             "diapason_block_entity",
             Diapason.DiapasonBlockEntity::new,
@@ -132,7 +138,7 @@ public class AllBlockEntities {
             Subbass.SubbassBlockEntity::new,
             AllBlocks.SUBBASS,
             () -> Subbass.SubbassRenderer::new);
-    
+
     /*
     public static final BlockEntityEntry<Untersatz.UntersatzBlockEntity> UNTERSATZ_BLOCK_ENTITY = registerPipeBlockEntity(
             "untersatz_block_entity",

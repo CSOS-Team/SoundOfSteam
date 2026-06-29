@@ -2,6 +2,7 @@ package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlock;
+import com.finchy.pipeorgans.content.console.OrganConsoleBlock;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlock;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
@@ -24,6 +25,7 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -82,6 +84,17 @@ public class AllBlocks {
             ))
             .item()
             .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<OrganConsoleBlock> ORGAN_CONSOLE = REGISTRATE.block("organ_console", OrganConsoleBlock::new)
+            .initialProperties(() -> Blocks.COPPER_BLOCK)
+            .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
+            .transform(pickaxeOnly())
+            .blockstate((c, p) -> p.simpleBlock(c.get(),
+                    p.models().cubeAll(c.getName(), new ResourceLocation("minecraft", "block/note_block"))))
+            .item()
+            .build()
+            .lang("Organ Console")
             .register();
 
     public static final BlockEntry<TrackerBarBlock> TRACKER_BAR = REGISTRATE.block("tracker_bar", TrackerBarBlock::new)
@@ -271,7 +284,7 @@ public class AllBlocks {
             Piccolo.PiccoloExtensionBlock::new,
             () -> Blocks.IRON_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
-    
+
     /*
     public static final BlockEntry<Oktav.OktavBlock> OKTAV = registerPipeBlock(
             "oktav",
@@ -329,7 +342,7 @@ public class AllBlocks {
             Subbass.SubbassExtensionBlock::new,
             () -> Blocks.DARK_OAK_PLANKS,
             BlockTags.MINEABLE_WITH_AXE);
-    
+
     /*
     public static final BlockEntry<Untersatz.UntersatzBlock> UNTERSATZ = registerPipeBlock(
             "untersatz",

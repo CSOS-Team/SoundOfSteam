@@ -1,6 +1,8 @@
 package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.content.console.OrganConsoleMenu;
+import com.finchy.pipeorgans.content.console.OrganConsoleScreen;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayMenu;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayScreen;
 import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherMenu;
@@ -21,6 +23,9 @@ public class AllMenuTypes {
 
     public static final MenuEntry<KeyboardRelayMenu> KEYBOARD_RELAY_MENU =
             register("keyboard_relay", KeyboardRelayMenu::new, () -> KeyboardRelayScreen::new);
+
+    public static final MenuEntry<OrganConsoleMenu> ORGAN_CONSOLE_MENU =
+            register("organ_console", OrganConsoleMenu::new, () -> OrganConsoleScreen::new);
 
     public static final MenuEntry<RollPuncherMenu> ROLL_PUNCHER_MENU =
             register("roll_puncher", RollPuncherMenu::new, () -> RollPuncherScreen::new);

@@ -7,6 +7,16 @@
   "gui.pipeorgans.midi_config": "MIDI Input Device Config",
   "gui.pipeorgans.keyboard_relay": "Keyboard Relay",
 
+  "gui.pipeorgans.organ_console.manuals": "Organ Console - Manuals",
+  "gui.pipeorgans.organ_console.pedalboard": "Organ Console - Pedalboard",
+  "gui.pipeorgans.organ_console.receive": "Receive Filter",
+  "gui.pipeorgans.organ_console.manual": "Manual %1$s Filter",
+  "gui.pipeorgans.organ_console.pedalboard_filter": "Pedalboard Filter",
+  "gui.pipeorgans.organ_console.manual_output": "Manual %1$s Output Filter",
+  "gui.pipeorgans.organ_console.manual_input": "Manual %1$s Input Filter",
+  "gui.pipeorgans.organ_console.pedalboard_output": "Pedalboard Output Filter",
+  "gui.pipeorgans.organ_console.pedalboard_input": "Pedalboard Input Filter",
+
   "gui.pipeorgans.tracker_bar": "Tracker Bar",
   "sounds.pipeorgans.tracker_bar_change_roll": "Paper roll rustles",
 
