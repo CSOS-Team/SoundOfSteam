@@ -271,7 +271,7 @@ public class AllBlocks {
             Piccolo.PiccoloExtensionBlock::new,
             () -> Blocks.IRON_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
-    
+
     /*
     public static final BlockEntry<Oktav.OktavBlock> OKTAV = registerPipeBlock(
             "oktav",
@@ -329,7 +329,7 @@ public class AllBlocks {
             Subbass.SubbassExtensionBlock::new,
             () -> Blocks.DARK_OAK_PLANKS,
             BlockTags.MINEABLE_WITH_AXE);
-    
+
     /*
     public static final BlockEntry<Untersatz.UntersatzBlock> UNTERSATZ = registerPipeBlock(
             "untersatz",
@@ -370,6 +370,32 @@ public class AllBlocks {
     public static final BlockEntry<Trompette.TrompetteExtensionBlock> TROMPETTE_EXTENSION = registerExtensionBlock(
             "trompette_extension",
             Trompette.TrompetteExtensionBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<Hautbois.HautboisBlock> HAUTBOIS = registerPipeBlock(
+            "hautbois",
+            Hautbois.HautboisBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            StopSize.EIGHT,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<Hautbois.HautboisExtensionBlock> HAUTBOIS_EXTENSION = registerExtensionBlock(
+            "hautbois_extension",
+            Hautbois.HautboisExtensionBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<Clairon.ClaironBlock> CLAIRON = registerPipeBlock(
+            "clairon",
+            Clairon.ClaironBlock::new,
+            com.simibubi.create.AllBlocks.BRASS_BLOCK,
+            StopSize.FOUR,
+            BlockTags.MINEABLE_WITH_PICKAXE);
+
+    public static final BlockEntry<Clairon.ClaironExtensionBlock> CLAIRON_EXTENSION = registerExtensionBlock(
+            "clairon_extension",
+            Clairon.ClaironExtensionBlock::new,
             com.simibubi.create.AllBlocks.BRASS_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
 

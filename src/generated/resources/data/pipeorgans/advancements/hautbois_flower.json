@@ -1,0 +1,31 @@
+{
+  "parent": "pipeorgans:hautbois",
+  "criteria": {
+    "0": {
+      "conditions": {},
+      "trigger": "pipeorgans:hautbois_flower"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.hautbois_flower.desc"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "item": "minecraft:poppy"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pipeorgans.hautbois_flower"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

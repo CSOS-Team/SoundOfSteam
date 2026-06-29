@@ -23,9 +23,11 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.PRESTANT.get());
                         //output.accept(AllBlocks.OKTAV.get());
                         output.accept(AllBlocks.TROMPETTE.get());
+                        output.accept(AllBlocks.CLAIRON.get());
                         output.accept(AllBlocks.CHAMADE.get());
                         output.accept(AllBlocks.ENGLISH_HORN.get());
                         output.accept(AllBlocks.KRUMMHORN.get());
+                        output.accept(AllBlocks.HAUTBOIS.get());
                         output.accept(AllBlocks.GEDECKT.get());
                         output.accept(AllBlocks.ROHRFLOTE.get());
                         output.accept(AllBlocks.HOHLFLUTE.get());
@@ -48,7 +50,9 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.WINDCHEST.get());
                         output.accept(AllBlocks.NOTE_LINK.get());
                         output.accept(AllItems.BRASS_BOOT.get());
+                        output.accept(AllItems.REINFORCEED_BRASS_BOOT.get());
                         output.accept(AllItems.COPPER_BOOT.get());
+                        output.accept(AllItems.GILDED_COPPER_BOOT.get());
                         output.accept(AllItems.REINFORCED_COPPER_BOOT.get());
                         output.accept(AllItems.IRON_BOOT.get());
                         output.accept(AllItems.DARK_OAK_BOOT.get());

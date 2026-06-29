@@ -1,5 +1,5 @@
 {
-  "parent": "pipeorgans:bassoon",
+  "parent": "pipeorgans:hautbois",
   "criteria": {
     "0": {
       "conditions": {

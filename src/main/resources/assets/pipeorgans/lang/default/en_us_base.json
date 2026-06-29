@@ -32,7 +32,9 @@
   "item.pipeorgans.music_roll.invalid": "[!] Invalid Item - Use the Roll Authoring Table instead",
 
   "item.pipeorgans.brass_boot.tooltip.summary": "Used in sequenced assembly to craft the _Trompette_",
+  "item.pipeorgans.reinforced_brass_boot.tooltip.summary": "Used in sequenced assembly to craft the _Clairon_",
   "item.pipeorgans.brassbound_boot.tooltip.summary": "Used in sequenced assembly to craft the _Bassoon_",
+  "item.pipeorgans.gilded_copper_boot.tooltip.summary": "Used in sequenced assembly to craft the _Hautbois_",
   "item.pipeorgans.copper_boot.tooltip.summary": "Used in sequenced assembly to craft the _Vox Humana_",
   "item.pipeorgans.reinforced_copper_boot.tooltip.summary": "Used in sequenced assembly to craft the _Krummhorn_",
   "item.pipeorgans.dark_oak_boot.tooltip.summary": "Used in sequenced assembly to craft the _Posaune_",
@@ -179,6 +181,18 @@
   "sounds.pipeorgans.bassoon_medium": "Bassoon grumbles",
   "sounds.pipeorgans.bassoon_low": "Bassoon rumbles",
   "sounds.pipeorgans.bassoon_deep": "Bassoon shakes the earth",
+
+  "sounds.pipeorgans.hautbois_superhigh": "Hautbois squeals",
+  "sounds.pipeorgans.hautbois_high": "Hautbois squeaks",
+  "sounds.pipeorgans.hautbois_medium": "Hautbois speaks",
+  "sounds.pipeorgans.hautbois_low": "Hautbois grumbles",
+  "sounds.pipeorgans.hautbois_deep": "Hautbois rumbles",
+
+  "sounds.pipeorgans.clairon_superhigh": "Clairon squeals",
+  "sounds.pipeorgans.clairon_high": "Clairon squeaks",
+  "sounds.pipeorgans.clairon_medium": "Clairon speaks",
+  "sounds.pipeorgans.clairon_low": "Clairon grumbles",
+  "sounds.pipeorgans.clairon_deep": "Clairon rumbles",
 
   "sounds.pipeorgans.vox_humana_superhigh": "Vox Humana screeches",
   "sounds.pipeorgans.vox_humana_high": "Vox Humana shouts",

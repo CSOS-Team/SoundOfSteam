@@ -46,7 +46,7 @@ public class AllBlockEntities {
             .validBlock(AllBlocks.ROLL_PUNCHER)
             .register();
 
-    
+
     public static final BlockEntityEntry<Diapason.DiapasonBlockEntity> DIAPASON_BLOCK_ENTITY = registerPipeBlockEntity(
             "diapason_block_entity",
             Diapason.DiapasonBlockEntity::new,
@@ -127,12 +127,24 @@ public class AllBlockEntities {
             AllBlocks.BASSOON,
             () -> Bassoon.BassoonRenderer::new);
 
+    public static final BlockEntityEntry<Hautbois.HautboisBlockEntity> HAUTBOIS_BLOCK_ENTITY = registerPipeBlockEntity(
+            "hautbois_block_entity",
+            Hautbois.HautboisBlockEntity::new,
+            AllBlocks.HAUTBOIS,
+            () -> Hautbois.HautboisRenderer::new);
+
+    public static final BlockEntityEntry<Clairon.ClaironBlockEntity> CLAIRON_BLOCK_ENTITY = registerPipeBlockEntity(
+            "clairon_block_entity",
+            Clairon.ClaironBlockEntity::new,
+            AllBlocks.CLAIRON,
+            () -> Clairon.ClaironRenderer::new);
+
     public static final BlockEntityEntry<Subbass.SubbassBlockEntity> SUBBASS_BLOCK_ENTITY = registerPipeBlockEntity(
             "subbass_block_entity",
             Subbass.SubbassBlockEntity::new,
             AllBlocks.SUBBASS,
             () -> Subbass.SubbassRenderer::new);
-    
+
     /*
     public static final BlockEntityEntry<Untersatz.UntersatzBlockEntity> UNTERSATZ_BLOCK_ENTITY = registerPipeBlockEntity(
             "untersatz_block_entity",

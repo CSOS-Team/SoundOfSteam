@@ -3,6 +3,7 @@ package com.finchy.pipeorgans.data.advancement;
 import com.finchy.pipeorgans.advancement.PipeGogglesTrigger;
 import com.finchy.pipeorgans.advancement.SteamBaseTrigger;
 import com.finchy.pipeorgans.advancement.WaterPipeTrigger;
+import com.finchy.pipeorgans.advancement.HautboisFlowerTrigger;
 import com.finchy.pipeorgans.data.advancement.PipeOrgansAdvancement.Builder;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllItems;
@@ -153,6 +154,12 @@ public class AllAdvancements implements DataProvider {
             .after(BRASS_REED)
             .whenBlockPlaced(AllBlocks.TROMPETTE)),
 
+    CLAIRON = create("clairon", b -> b.icon(AllBlocks.CLAIRON)
+            .title("HONK Jr.")
+            .description("Place a Clairon pipe")
+            .after(TROMPETTE)
+            .whenBlockPlaced(AllBlocks.CLAIRON)),
+
     CHAMADE = create("chamade", b -> b.icon(AllBlocks.CHAMADE)
             .title("Trompette Pipe, but it Sideways")
             .description("Place a Chamade pipe")
@@ -183,10 +190,16 @@ public class AllAdvancements implements DataProvider {
             .after(VOX_HUMANA)
             .whenBlockPlaced(AllBlocks.BASSOON)),
 
+    HAUTBOIS = create("hautbois", b -> b.icon(AllBlocks.HAUTBOIS)
+            .title("A Tuning Nightmare")
+            .description("Place a Hautbois pipe")
+            .after(BASSOON)
+            .whenBlockPlaced(AllBlocks.HAUTBOIS)),
+
     POSAUNE = create("posaune", b -> b.icon(AllBlocks.POSAUNE)
             .title("Rumbling Reeds")
             .description("Place a Posaune pipe")
-            .after(BASSOON)
+            .after(HAUTBOIS)
             .whenBlockPlaced(AllBlocks.POSAUNE)),
 
     //Hidden Advancements
@@ -209,20 +222,26 @@ public class AllAdvancements implements DataProvider {
             .secretTask()
     ),
     WATER_PIPE = create("water_pipe", b -> b.icon(Items.WATER_BUCKET)
-                    .title("The Sound of... Birds?")
-                    .description("Waterlog a Piccolo pipe")
-                    .trigger(WaterPipeTrigger.instance())
-                    .after(PICCOLO)
-                    .secretTask()
-            ),
+            .title("The Sound of... Birds?")
+            .description("Waterlog a Piccolo pipe")
+            .trigger(WaterPipeTrigger.instance())
+            .after(PICCOLO)
+            .secretTask()
+    ),
     STEAM_BASE = create("steam_base", b -> b.icon(AllBlocks.BASE)
             .title("Steam. Just Steam")
             .description("Let steam escape through a Pipe Base")
             .trigger(SteamBaseTrigger.instance())
             .after(ROOT)
             .secretTask()
-            );
-
+    ),
+    HAUTBOIS_FLOWER = create("hautbois_flower", b -> b.icon(Items.POPPY)
+            .title("What is love?")
+            .description("Give a flower to a Hautbois pipe")
+            .trigger(HautboisFlowerTrigger.instance())
+            .after(HAUTBOIS)
+            .secretTask()
+    );
 
 
 

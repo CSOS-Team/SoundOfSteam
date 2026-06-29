@@ -4,6 +4,7 @@ import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.advancement.PipeGogglesTrigger;
 import com.finchy.pipeorgans.advancement.SteamBaseTrigger;
 import com.finchy.pipeorgans.advancement.WaterPipeTrigger;
+import com.finchy.pipeorgans.advancement.HautboisFlowerTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 
 /**
@@ -17,12 +18,14 @@ public class AllTriggers {
             new SteamBaseTrigger();
     public static final WaterPipeTrigger WATER_PIPE =
             new WaterPipeTrigger();
+    public static final HautboisFlowerTrigger HAUTBOIS_FLOWER =
+            new HautboisFlowerTrigger();
 
     public static void register() {
         CriteriaTriggers.register(PIPE_GOGGLES);
         CriteriaTriggers.register(STEAM_BASE);
         CriteriaTriggers.register(WATER_PIPE);
+        CriteriaTriggers.register(HAUTBOIS_FLOWER);
     }
 
 }
-

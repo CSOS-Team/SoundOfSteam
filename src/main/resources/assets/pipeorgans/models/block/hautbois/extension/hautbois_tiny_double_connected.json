@@ -1,0 +1,31 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/hautbois",
+		"particle": "pipeorgans:block/particle/hautbois_particle"
+	},
+	"elements": [
+		{
+			"from": [7, 0, 7],
+			"to": [9, 8, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [2.875, 9, 3.125, 10], "texture": "#0"},
+				"east": {"uv": [2.875, 9, 3.125, 10], "texture": "#0"},
+				"south": {"uv": [2.875, 9, 3.125, 10], "texture": "#0"},
+				"west": {"uv": [2.875, 9, 3.125, 10], "texture": "#0"}
+			}
+		},
+		{
+			"from": [7, 8, 7],
+			"to": [9, 16, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 8, 7]},
+			"faces": {
+				"north": {"uv": [2.875, 9, 3.125, 10], "texture": "#0"},
+				"east": {"uv": [2.875, 9, 3.125, 10], "texture": "#0"},
+				"south": {"uv": [2.875, 9, 3.125, 10], "texture": "#0"},
+				"west": {"uv": [2.875, 9, 3.125, 10], "texture": "#0"}
+			}
+		}
+	]
+}

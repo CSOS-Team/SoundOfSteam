@@ -1,9 +1,11 @@
-// 1.20.1	2026-06-03T21:07:32.5515419	Registrate Provider for pipeorgans [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2026-06-28T18:24:27.094754	Registrate Provider for pipeorgans [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 8e39d8877707a62ab2683b5612b9a85b020e09bf assets/pipeorgans/blockstates/base.json
 c746142a5971f7d9610400061ae6db7288f39cc5 assets/pipeorgans/blockstates/bassoon.json
 0f7ac7604f0fee26a230e70f6419cb10df907237 assets/pipeorgans/blockstates/bassoon_extension.json
 3bfceed48e9b9ef3ff0834bf99e04b0f2b6cb9eb assets/pipeorgans/blockstates/chamade.json
 1a188bb1d50d16ebb959fd15c978f29c6dac56d4 assets/pipeorgans/blockstates/chamade_extension.json
+403ecbfda0ed7a970600f5e7f09d863ea0e4f789 assets/pipeorgans/blockstates/clairon.json
+c4ef1b84d31665ea83070d712badfe386a10f973 assets/pipeorgans/blockstates/clairon_extension.json
 f3da1a65fb96947d028b7c9f95ab8940a5f9fdc0 assets/pipeorgans/blockstates/diapason.json
 a690057eed05b7cee0006400ebb14bee1e182fa3 assets/pipeorgans/blockstates/diapason_extension.json
 cb4ff99aa602cce104382d147c02eb503539f3a3 assets/pipeorgans/blockstates/english_horn.json
@@ -14,6 +16,8 @@ cb4ff99aa602cce104382d147c02eb503539f3a3 assets/pipeorgans/blockstates/english_h
 e36767d95ccf212c06d13b5d406a0fa47f55b6f9 assets/pipeorgans/blockstates/gedeckt_extension.json
 bbcfcac2b8c5679cb40ae1fcafc3aa13b443e71f assets/pipeorgans/blockstates/haunted_whistle.json
 632822e795a313c2188eba350f9fd9db6ab5d68e assets/pipeorgans/blockstates/haunted_whistle_extension.json
+e0a1b92787dd64ba260574d965956fe56efc53af assets/pipeorgans/blockstates/hautbois.json
+389870bed142068d70ab7d888eaa148d6c129e1a assets/pipeorgans/blockstates/hautbois_extension.json
 a791dcb787c8b127b693d86b34c17026309d075c assets/pipeorgans/blockstates/hohlflute.json
 a8d26929f1bc42257e3ffb336ea6ad4d492b34e1 assets/pipeorgans/blockstates/hohlflute_extension.json
 2d09a755cf5c0f7fd51b03320cdf77e07f7707af assets/pipeorgans/blockstates/keyboard_relay.json
@@ -48,23 +52,26 @@ ad18c8d11c01f8d723d551cf7370a0951b487c9f assets/pipeorgans/blockstates/vox_human
 a474fdb57fa8df1514d2f542958d9d5a18a4e638 assets/pipeorgans/blockstates/vox_humana_extension.json
 e2a66bfca8771ebaf42a85daf74ee2eac92cc060 assets/pipeorgans/blockstates/windchest.json
 7d2b2a163210c68e8cae4dfaa23748404230334b assets/pipeorgans/blockstates/windchest_master.json
-be31c7a009d90aa25d998b6ae386eaa616a633fd assets/pipeorgans/lang/en_ud.json
-38e7eb5a552b44127d67150e13e3df21dd9fdaf7 assets/pipeorgans/lang/en_us.json
+03241bcb210505bc8e0250a9e68a7d893e5e377c assets/pipeorgans/lang/en_ud.json
+7a86fca3328f952cf85f69f123b4ad322e9a806d assets/pipeorgans/lang/en_us.json
 c5f754282449380c27e6b04ae291520a0b061373 assets/pipeorgans/models/block/base/base_floor_powered.json
 a7d69e8a06fc232cbc074e3ea3a52c228d55b27a assets/pipeorgans/models/block/base/base_wall_powered.json
 6377819f02fb199c0ae28c0e0aac4cafbf2e2ce3 assets/pipeorgans/models/item/base.json
 5222fb9af26819181080d3972452098f486e4e5d assets/pipeorgans/models/item/bassoon.json
-2302273fb8ea11e0f175b8f3341100b33c11a066 assets/pipeorgans/models/item/brassbound_boot.json
 063bd5c9267543e9220cd28ec3ea7afd5c857bf2 assets/pipeorgans/models/item/brass_boot.json
 38f339f412a9597e5809f1563743ee5c3fa1c5bc assets/pipeorgans/models/item/brass_reed.json
+2302273fb8ea11e0f175b8f3341100b33c11a066 assets/pipeorgans/models/item/brassbound_boot.json
 9382b2e5ba262b49eaeeefac252b1140663c8a06 assets/pipeorgans/models/item/chamade.json
+deea2456582d28fbad30d6145c6471e312f6161a assets/pipeorgans/models/item/clairon.json
 80e0dff1f182dfe9dec7e6e0bb413033c98ac007 assets/pipeorgans/models/item/copper_boot.json
 3767fb51a4305f5398947499b68b1901e0090c8d assets/pipeorgans/models/item/dark_oak_boot.json
 8ed6de5c75d3c172f0bd7c4cd3875dcddd05aead assets/pipeorgans/models/item/diapason.json
 308c22e757dbdd662395a1f8cf462a6915caf129 assets/pipeorgans/models/item/english_horn.json
 4a7a731b61336b820af3600b5ffccbe7f1164f7f assets/pipeorgans/models/item/gamba.json
 c05917f44969816fca5885f5fc0341a2ceb2242d assets/pipeorgans/models/item/gedeckt.json
+7c47137906b76e1b9059ad65bef1c1be926b3a6d assets/pipeorgans/models/item/gilded_copper_boot.json
 0cde707b342d10d83b08bb767fd811730d4716b2 assets/pipeorgans/models/item/haunted_whistle.json
+56ad4aa014927ab37beccb0cf391441b4c4a171e assets/pipeorgans/models/item/hautbois.json
 95c980e5c3c99d19438c6d3af701af971f66b323 assets/pipeorgans/models/item/hohlflute.json
 7df3088b830a719913061695ee666e5c1cc27739 assets/pipeorgans/models/item/iron_boot.json
 24acadca5eaf0be048c49ad8092cc4c85b730617 assets/pipeorgans/models/item/keyboard_relay.json
@@ -76,6 +83,7 @@ ca525affde1f2f8cde7e13534a9472d5d1eeb7ac assets/pipeorgans/models/item/open_wood
 566637061ad3d6ec26a8261347f84941cc73c2df assets/pipeorgans/models/item/piccolo.json
 a35e42beaa68555a1db7cf010688466b41e92877 assets/pipeorgans/models/item/posaune.json
 f06aa9ed786678c69f2cc3bf62633bd0cf31e274 assets/pipeorgans/models/item/prestant.json
+4c475b097675b333c09c5109ef21bd1d5f5fa9c3 assets/pipeorgans/models/item/reinforced_brass_boot.json
 09e1131b0b49e5a675211855f1dc1b231b845e1f assets/pipeorgans/models/item/reinforced_copper_boot.json
 8c8f3914193a32272e667643d445d81eae3a5aff assets/pipeorgans/models/item/rohrflote.json
 978f8fb283fe54b9566765e442b310e92261e11b assets/pipeorgans/models/item/roll_puncher.json
@@ -92,12 +100,14 @@ cad79ef5b6c9acb4a117968fcfc308d5e6afe219 assets/pipeorgans/models/item/windchest
 503d3026ca3dd83f47d8479d8130763f20ed079f data/create/tags/blocks/brittle.json
 503d3026ca3dd83f47d8479d8130763f20ed079f data/create/tags/blocks/safe_nbt.json
 047c506150f6106a2016c665e1126e20ab42bc0c data/minecraft/tags/blocks/mineable/axe.json
-6be84e32e72188a2941882d0dc26cfd78c921e1b data/minecraft/tags/blocks/mineable/pickaxe.json
+670fa31465baa5b974440cf66bef8d302f83ed80 data/minecraft/tags/blocks/mineable/pickaxe.json
 3fdca088e2d2788a5f5413ffcb012570294611f0 data/pipeorgans/loot_tables/blocks/base.json
 aa6ced65a3cc6e5669fba58d97a14a73e83f398e data/pipeorgans/loot_tables/blocks/bassoon.json
 0d5a98452c8eb42028fa82eae67565ceb7fdf5c7 data/pipeorgans/loot_tables/blocks/bassoon_extension.json
 c0189c192b98d09fb4d581f2fa672abf62839637 data/pipeorgans/loot_tables/blocks/chamade.json
 853cc83f234a9532ad954673bf93444a043f2703 data/pipeorgans/loot_tables/blocks/chamade_extension.json
+434d7ac6ca8be147fd7b2c8bc2d2fb529dfa1654 data/pipeorgans/loot_tables/blocks/clairon.json
+c76781b2bd9131a859f8b8b657a2f06f453384a3 data/pipeorgans/loot_tables/blocks/clairon_extension.json
 73bf821647f8d447a98232a095c6dd605f892b5b data/pipeorgans/loot_tables/blocks/diapason.json
 b90967a874b91992af253a65484cac1d4a88d4c9 data/pipeorgans/loot_tables/blocks/diapason_extension.json
 cfc0e2e9a54585e270b7a765ec0888f52464375b data/pipeorgans/loot_tables/blocks/english_horn.json
@@ -108,6 +118,8 @@ de2c8ee7fddcafba69fd15ea9ab968d23909ccda data/pipeorgans/loot_tables/blocks/gamb
 830808f179787f3771829d83a1570a39bcc28ba3 data/pipeorgans/loot_tables/blocks/gedeckt_extension.json
 3554d9852a0ba8f9c29527430cfff0b3edbfe68a data/pipeorgans/loot_tables/blocks/haunted_whistle.json
 cd626f3fa9756cca460272fbceab77aacff1761b data/pipeorgans/loot_tables/blocks/haunted_whistle_extension.json
+925c2575749ef0e6f360986cc7ebbf3006b889ae data/pipeorgans/loot_tables/blocks/hautbois.json
+3bdb304497fc89067388e0b18363cab6b9541ccb data/pipeorgans/loot_tables/blocks/hautbois_extension.json
 0e9f167dc1e66aa05f14631e39606f317dd2bc8c data/pipeorgans/loot_tables/blocks/hohlflute.json
 ff3da0d062131efb165b042ffb314b3095ab8de3 data/pipeorgans/loot_tables/blocks/hohlflute_extension.json
 a44388cc1e4f5b43624f52d8f19b0d754864979c data/pipeorgans/loot_tables/blocks/keyboard_relay.json
@@ -142,4 +154,4 @@ bdb3c6588798d5c5cdeb5ce5921ee0cc1072c0c1 data/pipeorgans/loot_tables/blocks/vox_
 ca2e8c32068f06b51081560abbcf4f01b9d3a4e1 data/pipeorgans/loot_tables/blocks/vox_humana_extension.json
 23bb7974168cc9a5d9492eb6cdd8f08956a4225b data/pipeorgans/loot_tables/blocks/windchest.json
 2464f65b6656e3a6eb83c414a40447a7914eca99 data/pipeorgans/loot_tables/blocks/windchest_master.json
-aa9d5b445c6834e1ab2e8fb87e4755340ecde8e8 data/pipeorgans/tags/blocks/valid_whistle.json
+128e29a3c5da099bc76e650a9712efe4f0dd0f77 data/pipeorgans/tags/blocks/valid_whistle.json
