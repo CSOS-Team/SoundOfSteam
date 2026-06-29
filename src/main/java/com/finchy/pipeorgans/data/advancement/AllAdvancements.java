@@ -3,6 +3,7 @@ package com.finchy.pipeorgans.data.advancement;
 import com.finchy.pipeorgans.advancement.PipeGogglesTrigger;
 import com.finchy.pipeorgans.advancement.SteamBaseTrigger;
 import com.finchy.pipeorgans.advancement.WaterPipeTrigger;
+import com.finchy.pipeorgans.advancement.HautboisFlowerTrigger;
 import com.finchy.pipeorgans.data.advancement.PipeOrgansAdvancement.Builder;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllItems;
@@ -221,20 +222,26 @@ public class AllAdvancements implements DataProvider {
             .secretTask()
     ),
     WATER_PIPE = create("water_pipe", b -> b.icon(Items.WATER_BUCKET)
-                    .title("The Sound of... Birds?")
-                    .description("Waterlog a Piccolo pipe")
-                    .trigger(WaterPipeTrigger.instance())
-                    .after(PICCOLO)
-                    .secretTask()
-            ),
+            .title("The Sound of... Birds?")
+            .description("Waterlog a Piccolo pipe")
+            .trigger(WaterPipeTrigger.instance())
+            .after(PICCOLO)
+            .secretTask()
+    ),
     STEAM_BASE = create("steam_base", b -> b.icon(AllBlocks.BASE)
             .title("Steam. Just Steam")
             .description("Let steam escape through a Pipe Base")
             .trigger(SteamBaseTrigger.instance())
             .after(ROOT)
             .secretTask()
-            );
-
+    ),
+    HAUTBOIS_FLOWER = create("hautbois_flower", b -> b.icon(Items.POPPY)
+            .title("What is love?")
+            .description("Give a flower to a Hautbois pipe")
+            .trigger(HautboisFlowerTrigger.instance())
+            .after(HAUTBOIS)
+            .secretTask()
+    );
 
 
 

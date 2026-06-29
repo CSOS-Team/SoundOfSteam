@@ -1,4 +1,4 @@
-// 1.20.1	2026-06-28T16:19:04.0119	Create: Sound of Steam's Advancements
+// 1.20.1	2026-06-28T18:24:27.092852	Create: Sound of Steam's Advancements
 3bc36bfbed7e42b66def87948512222fbe81e8d1 data/pipeorgans/advancements/bassoon.json
 c4a2999883d3a28be0c3c797ea75d7a37c70173b data/pipeorgans/advancements/brass_reed.json
 4c3df3ac380332d74b6fcd68e74b73e1fc5e3ce9 data/pipeorgans/advancements/chamade.json
@@ -8,6 +8,7 @@ e771fa3fa43ffffd8efd544cec23f3a89ed114d3 data/pipeorgans/advancements/diapason.j
 7226c5f586377f10badc204d0cc240b9f91c8982 data/pipeorgans/advancements/gamba.json
 8b43fd6b72016bce58197957eb2935f9db04a80a data/pipeorgans/advancements/gedeckt.json
 2ee14b5e95486004d424ca73133ac48efdeef2ad data/pipeorgans/advancements/hautbois.json
+7ec650a43cdf59d2b1662a2e3a8698c3228bc3b2 data/pipeorgans/advancements/hautbois_flower.json
 be93cf0cf3db16513680f4ff911deb237bc830a8 data/pipeorgans/advancements/hohlflute.json
 118075c803e2e1f53ff75395e20b1849645d6410 data/pipeorgans/advancements/krummhorn.json
 32cdb55d16f919cf73e268f58f5274828bd18ab9 data/pipeorgans/advancements/nasard.json
