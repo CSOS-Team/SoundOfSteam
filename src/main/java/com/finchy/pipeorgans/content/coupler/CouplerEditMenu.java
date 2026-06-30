@@ -22,8 +22,8 @@ public class CouplerEditMenu extends MenuBase<CouplerBlockEntity> {
     public static final int NAME_LABEL_Y = 18;
     public static final int NAME_BOX_Y = 28;
     public static final int FILTER_LABEL_Y = 48;
-    public static final int A_BG_X = 8;
-    public static final int B_BG_X = 92;
+    public static final int A_BG_X = 92;
+    public static final int B_BG_X = 8;
     public static final int FILTER_BG_Y = 58;
     public static final int BUTTONS_Y = 86;
 
