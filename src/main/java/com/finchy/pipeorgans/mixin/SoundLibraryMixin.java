@@ -9,10 +9,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.nio.IntBuffer;
 
@@ -22,6 +20,7 @@ public class SoundLibraryMixin {
     @Unique
     private static int pipeorgans$allocatedMaxSources = 255;
 
+    @Unique
     private static int pipeorgans$maxSources() {
         try {
             return ClientConfig.MAX_SOUND_SOURCES.get();
@@ -30,7 +29,7 @@ public class SoundLibraryMixin {
         }
     }
 
-    @Redirect(method = "init(Ljava/lang/String;Z)V", at = @At(value = "INVOKE", target = "Lorg/lwjgl/openal/ALC10;alcCreateContext(JLjava/nio/IntBuffer;)J"))
+    @Redirect(method = "init(Ljava/lang/String;Z)V", at = @At(value = "INVOKE", target = "Lorg/lwjgl/openal/ALC10;alcCreateContext(JLjava/nio/IntBuffer;)J", remap = false))
     private long pipeorgans$createContextWithMaxSupportedSources(long device, IntBuffer ignoredNull) {
         int requestedMono = pipeorgans$maxSources();
         long context = 0;
