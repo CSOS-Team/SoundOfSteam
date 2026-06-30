@@ -35,6 +35,9 @@ public class ClientConfig {
             .comment("How fast pipe sounds fade out per tick (higher = faster)")
             .defineInRange("sounds.pipeFadeSpeed", 0.25d, 0.01d, 0.5d);
 
+    public static final ForgeConfigSpec.IntValue MAX_SOUND_SOURCES = BUILDER
+            .comment("Max simultaneous sound channels.", "Higher values use more RAM/CPU. Restart to apply.")
+            .defineInRange("sounds.maxSoundSources", 512, 256, 2048);
 
     //Clipboard Assisted Placement Config (CAP)
     public static final ForgeConfigSpec.BooleanValue CAP_ENABLED = BUILDER
@@ -56,6 +59,7 @@ public class ClientConfig {
     public static double whistleChiffVolume;
     public static double pipeAttenuationDistance;
     public static double pipeFadeSpeed;
+    public static int maxSoundSources;
     public static boolean capEnabled;
     public static CAPDirection capDefaultDirection;
     public static boolean capCopyMode;
@@ -67,6 +71,7 @@ public class ClientConfig {
         whistleChiffVolume = WHISTLE_CHIFF_VOLUME.get();
         pipeAttenuationDistance = PIPE_ATTENUATION_DISTANCE.get();
         pipeFadeSpeed = PIPE_FADE_SPEED.get();
+        maxSoundSources = MAX_SOUND_SOURCES.get();
         capEnabled = CAP_ENABLED.get();
         capDefaultDirection = CAP_DEFAULT_DIRECTION.get();
         capCopyMode = CAP_COPY_MODE.get();
