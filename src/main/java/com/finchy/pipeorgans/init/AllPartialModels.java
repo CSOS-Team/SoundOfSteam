@@ -170,13 +170,7 @@ public class AllPartialModels {
     WHISTLE_GOGGLES_SMALL = block("goggles/whistle/whistle_goggles_small"),
     WHISTLE_GOGGLES_MEDIUM = block("goggles/whistle/whistle_goggles_medium"),
     WHISTLE_GOGGLES_LARGE = block("goggles/whistle/whistle_goggles_large"),
-    WHISTLE_GOGGLES_HUGE = block("goggles/whistle/whistle_goggles_huge"),
-
-    // Console controller buttons
-    STOP_BUTTON = block("stop_button"),
-    COUPLER_SWITCH_BODY = block("coupler_switch_body"),
-    COUPLER_SWITCH_TOP = block("coupler_switch_top"),
-    PISTON_BUTTON = block("piston_button")
+    WHISTLE_GOGGLES_HUGE = block("goggles/whistle/whistle_goggles_huge")
     ;
 
 
