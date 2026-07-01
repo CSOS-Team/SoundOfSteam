@@ -1,18 +1,18 @@
 {
   "variants": {
     "facing=east": {
-      "model": "pipeorgans:block/piston",
+      "model": "pipeorgans:block/pistons_blockstate",
       "y": 90
     },
     "facing=north": {
-      "model": "pipeorgans:block/piston"
+      "model": "pipeorgans:block/pistons_blockstate"
     },
     "facing=south": {
-      "model": "pipeorgans:block/piston",
+      "model": "pipeorgans:block/pistons_blockstate",
       "y": 180
     },
     "facing=west": {
-      "model": "pipeorgans:block/piston",
+      "model": "pipeorgans:block/pistons_blockstate",
       "y": 270
     }
   }

@@ -440,10 +440,9 @@ public class StopBlockEntity extends SmartBlockEntity implements MenuProvider, c
 
         if (level != null && !level.isClientSide) {
             removeAllTransmitters();
-            // If the behaviour is already initialized (mid-session update, not initial load),
-            // re-register transmitters immediately so pressed stops keep emitting.
             if (getBehaviour(NETWORK_BEHAVIOUR) != null)
                 refreshTransmitters();
         }
+        dev.engine_room.flywheel.lib.visualization.VisualizationHelper.queueUpdate(this);
     }
 }

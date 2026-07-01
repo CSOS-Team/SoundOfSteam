@@ -30,7 +30,7 @@ import java.util.Map;
 @SuppressWarnings({"DataFlowIssue", "NullableProblems"})
 public class PistonBlockEntity extends SmartBlockEntity implements MenuProvider {
 
-    public static final int PISTON_COUNT = 16;
+    public static final int PISTON_COUNT = 12;
     public static final int SCAN_RADIUS = 6;
     public static final int CLEAR_PULSE_TICKS = 4;
 
@@ -276,5 +276,6 @@ public class PistonBlockEntity extends SmartBlockEntity implements MenuProvider 
         if (!clientPacket && level != null && !level.isClientSide
                 && getBehaviour(NETWORK_BEHAVIOUR) != null && prevTutti != tuttiActive)
             applyTutti();
+        dev.engine_room.flywheel.lib.visualization.VisualizationHelper.queueUpdate(this);
     }
 }

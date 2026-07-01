@@ -472,10 +472,9 @@ public class CouplerBlockEntity extends SmartBlockEntity implements MenuProvider
             couplers.add(new Coupler());
         if (level != null && !level.isClientSide) {
             removeAllLinks();
-            // If the behaviour is already initialized (mid-session update, not initial load),
-            // re-register links immediately so pressed couplers keep routing.
             if (getBehaviour(NETWORK_BEHAVIOUR) != null)
                 refreshAll();
         }
+        dev.engine_room.flywheel.lib.visualization.VisualizationHelper.queueUpdate(this);
     }
 }

@@ -1,33 +1,18 @@
 {
   "variants": {
-    "facing=east,powered=false": {
-      "model": "pipeorgans:block/stop_manager",
+    "facing=east": {
+      "model": "pipeorgans:block/stop_manager_blockstate",
       "y": 90
     },
-    "facing=east,powered=true": {
-      "model": "pipeorgans:block/stop_manager",
-      "y": 90
+    "facing=north": {
+      "model": "pipeorgans:block/stop_manager_blockstate"
     },
-    "facing=north,powered=false": {
-      "model": "pipeorgans:block/stop_manager"
-    },
-    "facing=north,powered=true": {
-      "model": "pipeorgans:block/stop_manager"
-    },
-    "facing=south,powered=false": {
-      "model": "pipeorgans:block/stop_manager",
+    "facing=south": {
+      "model": "pipeorgans:block/stop_manager_blockstate",
       "y": 180
     },
-    "facing=south,powered=true": {
-      "model": "pipeorgans:block/stop_manager",
-      "y": 180
-    },
-    "facing=west,powered=false": {
-      "model": "pipeorgans:block/stop_manager",
-      "y": 270
-    },
-    "facing=west,powered=true": {
-      "model": "pipeorgans:block/stop_manager",
+    "facing=west": {
+      "model": "pipeorgans:block/stop_manager_blockstate",
       "y": 270
     }
   }

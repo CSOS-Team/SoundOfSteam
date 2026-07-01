@@ -49,7 +49,7 @@ public class PistonScreen extends AbstractSimiContainerScreen<PistonMenu> {
         setWindowOffset(0, 0);
         super.init();
 
-        int bw = 70;
+        int bw = (PistonMenu.gridWidth() - 2 * 4) / 3; // three buttons with 4px gaps, filling grid width
         int by = topPos + PistonMenu.ACTIONS_Y;
         int bx = leftPos + PistonMenu.GRID_X;
 
@@ -124,7 +124,7 @@ public class PistonScreen extends AbstractSimiContainerScreen<PistonMenu> {
         if (cell != -1) {
             if (button == 0) {
                 if (be.isPresetEmpty(cell)) {
-                    selected = cell; // Select an unset piston -> the Set button appears
+                    selected = cell; // Select an unset piston: the Set button appears
                 } else {
                     send(PistonActionPacket.RECALL, cell);
                     pressedPiston = cell;
@@ -132,7 +132,7 @@ public class PistonScreen extends AbstractSimiContainerScreen<PistonMenu> {
                 }
             } else if (button == 1) {
                 if (!be.isPresetEmpty(cell))
-                    selected = cell; // Select a set piston -> the Clear Piston button appears
+                    selected = cell; // Select a set piston: the Clear Piston button appears
                 // right-clicking an unset piston does nothing
             }
             updateContextButtons();
