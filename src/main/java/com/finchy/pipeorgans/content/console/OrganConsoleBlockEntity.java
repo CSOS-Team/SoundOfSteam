@@ -458,6 +458,9 @@ public class OrganConsoleBlockEntity extends SmartBlockEntity implements MenuPro
 
         if (level != null && !level.isClientSide) {
             link.setFrequencyKeysOnLoad(filterInventory);
+            // If behaviour is already initialized (mid-session update), rebuild receivers immediately.
+            if (getBehaviour(NETWORK_BEHAVIOUR) != null)
+                rebuildReceivers();
         }
     }
 }

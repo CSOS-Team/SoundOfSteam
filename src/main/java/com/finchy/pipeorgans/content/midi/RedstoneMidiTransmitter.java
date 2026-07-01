@@ -91,20 +91,17 @@ public class RedstoneMidiTransmitter {
     }
 
     public void changeFrequencyKey(int channel, ItemStack newKey) {
+        FrequencyKeys.set(channel, Frequency.of(newKey));
         for (Map.Entry<Integer, ManualNoteFrequency> entry : activeNotes.get(channel).entrySet()) {
             ManualNoteFrequency oldNote = entry.getValue();
-
-            if (oldNote.getSecond().getFirst().getStack().equals(newKey)) // if the new key is the same as the existing key
-                return;
+            if (oldNote.getSecond().getFirst().getStack().equals(newKey))
+                continue; // frequency unchanged for this note, skip
             Create.REDSTONE_LINK_NETWORK_HANDLER.removeFromNetwork(be.getLevel(), oldNote);
-
             Frequency pitchFreq = oldNote.getSecond().getSecond();
             ManualNoteFrequency newNoteFrequency = ManualNoteFrequency.create(oldNote.pos, Frequency.of(newKey), pitchFreq, oldNote.strength);
             entry.setValue(newNoteFrequency);
             Create.REDSTONE_LINK_NETWORK_HANDLER.addToNetwork(be.getLevel(), newNoteFrequency);
         }
-        FrequencyKeys.set(channel, Frequency.of(newKey));
-
     }
 
     public void stopAllNotes() {
@@ -124,9 +121,14 @@ public class RedstoneMidiTransmitter {
     }
 
     public void activateNote(int channel, int pitch, int velocity) {
+        Map<Integer, ManualNoteFrequency> channelNotes = activeNotes.get(channel);
+        // Remove any existing transmitter for this pitch before adding a new one
+        ManualNoteFrequency existing = channelNotes.get(pitch);
+        if (existing != null)
+            Create.REDSTONE_LINK_NETWORK_HANDLER.removeFromNetwork(be.getLevel(), existing);
         ManualNoteFrequency noteFrequency = noteFrequency(channel, pitch, velocity);
         Create.REDSTONE_LINK_NETWORK_HANDLER.addToNetwork(be.getLevel(), noteFrequency);
-        activeNotes.get(channel).put(pitch, noteFrequency);
+        channelNotes.put(pitch, noteFrequency);
     }
 
     public void deactivateNote(int channel, int pitch) {

@@ -55,12 +55,9 @@ public class StopEditScreen extends AbstractSimiContainerScreen<StopEditMenu> {
 
         int by = topPos + StopEditMenu.BUTTONS_Y;
         int bw = 50;
-        addRenderableWidget(Button.builder(Component.translatable("gui.pipeorgans.stop.delete"), b -> sendDelete())
-                .bounds(leftPos + StopEditMenu.FIELD_X, by, bw, 18).build());
-        addRenderableWidget(Button.builder(Component.translatable("gui.pipeorgans.stop.discard"), b -> sendDiscard())
-                .bounds(leftPos + StopEditMenu.FIELD_X + bw + 4, by, bw, 18).build());
-        addRenderableWidget(Button.builder(Component.translatable("gui.pipeorgans.stop.save"), b -> sendSave())
-                .bounds(leftPos + StopEditMenu.FIELD_X + 2 * (bw + 4), by, bw, 18).build());
+        int startX = leftPos + StopEditMenu.FIELD_X + (StopEditMenu.FIELD_W - bw) / 2;
+        addRenderableWidget(Button.builder(Component.translatable("gui.pipeorgans.stop.discard"), b -> sendSave())
+                .bounds(startX, by, bw, 18).build());
     }
 
     // Actions
@@ -71,21 +68,13 @@ public class StopEditScreen extends AbstractSimiContainerScreen<StopEditMenu> {
                 pos, StopActionPacket.SAVE, editIndex, -1, nameBox.getValue(), descriptorBox.getValue(), filter));
     }
 
-    private void sendDelete() {
-        AllPackets.getChannel().sendToServer(StopActionPacket.simple(pos, StopActionPacket.DELETE, editIndex));
-    }
-
-    private void sendDiscard() {
-        AllPackets.getChannel().sendToServer(StopActionPacket.simple(pos, StopActionPacket.OPEN_MAIN, -1));
-    }
-
     // Input
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (nameBox.isFocused() || descriptorBox.isFocused()) {
-            if (keyCode == 256) { // ESC -> discard back to main
-                sendDiscard();
+            if (keyCode == 256) { // ESC -> save back to main
+                sendSave();
                 return true;
             }
             if (nameBox.isFocused())
@@ -94,7 +83,16 @@ public class StopEditScreen extends AbstractSimiContainerScreen<StopEditMenu> {
                 descriptorBox.keyPressed(keyCode, scanCode, modifiers);
             return true; // consume so the inventory key doesn't close the screen
         }
+        if (keyCode == 256 || minecraft.options.keyInventory.matches(keyCode, scanCode)) {
+            sendSave();
+            return true;
+        }
         return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
+    public void onClose() {
+        sendSave();
     }
 
     @Override

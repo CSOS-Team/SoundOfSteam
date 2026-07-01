@@ -45,12 +45,9 @@ public class CouplerEditScreen extends AbstractSimiContainerScreen<CouplerEditMe
 
         int by = topPos + CouplerEditMenu.BUTTONS_Y;
         int bw = 50;
-        addRenderableWidget(Button.builder(Component.translatable("gui.pipeorgans.stop.delete"), b -> sendDelete())
-                .bounds(leftPos + CouplerEditMenu.FIELD_X, by, bw, 18).build());
-        addRenderableWidget(Button.builder(Component.translatable("gui.pipeorgans.stop.discard"), b -> sendDiscard())
-                .bounds(leftPos + CouplerEditMenu.FIELD_X + bw + 4, by, bw, 18).build());
-        addRenderableWidget(Button.builder(Component.translatable("gui.pipeorgans.stop.save"), b -> sendSave())
-                .bounds(leftPos + CouplerEditMenu.FIELD_X + 2 * (bw + 4), by, bw, 18).build());
+        int startX = leftPos + CouplerEditMenu.FIELD_X + (CouplerEditMenu.FIELD_W - bw) / 2;
+        addRenderableWidget(Button.builder(Component.translatable("gui.pipeorgans.stop.discard"), b -> sendSave())
+                .bounds(startX, by, bw, 18).build());
     }
 
     private void sendSave() {
@@ -60,25 +57,26 @@ public class CouplerEditScreen extends AbstractSimiContainerScreen<CouplerEditMe
                 pos, CouplerActionPacket.SAVE, editIndex, -1, nameBox.getValue(), a, b));
     }
 
-    private void sendDelete() {
-        AllPackets.getChannel().sendToServer(CouplerActionPacket.simple(pos, CouplerActionPacket.DELETE, editIndex));
-    }
-
-    private void sendDiscard() {
-        AllPackets.getChannel().sendToServer(CouplerActionPacket.simple(pos, CouplerActionPacket.OPEN_MAIN, -1));
-    }
-
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (nameBox.isFocused()) {
             if (keyCode == 256) {
-                sendDiscard();
+                sendSave();
                 return true;
             }
             nameBox.keyPressed(keyCode, scanCode, modifiers);
             return true;
         }
+        if (keyCode == 256 || minecraft.options.keyInventory.matches(keyCode, scanCode)) {
+            sendSave();
+            return true;
+        }
         return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
+    public void onClose() {
+        sendSave();
     }
 
     @Override
