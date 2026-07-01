@@ -24,6 +24,10 @@ public class Coupler {
         this.divisionB = divisionB;
     }
 
+    public boolean isUnused() {
+        return (name == null || name.isEmpty()) && divisionA.isEmpty() && divisionB.isEmpty();
+    }
+
     public CompoundTag toNbt() {
         CompoundTag tag = new CompoundTag();
         tag.putString("Name", name);

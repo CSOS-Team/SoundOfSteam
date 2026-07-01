@@ -23,6 +23,12 @@ public class Stop {
         this.filter = filter;
     }
 
+    public boolean isUnused() {
+        return (name == null || name.isEmpty())
+                && (descriptor == null || descriptor.isEmpty())
+                && filter.isEmpty();
+    }
+
     public CompoundTag toNbt() {
         CompoundTag tag = new CompoundTag();
         tag.putString("Name", name);

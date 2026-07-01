@@ -68,7 +68,7 @@ public class StopEditScreen extends AbstractSimiContainerScreen<StopEditMenu> {
     private void sendSave() {
         ItemStack filter = menu.getGhostInventory().getStackInSlot(0);
         AllPackets.getChannel().sendToServer(new StopActionPacket(
-                pos, StopActionPacket.SAVE, editIndex, nameBox.getValue(), descriptorBox.getValue(), filter));
+                pos, StopActionPacket.SAVE, editIndex, -1, nameBox.getValue(), descriptorBox.getValue(), filter));
     }
 
     private void sendDelete() {

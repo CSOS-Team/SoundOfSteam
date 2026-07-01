@@ -56,6 +56,10 @@ public class CouplerBlockEntity extends SmartBlockEntity implements MenuProvider
 
     public CouplerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
+
+        // Set all slots used
+        for (int i = 0; i < MAX_COUPLERS; i++)
+            couplers.add(new Coupler());
     }
 
     @Override
@@ -76,25 +80,6 @@ public class CouplerBlockEntity extends SmartBlockEntity implements MenuProvider
 
     // Mutations (server-side)
 
-    public void addCoupler() {
-        if (level == null || level.isClientSide || couplers.size() >= MAX_COUPLERS)
-            return;
-        couplers.add(new Coupler("Coupler " + (couplers.size() + 1),
-                net.minecraft.world.item.ItemStack.EMPTY, net.minecraft.world.item.ItemStack.EMPTY));
-        notifyUpdate();
-    }
-
-    public void deleteCoupler(int index) {
-        if (level == null || level.isClientSide)
-            return;
-        Coupler coupler = getCoupler(index);
-        if (coupler == null)
-            return;
-        removeCoupler(coupler);
-        couplers.remove(index);
-        notifyUpdate();
-    }
-
     public void editCoupler(int index, String name, net.minecraft.world.item.ItemStack divisionA, net.minecraft.world.item.ItemStack divisionB) {
         if (level == null || level.isClientSide)
             return;
@@ -104,7 +89,25 @@ public class CouplerBlockEntity extends SmartBlockEntity implements MenuProvider
         coupler.name = name == null ? "" : name;
         coupler.divisionA = normalize(divisionA);
         coupler.divisionB = normalize(divisionB);
+        if (coupler.isUnused())
+            coupler.pressed = false; // clearing all fields makes it unused
         registerCoupler(coupler);
+        notifyUpdate();
+    }
+
+    /** Clears a coupler's fields, making it "unused". */
+    public void clearCoupler(int index) {
+        editCoupler(index, "", net.minecraft.world.item.ItemStack.EMPTY, net.minecraft.world.item.ItemStack.EMPTY);
+    }
+
+    /** Reorders a coupler from one slot to another (shift-drag). */
+    public void moveCoupler(int from, int to) {
+        if (level == null || level.isClientSide)
+            return;
+        if (from < 0 || from >= couplers.size() || to < 0 || to >= couplers.size() || from == to)
+            return;
+        Coupler moved = couplers.remove(from);
+        couplers.add(to, moved);
         notifyUpdate();
     }
 
@@ -120,7 +123,7 @@ public class CouplerBlockEntity extends SmartBlockEntity implements MenuProvider
         if (level == null || level.isClientSide)
             return;
         Coupler coupler = getCoupler(index);
-        if (coupler == null)
+        if (coupler == null || coupler.isUnused()) // unused couplers don't latch
             return;
         coupler.pressed = !coupler.pressed;
         registerCoupler(coupler);
@@ -158,7 +161,9 @@ public class CouplerBlockEntity extends SmartBlockEntity implements MenuProvider
         if (level == null || level.isClientSide)
             return;
         Coupler coupler = getCoupler(index);
-        if (coupler == null || coupler.pressed == pressed)
+        if (coupler == null || coupler.isUnused()) // unused couplers can't be pressed
+            return;
+        if (coupler.pressed == pressed)
             return;
         coupler.pressed = pressed;
         registerCoupler(coupler);
@@ -461,9 +466,16 @@ public class CouplerBlockEntity extends SmartBlockEntity implements MenuProvider
         super.read(tag, clientPacket);
         couplers.clear();
         ListTag list = tag.getList("Couplers", Tag.TAG_COMPOUND);
-        for (int i = 0; i < list.size(); i++)
+        for (int i = 0; i < list.size() && i < MAX_COUPLERS; i++)
             couplers.add(Coupler.fromNbt(list.getCompound(i)));
-        if (level != null && !level.isClientSide)
+        while (couplers.size() < MAX_COUPLERS)
+            couplers.add(new Coupler());
+        if (level != null && !level.isClientSide) {
             removeAllLinks();
+            // If the behaviour is already initialized (mid-session update, not initial load),
+            // re-register links immediately so pressed couplers keep routing.
+            if (getBehaviour(NETWORK_BEHAVIOUR) != null)
+                refreshAll();
+        }
     }
 }

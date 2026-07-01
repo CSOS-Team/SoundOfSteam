@@ -13,37 +13,44 @@ import net.minecraftforge.network.NetworkEvent;
 // Client -> server actions for the Stop block GUI
 public class StopActionPacket extends SimplePacketBase {
 
-    public static final int ADD = 0;
     public static final int TOGGLE = 1;
     public static final int OPEN_EDIT = 2;
     public static final int SAVE = 3;
-    public static final int DELETE = 4;
+    public static final int DELETE = 4; // clears the stop's fields (makes it unused)
     public static final int OPEN_MAIN = 5;
+    public static final int MOVE = 6;
 
     private final BlockPos pos;
     private final int action;
     private final int index;
+    private final int toIndex;
     private final String name;
     private final String descriptor;
     private final ItemStack filter;
 
-    public StopActionPacket(BlockPos pos, int action, int index, String name, String descriptor, ItemStack filter) {
+    public StopActionPacket(BlockPos pos, int action, int index, int toIndex, String name, String descriptor, ItemStack filter) {
         this.pos = pos;
         this.action = action;
         this.index = index;
+        this.toIndex = toIndex;
         this.name = name == null ? "" : name;
         this.descriptor = descriptor == null ? "" : descriptor;
         this.filter = filter == null ? ItemStack.EMPTY : filter;
     }
 
     public static StopActionPacket simple(BlockPos pos, int action, int index) {
-        return new StopActionPacket(pos, action, index, "", "", ItemStack.EMPTY);
+        return new StopActionPacket(pos, action, index, -1, "", "", ItemStack.EMPTY);
+    }
+
+    public static StopActionPacket move(BlockPos pos, int from, int to) {
+        return new StopActionPacket(pos, MOVE, from, to, "", "", ItemStack.EMPTY);
     }
 
     public StopActionPacket(FriendlyByteBuf buffer) {
         this.pos = buffer.readBlockPos();
         this.action = buffer.readVarInt();
         this.index = buffer.readVarInt();
+        this.toIndex = buffer.readVarInt();
         this.name = buffer.readUtf(Stop.MAX_NAME_LENGTH * 4);
         this.descriptor = buffer.readUtf(Stop.MAX_DESCRIPTOR_LENGTH * 4);
         this.filter = buffer.readItem();
@@ -54,6 +61,7 @@ public class StopActionPacket extends SimplePacketBase {
         buffer.writeBlockPos(pos);
         buffer.writeVarInt(action);
         buffer.writeVarInt(index);
+        buffer.writeVarInt(toIndex);
         buffer.writeUtf(name, Stop.MAX_NAME_LENGTH * 4);
         buffer.writeUtf(descriptor, Stop.MAX_DESCRIPTOR_LENGTH * 4);
         buffer.writeItem(filter);
@@ -71,23 +79,26 @@ public class StopActionPacket extends SimplePacketBase {
             if (player.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) > 64)
                 return;
 
-            switch (action) {
-                case ADD -> be.addStop();
-                case TOGGLE -> be.togglePress(index);
-                case OPEN_EDIT -> be.openEditMenu(player, index);
-                case SAVE -> {
-                    String trimmedName = name.length() > Stop.MAX_NAME_LENGTH ? name.substring(0, Stop.MAX_NAME_LENGTH) : name;
-                    String trimmedDesc = descriptor.length() > Stop.MAX_DESCRIPTOR_LENGTH
-                            ? descriptor.substring(0, Stop.MAX_DESCRIPTOR_LENGTH) : descriptor;
-                    be.editStop(index, trimmedName, trimmedDesc, filter);
-                    be.openMainMenu(player);
+                switch (action) {
+                    case TOGGLE -> be.togglePress(index);
+                    case OPEN_EDIT -> be.openEditMenu(player, index);
+                    case SAVE -> {
+                        String trimmedName = name.length() > Stop.MAX_NAME_LENGTH ? name.substring(0, Stop.MAX_NAME_LENGTH) : name;
+                        String trimmedDesc = descriptor.length() > Stop.MAX_DESCRIPTOR_LENGTH
+                                ? descriptor.substring(0, Stop.MAX_DESCRIPTOR_LENGTH) : descriptor;
+                        be.editStop(index, trimmedName, trimmedDesc, filter);
+                        be.openMainMenu(player);
+                    }
+                    case DELETE -> {
+                        be.clearStop(index);
+                        be.openMainMenu(player);
+                    }
+                    case OPEN_MAIN -> be.openMainMenu(player);
+                    case MOVE -> {
+                        java.util.Collections.swap(be.getStops(), index, toIndex);
+                        be.setChanged();
+                    }
                 }
-                case DELETE -> {
-                    be.deleteStop(index);
-                    be.openMainMenu(player);
-                }
-                case OPEN_MAIN -> be.openMainMenu(player);
-            }
         });
         return true;
     }

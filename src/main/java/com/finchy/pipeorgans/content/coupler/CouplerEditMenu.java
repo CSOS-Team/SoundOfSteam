@@ -176,7 +176,7 @@ public class CouplerEditMenu extends MenuBase<CouplerBlockEntity> {
             return ItemStack.EMPTY;
         }
 
-        for (int g = 0; g < 2; g++) {
+        for (int g = 1; g >= 0; g--) {
             if (ghostInventory.getStackInSlot(g).isEmpty()) {
                 ItemStack copy = slot.getItem().copy();
                 copy.setCount(1);

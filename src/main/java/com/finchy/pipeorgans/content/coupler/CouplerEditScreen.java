@@ -57,7 +57,7 @@ public class CouplerEditScreen extends AbstractSimiContainerScreen<CouplerEditMe
         ItemStack a = menu.getGhostInventory().getStackInSlot(0);
         ItemStack b = menu.getGhostInventory().getStackInSlot(1);
         AllPackets.getChannel().sendToServer(new CouplerActionPacket(
-                pos, CouplerActionPacket.SAVE, editIndex, nameBox.getValue(), a, b));
+                pos, CouplerActionPacket.SAVE, editIndex, -1, nameBox.getValue(), a, b));
     }
 
     private void sendDelete() {

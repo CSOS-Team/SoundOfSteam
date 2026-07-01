@@ -77,6 +77,9 @@ public class StopBlockEntity extends SmartBlockEntity implements MenuProvider, c
                     refreshTransmitters(); // division frequency changed
             }
         };
+
+        for (int i = 0; i < MAX_STOPS; i++)
+            stops.add(new Stop());
     }
 
     @Override
@@ -105,24 +108,6 @@ public class StopBlockEntity extends SmartBlockEntity implements MenuProvider, c
 
     // Mutations (server-side)
 
-    public void addStop() {
-        if (level == null || level.isClientSide || stops.size() >= MAX_STOPS)
-            return;
-        stops.add(new Stop("Stop " + (stops.size() + 1), "", ItemStack.EMPTY));
-        notifyUpdate();
-    }
-
-    public void deleteStop(int index) {
-        if (level == null || level.isClientSide)
-            return;
-        Stop stop = getStop(index);
-        if (stop == null)
-            return;
-        removeTransmitter(stop);
-        stops.remove(index);
-        notifyUpdate();
-    }
-
     public void editStop(int index, String name, String descriptor, ItemStack filter) {
         if (level == null || level.isClientSide)
             return;
@@ -134,7 +119,25 @@ public class StopBlockEntity extends SmartBlockEntity implements MenuProvider, c
         stop.filter = filter == null ? ItemStack.EMPTY : filter.copy();
         if (!stop.filter.isEmpty())
             stop.filter.setCount(1);
-        registerOrUpdate(stop); // filter may have changed while pressed
+        if (stop.isUnused())
+            stop.pressed = false; // clearing all fields makes it unused
+        registerOrUpdate(stop);
+        notifyUpdate();
+    }
+
+    /** Clears a stop's fields, making it "unused". */
+    public void clearStop(int index) {
+        editStop(index, "", "", ItemStack.EMPTY);
+    }
+
+    // Reorders a stop
+    public void moveStop(int from, int to) {
+        if (level == null || level.isClientSide)
+            return;
+        if (from < 0 || from >= stops.size() || to < 0 || to >= stops.size() || from == to)
+            return;
+        Stop moved = stops.remove(from);
+        stops.add(to, moved); // transmitters are keyed by Stop identity, so they stay valid
         notifyUpdate();
     }
 
@@ -142,7 +145,7 @@ public class StopBlockEntity extends SmartBlockEntity implements MenuProvider, c
         if (level == null || level.isClientSide)
             return;
         Stop stop = getStop(index);
-        if (stop == null)
+        if (stop == null || stop.isUnused()) // unused stops don't latch
             return;
         stop.pressed = !stop.pressed;
         registerOrUpdate(stop);
@@ -182,7 +185,9 @@ public class StopBlockEntity extends SmartBlockEntity implements MenuProvider, c
         if (level == null || level.isClientSide)
             return;
         Stop stop = getStop(index);
-        if (stop == null || stop.pressed == pressed)
+        if (stop == null || stop.isUnused()) // unused stops can't be pressed
+            return;
+        if (stop.pressed == pressed)
             return;
         stop.pressed = pressed;
         registerOrUpdate(stop);
@@ -220,6 +225,8 @@ public class StopBlockEntity extends SmartBlockEntity implements MenuProvider, c
         if (level == null || level.isClientSide)
             return;
         removeTransmitter(stop);
+        if (stop.isUnused())
+            return; // unused stops never emit
         if (stop.pressed || tuttiOverride) {
             Couple<Frequency> key = Couple.create(Frequency.of(stop.filter), divisionFrequency());
             StopTransmitter transmitter = new StopTransmitter(key);
@@ -426,11 +433,17 @@ public class StopBlockEntity extends SmartBlockEntity implements MenuProvider, c
             divisionInv.deserializeNBT(tag.getCompound("Division"));
         stops.clear();
         ListTag list = tag.getList("Stops", Tag.TAG_COMPOUND);
-        for (int i = 0; i < list.size(); i++)
+        for (int i = 0; i < list.size() && i < MAX_STOPS; i++)
             stops.add(Stop.fromNbt(list.getCompound(i)));
+        while (stops.size() < MAX_STOPS)
+            stops.add(new Stop()); // always keep the full fixed set of slots
 
         if (level != null && !level.isClientSide) {
             removeAllTransmitters();
+            // If the behaviour is already initialized (mid-session update, not initial load),
+            // re-register transmitters immediately so pressed stops keep emitting.
+            if (getBehaviour(NETWORK_BEHAVIOUR) != null)
+                refreshTransmitters();
         }
     }
 }

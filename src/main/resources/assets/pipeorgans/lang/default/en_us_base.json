@@ -24,6 +24,7 @@
   "gui.pipeorgans.stop.delete": "Delete",
   "gui.pipeorgans.stop.discard": "Back",
   "gui.pipeorgans.stop.save": "Save",
+  "gui.pipeorgans.stop.unused": "Unused",
 
   "gui.pipeorgans.coupler.main": "Couplers",
   "gui.pipeorgans.coupler.edit": "Edit Coupler",

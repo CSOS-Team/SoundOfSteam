@@ -19,15 +19,19 @@ public class StopScreen extends AbstractSimiContainerScreen<StopMenu> {
     private static final int COLOR_SLOT_BORDER = 0xFF373737;
     private static final int COLOR_SLOT_INNER = 0xFF8B8B8B;
 
-    private static final int COLOR_BTN = 0xFF5A5A5A;
-    private static final int COLOR_BTN_HOVER = 0xFF6E6E6E;
-    private static final int COLOR_BTN_PRESSED = 0xFFFFC83C;
-    private static final int COLOR_BTN_BORDER = 0xFF101010;
-    private static final int COLOR_ADD = 0xFF3C7A3C;
-    private static final int COLOR_ADD_HOVER = 0xFF4E9E4E;
+    private static final int COLOR_UNUSED = 0xFF333333;        // blank slot, dark grey
+    private static final int COLOR_UNUSED_HOVER = 0xFF444444;
+    private static final int COLOR_USED = 0xFF6E6E6E;          // set, idle
+    private static final int COLOR_USED_HOVER = 0xFF828282;
+    private static final int COLOR_PRESSED = 0xFFFFC83C;       // latched
+    private static final int COLOR_BORDER = 0xFF101010;
+    private static final int COLOR_DRAG = 0xFF50C8FF;          // drag source outline
 
     private final BlockPos pos;
     private final StopBlockEntity be;
+
+    /** Slot currently being shift-dragged to reorder, or -1. */
+    private int dragFrom = -1;
 
     public StopScreen(StopMenu container, Inventory inv, Component title) {
         super(container, inv, title);
@@ -42,17 +46,8 @@ public class StopScreen extends AbstractSimiContainerScreen<StopMenu> {
         super.init();
     }
 
-    private int stopCount() {
-        return be.getStops().size();
-    }
-
-    private int cellCount() {
-        int stops = stopCount();
-        return stops < StopBlockEntity.MAX_STOPS ? stops + 1 : stops;
-    }
-
     private int cellAt(int guiX, int guiY) {
-        for (int i = 0; i < cellCount(); i++) {
+        for (int i = 0; i < StopBlockEntity.MAX_STOPS; i++) {
             int x = StopMenu.cellX(i);
             int y = StopMenu.cellY(i);
             if (guiX >= x && guiX < x + StopMenu.BUTTON_SIZE && guiY >= y && guiY < y + StopMenu.BUTTON_SIZE)
@@ -67,19 +62,38 @@ public class StopScreen extends AbstractSimiContainerScreen<StopMenu> {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         int cell = cellAt((int) mouseX - leftPos, (int) mouseY - topPos);
         if (cell != -1) {
-            int stops = stopCount();
-            if (cell < stops) {
-                if (button == 0)
-                    send(StopActionPacket.simple(pos, StopActionPacket.TOGGLE, cell));
-                else if (button == 1)
-                    send(StopActionPacket.simple(pos, StopActionPacket.OPEN_EDIT, cell));
+            if (button == 0 && hasShiftDown()) {
+                dragFrom = cell; // begin reorder drag
                 return true;
-            } else if (button == 0 && stops < StopBlockEntity.MAX_STOPS) {
-                send(StopActionPacket.simple(pos, StopActionPacket.ADD, -1));
+            }
+            if (button == 0) {
+                if (!be.getStops().get(cell).isUnused()) // unused stops don't latch
+                    send(StopActionPacket.simple(pos, StopActionPacket.TOGGLE, cell));
+                return true;
+            }
+            if (button == 1) {
+                send(StopActionPacket.simple(pos, StopActionPacket.OPEN_EDIT, cell));
                 return true;
             }
         }
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        if (dragFrom != -1 && button == 0) {
+            int target = cellAt((int) mouseX - leftPos, (int) mouseY - topPos);
+            if (target != -1 && target != dragFrom) {
+                // Swap on the client side
+                java.util.Collections.swap(be.getStops(), dragFrom, target);
+
+                // Tell the server to sync
+                send(StopActionPacket.move(pos, dragFrom, target));
+            }
+            dragFrom = -1;
+            return true;
+        }
+        return super.mouseReleased(mouseX, mouseY, button);
     }
 
     private void send(StopActionPacket packet) {
@@ -93,29 +107,36 @@ public class StopScreen extends AbstractSimiContainerScreen<StopMenu> {
         graphics.fill(leftPos - 1, topPos - 1, leftPos + imageWidth + 1, topPos + imageHeight + 1, COLOR_PANEL_BORDER);
         graphics.fill(leftPos, topPos, leftPos + imageWidth, topPos + imageHeight, COLOR_PANEL);
 
-        // Division filter slot
         drawSlotBackground(graphics, StopMenu.DIVISION_BG_X + 1, StopMenu.DIVISION_BG_Y + 1);
 
-        // Stop buttons + add button
-        int stops = stopCount();
         int hoveredCell = cellAt(mouseX - leftPos, mouseY - topPos);
-        for (int i = 0; i < cellCount(); i++) {
+        for (int i = 0; i < StopBlockEntity.MAX_STOPS; i++) {
             int x = leftPos + StopMenu.cellX(i);
             int y = topPos + StopMenu.cellY(i);
             boolean hovered = i == hoveredCell;
-            if (i < stops) {
-                Stop stop = be.getStops().get(i);
-                int color = stop.pressed ? COLOR_BTN_PRESSED : (hovered ? COLOR_BTN_HOVER : COLOR_BTN);
-                drawButton(graphics, x, y, color);
-                drawStopLabel(graphics, x, y, stop.name, stop.descriptor, stop.pressed ? 0xFF202020 : 0xFFFFFFFF,
-                        stop.pressed ? 0xFF3A3A20 : 0xFFB8B8B8);
+            Stop stop = be.getStops().get(i);
+
+            int color;
+            if (stop.isUnused())
+                color = hovered ? COLOR_UNUSED_HOVER : COLOR_UNUSED;
+            else if (stop.pressed)
+                color = COLOR_PRESSED;
+            else
+                color = hovered ? COLOR_USED_HOVER : COLOR_USED;
+
+            int border = (i == dragFrom) ? COLOR_DRAG : COLOR_BORDER;
+            drawButton(graphics, x, y, color, border);
+
+            if (stop.isUnused()) {
+                drawScaledCentered(graphics, x + StopMenu.BUTTON_SIZE / 2,
+                        y + (StopMenu.BUTTON_SIZE - (int) (font.lineHeight * 0.5f)) / 2,
+                        Component.translatable("gui.pipeorgans.stop.unused").getString(), 0.5f, 0x808080);
             } else {
-                drawButton(graphics, x, y, hovered ? COLOR_ADD_HOVER : COLOR_ADD);
-                drawAddGlyph(graphics, x, y);
+                drawStopLabel(graphics, x, y, stop.name, stop.descriptor,
+                        stop.pressed ? 0xFF202020 : 0xFFFFFFFF, stop.pressed ? 0xFF3A3A20 : 0xFFB8B8B8);
             }
         }
 
-        // Player inventory
         int invX = StopMenu.playerInvX();
         int invY = StopMenu.playerInvY();
         for (int row = 0; row < 3; row++)
@@ -125,9 +146,9 @@ public class StopScreen extends AbstractSimiContainerScreen<StopMenu> {
             drawSlotBackground(graphics, invX + col * 18, invY + 58);
     }
 
-    private void drawButton(GuiGraphics graphics, int x, int y, int color) {
+    private void drawButton(GuiGraphics graphics, int x, int y, int color, int border) {
         int s = StopMenu.BUTTON_SIZE;
-        graphics.fill(x - 1, y - 1, x + s + 1, y + s + 1, COLOR_BTN_BORDER);
+        graphics.fill(x - 1, y - 1, x + s + 1, y + s + 1, border);
         graphics.fill(x, y, x + s, y + s, color);
     }
 
@@ -144,6 +165,9 @@ public class StopScreen extends AbstractSimiContainerScreen<StopMenu> {
         } else if (hasName) {
             drawScaledCentered(graphics, cx, y + (StopMenu.BUTTON_SIZE - (int) (font.lineHeight * scale)) / 2,
                     trimToWidth(name, maxFontWidth), scale, nameColor);
+        } else if (hasDesc) {
+            drawScaledCentered(graphics, cx, y + (StopMenu.BUTTON_SIZE - (int) (font.lineHeight * scale)) / 2,
+                    trimToWidth(descriptor, maxFontWidth), scale, descColor);
         }
     }
 
@@ -156,12 +180,6 @@ public class StopScreen extends AbstractSimiContainerScreen<StopMenu> {
         int w = font.width(text);
         graphics.drawString(font, text, -w / 2, 0, color, false);
         graphics.pose().popPose();
-    }
-
-    private void drawAddGlyph(GuiGraphics graphics, int x, int y) {
-        int cx = x + StopMenu.BUTTON_SIZE / 2;
-        int w = font.width("+");
-        graphics.drawString(font, "+", cx - w / 2, y + (StopMenu.BUTTON_SIZE - font.lineHeight) / 2, 0xFFFFFFFF, false);
     }
 
     private String trimToWidth(String text, int maxWidth) {
@@ -194,16 +212,18 @@ public class StopScreen extends AbstractSimiContainerScreen<StopMenu> {
 
     @Override
     protected void renderTooltip(GuiGraphics graphics, int x, int y) {
-        // Division filter slot role tooltip
         if (hoveredSlot instanceof SlotItemHandler) {
             graphics.renderTooltip(font, Component.translatable("gui.pipeorgans.stop.division"), x, y);
             return;
         }
 
-        // Stop button tooltip (name + descriptor)
         int cell = cellAt(x - leftPos, y - topPos);
-        if (cell >= 0 && cell < stopCount()) {
+        if (cell >= 0 && cell < StopBlockEntity.MAX_STOPS) {
             Stop stop = be.getStops().get(cell);
+            if (stop.isUnused()) {
+                graphics.renderTooltip(font, Component.translatable("gui.pipeorgans.stop.unused"), x, y);
+                return;
+            }
             List<Component> lines = new ArrayList<>();
             lines.add(Component.literal(stop.name.isEmpty() ? "Stop " + (cell + 1) : stop.name));
             if (!stop.descriptor.isEmpty())

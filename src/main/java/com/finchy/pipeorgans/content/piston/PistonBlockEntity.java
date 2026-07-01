@@ -270,6 +270,11 @@ public class PistonBlockEntity extends SmartBlockEntity implements MenuProvider 
         ListTag list = tag.getList("Presets", Tag.TAG_COMPOUND);
         for (int i = 0; i < PISTON_COUNT && i < list.size(); i++)
             presets[i] = PistonPreset.fromNbt(list.getCompound(i));
+        boolean prevTutti = tuttiActive;
         tuttiActive = tag.getBoolean("Tutti");
+        // If the behaviour is already initialized and tutti state changed, re-apply it
+        if (!clientPacket && level != null && !level.isClientSide
+                && getBehaviour(NETWORK_BEHAVIOUR) != null && prevTutti != tuttiActive)
+            applyTutti();
     }
 }
