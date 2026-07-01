@@ -22,7 +22,7 @@
   "gui.pipeorgans.stop.descriptor": "Descriptor",
   "gui.pipeorgans.stop.item_filter": "Item Filter",
   "gui.pipeorgans.stop.delete": "Delete",
-  "gui.pipeorgans.stop.discard": "Discard",
+  "gui.pipeorgans.stop.discard": "Back",
   "gui.pipeorgans.stop.save": "Save",
 
   "gui.pipeorgans.coupler.main": "Couplers",
