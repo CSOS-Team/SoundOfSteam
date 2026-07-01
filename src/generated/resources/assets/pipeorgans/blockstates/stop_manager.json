@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
-      "model": "pipeorgans:block/stop_manager"
+    "facing=east": {
+      "model": "pipeorgans:block/stop_manager_blockstate",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "pipeorgans:block/stop_manager_blockstate"
+    },
+    "facing=south": {
+      "model": "pipeorgans:block/stop_manager_blockstate",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "pipeorgans:block/stop_manager_blockstate",
+      "y": 270
     }
   }
 }

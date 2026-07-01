@@ -14,7 +14,7 @@ public class PistonMenu extends MenuBase<PistonBlockEntity> {
     public static final int MARGIN = 8;
     public static final int TITLE_Y = 6;
 
-    public static final int COLS = 8;
+    public static final int COLS = 6;
     public static final int ROWS = 2;
     public static final int BUTTON_SIZE = 24;
     public static final int CELL_GAP = 4;

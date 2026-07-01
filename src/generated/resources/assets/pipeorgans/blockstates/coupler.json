@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
-      "model": "pipeorgans:block/coupler"
+    "facing=east": {
+      "model": "pipeorgans:block/couplers_blockstate",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "pipeorgans:block/couplers_blockstate"
+    },
+    "facing=south": {
+      "model": "pipeorgans:block/couplers_blockstate",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "pipeorgans:block/couplers_blockstate",
+      "y": 270
     }
   }
 }

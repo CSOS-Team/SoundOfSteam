@@ -91,8 +91,10 @@ public class AllBlocks {
 
     public static final BlockEntry<OrganConsoleBlock> ORGAN_CONSOLE = REGISTRATE.block("organ_console", OrganConsoleBlock::new)
             .initialProperties(() -> Blocks.COPPER_BLOCK)
-            .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
-            .transform(pickaxeOnly())
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .transform(axeOrPickaxe())
             .blockstate((c, p) -> p.simpleBlock(c.get(),
                     p.models().cubeAll(c.getName(), new ResourceLocation("minecraft", "block/note_block"))))
             .item()
@@ -102,33 +104,72 @@ public class AllBlocks {
 
     public static final BlockEntry<StopBlock> STOP = REGISTRATE.block("stop_manager", StopBlock::new)
             .initialProperties(() -> Blocks.COPPER_BLOCK)
-            .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
             .transform(pickaxeOnly())
-            .blockstate((c, p) -> p.simpleBlock(c.get(),
-                    p.models().cubeAll(c.getName(), new ResourceLocation("minecraft", "block/note_block"))))
+            .blockstate((c, p) -> {
+                var model = p.models().getBuilder("block/stop_manager_blockstate")
+                        .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/console_controllers"));
+                p.getVariantBuilder(c.get()).forAllStatesExcept(state -> {
+                    int y = switch (state.getValue(StopBlock.FACING)) {
+                        case EAST -> 90; case SOUTH -> 180; case WEST -> 270; default -> 0;
+                    };
+                    return net.minecraftforge.client.model.generators.ConfiguredModel.builder()
+                            .modelFile(model).rotationY(y).build();
+                }, StopBlock.POWERED);
+            })
             .item()
+            .model((c, p) -> p.getBuilder("item/stop_manager")
+                    .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/console_controllers")))
             .build()
             .lang("Stop Manager")
             .register();
 
     public static final BlockEntry<CouplerBlock> COUPLER = REGISTRATE.block("coupler", CouplerBlock::new)
             .initialProperties(() -> Blocks.COPPER_BLOCK)
-            .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
             .transform(pickaxeOnly())
-            .blockstate((c, p) -> p.simpleBlock(c.get(),
-                    p.models().cubeAll(c.getName(), new ResourceLocation("minecraft", "block/note_block"))))
+            .blockstate((c, p) -> {
+                var model = p.models().getBuilder("block/couplers_blockstate")
+                        .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/console_controllers"));
+                p.getVariantBuilder(c.get()).forAllStatesExcept(state -> {
+                    int y = switch (state.getValue(CouplerBlock.FACING)) {
+                        case EAST -> 90; case SOUTH -> 180; case WEST -> 270; default -> 0;
+                    };
+                    return net.minecraftforge.client.model.generators.ConfiguredModel.builder()
+                            .modelFile(model).rotationY(y).build();
+                }, CouplerBlock.POWERED);
+            })
             .item()
+            .model((c, p) -> p.getBuilder("item/coupler")
+                    .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/console_controllers")))
             .build()
             .lang("Couplers")
             .register();
 
     public static final BlockEntry<PistonBlock> PISTON = REGISTRATE.block("piston", PistonBlock::new)
             .initialProperties(() -> Blocks.COPPER_BLOCK)
-            .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
             .transform(pickaxeOnly())
-            .blockstate((c, p) -> p.simpleBlock(c.get(),
-                    p.models().cubeAll(c.getName(), new ResourceLocation("minecraft", "block/note_block"))))
+            .blockstate((c, p) -> {
+                var model = p.models().getBuilder("block/pistons_blockstate")
+                        .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/console_controllers"));
+                p.getVariantBuilder(c.get()).forAllStates(state -> {
+                    int y = switch (state.getValue(PistonBlock.FACING)) {
+                        case EAST -> 90; case SOUTH -> 180; case WEST -> 270; default -> 0;
+                    };
+                    return net.minecraftforge.client.model.generators.ConfiguredModel.builder()
+                            .modelFile(model).rotationY(y).build();
+                });
+            })
             .item()
+            .model((c, p) -> p.getBuilder("item/piston")
+                    .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/console_controllers")))
             .build()
             .lang("Pistons")
             .register();
