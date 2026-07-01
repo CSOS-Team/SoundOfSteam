@@ -46,15 +46,12 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
     }
 
     public void onBlockRemoved() {
-        Entity playerEntity = ((ServerLevel)this.level).getEntity(this.user);
-        if (playerEntity instanceof Player player) {
-            if (isUsedBy(player)) {
-                user = null;
-                if (player != null) {
-                    player.getPersistentData().remove("UsingKBRelayPos");
-                    midiSourceBehaviour.link.stopAllNotes();
-                }
-            }
+        midiSourceBehaviour.link.stopAllNotes();
+        if (user != null) {
+            Entity playerEntity = ((ServerLevel) this.level).getEntity(this.user);
+            if (playerEntity instanceof Player player)
+                player.getPersistentData().remove("UsingKBRelayPos");
+            user = null;
         }
     }
 
@@ -81,6 +78,18 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
     }
 
     public void tryStartUsing(Player player) {
+        // Clear stale persistent data if the stored position no longer points to a KBR that knows this player
+        if (playerIsUsing(player)) {
+            BlockPos storedPos = playerUsingKBRPos(player);
+            boolean stale = storedPos == null;
+            if (!stale) {
+                if (!(level.getBlockEntity(storedPos) instanceof KeyboardRelayBlockEntity otherKbr)
+                        || !otherKbr.isUsedBy(player))
+                    stale = true;
+            }
+            if (stale)
+                player.getPersistentData().remove("UsingKBRelayPos");
+        }
         if (!deactivatedThisTick && !hasUser() && !playerIsUsing(player) && playerInRange(player, level, worldPosition)) {
             startUsing(player);
         }
