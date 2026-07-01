@@ -1,5 +1,9 @@
 {
   "values": [
+    "pipeorgans:organ_console",
+    "pipeorgans:stop_manager",
+    "pipeorgans:coupler",
+    "pipeorgans:piston",
     "pipeorgans:windchest",
     "pipeorgans:windchest_master",
     "pipeorgans:roll_puncher",
