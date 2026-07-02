@@ -24,9 +24,9 @@ public class CouplerVisual extends AbstractBlockEntityVisual<CouplerBlockEntity>
     private static final float[] COL_X = { 13f, 11f, 9f, 7f, 5f, 3f };
     private static final float[] ROW_Y = { 9.5f, 6.5f };
 
-    private static final int COLOR_WHITE  = 0xFFFFFF;
-    private static final int COLOR_BLUE = 0x0088FF;
-    private static final int COLOR_UNUSED = 0x555555;
+    private static final int COLOR_WHITE  = 0x454545;
+    private static final int COLOR_BLUE = 0x70828a;
+    private static final int COLOR_UNUSED = 0x222222;
 
     private final TransformedInstance[] bodies = new TransformedInstance[COUNT];
     private final TransformedInstance[] tops   = new TransformedInstance[COUNT];

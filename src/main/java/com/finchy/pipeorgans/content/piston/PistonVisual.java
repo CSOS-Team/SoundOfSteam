@@ -26,9 +26,9 @@ public class PistonVisual extends AbstractBlockEntityVisual<PistonBlockEntity> i
     private static final float[] SPECIAL_X = { 11f,  9f, 7f, 5f  };
     private static final float SPECIAL_Y = 5.5f;
 
-    private static final int COLOR_WHITE  = 0xFFFFFF;
-    private static final int COLOR_GREY = 0x888888;
-    private static final int COLOR_YELLOW = 0xFFFF00;
+    private static final int COLOR_WHITE  = 0x3d3d3d;
+    private static final int COLOR_GREY = 0x454545;
+    private static final int COLOR_YELLOW = 0x90916d;
 
     private final TransformedInstance[] pistons  = new TransformedInstance[PISTON_COUNT];
     private final TransformedInstance[] specials = new TransformedInstance[SPECIAL_COUNT];

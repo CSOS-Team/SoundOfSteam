@@ -131,7 +131,8 @@ public class AllBlocks {
             })
             .item()
             .model((c, p) -> p.getBuilder("item/organ_console")
-                    .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/organ_console/bottom-no-pedalboard")))
+                    .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("minecraft:item/generated"))
+                    .texture("layer0", "pipeorgans:item/organ_console"))
             .build()
             .lang("Organ Console")
             .register();

@@ -1,7 +1,8 @@
 {
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "pipeorgans:block/console"
+		"0": "pipeorgans:block/console",
+		"particle": "create:block/andesite_casing"
 	},
 	"elements": [
 		{
