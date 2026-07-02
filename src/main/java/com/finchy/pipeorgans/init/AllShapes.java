@@ -504,4 +504,33 @@ public abstract class AllShapes {
         return shape(Block.box(x1, y1, z1, x2, y2, z2));
     }
 
+    // Organ Console
+
+    // Lower half back-panel slab (no pedalboard)
+    private static final VoxelShaper CONSOLE_LOWER_NO_PEDAL =
+            shape(0, 0, 8, 16, 16, 16).forHorizontal(Direction.NORTH);
+
+    // Lower half w pedalboard
+    private static final VoxelShaper CONSOLE_LOWER_PEDAL = CONSOLE_LOWER_NO_PEDAL;
+
+    // Upper half per manual count (1–4)
+    private static final VoxelShaper[] CONSOLE_UPPER_MANUAL = {
+        null, // index 0 unused
+        shape(0, 0, 7, 16, 3, 16).forHorizontal(Direction.NORTH), // 1 manual
+        shape(0, 0, 4, 16, 4, 16).forHorizontal(Direction.NORTH), // 2 manuals
+        shape(0, 0, 2, 16, 5, 16).forHorizontal(Direction.NORTH), // 3 manuals
+        shape(0, 0, 2, 16, 6, 16).forHorizontal(Direction.NORTH), // 4 manuals
+    };
+
+    public static VoxelShape organConsoleShape(
+            boolean upperHalf, boolean pedalboard, int manualCount, Direction facing) {
+        if (upperHalf) {
+            int idx = Math.max(1, Math.min(4, manualCount));
+            return CONSOLE_UPPER_MANUAL[idx].get(facing);
+        }
+        return pedalboard
+                ? CONSOLE_LOWER_PEDAL.get(facing)
+                : CONSOLE_LOWER_NO_PEDAL.get(facing);
+    }
+
 }

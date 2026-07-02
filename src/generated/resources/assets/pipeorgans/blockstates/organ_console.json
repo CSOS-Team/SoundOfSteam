@@ -1,7 +1,484 @@
 {
   "variants": {
-    "": {
-      "model": "pipeorgans:block/organ_console"
+    "facing=east,half=lower,manual_count=1,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=1,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=1,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=1,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=2,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=2,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=2,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=2,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=3,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=3,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=3,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=3,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=4,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=4,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=4,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard",
+      "y": 90
+    },
+    "facing=east,half=lower,manual_count=4,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=1,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-1",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=1,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=1,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-1",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=1,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=2,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-2",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=2,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=2,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-2",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=2,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=3,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-3",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=3,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=3,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-3",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=3,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=4,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-4",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=4,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=4,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-4",
+      "y": 90
+    },
+    "facing=east,half=upper,manual_count=4,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 90
+    },
+    "facing=north,half=lower,manual_count=1,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard"
+    },
+    "facing=north,half=lower,manual_count=1,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=lower,manual_count=1,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard"
+    },
+    "facing=north,half=lower,manual_count=1,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=lower,manual_count=2,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard"
+    },
+    "facing=north,half=lower,manual_count=2,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=lower,manual_count=2,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard"
+    },
+    "facing=north,half=lower,manual_count=2,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=lower,manual_count=3,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard"
+    },
+    "facing=north,half=lower,manual_count=3,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=lower,manual_count=3,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard"
+    },
+    "facing=north,half=lower,manual_count=3,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=lower,manual_count=4,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard"
+    },
+    "facing=north,half=lower,manual_count=4,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=lower,manual_count=4,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard"
+    },
+    "facing=north,half=lower,manual_count=4,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=upper,manual_count=1,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-1"
+    },
+    "facing=north,half=upper,manual_count=1,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=upper,manual_count=1,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-1"
+    },
+    "facing=north,half=upper,manual_count=1,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=upper,manual_count=2,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-2"
+    },
+    "facing=north,half=upper,manual_count=2,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=upper,manual_count=2,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-2"
+    },
+    "facing=north,half=upper,manual_count=2,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=upper,manual_count=3,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-3"
+    },
+    "facing=north,half=upper,manual_count=3,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=upper,manual_count=3,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-3"
+    },
+    "facing=north,half=upper,manual_count=3,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=upper,manual_count=4,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-4"
+    },
+    "facing=north,half=upper,manual_count=4,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=north,half=upper,manual_count=4,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-4"
+    },
+    "facing=north,half=upper,manual_count=4,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty"
+    },
+    "facing=south,half=lower,manual_count=1,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=1,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=1,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=1,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=2,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=2,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=2,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=2,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=3,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=3,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=3,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=3,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=4,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=4,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=4,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard",
+      "y": 180
+    },
+    "facing=south,half=lower,manual_count=4,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=1,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-1",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=1,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=1,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-1",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=1,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=2,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-2",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=2,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=2,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-2",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=2,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=3,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-3",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=3,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=3,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-3",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=3,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=4,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-4",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=4,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=4,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-4",
+      "y": 180
+    },
+    "facing=south,half=upper,manual_count=4,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 180
+    },
+    "facing=west,half=lower,manual_count=1,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=1,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=1,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=1,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=2,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=2,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=2,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=2,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=3,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=3,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=3,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=3,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=4,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-no-pedalboard",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=4,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=4,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/bottom-pedalboard",
+      "y": 270
+    },
+    "facing=west,half=lower,manual_count=4,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=1,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-1",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=1,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=1,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-1",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=1,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=2,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-2",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=2,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=2,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-2",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=2,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=3,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-3",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=3,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=3,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-3",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=3,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=4,pedalboard=false,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-4",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=4,pedalboard=false,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=4,pedalboard=true,right=false": {
+      "model": "pipeorgans:block/organ_console/top-manual-4",
+      "y": 270
+    },
+    "facing=west,half=upper,manual_count=4,pedalboard=true,right=true": {
+      "model": "pipeorgans:block/organ_console/empty",
+      "y": 270
     }
   }
 }

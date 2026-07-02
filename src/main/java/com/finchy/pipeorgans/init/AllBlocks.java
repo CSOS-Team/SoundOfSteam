@@ -95,9 +95,43 @@ public class AllBlocks {
                     .requiresCorrectToolForDrops()
                     .noOcclusion())
             .transform(axeOrPickaxe())
-            .blockstate((c, p) -> p.simpleBlock(c.get(),
-                    p.models().cubeAll(c.getName(), new ResourceLocation("minecraft", "block/note_block"))))
+            .blockstate((c, p) -> {
+                var emptyModel = new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile(
+                        "pipeorgans:block/organ_console/empty");
+                var bottomNoPedalboard = new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile(
+                        "pipeorgans:block/organ_console/bottom-no-pedalboard");
+                var bottomPedalboard = new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile(
+                        "pipeorgans:block/organ_console/bottom-pedalboard");
+                var topManual = new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile[] {
+                        null, // index 0 unused
+                        new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/organ_console/top-manual-1"),
+                        new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/organ_console/top-manual-2"),
+                        new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/organ_console/top-manual-3"),
+                        new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/organ_console/top-manual-4"),
+                };
+                p.getVariantBuilder(c.get()).forAllStates(state -> {
+                    int y = switch (state.getValue(OrganConsoleBlock.FACING)) {
+                        case EAST -> 90; case SOUTH -> 180; case WEST -> 270; default -> 0;
+                    };
+                    boolean isBottomLeft = state.getValue(OrganConsoleBlock.HALF) == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER
+                            && !state.getValue(OrganConsoleBlock.RIGHT);
+                    boolean isUpperLeft = state.getValue(OrganConsoleBlock.HALF) == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER
+                            && !state.getValue(OrganConsoleBlock.RIGHT);
+                    net.minecraftforge.client.model.generators.ModelFile model;
+                    if (isBottomLeft) {
+                        model = state.getValue(OrganConsoleBlock.PEDALBOARD) ? bottomPedalboard : bottomNoPedalboard;
+                    } else if (isUpperLeft) {
+                        model = topManual[state.getValue(OrganConsoleBlock.MANUAL_COUNT)];
+                    } else {
+                        model = emptyModel;
+                    }
+                    return net.minecraftforge.client.model.generators.ConfiguredModel.builder()
+                            .modelFile(model).rotationY(y).build();
+                });
+            })
             .item()
+            .model((c, p) -> p.getBuilder("item/organ_console")
+                    .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/organ_console/bottom-no-pedalboard")))
             .build()
             .lang("Organ Console")
             .register();
