@@ -125,7 +125,9 @@ public class OrganConsoleBlock extends Block implements IBE<OrganConsoleBlockEnt
                 state.getValue(HALF) == DoubleBlockHalf.UPPER,
                 state.getValue(PEDALBOARD),
                 state.getValue(MANUAL_COUNT),
-                state.getValue(FACING));
+                state.getValue(FACING),
+                world,
+                pos);
     }
 
     // Placement

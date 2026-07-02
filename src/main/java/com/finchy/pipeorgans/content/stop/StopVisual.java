@@ -24,9 +24,9 @@ public class StopVisual extends AbstractBlockEntityVisual<StopBlockEntity> imple
     private static final float[] COL_X = { 13f, 11f, 9f, 7f, 5f, 3f };
     private static final float[] ROW_Y = { 10.0f, 8.0f, 6.0f };
 
-    private static final int COLOR_PRESSED = 0x90916d;
-    private static final int COLOR_UNPRESSED = 0x454545;
-    private static final int COLOR_UNUSED = 0x222222;
+    private static final int COLOR_PRESSED = 0xe6e68c;
+    private static final int COLOR_UNPRESSED = 0xbababa;
+    private static final int COLOR_UNUSED = 0x4a4a4a;
 
     private final TransformedInstance[] knobs = new TransformedInstance[COUNT];
 
