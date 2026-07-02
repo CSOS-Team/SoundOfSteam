@@ -9,63 +9,49 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.Redirect;
-
 import java.nio.IntBuffer;
 
 @Mixin(Library.class)
 public class SoundLibraryMixin {
 
     @Unique
-    private static int pipeorgans$allocatedMaxSources = 255;
+    private int pipeorgans$allocatedMaxSources = 255;
 
     @Unique
-    private static int pipeorgans$maxSources() {
+    private int pipeorgans$maxSources() {
         try {
             return ClientConfig.MAX_SOUND_SOURCES.get();
         } catch (IllegalStateException notLoadedYet) {
-            return 512;
+            return 255;
         }
     }
 
-    @Redirect(method = "init(Ljava/lang/String;Z)V", at = @At(value = "INVOKE", target = "Lorg/lwjgl/openal/ALC10;alcCreateContext(JLjava/nio/IntBuffer;)J", remap = false))
-    private long pipeorgans$createContextWithMaxSupportedSources(long device, IntBuffer ignoredNull) {
-        int requestedMono = pipeorgans$maxSources();
-        long context = 0;
+    @ModifyArg(
+        method = "init(Ljava/lang/String;Z)V",
+        at = @At(value = "INVOKE", target = "Lorg/lwjgl/openal/ALC10;alcCreateContext(JLjava/nio/IntBuffer;)J"),
+        index = 1
+    )
+    private IntBuffer pipeorgans$injectHardwareChannels(long device, IntBuffer localAttributes) {
+        int requestedSources = pipeorgans$maxSources();
 
-        // Steps down from config maximum in aligned blocks until OS accepts the stream weight
-        while (requestedMono >= 64) {
-            try (MemoryStack stack = MemoryStack.stackPush()) {
-                // Ensure exact 4-byte boundaries, stopping pitch & pan distortion
-                int[] attribArray = new int[] {
-                    ALC11.ALC_MONO_SOURCES, requestedMono,
-                    ALC11.ALC_STEREO_SOURCES, 16,
-                    0
-                };
+        MemoryStack stack = MemoryStack.stackGet();
 
-                IntBuffer attrs = stack.ints(attribArray);
-                context = ALC10.alcCreateContext(device, attrs);
+        int[] attribArray = new int[] {
+            ALC11.ALC_MONO_SOURCES, requestedSources,
+            ALC11.ALC_STEREO_SOURCES, Math.min(requestedSources, 128),
+            0
+        };
 
-                if (context != 0) {
-                    pipeorgans$allocatedMaxSources = requestedMono;
-                    break;
-                }
-            }
-            requestedMono -= 32;
-        }
+        IntBuffer safeBuffer = stack.ints(attribArray);
+        this.pipeorgans$allocatedMaxSources = requestedSources;
 
-        // Fallback
-        if (context == 0) {
-            context = ALC10.alcCreateContext(device, (IntBuffer) null);
-            pipeorgans$allocatedMaxSources = 255;
-        }
-
-        return context;
+        return safeBuffer;
     }
 
     @ModifyConstant(method = "init(Ljava/lang/String;Z)V", constant = @Constant(intValue = 255))
     private int pipeorgans$raiseStaticCapToTrueAllocated(int original) {
-        return pipeorgans$allocatedMaxSources;
+        return this.pipeorgans$allocatedMaxSources;
     }
 }
