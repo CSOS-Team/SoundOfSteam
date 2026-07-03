@@ -45,6 +45,9 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
 
     public void keepAlive() {
         keepAlive = 2;
+        // If this instance was fading out, re-activate it so it fades back in.
+        // This avoids destroying and re-creating the OpenAL source on rapid note re-triggers.
+        active = true;
     }
     public void setPitch(float pitch) {
         this.pitch = pitch;
@@ -52,9 +55,9 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
 
     @Override
     public void tick() {
-        
+
         // TODO: make the pipes stop playing when unpowered in ponders (or just don't make them make sound in ponders)
-        
+
         if (Minecraft.getInstance().player == null) {
             stop();
             return;
@@ -86,6 +89,7 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
             }
         }
         //All this math hurts my brain
-        this.volume = fadeOutVolume * distanceVolume;
+        float maxVolume = ClientConfig.PIPE_VOLUME.get().floatValue();;
+        this.volume = fadeOutVolume * distanceVolume * maxVolume;
     }
 }

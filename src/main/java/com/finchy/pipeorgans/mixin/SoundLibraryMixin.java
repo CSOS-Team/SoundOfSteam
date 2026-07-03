@@ -34,10 +34,11 @@ public class SoundLibraryMixin {
         int requestedMono = pipeorgans$maxSources();
         long context = 0;
 
-        // Steps down from config maximum in aligned blocks until OS accepts the stream weight
+        // Steps down from config maximum in aligned blocks until OS accepts the stream weight.
+        // Keeps stereo sources at 16 — pipe organ sounds are all positional/mono, and a low
+        // stereo count avoids exceeding driver voice limits which causes audio cracking.
         while (requestedMono >= 64) {
             try (MemoryStack stack = MemoryStack.stackPush()) {
-                // Ensure exact 4-byte boundaries, stopping pitch & pan distortion
                 int[] attribArray = new int[] {
                     ALC11.ALC_MONO_SOURCES, requestedMono,
                     ALC11.ALC_STEREO_SOURCES, 16,
@@ -55,7 +56,7 @@ public class SoundLibraryMixin {
             requestedMono -= 32;
         }
 
-        // Fallback
+        // Fallback: let the driver decide
         if (context == 0) {
             context = ALC10.alcCreateContext(device, (IntBuffer) null);
             pipeorgans$allocatedMaxSources = 255;
