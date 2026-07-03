@@ -5,7 +5,10 @@ import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import net.createmod.catnip.math.VoxelShaper;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.Shapes;
 
 public abstract class AllShapes {
 
@@ -502,6 +505,63 @@ public abstract class AllShapes {
 
     private static com.simibubi.create.AllShapes.Builder shape(double x1, double y1, double z1, double x2, double y2, double z2) {
         return shape(Block.box(x1, y1, z1, x2, y2, z2));
+    }
+
+    // Organ Console
+
+    // Left half lower
+    private static final VoxelShape LEFT_PEDAL_NORTH = Shapes.or(
+        shape(0, 0, 8, 16, 13, 16).build(),
+        shape(6, 0, 0, 16, 2, 8).build()
+    );
+
+    private static final VoxelShaper CONSOLE_LOWER_LEFT_NO_PEDAL =
+        VoxelShaper.forHorizontal(shape(0, 0, 8, 16, 13, 16).build(), Direction.NORTH);
+
+    private static final VoxelShaper CONSOLE_LOWER_LEFT_PEDAL =
+        VoxelShaper.forHorizontal(LEFT_PEDAL_NORTH, Direction.NORTH);
+
+
+    // Right half lower
+    private static final VoxelShape RIGHT_PEDAL_NORTH = Shapes.or(
+        shape(0, 0, 8, 16, 13, 16).build(),
+        shape(0, 0, 0, 10, 2, 8).build()
+    );
+
+    private static final VoxelShaper CONSOLE_LOWER_RIGHT_NO_PEDAL =
+        VoxelShaper.forHorizontal(shape(0, 0, 8, 16, 13, 16).build(), Direction.NORTH);
+
+    private static final VoxelShaper CONSOLE_LOWER_RIGHT_PEDAL =
+        VoxelShaper.forHorizontal(RIGHT_PEDAL_NORTH, Direction.NORTH);
+
+
+    // Upper half per manual count (1–4)
+    private static final VoxelShaper[] CONSOLE_UPPER_MANUAL = {
+        null, // index 0 unused
+        shape(0, -3, 7, 16, 0, 16).forHorizontal(Direction.NORTH), // 1 manual
+        shape(0, -3, 4, 16, 1, 16).forHorizontal(Direction.NORTH), // 2 manuals
+        shape(0, -3, 2, 16, 2, 16).forHorizontal(Direction.NORTH), // 3 manuals
+        shape(0, -3, 2, 16, 3, 16).forHorizontal(Direction.NORTH), // 4 manuals
+    };
+
+    public static VoxelShape organConsoleShape(boolean upperHalf, boolean pedalboard, int manualCount, Direction facing, BlockGetter world, BlockPos pos) {
+        if (upperHalf) {
+            int idx = Math.max(1, Math.min(4, manualCount));
+            return CONSOLE_UPPER_MANUAL[idx].get(facing);
+        }
+
+        Direction counterClockwise = facing.getCounterClockWise();
+        boolean isLeftHalf = world.getBlockState(pos.relative(counterClockwise.getOpposite())).is(world.getBlockState(pos).getBlock());
+
+        if (isLeftHalf) {
+            return pedalboard
+                    ? CONSOLE_LOWER_LEFT_PEDAL.get(facing)
+                    : CONSOLE_LOWER_LEFT_NO_PEDAL.get(facing);
+        } else {
+            return pedalboard
+                    ? CONSOLE_LOWER_RIGHT_PEDAL.get(facing)
+                    : CONSOLE_LOWER_RIGHT_NO_PEDAL.get(facing);
+        }
     }
 
 }

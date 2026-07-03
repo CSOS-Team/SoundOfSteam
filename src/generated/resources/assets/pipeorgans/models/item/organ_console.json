@@ -1,3 +1,6 @@
 {
-  "parent": "pipeorgans:block/organ_console"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "pipeorgans:item/organ_console"
+  }
 }

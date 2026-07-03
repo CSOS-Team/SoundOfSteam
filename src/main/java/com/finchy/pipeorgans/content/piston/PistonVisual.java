@@ -26,9 +26,9 @@ public class PistonVisual extends AbstractBlockEntityVisual<PistonBlockEntity> i
     private static final float[] SPECIAL_X = { 11f,  9f, 7f, 5f  };
     private static final float SPECIAL_Y = 5.5f;
 
-    private static final int COLOR_WHITE  = 0xFFFFFF;
-    private static final int COLOR_GREY = 0x888888;
-    private static final int COLOR_YELLOW = 0xFFFF00;
+    private static final int COLOR_SETTINGS = 0xbababa;
+    private static final int COLOR_PISTONS = 0x3d3d3d;
+    private static final int COLOR_TUTTI = 0xe6e68c;
 
     private final TransformedInstance[] pistons  = new TransformedInstance[PISTON_COUNT];
     private final TransformedInstance[] specials = new TransformedInstance[SPECIAL_COUNT];
@@ -75,7 +75,7 @@ public class PistonVisual extends AbstractBlockEntityVisual<PistonBlockEntity> i
                     .translate(-0.5f, -0.5f, -0.5f)
                     .translate((COL_X[col] - 8f) / 16f, (ROW_Y[row] - 8f) / 16f, 0f)
                     .light(light)
-                    .colorRgb(blockEntity.isPresetEmpty(i) ? COLOR_GREY : COLOR_WHITE)
+                    .colorRgb(blockEntity.isPresetEmpty(i) ? COLOR_PISTONS : COLOR_SETTINGS)
                     .setChanged();
         }
 
@@ -91,7 +91,7 @@ public class PistonVisual extends AbstractBlockEntityVisual<PistonBlockEntity> i
                     .translate(-0.5f, -0.5f, -0.5f)
                     .translate((SPECIAL_X[i] - 8f) / 16f, (SPECIAL_Y - 8f) / 16f, bodyZShift)
                     .light(light)
-                    .colorRgb((i == SPECIAL_TUTTI_IDX && tuttiActive) ? COLOR_YELLOW : COLOR_WHITE)
+                    .colorRgb((i == SPECIAL_TUTTI_IDX && tuttiActive) ? COLOR_TUTTI : COLOR_SETTINGS)
                     .setChanged();
         }
     }
