@@ -2,15 +2,14 @@ package com.finchy.pipeorgans.mixin;
 
 import com.finchy.pipeorgans.ClientConfig;
 import com.mojang.blaze3d.audio.Library;
-import org.lwjgl.openal.ALC10;
 import org.lwjgl.openal.ALC11;
 import org.lwjgl.system.MemoryStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.nio.IntBuffer;
 
@@ -18,10 +17,10 @@ import java.nio.IntBuffer;
 public class SoundLibraryMixin {
 
     @Unique
-    private static int pipeorgans$allocatedMaxSources = 255;
+    private int pipeorgans$allocatedMaxSources = 255;
 
     @Unique
-    private static int pipeorgans$maxSources() {
+    private int pipeorgans$maxSources() {
         try {
             return ClientConfig.MAX_SOUND_SOURCES.get();
         } catch (IllegalStateException notLoadedYet) {
@@ -29,44 +28,32 @@ public class SoundLibraryMixin {
         }
     }
 
-    @Redirect(method = "init(Ljava/lang/String;Z)V", at = @At(value = "INVOKE", target = "Lorg/lwjgl/openal/ALC10;alcCreateContext(JLjava/nio/IntBuffer;)J", remap = false))
-    private long pipeorgans$createContextWithMaxSupportedSources(long device, IntBuffer ignoredNull) {
-        int requestedMono = pipeorgans$maxSources();
-        long context = 0;
+    @ModifyArg(
+        method = "init(Ljava/lang/String;Z)V",
+        at = @At(value = "INVOKE", target = "Lorg/lwjgl/openal/ALC10;alcCreateContext(JLjava/nio/IntBuffer;)J"),
+        index = 1
+    )
+    private IntBuffer pipeorgans$injectHardwareChannels(long device, IntBuffer localAttributes) {
+        int requestedSources = pipeorgans$maxSources();
 
-        // Steps down from config maximum in aligned blocks until OS accepts the stream weight.
+        MemoryStack stack = MemoryStack.stackGet();
+
         // Keeps stereo sources at 16 — pipe organ sounds are all positional/mono, and a low
         // stereo count avoids exceeding driver voice limits which causes audio cracking.
-        while (requestedMono >= 64) {
-            try (MemoryStack stack = MemoryStack.stackPush()) {
-                int[] attribArray = new int[] {
-                    ALC11.ALC_MONO_SOURCES, requestedMono,
-                    ALC11.ALC_STEREO_SOURCES, 16,
-                    0
-                };
+        int[] attribArray = new int[] {
+            ALC11.ALC_MONO_SOURCES, requestedSources,
+            ALC11.ALC_STEREO_SOURCES, 16,
+            0
+        };
 
-                IntBuffer attrs = stack.ints(attribArray);
-                context = ALC10.alcCreateContext(device, attrs);
+        IntBuffer safeBuffer = stack.ints(attribArray);
+        this.pipeorgans$allocatedMaxSources = requestedSources;
 
-                if (context != 0) {
-                    pipeorgans$allocatedMaxSources = requestedMono;
-                    break;
-                }
-            }
-            requestedMono -= 32;
-        }
-
-        // Fallback: let the driver decide
-        if (context == 0) {
-            context = ALC10.alcCreateContext(device, (IntBuffer) null);
-            pipeorgans$allocatedMaxSources = 255;
-        }
-
-        return context;
+        return safeBuffer;
     }
 
     @ModifyConstant(method = "init(Ljava/lang/String;Z)V", constant = @Constant(intValue = 255))
     private int pipeorgans$raiseStaticCapToTrueAllocated(int original) {
-        return pipeorgans$allocatedMaxSources;
+        return this.pipeorgans$allocatedMaxSources;
     }
 }
