@@ -38,7 +38,6 @@
       }
     ]
   },
-
   "grow_wooden_pipe": {
     "sounds": [
       {
@@ -48,8 +47,6 @@
       }
     ]
   },
-
-
   "grow_metal_pipe": {
     "sounds": [
       {
@@ -59,7 +56,6 @@
       }
     ]
   },
-
   "grow_haunted_pipe": {
     "sounds": [
       {
@@ -69,8 +65,6 @@
       }
     ]
   },
-
-
   "gedeckt_superhigh": {
     "subtitle": "sounds.pipeorgans.gedeckt_superhigh",
     "sounds": [
@@ -81,7 +75,6 @@
       }
     ]
   },
-
   "gedeckt_high": {
     "subtitle": "sounds.pipeorgans.gedeckt_high",
     "sounds": [
@@ -92,7 +85,6 @@
       }
     ]
   },
-
   "gedeckt_medium": {
     "subtitle": "sounds.pipeorgans.gedeckt_medium",
     "sounds": [
@@ -103,7 +95,6 @@
       }
     ]
   },
-
   "gedeckt_low": {
     "subtitle": "sounds.pipeorgans.gedeckt_low",
     "sounds": [
@@ -114,7 +105,6 @@
       }
     ]
   },
-
   "gedeckt_deep": {
     "subtitle": "sounds.pipeorgans.gedeckt_deep",
     "sounds": [
@@ -125,9 +115,6 @@
       }
     ]
   },
-
-
-
   "diapason_superhigh": {
     "subtitle": "sounds.pipeorgans.diapason_superhigh",
     "sounds": [
@@ -138,7 +125,6 @@
       }
     ]
   },
-
   "diapason_high": {
     "subtitle": "sounds.pipeorgans.diapason_high",
     "sounds": [
@@ -149,7 +135,6 @@
       }
     ]
   },
-
   "diapason_medium": {
     "subtitle": "sounds.pipeorgans.diapason_medium",
     "sounds": [
@@ -160,7 +145,6 @@
       }
     ]
   },
-
   "diapason_low": {
     "subtitle": "sounds.pipeorgans.diapason_low",
     "sounds": [
@@ -171,7 +155,6 @@
       }
     ]
   },
-
   "diapason_deep": {
     "subtitle": "sounds.pipeorgans.diapason_deep",
     "sounds": [
@@ -182,63 +165,61 @@
       }
     ]
   },
-
-
   "haunted_whistle_superhigh": {
     "subtitle": "sounds.pipeorgans.haunted_whistle_superhigh",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:haunted_whistle/hw_superhigh"
+        "name": "pipeorgans:haunted_whistle/hw_superhigh",
+        "volume": 0.25
       }
     ]
   },
-
   "haunted_whistle_high": {
     "subtitle": "sounds.pipeorgans.haunted_whistle_high",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:haunted_whistle/hw_high"
+        "name": "pipeorgans:haunted_whistle/hw_high",
+        "volume": 0.25
       }
     ]
   },
-
   "haunted_whistle_medium": {
     "subtitle": "sounds.pipeorgans.haunted_whistle_medium",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:haunted_whistle/hw_medium"
+        "name": "pipeorgans:haunted_whistle/hw_medium",
+        "volume": 0.25
       }
     ]
   },
-
   "haunted_whistle_low": {
     "subtitle": "sounds.pipeorgans.haunted_whistle_low",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:haunted_whistle/hw_low"
+        "name": "pipeorgans:haunted_whistle/hw_low",
+        "volume": 0.25
       }
     ]
   },
-
   "haunted_whistle_deep": {
     "subtitle": "sounds.pipeorgans.haunted_whistle_deep",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:haunted_whistle/hw_deep"
+        "name": "pipeorgans:haunted_whistle/hw_deep",
+        "volume": 0.25
       }
     ]
   },
-
   "haunted_chiff": {
     "sounds": [
       {
@@ -248,7 +229,6 @@
       }
     ]
   },
-
   "prestant_superhigh": {
     "subtitle": "sounds.pipeorgans.prestant_superhigh",
     "sounds": [
@@ -259,7 +239,6 @@
       }
     ]
   },
-
   "prestant_high": {
     "subtitle": "sounds.pipeorgans.prestant_high",
     "sounds": [
@@ -270,7 +249,6 @@
       }
     ]
   },
-
   "prestant_medium": {
     "subtitle": "sounds.pipeorgans.prestant_medium",
     "sounds": [
@@ -281,7 +259,6 @@
       }
     ]
   },
-
   "prestant_low": {
     "subtitle": "sounds.pipeorgans.prestant_low",
     "sounds": [
@@ -292,7 +269,6 @@
       }
     ]
   },
-
   "prestant_deep": {
     "subtitle": "sounds.pipeorgans.prestant_deep",
     "sounds": [
@@ -303,64 +279,61 @@
       }
     ]
   },
-
-
-
   "gamba_superhigh": {
     "subtitle": "sounds.pipeorgans.gamba_superhigh",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:gamba/gm_superhigh"
+        "name": "pipeorgans:gamba/gm_superhigh",
+        "volume": 0.25
       }
     ]
   },
-
   "gamba_high": {
     "subtitle": "sounds.pipeorgans.gamba_high",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:gamba/gm_high"
+        "name": "pipeorgans:gamba/gm_high",
+        "volume": 0.25
       }
     ]
   },
-
   "gamba_medium": {
     "subtitle": "sounds.pipeorgans.gamba_medium",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:gamba/gm_medium"
+        "name": "pipeorgans:gamba/gm_medium",
+        "volume": 0.25
       }
     ]
   },
-
   "gamba_low": {
     "subtitle": "sounds.pipeorgans.gamba_low",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:gamba/gm_low"
+        "name": "pipeorgans:gamba/gm_low",
+        "volume": 0.25
       }
     ]
   },
-
   "gamba_deep": {
     "subtitle": "sounds.pipeorgans.gamba_deep",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:gamba/gm_deep"
+        "name": "pipeorgans:gamba/gm_deep",
+        "volume": 0.25
       }
     ]
   },
-
   "viola_superhigh": {
     "subtitle": "sounds.pipeorgans.viola_superhigh",
     "sounds": [
@@ -371,7 +344,6 @@
       }
     ]
   },
-
   "viola_high": {
     "subtitle": "sounds.pipeorgans.viola_high",
     "sounds": [
@@ -382,7 +354,6 @@
       }
     ]
   },
-
   "viola_medium": {
     "subtitle": "sounds.pipeorgans.viola_medium",
     "sounds": [
@@ -393,7 +364,6 @@
       }
     ]
   },
-
   "viola_low": {
     "subtitle": "sounds.pipeorgans.viola_low",
     "sounds": [
@@ -404,7 +374,6 @@
       }
     ]
   },
-
   "viola_deep": {
     "subtitle": "sounds.pipeorgans.viola_deep",
     "sounds": [
@@ -415,7 +384,6 @@
       }
     ]
   },
-
   "vox_celeste_superhigh": {
     "subtitle": "sounds.pipeorgans.vox_celeste_superhigh",
     "sounds": [
@@ -426,8 +394,6 @@
       }
     ]
   },
-
-
   "vox_celeste_high": {
     "subtitle": "sounds.pipeorgans.vox_celeste_high",
     "sounds": [
@@ -438,7 +404,6 @@
       }
     ]
   },
-
   "vox_celeste_medium": {
     "subtitle": "sounds.pipeorgans.vox_celeste_medium",
     "sounds": [
@@ -449,7 +414,6 @@
       }
     ]
   },
-
   "vox_celeste_low": {
     "subtitle": "sounds.pipeorgans.vox_celeste_low",
     "sounds": [
@@ -460,7 +424,6 @@
       }
     ]
   },
-
   "vox_celeste_deep": {
     "subtitle": "sounds.pipeorgans.vox_celeste_deep",
     "sounds": [
@@ -471,9 +434,6 @@
       }
     ]
   },
-
-
-
   "piccolo_superhigh": {
     "subtitle": "sounds.pipeorgans.piccolo_superhigh",
     "sounds": [
@@ -484,7 +444,6 @@
       }
     ]
   },
-
   "piccolo_high": {
     "subtitle": "sounds.pipeorgans.piccolo_high",
     "sounds": [
@@ -495,7 +454,6 @@
       }
     ]
   },
-
   "piccolo_medium": {
     "subtitle": "sounds.pipeorgans.piccolo_medium",
     "sounds": [
@@ -506,7 +464,6 @@
       }
     ]
   },
-
   "piccolo_low": {
     "subtitle": "sounds.pipeorgans.piccolo_low",
     "sounds": [
@@ -517,7 +474,6 @@
       }
     ]
   },
-
   "piccolo_deep": {
     "subtitle": "sounds.pipeorgans.piccolo_deep",
     "sounds": [
@@ -528,7 +484,6 @@
       }
     ]
   },
-
   "piccolo_water": {
     "subtitle": "sounds.pipeorgans.piccolo_water",
     "sounds": [
@@ -539,62 +494,61 @@
       }
     ]
   },
-
   "oktav_superhigh": {
     "subtitle": "sounds.pipeorgans.oktav_superhigh",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:oktav/ok_superhigh"
+        "name": "pipeorgans:oktav/ok_superhigh",
+        "volume": 0.25
       }
     ]
   },
-
   "oktav_high": {
     "subtitle": "sounds.pipeorgans.oktav_high",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:oktav/ok_high"
+        "name": "pipeorgans:oktav/ok_high",
+        "volume": 0.25
       }
     ]
   },
-
   "oktav_medium": {
     "subtitle": "sounds.pipeorgans.oktav_medium",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:oktav/ok_medium"
+        "name": "pipeorgans:oktav/ok_medium",
+        "volume": 0.25
       }
     ]
   },
-
   "oktav_low": {
     "subtitle": "sounds.pipeorgans.oktav_low",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:oktav/ok_low"
+        "name": "pipeorgans:oktav/ok_low",
+        "volume": 0.25
       }
     ]
   },
-
   "oktav_deep": {
     "subtitle": "sounds.pipeorgans.oktav_deep",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:oktav/ok_deep"
+        "name": "pipeorgans:oktav/ok_deep",
+        "volume": 0.25
       }
     ]
   },
-
   "subbass_superhigh": {
     "subtitle": "sounds.pipeorgans.subbass_superhigh",
     "sounds": [
@@ -605,7 +559,6 @@
       }
     ]
   },
-
   "subbass_high": {
     "subtitle": "sounds.pipeorgans.subbass_high",
     "sounds": [
@@ -616,7 +569,6 @@
       }
     ]
   },
-
   "subbass_medium": {
     "subtitle": "sounds.pipeorgans.subbass_medium",
     "sounds": [
@@ -627,7 +579,6 @@
       }
     ]
   },
-
   "subbass_low": {
     "subtitle": "sounds.pipeorgans.subbass_low",
     "sounds": [
@@ -638,7 +589,6 @@
       }
     ]
   },
-
   "subbass_deep": {
     "subtitle": "sounds.pipeorgans.subbass_deep",
     "sounds": [
@@ -649,80 +599,80 @@
       }
     ]
   },
-
   "untersatz_superhigh": {
     "subtitle": "sounds.pipeorgans.untersatz_superhigh",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:untersatz/u_superhigh"
+        "name": "pipeorgans:untersatz/u_superhigh",
+        "volume": 0.25
       }
     ]
   },
-
   "untersatz_high": {
     "subtitle": "sounds.pipeorgans.untersatz_high",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:untersatz/u_high"
+        "name": "pipeorgans:untersatz/u_high",
+        "volume": 0.25
       }
     ]
   },
-
   "untersatz_medium": {
     "subtitle": "sounds.pipeorgans.untersatz_medium",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:untersatz/u_medium"
+        "name": "pipeorgans:untersatz/u_medium",
+        "volume": 0.25
       }
     ]
   },
-
   "untersatz_low": {
     "subtitle": "sounds.pipeorgans.untersatz_low",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:untersatz/u_low"
+        "name": "pipeorgans:untersatz/u_low",
+        "volume": 0.25
       }
     ]
   },
-
   "untersatz_deep": {
     "subtitle": "sounds.pipeorgans.untersatz_deep",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:untersatz/u_deep"
+        "name": "pipeorgans:untersatz/u_deep",
+        "volume": 0.25
       }
     ]
   },
-
   "open_wood_superhigh": {
     "subtitle": "sounds.pipeorgans.open_wood_superhigh",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:open_wood/ow_superhigh"
+        "name": "pipeorgans:open_wood/ow_superhigh",
+        "volume": 0.25
       }
     ]
   },
-
   "open_wood_high": {
     "subtitle": "sounds.pipeorgans.open_wood_high",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:open_wood/ow_high"
+        "name": "pipeorgans:open_wood/ow_high",
+        "volume": 0.25
       }
     ]
   },
@@ -732,33 +682,33 @@
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:open_wood/ow_medium"
+        "name": "pipeorgans:open_wood/ow_medium",
+        "volume": 0.25
       }
     ]
   },
-
   "open_wood_low": {
     "subtitle": "sounds.pipeorgans.open_wood_low",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:open_wood/ow_low"
+        "name": "pipeorgans:open_wood/ow_low",
+        "volume": 0.25
       }
     ]
   },
-
   "open_wood_deep": {
     "subtitle": "sounds.pipeorgans.open_wood_deep",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:open_wood/ow_deep"
+        "name": "pipeorgans:open_wood/ow_deep",
+        "volume": 0.25
       }
     ]
   },
-
   "trompette_superhigh": {
     "subtitle": "sounds.pipeorgans.trompette_superhigh",
     "sounds": [
@@ -769,7 +719,6 @@
       }
     ]
   },
-
   "trompette_high": {
     "subtitle": "sounds.pipeorgans.trompette_high",
     "sounds": [
@@ -780,7 +729,6 @@
       }
     ]
   },
-
   "trompette_medium": {
     "subtitle": "sounds.pipeorgans.trompette_medium",
     "sounds": [
@@ -791,7 +739,6 @@
       }
     ]
   },
-
   "trompette_low": {
     "subtitle": "sounds.pipeorgans.trompette_low",
     "sounds": [
@@ -802,7 +749,6 @@
       }
     ]
   },
-
   "trompette_deep": {
     "subtitle": "sounds.pipeorgans.trompette_deep",
     "sounds": [
@@ -813,7 +759,6 @@
       }
     ]
   },
-
   "krummhorn_superhigh": {
     "subtitle": "sounds.pipeorgans.krummhorn_superhigh",
     "sounds": [
@@ -824,7 +769,6 @@
       }
     ]
   },
-
   "krummhorn_high": {
     "subtitle": "sounds.pipeorgans.krummhorn_high",
     "sounds": [
@@ -835,7 +779,6 @@
       }
     ]
   },
-
   "krummhorn_medium": {
     "subtitle": "sounds.pipeorgans.krummhorn_medium",
     "sounds": [
@@ -846,7 +789,6 @@
       }
     ]
   },
-
   "krummhorn_low": {
     "subtitle": "sounds.pipeorgans.krummhorn_low",
     "sounds": [
@@ -857,7 +799,6 @@
       }
     ]
   },
-
   "krummhorn_deep": {
     "subtitle": "sounds.pipeorgans.krummhorn_deep",
     "sounds": [
@@ -868,118 +809,116 @@
       }
     ]
   },
-
   "english_horn_superhigh": {
     "subtitle": "sounds.pipeorgans.english_horn_superhigh",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:english_horn/eh_superhigh"
+        "name": "pipeorgans:english_horn/eh_superhigh",
+        "volume": 0.25
       }
     ]
   },
-
   "english_horn_high": {
     "subtitle": "sounds.pipeorgans.english_horn_high",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:english_horn/eh_high"
+        "name": "pipeorgans:english_horn/eh_high",
+        "volume": 0.25
       }
     ]
   },
-
   "english_horn_medium": {
     "subtitle": "sounds.pipeorgans.english_horn_medium",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:english_horn/eh_medium"
+        "name": "pipeorgans:english_horn/eh_medium",
+        "volume": 0.25
       }
     ]
   },
-
   "english_horn_low": {
     "subtitle": "sounds.pipeorgans.english_horn_low",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:english_horn/eh_low"
+        "name": "pipeorgans:english_horn/eh_low",
+        "volume": 0.25
       }
     ]
   },
-
   "english_horn_deep": {
     "subtitle": "sounds.pipeorgans.english_horn_deep",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:english_horn/eh_deep"
+        "name": "pipeorgans:english_horn/eh_deep",
+        "volume": 0.25
       }
     ]
   },
-
   "chamade_superhigh": {
     "subtitle": "sounds.pipeorgans.chamade_superhigh",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:chamade/ch_superhigh"
+        "name": "pipeorgans:chamade/ch_superhigh",
+        "volume": 0.25
       }
     ]
   },
-
   "chamade_high": {
     "subtitle": "sounds.pipeorgans.chamade_high",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:chamade/ch_high"
+        "name": "pipeorgans:chamade/ch_high",
+        "volume": 0.25
       }
     ]
   },
-
   "chamade_medium": {
     "subtitle": "sounds.pipeorgans.chamade_medium",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:chamade/ch_medium"
+        "name": "pipeorgans:chamade/ch_medium",
+        "volume": 0.25
       }
     ]
   },
-
   "chamade_low": {
     "subtitle": "sounds.pipeorgans.chamade_low",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:chamade/ch_low"
+        "name": "pipeorgans:chamade/ch_low",
+        "volume": 0.25
       }
     ]
   },
-
   "chamade_deep": {
     "subtitle": "sounds.pipeorgans.chamade_deep",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:chamade/ch_deep"
+        "name": "pipeorgans:chamade/ch_deep",
+        "volume": 0.25
       }
     ]
   },
-
-
   "nasard_superhigh": {
     "subtitle": "sounds.pipeorgans.nasard_superhigh",
     "sounds": [
@@ -990,7 +929,6 @@
       }
     ]
   },
-
   "nasard_high": {
     "subtitle": "sounds.pipeorgans.nasard_high",
     "sounds": [
@@ -1001,7 +939,6 @@
       }
     ]
   },
-
   "nasard_medium": {
     "subtitle": "sounds.pipeorgans.nasard_medium",
     "sounds": [
@@ -1012,7 +949,6 @@
       }
     ]
   },
-
   "nasard_low": {
     "subtitle": "sounds.pipeorgans.nasard_low",
     "sounds": [
@@ -1023,7 +959,6 @@
       }
     ]
   },
-
   "nasard_deep": {
     "subtitle": "sounds.pipeorgans.nasard_deep",
     "sounds": [
@@ -1034,7 +969,6 @@
       }
     ]
   },
-
   "tierce_superhigh": {
     "subtitle": "sounds.pipeorgans.tierce_superhigh",
     "sounds": [
@@ -1045,7 +979,6 @@
       }
     ]
   },
-
   "tierce_high": {
     "subtitle": "sounds.pipeorgans.tierce_high",
     "sounds": [
@@ -1056,7 +989,6 @@
       }
     ]
   },
-
   "tierce_medium": {
     "subtitle": "sounds.pipeorgans.tierce_medium",
     "sounds": [
@@ -1067,7 +999,6 @@
       }
     ]
   },
-
   "tierce_low": {
     "subtitle": "sounds.pipeorgans.tierce_low",
     "sounds": [
@@ -1078,7 +1009,6 @@
       }
     ]
   },
-
   "tierce_deep": {
     "subtitle": "sounds.pipeorgans.tierce_deep",
     "sounds": [
@@ -1089,63 +1019,61 @@
       }
     ]
   },
-
   "posaune_superhigh": {
     "subtitle": "sounds.pipeorgans.posaune_superhigh",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:posaune/ps_superhigh"
+        "name": "pipeorgans:posaune/ps_superhigh",
+        "volume": 0.25
       }
     ]
   },
-
   "posaune_high": {
     "subtitle": "sounds.pipeorgans.posaune_high",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:posaune/ps_high"
+        "name": "pipeorgans:posaune/ps_high",
+        "volume": 0.25
       }
     ]
   },
-
   "posaune_medium": {
     "subtitle": "sounds.pipeorgans.posaune_medium",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:posaune/ps_medium"
+        "name": "pipeorgans:posaune/ps_medium",
+        "volume": 0.25
       }
     ]
   },
-
   "posaune_low": {
     "subtitle": "sounds.pipeorgans.posaune_low",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:posaune/ps_low"
+        "name": "pipeorgans:posaune/ps_low",
+        "volume": 0.25
       }
     ]
   },
-
   "posaune_deep": {
     "subtitle": "sounds.pipeorgans.posaune_deep",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:posaune/ps_deep"
+        "name": "pipeorgans:posaune/ps_deep",
+        "volume": 0.25
       }
     ]
   },
-
-
   "bassoon_superhigh": {
     "subtitle": "sounds.pipeorgans.bassoon_superhigh",
     "sounds": [
@@ -1156,7 +1084,6 @@
       }
     ]
   },
-
   "bassoon_high": {
     "subtitle": "sounds.pipeorgans.bassoon_high",
     "sounds": [
@@ -1167,7 +1094,6 @@
       }
     ]
   },
-
   "bassoon_medium": {
     "subtitle": "sounds.pipeorgans.bassoon_medium",
     "sounds": [
@@ -1178,7 +1104,6 @@
       }
     ]
   },
-
   "bassoon_low": {
     "subtitle": "sounds.pipeorgans.bassoon_low",
     "sounds": [
@@ -1189,7 +1114,6 @@
       }
     ]
   },
-
   "bassoon_deep": {
     "subtitle": "sounds.pipeorgans.bassoon_deep",
     "sounds": [
@@ -1200,65 +1124,61 @@
       }
     ]
   },
-
-
   "vox_humana_superhigh": {
     "subtitle": "sounds.pipeorgans.vox_humana_superhigh",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:vox_humana/vh_superhigh"
+        "name": "pipeorgans:vox_humana/vh_superhigh",
+        "volume": 0.25
       }
     ]
   },
-
   "vox_humana_high": {
     "subtitle": "sounds.pipeorgans.vox_humana_high",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:vox_humana/vh_high"
+        "name": "pipeorgans:vox_humana/vh_high",
+        "volume": 0.25
       }
     ]
   },
-
   "vox_humana_medium": {
     "subtitle": "sounds.pipeorgans.vox_humana_medium",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:vox_humana/vh_medium"
+        "name": "pipeorgans:vox_humana/vh_medium",
+        "volume": 0.25
       }
     ]
   },
-
   "vox_humana_low": {
     "subtitle": "sounds.pipeorgans.vox_humana_low",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:vox_humana/vh_low"
+        "name": "pipeorgans:vox_humana/vh_low",
+        "volume": 0.25
       }
     ]
   },
-
   "vox_humana_deep": {
     "subtitle": "sounds.pipeorgans.vox_humana_deep",
     "sounds": [
       {
         "type": "file",
         "attenuation_distance": 64,
-        "name": "pipeorgans:vox_humana/vh_deep"
+        "name": "pipeorgans:vox_humana/vh_deep",
+        "volume": 0.25
       }
     ]
   },
-
-
-
   "rohrflote_superhigh": {
     "subtitle": "sounds.pipeorgans.rohrflote_superhigh",
     "sounds": [
@@ -1269,7 +1189,6 @@
       }
     ]
   },
-
   "rohrflote_high": {
     "subtitle": "sounds.pipeorgans.rohrflote_high",
     "sounds": [
@@ -1280,7 +1199,6 @@
       }
     ]
   },
-
   "rohrflote_medium": {
     "subtitle": "sounds.pipeorgans.rohrflote_medium",
     "sounds": [
@@ -1291,7 +1209,6 @@
       }
     ]
   },
-
   "rohrflote_low": {
     "subtitle": "sounds.pipeorgans.rohrflote_low",
     "sounds": [
@@ -1302,7 +1219,6 @@
       }
     ]
   },
-
   "rohrflote_deep": {
     "subtitle": "sounds.pipeorgans.rohrflote_deep",
     "sounds": [
@@ -1313,9 +1229,6 @@
       }
     ]
   },
-
-
-
   "hohlflute_superhigh": {
     "subtitle": "sounds.pipeorgans.hohlflute_superhigh",
     "sounds": [
@@ -1326,7 +1239,6 @@
       }
     ]
   },
-
   "hohlflute_high": {
     "subtitle": "sounds.pipeorgans.hohlflute_high",
     "sounds": [
@@ -1337,7 +1249,6 @@
       }
     ]
   },
-
   "hohlflute_medium": {
     "subtitle": "sounds.pipeorgans.hohlflute_medium",
     "sounds": [
@@ -1348,7 +1259,6 @@
       }
     ]
   },
-
   "hohlflute_low": {
     "subtitle": "sounds.pipeorgans.hohlflute_low",
     "sounds": [
@@ -1359,7 +1269,6 @@
       }
     ]
   },
-
   "hohlflute_deep": {
     "subtitle": "sounds.pipeorgans.hohlflute_deep",
     "sounds": [
