@@ -331,7 +331,7 @@
   "pipeorgans.ponder.pipe_swapping.header": "Swapping different pipes",
   "pipeorgans.ponder.pipe_swapping.text_1": "You can instantly change the type of a Pipe by using another Pipe's item on it",
   "pipeorgans.ponder.pipe_swapping.text_2": "However, if the new pipe is too long, blocks can get in the way",
-  "pipeorgans.ponder.pipe_swapping.text_3": "To fix this, simply remove any blocks that are in the way.",
+  "pipeorgans.ponder.pipe_swapping.text_3": "To fix this, simply remove any blocks that are in the way",
   "pipeorgans.ponder.pipe_swapping.text_4": "The same goes for horizontal pipes",
   "pipeorgans.ponder.tracker_bar.header": "Playing music rolls",
   "pipeorgans.ponder.tracker_bar.text_1": "The Tracker Bar is used to play MIDI files from music rolls",
