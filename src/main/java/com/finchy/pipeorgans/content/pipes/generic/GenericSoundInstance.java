@@ -15,6 +15,7 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
     private boolean active;
     private int keepAlive;
     private float fadeOutVolume = 0.001f;
+    private float baseVolume = 1.0f;
     private PipeSize size;
 
 
@@ -56,6 +57,10 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
         this.pitch = pitch;
     }
 
+    public void setBaseVolume(float baseVolume) {
+        this.baseVolume = baseVolume;
+    }
+
     @Override
     public void tick() {
 
@@ -92,7 +97,7 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
             }
         }
         //All this math hurts my brain
-        float maxVolume = ClientConfig.PIPE_VOLUME.get().floatValue();;
-        this.volume = fadeOutVolume * distanceVolume * maxVolume;
+        float maxVolume = ClientConfig.PIPE_VOLUME.get().floatValue();
+        this.volume = fadeOutVolume * distanceVolume * maxVolume * baseVolume;
     }
 }
