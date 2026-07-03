@@ -14,7 +14,7 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
 
     private boolean active;
     private int keepAlive;
-    private float fadeOutVolume = 0f;
+    private float fadeOutVolume = 0.001f;
     private PipeSize size;
 
 
@@ -25,9 +25,10 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
         this.size = size;
         looping = true;
         active = true;
-        // Start silent so OpenAL doesn't emit a full-volume frame before the first tick,
-        // which causes an audible click transient at note-on.
-        volume = 0f;
+        // Use the smallest non-zero volume so SoundManager doesn't discard the instance
+        // at submission time (it drops volume=0 sounds). The fade-in logic in tick()
+        // ramps this up smoothly from near-silence, avoiding the click transient.
+        volume = 0.001f;
         delay = 0;
         keepAlive();
         Vec3 v = Vec3.atCenterOf(worldPosition);
