@@ -159,9 +159,8 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
-                // Don't null out soundInstance here — keep the reference so we can
-                // revive it on the next note-on without calling alGenSources again.
-                // The instance will call stop() itself once fadeOutVolume reaches 0.
+                // Keep the reference so sound can be revived without calling alGenSources again
+                // The instance will call stop() itself once fadeOutVolume reaches 0
             }
             return;
         }
@@ -170,11 +169,11 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         boolean particle = level.getGameTime() % 8 == 0;
 
         if (soundInstance != null && !soundInstance.isStopped() && soundInstance.getOctave() == size) {
-            // Instance exists and is still alive (possibly fading out) — revive it.
+            // Instance exists and is still alive revive it.
             soundInstance.keepAlive();
             soundInstance.setPitch(f);
         } else {
-            // Instance is gone or wrong size: need a new one. Clear the stale ref first.
+            // Instance is gone or wrong size. Clear the stale ref
             soundInstance = null;
             if (!isVirtual()) {
                 handleSoundInstance(size);
@@ -191,7 +190,7 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
 
         createSteamJet(size);
     }
-    
+
     @OnlyIn(Dist.CLIENT)
     protected abstract void handleSoundInstance(PipeSize size);
 
