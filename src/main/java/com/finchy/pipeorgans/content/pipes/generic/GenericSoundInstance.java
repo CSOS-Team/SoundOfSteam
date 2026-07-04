@@ -25,9 +25,7 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
         this.size = size;
         looping = true;
         active = true;
-        // Use the smallest non-zero volume so SoundManager doesn't discard the instance
-        // at submission time (it drops volume=0 sounds). The fade-in logic in tick()
-        // ramps this up smoothly from near-silence, avoiding the click transient.
+        // Use the smallest non-zero volume so SoundManager doesn't discard the instance and mitigate clicking
         volume = 0.001f;
         delay = 0;
         keepAlive();
@@ -48,8 +46,7 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
 
     public void keepAlive() {
         keepAlive = 2;
-        // If this instance was fading out, re-activate it so it fades back in.
-        // This avoids destroying and re-creating the OpenAL source on rapid note re-triggers.
+        // Avoid destroying and recreating the OpenAL source on rapid note retriggers
         active = true;
     }
     public void setPitch(float pitch) {

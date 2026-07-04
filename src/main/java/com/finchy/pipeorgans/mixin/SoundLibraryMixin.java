@@ -38,11 +38,9 @@ public class SoundLibraryMixin {
 
         MemoryStack stack = MemoryStack.stackGet();
 
-        // Keeps stereo sources at 16 — pipe organ sounds are all positional/mono, and a low
-        // stereo count avoids exceeding driver voice limits which causes audio cracking.
         int[] attribArray = new int[] {
             ALC11.ALC_MONO_SOURCES, requestedSources,
-            ALC11.ALC_STEREO_SOURCES, 16,
+            ALC11.ALC_STEREO_SOURCES, 8,
             0
         };
 
