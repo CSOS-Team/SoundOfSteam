@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
-
 import java.nio.IntBuffer;
 
 @Mixin(Library.class)
@@ -24,7 +23,7 @@ public class SoundLibraryMixin {
         try {
             return ClientConfig.MAX_SOUND_SOURCES.get();
         } catch (IllegalStateException notLoadedYet) {
-            return 512;
+            return 255;
         }
     }
 
