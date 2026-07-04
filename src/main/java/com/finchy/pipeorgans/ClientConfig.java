@@ -38,10 +38,8 @@ public class ClientConfig {
     public static final ForgeConfigSpec.DoubleValue PIPE_VOLUME = BUILDER
             .comment("Maximum volume per pipe sound source (0.0-1.0).",
                      "Lower this if you get crackling when many pipes play simultaneously.",
-                     "Each pipe's AL_GAIN is multiplied by this before being sent to OpenAL.",
-                     "At 1.0 (default), 10+ simultaneous pipes can sum past 0 dBFS and clip.",
-                     "0.25 gives ~12 dB of headroom per source before the mix clips.")
-            .defineInRange("sounds.pipeVolume", 0.25d, 0.01d, 1.0d);
+                     "At 1.0 (default), 10+ simultaneous pipes can sum past 0 dBFS and clip.")
+            .defineInRange("sounds.pipeVolume", 0.75d, 0.01d, 1.0d);
 
     public static final ForgeConfigSpec.IntValue MAX_SOUND_SOURCES = BUILDER
             .comment("Max simultaneous sound channels.", "Higher values use more RAM/CPU. Restart to apply.")
