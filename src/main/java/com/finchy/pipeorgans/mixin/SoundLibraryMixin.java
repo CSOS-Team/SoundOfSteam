@@ -30,7 +30,7 @@ public class SoundLibraryMixin {
 
     @ModifyArg(
         method = "init(Ljava/lang/String;Z)V",
-        at = @At(value = "INVOKE", target = "Lorg/lwjgl/openal/ALC10;alcCreateContext(JLjava/nio/IntBuffer;)J"),
+        at = @At(value = "INVOKE", target = "Lorg/lwjgl/openal/ALC10;alcCreateContext(JLjava/nio/IntBuffer;)J", remap = false),
         index = 1
     )
     private IntBuffer pipeorgans$injectHardwareChannels(long device, IntBuffer localAttributes) {
