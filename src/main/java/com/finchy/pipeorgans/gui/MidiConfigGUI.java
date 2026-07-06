@@ -1,7 +1,7 @@
 package com.finchy.pipeorgans.gui;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.midi.client.ClientMidiHandler;
+import com.finchy.pipeorgans.midi.client.ClientProxy;
 import com.finchy.pipeorgans.midi.client.MidiInputDeviceManager;
 import com.finchy.pipeorgans.util.GuiUtils;
 import net.minecraft.client.Minecraft;
@@ -56,7 +56,7 @@ public class MidiConfigGUI extends Screen {
         super(Component.translatable(translatableTitle));
 
         // get device manager from client proxy
-        midiInputDeviceManager = ClientMidiHandler.inputDeviceManager;
+        midiInputDeviceManager = ((ClientProxy)PipeOrgans.getProxy()).getMidiData().inputDeviceManager;
         // refresh devices list
         reloadDevices();
 

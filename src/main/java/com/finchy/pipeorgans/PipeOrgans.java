@@ -3,7 +3,10 @@ package com.finchy.pipeorgans;
 import com.finchy.pipeorgans.data.PipeOrgansDatagen;
 import com.finchy.pipeorgans.data.advancement.AllAdvancements;
 import com.finchy.pipeorgans.init.*;
+import com.finchy.pipeorgans.midi.Proxy;
+import com.finchy.pipeorgans.midi.client.ClientProxy;
 import com.finchy.pipeorgans.midi.server.ServerMidiLoader;
+import com.finchy.pipeorgans.midi.server.ServerProxy;
 import com.finchy.pipeorgans.network.AllPackets;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -16,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -33,6 +37,10 @@ import org.slf4j.Logger;
 @Mod(PipeOrgans.MOD_ID)
 public class PipeOrgans {
 
+    static {
+        setProxy(DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new));
+    }
+
     // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "pipeorgans";
     public static final Logger LOGGER = LogUtils.getLogger();
@@ -45,6 +53,14 @@ public class PipeOrgans {
             );
 
     public static final ServerMidiLoader MIDI_RECEIVER = new ServerMidiLoader();
+
+    protected static Proxy proxy;
+    public static Proxy getProxy() {
+        return proxy;
+    }
+    public static void setProxy(Proxy inProxy) {
+        proxy = inProxy;
+    }
 
     public PipeOrgans() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -71,6 +87,8 @@ public class PipeOrgans {
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
+
+        proxy.init();
     }
 
     public static void init(FMLCommonSetupEvent event) {
