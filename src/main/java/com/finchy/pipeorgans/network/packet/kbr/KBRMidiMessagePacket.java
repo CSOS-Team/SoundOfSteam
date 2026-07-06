@@ -1,6 +1,5 @@
-package com.finchy.pipeorgans.network.packet;
+package com.finchy.pipeorgans.network.packet.kbr;
 
-import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
 import net.minecraft.core.BlockPos;
@@ -11,7 +10,7 @@ import net.minecraftforge.network.NetworkEvent;
 
 import javax.sound.midi.*;
 
-public class KBRMidiMessagePacket extends SimplePacketBase {
+public class KBRMidiMessagePacket extends KBRPacketBase {
 
     public final MidiMessage message;
 
@@ -20,12 +19,13 @@ public class KBRMidiMessagePacket extends SimplePacketBase {
     private final static int META_CODE = 2;
     private final static int OTHER_CODE = -1;
 
-    public KBRMidiMessagePacket(MidiMessage message) {
+    public KBRMidiMessagePacket(MidiMessage message, BlockPos KBRPos) {
+        super(KBRPos);
         this.message = message;
     }
 
-    // unfortunately, the constructor for ShortMessage that takes a byte[] is protected, so this exposes it
-    public class MidiShortMessage extends ShortMessage {
+    // the constructor for ShortMessage that takes a byte[] is protected, so this exposes it
+    public static class MidiShortMessage extends ShortMessage {
         public MidiShortMessage(byte[] data, int length) throws InvalidMidiDataException {
             super();
             super.setMessage(data, length);
@@ -33,6 +33,7 @@ public class KBRMidiMessagePacket extends SimplePacketBase {
     }
 
     public KBRMidiMessagePacket(FriendlyByteBuf buffer) {
+        super(buffer);
         int code = buffer.readVarInt();
         int length = buffer.readVarInt();
         byte[] data = buffer.readByteArray(length);
@@ -55,6 +56,7 @@ public class KBRMidiMessagePacket extends SimplePacketBase {
 
     @Override
     public void write(FriendlyByteBuf buffer) {
+        super.write(buffer);
         int code = OTHER_CODE;
         if (message instanceof ShortMessage) {
             code = SHORT_CODE;
@@ -69,22 +71,8 @@ public class KBRMidiMessagePacket extends SimplePacketBase {
         buffer.writeByteArray(data);
     }
 
-    public boolean handle(NetworkEvent.Context context) {
-        context.enqueueWork(() -> {
-
-            ServerPlayer player = context.getSender();
-            ServerLevel level = (ServerLevel) player.level();
-
-            BlockPos pos = KeyboardRelayBlockEntity.playerUsingKBRPos(player); // get pos of KBR being used
-            if (pos != null) { // if player is actually using a KBR
-
-                if (level.getBlockEntity(pos) instanceof KeyboardRelayBlockEntity kbr // if there is actually a KBR at that pos
-                        && kbr.isUsedBy(player)) { // and that player is using THAT KBR
-                    kbr.handleMidiMessage(message); // send midi data to KBR
-                }
-            }
-
-        });
-        return true;
+    @Override
+    protected void handleKBR(ServerPlayer player, KeyboardRelayBlockEntity kbr) {
+        kbr.handleMidiMessage(message);
     }
 }

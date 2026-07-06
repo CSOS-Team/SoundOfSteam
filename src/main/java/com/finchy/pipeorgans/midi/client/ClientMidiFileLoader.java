@@ -19,7 +19,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @OnlyIn(Dist.CLIENT)
-public class ClientMidiLoader {
+public class ClientMidiFileLoader {
 
     private List<Component> availableMidis;
     private Map<String, InputStream> activeUploads;
@@ -28,7 +28,7 @@ public class ClientMidiLoader {
     private static final int PACKET_DELAY = 10;
     private static final String EXTENSION = ".mid";
 
-    public ClientMidiLoader() {
+    public ClientMidiFileLoader() {
         availableMidis = new ArrayList<>();
         activeUploads = new HashMap<>();
         refresh();
