@@ -103,7 +103,7 @@ public class MidiInputDeviceManager {
                     activeDevice = device;
                     activeDevice.open();
                     activeTransmitter = device.getTransmitter();
-                    activeReceiver = new MidiInputReceiver();
+                    activeReceiver = new MidiDeviceInputReceiver();
                     activeTransmitter.setReceiver(activeReceiver);
                     PipeOrgans.LOGGER.info("Successfully opened MIDI input device: {}", selectedDeviceName);
                 } catch (MidiUnavailableException e) {

@@ -4,7 +4,7 @@ import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.PipeOrgansClient;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.midi.PipeOrgansPaths;
-import com.finchy.pipeorgans.midi.client.ClientMidiFileLoader;
+import com.finchy.pipeorgans.midi.client.ClientMidiLoader;
 import com.google.common.collect.ImmutableList;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
@@ -75,7 +75,7 @@ public class RollPuncherScreen extends AbstractSimiContainerScreen<RollPuncherMe
         confirmButton = new IconButton(x+44, y+56, AllIcons.I_CONFIRM);
         confirmButton.withCallback(() -> {
             if (menu.canWrite() && midisArea != null) {
-                ClientMidiFileLoader midiSender = PipeOrgansClient.MIDI_SENDER;
+                ClientMidiLoader midiSender = PipeOrgansClient.MIDI_SENDER;
                 lastChasingProgress = chasingProgress = progress = 0;
                 List<Component> availableMidis1 = midiSender.getAvailableMidis();
                 Component midi = availableMidis1.get(midisArea.getState());
@@ -89,7 +89,7 @@ public class RollPuncherScreen extends AbstractSimiContainerScreen<RollPuncherMe
 
         refreshButton = new IconButton(x+206, y+21, AllIcons.I_REFRESH);
         refreshButton.withCallback(() -> {
-            ClientMidiFileLoader midiSender = PipeOrgansClient.MIDI_SENDER;
+            ClientMidiLoader midiSender = PipeOrgansClient.MIDI_SENDER;
             midiSender.refresh();
             List<Component> availableMidis1 = midiSender.getAvailableMidis();
             removeWidget(midisArea);
