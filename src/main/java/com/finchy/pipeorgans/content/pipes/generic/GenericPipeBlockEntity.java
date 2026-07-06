@@ -159,27 +159,30 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
         if (!powered) {
             if (soundInstance != null) {
                 soundInstance.fadeOut();
-                soundInstance = null;
+                // Keep the reference so sound can be revived without calling alGenSources again
+                // The instance will call stop() itself once fadeOutVolume reaches 0
             }
             return;
         }
 
         float f = (float) Math.pow(2, -pitch / 12.0);
         boolean particle = level.getGameTime() % 8 == 0;
-        Vec3 eyePosition = Minecraft.getInstance().cameraEntity.getEyePosition();
-        //float maxVolume = (float) Mth.clamp((64 - eyePosition.distanceTo(Vec3.atCenterOf(worldPosition))) / 64, 0, 1);
 
-        if (soundInstance == null || soundInstance.isStopped() || soundInstance.getOctave() != size) {
-
+        if (soundInstance != null && !soundInstance.isStopped() && soundInstance.getOctave() == size) {
+            // Instance exists and is still alive revive it.
+            soundInstance.keepAlive();
+            soundInstance.setPitch(f);
+        } else {
+            // Instance is gone or wrong size. Clear the stale ref
+            soundInstance = null;
             if (!isVirtual()) {
                 handleSoundInstance(size);
                 particle = true;
             }
-        }
-
-        if (soundInstance != null) {
-            soundInstance.keepAlive();
-            soundInstance.setPitch(f);
+            if (soundInstance != null) {
+                soundInstance.keepAlive();
+                soundInstance.setPitch(f);
+            }
         }
 
         if (!particle)
@@ -187,7 +190,7 @@ public abstract class GenericPipeBlockEntity extends SmartBlockEntity implements
 
         createSteamJet(size);
     }
-    
+
     @OnlyIn(Dist.CLIENT)
     protected abstract void handleSoundInstance(PipeSize size);
 
