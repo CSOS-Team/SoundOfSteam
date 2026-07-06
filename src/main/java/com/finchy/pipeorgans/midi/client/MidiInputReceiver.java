@@ -2,7 +2,7 @@ package com.finchy.pipeorgans.midi.client;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.network.AllPackets;
-import com.finchy.pipeorgans.network.packet.KBRMidiMessagePacket;
+import com.finchy.pipeorgans.network.packet.kbr.KBRMidiMessagePacket;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
@@ -11,7 +11,7 @@ import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.ShortMessage;
 
-public class MidiDeviceInputReceiver implements Receiver {
+public class MidiInputReceiver implements Receiver {
 
     private volatile boolean open = true;
 
@@ -28,16 +28,7 @@ public class MidiDeviceInputReceiver implements Receiver {
     }
 
     protected void handleMessage(ShortMessage sm) {
-        Player player = Minecraft.getInstance().player;
-
-        if (player != null && PipeOrgans.getProxy().isClient()) { // only run on client
-            sendNotePacket(sm);
-        }
-    }
-
-    public void sendNotePacket(ShortMessage sm) {
-        KBRMidiMessagePacket packet = new KBRMidiMessagePacket(sm);
-        AllPackets.getChannel().sendToServer(packet);
+        ClientMidiHandler.handleMessage(sm);
     }
 
 }

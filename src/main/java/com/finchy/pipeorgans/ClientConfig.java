@@ -35,6 +35,12 @@ public class ClientConfig {
             .comment("How fast pipe sounds fade out per tick (higher = faster)")
             .defineInRange("sounds.pipeFadeSpeed", 0.25d, 0.01d, 0.5d);
 
+    public static final ForgeConfigSpec.DoubleValue PIPE_VOLUME = BUILDER
+            .comment("Maximum volume per pipe sound source (0.0-1.0).",
+                     "Lower this if you get crackling when many pipes play simultaneously.",
+                     "At 1.0 (default), 10+ simultaneous pipes can sum past 0 dBFS and clip.")
+            .defineInRange("sounds.pipeVolume", 0.5d, 0.01d, 1.0d);
+
     public static final ForgeConfigSpec.IntValue MAX_SOUND_SOURCES = BUILDER
             .comment("Max simultaneous sound channels.", "Higher values use more RAM/CPU. Restart to apply.")
             .defineInRange("sounds.maxSoundSources", 512, 256, 2048);
@@ -59,6 +65,7 @@ public class ClientConfig {
     public static double whistleChiffVolume;
     public static double pipeAttenuationDistance;
     public static double pipeFadeSpeed;
+    public static double pipeVolume;
     public static int maxSoundSources;
     public static boolean capEnabled;
     public static CAPDirection capDefaultDirection;
@@ -71,6 +78,7 @@ public class ClientConfig {
         whistleChiffVolume = WHISTLE_CHIFF_VOLUME.get();
         pipeAttenuationDistance = PIPE_ATTENUATION_DISTANCE.get();
         pipeFadeSpeed = PIPE_FADE_SPEED.get();
+        pipeVolume = PIPE_VOLUME.get();
         maxSoundSources = MAX_SOUND_SOURCES.get();
         capEnabled = CAP_ENABLED.get();
         capDefaultDirection = CAP_DEFAULT_DIRECTION.get();

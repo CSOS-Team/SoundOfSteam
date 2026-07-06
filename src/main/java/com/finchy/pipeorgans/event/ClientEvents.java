@@ -4,6 +4,7 @@ import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.PipeOrgansClient;
 import com.finchy.pipeorgans.gui.ClientsideGUIWrapper;
 import com.finchy.pipeorgans.init.AllPartialModels;
+import com.finchy.pipeorgans.midi.client.ClientMidiHandler;
 import com.finchy.pipeorgans.util.Keybinding;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
@@ -51,6 +52,7 @@ public class ClientEvents {
             if (!isGameActive())
                 return;
             PipeOrgansClient.MIDI_SENDER.tick();
+            ClientMidiHandler.tick();
         }
     }
 

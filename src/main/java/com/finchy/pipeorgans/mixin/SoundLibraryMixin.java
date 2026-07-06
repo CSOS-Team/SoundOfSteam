@@ -2,7 +2,6 @@ package com.finchy.pipeorgans.mixin;
 
 import com.finchy.pipeorgans.ClientConfig;
 import com.mojang.blaze3d.audio.Library;
-import org.lwjgl.openal.ALC10;
 import org.lwjgl.openal.ALC11;
 import org.lwjgl.system.MemoryStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -40,7 +39,7 @@ public class SoundLibraryMixin {
 
         int[] attribArray = new int[] {
             ALC11.ALC_MONO_SOURCES, requestedSources,
-            ALC11.ALC_STEREO_SOURCES, Math.min(requestedSources, 128),
+            ALC11.ALC_STEREO_SOURCES, 8,
             0
         };
 
