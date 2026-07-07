@@ -120,10 +120,6 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
         } else if (prevUser == null && Minecraft.getInstance().player.getUUID().equals(user)) {
             ClientMidiHandler.activateInKBR(worldPosition);
         }
-        PipeOrgans.LOGGER.debug("user={}, prevUser={}, client={}, deactivate={}, activate={}",
-                user, prevUser, Minecraft.getInstance().player.getUUID(),
-                user==null&Minecraft.getInstance().player.getUUID().equals(prevUser),
-                prevUser==null&Minecraft.getInstance().player.getUUID().equals(user));
     }
     
     private void stopUsing(Player player) {
