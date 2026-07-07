@@ -55,6 +55,10 @@ public class AllCreativeModeTabs {
                         output.accept(AllItems.BRASSBOUND_BOOT.get());
                         output.accept(AllItems.BRASS_REED.get());
                         output.accept(AllItems.TUNING_WIRE.get());
+                        output.accept(AllBlocks.ORGAN_CONSOLE.get());
+                        output.accept(AllBlocks.STOP.get());
+                        output.accept(AllBlocks.COUPLER.get());
+                        output.accept(AllBlocks.PISTON.get());
                         output.accept(AllBlocks.KEYBOARD_RELAY.get());
                         output.accept(AllBlocks.TRACKER_BAR.get());
                         output.accept(AllBlocks.ROLL_PUNCHER.get());

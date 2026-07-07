@@ -112,7 +112,7 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
         playOpenSound(level, getBlockPos());
         sendData();
     }
-    
+
     @OnlyIn(Dist.CLIENT)
     private void tryToggleActive() {
         if (user == null && Minecraft.getInstance().player.getUUID().equals(prevUser)) {
@@ -120,8 +120,12 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
         } else if (prevUser == null && Minecraft.getInstance().player.getUUID().equals(user)) {
             ClientMidiHandler.activateInKBR(worldPosition);
         }
+        PipeOrgans.LOGGER.debug("user={}, prevUser={}, client={}, deactivate={}, activate={}",
+                user, prevUser, Minecraft.getInstance().player.getUUID(),
+                user==null&Minecraft.getInstance().player.getUUID().equals(prevUser),
+                prevUser==null&Minecraft.getInstance().player.getUUID().equals(user));
     }
-    
+
     private void stopUsing(Player player) {
         user = null;
 
@@ -151,12 +155,12 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
     @Override
     public void tick() {
         super.tick();
-        
+
         if (level.isClientSide) {
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> this::tryToggleActive);
             prevUser = user;
         }
-        
+
         if (!level.isClientSide) { // serverside only
             deactivatedThisTick = false;
             if (!(level instanceof ServerLevel) || user == null) { // only executing on server level, and if no valid user

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PTP",
+    "DBD",
+    "D D"
+  ],
+  "key": {
+    "T": {
+      "item": "create:transmitter"
+    },
+    "B": {
+      "item": "minecraft:stripped_birch_wood"
+    },
+    "D": {
+      "item": "minecraft:stripped_dark_oak_wood"
+    },
+    "P": {
+      "item": "create:precision_mechanism"
+    }
+  },
+  "result": {
+    "item": "pipeorgans:organ_console",
+    "count": 1
+  }
+}

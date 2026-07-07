@@ -27,13 +27,18 @@ public enum AllPackets {
     MIDI_UPLOAD(MidiUploadPacket.class, MidiUploadPacket::new, PLAY_TO_SERVER),
     TRACKER_BAR_GUI(TrackerBarGUIPacket.class, TrackerBarGUIPacket::new, PLAY_TO_SERVER),
     NOTE_LINK_UPDATE_FROM_CLIPBOARD(NoteLinkUpdateFromClipboardPacket.class, NoteLinkUpdateFromClipboardPacket::new, PLAY_TO_SERVER),
+    ORGAN_CONSOLE_NOTE(OrganConsoleNotePacket.class, OrganConsoleNotePacket::new, PLAY_TO_SERVER),
+    STOP_ACTION(StopActionPacket.class, StopActionPacket::new, PLAY_TO_SERVER),
+    COUPLER_ACTION(CouplerActionPacket.class, CouplerActionPacket::new, PLAY_TO_SERVER),
+    PISTON_ACTION(PistonActionPacket.class, PistonActionPacket::new, PLAY_TO_SERVER),
+
     
     // server to client
     CLIPBOARD_ASSISTED_PLACEMENT(ClipboardAssistedPlacementPacket.class, ClipboardAssistedPlacementPacket::new, PLAY_TO_CLIENT),
     REDSTONE_LINK_NETWORK_DEBUG_INFO(RedstoneLinkNetworkDebugInfoPacket.class, RedstoneLinkNetworkDebugInfoPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 
     public static final ResourceLocation CHANNEL_NAME = PipeOrgans.asResource("main");
-    public static final int NETWORK_VERSION = 3;
+    public static final int NETWORK_VERSION = 6;
     public static final String NETWORK_VERSION_STR = String.valueOf(NETWORK_VERSION);
     private static SimpleChannel channel;
 

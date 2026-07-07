@@ -2,6 +2,10 @@ package com.finchy.pipeorgans.init;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlock;
+import com.finchy.pipeorgans.content.console.OrganConsoleBlock;
+import com.finchy.pipeorgans.content.coupler.CouplerBlock;
+import com.finchy.pipeorgans.content.piston.PistonBlock;
+import com.finchy.pipeorgans.content.stop.StopBlock;
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlock;
 import com.finchy.pipeorgans.content.midi.rollPuncher.RollPuncherBlock;
 import com.finchy.pipeorgans.content.midi.trackerBar.TrackerBarBlock;
@@ -24,6 +28,7 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -82,6 +87,126 @@ public class AllBlocks {
             ))
             .item()
             .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<OrganConsoleBlock> ORGAN_CONSOLE = REGISTRATE.block("organ_console", OrganConsoleBlock::new)
+            .initialProperties(() -> Blocks.COPPER_BLOCK)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .transform(axeOrPickaxe())
+            .blockstate((c, p) -> {
+                var emptyModel = new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile(
+                        "pipeorgans:block/organ_console/empty");
+                var bottomNoPedalboard = new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile(
+                        "pipeorgans:block/organ_console/bottom-no-pedalboard");
+                var bottomPedalboard = new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile(
+                        "pipeorgans:block/organ_console/bottom-pedalboard");
+                var topManual = new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile[] {
+                        null, // index 0 unused
+                        new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/organ_console/top-manual-1"),
+                        new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/organ_console/top-manual-2"),
+                        new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/organ_console/top-manual-3"),
+                        new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/organ_console/top-manual-4"),
+                };
+                p.getVariantBuilder(c.get()).forAllStates(state -> {
+                    int y = switch (state.getValue(OrganConsoleBlock.FACING)) {
+                        case EAST -> 90; case SOUTH -> 180; case WEST -> 270; default -> 0;
+                    };
+                    boolean isBottomLeft = state.getValue(OrganConsoleBlock.HALF) == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER
+                            && !state.getValue(OrganConsoleBlock.RIGHT);
+                    boolean isUpperLeft = state.getValue(OrganConsoleBlock.HALF) == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER
+                            && !state.getValue(OrganConsoleBlock.RIGHT);
+                    net.minecraftforge.client.model.generators.ModelFile model;
+                    if (isBottomLeft) {
+                        model = state.getValue(OrganConsoleBlock.PEDALBOARD) ? bottomPedalboard : bottomNoPedalboard;
+                    } else if (isUpperLeft) {
+                        model = topManual[state.getValue(OrganConsoleBlock.MANUAL_COUNT)];
+                    } else {
+                        model = emptyModel;
+                    }
+                    return net.minecraftforge.client.model.generators.ConfiguredModel.builder()
+                            .modelFile(model).rotationY(y).build();
+                });
+            })
+            .item()
+            .model((c, p) -> p.getBuilder("item/organ_console")
+                    .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("minecraft:item/generated"))
+                    .texture("layer0", "pipeorgans:item/organ_console"))
+            .build()
+            .lang("Organ Console")
+            .register();
+
+    public static final BlockEntry<StopBlock> STOP = REGISTRATE.block("stop_manager", StopBlock::new)
+            .initialProperties(() -> Blocks.COPPER_BLOCK)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .transform(pickaxeOnly())
+            .blockstate((c, p) -> {
+                var model = p.models().getBuilder("block/stop_manager_blockstate")
+                        .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/console_controllers"));
+                p.getVariantBuilder(c.get()).forAllStatesExcept(state -> {
+                    int y = switch (state.getValue(StopBlock.FACING)) {
+                        case EAST -> 90; case SOUTH -> 180; case WEST -> 270; default -> 0;
+                    };
+                    return net.minecraftforge.client.model.generators.ConfiguredModel.builder()
+                            .modelFile(model).rotationY(y).build();
+                }, StopBlock.POWERED);
+            })
+            .item()
+            .model((c, p) -> p.getBuilder("item/stop_manager")
+                    .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/console_controllers")))
+            .build()
+            .lang("Stop Manager")
+            .register();
+
+    public static final BlockEntry<CouplerBlock> COUPLER = REGISTRATE.block("coupler", CouplerBlock::new)
+            .initialProperties(() -> Blocks.COPPER_BLOCK)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .transform(pickaxeOnly())
+            .blockstate((c, p) -> {
+                var model = p.models().getBuilder("block/couplers_blockstate")
+                        .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/console_controllers"));
+                p.getVariantBuilder(c.get()).forAllStatesExcept(state -> {
+                    int y = switch (state.getValue(CouplerBlock.FACING)) {
+                        case EAST -> 90; case SOUTH -> 180; case WEST -> 270; default -> 0;
+                    };
+                    return net.minecraftforge.client.model.generators.ConfiguredModel.builder()
+                            .modelFile(model).rotationY(y).build();
+                }, CouplerBlock.POWERED);
+            })
+            .item()
+            .model((c, p) -> p.getBuilder("item/coupler")
+                    .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/console_controllers")))
+            .build()
+            .lang("Couplers")
+            .register();
+
+    public static final BlockEntry<PistonBlock> PISTON = REGISTRATE.block("piston", PistonBlock::new)
+            .initialProperties(() -> Blocks.COPPER_BLOCK)
+            .properties(p -> p
+                    .requiresCorrectToolForDrops()
+                    .noOcclusion())
+            .transform(pickaxeOnly())
+            .blockstate((c, p) -> {
+                var model = p.models().getBuilder("block/pistons_blockstate")
+                        .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/console_controllers"));
+                p.getVariantBuilder(c.get()).forAllStates(state -> {
+                    int y = switch (state.getValue(PistonBlock.FACING)) {
+                        case EAST -> 90; case SOUTH -> 180; case WEST -> 270; default -> 0;
+                    };
+                    return net.minecraftforge.client.model.generators.ConfiguredModel.builder()
+                            .modelFile(model).rotationY(y).build();
+                });
+            })
+            .item()
+            .model((c, p) -> p.getBuilder("item/piston")
+                    .parent(new net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile("pipeorgans:block/console_controllers")))
+            .build()
+            .lang("Pistons")
             .register();
 
     public static final BlockEntry<TrackerBarBlock> TRACKER_BAR = REGISTRATE.block("tracker_bar", TrackerBarBlock::new)
@@ -271,7 +396,7 @@ public class AllBlocks {
             Piccolo.PiccoloExtensionBlock::new,
             () -> Blocks.IRON_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
-    
+
     /*
     public static final BlockEntry<Oktav.OktavBlock> OKTAV = registerPipeBlock(
             "oktav",
@@ -329,7 +454,7 @@ public class AllBlocks {
             Subbass.SubbassExtensionBlock::new,
             () -> Blocks.DARK_OAK_PLANKS,
             BlockTags.MINEABLE_WITH_AXE);
-    
+
     /*
     public static final BlockEntry<Untersatz.UntersatzBlock> UNTERSATZ = registerPipeBlock(
             "untersatz",

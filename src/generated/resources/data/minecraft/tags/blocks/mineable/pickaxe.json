@@ -2,6 +2,10 @@
   "values": [
     "pipeorgans:base",
     "pipeorgans:keyboard_relay",
+    "pipeorgans:organ_console",
+    "pipeorgans:stop_manager",
+    "pipeorgans:coupler",
+    "pipeorgans:piston",
     "pipeorgans:tracker_bar",
     "pipeorgans:windchest_master",
     "pipeorgans:roll_puncher",

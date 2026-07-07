@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SLS",
+    "CBC",
+    " P "
+  ],
+  "key": {
+    "C": {
+      "item": "create:andesite_casing"
+    },
+    "B": {
+      "tag": "minecraft:buttons"
+    },
+    "P": {
+      "item": "create:precision_mechanism"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "L": {
+      "item": "minecraft:piston"
+    }
+  },
+  "result": {
+    "item": "pipeorgans:piston"
+  }
+}
