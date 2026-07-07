@@ -101,6 +101,14 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
         notifyUpdate();
     }
 
+    @OnlyIn(Dist.CLIENT)
+    private void tryToggleActive() {
+        if (user == null && Minecraft.getInstance().player.getUUID().equals(prevUser)) {
+            ClientMidiHandler.deactivateInKBR();
+        } else if (prevUser == null && Minecraft.getInstance().player.getUUID().equals(user)) {
+            ClientMidiHandler.activateInKBR(worldPosition);
+        }
+    }
 
     private void stopUsing(Player player) {
         user = null;
