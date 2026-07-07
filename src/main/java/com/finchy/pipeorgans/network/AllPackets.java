@@ -2,6 +2,8 @@ package com.finchy.pipeorgans.network;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.network.packet.*;
+import com.finchy.pipeorgans.network.packet.kbr.KBRMidiMessagePacket;
+import com.finchy.pipeorgans.network.packet.kbr.KBRStopUsingPacket;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -21,6 +23,7 @@ public enum AllPackets {
 
     // client to server
     MIDI_MESSAGE(KBRMidiMessagePacket.class, KBRMidiMessagePacket::new, PLAY_TO_SERVER),
+    KBR_STOP(KBRStopUsingPacket.class, KBRStopUsingPacket::new, PLAY_TO_SERVER),
     MIDI_UPLOAD(MidiUploadPacket.class, MidiUploadPacket::new, PLAY_TO_SERVER),
     TRACKER_BAR_GUI(TrackerBarGUIPacket.class, TrackerBarGUIPacket::new, PLAY_TO_SERVER),
     NOTE_LINK_UPDATE_FROM_CLIPBOARD(NoteLinkUpdateFromClipboardPacket.class, NoteLinkUpdateFromClipboardPacket::new, PLAY_TO_SERVER),
@@ -31,7 +34,6 @@ public enum AllPackets {
 
     
     // server to client
-
     CLIPBOARD_ASSISTED_PLACEMENT(ClipboardAssistedPlacementPacket.class, ClipboardAssistedPlacementPacket::new, PLAY_TO_CLIENT),
     REDSTONE_LINK_NETWORK_DEBUG_INFO(RedstoneLinkNetworkDebugInfoPacket.class, RedstoneLinkNetworkDebugInfoPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 
