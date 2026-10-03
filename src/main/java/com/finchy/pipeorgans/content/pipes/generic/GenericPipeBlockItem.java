@@ -12,21 +12,7 @@ import java.util.List;
 
 public class GenericPipeBlockItem extends BlockItem {
 
-    String stopSize;
-
-    public enum StopSize implements StringRepresentable {
-        TWO("2"), TWOANDTWOTHIRDS("223"), FOUR("4"), EIGHT("8"), SIXTEEN("16"), THIRTYTWO("32");
-
-        public final String size;
-        StopSize(String size) {
-            this.size = size;
-        }
-
-        @Override
-        public String getSerializedName() {
-            return size;
-        }
-    }
+    StopSize stopSize;
 
     public GenericPipeBlockItem(Block pBlock, Properties pProperties, StopSize stopSize) {
         super(pBlock, pProperties);

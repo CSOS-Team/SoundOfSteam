@@ -4,6 +4,7 @@ import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -16,6 +17,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -24,38 +27,43 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.apache.commons.lang3.function.TriFunction;
 
-public abstract class GenericExtensionBlock<P extends Enum<P> & EExtensionShapes.ExtensionShape & StringRepresentable> extends Block implements IWrenchable {
+public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.IExtensionShape<T> & StringRepresentable> extends Block implements IWrenchable {
 
-    public final EnumProperty<P> SHAPE;
-    public static final EnumProperty<EPipeSizes.PipeSize> SIZE = GenericPipeBlock.SIZE;
+    public final EnumProperty<T> SHAPE;
+    public static final EnumProperty<PipeSize> SIZE = GenericPipeBlock.SIZE;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    protected BlockEntry<? extends GenericPipeBlock> baseBlock;
+    protected BlockEntry<? extends GenericPipeBlock> pipeBlock;
+    protected final TriFunction<T, PipeSize, Direction, VoxelShape> voxelShapeGetter;
 
-    public GenericExtensionBlock(Properties pProperties, EnumProperty<P> shapeProperty) {
+    public GenericExtensionBlock(Properties pProperties,
+                                 EnumProperty<T> shapeProperty, BlockEntry<? extends GenericPipeBlock> pipeBlock,
+                                 TriFunction<T, PipeSize, Direction, VoxelShape> voxelShapeGetter) {
         super(pProperties);
+        
         this.SHAPE = shapeProperty;
-        registerDefaultStateWithSize();
+
+        this.pipeBlock = pipeBlock;
+        this.voxelShapeGetter = voxelShapeGetter;
+        
+        registerDefaultStateWithShape();
     }
 
-    protected abstract void registerDefaultStateWithSize();
+    protected abstract void registerDefaultStateWithShape();
 
-    @Override
-    public abstract VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext);
+    public boolean isDirectional() {
+        return false;
+    }
 
-    @Override
-    public abstract boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos);
-
-    @Override
-    public abstract BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos);
-
-    public static BlockPos findRoot(LevelAccessor pLevel, BlockPos pPos) {
-        BlockPos currentPos = pPos.below();
+    public BlockPos findRoot(LevelAccessor pLevel, BlockPos pPos, BlockState state) {
+        Direction towardRoot = pipeBlock.get().getPipeDirectionFromExtension(state);
+        BlockPos currentPos = pPos.relative(towardRoot);
         while (true) {
             BlockState blockState = pLevel.getBlockState(currentPos);
             if (blockState.getBlock() instanceof GenericExtensionBlock) {
-                currentPos = currentPos.below();
+                currentPos = currentPos.relative(towardRoot);
                 continue;
             }
             return currentPos;
@@ -67,59 +75,138 @@ public abstract class GenericExtensionBlock<P extends Enum<P> & EExtensionShapes
                 new BlockHitResult(context.getClickLocation(), context.getClickedFace(), target, context.isInside()));
     }
 
-    public boolean isDirectional() {
-        return false;
-    }
-
     @Override
     public ItemInteractionResult useItemOn(ItemStack heldItem, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
-        if (heldItem.getItem() != this.baseBlock.get().asItem()) {
+        if (!(heldItem.getItem() instanceof GenericPipeBlockItem)) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
-        BlockPos root = findRoot(pLevel, pPos);
-        BlockState blockState = pLevel.getBlockState(root);
-        if (blockState.getBlock() instanceof GenericPipeBlock pipe)
-            return pipe.useItemOn(heldItem, blockState, pLevel, root, pPlayer, pHand,
-                    new BlockHitResult(pHit.getLocation(), pHit.getDirection(), root, pHit.isInside()));
+        BlockPos rootPos = findRoot(pLevel, pPos, pState);
+        BlockState blockState = pLevel.getBlockState(rootPos);
+        if (blockState.getBlock() instanceof GenericPipeBlock pipe) {
+            return pipe.useItemOn(heldItem, blockState, pLevel, rootPos, pPlayer, pHand,
+                    new BlockHitResult(pHit.getLocation(), pHit.getDirection(), rootPos, pHit.isInside()));
+        }
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+    
+    
+    
+    // used for blockstate gen
+    public String getShapeSerialisedName(BlockState state) {
+        if (!(state.getBlock() instanceof GenericExtensionBlock<?>))
+            return null;
+        return state.getValue(SHAPE).getSerializedName();
+    }
+
+
+
+    @Override
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        BlockState below = pLevel.getBlockState(pPos.relative(pipeBlock.get().getPipeDirectionFromExtension(pState)));
+        return (below.is(this) && below.getValue(SHAPE).isConnected())
+                || below.getBlock().equals(pipeBlock.get());
     }
 
     @Override
-    public abstract InteractionResult onSneakWrenched(BlockState state, UseOnContext context);
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return voxelShapeGetter.apply(pState.getValue(SHAPE), pState.getValue(SIZE), pState.hasProperty(FACING) ? pState.getValue(FACING) : Direction.SOUTH);
+    }
 
-    public InteractionResult sneakWrenchedRemove(BlockState state, UseOnContext context) {
-        return IWrenchable.super.onSneakWrenched(state, context);
+    @Override
+    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
+        Direction pipeOutDirection = pipeBlock.get().getPipeDirectionFromExtension(pState).getOpposite(); // extension "facing" property faces toward the pipe
+        if (pDirection.getAxis() != pipeOutDirection.getAxis()) // only respond to changes along the length of the pipe
+            return pState;
+
+        if (pDirection == pipeOutDirection) { // check for updates further along the pipe
+            T shape = pState.getValue(SHAPE); // current extensionShape
+
+            boolean connected = shape.isConnected();
+            boolean shouldConnect = pLevel.getBlockState(pPos.relative(pipeOutDirection))
+                    .is(this);
+            if (!connected && shouldConnect)
+                return pState.setValue(SHAPE, shape.getConnected()); // set shape to the connected variant
+            if (connected && !shouldConnect)
+                return pState.setValue(SHAPE, shape.getLongestNonConnected()); // set shape to the not-quite-connected variant
+            return pState;
+        }
+
+        if (!pState.canSurvive(pLevel, pPos)) {
+            if (pLevel instanceof ServerLevel serverLevel) {
+                serverLevel.destroyBlock(pPos, false);
+            }
+            return pState;
+        }
+
+        return pState.setValue(
+                SIZE,
+                pLevel.getBlockState(pPos.relative(pipeOutDirection.getOpposite()))
+                        .getValue(SIZE)
+        );
+    }
+
+    @Override
+    public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
+        Level level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        if (!(level instanceof ServerLevel))
+            return InteractionResult.SUCCESS;
+
+        if (state.getValue(SHAPE).isSingle())
+            return IWrenchable.super.onSneakWrenched(state, context); // any shift click will remove the block, so defer to regular shift-wrench logic
+
+        Direction pipeOutFacing = pipeBlock.get().getPipeDirectionFromExtension(state).getOpposite();
+        double clickedPosition = pipeBlock.get().getExtensionClickPosition(pos, context.getClickLocation(), pipeOutFacing);
+
+        T wrenchedShape = state.getValue(SHAPE).getExtensionShapeForClickPosition(clickedPosition);
+        if (wrenchedShape == null) // if the player clicked such that the extension should be removed
+            return IWrenchable.super.onSneakWrenched(state, context);
+
+        level.setBlock(pos, state.setValue(SHAPE, wrenchedShape), 3);
+        IWrenchable.playRemoveSound(level, pos);
+
+        return InteractionResult.SUCCESS;
     }
 
     @Override
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {
         Level level = context.getLevel();
-        BlockPos findRoot = findRoot(level, context.getClickedPos());
+        BlockPos findRoot = findRoot(level, context.getClickedPos(), state);
         BlockState blockState = level.getBlockState(findRoot);
         if (blockState.getBlock()instanceof GenericPipeBlock pipe)
             return pipe.onWrenched(blockState, relocateContext(context, findRoot));
         return IWrenchable.super.onWrenched(state, context);
     }
 
-    protected InteractionResult callSuperOnSneakWrenched(BlockState state, UseOnContext context) {
-        return IWrenchable.super.onSneakWrenched(state, context);
-    }
-
     @Override
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         if (pOldState.getBlock() != this || pOldState.getValue(SHAPE) != pState.getValue(SHAPE))
-            GenericPipeBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
+            GenericPipeBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos, pState));
     }
 
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
         if (pOldState.getBlock() != this || pOldState.getValue(SHAPE) != pState.getValue(SHAPE))
-            GenericPipeBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
+            GenericPipeBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos, pState));
     }
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
-        return new ItemStack(this.baseBlock.get());
+        return new ItemStack(this.pipeBlock.get());
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        if (state.hasProperty(FACING))
+            return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+        return state;
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        if (state.hasProperty(FACING))
+            return mirror == Mirror.NONE ? state : state.rotate(mirror.getRotation(state.getValue(FACING)));
+        return state;
     }
 }

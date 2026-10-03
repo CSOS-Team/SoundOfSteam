@@ -11,9 +11,9 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
 
     private boolean active;
     private int keepAlive;
-    private EPipeSizes.PipeSize size;
+    private PipeSize size;
 
-    public GenericSoundInstance(EPipeSizes.PipeSize size, BlockPos worldPosition, SoundEvent soundEvent) {
+    public GenericSoundInstance(PipeSize size, BlockPos worldPosition, SoundEvent soundEvent) {
         super(soundEvent,
                 SoundSource.RECORDS,
                 SoundInstance.createUnseededRandom());
@@ -29,7 +29,7 @@ public class GenericSoundInstance extends AbstractTickableSoundInstance {
         z = v.z;
     }
 
-    public EPipeSizes.PipeSize getOctave() { return size; }
+    public PipeSize getOctave() { return size; }
 
     public void fadeOut() { this.active = false; }
 

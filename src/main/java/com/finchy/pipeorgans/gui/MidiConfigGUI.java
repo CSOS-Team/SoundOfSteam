@@ -1,7 +1,6 @@
 package com.finchy.pipeorgans.gui;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.midi.client.ClientProxy;
 import com.finchy.pipeorgans.midi.client.MidiInputDeviceManager;
 import com.finchy.pipeorgans.util.GuiUtils;
 import net.minecraft.client.Minecraft;

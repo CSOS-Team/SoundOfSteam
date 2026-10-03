@@ -1,8 +1,11 @@
 package com.finchy.pipeorgans.content.pipes.generic;
 
+import com.finchy.pipeorgans.compat.ModCompat;
+import com.finchy.pipeorgans.compat.create_connected.CreateConnectedCompat;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
+import com.finchy.pipeorgans.init.AllTriggers;
 import com.simibubi.create.AllSoundEvents;
-import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
+import com.simibubi.create.content.equipment.goggles.GogglesItem;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.block.IBE;
@@ -14,6 +17,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -25,10 +31,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -37,137 +41,147 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
 @SuppressWarnings({"NullableProblems", "deprecation"})
-public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeBlockEntity>, IWrenchable {
+public abstract class GenericPipeBlock extends Block implements PipeBehaviour, IBE<GenericPipeBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty WALL = WhistleBlock.WALL;
+    public static final BooleanProperty WALL = BooleanProperty.create("wall");
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final EnumProperty<EPipeSizes.PipeSize> SIZE = EnumProperty.create("size", EPipeSizes.PipeSize.class);
-
-    protected BlockEntry<? extends GenericPipeBlock> baseBlock;
-    protected BlockEntry<? extends GenericExtensionBlock<? extends EExtensionShapes.ExtensionShape>> extensionBlock;
+    public static final EnumProperty<PipeSize> SIZE = EnumProperty.create("size", PipeSize.class);
+    
+    protected BlockEntry<? extends GenericExtensionBlock<?>> extensionBlock;
     protected BlockEntityEntry<? extends GenericPipeBlockEntity> blockEntityType;
 
-    public final int EPB;
+    protected final PipeDirection pipeDirection;
+    protected final SoundEvent growSound;
 
-    public GenericPipeBlock(Properties pProperties, int EPB) {
+    protected final TriFunction<PipeSize, Boolean, Direction, VoxelShape> voxelShapeGetter;
+    // WHY IS A TRIFUNCTION A THING???
+
+    //cuz tuv(r)
+
+    public GenericPipeBlock(Properties pProperties, PipeDirection pipeDirection,
+                            PipeMaterial pipeMaterial,
+                            BlockEntry<? extends GenericExtensionBlock<?>> extensionBlock,
+                            BlockEntityEntry<? extends GenericPipeBlockEntity> blockEntityType,
+                            TriFunction<PipeSize, Boolean, Direction, VoxelShape> voxelShapeGetter) {
         super(pProperties);
         registerDefaultState(defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
                 .setValue(WALL, false)
-                .setValue(SIZE, EPipeSizes.PipeSize.MEDIUM));
-        this.EPB = EPB;
+                .setValue(SIZE, PipeSize.MEDIUM))
+        ;
+
+        this.extensionBlock = extensionBlock;
+        this.blockEntityType = blockEntityType;
+
+        this.pipeDirection = pipeDirection;
+        this.growSound = pipeMaterial.getGrowSound();
+
+        this.voxelShapeGetter = voxelShapeGetter;
     }
 
-    // define blockstate params
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add(FACING, WALL, POWERED, SIZE);
-    }
-    @Override
-    public Class<GenericPipeBlockEntity> getBlockEntityClass() {
-        return GenericPipeBlockEntity.class;
-    }
-
-    @Override
-    public BlockEntityType<? extends GenericPipeBlockEntity> getBlockEntityType() {
-        return blockEntityType.get();
+    public boolean isHorizontal() {
+        return pipeDirection.equals(PipeDirection.HORIZONTAL);
     }
 
     @Override
-    public abstract VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext);
-
-    public abstract void incrementSize(Level pLevel, BlockPos pos, boolean playSound);
-
-    public static void queuePitchUpdate(LevelAccessor level, BlockPos pos) {
-
-        BlockState blockState = level.getBlockState(pos);
-        if (blockState.getBlock() instanceof GenericPipeBlock pipe && !level.getBlockTicks()
-                .hasScheduledTick(pos, pipe))
-            level.scheduleTick(pos, pipe, 1);
+    public Direction getExtensionDirection(BlockState pipeState) {
+        return pipeDirection.getExtensionDirection(pipeState);
     }
 
-    // on right-click
     @Override
-    public @NotNull ItemInteractionResult useItemOn(ItemStack heldItem, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        //if (pLevel.isClientSide()) { return InteractionResult.PASS; }
-
-        if (heldItem.getItem() == baseBlock.get().asItem()) {
-            incrementSize(pLevel, pPos, true);
-            return ItemInteractionResult.SUCCESS;
-        }
-        if (heldItem.getItem() instanceof GenericPipeBlockItem) { // swapping pipes
-            if (substitutePipe(pState, pLevel, pPos, heldItem, pPlayer) == InteractionResult.SUCCESS) {
-                if (!pPlayer.isCreative()) {
-                    heldItem.shrink(1);
-                    pPlayer.setItemInHand(pHand, heldItem);
-
-                    pPlayer.getInventory().placeItemBackInInventory(new ItemStack(this.baseBlock.get().asItem()));
-                }
-                return ItemInteractionResult.SUCCESS;
-            } else { // FAIL
-                AllSoundEvents.DENY.playOnServer(pLevel, pPos);
-                pPlayer.displayClientMessage(Component.translatable("pipeorgans.blocks.pipes.replace_pipe_deny"), true);
-            }
-        }
-
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    public Direction getPipeDirectionFromExtension(BlockState extensionState) {
+        return pipeDirection.getPipeDirectionFromExtension(extensionState);
     }
 
-    public InteractionResult substitutePipe(BlockState state, Level level, BlockPos pos, ItemStack heldItem, Player player) {
-        GenericPipeBlock held = (GenericPipeBlock) ((GenericPipeBlockItem) heldItem.getItem()).getBlock();
-        if (level.getBlockEntity(pos) instanceof GenericPipeBlockEntity be) {
-            if (this.EPB <= held.EPB) { // new pipe will not be longer, so we can immediately swap the pipes
+    @Override
+    public double getExtensionClickPosition(BlockPos extensionPos, Vec3 clickLocation, Direction facing) {
+        return pipeDirection.getExtensionClickPosition(extensionPos, clickLocation, facing);
+    }
 
-                int removeDistance = (int) Math.ceil(be.pitch/(float)this.EPB);
-                BlockPos currentPos = pos;
-                for (int i=1; i<=removeDistance; i++) {
-                    currentPos = currentPos.above();
-                    level.destroyBlock(currentPos, false);
-                }
+    @Override
+    public GenericExtensionBlock<?> getExtensionBlock() {
+        return extensionBlock.get();
+    }
 
-            } else { // if the new pipe MIGHT be longer
-                if (be.pitch > 0) { // if there are actually any extensions to place
+    @Override
+    // get direction attached from
+    public Direction getAttachedDirection(BlockState state) {
+        return state.getValue(WALL) ? state.getValue(FACING) : Direction.DOWN;
+    }
 
-                    // check space (pitch/held.EPB) above base, rounded up
-                    int checkDist = (int) Math.ceil(be.pitch/(float)held.EPB);
-                    BlockPos currentPos = pos;
-                    for (int i=1; i<=checkDist; i++) {
-                        currentPos = currentPos.above();
-                        BlockState currentState = level.getBlockState(currentPos);
-                        if (currentState.canBeReplaced() ||
-                                (currentState.getBlock() instanceof GenericExtensionBlock)) {
-                            continue;
-                        }
-                        return InteractionResult.FAIL; // something in the way
+    @Override
+    public void incrementSize(Level pLevel, BlockPos pos, boolean playSound) {
+        BlockState base = pLevel.getBlockState(pos);
+        if (!base.hasProperty(SIZE))
+            return;
+
+        PipeSize size = base.getValue(SIZE);
+        SoundType soundtype = base.getSoundType();
+        Direction iterateDirection = getExtensionDirection(base); // the direction along which to iterate
+        BlockPos currentPos = pos.relative(iterateDirection);
+        Direction facing = base.getValue(FACING);
+
+        float pVolume = (soundtype.getVolume() + 1.0F) / 2.0F;
+        SoundEvent growSound = getGrowSound();
+        SoundEvent hitSound = soundtype.getHitSound();
+
+        for (int i = 1; i <= 12; i+=extensionsPerBlock()) {
+            BlockState blockState = pLevel.getBlockState(currentPos);
+
+            if (blockState.getBlock().equals(getExtensionBlock())) { // if block is this pipe's extension block
+
+                ExtensionShapes.IExtensionShape<?> shape = blockState.getValue(getExtensionBlock().SHAPE);
+                if (!shape.isFullBlockLong()) { // if another extension can be added without placing a new block
+
+                    BlockState toSet = blockState.cycle(getExtensionBlock().SHAPE); // cycle to the next shape
+                    if (getExtensionBlock().isDirectional())         // only set direction if the extension is directional
+                        toSet = toSet.setValue(FACING, facing);    // (would cause a crash otherwise)
+                    pLevel.setBlock(currentPos, toSet, 3);
+
+                    if (playSound) {
+                        i += shape.extensionNumber();
+                        float pPitch = (float) Math.pow(2, -i / 12.0);
+                        pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
+                        pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
                     }
-                    // success
-                    int removeDistance = (int) Math.ceil(be.pitch/(float)this.EPB);
-                    currentPos = pos;
-                    for (int i=1; i<=removeDistance; i++) {
-                        currentPos = currentPos.above();
-                        level.destroyBlock(currentPos, false);
-                    }
+                    return;
                 }
+                currentPos = currentPos.relative(iterateDirection);
+                continue;
             }
-            placeNewPipe(state, level, pos, heldItem, player, be.pitch);
-            return InteractionResult.SUCCESS;
-        }
-        return InteractionResult.PASS;
-    }
+            if (!blockState.canBeReplaced()) {
+                return;
+            }
 
-    protected void placeNewPipe(BlockState state, Level level, BlockPos pos, ItemStack heldItem, Player player, int pitch) {
-        EPipeSizes.PipeSize size = state.getValue(SIZE);
+            BlockState toSet = getExtensionBlock().defaultBlockState().setValue(SIZE, size);
+            if (getExtensionBlock().isDirectional())      // only set direction if the extension is directional
+                toSet = toSet.setValue(FACING, facing);    // (would cause a crash otherwise)
+            pLevel.setBlock(currentPos, toSet, 3);
+
+            if (playSound) {
+                float pPitch = (float) Math.pow(2, -i / 12.0);
+                pLevel.playSound(null, currentPos, growSound, SoundSource.BLOCKS, pVolume / 4f, pPitch);
+                pLevel.playSound(null, currentPos, hitSound, SoundSource.BLOCKS, pVolume, pPitch);
+            }
+            return;
+        }
+    }
+    
+    @Override
+    public void placeNewPipe(BlockState state, Level level, BlockPos pos, ItemStack heldItem, Player player, int pitch) {
+        PipeSize size = state.getValue(SIZE);
         Direction facing = state.getValue(FACING);
         boolean wall = state.getValue(WALL);
         boolean powered = state.getValue(POWERED);
@@ -192,8 +206,99 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
         }
     }
 
+    public static void queuePitchUpdate(LevelAccessor level, BlockPos pos) {
+        BlockState blockState = level.getBlockState(pos);
+        if (blockState.getBlock() instanceof GenericPipeBlock pipe && !level.getBlockTicks()
+                .hasScheduledTick(pos, pipe))
+            level.scheduleTick(pos, pipe, 1);
+    }
+
+    public SoundEvent getGrowSound() {
+        return growSound;
+    }
+    
+    
+
+    // define blockstate params
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(FACING, WALL, POWERED, SIZE);
+    }
+    @Override
+    public Class<GenericPipeBlockEntity> getBlockEntityClass() {
+        return GenericPipeBlockEntity.class;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return voxelShapeGetter.apply(pState.getValue(SIZE), pState.getValue(WALL), pState.hasProperty(FACING) ? pState.getValue(FACING) : Direction.SOUTH);
+    }
+
+    @Override
+    public BlockEntityType<? extends GenericPipeBlockEntity> getBlockEntityType() {
+        return blockEntityType.get();
+    }
+
+    // on right-click
+    @Override
+    public @NotNull ItemInteractionResult useItemOn(ItemStack heldItem, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        //if (pLevel.isClientSide()) { return InteractionResult.PASS; }
+
+        //goooggly eyes
+        if (heldItem.getItem() instanceof GogglesItem) {
+            BlockEntity be = pLevel.getBlockEntity(pPos);
+            if (be instanceof GenericPipeBlockEntity pipeBE) {
+                if (!pLevel.isClientSide && pPlayer instanceof ServerPlayer sp) {
+                    pipeBE.setGoggles(!pipeBE.hasGoggles());
+                    pipeBE.setChanged();
+                    pipeBE.sendData();
+                    SoundEvent goggleSound;
+                    goggleSound = SoundEvents.ARMOR_EQUIP_GENERIC.value();
+                    pLevel.playSound(null, pPos, goggleSound, SoundSource.BLOCKS, 0.5f, 1f);
+
+                    AllTriggers.PIPE_GOGGLES.trigger(sp);
+                    /*
+                    //In case you want the pipes to eat your goggles
+                    if (!pPlayer.isCreative())
+                        heldItem.shrink(1);
+                    */
+                }
+                return pLevel.isClientSide() ? ItemInteractionResult.SUCCESS : ItemInteractionResult.CONSUME;
+            }
+        }
+
+        //longer-ing (extending pipe)
+        if (heldItem.getItem() == this.asItem()) {
+            incrementSize(pLevel, pPos, true);
+            return ItemInteractionResult.SUCCESS;
+        }
+
+        // swapping pipes
+        if (heldItem.getItem() instanceof GenericPipeBlockItem) {
+            if (substitutePipe(pState, pLevel, pPos, heldItem, pPlayer) == InteractionResult.SUCCESS) {
+                if (!pPlayer.isCreative()) {
+                    heldItem.shrink(1);
+                    pPlayer.setItemInHand(pHand, heldItem);
+
+                    pPlayer.getInventory().placeItemBackInInventory(new ItemStack(this.asItem()));
+                }
+                return ItemInteractionResult.SUCCESS;
+            } else { // FAIL
+                AllSoundEvents.DENY.playOnServer(pLevel, pPos);
+                pPlayer.displayClientMessage(Component.translatable("pipeorgans.blocks.pipes.replace_pipe_deny"), true);
+            }
+        }
+
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
     @Override
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        if (!pState.canSurvive(pLevel, pPos)) {
+            pLevel.destroyBlock(pPos, true);
+            return;
+        }
         withBlockEntityDo(pLevel, pPos, GenericPipeBlockEntity::updatePitch);
     }
 
@@ -201,13 +306,12 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState attachedState = pLevel.getBlockState(pPos.relative(getAttachedDirection(pState)));
+
+        //Compat for Create Connected's Fluid Vessel (Sideway fluid tanks)
+        if (ModCompat.CREATE_CONNECTED && CreateConnectedCompat.isFluidVessel(attachedState))
+            return true;
         return (FluidTankBlock.isTank(attachedState)
                 || attachedState.getBlock() instanceof WindchestBlock);
-    }
-
-    // get direction attached from
-    public static Direction getAttachedDirection(BlockState state) {
-        return state.getValue(WALL) ? state.getValue(FACING) : Direction.DOWN;
     }
 
     // set blockstates when placing block
@@ -246,9 +350,10 @@ public abstract class GenericPipeBlock extends Block implements IBE<GenericPipeB
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
                                   BlockPos pCurrentPos, BlockPos pFacingPos) {
-        return getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)
-                ? Blocks.AIR.defaultBlockState()
-                : pState;
+        if (getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)) {
+            pLevel.scheduleTick(pCurrentPos, this, 1);
+        }
+        return pState;
     }
 
     // on block placed

@@ -1,14 +1,20 @@
 package com.finchy.pipeorgans.content.midi.keyboardRelay;
 
 import com.finchy.pipeorgans.content.midi.MidiSourceBehaviour;
+import com.finchy.pipeorgans.init.AllSoundEvents;
+import com.finchy.pipeorgans.midi.client.ClientMidiHandler;
 import com.finchy.pipeorgans.util.MidiUtils;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import net.createmod.catnip.platform.CatnipServices;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -19,6 +25,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 import javax.sound.midi.MidiMessage;
@@ -29,7 +37,8 @@ import java.util.UUID;
 @SuppressWarnings({"DataFlowIssue", "NullableProblems"})
 public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuProvider {
 
-    private UUID user = null;
+    private UUID user;
+    private UUID prevUser;
     private boolean deactivatedThisTick;
 
     MidiSourceBehaviour midiSourceBehaviour;
@@ -49,7 +58,8 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
             if (isUsedBy(player)) {
                 user = null;
                 if (player != null) {
-                    player.getPersistentData().remove("UsingKBRelayPos");
+                    player.getPersistentData().remove("IsUsingKBRelay");
+                    midiSourceBehaviour.link.stopAllNotes();
                 }
             }
         }
@@ -59,12 +69,17 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
     protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
         super.write(tag, registries, clientPacket);
         midiSourceBehaviour.write(tag, registries, clientPacket);
+
+        if (user != null)
+            tag.putUUID("User", user);
     }
 
     @Override
     protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
         super.read(tag, registries, clientPacket);
         midiSourceBehaviour.read(tag, registries, clientPacket);
+
+        user = tag.hasUUID("User") ? tag.getUUID("User") : null;
     }
 
     @Override
@@ -91,33 +106,37 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
 
     private void startUsing(Player player) {
         user = player.getUUID();
-        player.getPersistentData().putIntArray("UsingKBRelayPos", new int[]{worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()});
+        player.getPersistentData().putBoolean("IsUsingKBRelay", true);
 
-        level.setBlock(worldPosition, getBlockState().setValue(KeyboardRelayBlock.TRANSMITTING, false), 3); //  turn power off
-        notifyUpdate();
+        level.setBlock(worldPosition, getBlockState().setValue(KeyboardRelayBlock.ACTIVE, true), 3);
+        playOpenSound(level, getBlockPos());
+        sendData();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private void tryToggleActive() {
+        if (user == null && Minecraft.getInstance().player.getUUID().equals(prevUser)) {
+            ClientMidiHandler.deactivateInKBR();
+        } else if (prevUser == null && Minecraft.getInstance().player.getUUID().equals(user)) {
+            ClientMidiHandler.activateInKBR(worldPosition);
+        }
     }
 
     private void stopUsing(Player player) {
         user = null;
         if (player != null) {
-            player.getPersistentData().remove("UsingKBRelayPos");
+            player.getPersistentData().remove("IsUsingKBRelay");
         }
-        level.setBlock(worldPosition, getBlockState().setValue(KeyboardRelayBlock.TRANSMITTING, false), 3); //  turn power off
+        level.setBlock(worldPosition, getBlockState().setValue(KeyboardRelayBlock.ACTIVE, false).setValue(KeyboardRelayBlock.TRANSMITTING, false), 3);
+        
         deactivatedThisTick = true;
         midiSourceBehaviour.link.stopAllNotes();
-        notifyUpdate();
+        playCloseSound(level, getBlockPos());
+        sendData();
     }
 
     public static boolean playerIsUsing(Player player) {
-        return player.getPersistentData().contains("UsingKBRelayPos");
-    }
-
-    public static BlockPos playerUsingKBRPos(Player player) {
-        if (player.getPersistentData().contains("UsingKBRelayPos")) {
-            int[] pos = player.getPersistentData().getIntArray("UsingKBRelayPos");
-            return new BlockPos(pos[0], pos[1], pos[2]);
-        }
-        return null;
+        return player.getPersistentData().contains("IsUsingKBRelay");
     }
 
     public boolean isUsedBy(Player player) {
@@ -130,9 +149,14 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
 
     @Override
     public void tick() {
-        if (!level.isClientSide) { // serverside only
+        super.tick();
+        
+        if (level.isClientSide) {
+            CatnipServices.PLATFORM.executeOnClientOnly(() -> this::tryToggleActive);
+            prevUser = user;
+        } else {
             deactivatedThisTick = false;
-            if (!(level instanceof ServerLevel) || user==null) { // only executing on server level, and if no valid user
+            if (!(level instanceof ServerLevel) || user==null) { // only executing on server level, or if no valid user
                 return;
             }
 
@@ -155,8 +179,22 @@ public class KeyboardRelayBlockEntity extends SmartBlockEntity implements MenuPr
     }
 
     public static boolean playerInRange(Player player, Level world, BlockPos pos) {
-        double reach = 0.4 * player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE);
-        return player.distanceToSqr(Vec3.atCenterOf(pos)) < reach * reach;
+        if (player.level() != world) {
+            return false;
+        }
+        return player.distanceToSqr(Vec3.atCenterOf(pos)) < Math.pow(player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE), 2);
+    }
+
+    private void playOpenSound (Level pLevel, BlockPos pPos){
+        SoundEvent openSound;
+        openSound = AllSoundEvents.KBR_OPEN.get();
+        pLevel.playSound(null, pPos, openSound, SoundSource.BLOCKS, 0.5f, 1f);
+    }
+
+    private void playCloseSound (Level pLevel, BlockPos pPos){
+        SoundEvent openSound;
+        openSound = AllSoundEvents.KBR_CLOSE.get();
+        pLevel.playSound(null, pPos, openSound, SoundSource.BLOCKS, 0.5f, 1f);
     }
 
 }

@@ -1,7 +1,8 @@
 package com.finchy.pipeorgans.network;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.network.packet.KBRMidiMessagePacket;
+import com.finchy.pipeorgans.network.packet.ClipboardAssistedPlacementPacket;
+import com.finchy.pipeorgans.network.packet.kbr.KBRMidiMessagePacket;
 import com.finchy.pipeorgans.network.packet.MidiUploadPacket;
 import com.finchy.pipeorgans.network.packet.TrackerBarGUIPacket;
 import net.createmod.catnip.net.base.BasePacketPayload;
@@ -17,7 +18,9 @@ public enum AllPackets implements BasePacketPayload.PacketTypeProvider {
     // client to server
     MIDI_MESSAGE(KBRMidiMessagePacket.class, KBRMidiMessagePacket.STREAM_CODEC),
     MIDI_UPLOAD(MidiUploadPacket.class, MidiUploadPacket.STREAM_CODEC),
-    TRACKER_BAR_GUI(TrackerBarGUIPacket.class, TrackerBarGUIPacket.STREAM_CODEC);
+    TRACKER_BAR_GUI(TrackerBarGUIPacket.class, TrackerBarGUIPacket.STREAM_CODEC),
+    
+    CLIPBOARD_ASSISTED_PLACEMENT(ClipboardAssistedPlacementPacket.class, ClipboardAssistedPlacementPacket.STREAM_CODEC);
 
     private final CatnipPacketRegistry.PacketType<?> type;
 

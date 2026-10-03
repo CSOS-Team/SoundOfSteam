@@ -1,5 +1,6 @@
 package com.finchy.pipeorgans.content.base;
 
+import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllShapes;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
@@ -8,13 +9,14 @@ import com.simibubi.create.content.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -63,7 +65,9 @@ public class BaseBlock extends Block implements IBE<BaseBlockEntity>, IWrenchabl
     // check if placed on fluid tank
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        return FluidTankBlock.isTank(pLevel.getBlockState(pPos.relative(getAttachedDirection(pState))));
+        BlockState attachedState = pLevel.getBlockState(pPos.relative(getAttachedDirection(pState)));
+        return (FluidTankBlock.isTank(attachedState)
+                || attachedState.getBlock() instanceof WindchestBlock);
     }
 
     // set blockstates when placing block
@@ -108,9 +112,17 @@ public class BaseBlock extends Block implements IBE<BaseBlockEntity>, IWrenchabl
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
                                   BlockPos pCurrentPos, BlockPos pFacingPos) {
-        return getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)
-                ? Blocks.AIR.defaultBlockState()
-                : pState;
+        if (getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)) {
+            pLevel.scheduleTick(pCurrentPos, this, 1);
+        }
+        return pState;
+    }
+
+    @Override
+    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        if (!pState.canSurvive(pLevel, pPos)) {
+            pLevel.destroyBlock(pPos, true);
+        }
     }
 
     // on block placed
