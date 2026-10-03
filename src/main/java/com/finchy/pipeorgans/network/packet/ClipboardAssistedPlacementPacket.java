@@ -37,12 +37,12 @@ public record ClipboardAssistedPlacementPacket(BlockPos pos, ItemStack clipboard
                 pos,
                 clipboardItemStack,
                 newDirection,
-                ClientConfig.capCopyMode
+                ClientConfig.capCopyMode    
         );
 
         if (changed) {
             ClipboardOverrides.switchTo(ClipboardOverrides.ClipboardType.WRITTEN, clipboardItemStack);
-            AllPackets.getChannel().sendToServer(new ClipboardEditPacket(40, clipboardItemStack.getTag(), null));
+            AllPackets.getChannel().sendToServer(new ClipboardEditPacket(40, clipboardItemStack.getOrCreateTag(), null));
         }
     }
 
