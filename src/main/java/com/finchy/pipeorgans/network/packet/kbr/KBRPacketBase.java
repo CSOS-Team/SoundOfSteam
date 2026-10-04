@@ -1,45 +1,30 @@
 package com.finchy.pipeorgans.network.packet.kbr;
 
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
-import com.simibubi.create.foundation.networking.SimplePacketBase;
+import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.network.NetworkEvent;
 
-public abstract class KBRPacketBase extends SimplePacketBase {
+public abstract class KBRPacketBase implements ServerboundPacketPayload {
 
-    private BlockPos KBRPos;
+    protected final BlockPos KBRPos;
 
     public KBRPacketBase(BlockPos KBRPos) {
         this.KBRPos = KBRPos;
     }
-
-    public KBRPacketBase(FriendlyByteBuf buffer) {
-        KBRPos = new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt());
+    
+    public BlockPos getKBRPos() {
+        return KBRPos;
     }
 
     @Override
-    public void write(FriendlyByteBuf buffer) {
-        buffer.writeInt(KBRPos.getX());
-        buffer.writeInt(KBRPos.getY());
-        buffer.writeInt(KBRPos.getZ());
-    }
+    public void handle(ServerPlayer player) {
+        BlockEntity be = player.level().getBlockEntity(KBRPos);
+        if (!(be instanceof KeyboardRelayBlockEntity kbr))
+            return;
 
-    public boolean handle(NetworkEvent.Context context) {
-        context.enqueueWork(() -> {
-            ServerPlayer player = context.getSender();
-            if (player == null)
-                return;
-
-            BlockEntity be = player.level().getBlockEntity(KBRPos);
-            if (!(be instanceof KeyboardRelayBlockEntity kbr))
-                return;
-
-            handleKBR(player, kbr);
-        });
-        return true;
+        handleKBR(player, kbr);
     }
     
     protected abstract void handleKBR(ServerPlayer player, KeyboardRelayBlockEntity kbr);

@@ -2,9 +2,11 @@ package com.finchy.pipeorgans.network;
 
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.network.packet.ClipboardAssistedPlacementPacket;
+import com.finchy.pipeorgans.network.packet.NoteLinkUpdateFromClipboardPacket;
 import com.finchy.pipeorgans.network.packet.kbr.KBRMidiMessagePacket;
 import com.finchy.pipeorgans.network.packet.MidiUploadPacket;
 import com.finchy.pipeorgans.network.packet.TrackerBarGUIPacket;
+import com.finchy.pipeorgans.network.packet.kbr.KBRStopUsingPacket;
 import net.createmod.catnip.net.base.BasePacketPayload;
 import net.createmod.catnip.net.base.CatnipPacketRegistry;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -17,8 +19,10 @@ public enum AllPackets implements BasePacketPayload.PacketTypeProvider {
 
     // client to server
     MIDI_MESSAGE(KBRMidiMessagePacket.class, KBRMidiMessagePacket.STREAM_CODEC),
+    KBR_STOP(KBRStopUsingPacket.class, KBRStopUsingPacket.STREAM_CODEC),
     MIDI_UPLOAD(MidiUploadPacket.class, MidiUploadPacket.STREAM_CODEC),
     TRACKER_BAR_GUI(TrackerBarGUIPacket.class, TrackerBarGUIPacket.STREAM_CODEC),
+    NOTE_LINK_UPDATE_FROM_CLIPBOARD(NoteLinkUpdateFromClipboardPacket.class, NoteLinkUpdateFromClipboardPacket.STREAM_CODEC),
     
     CLIPBOARD_ASSISTED_PLACEMENT(ClipboardAssistedPlacementPacket.class, ClipboardAssistedPlacementPacket.STREAM_CODEC);
 
