@@ -1,15 +1,15 @@
 package com.finchy.pipeorgans.infrastructure.itemValueBox;
 
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 
-@Mod.EventBusSubscriber(Dist.CLIENT)
+@EventBusSubscriber(Dist.CLIENT)
 public class ItemValueBoxClientEventHandler {
     @SubscribeEvent
-    public static void onTick(TickEvent.ClientTickEvent event) {
+    public static void onTick(ClientTickEvent event) {
         if (!isGameActive())
             return;
 

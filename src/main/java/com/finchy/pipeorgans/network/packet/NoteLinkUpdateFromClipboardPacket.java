@@ -27,7 +27,7 @@ public record NoteLinkUpdateFromClipboardPacket(BlockPos pos, CompoundTag tag, b
     public void handle(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
         Optional<NoteLinkBlockEntity> obe = level.getBlockEntity(pos, AllBlockEntities.NOTE_LINK_BLOCK_ENTITY.get());
-        obe.ifPresent(be -> be.applyClipboardSettings(tag, copyMode));
+        obe.ifPresent(be -> {});
     }
 
     @Override

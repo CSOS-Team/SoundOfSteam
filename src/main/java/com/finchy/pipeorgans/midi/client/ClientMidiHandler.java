@@ -6,6 +6,7 @@ import com.finchy.pipeorgans.network.AllPackets;
 import com.finchy.pipeorgans.network.packet.kbr.KBRMidiMessagePacket;
 import com.finchy.pipeorgans.network.packet.kbr.KBRStopUsingPacket;
 import com.mojang.blaze3d.platform.InputConstants;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import org.lwjgl.glfw.GLFW;
@@ -34,7 +35,7 @@ public class ClientMidiHandler {
     
     protected static void onReset() {
         if (inKBR()) {
-            AllPackets.getChannel().sendToServer(new KBRStopUsingPacket(KBRPos));
+            CatnipServices.NETWORK.sendToServer(new KBRStopUsingPacket(KBRPos));
         }
         KBRPos = null;
     }
@@ -65,6 +66,6 @@ public class ClientMidiHandler {
     
     public static void handleMessage(MidiMessage mm) {
         if (inKBR())
-            AllPackets.getChannel().sendToServer(new KBRMidiMessagePacket(mm, KBRPos));
+            CatnipServices.NETWORK.sendToServer(new KBRMidiMessagePacket(KBRPos, mm));
     }
 }

@@ -1,9 +1,12 @@
 package com.finchy.pipeorgans.content.noteLink;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.network.packet.NoteLinkUpdateFromClipboardPacket;
 import com.finchy.pipeorgans.util.PipePitch;
+import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.equipment.clipboard.ClipboardCloneable;
+import com.simibubi.create.content.equipment.clipboard.ClipboardContent;
 import com.simibubi.create.content.equipment.clipboard.ClipboardOverrides;
 import com.simibubi.create.content.redstone.link.IRedstoneLinkable;
 import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler;
@@ -11,12 +14,15 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.createmod.catnip.data.Couple;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
@@ -134,24 +140,24 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
     }
 
     @Override
-    public void write(CompoundTag nbt, boolean clientPacket) {
-        super.write(nbt, clientPacket);
-        nbt.put("Key", keyFrequency.getStack().save(new CompoundTag()));
+    public void write(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(nbt, registries, clientPacket);
+        nbt.put("Key", keyFrequency.getStack().saveOptional(registries));
         nbt.putString("Pitch", pitch.getNormalizedName());
         nbt.putLong("LastKnownPosition", blockEntity.getBlockPos()
                 .asLong());
     }
 
     @Override
-    public void read(CompoundTag nbt, boolean clientPacket) {
+    public void read(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
         long positionInTag = blockEntity.getBlockPos()
                 .asLong();
         long positionKey = nbt.getLong("LastKnownPosition");
         newPosition = positionInTag != positionKey;
 
-        super.read(nbt,  clientPacket);
+        super.read(nbt, registries, clientPacket);
 
-        keyFrequency = RedstoneLinkNetworkHandler.Frequency.of(ItemStack.of(nbt.getCompound("Key")));
+        keyFrequency = RedstoneLinkNetworkHandler.Frequency.of(ItemStack.parseOptional(registries, nbt.getCompound("Key")));
 
         if (!nbt.contains("Pitch"))
             pitch = PipePitch.DEFAULT;
@@ -167,14 +173,12 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
 
 
 
-    public void updateHeldClipboard(Player player, boolean forceInvertMode) {
+    public void updateHeldClipboard(Player player) {
         ItemStack mainhand = player.getMainHandItem(); // get item in mainhand
         boolean mainhandIsClipboard = mainhand.is(com.simibubi.create.AllBlocks.CLIPBOARD.asItem());
         ItemStack offhand = player.getOffhandItem(); // get item in offhand
         boolean offhandIsClipboard = offhand.is(com.simibubi.create.AllBlocks.CLIPBOARD.asItem());
         if (!mainhandIsClipboard && !offhandIsClipboard) return; // if the player isn't holding any clipboards, return
-
-        boolean receiver = blockEntity.getBlockState().getValue(NoteLinkBlock.RECEIVER);
 
         ItemStack clipboardStack;
         if (mainhandIsClipboard) // if there's a clipboard in the mainhand, prioritise that
@@ -182,31 +186,16 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
         else // otherwise use the clipboard in the offhand
             clipboardStack = offhand;
 
-        if (clipboardStack.hasTag() &&
-                clipboardStack.getTag().contains("CopiedValues") &&
-                clipboardStack.getTagElement("CopiedValues").contains("MusicalFrequency")) { // if the clipboard has anything specifically about note links in its NBT
+        ClipboardContent clipboardContent = clipboardStack.getOrDefault(AllDataComponents.CLIPBOARD_CONTENT, ClipboardContent.EMPTY);
+        
+        CompoundTag copiedTag = new CompoundTag(); // make a new tag to put in "CopiedValues"
+        CompoundTag musicalFreqTag = new CompoundTag(); // make a new tag to put in "MusicalFrequency"
+        musicalFreqTag.putString("Pitch", pitch.getNormalizedName()); // default to F#-1
+        musicalFreqTag.put("Key", getKey().saveOptional(getWorld().registryAccess())); // default to no key item
+        musicalFreqTag.putBoolean("Receiver", blockEntity.getBlockState().getValue(NoteLinkBlock.RECEIVER));
 
-            CompoundTag clipboardTag = clipboardStack.getTagElement("CopiedValues").getCompound("MusicalFrequency");
-            clipboardTag.putString("Pitch", pitch.getNormalizedName()); // put the new pitch in clipboard NBT
-            clipboardTag.put("Key", getKey().serializeNBT()); // put the new key in clipboard NBT
-            clipboardTag.putBoolean("Receiver", receiver); // put the new mode in clipboard NBT
-
-        } else { // if the clipboard hasn't been used for note links previously
-            ClipboardOverrides.switchTo(ClipboardOverrides.ClipboardType.WRITTEN, offhand); // make the clipboard visually look like it's been written in
-
-            CompoundTag copiedTag = new CompoundTag(); // make a new tag to put in "CopiedValues"
-            CompoundTag noteLinkTag = new CompoundTag(); // make a new tag to put in "MusicalFrequency"
-            noteLinkTag.putString("Pitch", pitch.getNormalizedName()); // default to F#-1
-            noteLinkTag.put("Key", getKey().serializeNBT()); // default to no key item
-            noteLinkTag.putBoolean("Receiver", receiver);
-
-            copiedTag.put("MusicalFrequency", noteLinkTag);
-            clipboardStack.getOrCreateTag().put("CopiedValues", copiedTag); // apply the tags to the clipboard
-        }
-    }
-
-    public void updateHeldClipboard(Player player){
-        updateHeldClipboard(player, false);
+        copiedTag.put("MusicalFrequency", musicalFreqTag);
+        clipboardStack.set(AllDataComponents.CLIPBOARD_CONTENT, clipboardContent.setCopiedValues(copiedTag)); // apply the tags to the clipboard
     }
 
 
@@ -244,20 +233,20 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
     }
 
     @Override
-    public boolean writeToClipboard(CompoundTag tag, Direction side) {
-        tag.put("Key", keyFrequency.getStack().serializeNBT());
+    public boolean writeToClipboard(HolderLookup.@NotNull Provider registries, CompoundTag tag, Direction side) {
+        tag.put("Key", keyFrequency.getStack().saveOptional(registries));
         tag.putString("Pitch", pitch.getNormalizedName());
         return true;
     }
 
     @Override
-    public boolean readFromClipboard(CompoundTag tag, Player player, Direction side, boolean simulate) {
+    public boolean readFromClipboard(HolderLookup.@NotNull Provider registries, CompoundTag tag, Player player, Direction side, boolean simulate) {
         if (!tag.contains("Key") || !tag.contains("Pitch"))
             return false;
         if (simulate) return true;
 
+        setKeyFrequency(ItemStack.parseOptional(registries, tag.getCompound("Key")));
         setPitch(PipePitch.fromNormalizedName(tag.getString("Pitch")));
-        setKeyFrequency(ItemStack.of(tag.getCompound("Key")));
         return true;
     }
 
@@ -274,7 +263,7 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
         stack = stack.copy();
         stack.setCount(1);
         ItemStack toCompare = getKey();
-        boolean changed = !ItemStack.isSameItemSameTags(stack, toCompare);
+        boolean changed = !ItemStack.isSameItemSameComponents(stack, toCompare);
 
         if (changed)
             disconnectFromNetwork();

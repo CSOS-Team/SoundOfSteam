@@ -10,9 +10,13 @@ import net.createmod.catnip.data.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
@@ -27,6 +31,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Function;
 
@@ -197,6 +202,15 @@ public class NoteLinkBlock extends WrenchableDirectionalBlock implements IBE<Not
                 power = Math.max(level.getSignal(pos.relative(direction), Direction.UP), power);
         }
         return power;
+    }
+
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (level.isClientSide()) return;
+        if (placer instanceof Player player) {
+            withBlockEntityDo(level, pos, nlbe -> nlbe.handleHeldClipboard(player, player.getItemInHand(InteractionHand.OFF_HAND)));
+        }
     }
 
     @Override

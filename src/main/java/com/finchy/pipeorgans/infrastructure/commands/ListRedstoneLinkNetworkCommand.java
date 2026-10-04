@@ -5,11 +5,12 @@ import com.finchy.pipeorgans.network.packet.RedstoneLinkNetworkDebugInfoPacket;
 import com.finchy.pipeorgans.util.redstoneLinkNetworkDebugging.RedstoneLinkNetworkDebugInfo;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.ArgumentBuilder;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class ListRedstoneLinkNetworkCommand {
     public static ArgumentBuilder<CommandSourceStack,?> register() {
@@ -21,7 +22,7 @@ public class ListRedstoneLinkNetworkCommand {
                         ServerPlayer player = ctx.getSource().getPlayerOrException();
                         ServerLevel level = ctx.getSource().getLevel();
 //                        RedstoneLinkNetworkDebugInfoPacket.OutputMode outputMode = ctx.getArgument("output", RedstoneLinkNetworkDebugInfoPacket.OutputMode.class);
-                        AllPackets.getChannel().send(PacketDistributor.PLAYER.with(() -> player), new RedstoneLinkNetworkDebugInfoPacket(RedstoneLinkNetworkDebugInfo.forLevel(level), RedstoneLinkNetworkDebugInfoPacket.OutputMode.CHAT));
+                        //CatnipServices.NETWORK.send(PacketDistributor.sendToPlayer(player, new RedstoneLinkNetworkDebugInfoPacket(RedstoneLinkNetworkDebugInfo.forLevel(level), RedstoneLinkNetworkDebugInfoPacket.OutputMode.CHAT)));
                         return Command.SINGLE_SUCCESS;
                     }
                 )

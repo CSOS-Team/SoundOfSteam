@@ -8,11 +8,13 @@ import com.simibubi.create.foundation.blockEntity.behaviour.ValueSettingsBoard;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueSettingsFormatter;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -41,12 +43,12 @@ public class PipePitchScrollValueBehaviour extends ScrollValueBehaviour {
     }
 
     @Override
-    public boolean writeToClipboard(CompoundTag tag, Direction side) {
+    public boolean writeToClipboard(HolderLookup.@NotNull Provider registries, CompoundTag tag, Direction side) {
         return false;
     }
 
     @Override
-    public boolean readFromClipboard(CompoundTag tag, Player player, Direction side, boolean simulate) {
+    public boolean readFromClipboard(HolderLookup.@NotNull Provider registries, CompoundTag tag, Player player, Direction side, boolean simulate) {
         return false;
     }
 
@@ -54,7 +56,8 @@ public class PipePitchScrollValueBehaviour extends ScrollValueBehaviour {
     public void setValueSettings(Player player, ValueSettings valueSetting, boolean ctrlDown) {
         PipePitch pitch = fromValueSettings(valueSetting);
         setValue(pitch.getPitchIndex());
-        if (blockEntity instanceof NoteLinkBlockEntity) ((NoteLinkBlockEntity) blockEntity).updateHeldClipboard(player);
+        if (blockEntity instanceof NoteLinkBlockEntity nlbe)
+            nlbe.updateHeldClipboard(player);
         playFeedbackSound(this);
     }
 

@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.gui;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.midi.client.ClientMidiHandler;
 import com.finchy.pipeorgans.midi.client.MidiInputDeviceManager;
 import com.finchy.pipeorgans.util.GuiUtils;
 import net.minecraft.client.Minecraft;
@@ -55,7 +56,7 @@ public class MidiConfigGUI extends Screen {
         super(Component.translatable(translatableTitle));
 
         // get device manager from client proxy
-        midiInputDeviceManager = ((ClientProxy)PipeOrgans.getProxy()).getMidiData().inputDeviceManager;
+        midiInputDeviceManager = ClientMidiHandler.inputDeviceManager;
         // refresh devices list
         reloadDevices();
 
@@ -119,13 +120,13 @@ public class MidiConfigGUI extends Screen {
         activeDeviceName = "Current: "+midiInputDeviceManager.getActiveDeviceName();
         // left and right buttons
         addRenderableWidget(net.minecraft.client.gui.components.Button.builder(
-                Component.literal("<"),
-                b -> previousDevice())
-            .pos(cornerX+ PREV_BUTTON_X,  cornerY+ BUTTONS_Y).size(16, 16).build());
+                        Component.literal("<"),
+                        b -> previousDevice())
+                .pos(cornerX+ PREV_BUTTON_X,  cornerY+ BUTTONS_Y).size(16, 16).build());
         addRenderableWidget(net.minecraft.client.gui.components.Button.builder(
-                Component.literal(">"),
-                b -> nextDevice())
-            .pos(cornerX+ NEXT_BUTTON_X,  cornerY+ BUTTONS_Y).size(16, 16).build());
+                        Component.literal(">"),
+                        b -> nextDevice())
+                .pos(cornerX+ NEXT_BUTTON_X,  cornerY+ BUTTONS_Y).size(16, 16).build());
 
         // refresh button
         addRenderableWidget(net.minecraft.client.gui.components.Button.builder(
@@ -148,19 +149,18 @@ public class MidiConfigGUI extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        renderBackground(graphics, mouseX, mouseY, partialTick);
+        // render base texture
+        graphics.blit(GUI_TEXTURE, cornerX, cornerY, 0, 0, GUI_WIDTH, GUI_HEIGHT);
         super.render(graphics, mouseX, mouseY, partialTick);
 
-        graphics.blit(GUI_TEXTURE, cornerX+ REFRESH_BUTTON_X, cornerY+ BUTTONS_Y, REFRESH_BUTTON_U, 0, 16, 16, 256, 256); // refresh button icon
-        graphics.blit(GUI_TEXTURE, cornerX+ SAVE_BUTTON_X, cornerY+ BUTTONS_Y, SAVE_BUTTON_U, 0, 16, 16, 256, 256); // save button icon
-
+        renderGraphics(graphics);
         renderText(graphics);
     }
 
-    @Override
-    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-        // render base texture
-        guiGraphics.blit(GUI_TEXTURE, cornerX, cornerY, 0, 0, GUI_WIDTH, GUI_HEIGHT);
+    private void renderGraphics(GuiGraphics graphics) {
+        graphics.blit(GUI_TEXTURE, cornerX+ REFRESH_BUTTON_X, cornerY+ BUTTONS_Y, REFRESH_BUTTON_U, 0, 16, 16, 256, 256); // refresh button icon
+        graphics.blit(GUI_TEXTURE, cornerX+ SAVE_BUTTON_X, cornerY+ BUTTONS_Y, SAVE_BUTTON_U, 0, 16, 16, 256, 256); // save button icon
     }
 
     private void renderText(GuiGraphics graphics) {

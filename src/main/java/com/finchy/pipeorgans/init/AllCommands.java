@@ -6,6 +6,6 @@ import net.minecraft.commands.CommandSourceStack;
 
 public class AllCommands {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        PipeOrgansCommand.register(dispatcher);
+        //PipeOrgansCommand.register(dispatcher);
     }
 }

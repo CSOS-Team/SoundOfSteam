@@ -1,10 +1,14 @@
 package com.finchy.pipeorgans.content.noteLink;
 
+import com.finchy.pipeorgans.ClientConfig;
+import com.finchy.pipeorgans.infrastructure.clipboardAssistedPlacement.CAPDirection;
 import com.finchy.pipeorgans.infrastructure.itemValueBox.ItemValueBoxBehaviour;
 import com.finchy.pipeorgans.infrastructure.pipePitchScrollValue.PipePitchScrollValueBehaviour;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.util.PipePitch;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.simibubi.create.AllDataComponents;
+import com.simibubi.create.content.equipment.clipboard.ClipboardContent;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
@@ -13,11 +17,13 @@ import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -145,18 +151,18 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
     }
 
     @Override
-	public void write(CompoundTag compound, boolean clientPacket) {
-        super.write(compound, clientPacket);
-		compound.putBoolean("Transmitter", transmitter);
-		compound.putInt("Receive", receivedSignal);
-		compound.putBoolean("ReceivedChanged", receivedSignalChanged);
-		compound.putInt("Transmit", transmittedSignal);
+    protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(compound, registries, clientPacket);
+        compound.putBoolean("Transmitter", transmitter);
+        compound.putInt("Receive", receivedSignal);
+        compound.putBoolean("ReceivedChanged", receivedSignalChanged);
+        compound.putInt("Transmit", transmittedSignal);
         //PipeOrgans.LOGGER.debug("Stored NoteLink ({}): '{}'", getBlockPos(), compound.getAsString());
-	}
+    }
 
 	@Override
-	protected void read(CompoundTag compound, boolean clientPacket) {
-        super.read(compound, clientPacket);
+	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(compound, registries, clientPacket);
 		transmitter = compound.getBoolean("Transmitter");
 
 		receivedSignal = compound.getInt("Receive");
@@ -268,19 +274,31 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
     public int getReceivedSignal() {
         return receivedSignal;
     }
+    
+    public void handleHeldClipboard(Player player, ItemStack offhand) {
+        if (!offhand.is(com.simibubi.create.AllBlocks.CLIPBOARD.asItem())) return; // return if player isn't holding a clipboard in offhand
 
+        ClipboardContent clipboardContent = offhand.getOrDefault(AllDataComponents.CLIPBOARD_CONTENT, ClipboardContent.EMPTY);
+        CompoundTag copiedValues = clipboardContent.copiedValues().orElse(new CompoundTag());
 
+        CAPDirection direction = player.isShiftKeyDown() ? CAPDirection.FORWARD : CAPDirection.BACKWARD;
 
-    public void applyClipboardSettings(CompoundTag clipboardTag, boolean copyMode) {
+        if (copiedValues.contains("MusicalFrequency")) { // if the clipboard has been used to place note links before
+            
+            CompoundTag musicalFreqTag = copiedValues.getCompound("MusicalFrequency"); // get the NBT data relating to note links
+            PipePitch pitch = PipePitch.fromNormalizedName(musicalFreqTag.getString("Pitch"));
+            PipePitch next = direction.map(pitch.next(), pitch.prev()); // get the pitch above/below what's written on the clipboard
 
-        boolean shouldBeReceiver = clipboardTag.getBoolean("Receiver");
+            boolean shouldBeReceiver = musicalFreqTag.getBoolean("Receiver");
+            
+            applyClipboardSettings(next, ItemStack.parseOptional(level.registryAccess(), musicalFreqTag.getCompound("Key")), shouldBeReceiver);
+        }
+    }
 
-        PipePitch next = PipePitch.fromNormalizedName(clipboardTag.getString("Pitch")); // get the pitch above what's written on the clipboard
-//        PipePitch next = direction.map(pitch.next(), pitch.prev()); // get the pitch above/below what's written on the clipboard
-
-        setPitch(next); // set the new pitch
-        pitchSlot.setValueSilent(next); // set the new pitch on the scroll box
-        setKey(Objects.requireNonNull(ItemStack.of(clipboardTag.getCompound("Key")))); // set the new key
+    public void applyClipboardSettings(PipePitch pitch, ItemStack key, boolean shouldBeReceiver) {
+        setPitch(pitch); // set the new pitch
+        pitchSlot.setValueSilent(pitch); // set the new pitch on the scroll box
+        setKey(Objects.requireNonNull(key)); // set the new key
 
         NoteLinkBehaviour prev = link;
         removeBehaviour(NoteLinkBehaviour.TYPE);
@@ -291,7 +309,7 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
 
         updateSelfAndAttached(getBlockState());
         //PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.applyClipboardSettings: about to apply mode change: copyMode={}, shouldBeReceiver={}, currentMode={}", copyMode, shouldBeReceiver, transmitter ? "TRANSMITTER" : "RECEIVER");
-        if (copyMode && (shouldBeReceiver == transmitter)) {
+        if (shouldBeReceiver == transmitter) {
             //PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.applyClipboardSettings: changing mode to {}", shouldBeReceiver ? "RECEIVER" : "TRANSMITTER");
             BlockState currentState = getBlockState();
             level.setBlockAndUpdate(worldPosition, currentState.setValue(NoteLinkBlock.RECEIVER, shouldBeReceiver));

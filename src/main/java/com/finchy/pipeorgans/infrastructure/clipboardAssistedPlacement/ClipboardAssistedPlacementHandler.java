@@ -3,27 +3,29 @@ package com.finchy.pipeorgans.infrastructure.clipboardAssistedPlacement;
 import com.finchy.pipeorgans.ServerConfig;
 import com.finchy.pipeorgans.content.noteLink.NoteLinkBlockEntity;
 import com.finchy.pipeorgans.init.AllBlocks;
-import com.finchy.pipeorgans.network.AllPackets;
 import com.finchy.pipeorgans.network.packet.ClipboardAssistedPlacementPacket;
 import com.finchy.pipeorgans.network.packet.NoteLinkUpdateFromClipboardPacket;
 import com.finchy.pipeorgans.util.PipePitch;
+import com.simibubi.create.AllDataComponents;
+import com.simibubi.create.content.equipment.clipboard.ClipboardContent;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.network.NetworkDirection;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.level.BlockEvent;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class ClipboardAssistedPlacementHandler {
 
     @SubscribeEvent
-    public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
+    public static void onBlockPlaced(BlockEvent.EntityPlaceEvent event) {
         if (!(event.getLevel() instanceof ServerLevel level)) return; // ensures server-side and actual Level (i.e. not in world-gen). Ideally it would be client-side, but it seems that EntityPlaceEvent is only ever fired server-side.
         if (!ServerConfig.clipboardAssistedPlacementEnabled) return; // ensure clipboard assisted placement is disabled on server
 
@@ -41,14 +43,13 @@ public class ClipboardAssistedPlacementHandler {
         ItemStack offhand = player.getOffhandItem(); // get item in offhand
         if (!offhand.is(com.simibubi.create.AllBlocks.CLIPBOARD.asItem())) return; // return if player isn't holding a clipboard in offhand
 
-        AllPackets.getChannel().sendTo(
+        CatnipServices.NETWORK.sendToClient(
+                player,
                 new ClipboardAssistedPlacementPacket(
                         pos,
                         offhand,
                         playerIsShifting ? CAPDirection.BACKWARD : CAPDirection.FORWARD
-                ),
-                player.connection.connection,
-                NetworkDirection.PLAY_TO_CLIENT
+                )
         );
 
         /*
@@ -88,32 +89,31 @@ public class ClipboardAssistedPlacementHandler {
 
     // Checked handling of clipboard assisted placement for note links. Only called when both the server and client allow it
     // Return true to indicate that the clipboard should be updated (packet sent to server) (this also applies the visual override), false to leave it unchanged.
-    public static boolean handleClipboardAssistedPlacement(BlockPos pos, ItemStack clipboardItemStack, CAPDirection direction, boolean copyMode) {
+    public static boolean handleClipboardAssistedPlacement(BlockPos pos, ItemStack clipboardItemStack, CAPDirection direction, boolean copyMode, RegistryAccess registries) {
+        ClipboardContent clipboardContent = clipboardItemStack.get(AllDataComponents.CLIPBOARD_CONTENT);
+        CompoundTag copiedValues = clipboardContent.copiedValues().orElse(new CompoundTag());
+        
+        if (copiedValues.contains("MusicalFrequency")) { // if the clipboard has anything specifically about note links in its NBT
 
-        if (clipboardItemStack.hasTag() &&
-                clipboardItemStack.getTag().contains("CopiedValues") &&
-                clipboardItemStack.getTagElement("CopiedValues").contains("MusicalFrequency")) { // if the clipboard has anything specifically about note links in its NBT
-
-            CompoundTag musicalFreqTag = clipboardItemStack.getTagElement("CopiedValues").getCompound("MusicalFrequency"); // get the NBT data relating to note links
+            CompoundTag musicalFreqTag = copiedValues.getCompound("MusicalFrequency"); // get the NBT data relating to note links
             PipePitch pitch = PipePitch.fromNormalizedName(musicalFreqTag.getString("Pitch"));
             PipePitch next = direction.map(pitch.next(), pitch.prev()); // get the pitch above what's written on the clipboard
             if (next == null) next = PipePitch.HIGHEST; // if it's the maximum pitch, just stay at the maximum
             musicalFreqTag.putString("Pitch", next.getNormalizedName()); // put the new pitch onto the clipboard
 
-            AllPackets.getChannel().sendToServer(new NoteLinkUpdateFromClipboardPacket(pos, musicalFreqTag, copyMode)); // send a packet to the server to update the note link's settings
-
-
+            CatnipServices.NETWORK.sendToServer(new NoteLinkUpdateFromClipboardPacket(pos, musicalFreqTag, copyMode)); // send a packet to the server to update the note link's settings
+            
             return true;
         } else { // if the clipboard hasn't been used for note links previously
 
             CompoundTag copiedTag = new CompoundTag(); // make a new tag to put in "CopiedValues"
             CompoundTag noteLinkTag = new CompoundTag(); // make a new tag to put in "MusicalFrequency"
             noteLinkTag.putString("Pitch", PipePitch.LOWEST.getNormalizedName()); // default to F#-1
-            noteLinkTag.put("Key", ItemStack.EMPTY.serializeNBT()); // default to no key item
+            noteLinkTag.put("Key", ItemStack.EMPTY.saveOptional(registries)); // default to no key item
             if (copyMode) noteLinkTag.putBoolean("Receiver", false);
 
             copiedTag.put("MusicalFrequency", noteLinkTag);
-            clipboardItemStack.getOrCreateTag().put("CopiedValues", copiedTag); // apply the tags to the clipboard
+            clipboardItemStack.set(AllDataComponents.CLIPBOARD_CONTENT, clipboardContent.setCopiedValues(copiedTag)); // apply the tags to the clipboard
             return true;
         }
     }
