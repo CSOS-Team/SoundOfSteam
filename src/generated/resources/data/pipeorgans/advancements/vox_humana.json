@@ -1,0 +1,36 @@
+{
+  "parent": "pipeorgans:krummhorn",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:vox_humana",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.vox_humana.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "pipeorgans:vox_humana"
+    },
+    "title": {
+      "translate": "advancement.pipeorgans.vox_humana"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,65 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "pipeorgans:base"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "item": "pipeorgans:krummhorn"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "pipeorgans:base"
+        },
+        {
+          "item": "pipeorgans:reinforced_copper_boot"
+        }
+      ],
+      "results": [
+        {
+          "item": "pipeorgans:base"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "pipeorgans:base"
+        },
+        {
+          "item": "pipeorgans:brass_reed"
+        }
+      ],
+      "results": [
+        {
+          "item": "pipeorgans:base"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "pipeorgans:base"
+        },
+        {
+          "item": "pipeorgans:tuning_wire"
+        }
+      ],
+      "results": [
+        {
+          "item": "pipeorgans:krummhorn"
+        }
+      ]
+    }
+  ],
+  "transitionalItem": {
+    "item": "pipeorgans:incomplete_krummhorn"
+  }
+}

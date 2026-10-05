@@ -1,0 +1,36 @@
+{
+  "parent": "pipeorgans:viola",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:vox_celeste",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.vox_celeste.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "pipeorgans:vox_celeste"
+    },
+    "title": {
+      "translate": "advancement.pipeorgans.vox_celeste"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

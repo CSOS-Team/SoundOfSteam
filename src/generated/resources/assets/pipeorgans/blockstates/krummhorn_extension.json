@@ -1,0 +1,49 @@
+{
+  "variants": {
+    "shape=double,size=huge": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_huge_double"
+    },
+    "shape=double,size=large": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_large_double"
+    },
+    "shape=double,size=medium": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_medium_double"
+    },
+    "shape=double,size=small": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_small_double"
+    },
+    "shape=double,size=tiny": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_tiny_double"
+    },
+    "shape=double_connected,size=huge": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_huge_double_connected"
+    },
+    "shape=double_connected,size=large": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_large_double_connected"
+    },
+    "shape=double_connected,size=medium": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_medium_double_connected"
+    },
+    "shape=double_connected,size=small": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_small_double_connected"
+    },
+    "shape=double_connected,size=tiny": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_tiny_double_connected"
+    },
+    "shape=single,size=huge": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_huge_single"
+    },
+    "shape=single,size=large": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_large_single"
+    },
+    "shape=single,size=medium": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_medium_single"
+    },
+    "shape=single,size=small": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_small_single"
+    },
+    "shape=single,size=tiny": {
+      "model": "pipeorgans:block/krummhorn/extension/krummhorn_tiny_single"
+    }
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "variants": {
+    "facing=east,shape=single,size=huge": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_huge_single",
+      "y": 270
+    },
+    "facing=east,shape=single,size=large": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_large_single",
+      "y": 270
+    },
+    "facing=east,shape=single,size=medium": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_medium_single",
+      "y": 270
+    },
+    "facing=east,shape=single,size=small": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_small_single",
+      "y": 270
+    },
+    "facing=east,shape=single,size=tiny": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_tiny_single",
+      "y": 270
+    },
+    "facing=east,shape=single_connected,size=huge": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_huge_single_connected",
+      "y": 270
+    },
+    "facing=east,shape=single_connected,size=large": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_large_single_connected",
+      "y": 270
+    },
+    "facing=east,shape=single_connected,size=medium": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_medium_single_connected",
+      "y": 270
+    },
+    "facing=east,shape=single_connected,size=small": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_small_single_connected",
+      "y": 270
+    },
+    "facing=east,shape=single_connected,size=tiny": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_tiny_single_connected",
+      "y": 270
+    },
+    "facing=north,shape=single,size=huge": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_huge_single",
+      "y": 180
+    },
+    "facing=north,shape=single,size=large": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_large_single",
+      "y": 180
+    },
+    "facing=north,shape=single,size=medium": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_medium_single",
+      "y": 180
+    },
+    "facing=north,shape=single,size=small": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_small_single",
+      "y": 180
+    },
+    "facing=north,shape=single,size=tiny": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_tiny_single",
+      "y": 180
+    },
+    "facing=north,shape=single_connected,size=huge": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_huge_single_connected",
+      "y": 180
+    },
+    "facing=north,shape=single_connected,size=large": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_large_single_connected",
+      "y": 180
+    },
+    "facing=north,shape=single_connected,size=medium": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_medium_single_connected",
+      "y": 180
+    },
+    "facing=north,shape=single_connected,size=small": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_small_single_connected",
+      "y": 180
+    },
+    "facing=north,shape=single_connected,size=tiny": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_tiny_single_connected",
+      "y": 180
+    },
+    "facing=south,shape=single,size=huge": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_huge_single"
+    },
+    "facing=south,shape=single,size=large": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_large_single"
+    },
+    "facing=south,shape=single,size=medium": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_medium_single"
+    },
+    "facing=south,shape=single,size=small": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_small_single"
+    },
+    "facing=south,shape=single,size=tiny": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_tiny_single"
+    },
+    "facing=south,shape=single_connected,size=huge": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_huge_single_connected"
+    },
+    "facing=south,shape=single_connected,size=large": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_large_single_connected"
+    },
+    "facing=south,shape=single_connected,size=medium": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_medium_single_connected"
+    },
+    "facing=south,shape=single_connected,size=small": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_small_single_connected"
+    },
+    "facing=south,shape=single_connected,size=tiny": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_tiny_single_connected"
+    },
+    "facing=west,shape=single,size=huge": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_huge_single",
+      "y": 90
+    },
+    "facing=west,shape=single,size=large": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_large_single",
+      "y": 90
+    },
+    "facing=west,shape=single,size=medium": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_medium_single",
+      "y": 90
+    },
+    "facing=west,shape=single,size=small": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_small_single",
+      "y": 90
+    },
+    "facing=west,shape=single,size=tiny": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_tiny_single",
+      "y": 90
+    },
+    "facing=west,shape=single_connected,size=huge": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_huge_single_connected",
+      "y": 90
+    },
+    "facing=west,shape=single_connected,size=large": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_large_single_connected",
+      "y": 90
+    },
+    "facing=west,shape=single_connected,size=medium": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_medium_single_connected",
+      "y": 90
+    },
+    "facing=west,shape=single_connected,size=small": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_small_single_connected",
+      "y": 90
+    },
+    "facing=west,shape=single_connected,size=tiny": {
+      "model": "pipeorgans:block/open_wood/extension/open_wood_tiny_single_connected",
+      "y": 90
+    }
+  }
+}

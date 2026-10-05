@@ -1,0 +1,75 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/chamade"
+	},
+	"elements": [
+		{
+			"from": [3, 5, 2.95],
+			"to": [4, 8, 5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 4, 3]},
+			"faces": {
+				"north": {"uv": [13.5, 11, 13.625, 11.375], "texture": "#0"},
+				"south": {"uv": [13.875, 9.125, 14, 9.5], "texture": "#0"},
+				"west": {"uv": [13.625, 9.125, 13.875, 9.5], "texture": "#0"},
+				"up": {"uv": [13.875, 9.125, 13.625, 9], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [13.875, 9.625, 13.625, 9.5], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"from": [4, 5, 2.95],
+			"to": [12, 9, 2.95],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0.1, 4, 3]},
+			"faces": {
+				"north": {"uv": [12.5, 10.875, 13.5, 11.375], "texture": "#0"}
+			}
+		},
+		{
+			"from": [12, 5, 2.95],
+			"to": [13, 8, 5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [14, 4, 3]},
+			"faces": {
+				"north": {"uv": [12.375, 11, 12.5, 11.375], "texture": "#0"},
+				"east": {"uv": [13.25, 9.125, 13.5, 9.5], "texture": "#0"},
+				"south": {"uv": [13.125, 9.125, 13.25, 9.5], "texture": "#0"},
+				"up": {"uv": [13.25, 9, 13.5, 9.125], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [13.25, 9.5, 13.5, 9.625], "rotation": 90, "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, -135, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [30, -135, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"head": {
+			"translation": [0, 14, 0]
+		},
+		"fixed": {
+			"scale": [0.5, 0.5, 0.5]
+		}
+	}
+}

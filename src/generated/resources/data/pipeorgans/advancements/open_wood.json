@@ -1,0 +1,36 @@
+{
+  "parent": "pipeorgans:piccolo",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:open_wood",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.open_wood.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "pipeorgans:open_wood"
+    },
+    "title": {
+      "translate": "advancement.pipeorgans.open_wood"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,16 @@
+{
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "create:copper_nugget"
+    }
+  ],
+  "processingTime": 200,
+  "results": [
+    {
+      "count": 1,
+      "item": "pipeorgans:tuning_wire"
+    }
+  ]
+}
+//Only works for the create saw, not the minecraft stone cutter (On purpose!)

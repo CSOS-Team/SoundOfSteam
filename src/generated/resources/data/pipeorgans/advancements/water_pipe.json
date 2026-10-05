@@ -1,0 +1,29 @@
+{
+  "parent": "pipeorgans:piccolo",
+  "criteria": {
+    "0": {
+      "trigger": "pipeorgans:water_pipe"
+    }
+  },
+  "display": {
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.water_pipe.desc"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:water_bucket"
+    },
+    "title": {
+      "translate": "advancement.pipeorgans.water_pipe"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,37 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/diapason",
+		"particle": "pipeorgans:block/particle/diapason_particle"
+	},
+	"elements": [
+		{
+			"name": "diapason_huge",
+			"from": [2, 4, 2],
+			"to": [14, 16, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [6.25, 2, 7.75, 3.5], "texture": "#0"},
+				"east": {"uv": [6.25, 4, 7.75, 5.5], "texture": "#0"},
+				"south": {"uv": [6.25, 4, 7.75, 5.5], "texture": "#0"},
+				"west": {"uv": [6.25, 4, 7.75, 5.5], "texture": "#0"},
+				"down": {"uv": [0.25, 10.25, 1.75, 11.75], "texture": "#0"}
+			}
+		},
+		{
+			"name": "rim_huge",
+			"from": [1, 16, 1],
+			"to": [15, 18, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 12, 7]},
+			"faces": {
+				"north": {"uv": [6.125, 6.625, 7.875, 6.875], "texture": "#0", "cullface": "up"},
+				"east": {"uv": [6.125, 6.625, 7.875, 6.875], "texture": "#0", "cullface": "up"},
+				"south": {"uv": [6.125, 6.625, 7.875, 6.875], "texture": "#0", "cullface": "up"},
+				"west": {"uv": [6.125, 6.625, 7.875, 6.875], "texture": "#0", "cullface": "up"},
+				"up": {"uv": [6.125, 8.125, 7.875, 9.875], "texture": "#0", "cullface": "up"},
+				"down": {"uv": [0.125, 10.125, 1.875, 11.875], "texture": "#0", "cullface": "up"}
+			}
+		}
+	]
+}

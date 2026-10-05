@@ -1,0 +1,35 @@
+{
+  "parent": "pipeorgans:pipe_base",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "items": [
+          {
+            "items": "pipeorgans:brass_reed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.brass_reed.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "pipeorgans:brass_reed"
+    },
+    "title": {
+      "translate": "advancement.pipeorgans.brass_reed"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,36 @@
+{
+  "parent": "pipeorgans:pipe_base",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:gedeckt",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.gedeckt.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "pipeorgans:gedeckt"
+    },
+    "title": {
+      "translate": "advancement.pipeorgans.gedeckt"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

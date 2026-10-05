@@ -1,0 +1,36 @@
+{
+  "parent": "pipeorgans:prestant",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:piccolo",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.piccolo.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "pipeorgans:piccolo"
+    },
+    "title": {
+      "translate": "advancement.pipeorgans.piccolo"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

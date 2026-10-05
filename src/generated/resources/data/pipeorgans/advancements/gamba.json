@@ -1,0 +1,36 @@
+{
+  "parent": "pipeorgans:vox_celeste",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:gamba",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.gamba.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "pipeorgans:gamba"
+    },
+    "title": {
+      "translate": "advancement.pipeorgans.gamba"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

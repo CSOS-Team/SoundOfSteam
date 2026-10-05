@@ -1,0 +1,16 @@
+{
+  "type": "create:deploying",
+  "ingredients": [
+    {
+      "item": "pipeorgans:dark_oak_boot"
+    },
+    {
+      "item": "create:brass_nugget"
+    }
+  ],
+  "results": [
+    {
+      "item": "pipeorgans:brassbound_boot"
+    }
+  ]
+}

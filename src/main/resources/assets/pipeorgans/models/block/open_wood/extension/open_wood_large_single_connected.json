@@ -1,0 +1,22 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/open_wood",
+		"particle": "pipeorgans:block/particle/open_wood_particle"
+	},
+	"elements": [
+		{
+			"from": [3, 0, 3],
+			"to": [13, 16, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 4, 2]},
+			"faces": {
+				"north": {"uv": [6.375, 4, 7.625, 6], "texture": "#0"},
+				"east": {"uv": [6.375, 4, 7.625, 6], "texture": "#0"},
+				"south": {"uv": [6.375, 4, 7.625, 6], "texture": "#0"},
+				"west": {"uv": [6.375, 4, 7.625, 6], "texture": "#0"},
+				"up": {"uv": [6.375, 8.375, 7.625, 9.625], "texture": "#0"}
+			}
+		}
+	]
+}

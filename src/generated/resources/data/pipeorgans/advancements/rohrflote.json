@@ -1,0 +1,36 @@
+{
+  "parent": "pipeorgans:gedeckt",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "location": [
+          {
+            "block": "pipeorgans:rohrflote",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.pipeorgans.rohrflote.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "pipeorgans:rohrflote"
+    },
+    "title": {
+      "translate": "advancement.pipeorgans.rohrflote"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,21 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/pipe_goggles",
+		"particle": "pipeorgans:block/pipe_goggles"
+	},
+	"elements": [
+		{
+			"from": [5.9, 9, 5.9],
+			"to": [10.1, 13, 10.1],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5.9, 9, 5.9]},
+			"faces": {
+				"north": {"uv": [10, 12.75, 11, 13.75], "texture": "#0"},
+				"east": {"uv": [9, 12.75, 10, 13.75], "texture": "#0"},
+				"south": {"uv": [10, 14, 11, 15], "texture": "#0"},
+				"west": {"uv": [9, 14, 10, 15], "texture": "#0"}
+			}
+		}
+	]
+}

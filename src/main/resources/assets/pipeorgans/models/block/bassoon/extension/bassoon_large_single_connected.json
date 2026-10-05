@@ -1,0 +1,21 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "pipeorgans:block/bassoon",
+		"particle": "pipeorgans:block/particle/bassoon_particle"
+	},
+	"elements": [
+		{
+			"from": [4, 0, 4],
+			"to": [12, 16, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 0, 2]},
+			"faces": {
+				"north": {"uv": [6.5, 8, 7.5, 10], "texture": "#0"},
+				"east": {"uv": [6.5, 8, 7.5, 10], "texture": "#0"},
+				"south": {"uv": [6.5, 8, 7.5, 10], "texture": "#0"},
+				"west": {"uv": [6.5, 8, 7.5, 10], "texture": "#0"}
+			}
+		}
+	]
+}
