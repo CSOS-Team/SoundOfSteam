@@ -8,6 +8,8 @@ import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.init.AllItems;
 import com.google.common.collect.Sets;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -29,19 +31,21 @@ public class AllAdvancements implements DataProvider {
     public static final List<PipeOrgansAdvancement> ENTRIES = new ArrayList<>();
 
     private final PackOutput output;
+    private final CompletableFuture<HolderLookup.Provider> registries;
 
-    public AllAdvancements(PackOutput output) {
+    public AllAdvancements(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         this.output = output;
+        this.registries = registries;
     }
 
     // builder order is nominally:
-    // icon, title, description, parent, trigger, tasktype
+    // icon, title, description, parent, trigger, advancement type
 
     public static final PipeOrgansAdvancement ROOT = create("root", b -> b.icon(AllBlocks.TROMPETTE)
             .title("Sound of Steam")
             .description("All things Pipe and Steamy")
             .awardedForFree()
-            .silentTask()),
+            .silent()),
 
     PIPE_BASE = create("pipe_base", b -> b.icon(AllBlocks.BASE)
             .title("Crafting the Base-ics")
@@ -202,23 +206,23 @@ public class AllAdvancements implements DataProvider {
     PIPE_GOGGLES = create("pipe_goggles", b -> b.icon(com.simibubi.create.AllItems.GOGGLES)
             .title("Pipes for Nerds")
             .description("Put goggles on a pipe")
-            .trigger(PipeGogglesTrigger.instance())
+            .trigger(PipeGogglesTrigger.Instance.instance())
             .after(ROOT)
-            .secretTask()
+            .secret()
     ),
     WATER_PIPE = create("water_pipe", b -> b.icon(Items.WATER_BUCKET)
-                    .title("The Sound of... Birds?")
-                    .description("Waterlog a Piccolo pipe")
-                    .trigger(WaterPipeTrigger.instance())
-                    .after(PICCOLO)
-                    .secretTask()
+            .title("The Sound of... Birds?")
+            .description("Waterlog a Piccolo pipe")
+            .trigger(WaterPipeTrigger.Instance.instance())
+            .after(PICCOLO)
+            .secret()
             ),
     STEAM_BASE = create("steam_base", b -> b.icon(AllBlocks.BASE)
             .title("Steam. Just Steam")
             .description("Let steam escape through a Pipe Base")
-            .trigger(SteamBaseTrigger.instance())
-            .after(ROOT)
-            .secretTask()
+            .trigger(SteamBaseTrigger.Instance.instance())
+            .after(PIPE_BASE)
+            .secret()
             );
 
 
@@ -234,23 +238,24 @@ public class AllAdvancements implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput cache) {
-        PackOutput.PathProvider pathProvider = output.createPathProvider(PackOutput.Target.DATA_PACK, "advancements");
-        List<CompletableFuture<?>> futures = new ArrayList<>();
+        return registries.thenCompose(provider -> {
+            PackOutput.PathProvider pathProvider = output.createPathProvider(PackOutput.Target.DATA_PACK, "advancements");
+            List<CompletableFuture<?>> futures = new ArrayList<>();
 
-        Set<ResourceLocation> set = Sets.newHashSet();
-        Consumer<Advancement> consumer = (advancement) -> {
-            ResourceLocation id = advancement.getId();
-            if (!set.add(id))
-                throw new IllegalStateException("Duplicate advancement " + id);
-            Path path = pathProvider.json(id);
-            futures.add(DataProvider.saveStable(cache, advancement.deconstruct()
-                    .serializeToJson(), path));
-        };
+            Set<ResourceLocation> set = Sets.newHashSet();
+            Consumer<AdvancementHolder> consumer = (advancement) -> {
+                ResourceLocation id = advancement.id();
+                if (!set.add(id))
+                    throw new IllegalStateException("Duplicate advancement " + id);
+                Path path = pathProvider.json(id);
+                futures.add(DataProvider.saveStable(cache, provider, Advancement.CODEC, advancement.value(), path));
+            };
 
-        for (PipeOrgansAdvancement advancement : ENTRIES)
-            advancement.save(consumer);
+            for (PipeOrgansAdvancement advancement : ENTRIES)
+                advancement.save(consumer, provider);
 
-        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
+            return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
+        });
     }
 
     @Override

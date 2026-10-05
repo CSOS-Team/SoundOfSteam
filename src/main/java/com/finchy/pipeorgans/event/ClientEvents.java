@@ -20,18 +20,6 @@ public class ClientEvents {
     public static class ModEventBusClientEvents {
 
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            AllPartialModels.init();
-        }
-
-        /*
-        @SubscribeEvent
-        public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
-
-        }
-         */
-
-        @SubscribeEvent
         public static void onKeyRegister(RegisterKeyMappingsEvent event) {
             event.register(Keybinding.MIDI_CONFIG_KEY);
         }

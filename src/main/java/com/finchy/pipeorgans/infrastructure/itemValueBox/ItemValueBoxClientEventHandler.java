@@ -9,7 +9,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 @EventBusSubscriber(Dist.CLIENT)
 public class ItemValueBoxClientEventHandler {
     @SubscribeEvent
-    public static void onTick(ClientTickEvent event) {
+    public static void onTick(ClientTickEvent.Post event) {
         if (!isGameActive())
             return;
 
