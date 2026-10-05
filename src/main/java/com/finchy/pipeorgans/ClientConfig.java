@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans;
 
-import com.finchy.pipeorgans.infrastructure.clipboardAssistedPlacement.CAPDirection;
+import com.finchy.pipeorgans.content.noteLink.CAPDirection;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;

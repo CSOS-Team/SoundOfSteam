@@ -1,20 +1,17 @@
 package com.finchy.pipeorgans.content.noteLink;
 
 import com.finchy.pipeorgans.PipeOrgans;
-import com.finchy.pipeorgans.network.packet.NoteLinkUpdateFromClipboardPacket;
 import com.finchy.pipeorgans.util.PipePitch;
 import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.equipment.clipboard.ClipboardCloneable;
 import com.simibubi.create.content.equipment.clipboard.ClipboardContent;
-import com.simibubi.create.content.equipment.clipboard.ClipboardOverrides;
 import com.simibubi.create.content.redstone.link.IRedstoneLinkable;
 import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.createmod.catnip.data.Couple;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -231,6 +228,8 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
     public String getClipboardKey() {
         return "MusicalFrequency";
     }
+    
+    //todo: move clipboard behaviour from behaviour into block entity
 
     @Override
     public boolean writeToClipboard(HolderLookup.@NotNull Provider registries, CompoundTag tag, Direction side) {
@@ -246,7 +245,13 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
         if (simulate) return true;
 
         setKeyFrequency(ItemStack.parseOptional(registries, tag.getCompound("Key")));
-        setPitch(PipePitch.fromNormalizedName(tag.getString("Pitch")));
+        PipePitch readPitch = PipePitch.fromNormalizedName(tag.getString("Pitch"));
+        setPitch(readPitch);
+        
+        if (blockEntity instanceof NoteLinkBlockEntity nlbe) {
+            nlbe.setPitchSlot(readPitch);
+        }
+        
         return true;
     }
 

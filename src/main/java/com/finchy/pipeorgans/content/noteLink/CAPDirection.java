@@ -1,4 +1,4 @@
-package com.finchy.pipeorgans.infrastructure.clipboardAssistedPlacement;
+package com.finchy.pipeorgans.content.noteLink;
 
 public enum CAPDirection {
     FORWARD,

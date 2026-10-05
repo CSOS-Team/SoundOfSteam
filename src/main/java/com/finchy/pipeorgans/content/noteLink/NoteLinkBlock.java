@@ -184,7 +184,7 @@ public class NoteLinkBlock extends WrenchableDirectionalBlock implements IBE<Not
         if (state.getValue(RECEIVER))
             return;
 
-        int power = getPower(level, state, pos);
+        int power = level.getBestNeighborSignal(pos);
 
         boolean previouslyPowered = state.getValue(POWERED);
         if (previouslyPowered != power > 0)

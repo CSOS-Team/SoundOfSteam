@@ -1,7 +1,5 @@
 package com.finchy.pipeorgans.content.noteLink;
 
-import com.finchy.pipeorgans.ClientConfig;
-import com.finchy.pipeorgans.infrastructure.clipboardAssistedPlacement.CAPDirection;
 import com.finchy.pipeorgans.infrastructure.itemValueBox.ItemValueBoxBehaviour;
 import com.finchy.pipeorgans.infrastructure.pipePitchScrollValue.PipePitchScrollValueBehaviour;
 import com.finchy.pipeorgans.init.AllBlocks;
@@ -23,7 +21,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -199,9 +196,13 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
         if (link != null)
             link.setPitch(pitch);
     }
+    
+    public void setPitchSlot(PipePitch pitch) {
+        pitchSlot.setValueSilent(pitch);
+    }
 
     public void onNoteLinkBehaviorLoaded() {
-        pitchSlot.setValueSilent(link.getPitch());
+        setPitchSlot(link.getPitch());
         //PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.onNoteLinkBehaviorLoaded: synced key and pitch from NoteLinkBehaviour at {}, now key={}, pitch={}", worldPosition, link.getKey(), link.getPitch().getNormalizedName());
     }
 
@@ -247,13 +248,6 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
         updateSelfAndAttached(getBlockState());
     }
 
-    // Block destroyed or replaced. Requires Block to call IBE::onRemove
-    @Override
-    public void destroy() {
-        //PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.destroy called at {}", worldPosition);
-        super.destroy();
-    }
-
     public void updateSelfAndAttached(BlockState blockState) {
         if (level == null)
             return; // safety check, also so IDEA stops complaining
@@ -281,7 +275,7 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
         ClipboardContent clipboardContent = offhand.getOrDefault(AllDataComponents.CLIPBOARD_CONTENT, ClipboardContent.EMPTY);
         CompoundTag copiedValues = clipboardContent.copiedValues().orElse(new CompoundTag());
 
-        CAPDirection direction = player.isShiftKeyDown() ? CAPDirection.FORWARD : CAPDirection.BACKWARD;
+        CAPDirection direction = !player.isShiftKeyDown() ? CAPDirection.FORWARD : CAPDirection.BACKWARD;
 
         if (copiedValues.contains("MusicalFrequency")) { // if the clipboard has been used to place note links before
             
@@ -293,11 +287,13 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
             
             applyClipboardSettings(next, ItemStack.parseOptional(level.registryAccess(), musicalFreqTag.getCompound("Key")), shouldBeReceiver);
         }
+        
+        updateHeldClipboard(player);
     }
 
     public void applyClipboardSettings(PipePitch pitch, ItemStack key, boolean shouldBeReceiver) {
         setPitch(pitch); // set the new pitch
-        pitchSlot.setValueSilent(pitch); // set the new pitch on the scroll box
+        setPitchSlot(pitch); // set the new pitch on the scroll box
         setKey(Objects.requireNonNull(key)); // set the new key
 
         NoteLinkBehaviour prev = link;
