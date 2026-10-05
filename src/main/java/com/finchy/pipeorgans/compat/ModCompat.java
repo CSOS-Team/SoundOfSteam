@@ -1,6 +1,8 @@
 package com.finchy.pipeorgans.compat;
 
+import net.neoforged.fml.ModList;
+
 public class ModCompat {
     public static final boolean CREATE_CONNECTED =
-            net.minecraftforge.fml.ModList.get().isLoaded("create_connected");
+            ModList.get().isLoaded("create_connected");
 }

@@ -80,6 +80,7 @@ public class AllSoundEvents {
     PICCOLO_MEDIUM = registerSoundEvent("piccolo_medium"),
     PICCOLO_LOW = registerSoundEvent("piccolo_low"),
     PICCOLO_DEEP = registerSoundEvent("piccolo_deep"),
+    PICCOLO_WATER = registerSoundEvent("piccolo_water"),
 
     OKTAV_SUPERHIGH = registerSoundEvent("oktav_superhigh"),
     OKTAV_HIGH = registerSoundEvent("oktav_high"),

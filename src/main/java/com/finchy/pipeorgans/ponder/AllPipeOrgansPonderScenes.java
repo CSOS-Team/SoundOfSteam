@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class AllPipeOrgansPonderScenes {
     public static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        PonderSceneRegistrationHelper<ItemProviderEntry<?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
+        PonderSceneRegistrationHelper<ItemProviderEntry<?, ?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
 
         HELPER.addStoryBoard(AllBlocks.TRACKER_BAR, "tracker_bar", TrackerBarScenes::musicRollPlayback);
 

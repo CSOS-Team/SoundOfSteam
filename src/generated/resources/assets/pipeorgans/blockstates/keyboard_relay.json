@@ -1,32 +1,62 @@
 {
   "variants": {
-    "facing=east,transmitting=false": {
+    "active=false,facing=east,transmitting=false": {
+      "model": "pipeorgans:block/keyboard_relay/keyboard_relay_inactive",
+      "y": 90
+    },
+    "active=false,facing=east,transmitting=true": {
+      "model": "pipeorgans:block/keyboard_relay/keyboard_relay_inactive",
+      "y": 90
+    },
+    "active=false,facing=north,transmitting=false": {
+      "model": "pipeorgans:block/keyboard_relay/keyboard_relay_inactive"
+    },
+    "active=false,facing=north,transmitting=true": {
+      "model": "pipeorgans:block/keyboard_relay/keyboard_relay_inactive"
+    },
+    "active=false,facing=south,transmitting=false": {
+      "model": "pipeorgans:block/keyboard_relay/keyboard_relay_inactive",
+      "y": 180
+    },
+    "active=false,facing=south,transmitting=true": {
+      "model": "pipeorgans:block/keyboard_relay/keyboard_relay_inactive",
+      "y": 180
+    },
+    "active=false,facing=west,transmitting=false": {
+      "model": "pipeorgans:block/keyboard_relay/keyboard_relay_inactive",
+      "y": 270
+    },
+    "active=false,facing=west,transmitting=true": {
+      "model": "pipeorgans:block/keyboard_relay/keyboard_relay_inactive",
+      "y": 270
+    },
+    "active=true,facing=east,transmitting=false": {
       "model": "pipeorgans:block/keyboard_relay/keyboard_relay",
       "y": 90
     },
-    "facing=east,transmitting=true": {
+    "active=true,facing=east,transmitting=true": {
       "model": "pipeorgans:block/keyboard_relay/keyboard_relay_transmitting",
       "y": 90
     },
-    "facing=north,transmitting=false": {
+    "active=true,facing=north,transmitting=false": {
       "model": "pipeorgans:block/keyboard_relay/keyboard_relay"
     },
-    "facing=north,transmitting=true": {
+    "active=true,facing=north,transmitting=true": {
       "model": "pipeorgans:block/keyboard_relay/keyboard_relay_transmitting"
     },
-    "facing=south,transmitting=false": {
+    "active=true,facing=south,transmitting=false": {
       "model": "pipeorgans:block/keyboard_relay/keyboard_relay",
       "y": 180
     },
-    "facing=south,transmitting=true": {
+    "active=true,facing=south,transmitting=true": {
       "model": "pipeorgans:block/keyboard_relay/keyboard_relay_transmitting",
       "y": 180
     },
-    "facing=west,transmitting=false": {
+    "active=true,facing=west,transmitting=false": {
       "model": "pipeorgans:block/keyboard_relay/keyboard_relay",
       "y": 270
     },
-    "facing=west,transmitting=true": {
+    "active=true,facing=west,transmitting=true": {
       "model": "pipeorgans:block/keyboard_relay/keyboard_relay_transmitting",
       "y": 270
     }

@@ -1,304 +1,1139 @@
 {
-  "variants": {
-    "facing=east,powered=false,size=huge,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_floor",
-      "y": 270
-    },
-    "facing=east,powered=false,size=huge,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_wall",
-      "y": 270
-    },
-    "facing=east,powered=false,size=large,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_floor",
-      "y": 270
-    },
-    "facing=east,powered=false,size=large,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_wall",
-      "y": 270
-    },
-    "facing=east,powered=false,size=medium,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_floor",
-      "y": 270
-    },
-    "facing=east,powered=false,size=medium,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_wall",
-      "y": 270
-    },
-    "facing=east,powered=false,size=small,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_floor",
-      "y": 270
-    },
-    "facing=east,powered=false,size=small,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_wall",
-      "y": 270
-    },
-    "facing=east,powered=false,size=tiny,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_floor",
-      "y": 270
-    },
-    "facing=east,powered=false,size=tiny,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_wall",
-      "y": 270
-    },
-    "facing=east,powered=true,size=huge,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_floor_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=huge,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_wall_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=large,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_floor_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=large,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_wall_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=medium,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_floor_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=medium,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_wall_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=small,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_floor_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=small,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_wall_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=tiny,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_floor_powered",
-      "y": 270
-    },
-    "facing=east,powered=true,size=tiny,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_wall_powered",
-      "y": 270
-    },
-    "facing=north,powered=false,size=huge,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_floor",
-      "y": 180
-    },
-    "facing=north,powered=false,size=huge,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_wall",
-      "y": 180
-    },
-    "facing=north,powered=false,size=large,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_floor",
-      "y": 180
-    },
-    "facing=north,powered=false,size=large,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_wall",
-      "y": 180
-    },
-    "facing=north,powered=false,size=medium,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_floor",
-      "y": 180
-    },
-    "facing=north,powered=false,size=medium,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_wall",
-      "y": 180
-    },
-    "facing=north,powered=false,size=small,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_floor",
-      "y": 180
-    },
-    "facing=north,powered=false,size=small,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_wall",
-      "y": 180
-    },
-    "facing=north,powered=false,size=tiny,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_floor",
-      "y": 180
-    },
-    "facing=north,powered=false,size=tiny,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_wall",
-      "y": 180
-    },
-    "facing=north,powered=true,size=huge,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_floor_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=huge,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_wall_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=large,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_floor_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=large,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_wall_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=medium,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_floor_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=medium,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_wall_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=small,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_floor_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=small,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_wall_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=tiny,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_floor_powered",
-      "y": 180
-    },
-    "facing=north,powered=true,size=tiny,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_wall_powered",
-      "y": 180
-    },
-    "facing=south,powered=false,size=huge,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_floor"
-    },
-    "facing=south,powered=false,size=huge,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_wall"
-    },
-    "facing=south,powered=false,size=large,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_floor"
-    },
-    "facing=south,powered=false,size=large,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_wall"
-    },
-    "facing=south,powered=false,size=medium,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_floor"
-    },
-    "facing=south,powered=false,size=medium,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_wall"
-    },
-    "facing=south,powered=false,size=small,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_floor"
-    },
-    "facing=south,powered=false,size=small,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_wall"
-    },
-    "facing=south,powered=false,size=tiny,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_floor"
-    },
-    "facing=south,powered=false,size=tiny,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_wall"
-    },
-    "facing=south,powered=true,size=huge,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_floor_powered"
-    },
-    "facing=south,powered=true,size=huge,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_wall_powered"
-    },
-    "facing=south,powered=true,size=large,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_floor_powered"
-    },
-    "facing=south,powered=true,size=large,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_wall_powered"
-    },
-    "facing=south,powered=true,size=medium,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_floor_powered"
-    },
-    "facing=south,powered=true,size=medium,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_wall_powered"
-    },
-    "facing=south,powered=true,size=small,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_floor_powered"
-    },
-    "facing=south,powered=true,size=small,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_wall_powered"
-    },
-    "facing=south,powered=true,size=tiny,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_floor_powered"
-    },
-    "facing=south,powered=true,size=tiny,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_wall_powered"
-    },
-    "facing=west,powered=false,size=huge,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_floor",
-      "y": 90
-    },
-    "facing=west,powered=false,size=huge,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_wall",
-      "y": 90
-    },
-    "facing=west,powered=false,size=large,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_floor",
-      "y": 90
-    },
-    "facing=west,powered=false,size=large,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_wall",
-      "y": 90
-    },
-    "facing=west,powered=false,size=medium,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_floor",
-      "y": 90
-    },
-    "facing=west,powered=false,size=medium,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_wall",
-      "y": 90
-    },
-    "facing=west,powered=false,size=small,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_floor",
-      "y": 90
-    },
-    "facing=west,powered=false,size=small,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_wall",
-      "y": 90
-    },
-    "facing=west,powered=false,size=tiny,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_floor",
-      "y": 90
-    },
-    "facing=west,powered=false,size=tiny,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_wall",
-      "y": 90
-    },
-    "facing=west,powered=true,size=huge,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_floor_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=huge,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_huge_wall_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=large,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_floor_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=large,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_large_wall_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=medium,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_floor_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=medium,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_medium_wall_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=small,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_floor_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=small,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_small_wall_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=tiny,wall=false": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_floor_powered",
-      "y": 90
-    },
-    "facing=west,powered=true,size=tiny,wall=true": {
-      "model": "pipeorgans:block/piccolo/piccolo_tiny_wall_powered",
-      "y": 90
+  "multipart": [
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_tiny",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "size": "tiny"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_wall_powered",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "true",
+        "size": "tiny",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_wall",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "false",
+        "size": "tiny",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_floor_powered",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "true",
+        "size": "tiny",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_floor",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "false",
+        "size": "tiny",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_tiny",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "size": "tiny"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_wall_powered",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "true",
+        "size": "tiny",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_wall",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "false",
+        "size": "tiny",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_floor_powered",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "true",
+        "size": "tiny",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_floor",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "false",
+        "size": "tiny",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_tiny"
+      },
+      "when": {
+        "facing": "south",
+        "size": "tiny"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_wall_powered"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "true",
+        "size": "tiny",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_wall"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "false",
+        "size": "tiny",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_floor_powered"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "true",
+        "size": "tiny",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_floor"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "false",
+        "size": "tiny",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_tiny",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "size": "tiny"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_wall_powered",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "true",
+        "size": "tiny",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_wall",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "false",
+        "size": "tiny",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_floor_powered",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "true",
+        "size": "tiny",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_tiny_floor",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "false",
+        "size": "tiny",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_small",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "size": "small"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_wall_powered",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "true",
+        "size": "small",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_wall",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "false",
+        "size": "small",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_floor_powered",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "true",
+        "size": "small",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_floor",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "false",
+        "size": "small",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_small",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "size": "small"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_wall_powered",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "true",
+        "size": "small",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_wall",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "false",
+        "size": "small",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_floor_powered",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "true",
+        "size": "small",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_floor",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "false",
+        "size": "small",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_small"
+      },
+      "when": {
+        "facing": "south",
+        "size": "small"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_wall_powered"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "true",
+        "size": "small",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_wall"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "false",
+        "size": "small",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_floor_powered"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "true",
+        "size": "small",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_floor"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "false",
+        "size": "small",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_small",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "size": "small"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_wall_powered",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "true",
+        "size": "small",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_wall",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "false",
+        "size": "small",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_floor_powered",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "true",
+        "size": "small",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_small_floor",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "false",
+        "size": "small",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_medium",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "size": "medium"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_wall_powered",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "true",
+        "size": "medium",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_wall",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "false",
+        "size": "medium",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_floor_powered",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "true",
+        "size": "medium",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_floor",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "false",
+        "size": "medium",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_medium",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "size": "medium"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_wall_powered",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "true",
+        "size": "medium",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_wall",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "false",
+        "size": "medium",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_floor_powered",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "true",
+        "size": "medium",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_floor",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "false",
+        "size": "medium",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_medium"
+      },
+      "when": {
+        "facing": "south",
+        "size": "medium"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_wall_powered"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "true",
+        "size": "medium",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_wall"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "false",
+        "size": "medium",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_floor_powered"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "true",
+        "size": "medium",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_floor"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "false",
+        "size": "medium",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_medium",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "size": "medium"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_wall_powered",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "true",
+        "size": "medium",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_wall",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "false",
+        "size": "medium",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_floor_powered",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "true",
+        "size": "medium",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_medium_floor",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "false",
+        "size": "medium",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_large",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "size": "large"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_wall_powered",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "true",
+        "size": "large",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_wall",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "false",
+        "size": "large",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_floor_powered",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "true",
+        "size": "large",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_floor",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "false",
+        "size": "large",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_large",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "size": "large"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_wall_powered",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "true",
+        "size": "large",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_wall",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "false",
+        "size": "large",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_floor_powered",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "true",
+        "size": "large",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_floor",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "false",
+        "size": "large",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_large"
+      },
+      "when": {
+        "facing": "south",
+        "size": "large"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_wall_powered"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "true",
+        "size": "large",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_wall"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "false",
+        "size": "large",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_floor_powered"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "true",
+        "size": "large",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_floor"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "false",
+        "size": "large",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_large",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "size": "large"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_wall_powered",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "true",
+        "size": "large",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_wall",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "false",
+        "size": "large",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_floor_powered",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "true",
+        "size": "large",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_large_floor",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "false",
+        "size": "large",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_huge",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "size": "huge"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_wall_powered",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "true",
+        "size": "huge",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_wall",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "false",
+        "size": "huge",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_floor_powered",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "true",
+        "size": "huge",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_floor",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "powered": "false",
+        "size": "huge",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_huge",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "size": "huge"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_wall_powered",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "true",
+        "size": "huge",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_wall",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "false",
+        "size": "huge",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_floor_powered",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "true",
+        "size": "huge",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_floor",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "powered": "false",
+        "size": "huge",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_huge"
+      },
+      "when": {
+        "facing": "south",
+        "size": "huge"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_wall_powered"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "true",
+        "size": "huge",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_wall"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "false",
+        "size": "huge",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_floor_powered"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "true",
+        "size": "huge",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_floor"
+      },
+      "when": {
+        "facing": "south",
+        "powered": "false",
+        "size": "huge",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/piccolo/piccolo_huge",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "size": "huge"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_wall_powered",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "true",
+        "size": "huge",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_wall",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "false",
+        "size": "huge",
+        "wall": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_floor_powered",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "true",
+        "size": "huge",
+        "wall": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "pipeorgans:block/base_huge_floor",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "powered": "false",
+        "size": "huge",
+        "wall": "false"
+      }
     }
-  }
+  ]
 }

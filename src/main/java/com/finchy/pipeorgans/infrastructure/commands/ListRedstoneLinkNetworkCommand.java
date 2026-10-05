@@ -1,16 +1,12 @@
 package com.finchy.pipeorgans.infrastructure.commands;
 
-import com.finchy.pipeorgans.network.AllPackets;
-import com.finchy.pipeorgans.network.packet.RedstoneLinkNetworkDebugInfoPacket;
-import com.finchy.pipeorgans.util.redstoneLinkNetworkDebugging.RedstoneLinkNetworkDebugInfo;
+//import com.finchy.pipeorgans.util.redstoneLinkNetworkDebugging.RedstoneLinkNetworkDebugInfo;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 public class ListRedstoneLinkNetworkCommand {
     public static ArgumentBuilder<CommandSourceStack,?> register() {

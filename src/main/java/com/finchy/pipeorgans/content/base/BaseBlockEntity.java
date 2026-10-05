@@ -1,9 +1,8 @@
 package com.finchy.pipeorgans.content.base;
 
-import com.finchy.pipeorgans.advancement.RangedPowerAdvancement;
+import com.finchy.pipeorgans.advancement.RadiusAdvancement;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
-import com.finchy.pipeorgans.init.AllBlockEntities;
 import com.finchy.pipeorgans.init.AllSoundEvents;
 import com.finchy.pipeorgans.init.AllTriggers;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
@@ -69,8 +68,8 @@ public class BaseBlockEntity extends SmartBlockEntity {
         // Advancement logic
         if (!level.isClientSide) {
             if (powered && !wasPoweredLastTick) {
-                RangedPowerAdvancement.trigger(level, worldPosition, 16,
-                        AllTriggers.STEAM_BASE::trigger
+                RadiusAdvancement.trigger(level, worldPosition, 16,
+                        AllTriggers.STEAM_BASE_TRIGGER.get()::trigger
                 );
             }
             wasPoweredLastTick = powered;

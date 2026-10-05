@@ -19,7 +19,8 @@ public abstract class WhistleBlockMixin {
     @Inject(
             method = "canSurvive",
             at = @At("HEAD"),
-            cancellable = true
+            cancellable = true,
+            remap = false
     )
     private void isTankOrWindchest(
             BlockState state,

@@ -31,7 +31,8 @@ public class SoundLibraryMixin {
     @ModifyArg(
         method = "init(Ljava/lang/String;Z)V",
         at = @At(value = "INVOKE", target = "Lorg/lwjgl/openal/ALC10;alcCreateContext(JLjava/nio/IntBuffer;)J", remap = false),
-        index = 1
+        index = 1,
+        remap = false
     )
     private IntBuffer pipeorgans$injectHardwareChannels(long device, IntBuffer localAttributes) {
         int requestedSources = pipeorgans$maxSources();
@@ -50,7 +51,11 @@ public class SoundLibraryMixin {
         return safeBuffer;
     }
 
-    @ModifyConstant(method = "init(Ljava/lang/String;Z)V", constant = @Constant(intValue = 255))
+    @ModifyConstant(
+        method = "init(Ljava/lang/String;Z)V",
+        constant = @Constant(intValue = 255),
+        remap = false
+    )
     private int pipeorgans$raiseStaticCapToTrueAllocated(int original) {
         return this.pipeorgans$allocatedMaxSources;
     }

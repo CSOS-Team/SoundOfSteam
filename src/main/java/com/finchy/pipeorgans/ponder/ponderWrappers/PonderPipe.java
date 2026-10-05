@@ -1,8 +1,6 @@
 package com.finchy.pipeorgans.ponder.ponderWrappers;
 
-import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
-import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlockEntity;
+import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.ponder.PonderTimings;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import net.createmod.ponder.api.PonderPalette;

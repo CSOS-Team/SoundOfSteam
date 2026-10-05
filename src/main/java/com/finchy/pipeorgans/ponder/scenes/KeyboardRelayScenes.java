@@ -104,7 +104,7 @@ public class KeyboardRelayScenes {
 
         scene.idle(20);
 
-        PonderUtil.showMidiGuiSlot(scene, keyboardRelay.getCenter().add(0, 0.5, 0), Pointing.DOWN, new ItemStack(AllItems.ZINC_INGOT), 1,
+        PonderUtil.showMidiGuiSlot(scene, keyboardRelay.getCenter().add(0, 0.5, 0), Pointing.DOWN, new ItemStack(AllItems.ZINC_INGOT.get()), 1,
                 90
         );
 

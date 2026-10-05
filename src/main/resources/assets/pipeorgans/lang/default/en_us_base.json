@@ -10,6 +10,10 @@
   "gui.pipeorgans.tracker_bar": "Tracker Bar",
   "sounds.pipeorgans.tracker_bar_change_roll": "Paper roll rustles",
 
+  "block.pipeorgans.note_link.key_slot.label": "Key Frequency",
+  "block.pipeorgans.note_link.pitch_slot.label": "Pitch Frequency",
+  "pipeorgans.octave_group.label": "%1$s to %2$s",
+
   "gui.pipeorgans.roll_puncher.title": "Roll Authoring Table",
   "gui.pipeorgans.roll_puncher.uploading": "Uploading...",
   "gui.pipeorgans.roll_puncher.finished": "Upload Finished!",
@@ -18,11 +22,23 @@
   "gui.pipeorgans.roll_puncher.noMidis": "No MIDI Files Saved",
   "gui.pipeorgans.roll_puncher.availableMidis": "Available MIDI Files",
 
+  "block.pipeorgans.roll_puncher.tooltip.summary": "Writes saved MIDI files onto a _Music Roll_.",
+  "block.pipeorgans.roll_puncher.tooltip.condition1": "When given a piece of paper or a Music Roll",
+  "block.pipeorgans.roll_puncher.tooltip.behaviour1": "Uploads a chosen File from your MIDI Folder.",
+
   "pipeorgans.display_source.tracker_bar_filename": "Filename",
   "pipeorgans.display_source.tracker_bar_bpm": "BPM",
 
   "item.pipeorgans.music_roll.invalid": "[!] Invalid Item - Use the Roll Authoring Table instead",
 
+  "item.pipeorgans.brass_boot.tooltip.summary": "Used in sequenced assembly to craft the _Trompette_",
+  "item.pipeorgans.brassbound_boot.tooltip.summary": "Used in sequenced assembly to craft the _Bassoon_",
+  "item.pipeorgans.copper_boot.tooltip.summary": "Used in sequenced assembly to craft the _Vox Humana_",
+  "item.pipeorgans.reinforced_copper_boot.tooltip.summary": "Used in sequenced assembly to craft the _Krummhorn_",
+  "item.pipeorgans.dark_oak_boot.tooltip.summary": "Used in sequenced assembly to craft the _Posaune_",
+  "item.pipeorgans.iron_boot.tooltip.summary": "Used in sequenced assembly to craft the _English Horn_",
+
+  "pipeorgans.stopsize.135": "§71-3/5'",
   "pipeorgans.stopsize.2": "§72'",
   "pipeorgans.stopsize.223": "§72-2/3'",
   "pipeorgans.stopsize.4": "§74'",
@@ -31,6 +47,11 @@
   "pipeorgans.stopsize.32": "§732'",
 
   "pipeorgans.blocks.pipes.replace_pipe_deny": "Not enough space!",
+
+  "sounds.pipeorgans.kbr_open": "Keylid Opens",
+  "sounds.pipeorgans.kbr_close": "Keylid Closes",
+
+  "sounds.pipeorgans.steam_hiss": "Steam Hisses",
 
   "sounds.pipeorgans.gedeckt_superhigh": "Gedeckt squeals",
   "sounds.pipeorgans.gedeckt_high": "Gedeckt squeaks",
@@ -80,17 +101,18 @@
   "sounds.pipeorgans.viola_low": "Viola grumbles",
   "sounds.pipeorgans.viola_deep": "Viola rumbles",
 
-  "sounds.pipeorgans.vox_celeste_superhigh": "Vox Celeste squeals",
-  "sounds.pipeorgans.vox_celeste_high": "Vox Celeste squeaks",
-  "sounds.pipeorgans.vox_celeste_medium": "Vox Celeste speaks",
-  "sounds.pipeorgans.vox_celeste_low": "Vox Celeste grumbles",
-  "sounds.pipeorgans.vox_celeste_deep": "Vox Celeste rumbles",
+  "sounds.pipeorgans.vox_celeste_superhigh": "Voix Celeste squeals",
+  "sounds.pipeorgans.vox_celeste_high": "Voix Celeste squeaks",
+  "sounds.pipeorgans.vox_celeste_medium": "Voix Celeste speaks",
+  "sounds.pipeorgans.vox_celeste_low": "Voix Celeste grumbles",
+  "sounds.pipeorgans.vox_celeste_deep": "Voix Celeste rumbles",
 
   "sounds.pipeorgans.piccolo_superhigh": "Piccolo pierces",
   "sounds.pipeorgans.piccolo_high": "Piccolo squeals",
   "sounds.pipeorgans.piccolo_medium": "Piccolo squeaks",
   "sounds.pipeorgans.piccolo_low": "Piccolo grumbles",
   "sounds.pipeorgans.piccolo_deep": "Piccolo rumbles",
+  "sounds.pipeorgans.piccolo_water": "Piccolo warbles",
 
   "sounds.pipeorgans.subbass_superhigh": "Subbass squeals",
   "sounds.pipeorgans.subbass_high": "Subbass speaks",
@@ -98,11 +120,29 @@
   "sounds.pipeorgans.subbass_low": "Subbass rumbles",
   "sounds.pipeorgans.subbass_deep": "Subbass shakes the earth",
 
+  "sounds.pipeorgans.untersatz_superhigh": "Untersatz squeals",
+  "sounds.pipeorgans.untersatz_high": "Untersatz speaks",
+  "sounds.pipeorgans.untersatz_medium": "Untersatz grumbles",
+  "sounds.pipeorgans.untersatz_low": "Untersatz rumbles",
+  "sounds.pipeorgans.untersatz_deep": "Untersatz shakes the earth",
+
+  "sounds.pipeorgans.open_wood_superhigh": "Open Wood squeals",
+  "sounds.pipeorgans.open_wood_high": "Open Wood speaks",
+  "sounds.pipeorgans.open_wood_medium": "Open Wood grumbles",
+  "sounds.pipeorgans.open_wood_low": "Open Wood rumbles",
+  "sounds.pipeorgans.open_wood_deep": "Open Wood shakes the earth",
+
   "sounds.pipeorgans.trompette_superhigh": "Trompette squeals",
   "sounds.pipeorgans.trompette_high": "Trompette squeaks",
   "sounds.pipeorgans.trompette_medium": "Trompette speaks",
   "sounds.pipeorgans.trompette_low": "Trompette grumbles",
   "sounds.pipeorgans.trompette_deep": "Trompette rumbles",
+
+  "sounds.pipeorgans.chamade_superhigh": "Chamade squeals",
+  "sounds.pipeorgans.chamade_high": "Chamade squeaks",
+  "sounds.pipeorgans.chamade_medium": "Chamade speaks",
+  "sounds.pipeorgans.chamade_low": "Chamade grumbles",
+  "sounds.pipeorgans.chamade_deep": "Chamade rumbles",
 
   "sounds.pipeorgans.english_horn_superhigh": "English Horn squeals",
   "sounds.pipeorgans.english_horn_high": "English Horn squeaks",
@@ -110,11 +150,23 @@
   "sounds.pipeorgans.english_horn_low": "English Horn grumbles",
   "sounds.pipeorgans.english_horn_deep": "English Horn rumbles",
 
+  "sounds.pipeorgans.krummhorn_superhigh": "Krummhorn squeals",
+  "sounds.pipeorgans.krummhorn_high": "Krummhorn squeaks",
+  "sounds.pipeorgans.krummhorn_medium": "Krummhorn speaks",
+  "sounds.pipeorgans.krummhorn_low": "Krummhornn grumbles",
+  "sounds.pipeorgans.krummhorn_deep": "Krummhorn rumbles",
+
   "sounds.pipeorgans.nasard_superhigh": "Nasard squeals",
   "sounds.pipeorgans.nasard_high": "Nasard squeaks",
   "sounds.pipeorgans.nasard_medium": "Nasard speaks",
   "sounds.pipeorgans.nasard_low": "Nasard grumbles",
   "sounds.pipeorgans.nasard_deep": "Nasard rumbles",
+
+  "sounds.pipeorgans.tierce_superhigh": "Tierce squeals",
+  "sounds.pipeorgans.tierce_high": "Tierce squeaks",
+  "sounds.pipeorgans.tierce_medium": "Tierce speaks",
+  "sounds.pipeorgans.tierce_low": "Tierce grumbles",
+  "sounds.pipeorgans.tierce_deep": "Tierce rumbles",
 
   "sounds.pipeorgans.posaune_superhigh": "Posaune squeaks",
   "sounds.pipeorgans.posaune_high": "Posaune speaks",
@@ -122,48 +174,17 @@
   "sounds.pipeorgans.posaune_low": "Posaune rumbles",
   "sounds.pipeorgans.posaune_deep": "Posaune shakes the earth",
 
+  "sounds.pipeorgans.bassoon_superhigh": "Bassoon squeaks",
+  "sounds.pipeorgans.bassoon_high": "Bassoon speaks",
+  "sounds.pipeorgans.bassoon_medium": "Bassoon grumbles",
+  "sounds.pipeorgans.bassoon_low": "Bassoon rumbles",
+  "sounds.pipeorgans.bassoon_deep": "Bassoon shakes the earth",
+
   "sounds.pipeorgans.vox_humana_superhigh": "Vox Humana screeches",
   "sounds.pipeorgans.vox_humana_high": "Vox Humana shouts",
   "sounds.pipeorgans.vox_humana_medium": "Vox Humana speaks",
   "sounds.pipeorgans.vox_humana_low": "Vox Humana groans",
   "sounds.pipeorgans.vox_humana_deep": "Vox Humana bellows",
-
-  "advancement.pipeorgans.csosintro": "Sound of Steam",
-  "advancement.pipeorgans.csosintro.desc": "All Things Pipe and Steamy",
-  "advancement.pipeorgans.pipebase": "Crafting the Base-ics",
-  "advancement.pipeorgans.pipebase.desc": "Craft or Obtain a Pipe Base",
-  "advancement.pipeorgans.gedeckt": "Capped Harmony",
-  "advancement.pipeorgans.gedeckt.desc": "Place a Gedeckt Pipe",
-  "advancement.pipeorgans.hohlflute": "Hohl in One",
-  "advancement.pipeorgans.hohlflute.desc": "Place a Hohlflute Pipe",
-  "advancement.pipeorgans.rohrflote": "The Pipe with a Hat",
-  "advancement.pipeorgans.rohrflote.desc": "Place a Rohrflote Pipe",
-  "advancement.pipeorgans.diapason": "The Principal Voice",
-  "advancement.pipeorgans.diapason.desc": "Place a Diapason Pipe",
-  "advancement.pipeorgans.prestant": "Pressed and Prestant",
-  "advancement.pipeorgans.prestant.desc": "Place a Prestant Pipe",
-  "advancement.pipeorgans.gamba": "Shrill Strings",
-  "advancement.pipeorgans.gamba.desc": "Place a Gamba Pipe",
-  "advancement.pipeorgans.viola": "Bowless Beauty",
-  "advancement.pipeorgans.viola.desc": "Place a Viola Pipe",
-  "advancement.pipeorgans.vox_celeste": "Pleasantly Out of Tune",
-  "advancement.pipeorgans.vox_celeste.desc": "Place a Vox Celeste Pipe",
-  "advancement.pipeorgans.piccolo": "Piercing the Sky",
-  "advancement.pipeorgans.piccolo.desc": "Place a Piccolo Pipe",
-  "advancement.pipeorgans.subbass": "All about that (Sub)bass",
-  "advancement.pipeorgans.subbass.desc": "Place a Subbass Pipe",
-  "advancement.pipeorgans.trompette": "HONK",
-  "advancement.pipeorgans.trompette.desc": "Place a Trompette Pipe",
-  "advancement.pipeorgans.nasard": "The Notes between the Notes",
-  "advancement.pipeorgans.nasard.desc": "Place a Nasard Pipe",
-  "advancement.pipeorgans.posaune": "Rumbling Reeds",
-  "advancement.pipeorgans.posaune.desc": "Place a Posaune Pipe",
-  "advancement.pipeorgans.vox_humana": "A Choir of Goats",
-  "advancement.pipeorgans.vox_humana.desc": "Place a Vox Humana Pipe",
-  "advancement.pipeorgans.english_horn": "Actually from Germany",
-  "advancement.pipeorgans.english_horn.desc": "Place an English Horn Pipe",
-  "advancement.pipeorgans.reed": "Are you Reed-y?",
-  "advancement.pipeorgans.reed.desc": "Assemble a Reed Pipe by deploying a Boot, Brass Reed and Tuning Wire onto a Pipe Base",
 
   "instrument.pipeorgans.acoustic_grand_piano": "Acoustic Grand Piano",
   "instrument.pipeorgans.bright_acoustic_piano": "Bright Acoustic Piano",
@@ -318,5 +339,4 @@
   "instrument.pipeorgans.brush_kit": "Brush Kit",
 
   "instrument.pipeorgans.empty": ""
-
 }

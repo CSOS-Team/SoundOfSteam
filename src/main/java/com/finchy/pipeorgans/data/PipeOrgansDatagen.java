@@ -1,13 +1,17 @@
 package com.finchy.pipeorgans.data;
 
 import com.finchy.pipeorgans.PipeOrgans;
+import com.finchy.pipeorgans.data.advancement.AllAdvancements;
+import com.finchy.pipeorgans.ponder.POPonderPlugin;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.simibubi.create.foundation.utility.FilesHelper;
 import com.tterrag.registrate.providers.ProviderType;
+import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.Map;
@@ -22,11 +26,16 @@ public class PipeOrgansDatagen {
     }
 
     public static void gatherData(GatherDataEvent event) {
-        if (!event.getMods().contains(PipeOrgans.MOD_ID)) return;
+        if (!event.getMods().contains(PipeOrgans.MOD_ID))
+            return;
 
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+        ExistingFileHelper helper = event.getExistingFileHelper();
+
+        //generator.addProvider(event.includeClient(), new PipeModelGenerator(output, helper));
+        generator.addProvider(event.includeServer(), new AllAdvancements(output, lookupProvider));
     }
 
     private static void addExtraRegistrateData() {
@@ -34,9 +43,11 @@ public class PipeOrgansDatagen {
             BiConsumer<String, String> langConsumer = provider::add; // for every place that generates lang translations, have it provide its lang to the consumer
             // SURRENDER ALL YE TEXTS TO THE GREAT CONSUMER
             provideDefaultLang("en_us_base", langConsumer); // add the entries that already exist
+            providePonderLang(langConsumer);
+            AllAdvancements.provideLang(langConsumer);
         });
     }
-    
+
     private static void provideDefaultLang(String fileName, BiConsumer<String, String> consumer) {
         String path = "assets/pipeorgans/lang/default/" + fileName +".json";
         JsonElement jsonElement = FilesHelper.loadJsonResource(path);
@@ -48,6 +59,12 @@ public class PipeOrgansDatagen {
             String value = entry.getValue().getAsString();
             consumer.accept(key, value);
         }
+    }
+
+
+    private static void providePonderLang(BiConsumer<String, String> consumer) {
+        PonderIndex.addPlugin(new POPonderPlugin());
+        PonderIndex.getLangAccess().provideLang(PipeOrgans.MOD_ID, consumer);
     }
 
 }

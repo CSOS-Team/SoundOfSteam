@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans;
 
 import com.finchy.pipeorgans.data.PipeOrgansDatagen;
+import com.finchy.pipeorgans.data.advancement.AllAdvancements;
 import com.finchy.pipeorgans.init.*;
 import com.finchy.pipeorgans.midi.server.ServerMidiLoader;
 import com.finchy.pipeorgans.network.AllPackets;
@@ -18,6 +19,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
@@ -48,17 +50,23 @@ public class PipeOrgans {
         AllItems.register();
         AllSoundEvents.register(modEventBus);
         AllSpriteShifts.register();
+        AllTriggers.register(modEventBus);
         AllParticleTypes.register(modEventBus);
         AllMenuTypes.register();
         AllPackets.register();
         AllDataComponents.register(modEventBus);
-
-        container.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
-        container.registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
-
+        
+        modEventBus.addListener(PipeOrgans::init);
         modEventBus.addListener(EventPriority.HIGHEST, PipeOrgansDatagen::gatherDataHighPriority);
         modEventBus.addListener(EventPriority.LOWEST, PipeOrgansDatagen::gatherData);
-
+        
+        container.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+        container.registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
+        
+    }
+    
+    public static void init(FMLCommonSetupEvent event) {
+        event.enqueueWork(AllAdvancements::register);
     }
 
     public static ResourceLocation asResource(String path) {

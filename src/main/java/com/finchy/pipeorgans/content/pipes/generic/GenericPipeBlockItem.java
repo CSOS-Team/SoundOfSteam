@@ -16,12 +16,12 @@ public class GenericPipeBlockItem extends BlockItem {
 
     public GenericPipeBlockItem(Block pBlock, Properties pProperties, StopSize stopSize) {
         super(pBlock, pProperties);
-        this.stopSize = stopSize.getSerializedName();
+        this.stopSize = stopSize;
     }
 
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, TooltipContext context, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
         super.appendHoverText(pStack, context, pTooltip, pFlag);
-        pTooltip.add(Component.translatable("pipeorgans.stopsize."+this.stopSize));
+        pTooltip.add(Component.translatable("pipeorgans.stopsize."+this.stopSize.getSerializedName()));
     }
 }

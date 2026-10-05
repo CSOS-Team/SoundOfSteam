@@ -1,17 +1,68 @@
 package com.finchy.pipeorgans.data;
 
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.content.base.BaseBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.GenericPipeBlock;
+import com.finchy.pipeorgans.content.pipes.generic.PipeSize;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
+import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
+import net.createmod.catnip.data.Iterate;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
 
 public class BlockStateGen {
+    
+    public static <T extends GenericPipeBlock> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockstateProvider> pipe() {
+        return (c, p) -> {
+            BlockModelProvider models = p.models();
+            MultiPartBlockStateBuilder builder = p.getMultipartBuilder(c.get());
+
+            String name = c.getName();
+            String horizontalBasePrefix = c.get().isHorizontal() ? "horizontal_" : "";
+            
+            for (PipeSize size : PipeSize.values()) {
+                String s = size.getSerializedName();
+                ModelFile pipe = AssetLookup.partialStandardModel(c, p, s);
+                
+                for (Direction facing : Direction.Plane.HORIZONTAL) {
+                    int yRot = (int) facing.toYRot();
+                    
+                    builder.part()
+                            .modelFile(pipe).rotationY(yRot).addModel()
+                            .condition(GenericPipeBlock.SIZE, size)
+                            .condition(GenericPipeBlock.FACING, facing)
+                            .end();
+                    
+                    for (boolean wall : Iterate.trueAndFalse) {
+                        String w = wall ? "wall" : "floor";
+                        String baseName = horizontalBasePrefix + "base_" + s + "_" + w;
+                        ModelFile base = models.getExistingFile(p.modLoc(baseName));
+                        ModelFile basePowered = models
+                                .withExistingParent(baseName + "_powered", p.modLoc(baseName))
+                                .texture("1", "pipeorgans:block/copper_redstone_plate_powered");
+                        
+                        for (boolean powered : Iterate.trueAndFalse) {
+                            builder.part()
+                                    .modelFile(powered ? basePowered : base).rotationY(yRot).addModel()
+                                    .condition(GenericPipeBlock.SIZE, size)
+                                    .condition(GenericPipeBlock.FACING, facing)
+                                    .condition(GenericPipeBlock.WALL, wall)
+                                    .condition(GenericPipeBlock.POWERED, powered)
+                                    .end();
+                        }
+                    }
+                }
+            }
+        };
+    }
 
     public static class PipeGenerator extends SpecialBlockStateGen {
         @Override

@@ -1,10 +1,10 @@
 package com.finchy.pipeorgans.content.pipes;
 
+import com.finchy.pipeorgans.advancement.RadiusAdvancement;
 import com.finchy.pipeorgans.content.pipes.generic.*;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadrupleExtensionBlock;
 import com.finchy.pipeorgans.content.pipes.generic.subtypes.QuadruplePipeBlock;
 import com.finchy.pipeorgans.init.*;
-import com.finchy.pipeorgans.util.RangedPowerAdvancement;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -29,8 +29,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 import static com.finchy.pipeorgans.init.AllSoundEvents.*;
@@ -234,8 +234,8 @@ public class Piccolo {
             if (!level.isClientSide) {
                 if (powerState.tickAndCheckRisingEdge(level, this)
                         && getBlockState().getValue(Piccolo.WATERLOGGED)) {
-                    RangedPowerAdvancement.trigger(level, worldPosition, 16,
-                            AllTriggers.WATER_PIPE::trigger
+                    RadiusAdvancement.trigger(level, worldPosition, 16,
+                            AllTriggers.WATER_PIPE_TRIGGER.get()::trigger
                     );
                 }
                 return;
@@ -319,7 +319,7 @@ public class Piccolo {
                 super(
                         PipeSize.TINY, // size is irrelevant here
                         pos,
-                        PICCOLO_WATER.get()
+                        AllSoundEvents.PICCOLO_WATER.get()
                 );
 
                 looping = true;

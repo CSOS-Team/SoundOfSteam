@@ -257,7 +257,7 @@ public abstract class GenericPipeBlock extends Block implements PipeBehaviour, I
                     goggleSound = SoundEvents.ARMOR_EQUIP_GENERIC.value();
                     pLevel.playSound(null, pPos, goggleSound, SoundSource.BLOCKS, 0.5f, 1f);
 
-                    AllTriggers.PIPE_GOGGLES.trigger(sp);
+                    AllTriggers.PIPE_GOGGLES_TRIGGER.get().trigger(sp);
                     /*
                     //In case you want the pipes to eat your goggles
                     if (!pPlayer.isCreative())

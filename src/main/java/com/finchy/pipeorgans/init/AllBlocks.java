@@ -15,6 +15,7 @@ import com.finchy.pipeorgans.content.pipes.generic.StopSize;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.finchy.pipeorgans.data.AssetLookup;
+import com.finchy.pipeorgans.data.BlockStateGen;
 import com.finchy.pipeorgans.data.BlockStateGen.*;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -478,7 +479,7 @@ public class AllBlocks {
         BlockEntry<T> entry = REGISTRATE.block(name, factory)
                 .initialProperties(initialPropertiesCopier)
                 .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
-                .blockstate(new PipeGenerator()::generate)
+                .blockstate(BlockStateGen.pipe())
                 .item((b, p) -> new GenericPipeBlockItem(b, p, stopsize))
                 .transform(customItemModel())
                 .tag(toolTag)
@@ -497,7 +498,7 @@ public class AllBlocks {
         BlockEntry<T> entry = REGISTRATE.block(name, factory)
                 .initialProperties(initialPropertiesCopier)
                 .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
-                .blockstate(new PipeGenerator()::generate)
+                .blockstate(BlockStateGen.pipe())
                 .item((b, p) -> new GenericPipeBlockItem(b, p, stopsize))
                 .transform(customItemModel())
                 .tag(toolTag)

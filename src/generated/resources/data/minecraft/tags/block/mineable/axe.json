@@ -3,6 +3,7 @@
     "pipeorgans:windchest",
     "pipeorgans:windchest_master",
     "pipeorgans:roll_puncher",
+    "pipeorgans:note_link",
     "pipeorgans:gedeckt",
     "pipeorgans:gedeckt_extension",
     "pipeorgans:hohlflute",
@@ -10,6 +11,8 @@
     "pipeorgans:posaune",
     "pipeorgans:posaune_extension",
     "pipeorgans:subbass",
-    "pipeorgans:subbass_extension"
+    "pipeorgans:subbass_extension",
+    "pipeorgans:open_wood",
+    "pipeorgans:open_wood_extension"
   ]
 }

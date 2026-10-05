@@ -71,7 +71,7 @@ public class TrackerBarScenes {
         
         scene.idle(PonderTimings.READING_WINDOW/2);
 
-        PonderUtil.showMidiGuiSlot(scene, trackerBarPos.getCenter().add(0, 0.5, 0), Pointing.DOWN, new ItemStack(AllItems.ZINC_INGOT), 1,
+        PonderUtil.showMidiGuiSlot(scene, trackerBarPos.getCenter().add(0, 0.5, 0), Pointing.DOWN, new ItemStack(AllItems.ZINC_INGOT.get()), 1,
                 PonderTimings.READING_TIME-(PonderTimings.READING_WINDOW/2)
         );
         scene.idle(PonderTimings.READING_WINDOW/2);

@@ -12,17 +12,13 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod(value = PipeOrgans.MOD_ID, dist = Dist.CLIENT)
 public class PipeOrgansClient {
-
+    
     public PipeOrgansClient(IEventBus modEventBus) {
-        onCtorClient(modEventBus);
-    }
-
-    public static final ClientMidiFileLoader MIDI_SENDER = new ClientMidiFileLoader();
-
-    public static void onCtorClient(IEventBus modEventBus) {
         modEventBus.addListener(PipeOrgansClient::clientInit);
         modEventBus.addListener(AllParticleTypes::registerFactories);
     }
+
+    public static final ClientMidiFileLoader MIDI_SENDER = new ClientMidiFileLoader();
 
     public static void clientInit(final FMLClientSetupEvent event) {
         AllPartialModels.init();

@@ -326,7 +326,7 @@ public class NoteLinkScenes {
 
         scene.overlay().showControls(rightLink.visualCenter().add(0, 0, 1), Pointing.DOWN, 15).leftClick().withItem(com.simibubi.create.AllBlocks.CLIPBOARD.asStack());
         scene.world().modifyBlockEntityNBT(util.select().position(rightLinkPos), NoteLinkBlockEntity.class,
-                nbt -> nbt.put("Key", AllItems.ZINC_INGOT.asStack().save(new CompoundTag())));
+                nbt -> nbt.put("Key", AllItems.ZINC_INGOT.asStack().saveOptional(scene.world().getHolderLookupProvider())));
         scene.idle(25);
 
         scene.overlay().showControls(rightLink.keySlotPosition().add(0, 0, 1), Pointing.DOWN, 30).withItem(AllItems.ZINC_INGOT.asStack());

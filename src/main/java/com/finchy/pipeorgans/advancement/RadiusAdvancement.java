@@ -8,15 +8,14 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.function.Consumer;
 
-public class RangedPowerAdvancement {
+public class RadiusAdvancement {
 
 
     /**
-    This helper is for triggering an advancement within a radius of a BE
-
-     example: When you play a pipe base
-
-    Parameters:
+    This helper is for triggering an advancement within a radius of a BE,
+     
+     for example, when you play a pipe base
+     
     @param level World level (must be ServerLevel)
     @param pos  Center position
     @param radius  The max distance from the block you want the advancement to trigger
