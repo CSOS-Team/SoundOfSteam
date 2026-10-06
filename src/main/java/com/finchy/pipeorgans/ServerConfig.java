@@ -27,18 +27,12 @@ public class ServerConfig {
             .comment("Amount of game ticks without new packets arriving until an active MIDI upload process is discarded.")
             .defineInRange("midiIdleTimeout", 600, 100, 1200);
 
-    private static final ModConfigSpec.BooleanValue CLIPBOARD_ASSISTED_PLACEMENT_ENABLED = BUILDER
-            .comment("Enable clipboard-assisted placement mechanic on the server. Players can still have it disabled on the client side.")
-            .worldRestart()
-            .define("clipboardAssistedPlacementEnabled", true);
-
     static final ModConfigSpec SPEC = BUILDER.build();
 
     public static long midiFileSizeLimit;
     public static int maxMidiFiles;
     public static long maxMidiPacketSize;
     public static int midiIdleTimeout;
-    public static boolean clipboardAssistedPlacementEnabled;
 
     @SubscribeEvent
     public static void onLoad(ModConfigEvent.Loading event) {
@@ -47,7 +41,6 @@ public class ServerConfig {
             maxMidiFiles = MAX_MIDI_FILES.get();
             maxMidiPacketSize = MAX_MIDI_PACKET_SIZE.get();
             midiIdleTimeout = MIDI_IDLE_TIMEOUT.get();
-            clipboardAssistedPlacementEnabled = CLIPBOARD_ASSISTED_PLACEMENT_ENABLED.get();
         }
     }
     @SubscribeEvent
@@ -57,7 +50,6 @@ public class ServerConfig {
             maxMidiFiles = MAX_MIDI_FILES.get();
             maxMidiPacketSize = MAX_MIDI_PACKET_SIZE.get();
             midiIdleTimeout = MIDI_IDLE_TIMEOUT.get();
-            clipboardAssistedPlacementEnabled = CLIPBOARD_ASSISTED_PLACEMENT_ENABLED.get();
         }
     }
 }

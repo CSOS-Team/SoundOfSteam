@@ -46,19 +46,6 @@ public class ClientConfig {
             .comment("Max simultaneous sound channels.", "Higher values use more RAM/CPU. Restart to apply.")
             .defineInRange("sounds.maxSoundSources", 512, 256, 2048);
 
-    //Clipboard Assisted Placement Config (CAP)
-    public static final ModConfigSpec.BooleanValue CAP_ENABLED = BUILDER
-            .comment("Enable the clipboard-assisted placement mechanic.")
-            .define("clipboardAssistedPlacement.enabled", true);
-
-    public static final ModConfigSpec.EnumValue<CAPDirection> CAP_DEFAULT_DIRECTION = BUILDER
-            .comment("The default direction for the  clipboard-assisted placement data mutation when placing a block.")
-            .defineEnum("clipboardAssistedPlacement.defaultDirection", CAPDirection.FORWARD);
-
-    public static final ModConfigSpec.BooleanValue CAP_COPY_MODE = BUILDER
-            .comment("If true, clipboard-assisted placement will copy the block's mode (where applicable, e.g. Receiver/Transmitter for Note Links) when placing.")
-            .define("clipboardAssistedPlacement.copyMode", true);
-
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     public static boolean displayMutationSoundingPitch;
@@ -68,9 +55,6 @@ public class ClientConfig {
     public static double pipeFadeSpeed;
     public static double pipeVolume;
     public static int maxSoundSources;
-    public static boolean capEnabled;
-    public static CAPDirection capDefaultDirection;
-    public static boolean capCopyMode;
 
     @SubscribeEvent
     public static void onLoad(ModConfigEvent.Loading event) {
@@ -82,9 +66,6 @@ public class ClientConfig {
             pipeFadeSpeed = PIPE_FADE_SPEED.get();
             pipeVolume = PIPE_VOLUME.get();
             maxSoundSources = MAX_SOUND_SOURCES.get();
-            capEnabled = CAP_ENABLED.get();
-            capDefaultDirection = CAP_DEFAULT_DIRECTION.get();
-            capCopyMode = CAP_COPY_MODE.get();
         }
     }
 
@@ -98,9 +79,6 @@ public class ClientConfig {
             pipeFadeSpeed = PIPE_FADE_SPEED.get();
             pipeVolume = PIPE_VOLUME.get();
             maxSoundSources = MAX_SOUND_SOURCES.get();
-            capEnabled = CAP_ENABLED.get();
-            capDefaultDirection = CAP_DEFAULT_DIRECTION.get();
-            capCopyMode = CAP_COPY_MODE.get();
         }
     }
 
@@ -113,8 +91,5 @@ public class ClientConfig {
         pipeFadeSpeed = PIPE_FADE_SPEED.get();
         pipeVolume = PIPE_VOLUME.get();
         maxSoundSources = MAX_SOUND_SOURCES.get();
-        capEnabled = CAP_ENABLED.get();
-        capDefaultDirection = CAP_DEFAULT_DIRECTION.get();
-        capCopyMode = CAP_COPY_MODE.get();
     }
 }
