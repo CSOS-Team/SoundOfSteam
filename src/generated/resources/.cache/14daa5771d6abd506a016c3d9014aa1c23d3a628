@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-05T20:39:20.0949388	Registrate Provider for pipeorgans [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (blocks), Tags (enchantments), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2026-10-06T17:56:42.044097	Registrate Provider for pipeorgans [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (blocks), Tags (enchantments), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 8e39d8877707a62ab2683b5612b9a85b020e09bf assets/pipeorgans/blockstates/base.json
 4a6d896c870392927639f888eb7554ef3e7ce271 assets/pipeorgans/blockstates/bassoon.json
 0f7ac7604f0fee26a230e70f6419cb10df907237 assets/pipeorgans/blockstates/bassoon_extension.json
@@ -48,8 +48,8 @@ ec55e1a4d709ad44d170f5ab6213c3508609ae7a assets/pipeorgans/blockstates/vox_celes
 a474fdb57fa8df1514d2f542958d9d5a18a4e638 assets/pipeorgans/blockstates/vox_humana_extension.json
 e2a66bfca8771ebaf42a85daf74ee2eac92cc060 assets/pipeorgans/blockstates/windchest.json
 7d2b2a163210c68e8cae4dfaa23748404230334b assets/pipeorgans/blockstates/windchest_master.json
-14c1532fa399fa1aae7de73dadcb1a62269ffbfb assets/pipeorgans/lang/en_ud.json
-e790a80d70334467573e3232768b3c4903d1ab84 assets/pipeorgans/lang/en_us.json
+26a60a2a69a24816dcb353e6d1e54c2b781a6e14 assets/pipeorgans/lang/en_ud.json
+4569c404f8d200894456f7dfb2786188b91a92b7 assets/pipeorgans/lang/en_us.json
 c5f754282449380c27e6b04ae291520a0b061373 assets/pipeorgans/models/block/base/base_floor_powered.json
 a7d69e8a06fc232cbc074e3ea3a52c228d55b27a assets/pipeorgans/models/block/base/base_wall_powered.json
 860a23742ec4f90b726d0302c8e5464b3c6a618f assets/pipeorgans/models/block/base_huge_floor_powered.json
@@ -74,6 +74,7 @@ b2a0156a26f908d93f0e5a7fc3832ccfcb7613a3 assets/pipeorgans/models/block/horizont
 d012076219e1b4e97ff5167f35f1a3baaa463dfe assets/pipeorgans/models/block/horizontal_base_tiny_wall_powered.json
 6377819f02fb199c0ae28c0e0aac4cafbf2e2ce3 assets/pipeorgans/models/item/base.json
 5222fb9af26819181080d3972452098f486e4e5d assets/pipeorgans/models/item/bassoon.json
+2302273fb8ea11e0f175b8f3341100b33c11a066 assets/pipeorgans/models/item/brassbound_boot.json
 063bd5c9267543e9220cd28ec3ea7afd5c857bf2 assets/pipeorgans/models/item/brass_boot.json
 38f339f412a9597e5809f1563743ee5c3fa1c5bc assets/pipeorgans/models/item/brass_reed.json
 9382b2e5ba262b49eaeeefac252b1140663c8a06 assets/pipeorgans/models/item/chamade.json
@@ -95,13 +96,14 @@ ca525affde1f2f8cde7e13534a9472d5d1eeb7ac assets/pipeorgans/models/item/open_wood
 566637061ad3d6ec26a8261347f84941cc73c2df assets/pipeorgans/models/item/piccolo.json
 a35e42beaa68555a1db7cf010688466b41e92877 assets/pipeorgans/models/item/posaune.json
 f06aa9ed786678c69f2cc3bf62633bd0cf31e274 assets/pipeorgans/models/item/prestant.json
+09e1131b0b49e5a675211855f1dc1b231b845e1f assets/pipeorgans/models/item/reinforced_copper_boot.json
 8c8f3914193a32272e667643d445d81eae3a5aff assets/pipeorgans/models/item/rohrflote.json
 978f8fb283fe54b9566765e442b310e92261e11b assets/pipeorgans/models/item/roll_puncher.json
 2121ff8597c4c418ea4beed8b819a11bcfd8f45f assets/pipeorgans/models/item/subbass.json
 00bd5de8598f0ab78676be06fa442702c76a75f5 assets/pipeorgans/models/item/tierce.json
 ea82c73b509f78ca1adbd272193abb47ebb73d51 assets/pipeorgans/models/item/tracker_bar.json
 9ea49b7e8ee26f953f090106794c21422f42ed0c assets/pipeorgans/models/item/trompette.json
-06be297bdc13f9e99f2dd5d15039696211c6aad4 assets/pipeorgans/models/item/tuning_wire.json
+8ab33d32cb0a2277c97e4ee7c6c842cab37dec1c assets/pipeorgans/models/item/tuning_wire.json
 b6df392761171b637aa88ceda8ec83c6c7d33fea assets/pipeorgans/models/item/viola.json
 8b27ef05ad4b149a5e772776924f9065426b6771 assets/pipeorgans/models/item/vox_celeste.json
 18c73e2ff990354678fc6b31db01daa9209eb7de assets/pipeorgans/models/item/vox_humana.json

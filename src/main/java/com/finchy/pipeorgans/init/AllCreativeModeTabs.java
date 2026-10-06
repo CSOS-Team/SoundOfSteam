@@ -19,17 +19,21 @@ public class AllCreativeModeTabs {
                     .title(Component.translatable("pipeorgans.creativetab.pipes"))
                     .displayItems((itemDisplayParameters, output) -> {
 
-                        output.accept(AllBlocks.PICCOLO.get());
-                        output.accept(AllBlocks.DIAPASON.get());
-                        output.accept(AllBlocks.PRESTANT.get());
                         output.accept(AllBlocks.TROMPETTE.get());
+                        output.accept(AllBlocks.CHAMADE.get());
                         output.accept(AllBlocks.ENGLISH_HORN.get());
+                        output.accept(AllBlocks.KRUMMHORN.get());
                         output.accept(AllBlocks.GEDECKT.get());
                         output.accept(AllBlocks.ROHRFLOTE.get());
                         output.accept(AllBlocks.HOHLFLUTE.get());
+                        output.accept(AllBlocks.PICCOLO.get());
                         output.accept(AllBlocks.GAMBA.get());
                         output.accept(AllBlocks.NASARD.get());
+                        output.accept(AllBlocks.TIERCE.get());
                         output.accept(AllBlocks.SUBBASS.get());
+                        output.accept(AllBlocks.OPEN_WOOD.get());
+                        output.accept(AllBlocks.BASSOON.get());
+                        //output.accept(AllBlocks.UNTERSATZ.get());
                         output.accept(AllBlocks.POSAUNE.get());
                         output.accept(AllBlocks.VOX_HUMANA.get());
                         output.accept(AllBlocks.VIOLA.get());
@@ -39,10 +43,13 @@ public class AllCreativeModeTabs {
                         output.accept(AllBlocks.BASE.get());
                         output.accept(AllBlocks.WINDCHEST_MASTER.get());
                         output.accept(AllBlocks.WINDCHEST.get());
+                        output.accept(AllBlocks.NOTE_LINK.get());
                         output.accept(AllItems.BRASS_BOOT.get());
                         output.accept(AllItems.COPPER_BOOT.get());
+                        output.accept(AllItems.REINFORCED_COPPER_BOOT.get());
                         output.accept(AllItems.IRON_BOOT.get());
                         output.accept(AllItems.DARK_OAK_BOOT.get());
+                        output.accept(AllItems.BRASSBOUND_BOOT.get());
                         output.accept(AllItems.BRASS_REED.get());
                         output.accept(AllItems.TUNING_WIRE.get());
                         output.accept(AllBlocks.KEYBOARD_RELAY.get());
