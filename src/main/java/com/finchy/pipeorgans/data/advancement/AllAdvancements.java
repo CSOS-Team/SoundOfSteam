@@ -239,7 +239,7 @@ public class AllAdvancements implements DataProvider {
     @Override
     public CompletableFuture<?> run(CachedOutput cache) {
         return registries.thenCompose(provider -> {
-            PackOutput.PathProvider pathProvider = output.createPathProvider(PackOutput.Target.DATA_PACK, "advancements");
+            PackOutput.PathProvider pathProvider = output.createPathProvider(PackOutput.Target.DATA_PACK, "advancement");
             List<CompletableFuture<?>> futures = new ArrayList<>();
 
             Set<ResourceLocation> set = Sets.newHashSet();
