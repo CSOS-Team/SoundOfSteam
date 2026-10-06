@@ -1,6 +1,6 @@
 {
   "parent": "block/block",
-  "loader": "forge:obj",
+  "loader": "neoforge:obj",
   "flip_v": false,
   "model": "pipeorgans:models/block/tracker_bar/tracker_bar_paper.obj",
   "render_type": "minecraft:cutout",
