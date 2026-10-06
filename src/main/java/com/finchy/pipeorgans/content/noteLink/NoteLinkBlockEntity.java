@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.content.noteLink;
 
-import com.finchy.pipeorgans.infrastructure.itemValueBox.ItemValueBoxBehaviour;
+import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.infrastructure.pipePitchScrollValue.PipePitchScrollValueBehaviour;
 import com.finchy.pipeorgans.init.AllBlocks;
 import com.finchy.pipeorgans.util.PipePitch;
@@ -18,7 +18,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
@@ -29,9 +28,8 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
-public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBehaviourSubscriber {
+public class NoteLinkBlockEntity extends SmartBlockEntity {
 
     protected static final float SLOT_OUTWARD_OFFSET = 2.5f;
 
@@ -95,44 +93,39 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
     private boolean transmitter;
 
     private NoteLinkBehaviour link;
-    private ItemValueBoxBehaviour keySlot;
     private PipePitchScrollValueBehaviour pitchSlot;
 
     public NoteLinkBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        transmitter = isTransmitterBlock();
     }
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
-        ItemValueBoxBehaviour.ItemValueBoxGroup keySlotGroup = new ItemValueBoxBehaviour.ItemValueBoxGroup(
-                Set.of(KEY_SLOT_TRANSFORM),
-                (held, player) -> {
-                    setKey(held);
-                    updateHeldClipboard(player);
-                    return InteractionResult.SUCCESS;
-                },
-                this::getKey,
-                Component.translatable("block.pipeorgans.note_link.key_slot.label"),
-                List.of()
-        );
+        pitchSlot = new PipePitchScrollValueBehaviour(
+                this, PITCH_SLOT_TRANSFORM,
+                Component.translatable("block.pipeorgans.note_link.pitch_slot.label") // label to render above hotbar
+        ).withPipePitchCallback(this::setPitch); // when value is changed, update the pitch in the block entity
+        behaviours.add(pitchSlot);
 
-        behaviours.add(keySlot = new ItemValueBoxBehaviour(this, List.of(keySlotGroup)));
-        behaviours.add(pitchSlot = new PipePitchScrollValueBehaviour(this, PITCH_SLOT_TRANSFORM, Component.translatable("block.pipeorgans.note_link.pitch_slot.label"))
-                .withPipePitchCallback(this::setPitch)
-        );
-    }
-
-    @Override
-    public void addBehavioursDeferred(List<BlockEntityBehaviour> behaviours) {
+        transmitter = isTransmitterBlock();
         createNoteLink();
         behaviours.add(link);
     }
 
+    @Override
+    public void addBehavioursDeferred(List<BlockEntityBehaviour> behaviours) {
+        /*
+        transmitter = isTransmitterBlock();
+        createNoteLink();
+        behaviours.add(link);
+        
+         */
+    }
+
     protected void createNoteLink() {
-        link = (transmitter ? NoteLinkBehaviour.transmitter(this, this::getTransmittedSignal)
-                : NoteLinkBehaviour.receiver(this, this::setReceivedSignal))
-                .withOnLoadedCallback(this::onNoteLinkBehaviorLoaded);
+        link = (transmitter ? NoteLinkBehaviour.transmitter(this, KEY_SLOT_TRANSFORM, this::getTransmittedSignal)
+                : NoteLinkBehaviour.receiver(this, KEY_SLOT_TRANSFORM, this::setReceivedSignal))
+                .withOnLoadedCallback(() -> setPitchSlot(link.getPitch())); // when note link behaviour is loaded, update the pitch slot to match
     }
 
     public int getTransmittedSignal() {
@@ -168,7 +161,7 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
 
 		receivedSignal = compound.getInt("Receive");
 		receivedSignalChanged = compound.getBoolean("ReceivedChanged");
-		if (level == null || level.isClientSide || !link.hasNewPos())
+		if (level == null || level.isClientSide || !link.newPosition)
 			transmittedSignal = compound.getInt("Transmit");
 
         //PipeOrgans.LOGGER.debug("Loaded NoteLink ({}): '{}'", getBlockPos(), compound.getAsString());
@@ -203,11 +196,6 @@ public class NoteLinkBlockEntity extends SmartBlockEntity implements NoteLinkBeh
     
     public void setPitchSlot(PipePitch pitch) {
         pitchSlot.setValueSilent(pitch);
-    }
-
-    public void onNoteLinkBehaviorLoaded() {
-        setPitchSlot(link.getPitch());
-        //PipeOrgans.LOGGER.debug("NoteLinkBlockEntity.onNoteLinkBehaviorLoaded: synced key and pitch from NoteLinkBehaviour at {}, now key={}, pitch={}", worldPosition, link.getKey(), link.getPitch().getNormalizedName());
     }
 
     @Override

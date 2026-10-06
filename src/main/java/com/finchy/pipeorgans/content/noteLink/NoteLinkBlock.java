@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -72,8 +73,9 @@ public class NoteLinkBlock extends WrenchableDirectionalBlock implements IBE<Not
         return super.onWrenched(state, context);
     }
 
-    public InteractionResult onEmptyHandShiftUse(BlockState state, Level level, BlockPos pos, Player player) {
-        if (toggleMode(state, level, pos) == InteractionResult.SUCCESS) {
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (player.isShiftKeyDown() && toggleMode(state, level, pos) == InteractionResult.SUCCESS) {
             withBlockEntityDo(level, pos, be -> be.updateHeldClipboard(player));
             level.scheduleTick(pos, this, 1);
             return InteractionResult.SUCCESS;

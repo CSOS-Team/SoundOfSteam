@@ -3,13 +3,12 @@ package com.finchy.pipeorgans.event;
 import com.finchy.pipeorgans.PipeOrgans;
 import com.finchy.pipeorgans.PipeOrgansClient;
 import com.finchy.pipeorgans.gui.ClientsideGUIWrapper;
-import com.finchy.pipeorgans.init.AllPartialModels;
+import com.finchy.pipeorgans.content.noteLink.NoteLinkRenderer;
 import com.finchy.pipeorgans.util.Keybinding;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
@@ -40,6 +39,7 @@ public class ClientEvents {
             if (!isGameActive())
                 return;
             PipeOrgansClient.MIDI_SENDER.tick();
+            NoteLinkRenderer.tick();
         }
     }
 

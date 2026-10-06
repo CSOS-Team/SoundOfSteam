@@ -141,7 +141,7 @@ public class TrackerBarBlockEntity extends KineticBlockEntity implements MenuPro
         if (tag.contains("ButtonsEnabled")) {
             buttonsEnabled = tag.getBoolean("ButtonsEnabled");
         }
-        if (level != null && !level.isClientSide && midiSequencerBehaviour != null) {
+        if (level != null && !clientPacket && midiSequencerBehaviour != null) {
             onRollChanged();
         }
     }

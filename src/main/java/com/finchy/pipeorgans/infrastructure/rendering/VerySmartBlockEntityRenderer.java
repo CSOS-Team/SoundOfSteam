@@ -1,6 +1,6 @@
 package com.finchy.pipeorgans.infrastructure.rendering;
 
-import com.finchy.pipeorgans.infrastructure.itemValueBox.ItemValueBoxRenderer;
+import com.finchy.pipeorgans.content.noteLink.NoteLinkRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
@@ -15,6 +15,10 @@ public class VerySmartBlockEntityRenderer<T extends SmartBlockEntity> extends Sm
     @Override
     protected void renderSafe(T blockEntity, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         super.renderSafe(blockEntity, partialTicks, ms, buffer, light, overlay);
-        ItemValueBoxRenderer.renderOnBlockEntity(blockEntity, partialTicks, ms, buffer, light, overlay); // I needed to make a whole class just for this. (Wait, mixins?) TODO: maybe use a mixin instead? Is that overkill?
+        NoteLinkRenderer.renderOnBlockEntity(blockEntity, partialTicks, ms, buffer, light, overlay);
+        // I needed to make a whole class just for this. (Wait, mixins?) TODO: maybe use a mixin instead? Is that overkill?
+        
+        // no, no it is not 
+        //         - finchy
     }
 }

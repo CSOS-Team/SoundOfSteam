@@ -58,13 +58,15 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
 
     @Override
     public void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
-        if (clientPacket) renderPaper = tag.getBoolean("RenderPaper");
+        if (clientPacket)
+            renderPaper = tag.getBoolean("RenderPaper");
 
         String midiRead = tag.getString("File");
         String ownerRead = tag.getString("Owner");
         try {
             if (!midiRead.isEmpty() && !ownerRead.isEmpty()) {
-                if (!midiRead.equals(currentMidi) || !ownerRead.equals(currentMidiOwner)) loadSequence(midiRead, ownerRead);
+                if (!midiRead.equals(currentMidi) || !ownerRead.equals(currentMidiOwner))
+                    loadSequence(midiRead, ownerRead);
                 setButtonsEnabled(true);
             } else {
                 setButtonsEnabled(false);
@@ -118,7 +120,7 @@ public class MidiSequencerBehaviour extends BlockEntityBehaviour {
 
     public boolean isSequenceLoaded() {
         if (isClientside()) return renderPaper;
-        return currentSequence != null && !currentMidi.isEmpty() && !currentMidiOwner.isEmpty();
+        return (currentSequence != null) && !currentMidi.isEmpty() && !currentMidiOwner.isEmpty();
     }
 
     public void setTempo(byte[] data) {
