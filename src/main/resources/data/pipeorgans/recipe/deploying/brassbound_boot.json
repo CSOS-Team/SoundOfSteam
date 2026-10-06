@@ -5,12 +5,12 @@
       "item": "pipeorgans:dark_oak_boot"
     },
     {
-      "item": "create:brass_nugget"
+      "tag": "c:nuggets/brass"
     }
   ],
   "results": [
     {
-      "item": "pipeorgans:brassbound_boot"
+      "id": "pipeorgans:brassbound_boot"
     }
   ]
 }

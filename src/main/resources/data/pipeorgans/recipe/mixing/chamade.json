@@ -3,7 +3,7 @@
   "heatRequirement": "heated",
   "ingredients": [
     {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     },
     {
       "item": "pipeorgans:trompette"
@@ -11,8 +11,7 @@
   ],
   "results": [
     {
-      "count": 1,
-      "item": "pipeorgans:chamade"
+      "id": "pipeorgans:chamade"
     }
   ]
 }

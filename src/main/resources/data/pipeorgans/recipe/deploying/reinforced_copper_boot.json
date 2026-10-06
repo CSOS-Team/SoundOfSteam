@@ -5,12 +5,12 @@
       "item": "pipeorgans:copper_boot"
     },
     {
-      "tag": "forge:plates/iron"
+      "tag": "c:nuggets/iron"
     }
   ],
   "results": [
     {
-      "item": "pipeorgans:reinforced_copper_boot"
+      "id": "pipeorgans:reinforced_copper_boot"
     }
   ]
 }

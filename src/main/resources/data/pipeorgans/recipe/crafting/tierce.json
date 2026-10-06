@@ -8,13 +8,13 @@
   ],
   "key": {
     "Z": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     "C": {
       "item": "pipeorgans:base"
     }
   },
   "result": {
-    "item": "pipeorgans:tierce"
+    "id": "pipeorgans:tierce"
   }
 }
