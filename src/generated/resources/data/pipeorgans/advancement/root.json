@@ -6,7 +6,7 @@
   },
   "display": {
     "announce_to_chat": false,
-    "background": "minecraft:block/cut_copper.png",
+    "background": "minecraft:textures/block/cut_copper.png",
     "description": {
       "color": "#DBA213",
       "translate": "advancement.pipeorgans.root.desc"

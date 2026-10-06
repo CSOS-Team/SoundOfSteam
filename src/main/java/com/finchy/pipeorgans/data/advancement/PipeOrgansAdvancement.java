@@ -21,7 +21,7 @@ import java.util.function.UnaryOperator;
 
 public class PipeOrgansAdvancement {
 
-    static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath("minecraft","block/cut_copper.png");
+    static final ResourceLocation BACKGROUND = ResourceLocation.withDefaultNamespace("textures/block/cut_copper.png");
     // title lang entries are advancement.pipeorgans.[id]
     // description lang entries are advancement.pipeorgans.[id].desc
     static final String LANG_PREFIX = "advancement." + PipeOrgans.MOD_ID + ".";
