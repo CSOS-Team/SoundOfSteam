@@ -31,6 +31,7 @@ public enum AllPackets implements BasePacketPayload.PacketTypeProvider {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends CustomPacketPayload> CustomPacketPayload.Type<T> getType() {
         return (CustomPacketPayload.Type<T>) this.type.type();
     }
