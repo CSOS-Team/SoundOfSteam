@@ -6,6 +6,7 @@ import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.equipment.clipboard.ClipboardCloneable;
 import com.simibubi.create.content.equipment.clipboard.ClipboardContent;
+import com.simibubi.create.content.equipment.clipboard.ClipboardOverrides;
 import com.simibubi.create.content.redstone.link.IRedstoneLinkable;
 import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
@@ -253,7 +254,7 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
     }
     
     //todo: move clipboard behaviour from behaviour into block entity
-    //todo: make clipboard copying/pasting include receiver/transmitter state
+    //todo: add ability to copy/paste between note links and redstone links
 
     @Override
     public boolean writeToClipboard(HolderLookup.@NotNull Provider registries, CompoundTag tag, Direction side) {
@@ -302,8 +303,7 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
         musicalFreqTag.putBoolean("Receiver", blockEntity.getBlockState().getValue(NoteLinkBlock.RECEIVER));
 
         copiedTag.put("MusicalFrequency", musicalFreqTag);
-        clipboardStack.set(AllDataComponents.CLIPBOARD_CONTENT, clipboardContent.setCopiedValues(copiedTag)); // apply the tags to the clipboard
-        //todo: update clipboard texture (ClipboardEditPacket?)
+        clipboardStack.set(AllDataComponents.CLIPBOARD_CONTENT, clipboardContent.setType(ClipboardOverrides.ClipboardType.WRITTEN).setCopiedValues(copiedTag)); // apply the tags to the clipboard
     }
 
     public void ackNewPos() {
