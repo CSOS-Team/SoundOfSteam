@@ -23,8 +23,6 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
     public ItemStackHandler ghostInventory;
 
-    // todo: need to add ghost inventory to menu
-
     public TrackerBarMenu(MenuType<?> type, int id, Inventory inv, RegistryFriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
         this.data = new SimpleContainerData(21);
@@ -116,13 +114,14 @@ public class TrackerBarMenu extends MenuBase<TrackerBarBlockEntity> {
 
     @Override
     public void clicked(int slotId, int dragType, ClickType clickTypeIn, Player player) {
-        if (slotId <= 36) {
+        if (slotId <= 36) { // if clicked in player slots or music roll slot
             super.clicked(slotId, dragType, clickTypeIn, player);
             return;
         }
         if (clickTypeIn == ClickType.THROW)
             return;
-
+        
+        // else if clicked in ghost slots
         ItemStack held = getCarried();
         int slot = slotId - 37;
         if (clickTypeIn == ClickType.CLONE) {

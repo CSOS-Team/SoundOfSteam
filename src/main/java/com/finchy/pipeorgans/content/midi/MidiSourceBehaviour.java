@@ -72,6 +72,14 @@ public class MidiSourceBehaviour extends BlockEntityBehaviour {
         link.setFrequencyKeysOnLoad(storedGhostInv);
     }
 
+    @Override
+    public void unload() { // when behaviour unloaded (e.g. BE went out of render distance), stop all notes
+        super.unload();
+        if (getWorld().isClientSide)
+            return;
+        link.stopAllNotes();
+    }
+
     public void handleNote(ShortMessage sm) {
         if (MidiUtils.isNoteOn(sm)) { // if note on
             if (!link.areNotesActive()) { // if no notes are currently pressed
