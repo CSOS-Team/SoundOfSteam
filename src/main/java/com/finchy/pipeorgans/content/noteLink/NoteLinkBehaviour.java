@@ -117,7 +117,7 @@ public class NoteLinkBehaviour extends BlockEntityBehaviour implements IRedstone
         super.initialize();
         //PipeOrgans.LOGGER.debug("NoteLinkBehaviour initializing at {}", blockEntity.getBlockPos());
         if (onLoadedCallback == null)
-                onLoadedCallback = () -> PipeOrgans.LOGGER.warn("Empty NoteLinkBehaviour onLoadedCallback. Block Entities should implement NoteLinkBehaviourSubscriber");
+                onLoadedCallback = () -> PipeOrgans.LOGGER.warn("Empty NoteLinkBehaviour onLoadedCallback.");
         if (getWorld().isClientSide)
             return;
         getHandler().addToNetwork(getWorld(), this);

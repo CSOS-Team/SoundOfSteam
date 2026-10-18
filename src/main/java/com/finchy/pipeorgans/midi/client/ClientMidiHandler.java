@@ -19,14 +19,12 @@ public class ClientMidiHandler {
     
     public static void activateInKBR(BlockPos KBRAt) {
         KBRPos = KBRAt;
-        PipeOrgans.LOGGER.debug("***activateInKBR()***");
     }
     
     public static void deactivateInKBR() {
         if (inKBR()) {
             onReset();
         }
-        PipeOrgans.LOGGER.debug("***deactivateInKBR()***");
     }
     
     public static boolean inKBR() {

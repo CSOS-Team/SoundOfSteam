@@ -1,6 +1,7 @@
 package com.finchy.pipeorgans.network.packet.kbr;
 
 import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity;
+import com.finchy.pipeorgans.network.AllPackets;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.StreamCodec;
@@ -23,6 +24,6 @@ public class KBRStopUsingPacket extends KBRPacketBase {
 
     @Override
     public PacketTypeProvider getTypeProvider() {
-        return null;
+        return AllPackets.KBR_STOP;
     }
 }
