@@ -13,6 +13,7 @@ Create: Sound of Steam 0.9.2
 
 ### Bugfixes:
 
+- Fixed tracker bar not loading music roll when inserted via automation (PR #97)
 - Fixed Keyboard Relay desync which prevented player data from being removed if a player crashed (#98)
 
 ------------------------------------------------------
