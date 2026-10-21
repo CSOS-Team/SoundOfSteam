@@ -4,6 +4,7 @@ import com.finchy.pipeorgans.content.midi.keyboardRelay.KeyboardRelayBlockEntity
 import com.finchy.pipeorgans.network.AllPackets;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -11,7 +12,7 @@ import javax.sound.midi.*;
 
 public class KBRMidiMessagePacket extends KBRPacketBase {
 
-    public static final StreamCodec<ByteBuf, MidiMessage> MIDI_MESSAGE_STREAM_CODEC = new StreamCodec<>() {
+    public static final StreamCodec<FriendlyByteBuf, MidiMessage> MIDI_MESSAGE_STREAM_CODEC = new StreamCodec<>() {
 
         private final static int SHORT_CODE = 0;
         private final static int SYSEX_CODE = 1;
@@ -19,10 +20,10 @@ public class KBRMidiMessagePacket extends KBRPacketBase {
         private final static int OTHER_CODE = -1;
 
         @Override
-        public MidiMessage decode(ByteBuf buffer) {
+        public MidiMessage decode(FriendlyByteBuf buffer) {
             int code = buffer.readInt();
             int length = buffer.readInt();
-            byte[] data = buffer.readBytes(length).array();
+            byte[] data = buffer.readByteArray(length);
             try {
                 if (code == SHORT_CODE) { // if it's a MidiShortMessage
                     return new MidiShortMessage(data, length);
@@ -40,7 +41,7 @@ public class KBRMidiMessagePacket extends KBRPacketBase {
         }
 
         @Override
-        public void encode(ByteBuf buffer, MidiMessage message) {
+        public void encode(FriendlyByteBuf buffer, MidiMessage message) {
             int code = OTHER_CODE;
             if (message instanceof ShortMessage) {
                 code = SHORT_CODE;
@@ -52,11 +53,11 @@ public class KBRMidiMessagePacket extends KBRPacketBase {
             byte[] data = message.getMessage();
             buffer.writeInt(code);
             buffer.writeInt(data.length);
-            buffer.writeBytes(data);
+            buffer.writeByteArray(data);
         }
     };
 
-    public static final StreamCodec<ByteBuf, KBRMidiMessagePacket> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<FriendlyByteBuf, KBRMidiMessagePacket> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC, KBRMidiMessagePacket::getKBRPos,
             MIDI_MESSAGE_STREAM_CODEC, KBRMidiMessagePacket::getMessage,
             KBRMidiMessagePacket::new
