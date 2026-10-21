@@ -18,7 +18,9 @@ public class AllCreativeModeTabs {
                     .icon(() -> new ItemStack(AllBlocks.DIAPASON.get()))
                     .title(Component.translatable("pipeorgans.creativetab.pipes"))
                     .displayItems((itemDisplayParameters, output) -> {
-
+                        
+                        output.accept(AllBlocks.DIAPASON.get());
+                        output.accept(AllBlocks.PRESTANT.get());
                         output.accept(AllBlocks.TROMPETTE.get());
                         output.accept(AllBlocks.CHAMADE.get());
                         output.accept(AllBlocks.ENGLISH_HORN.get());
