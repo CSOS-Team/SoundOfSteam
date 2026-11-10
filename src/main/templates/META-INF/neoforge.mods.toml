@@ -32,3 +32,19 @@ type="required"
 versionRange="[6.0.10,6.1.0)"
 ordering="AFTER"
 side="BOTH"
+
+# INCOMPATIBILITIES
+
+[[dependencies.${mod_id}]]
+modId = "rsls"
+type = "incompatible"
+reason = "Sound of Steam and Raise Sound Limit Simplified both modify the maximum sound limit. It is recommended to disable RSLS until this is fixed."
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "pmweather"
+type = "incompatible"
+reason = "Sound of Steam and ProtoManly's Weather both modify the maximum sound limit. It is recommended to disable PMWeather until this is fixed."
+ordering = "NONE"
+side = "BOTH"
