@@ -17,6 +17,7 @@ import com.finchy.pipeorgans.content.windchest.WindchestMasterBlock;
 import com.finchy.pipeorgans.data.AssetLookup;
 import com.finchy.pipeorgans.data.BlockStateGen;
 import com.finchy.pipeorgans.data.BlockStateGen.*;
+import com.simibubi.create.api.contraption.BlockMovementChecks;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
@@ -36,6 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.finchy.pipeorgans.init.AllTags.AllBlockTags.VALID_WHISTLE;
 import static com.simibubi.create.api.behaviour.display.DisplaySource.displaySource;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.*;
@@ -53,7 +55,7 @@ public class AllBlocks {
     public static final BlockEntry<BaseBlock> BASE = REGISTRATE.block("base", BaseBlock::new)
             .initialProperties(() -> Blocks.COPPER_BLOCK)
             .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
-            .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
+            .tag(VALID_WHISTLE.tag)
             .transform(pickaxeOnly())
             .lang("Pipe Base") // override default name generated from id "base"
             .blockstate(new BaseGenerator()::generate)
@@ -143,7 +145,7 @@ public class AllBlocks {
             .register();
 
     //Pipes go here
-    public static List<BlockEntry<? extends GenericPipeBlock>> PIPE_BLOCKS = new ArrayList<>();
+    public static List<BlockEntry<? extends GenericPipeBlock>> PIPE_BLOCK_ENTRIES = new ArrayList<>();
 
     public static final BlockEntry<Diapason.DiapasonBlock> DIAPASON = registerPipeBlock(
             "diapason",
@@ -469,23 +471,30 @@ public class AllBlocks {
             VoxHumana.VoxHumanaExtensionBlock::new,
             () -> Blocks.COPPER_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
+    
+    private static void registerPipeBrittleCheck() {
+        BlockMovementChecks.registerBrittleCheck(
+                // if the provided state is a pipe, it's brittle, and is thus deferred when printing schematics
+                state -> VALID_WHISTLE.matches(state) ? BlockMovementChecks.CheckResult.SUCCESS : BlockMovementChecks.CheckResult.PASS
+        );
+    }
 
     //register pipe block
     private static <T extends GenericPipeBlock> BlockEntry<T> registerPipeBlock( // overload for blocks without lang overrides
-                                                                                 String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
-                                                                                 NonNullSupplier<? extends Block> initialPropertiesCopier,
-                                                                                 StopSize stopsize, TagKey<Block> toolTag) {
+            String name, NonNullFunction<BlockBehaviour.Properties, T> factory,
+            NonNullSupplier<? extends Block> initialPropertiesCopier,
+            StopSize stopsize, TagKey<Block> toolTag) {
 
         BlockEntry<T> entry = REGISTRATE.block(name, factory)
                 .initialProperties(initialPropertiesCopier)
-                .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
+                .tag(VALID_WHISTLE.tag)
                 .blockstate(BlockStateGen.pipe())
                 .item((b, p) -> new GenericPipeBlockItem(b, p, stopsize))
                 .transform(customItemModel())
                 .tag(toolTag)
                 .register();
 
-        PIPE_BLOCKS.add(entry);
+        PIPE_BLOCK_ENTRIES.add(entry);
         return entry;
     }
 
@@ -497,7 +506,7 @@ public class AllBlocks {
 
         BlockEntry<T> entry = REGISTRATE.block(name, factory)
                 .initialProperties(initialPropertiesCopier)
-                .tag(AllTags.AllBlockTags.VALID_WHISTLE.tag)
+                .tag(VALID_WHISTLE.tag)
                 .blockstate(BlockStateGen.pipe())
                 .item((b, p) -> new GenericPipeBlockItem(b, p, stopsize))
                 .transform(customItemModel())
@@ -505,7 +514,7 @@ public class AllBlocks {
                 .lang(nameOverride)
                 .register();
 
-        PIPE_BLOCKS.add(entry);
+        PIPE_BLOCK_ENTRIES.add(entry);
         return entry;
     }
 
@@ -539,5 +548,6 @@ public class AllBlocks {
 
 
     public static void register() {
+        registerPipeBrittleCheck();
     }
 }

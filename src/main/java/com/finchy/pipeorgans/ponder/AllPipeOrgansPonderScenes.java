@@ -22,7 +22,7 @@ public class AllPipeOrgansPonderScenes {
         HELPER.forComponents(AllBlocks.KEYBOARD_RELAY)
                         .addStoryBoard("keyboard_relay", KeyboardRelayScenes::keyboardRelaySetup);
 
-        HELPER.forComponents(AllBlocks.PIPE_BLOCKS)
+        HELPER.forComponents(AllBlocks.PIPE_BLOCK_ENTRIES)
                 .addStoryBoard("pipe_adjusting", PipeScenes::pipeAdjusting)
                 .addStoryBoard("pipe_swapping", PipeScenes::pipeSwapping);
 
