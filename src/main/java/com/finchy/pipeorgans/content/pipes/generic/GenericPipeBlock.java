@@ -5,6 +5,7 @@ import com.finchy.pipeorgans.compat.create_connected.CreateConnectedCompat;
 import com.finchy.pipeorgans.content.windchest.WindchestBlock;
 import com.finchy.pipeorgans.init.AllTriggers;
 import com.simibubi.create.AllSoundEvents;
+import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
 import com.simibubi.create.content.equipment.goggles.GogglesItem;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
@@ -54,7 +55,7 @@ import java.util.Objects;
 public abstract class GenericPipeBlock extends Block implements PipeBehaviour, IBE<GenericPipeBlockEntity>, IWrenchable {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty WALL = BooleanProperty.create("wall");
+    public static final BooleanProperty WALL = WhistleBlock.WALL;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final EnumProperty<PipeSize> SIZE = EnumProperty.create("size", PipeSize.class);
     

@@ -15,7 +15,7 @@ public class AllCreativeModeTabs {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> PIPE_ORGANS = CREATIVE_MODE_TABS.register("pipe_organs",
             () -> CreativeModeTab.builder()
-                    .icon(() -> new ItemStack(AllBlocks.DIAPASON.get()))
+                    .icon(() -> new ItemStack(AllBlocks.TROMPETTE.get()))
                     .title(Component.translatable("pipeorgans.creativetab.pipes"))
                     .displayItems((itemDisplayParameters, output) -> {
                         
