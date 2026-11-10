@@ -56,9 +56,13 @@ public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.
     public boolean isDirectional() {
         return false;
     }
+    
+    public Direction getAttachedDirection(BlockState state) {
+        return pipeBlock.get().getPipeDirectionFromExtension(state);
+    }
 
     public BlockPos findRoot(LevelAccessor pLevel, BlockPos pPos, BlockState state) {
-        Direction towardRoot = pipeBlock.get().getPipeDirectionFromExtension(state);
+        Direction towardRoot = getAttachedDirection(state);
         BlockPos currentPos = pPos.relative(towardRoot);
         while (true) {
             BlockState blockState = pLevel.getBlockState(currentPos);
@@ -103,7 +107,7 @@ public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.
 
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        BlockState below = pLevel.getBlockState(pPos.relative(pipeBlock.get().getPipeDirectionFromExtension(pState)));
+        BlockState below = pLevel.getBlockState(pPos.relative(getAttachedDirection(pState)));
         return (below.is(this) && below.getValue(SHAPE).isConnected())
                 || below.getBlock().equals(pipeBlock.get());
     }
@@ -115,7 +119,7 @@ public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.
 
     @Override
     public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
-        Direction pipeOutDirection = pipeBlock.get().getPipeDirectionFromExtension(pState).getOpposite(); // extension "facing" property faces toward the pipe
+        Direction pipeOutDirection = getAttachedDirection(pState).getOpposite(); // extension "facing" property faces toward the pipe
         if (pDirection.getAxis() != pipeOutDirection.getAxis()) // only respond to changes along the length of the pipe
             return pState;
 
@@ -156,7 +160,7 @@ public abstract class GenericExtensionBlock<T extends Enum<T> & ExtensionShapes.
         if (state.getValue(SHAPE).isSingle())
             return IWrenchable.super.onSneakWrenched(state, context); // any shift click will remove the block, so defer to regular shift-wrench logic
 
-        Direction pipeOutFacing = pipeBlock.get().getPipeDirectionFromExtension(state).getOpposite();
+        Direction pipeOutFacing = getAttachedDirection(state).getOpposite();
         double clickedPosition = pipeBlock.get().getExtensionClickPosition(pos, context.getClickLocation(), pipeOutFacing);
 
         T wrenchedShape = state.getValue(SHAPE).getExtensionShapeForClickPosition(clickedPosition);

@@ -471,13 +471,6 @@ public class AllBlocks {
             VoxHumana.VoxHumanaExtensionBlock::new,
             () -> Blocks.COPPER_BLOCK,
             BlockTags.MINEABLE_WITH_PICKAXE);
-    
-    private static void registerPipeBrittleCheck() {
-        BlockMovementChecks.registerBrittleCheck(
-                // if the provided state is a pipe, it's brittle, and is thus deferred when printing schematics
-                state -> VALID_WHISTLE.matches(state) ? BlockMovementChecks.CheckResult.SUCCESS : BlockMovementChecks.CheckResult.PASS
-        );
-    }
 
     //register pipe block
     private static <T extends GenericPipeBlock> BlockEntry<T> registerPipeBlock( // overload for blocks without lang overrides
@@ -492,6 +485,7 @@ public class AllBlocks {
                 .item((b, p) -> new GenericPipeBlockItem(b, p, stopsize))
                 .transform(customItemModel())
                 .tag(toolTag)
+                .tag(com.simibubi.create.AllTags.AllBlockTags.BRITTLE.tag)
                 .register();
 
         PIPE_BLOCK_ENTRIES.add(entry);
@@ -511,6 +505,7 @@ public class AllBlocks {
                 .item((b, p) -> new GenericPipeBlockItem(b, p, stopsize))
                 .transform(customItemModel())
                 .tag(toolTag)
+                .tag(com.simibubi.create.AllTags.AllBlockTags.BRITTLE.tag)
                 .lang(nameOverride)
                 .register();
 
@@ -528,6 +523,7 @@ public class AllBlocks {
                 .initialProperties(initialPropertiesCopier)
                 .blockstate(new PipeExtensionGenerator()::generate)
                 .tag(toolTag)
+                .tag(com.simibubi.create.AllTags.AllBlockTags.BRITTLE.tag)
                 .register();
     }
 
@@ -541,6 +537,7 @@ public class AllBlocks {
                 .initialProperties(initialPropertiesCopier)
                 .blockstate(new PipeExtensionGenerator()::generate)
                 .tag(toolTag)
+                .tag(com.simibubi.create.AllTags.AllBlockTags.BRITTLE.tag)
                 .lang(nameOverride)
                 .register();
     }
@@ -548,6 +545,5 @@ public class AllBlocks {
 
 
     public static void register() {
-        registerPipeBrittleCheck();
     }
 }
