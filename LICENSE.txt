@@ -1,6 +1,23 @@
+# License Overview
+
+## Assets License (All Rights Reserved)
+
+All Rights Reserved
+Copyright (c) The Sound of Steam Development Team
+
+This license applies to any files under the following directories:
+- ./src/main/resources/assets/
+- ./src/generated/resources/assets/
+
+---
+
+## Code License (MIT)
+
+All other files are licensed under the MIT License:
+
 MIT License
 
-Copyright (c) 2025 FinchyMcFinch
+Copyright (c) The Simulated Team / The Creators of Aeronautics
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
